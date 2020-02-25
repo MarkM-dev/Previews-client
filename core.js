@@ -19,7 +19,8 @@ function createAndShowPreview(navCardEl) {
     previewDiv.style.zIndex = "9999999";
     previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg')";
     previewDiv.style.backgroundSize = "cover";
-    previewDiv.style.border = "1px solid white";
+    previewDiv.style.borderRadius = "5px";
+    previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
     previewDiv.style.display = "block";
     appendContainer.appendChild(previewDiv);
 }
