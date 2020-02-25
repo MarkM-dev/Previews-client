@@ -73,9 +73,10 @@ function changeAndShowPreview(navCardEl) {
 function hidePreview() {
     if (twitchIframe) {
         twitchIframe.src = '';
+    } else {
+        previewDiv.style.backgroundImage = "none";
     }
     previewDiv.style.display = "none";
-    previewDiv.style.backgroundImage = "none";
 }
 
 function setMouseOverListeners(navCardEl) {
