@@ -6,7 +6,6 @@ function getElementOffset(el) {
     var rect = el.getBoundingClientRect(),
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    console.log("scroll top: " + (rect.top + scrollTop) + " VH: " +  Math.max(document.documentElement.clientHeight, window.innerHeight || 0));
     return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
 }
 
@@ -96,15 +95,3 @@ window.addEventListener('load', (event) => {
     setShowMoreBtnsListeners();
     refreshNavCardsListAndListeners();
 });
-
-
-/*
-document.addEventListener('click', function (e) {
-    var srcElement = e.target;
-
-    if (srcElement.classList.contains("simplebar-content ")) {
-        debugger;
-        refreshNavCardsListAndListeners();
-    }
-}, false);
-*/
