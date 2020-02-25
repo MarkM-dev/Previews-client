@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "Twitch Previews",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "js": ["core.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  }
+}
