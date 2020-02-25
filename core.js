@@ -31,13 +31,11 @@ function createAndShowPreview(navCardEl) {
 
 function changeAndShowPreview(navCardEl) {
     if (new Date().getTime() - navCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-        console.log("refreshing");
         navCardEl.lastImageLoadTimeStamp = new Date().getTime();
         previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
     } else {
         previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
     }
-   // previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?')";
     previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     previewDiv.style.display = "block";
@@ -50,7 +48,6 @@ function hidePreview() {
 
 function setMouseOverListeners(navCardEl) {
     navCardEl.onmouseover = function () {
-      //  console.log("hover");
         if (previewDiv) {
             changeAndShowPreview(navCardEl);
         } else {
