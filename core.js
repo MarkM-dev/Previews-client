@@ -46,7 +46,6 @@ function setMouseOverListeners(navCardEl) {
         }
     };
     navCardEl.onmouseleave = function () {
-        console.log('leave');
         hidePreview();
     }
 }
@@ -89,7 +88,6 @@ function refreshNavCardsListAndListeners() {
 }
 
 window.addEventListener('load', (event) => {
-    console.log('page is fully loaded');
     appendContainer = document.body;
     setCollapseBtnListener();
     setShowMoreBtnsListeners();
