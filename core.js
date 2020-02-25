@@ -17,7 +17,7 @@ function createAndShowPreview(navCardEl) {
     previewDiv.style.position = "fixed";
     previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
-    previewDiv.style.zIndex = "9999999";
+    previewDiv.style.zIndex = "9";
     previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
     previewDiv.style.backgroundSize = "cover";
     previewDiv.style.borderRadius = "5px";
