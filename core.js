@@ -101,8 +101,10 @@ function refreshNavCardsListAndListeners() {
 }
 
 window.addEventListener('load', (event) => {
-    appendContainer = document.body;
-    setCollapseBtnListener();
-    setShowMoreBtnsListeners();
-    refreshNavCardsListAndListeners();
+    setTimeout(function(){
+        appendContainer = document.body;
+        setCollapseBtnListener();
+        setShowMoreBtnsListeners();
+        refreshNavCardsListAndListeners();
+    }, 2000);
 });
