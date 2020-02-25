@@ -2,6 +2,18 @@ var isNavBarCollapsed;
 var previewDiv = null;
 var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
+var isImagePreviewMode = false;
+var twitchIframe;
+
+function onPreviewModeChange() {
+    isImagePreviewMode = true;
+    var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
+    if (previewDivs.length > 0) {
+        for (var i=0;i<previewDivs.length;i++) {
+            previewDivs[i].parentNode.removeChild(previewDivs[i]);
+        }
+    }
+}
 
 function getElementOffset(el) {
     var rect = el.getBoundingClientRect(),
@@ -12,36 +24,56 @@ function getElementOffset(el) {
 
 function createAndShowPreview(navCardEl) {
     previewDiv = document.createElement("div");
+    previewDiv.classList.add("twitch_previews_previewDiv");
     previewDiv.style.width = "440px";
     previewDiv.style.height = "248px";
     previewDiv.style.position = "fixed";
     previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     previewDiv.style.zIndex = "9";
-    previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
-    previewDiv.style.backgroundSize = "cover";
+    previewDiv.style.backgroundColor = "#232323";
     previewDiv.style.borderRadius = "5px";
     previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
     previewDiv.style.display = "block";
 
-    navCardEl.lastImageLoadTimeStamp = new Date().getTime();
+    if (isImagePreviewMode) {
+        previewDiv.style.backgroundSize = "cover";
+        previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+        navCardEl.lastImageLoadTimeStamp = new Date().getTime();
+    } else {
+        twitchIframe = document.createElement("Iframe");
+        twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
+        twitchIframe.width = "440px";
+        twitchIframe.height = "248px";
+        twitchIframe.muted = true;
+        twitchIframe.style.borderRadius = "5px";
+        previewDiv.appendChild(twitchIframe);
+    }
 
     appendContainer.appendChild(previewDiv);
 }
 
 function changeAndShowPreview(navCardEl) {
-    if (new Date().getTime() - navCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-        navCardEl.lastImageLoadTimeStamp = new Date().getTime();
-        previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+    if (isImagePreviewMode) {
+        if (new Date().getTime() - navCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+            navCardEl.lastImageLoadTimeStamp = new Date().getTime();
+            previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+        } else {
+            previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+        }
     } else {
-        previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+        twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
     }
+
     previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     previewDiv.style.display = "block";
 }
 
 function hidePreview() {
+    if (twitchIframe) {
+        twitchIframe.src = '';
+    }
     previewDiv.style.display = "none";
     previewDiv.style.backgroundImage = "none";
 }
