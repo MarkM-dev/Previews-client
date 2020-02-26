@@ -45,7 +45,6 @@ function createAndShowPreview(navCardEl) {
         twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
         twitchIframe.width = "440px";
         twitchIframe.height = "248px";
-        twitchIframe.muted = true;
         twitchIframe.style.borderRadius = "5px";
         previewDiv.appendChild(twitchIframe);
     }
@@ -62,8 +61,8 @@ function changeAndShowPreview(navCardEl) {
             previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
         }
     } else {
-        if(twitchIframe.src !== "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls") {
-            twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
+        if(twitchIframe.src !== "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted") {
+            twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
             previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
             previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
             previewDiv.style.display = "block";
