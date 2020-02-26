@@ -62,12 +62,13 @@ function changeAndShowPreview(navCardEl) {
             previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
         }
     } else {
-        twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
+        if(twitchIframe.src !== "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls") {
+            twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
+            previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
+            previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+            previewDiv.style.display = "block";
+        }
     }
-
-    previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
-    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
-    previewDiv.style.display = "block";
 }
 
 function hidePreview() {
