@@ -2,7 +2,7 @@ var isNavBarCollapsed;
 var previewDiv = null;
 var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
-var isImagePreviewMode = false;
+var isImagePreviewMode = true;
 var twitchIframe;
 
 function onPreviewModeChange(imagePreviewMode) {
@@ -65,11 +65,11 @@ function changeAndShowPreview(navCardEl) {
     } else {
         if(twitchIframe.src !== "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted") {
             twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
-            previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
-            previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
-            previewDiv.style.display = "block";
         }
     }
+    previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
+    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    previewDiv.style.display = "block";
 }
 
 function hidePreview() {
