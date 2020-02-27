@@ -5,14 +5,15 @@ var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = false;
 var twitchIframe;
 
-function onPreviewModeChange() {
-    isImagePreviewMode = true;
+function onPreviewModeChange(imagePreviewMode) {
+    isImagePreviewMode = imagePreviewMode;
     var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
     if (previewDivs.length > 0) {
         for (var i=0;i<previewDivs.length;i++) {
             previewDivs[i].parentNode.removeChild(previewDivs[i]);
         }
     }
+    previewDiv = null;
 }
 
 function getElementOffset(el) {
@@ -137,4 +138,10 @@ window.addEventListener('load', (event) => {
         setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
     }, 2000);
+});
+
+chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+    if (msg.action === "update_imagePreviewMode") {
+        onPreviewModeChange(msg.isImagePreviewMode);
+    }
 });

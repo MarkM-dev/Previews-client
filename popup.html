@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="popup.js"></script>
+        <link rel="stylesheet" type="text/css" href="popup.css">
+        <meta charset="UTF-8">
+        <title>Twitch Previews</title>
+    </head>
+    <body id="TPBodyEl" >
+        <img id="TP_popup_logo" src="TP96.png" width="96" height="96">
+        <h2>Twitch Previews</h2>
+        <div id="TP_popup_sub_container" >
+            <div id="TP_popup_toggle_container" >
+                <div class="TP_toggle_text" >Image Preview</div>
+                <label class="switch" >
+                    <input id="TP_popup_preview_mode_checkbox" class="switch-input" type="checkbox">
+                    <span class="switch-label" data-on="video" data-off="image"></span> <span class="switch-handle"></span>
+                </label>
+                <div class="TP_toggle_text" >Video Preview</div>
+            </div>
+            <div id="TP_popup_donation_container" >
+                <div>If you like this extension please consider donating</div>
+                <img src="TP96.png" width="80" height="30">
+            </div>
+        </div>
+    </body>
+</html>
