@@ -5,6 +5,10 @@ var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = true;
 var twitchIframe;
 
+chrome.storage.sync.get('isImagePreviewMode', function(result) {
+    isImagePreviewMode = typeof result.isImagePreviewMode == 'undefined' ? true : result.isImagePreviewMode;
+});
+
 function onPreviewModeChange(imagePreviewMode) {
     isImagePreviewMode = imagePreviewMode;
     var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
@@ -14,6 +18,10 @@ function onPreviewModeChange(imagePreviewMode) {
         }
     }
     previewDiv = null;
+
+    chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
+
+    });
 }
 
 function getElementOffset(el) {
@@ -142,7 +150,6 @@ window.addEventListener('load', (event) => {
 });
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-    console.log("onMessage: " + msg.action);
     if (msg.action === "update_imagePreviewMode") {
         onPreviewModeChange(msg.isImagePreviewMode);
     }
