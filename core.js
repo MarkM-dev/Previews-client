@@ -46,6 +46,7 @@ function createAndShowPreview(navCardEl) {
         twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
         twitchIframe.width = "440px";
         twitchIframe.height = "248px";
+        twitchIframe.borderColor = "#232323";
         twitchIframe.style.borderRadius = "5px";
         previewDiv.appendChild(twitchIframe);
     }
@@ -140,7 +141,8 @@ window.addEventListener('load', (event) => {
     }, 2000);
 });
 
-chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+    console.log("onMessage: " + msg.action);
     if (msg.action === "update_imagePreviewMode") {
         onPreviewModeChange(msg.isImagePreviewMode);
     }
