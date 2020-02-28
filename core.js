@@ -233,7 +233,7 @@ function pageAwakened() {
             }
         });
     } catch (e) {
-        isImagePreviewMode = true;
+        onPreviewModeChange(true, false);
     }
 }
 
