@@ -7,11 +7,7 @@ var twitchIframe;
 var PREVIEWDIV_HEIGHT = 248;
 var PREVIEWDIV_WIDTH = 440;
 
-chrome.storage.sync.get('isImagePreviewMode', function(result) {
-    isImagePreviewMode = typeof result.isImagePreviewMode == 'undefined' ? true : result.isImagePreviewMode;
-});
-
-function onPreviewModeChange(imagePreviewMode) {
+function onPreviewModeChange(imagePreviewMode, saveToStorage) {
     isImagePreviewMode = imagePreviewMode;
     var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
     if (previewDivs.length > 0) {
@@ -21,9 +17,11 @@ function onPreviewModeChange(imagePreviewMode) {
     }
     previewDiv = null;
 
-    chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
+    if (saveToStorage) {
+        chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
 
-    });
+        });
+    }
 }
 
 function getElementOffset(el) {
@@ -162,6 +160,51 @@ window.addEventListener('load', (event) => {
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.action === "update_imagePreviewMode") {
-        onPreviewModeChange(msg.isImagePreviewMode);
+        onPreviewModeChange(msg.isImagePreviewMode, true);
     }
 });
+
+///////////// TAB RESUME /////////////
+
+
+//window.addEventListener('focus', pageAwakened);
+//window.addEventListener('pageshow', pageAwakened);
+window.addEventListener('visibilitychange', function() {
+    !document.hidden && pageAwakened();
+});
+if (window.webkitRequestAnimationFrame && (/^iP/.test(navigator.platform) || /Android/.test(navigator.userAgent))) {
+    webkitRequestAnimationFrame(webkitWake);
+}
+
+var lastTs;
+function webkitWake(timestamp) {
+    if ((timestamp - lastTs) > 10000) {
+        pageAwakened();
+    }
+    lastTs = timestamp;
+    webkitRequestAnimationFrame(webkitWake);
+}
+
+function pageAwakened() {
+    chrome.storage.sync.get('isImagePreviewMode', function(result) {
+        if (typeof result.isImagePreviewMode == 'undefined') {
+            isImagePreviewMode = true;
+        } else {
+            if(isImagePreviewMode) {
+                if (isImagePreviewMode !== result.isImagePreviewMode) {
+                    onPreviewModeChange(result.isImagePreviewMode, false);
+                }
+            } else {
+                isImagePreviewMode = result.isImagePreviewMode;
+            }
+        }
+    });
+
+   // console.log('awakened at ' + (new Date));
+}
+
+///////////// END OF TAB RESUME /////////////
+
+/*chrome.storage.sync.get('isImagePreviewMode', function(result) {
+        isImagePreviewMode = typeof result.isImagePreviewMode == 'undefined' ? true : result.isImagePreviewMode;
+    });*/
