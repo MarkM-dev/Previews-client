@@ -4,6 +4,8 @@ var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = true;
 var twitchIframe;
+var PREVIEWDIV_HEIGHT = 248;
+var PREVIEWDIV_WIDTH = 440;
 
 chrome.storage.sync.get('isImagePreviewMode', function(result) {
     isImagePreviewMode = typeof result.isImagePreviewMode == 'undefined' ? true : result.isImagePreviewMode;
@@ -33,8 +35,8 @@ function getElementOffset(el) {
 
 function calculatePreviewDivPosition(navCardEl) {
     var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
-    if (window.innerHeight - elOffset < 248) {
-        return elOffset - 248 - (isNavBarCollapsed? 25:20);
+    if (window.innerHeight - elOffset < PREVIEWDIV_HEIGHT) {
+        return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20);
     } else {
         return elOffset;
     }
@@ -43,8 +45,8 @@ function calculatePreviewDivPosition(navCardEl) {
 function createAndShowPreview(navCardEl) {
     previewDiv = document.createElement("div");
     previewDiv.classList.add("twitch_previews_previewDiv");
-    previewDiv.style.width = "440px";
-    previewDiv.style.height = "248px";
+    previewDiv.style.width = PREVIEWDIV_WIDTH + "px";
+    previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
     previewDiv.style.position = "fixed";
     previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
@@ -61,8 +63,8 @@ function createAndShowPreview(navCardEl) {
     } else {
         twitchIframe = document.createElement("Iframe");
         twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
-        twitchIframe.width = "440px";
-        twitchIframe.height = "248px";
+        twitchIframe.width = PREVIEWDIV_WIDTH + "px";
+        twitchIframe.height = PREVIEWDIV_HEIGHT + "px";
         twitchIframe.borderColor = "#232323";
         twitchIframe.style.borderRadius = "5px";
         previewDiv.appendChild(twitchIframe);
