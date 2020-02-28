@@ -185,6 +185,7 @@ function refreshNavCardsListAndListeners() {
 window.addEventListener('load', (event) => {
     setTimeout(function(){
         appendContainer = document.body;
+        setViewMode();
         setCollapseBtnListener();
         setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
@@ -217,7 +218,7 @@ function webkitWake(timestamp) {
     webkitRequestAnimationFrame(webkitWake);
 }
 
-function pageAwakened() {
+function setViewMode() {
     try {
         chrome.storage.sync.get('isImagePreviewMode', function(result) {
             if (typeof result.isImagePreviewMode == 'undefined') {
@@ -235,6 +236,10 @@ function pageAwakened() {
     } catch (e) {
         onPreviewModeChange(true, false);
     }
+}
+
+function pageAwakened() {
+    setViewMode();
 }
 
 ///////////// END OF TAB RESUME /////////////
