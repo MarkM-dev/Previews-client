@@ -7,6 +7,14 @@ var twitchIframe;
 var PREVIEWDIV_HEIGHT = 248;
 var PREVIEWDIV_WIDTH = 440;
 
+var mutationObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.type === "childList") {
+            refreshNavCardsListAndListeners();
+        }
+    });
+});
+
 function onPreviewModeChange(imagePreviewMode, saveToStorage) {
     isImagePreviewMode = imagePreviewMode;
     var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
@@ -113,12 +121,20 @@ function setMouseOverListeners(navCardEl) {
 
 function setCollapseBtnListener() {
     var sideNavCollapseToggleBtn = document.getElementsByClassName('collapse-toggle')[0];
+
+    sideNavCollapseToggleBtn.onmouseover = function () {
+        mutationObserver.disconnect();
+    };
+    sideNavCollapseToggleBtn.onmouseleave = function () {
+        setSideNavMutationObserver();
+    };
+
     sideNavCollapseToggleBtn.onclick = function () {
         setTimeout(function(){
             refreshNavCardsListAndListeners();
             setShowMoreBtnsListeners();
+            setSideNavMutationObserver();
         }, 500);
-
     }
 }
 
@@ -126,13 +142,30 @@ function setShowMoreBtnsListeners() {
     var sideNavShowMoreBtns = document.getElementsByClassName('side-nav-show-more-toggle__button');
     for (var i=0;i < sideNavShowMoreBtns.length;i++) {
         if (sideNavShowMoreBtns[i]) {
+
+            sideNavShowMoreBtns[i].onmouseover = function () {
+                mutationObserver.disconnect();
+            };
+
+            sideNavShowMoreBtns[i].onmouseleave = function () {
+              setSideNavMutationObserver();
+            };
+
             sideNavShowMoreBtns[i].onclick = function () {
                 setTimeout(function(){
                     refreshNavCardsListAndListeners();
+                    setSideNavMutationObserver();
                 }, 500);
             }
         }
     }
+}
+
+function setSideNavMutationObserver() {
+    mutationObserver.observe(document.getElementsByClassName("side-bar-contents")[0], {
+        childList: true,
+        subtree: true
+    });
 }
 
 function refreshNavCardsListAndListeners() {
@@ -155,6 +188,7 @@ window.addEventListener('load', (event) => {
         setCollapseBtnListener();
         setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
+        setSideNavMutationObserver();
     }, 2000);
 });
 
@@ -166,8 +200,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
 ///////////// TAB RESUME /////////////
 
-//window.addEventListener('focus', pageAwakened);
-//window.addEventListener('pageshow', pageAwakened);
 window.addEventListener('visibilitychange', function() {
     !document.hidden && pageAwakened();
 });
@@ -199,12 +231,6 @@ function pageAwakened() {
             }
         }
     });
-
-   // console.log('awakened at ' + (new Date));
 }
 
 ///////////// END OF TAB RESUME /////////////
-
-/*chrome.storage.sync.get('isImagePreviewMode', function(result) {
-        isImagePreviewMode = typeof result.isImagePreviewMode == 'undefined' ? true : result.isImagePreviewMode;
-    });*/
