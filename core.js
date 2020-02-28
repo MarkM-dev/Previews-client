@@ -166,12 +166,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
 ///////////// TAB RESUME /////////////
 
-
 //window.addEventListener('focus', pageAwakened);
 //window.addEventListener('pageshow', pageAwakened);
 window.addEventListener('visibilitychange', function() {
     !document.hidden && pageAwakened();
 });
+
 if (window.webkitRequestAnimationFrame && (/^iP/.test(navigator.platform) || /Android/.test(navigator.userAgent))) {
     webkitRequestAnimationFrame(webkitWake);
 }
