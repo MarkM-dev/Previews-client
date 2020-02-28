@@ -218,19 +218,23 @@ function webkitWake(timestamp) {
 }
 
 function pageAwakened() {
-    chrome.storage.sync.get('isImagePreviewMode', function(result) {
-        if (typeof result.isImagePreviewMode == 'undefined') {
-            isImagePreviewMode = true;
-        } else {
-            if(isImagePreviewMode) {
-                if (isImagePreviewMode !== result.isImagePreviewMode) {
-                    onPreviewModeChange(result.isImagePreviewMode, false);
-                }
+    try {
+        chrome.storage.sync.get('isImagePreviewMode', function(result) {
+            if (typeof result.isImagePreviewMode == 'undefined') {
+                isImagePreviewMode = true;
             } else {
-                isImagePreviewMode = result.isImagePreviewMode;
+                if(isImagePreviewMode) {
+                    if (isImagePreviewMode !== result.isImagePreviewMode) {
+                        onPreviewModeChange(result.isImagePreviewMode, false);
+                    }
+                } else {
+                    isImagePreviewMode = result.isImagePreviewMode;
+                }
             }
-        }
-    });
+        });
+    } catch (e) {
+        isImagePreviewMode = true;
+    }
 }
 
 ///////////// END OF TAB RESUME /////////////
