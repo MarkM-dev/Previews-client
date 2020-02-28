@@ -31,13 +31,22 @@ function getElementOffset(el) {
     return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
 }
 
+function calculatePreviewDivPosition(navCardEl) {
+    var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
+    if (window.innerHeight - elOffset < 248) {
+        return elOffset - 248 - (isNavBarCollapsed? 25:20);
+    } else {
+        return elOffset;
+    }
+}
+
 function createAndShowPreview(navCardEl) {
     previewDiv = document.createElement("div");
     previewDiv.classList.add("twitch_previews_previewDiv");
     previewDiv.style.width = "440px";
     previewDiv.style.height = "248px";
     previewDiv.style.position = "fixed";
-    previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
+    previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     previewDiv.style.zIndex = "9";
     previewDiv.style.backgroundColor = "#232323";
@@ -75,7 +84,7 @@ function changeAndShowPreview(navCardEl) {
             twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
         }
     }
-    previewDiv.style.marginTop = (getElementOffset(navCardEl).top + 45) + "px";
+    previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     previewDiv.style.display = "block";
 }
