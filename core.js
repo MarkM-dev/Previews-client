@@ -182,8 +182,19 @@ function refreshNavCardsListAndListeners() {
     }
 }
 
+function ga_heartbeat() {
+    chrome.runtime.sendMessage({action: "heartbeat", detail: ""}, function(response) {
+
+    });
+    setTimeout(ga_heartbeat, 325000);
+}
+
 window.addEventListener('load', (event) => {
     setTimeout(function(){
+        chrome.runtime.sendMessage({action: "appStart", detail: ""}, function(response) {
+
+        });
+        ga_heartbeat();
         appendContainer = document.body;
         setViewMode();
         setCollapseBtnListener();

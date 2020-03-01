@@ -8,6 +8,9 @@ ga('create', 'UA-XXXXXXXXX-X', 'auto');
 ga('set', 'checkProtocolTask', null);
 ga('send', 'pageview', 'main');
 
+var HEART_BEAT_INTERVAL_MS = 325000;
+var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
+
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_imagePreviewMode":
@@ -15,6 +18,15 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html');
+            break;
+            case "appStart":
+            ga('send', 'event', 'appStart', 'content.js');
+            break;
+        case "heartbeat":
+            if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
+                ga('send', 'event', 'heartbeat', 'heartbeat');
+                lastHeartBeat = new Date().getTime();
+            }
             break;
         default:
 
