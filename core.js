@@ -228,6 +228,10 @@ function setPreviewSize(previewSizeObj) {
 }
 
 function setPreviewSizeFromStorage() {
+    if (previewDiv) {
+        clearExistingPreviewDivs();
+    }
+
     try {
         chrome.storage.sync.get('previewSize', function(result) {
             if (typeof result.previewSize == 'undefined') {
