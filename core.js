@@ -299,6 +299,7 @@ function webkitWake(timestamp) {
 
 function pageAwakened() {
     setViewMode();
+    setPreviewSizeFromStorage();
 }
 
 ///////////// END OF TAB RESUME /////////////
