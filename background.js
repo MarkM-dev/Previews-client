@@ -11,6 +11,13 @@ ga('send', 'pageview', 'main');
 var HEART_BEAT_INTERVAL_MS = 325000;
 var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "update")
+    {
+        chrome.tabs.create({url:"updatePopup.html"});
+    }
+});
+
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_imagePreviewMode":
