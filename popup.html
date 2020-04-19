@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script src="popup.js"></script>
-        <link rel="stylesheet" type="text/css" href="popup.css">
-        <meta charset="UTF-8">
-        <title>Twitch Previews</title>
-    </head>
-    <body id="TPBodyEl" >
-        <img id="TP_popup_logo" src="TP96.png" width="96" height="96">
-        <h2>Twitch Previews</h2>
-        <div id="TP_popup_sub_container" >
-            <div id="TP_popup_toggle_container" >
-                <div class="TP_toggle_text" >Image Preview</div>
-                <label class="switch" >
-                    <input id="TP_popup_preview_mode_checkbox" class="switch-input" type="checkbox">
-                    <span class="switch-label" data-on="video" data-off="image"></span> <span class="switch-handle"></span>
-                </label>
-                <div class="TP_toggle_text" >Video Preview</div>
-            </div>
-            <div id="TP_popup_donation_container" >
-                <div>If you like this extension please consider donating :)</div>
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="QM8HG45PYA4EU" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-                </form>
-            </div>
+<head>
+    <script src="popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <meta charset="UTF-8">
+    <title>Twitch Previews</title>
+</head>
+<body id="TPBodyEl" >
+    <img id="TP_popup_logo" src="TP96.png" width="96" height="96">
+    <h2>Twitch Previews</h2>
+    <div id="TP_popup_sub_container" >
+        <div id="TP_popup_toggle_container" >
+            <div class="TP_toggle_text" >Image Preview</div>
+            <label class="switch" >
+                <input id="TP_popup_preview_mode_checkbox" class="switch-input" type="checkbox">
+                <span class="switch-label" data-on="video" data-off="image"></span> <span class="switch-handle"></span>
+            </label>
+            <div class="TP_toggle_text" >Video Preview</div>
         </div>
-    </body>
+
+        <div class="slide-container">
+            <p>Preview Size: <span id="TP_popup_preview_size_display"></span></p>
+            <input type="range" min="1" max="100" value="50" class="slider" id="TP_popup_preview_size_input_slider">
+        </div>
+
+        <div id="TP_popup_donation_container" >
+            <div>If you like this extension please consider donating :)</div>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type="hidden" name="cmd" value="_s-xclick" />
+                <input type="hidden" name="hosted_button_id" value="QM8HG45PYA4EU" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+        </div>
+    </div>
+</body>
 </html>

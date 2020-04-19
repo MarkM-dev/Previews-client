@@ -4,8 +4,8 @@ var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = true;
 var twitchIframe;
-var PREVIEWDIV_HEIGHT = 248;
 var PREVIEWDIV_WIDTH = 440;
+var PREVIEWDIV_HEIGHT = 248;
 
 var mutationObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
@@ -17,6 +17,16 @@ var mutationObserver = new MutationObserver(function(mutations) {
 
 function onPreviewModeChange(imagePreviewMode, saveToStorage) {
     isImagePreviewMode = imagePreviewMode;
+    clearExistingPreviewDivs();
+
+    if (saveToStorage) {
+        chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
+
+        });
+    }
+}
+
+function clearExistingPreviewDivs() {
     var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
     if (previewDivs.length > 0) {
         for (var i=0;i<previewDivs.length;i++) {
@@ -24,12 +34,6 @@ function onPreviewModeChange(imagePreviewMode, saveToStorage) {
         }
     }
     previewDiv = null;
-
-    if (saveToStorage) {
-        chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
-
-        });
-    }
 }
 
 function getElementOffset(el) {
@@ -48,6 +52,10 @@ function calculatePreviewDivPosition(navCardEl) {
     }
 }
 
+function getPreviewImageUrl(navCardEl) {
+    return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + PREVIEWDIV_WIDTH + "x" + Math.round(PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+}
+
 function createAndShowPreview(navCardEl) {
     previewDiv = document.createElement("div");
     previewDiv.classList.add("twitch_previews_previewDiv");
@@ -64,7 +72,7 @@ function createAndShowPreview(navCardEl) {
 
     if (isImagePreviewMode) {
         previewDiv.style.backgroundSize = "cover";
-        previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+        previewDiv.style.backgroundImage = getPreviewImageUrl(navCardEl);
         navCardEl.lastImageLoadTimeStamp = new Date().getTime();
     } else {
         twitchIframe = document.createElement("Iframe");
@@ -83,9 +91,9 @@ function changeAndShowPreview(navCardEl) {
     if (isImagePreviewMode) {
         if (new Date().getTime() - navCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
             navCardEl.lastImageLoadTimeStamp = new Date().getTime();
-            previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+            previewDiv.style.backgroundImage = getPreviewImageUrl(navCardEl);
         } else {
-            previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-440x248.jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+            previewDiv.style.backgroundImage = getPreviewImageUrl(navCardEl);
         }
     } else {
         if(twitchIframe.src !== "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted") {
@@ -148,7 +156,7 @@ function setShowMoreBtnsListeners() {
             };
 
             sideNavShowMoreBtns[i].onmouseleave = function () {
-              setSideNavMutationObserver();
+                setSideNavMutationObserver();
             };
 
             sideNavShowMoreBtns[i].onclick = function () {
@@ -189,6 +197,61 @@ function ga_heartbeat() {
     setTimeout(ga_heartbeat, 325000);
 }
 
+function setViewMode() {
+    try {
+        chrome.storage.sync.get('isImagePreviewMode', function(result) {
+            if (typeof result.isImagePreviewMode == 'undefined') {
+                isImagePreviewMode = true;
+            } else {
+                if(isImagePreviewMode) {
+                    if (isImagePreviewMode !== result.isImagePreviewMode) {
+                        onPreviewModeChange(result.isImagePreviewMode, false);
+                    }
+                } else {
+                    isImagePreviewMode = result.isImagePreviewMode;
+                }
+            }
+        });
+    } catch (e) {
+        onPreviewModeChange(true, false);
+    }
+}
+
+
+function getCalculatedPreviewSizeByWidth (width) {
+    return {width: width, height: 0.5636363636363636 * width};
+}
+
+function setPreviewSize(previewSizeObj) {
+    PREVIEWDIV_WIDTH = previewSizeObj.width;
+    PREVIEWDIV_HEIGHT = previewSizeObj.height;
+}
+
+function setPreviewSizeFromStorage() {
+    try {
+        chrome.storage.sync.get('previewSize', function(result) {
+            if (typeof result.previewSize == 'undefined') {
+                setPreviewSize(getCalculatedPreviewSizeByWidth(PREVIEWDIV_WIDTH));
+            } else {
+                setPreviewSize(result.previewSize);
+            }
+        });
+    } catch (e) {
+        setPreviewSize(getCalculatedPreviewSizeByWidth(PREVIEWDIV_WIDTH));
+    }
+}
+
+function onPreviewSizeChange(width) {
+    clearExistingPreviewDivs();
+    var previewSizeObj = getCalculatedPreviewSizeByWidth(width);
+    setPreviewSize(previewSizeObj);
+
+    chrome.storage.sync.set({'previewSize': previewSizeObj}, function() {
+
+    });
+
+}
+
 window.addEventListener('load', (event) => {
     setTimeout(function(){
         chrome.runtime.sendMessage({action: "appStart", detail: ""}, function(response) {
@@ -197,6 +260,7 @@ window.addEventListener('load', (event) => {
         ga_heartbeat();
         appendContainer = document.body;
         setViewMode();
+        setPreviewSizeFromStorage();
         setCollapseBtnListener();
         setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
@@ -207,6 +271,10 @@ window.addEventListener('load', (event) => {
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.action === "update_imagePreviewMode") {
         onPreviewModeChange(msg.isImagePreviewMode, true);
+    } else {
+        if (msg.action === "update_previewSize") {
+            onPreviewSizeChange(msg.width);
+        }
     }
 });
 
@@ -227,26 +295,6 @@ function webkitWake(timestamp) {
     }
     lastTs = timestamp;
     webkitRequestAnimationFrame(webkitWake);
-}
-
-function setViewMode() {
-    try {
-        chrome.storage.sync.get('isImagePreviewMode', function(result) {
-            if (typeof result.isImagePreviewMode == 'undefined') {
-                isImagePreviewMode = true;
-            } else {
-                if(isImagePreviewMode) {
-                    if (isImagePreviewMode !== result.isImagePreviewMode) {
-                        onPreviewModeChange(result.isImagePreviewMode, false);
-                    }
-                } else {
-                    isImagePreviewMode = result.isImagePreviewMode;
-                }
-            }
-        });
-    } catch (e) {
-        onPreviewModeChange(true, false);
-    }
 }
 
 function pageAwakened() {

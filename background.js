@@ -3,7 +3,7 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-XXXXXXXXX-X', 'auto');
+ga('create', 'UA-134155755-2', 'auto');
 
 ga('set', 'checkProtocolTask', null);
 ga('send', 'pageview', 'main');
@@ -16,10 +16,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_imagePreviewMode":
             ga('send', 'event', 'preview_mode', 'change', msg.detail ? "image":"video");
             break;
+        case "bg_update_previewSize":
+            ga('send', 'event', 'preview_size', 'change', msg.detail);
+            break;
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html');
             break;
-            case "appStart":
+        case "appStart":
             ga('send', 'event', 'appStart', 'content.js');
             break;
         case "heartbeat":
