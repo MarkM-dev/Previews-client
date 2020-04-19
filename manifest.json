@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Twitch Previews",
   "description": "Twitch Previews - a live video or image preview window on twitch.",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "permissions": ["storage"],
   "background": {
     "scripts": ["background.js"],

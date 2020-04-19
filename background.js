@@ -15,6 +15,12 @@ chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "update")
     {
         chrome.tabs.create({url:"updatePopup.html"});
+        try {
+            ga('send', 'event', 'updatePopup_show-v1.2.5', 'updatePopup_show-v1.2.5', "updatePopup_show-v1.2.5");
+        } catch (e) {
+
+        }
+
     }
 });
 
