@@ -256,11 +256,38 @@ function onPreviewSizeChange(width) {
 
 }
 
-window.addEventListener('load', (event) => {
-    setTimeout(function(){
-        chrome.runtime.sendMessage({action: "appStart", detail: ""}, function(response) {
+function ga_report_appStart() {
+    var size = "440px";
+    var mode = "image";
+    try {
+        chrome.storage.sync.get('previewSize', function(result) {
+            if (typeof result.previewSize == 'undefined') {
+
+            } else {
+                size = result.previewSize.width + "px";
+            }
+
+            chrome.storage.sync.get('isImagePreviewMode', function(result) {
+                if (typeof result.isImagePreviewMode == 'undefined') {
+
+                } else {
+                    mode = result.isImagePreviewMode ? "Image":"Video";
+                }
+                chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size}, function(response) {
+
+                });
+            });
+        });
+    } catch (e) {
+        chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + mode + " : " + size}, function(response) {
 
         });
+    }
+}
+
+window.addEventListener('load', (event) => {
+    setTimeout(function(){
+        ga_report_appStart();
         ga_heartbeat();
         appendContainer = document.body;
         setViewMode();
