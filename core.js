@@ -177,13 +177,14 @@ function setSideNavMutationObserver() {
 }
 
 function refreshNavCardsListAndListeners() {
-    isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
+   /* isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
     var navCards;
     if (isNavBarCollapsed) {
         navCards = document.getElementsByClassName('side-nav-card');
     } else {
         navCards = document.getElementsByClassName('side-nav-card__link');
-    }
+    }*/
+    var navCards = document.getElementsByClassName('side-nav-card__link');
     for (var i = 0; i < navCards.length; i++) {
         navCards[i].lastImageLoadTimeStamp = new Date().getTime();
         setMouseOverListeners(navCards[i]);
