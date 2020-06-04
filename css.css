@@ -44,8 +44,8 @@
 
     to {
         display: none;
-        -webkit-transform: translate3d(-150%, 0, 0);
-        transform: translate3d(-150%, 0, 0);
+        -webkit-transform: translate3d(-200%, 0, 0);
+        transform: translate3d(-200%, 0, 0);
     }
 }
 
@@ -57,8 +57,8 @@
 
     to {
         display: none;
-        -webkit-transform: translate3d(-150%, 0, 0);
-        transform: translate3d(-150%, 0, 0);
+        -webkit-transform: translate3d(-200%, 0, 0);
+        transform: translate3d(-200%, 0, 0);
     }
 }
 
