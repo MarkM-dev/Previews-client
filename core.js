@@ -150,6 +150,17 @@ function setMouseOverListeners(navCardEl) {
         setTimeout(function () {
             previewDiv.classList.remove("slideInLeft");
         },200)
+
+        setTimeout(function () {
+            try {
+                if (twitchIframe) {
+                    var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                    vpo.parentNode.removeChild(vpo);
+                }
+            } catch (e) {
+
+            }
+        }, 1000)
     };
 
 
