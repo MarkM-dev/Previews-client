@@ -108,11 +108,13 @@ function changeAndShowPreview(navCardEl) {
             if (previewDiv.style.display !== "block") {
                 setTimeout(function () {
                     twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
-                }, 250);
+                    setTimeout(function () {
+                        twitchIframe.style.display = 'block';
+                    },300);
+                    }, 50);
             } else {
                 twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
             }
-
         }
     }
     previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
@@ -124,6 +126,7 @@ function changeAndShowPreview(navCardEl) {
 function hidePreview() {
     if (twitchIframe) {
         twitchIframe.src = '';
+        twitchIframe.style.display = 'none';
     } else {
         previewDiv.style.backgroundImage = "none";
     }
