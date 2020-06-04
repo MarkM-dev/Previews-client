@@ -6,6 +6,7 @@ var isImagePreviewMode = true;
 var twitchIframe;
 var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
+var isHovering = false;
 
 var mutationObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
@@ -44,9 +45,11 @@ function getElementOffset(el) {
 }
 
 function calculatePreviewDivPosition(navCardEl) {
-    var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
+    //var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
+    var elOffset = getElementOffset(navCardEl).top + (30);
     if (window.innerHeight - elOffset < PREVIEWDIV_HEIGHT) {
-        return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20);
+        //return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20);
+        return elOffset - PREVIEWDIV_HEIGHT - (20);
     } else {
         return elOffset;
     }
@@ -59,11 +62,13 @@ function getPreviewImageUrl(navCardEl) {
 function createAndShowPreview(navCardEl) {
     previewDiv = document.createElement("div");
     previewDiv.classList.add("twitch_previews_previewDiv");
+    previewDiv.classList.add("animated");
     previewDiv.style.width = PREVIEWDIV_WIDTH + "px";
     previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
     previewDiv.style.position = "fixed";
     previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
-    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    previewDiv.style.marginLeft = "25rem";
     previewDiv.style.zIndex = "9";
     previewDiv.style.backgroundColor = "#232323";
     previewDiv.style.borderRadius = "5px";
@@ -76,7 +81,10 @@ function createAndShowPreview(navCardEl) {
         navCardEl.lastImageLoadTimeStamp = new Date().getTime();
     } else {
         twitchIframe = document.createElement("Iframe");
-        twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls";
+        setTimeout(function () {
+            twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+        },250)
+
         twitchIframe.width = PREVIEWDIV_WIDTH + "px";
         twitchIframe.height = PREVIEWDIV_HEIGHT + "px";
         twitchIframe.borderColor = "#232323";
@@ -97,11 +105,19 @@ function changeAndShowPreview(navCardEl) {
         }
     } else {
         if(twitchIframe.src !== "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted") {
-            twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+            if (previewDiv.style.display !== "block") {
+                setTimeout(function () {
+                    twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+                }, 250);
+            } else {
+                twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+            }
+
         }
     }
     previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
-    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    previewDiv.style.marginLeft = "25rem";
     previewDiv.style.display = "block";
 }
 
@@ -116,14 +132,43 @@ function hidePreview() {
 
 function setMouseOverListeners(navCardEl) {
     navCardEl.onmouseover = function () {
+        isHovering = true;
         if (previewDiv) {
+            //previewDiv.classList.remove("slideOutRight");
+            if (previewDiv.style.display === "none") {
+                previewDiv.classList.add("slideInLeft");
+            }
             changeAndShowPreview(navCardEl);
         } else {
             createAndShowPreview(navCardEl);
+            previewDiv.classList.add("slideInLeft");
         }
+
+        setTimeout(function () {
+            previewDiv.classList.remove("slideInLeft");
+        },200)
     };
+
+
     navCardEl.onmouseleave = function () {
-        hidePreview();
+        isHovering = false;
+        setTimeout(function () {
+            var shouldSlideOut;
+            if (isHovering) {
+                shouldSlideOut = false;
+            } else {
+                shouldSlideOut = true;
+            }
+
+            if (shouldSlideOut) {
+                previewDiv.classList.add("slideOutLeft");
+                setTimeout(function () {
+                    isHovering = false;
+                    hidePreview();
+                    previewDiv.classList.remove("slideOutLeft");
+                },250)
+            }
+        },50)
     }
 }
 

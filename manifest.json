@@ -11,6 +11,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.twitch.tv/*"],
+      "css": ["css.css"],
       "js": ["core.js"],
       "run_at": "document_end",
       "all_frames": true
