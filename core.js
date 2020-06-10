@@ -60,7 +60,8 @@ function getPreviewImageUrl(navCardEl) {
 }
 
 function getPreviewStreamUrl(navCardEl) {
-    return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+   // return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+    return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&muted&parent=twitch.tv";
 }
 
 function createAndShowPreview(navCardEl) {
