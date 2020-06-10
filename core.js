@@ -59,6 +59,10 @@ function getPreviewImageUrl(navCardEl) {
     return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + PREVIEWDIV_WIDTH + "x" + Math.round(PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
 }
 
+function getPreviewStreamUrl(navCardEl) {
+    return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+}
+
 function createAndShowPreview(navCardEl) {
     previewDiv = document.createElement("div");
     previewDiv.classList.add("twitch_previews_previewDiv");
@@ -82,7 +86,7 @@ function createAndShowPreview(navCardEl) {
     } else {
         twitchIframe = document.createElement("Iframe");
         setTimeout(function () {
-            twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+            twitchIframe.src = getPreviewStreamUrl(navCardEl);
         },250)
 
         twitchIframe.width = PREVIEWDIV_WIDTH + "px";
@@ -104,16 +108,16 @@ function changeAndShowPreview(navCardEl) {
             previewDiv.style.backgroundImage = getPreviewImageUrl(navCardEl);
         }
     } else {
-        if(twitchIframe.src !== "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted") {
+        if(twitchIframe.src !== getPreviewStreamUrl(navCardEl)) {
             if (previewDiv.style.display !== "block") {
                 setTimeout(function () {
-                    twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+                    twitchIframe.src = getPreviewStreamUrl(navCardEl);
                     setTimeout(function () {
                         twitchIframe.style.display = 'block';
                     },300);
                     }, 50);
             } else {
-                twitchIframe.src = "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
+                twitchIframe.src = getPreviewStreamUrl(navCardEl);
             }
         }
     }
