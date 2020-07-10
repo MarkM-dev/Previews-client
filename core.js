@@ -45,11 +45,11 @@ function getElementOffset(el) {
 }
 
 function calculatePreviewDivPosition(navCardEl) {
-    //var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
-    var elOffset = getElementOffset(navCardEl).top + (30);
+    var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:42);
+    //var elOffset = getElementOffset(navCardEl).top + (30);
     if (window.innerHeight - elOffset < PREVIEWDIV_HEIGHT) {
-        //return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20);
-        return elOffset - PREVIEWDIV_HEIGHT - (20);
+        return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20);
+        //return elOffset - PREVIEWDIV_HEIGHT - (20);
     } else {
         return elOffset;
     }
@@ -72,8 +72,8 @@ function createAndShowPreview(navCardEl) {
     previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
     previewDiv.style.position = "fixed";
     previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
-    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
-    previewDiv.style.marginLeft = "25rem";
+    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.zIndex = "9";
     previewDiv.style.backgroundColor = "#232323";
     previewDiv.style.borderRadius = "5px";
@@ -123,8 +123,8 @@ function changeAndShowPreview(navCardEl) {
         }
     }
     previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
-    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
-    previewDiv.style.marginLeft = "25rem";
+    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.display = "block";
 }
 
@@ -241,14 +241,14 @@ function setSideNavMutationObserver() {
 }
 
 function refreshNavCardsListAndListeners() {
-   /* isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
+    isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
     var navCards;
     if (isNavBarCollapsed) {
         navCards = document.getElementsByClassName('side-nav-card');
     } else {
         navCards = document.getElementsByClassName('side-nav-card__link');
-    }*/
-    var navCards = document.getElementsByClassName('side-nav-card__link');
+    }
+    //var navCards = document.getElementsByClassName('side-nav-card__link');
     for (var i = 0; i < navCards.length; i++) {
         navCards[i].lastImageLoadTimeStamp = new Date().getTime();
         setMouseOverListeners(navCards[i]);
@@ -355,6 +355,7 @@ window.addEventListener('load', (event) => {
         ga_report_appStart();
         ga_heartbeat();
         appendContainer = document.body;
+        document.getElementById('sideNav').style.zIndex = '10';
         setViewMode();
         setPreviewSizeFromStorage();
         setCollapseBtnListener();
