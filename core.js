@@ -45,7 +45,7 @@ function getElementOffset(el) {
 }
 
 function calculatePreviewDivPosition(navCardEl) {
-    var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:42);
+    var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
     //var elOffset = getElementOffset(navCardEl).top + (30);
     if (window.innerHeight - elOffset < PREVIEWDIV_HEIGHT) {
         return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20);
