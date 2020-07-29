@@ -7,6 +7,7 @@ var twitchIframe;
 var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
 var isHovering = false;
+var lastHoveredCardEl = null;
 
 var mutationObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
@@ -64,14 +65,14 @@ function getPreviewStreamUrl(navCardEl) {
     return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&muted&parent=twitch.tv";
 }
 
-function createAndShowPreview(navCardEl) {
+function createAndShowPreview() {
     previewDiv = document.createElement("div");
     previewDiv.classList.add("twitch_previews_previewDiv");
     previewDiv.classList.add("animated");
     previewDiv.style.width = PREVIEWDIV_WIDTH + "px";
     previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
     previewDiv.style.position = "fixed";
-    previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
+    previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.zIndex = "9";
@@ -82,12 +83,12 @@ function createAndShowPreview(navCardEl) {
 
     if (isImagePreviewMode) {
         previewDiv.style.backgroundSize = "cover";
-        previewDiv.style.backgroundImage = getPreviewImageUrl(navCardEl);
-        navCardEl.lastImageLoadTimeStamp = new Date().getTime();
+        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+        lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
     } else {
         twitchIframe = document.createElement("Iframe");
         setTimeout(function () {
-            twitchIframe.src = getPreviewStreamUrl(navCardEl);
+            twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
         },250)
 
         twitchIframe.width = PREVIEWDIV_WIDTH + "px";
@@ -100,29 +101,29 @@ function createAndShowPreview(navCardEl) {
     appendContainer.appendChild(previewDiv);
 }
 
-function changeAndShowPreview(navCardEl) {
+function changeAndShowPreview() {
     if (isImagePreviewMode) {
-        if (new Date().getTime() - navCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-            navCardEl.lastImageLoadTimeStamp = new Date().getTime();
-            previewDiv.style.backgroundImage = getPreviewImageUrl(navCardEl);
+        if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
         } else {
-            previewDiv.style.backgroundImage = getPreviewImageUrl(navCardEl);
+            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
         }
     } else {
-        if(twitchIframe.src !== getPreviewStreamUrl(navCardEl)) {
+        if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
             if (previewDiv.style.display !== "block") {
                 setTimeout(function () {
-                    twitchIframe.src = getPreviewStreamUrl(navCardEl);
+                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
                     setTimeout(function () {
                         twitchIframe.style.display = 'block';
                     },300);
                     }, 50);
             } else {
-                twitchIframe.src = getPreviewStreamUrl(navCardEl);
+                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
             }
         }
     }
-    previewDiv.style.marginTop = calculatePreviewDivPosition(navCardEl) + "px";
+    previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl) + "px";
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.display = "block";
@@ -141,14 +142,15 @@ function hidePreview() {
 function setMouseOverListeners(navCardEl) {
     navCardEl.onmouseover = function () {
         isHovering = true;
+        lastHoveredCardEl = navCardEl;
         if (previewDiv) {
             //previewDiv.classList.remove("slideOutRight");
             if (previewDiv.style.display === "none") {
                 previewDiv.classList.add("slideInLeft");
             }
-            changeAndShowPreview(navCardEl);
+            changeAndShowPreview();
         } else {
-            createAndShowPreview(navCardEl);
+            createAndShowPreview();
             previewDiv.classList.add("slideInLeft");
         }
 
