@@ -9,6 +9,32 @@ var PREVIEWDIV_HEIGHT = 248;
 var isHovering = false;
 var lastHoveredCardEl = null;
 
+var ss = document.createElement("div");
+ss.id = "tp_navCard_pip_btn";
+ss.style.width = "28px";
+ss.style.height = "12px";
+ss.style.position = "absolute";
+ss.style.right = "1rem";
+ss.style.backgroundColor = "#ffffff";
+ss.onclick = togglePip;
+
+
+function togglePip(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+    console.log("pipStart");
+    try {
+        if () {
+            document.exitPictureInPicture();
+        } else {
+
+        }
+        twitchIframe.contentDocument.querySelector('video').requestPictureInPicture();
+    } catch (e) {
+
+    }
+}
+
 var mutationObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
         if (mutation.type === "childList") {
@@ -169,6 +195,12 @@ function setMouseOverListeners(navCardEl) {
                 } catch (e) {
 
                 }
+                console.log("appending");
+
+                //ss.style.backgroundSize = "cover";
+                // ss.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(ss);
+
             }, 1000)
         } else {
 
@@ -179,6 +211,7 @@ function setMouseOverListeners(navCardEl) {
 
     navCardEl.onmouseleave = function () {
         isHovering = false;
+
         setTimeout(function () {
             var shouldSlideOut;
             if (isHovering) {
@@ -195,6 +228,12 @@ function setMouseOverListeners(navCardEl) {
                     previewDiv.classList.remove("slideOutLeft");
                 },250)
             }
+            try {
+                document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+            } catch (e) {
+
+            }
+
         },50)
     }
 }
