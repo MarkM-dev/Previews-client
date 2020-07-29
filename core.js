@@ -141,33 +141,39 @@ function hidePreview() {
 
 function setMouseOverListeners(navCardEl) {
     navCardEl.onmouseover = function () {
-        isHovering = true;
-        lastHoveredCardEl = navCardEl;
-        if (previewDiv) {
-            //previewDiv.classList.remove("slideOutRight");
-            if (previewDiv.style.display === "none") {
+        if (!isHovering) {
+            isHovering = true;
+            lastHoveredCardEl = navCardEl;
+
+            if (previewDiv) {
+                //previewDiv.classList.remove("slideOutRight");
+                if (previewDiv.style.display === "none") {
+                    previewDiv.classList.add("slideInLeft");
+                }
+                changeAndShowPreview();
+            } else {
+                createAndShowPreview();
                 previewDiv.classList.add("slideInLeft");
             }
-            changeAndShowPreview();
+
+            setTimeout(function () {
+                previewDiv.classList.remove("slideInLeft");
+            },200)
+
+            setTimeout(function () {
+                try {
+                    if (twitchIframe) {
+                        var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                        vpo.parentNode.removeChild(vpo);
+                    }
+                } catch (e) {
+
+                }
+            }, 1000)
         } else {
-            createAndShowPreview();
-            previewDiv.classList.add("slideInLeft");
+
         }
 
-        setTimeout(function () {
-            previewDiv.classList.remove("slideInLeft");
-        },200)
-
-        setTimeout(function () {
-            try {
-                if (twitchIframe) {
-                    var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
-                    vpo.parentNode.removeChild(vpo);
-                }
-            } catch (e) {
-
-            }
-        }, 1000)
     };
 
 
@@ -250,6 +256,7 @@ function refreshNavCardsListAndListeners() {
     } else {
         navCards = document.getElementsByClassName('side-nav-card__link');
     }
+    console.log("refreshNavCardsListAndListeners");
     //var navCards = document.getElementsByClassName('side-nav-card__link');
     for (var i = 0; i < navCards.length; i++) {
         navCards[i].lastImageLoadTimeStamp = new Date().getTime();
