@@ -256,7 +256,6 @@ function refreshNavCardsListAndListeners() {
     } else {
         navCards = document.getElementsByClassName('side-nav-card__link');
     }
-    console.log("refreshNavCardsListAndListeners");
     //var navCards = document.getElementsByClassName('side-nav-card__link');
     for (var i = 0; i < navCards.length; i++) {
         navCards[i].lastImageLoadTimeStamp = new Date().getTime();
