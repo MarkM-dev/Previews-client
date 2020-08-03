@@ -49,7 +49,6 @@ function startPip(e) {
         chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
 
         });
-        //slideOutPreviewDiv();
     } catch (e) {
 
     }
