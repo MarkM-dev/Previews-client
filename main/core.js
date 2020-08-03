@@ -8,6 +8,9 @@ var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
 var isHovering = false;
 var lastHoveredCardEl = null;
+var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
+var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
+var isPipActive = false;
 
 var ss = document.createElement("div");
 ss.id = "tp_navCard_pip_btn";
@@ -16,20 +19,44 @@ ss.style.height = "12px";
 ss.style.position = "absolute";
 ss.style.right = "1rem";
 ss.style.backgroundColor = "#ffffff";
-ss.onclick = togglePip;
+ss.onclick = startPip;
 
+function slideOutPreviewDiv() {
+    setTimeout(function () {
+        previewDiv.classList.add("slideOutLeft");
+        setTimeout(function () {
+            twitchIframe.style.display = 'none';
+            previewDiv.style.display = 'none';
+            previewDiv.classList.remove("slideOutLeft");
+            previewDiv = null;
+            twitchIframe = null;
+        },250)
+        document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+    },50)
+}
 
-function togglePip(e) {
+function startPip(e) {
     e.preventDefault();
     e.cancelBubble = true;
     console.log("pipStart");
     try {
-        if () {
-            document.exitPictureInPicture();
-        } else {
+        var video = twitchIframe.contentDocument.querySelector('video');
+        video.requestPictureInPicture();
+        isPipActive = true;
+        video.addEventListener('leavepictureinpicture', function() {
+            console.log("leavepictureinpicture");
+            isPipActive = false;
+            clearExistingPreviewDivs(TP_PIP_DIV_CLASSNAME);
+        });
+        previewDiv.classList.remove(TP_PREVIEW_DIV_CLASSNAME);
+        previewDiv.classList.add(TP_PIP_DIV_CLASSNAME);
 
-        }
-        twitchIframe.contentDocument.querySelector('video').requestPictureInPicture();
+        twitchIframe.style.display = 'none';
+        previewDiv.style.display = 'none';
+        previewDiv = null;
+        twitchIframe = null;
+        document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+        //slideOutPreviewDiv();
     } catch (e) {
 
     }
@@ -45,7 +72,7 @@ var mutationObserver = new MutationObserver(function(mutations) {
 
 function onPreviewModeChange(imagePreviewMode, saveToStorage) {
     isImagePreviewMode = imagePreviewMode;
-    clearExistingPreviewDivs();
+    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
 
     if (saveToStorage) {
         chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
@@ -54,14 +81,15 @@ function onPreviewModeChange(imagePreviewMode, saveToStorage) {
     }
 }
 
-function clearExistingPreviewDivs() {
-    var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
+function clearExistingPreviewDivs(className) {
+    var previewDivs = document.getElementsByClassName(className);
     if (previewDivs.length > 0) {
-        for (var i=0;i<previewDivs.length;i++) {
+        for (var i=0; i <= previewDivs.length; i++) {
             previewDivs[i].parentNode.removeChild(previewDivs[i]);
         }
     }
     previewDiv = null;
+    twitchIframe = null;
 }
 
 function getElementOffset(el) {
@@ -208,7 +236,6 @@ function setMouseOverListeners(navCardEl) {
 
     };
 
-
     navCardEl.onmouseleave = function () {
         isHovering = false;
 
@@ -219,16 +246,15 @@ function setMouseOverListeners(navCardEl) {
             } else {
                 shouldSlideOut = true;
             }
-
-            if (shouldSlideOut) {
-                previewDiv.classList.add("slideOutLeft");
-                setTimeout(function () {
-                    isHovering = false;
-                    hidePreview();
-                    previewDiv.classList.remove("slideOutLeft");
-                },250)
-            }
             try {
+                if (shouldSlideOut) {
+                    previewDiv.classList.add("slideOutLeft");
+                    setTimeout(function () {
+                        isHovering = false;
+                        hidePreview();
+                        previewDiv.classList.remove("slideOutLeft");
+                    },250)
+                }
                 document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
             } catch (e) {
 
@@ -341,7 +367,7 @@ function setPreviewSize(previewSizeObj) {
 
 function setPreviewSizeFromStorage() {
     if (previewDiv) {
-        clearExistingPreviewDivs();
+        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     }
 
     try {
@@ -358,7 +384,7 @@ function setPreviewSizeFromStorage() {
 }
 
 function onPreviewSizeChange(width) {
-    clearExistingPreviewDivs();
+    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     var previewSizeObj = getCalculatedPreviewSizeByWidth(width);
     setPreviewSize(previewSizeObj);
 
