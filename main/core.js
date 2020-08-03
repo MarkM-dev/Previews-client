@@ -11,17 +11,19 @@ var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
 var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
 var isPipActive = false;
-var NavCardPipBtn;
+var navCardPipBtn;
 
 function createPipBtn() {
-    NavCardPipBtn = document.createElement("div");
-    NavCardPipBtn.id = "tp_navCard_pip_btn";
-    NavCardPipBtn.style.width = "28px";
-    NavCardPipBtn.style.height = "12px";
-    NavCardPipBtn.style.position = "absolute";
-    NavCardPipBtn.style.right = "1rem";
-    NavCardPipBtn.style.backgroundColor = "#ffffff";
-    NavCardPipBtn.onclick = startPip;
+    navCardPipBtn = document.createElement("div");
+    navCardPipBtn.id = "tp_navCard_pip_btn";
+    navCardPipBtn.style.width = "21px";
+    navCardPipBtn.style.height = "12px";
+    navCardPipBtn.style.position = "absolute";
+    navCardPipBtn.style.right = "1rem";
+    navCardPipBtn.style.backgroundSize = "contain";
+    navCardPipBtn.style.backgroundRepeat = "no-repeat";
+    navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
+    navCardPipBtn.onclick = startPip;
 }
 
 function startPip(e) {
@@ -215,7 +217,7 @@ function setMouseOverListeners(navCardEl) {
 
                 }
                 if (isHovering) {
-                    lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(NavCardPipBtn);
+                    lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
                 }
             }, 1000)
         } else {
