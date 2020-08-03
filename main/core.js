@@ -43,6 +43,10 @@ function startPip(e) {
         previewDiv = null;
         twitchIframe = null;
         document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+
+        chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
+
+        });
         //slideOutPreviewDiv();
     } catch (e) {
 

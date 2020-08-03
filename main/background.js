@@ -35,6 +35,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html');
             break;
+        case "bg_pip_started":
+            ga('send', 'event', 'pip_started', 'pip_started');
+            break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);
             break;
