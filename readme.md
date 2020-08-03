@@ -11,6 +11,7 @@ How to use:
 - If you already have a twitch tab opened - refresh it.
 - Hover your mouse over a streamer card on the left navigation bar.
 - A preview window will appear next to the hovered card.
+- if you're in Video mode, a small button will appear under the view count, click it and a persistent preview window will appear (using chrome's PIP feature).
 
 - To change between an image preview or a live video preview click the extension at the top bar and use the toggle button.
 - To resize the preview window click the extension icon at the top bar and use the Preview size slider.

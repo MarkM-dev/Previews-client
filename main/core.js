@@ -8,6 +8,51 @@ var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
 var isHovering = false;
 var lastHoveredCardEl = null;
+var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
+var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
+var isPipActive = false;
+var navCardPipBtn;
+
+function createPipBtn() {
+    navCardPipBtn = document.createElement("div");
+    navCardPipBtn.id = "tp_navCard_pip_btn";
+    navCardPipBtn.style.width = "21px";
+    navCardPipBtn.style.height = "12px";
+    navCardPipBtn.style.position = "absolute";
+    navCardPipBtn.style.right = "1rem";
+    navCardPipBtn.style.backgroundSize = "contain";
+    navCardPipBtn.style.backgroundRepeat = "no-repeat";
+    navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
+    navCardPipBtn.onclick = startPip;
+}
+
+function startPip(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+    try {
+        var video = twitchIframe.contentDocument.querySelector('video');
+        video.requestPictureInPicture();
+        isPipActive = true;
+        video.addEventListener('leavepictureinpicture', function() {
+            isPipActive = false;
+            clearExistingPreviewDivs(TP_PIP_DIV_CLASSNAME);
+        });
+        previewDiv.classList.remove(TP_PREVIEW_DIV_CLASSNAME);
+        previewDiv.classList.add(TP_PIP_DIV_CLASSNAME);
+
+        twitchIframe.style.display = 'none';
+        previewDiv.style.display = 'none';
+        previewDiv = null;
+        twitchIframe = null;
+        document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+
+        chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
+
+        });
+    } catch (e) {
+
+    }
+}
 
 var mutationObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
@@ -19,7 +64,7 @@ var mutationObserver = new MutationObserver(function(mutations) {
 
 function onPreviewModeChange(imagePreviewMode, saveToStorage) {
     isImagePreviewMode = imagePreviewMode;
-    clearExistingPreviewDivs();
+    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
 
     if (saveToStorage) {
         chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
@@ -28,14 +73,15 @@ function onPreviewModeChange(imagePreviewMode, saveToStorage) {
     }
 }
 
-function clearExistingPreviewDivs() {
-    var previewDivs = document.getElementsByClassName("twitch_previews_previewDiv");
-    if (previewDivs.length > 0) {
-        for (var i=0;i<previewDivs.length;i++) {
+function clearExistingPreviewDivs(className) {
+    var previewDivs = document.getElementsByClassName(className);
+    for (var i = 0; i <= previewDivs.length; i++) {
+        if (previewDivs[i]) {
             previewDivs[i].parentNode.removeChild(previewDivs[i]);
         }
     }
     previewDiv = null;
+    twitchIframe = null;
 }
 
 function getElementOffset(el) {
@@ -169,6 +215,9 @@ function setMouseOverListeners(navCardEl) {
                 } catch (e) {
 
                 }
+                if (isHovering && !isImagePreviewMode) {
+                    lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
+                }
             }, 1000)
         } else {
 
@@ -176,9 +225,9 @@ function setMouseOverListeners(navCardEl) {
 
     };
 
-
     navCardEl.onmouseleave = function () {
         isHovering = false;
+
         setTimeout(function () {
             var shouldSlideOut;
             if (isHovering) {
@@ -186,15 +235,20 @@ function setMouseOverListeners(navCardEl) {
             } else {
                 shouldSlideOut = true;
             }
+            try {
+                if (shouldSlideOut) {
+                    previewDiv.classList.add("slideOutLeft");
+                    setTimeout(function () {
+                        isHovering = false;
+                        hidePreview();
+                        previewDiv.classList.remove("slideOutLeft");
+                    },250)
+                }
+                document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+            } catch (e) {
 
-            if (shouldSlideOut) {
-                previewDiv.classList.add("slideOutLeft");
-                setTimeout(function () {
-                    isHovering = false;
-                    hidePreview();
-                    previewDiv.classList.remove("slideOutLeft");
-                },250)
             }
+
         },50)
     }
 }
@@ -302,7 +356,7 @@ function setPreviewSize(previewSizeObj) {
 
 function setPreviewSizeFromStorage() {
     if (previewDiv) {
-        clearExistingPreviewDivs();
+        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     }
 
     try {
@@ -319,7 +373,7 @@ function setPreviewSizeFromStorage() {
 }
 
 function onPreviewSizeChange(width) {
-    clearExistingPreviewDivs();
+    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     var previewSizeObj = getCalculatedPreviewSizeByWidth(width);
     setPreviewSize(previewSizeObj);
 
@@ -370,6 +424,7 @@ window.addEventListener('load', (event) => {
         setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
+        createPipBtn();
     }, 2000);
 });
 
