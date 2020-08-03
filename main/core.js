@@ -214,7 +214,9 @@ function setMouseOverListeners(navCardEl) {
                 } catch (e) {
 
                 }
-                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(NavCardPipBtn);
+                if (isHovering) {
+                    lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(NavCardPipBtn);
+                }
             }, 1000)
         } else {
 
