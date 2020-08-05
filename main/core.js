@@ -215,7 +215,7 @@ function setMouseOverListeners(navCardEl) {
                 } catch (e) {
 
                 }
-                if (isHovering && !isImagePreviewMode) {
+                if (isHovering && !isImagePreviewMode && !isNavBarCollapsed) {
                     lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
                 }
             }, 1000)
