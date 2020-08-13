@@ -406,7 +406,7 @@ function ga_report_appStart() {
             });
         });
     } catch (e) {
-        chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + mode + " : " + size}, function(response) {
+        chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + e.message}, function(response) {
 
         });
     }
@@ -443,19 +443,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 window.addEventListener('visibilitychange', function() {
     !document.hidden && pageAwakened();
 });
-
-if (window.webkitRequestAnimationFrame && (/^iP/.test(navigator.platform) || /Android/.test(navigator.userAgent))) {
-    webkitRequestAnimationFrame(webkitWake);
-}
-
-var lastTs;
-function webkitWake(timestamp) {
-    if ((timestamp - lastTs) > 10000) {
-        pageAwakened();
-    }
-    lastTs = timestamp;
-    webkitRequestAnimationFrame(webkitWake);
-}
 
 function pageAwakened() {
     setViewMode();
