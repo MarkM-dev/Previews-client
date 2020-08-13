@@ -67,4 +67,12 @@ document.addEventListener('DOMContentLoaded', function () {
     slider.oninput = function() {
         output.innerHTML = this.value + "px";
     }
+
+    var donate_btn = document.getElementById('tp_popup_donate_btn');
+    donate_btn.addEventListener('click', (event) => {
+        chrome.runtime.sendMessage({action: "bg_donate_btn_click", detail: ""}, function(response) {
+
+        });
+    });
+
 });

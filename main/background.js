@@ -24,6 +24,18 @@ var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
     }
 });*/
 
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "install")
+    {
+        try {
+            ga('send', 'event', 'tp_install', 'tp_install', "tp_install");
+        } catch (e) {
+
+        }
+
+    }
+});
+
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_imagePreviewMode":
@@ -46,6 +58,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 ga('send', 'event', 'heartbeat', 'heartbeat');
                 lastHeartBeat = new Date().getTime();
             }
+            break;
+        case "bg_donate_btn_click":
+            ga('send', 'event', 'popup_donate_btn_click', 'popup_donate_btn_click');
             break;
         default:
 
