@@ -406,7 +406,7 @@ function ga_report_appStart() {
             });
         });
     } catch (e) {
-        chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + mode + " : " + size}, function(response) {
+        chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + e.message}, function(response) {
 
         });
     }
