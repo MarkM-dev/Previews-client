@@ -24,6 +24,18 @@ var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
     }
 });*/
 
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "install")
+    {
+        try {
+            ga('send', 'event', 'tp_install', 'tp_install', "tp_install");
+        } catch (e) {
+
+        }
+
+    }
+});
+
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_imagePreviewMode":
