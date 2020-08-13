@@ -47,6 +47,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 lastHeartBeat = new Date().getTime();
             }
             break;
+        case "bg_donate_btn_click":
+            ga('send', 'event', 'popup_donate_btn_click', 'popup_donate_btn_click');
+            break;
         default:
 
     }
