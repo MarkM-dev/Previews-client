@@ -444,19 +444,6 @@ window.addEventListener('visibilitychange', function() {
     !document.hidden && pageAwakened();
 });
 
-if (window.webkitRequestAnimationFrame && (/^iP/.test(navigator.platform) || /Android/.test(navigator.userAgent))) {
-    webkitRequestAnimationFrame(webkitWake);
-}
-
-var lastTs;
-function webkitWake(timestamp) {
-    if ((timestamp - lastTs) > 10000) {
-        pageAwakened();
-    }
-    lastTs = timestamp;
-    webkitRequestAnimationFrame(webkitWake);
-}
-
 function pageAwakened() {
     setViewMode();
     setPreviewSizeFromStorage();
