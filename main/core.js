@@ -106,17 +106,31 @@ function calculatePreviewDivPosition(navCardEl) {
     }
 }
 
+function isStreamerOnline(navCardEl) {
+    return !!(navCardEl.querySelector('.tw-channel-status-indicator--live') || navCardEl.querySelector('.tw-svg__asset--videorerun'));
+}
+
+function getPreviewOfflineImageUrl() {
+    return "url('" + chrome.runtime.getURL('../images/tp_offline.jpg') + "')";
+}
+
 function getPreviewImageUrl(navCardEl) {
-    if (navCardEl.querySelector('.tw-channel-status-indicator--live')) {
         return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + PREVIEWDIV_WIDTH + "x" + Math.round(PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
-    } else {
-        return "url('" + chrome.runtime.getURL('../images/tp_offline.jpg') + "')";
-    }
 }
 
 function getPreviewStreamUrl(navCardEl) {
    // return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
     return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&muted&parent=twitch.tv";
+}
+
+function createIframeElement() {
+    var iframe = document.createElement("Iframe");
+    iframe.width = PREVIEWDIV_WIDTH + "px";
+    iframe.height = PREVIEWDIV_HEIGHT + "px";
+    iframe.borderColor = "#232323";
+    iframe.style.borderRadius = "5px";
+
+    return iframe;
 }
 
 function createAndShowPreview() {
@@ -130,53 +144,70 @@ function createAndShowPreview() {
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.zIndex = "9";
+    previewDiv.style.backgroundSize = "cover";
     previewDiv.style.backgroundColor = "#232323";
     previewDiv.style.borderRadius = "5px";
     previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
     previewDiv.style.display = "block";
 
-    if (isImagePreviewMode) {
-        previewDiv.style.backgroundSize = "cover";
-        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-        lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-    } else {
-        twitchIframe = document.createElement("Iframe");
-        setTimeout(function () {
-            twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-        },250)
 
-        twitchIframe.width = PREVIEWDIV_WIDTH + "px";
-        twitchIframe.height = PREVIEWDIV_HEIGHT + "px";
-        twitchIframe.borderColor = "#232323";
-        twitchIframe.style.borderRadius = "5px";
-        previewDiv.appendChild(twitchIframe);
+    if(isStreamerOnline(lastHoveredCardEl)) {
+        if (isImagePreviewMode) {
+            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+        } else {
+            twitchIframe = createIframeElement();
+            setTimeout(function () {
+                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+            },250)
+            previewDiv.appendChild(twitchIframe);
+        }
+    } else {
+        previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
+        if (!isImagePreviewMode) {
+            twitchIframe = createIframeElement();
+            twitchIframe.style.display = "none";
+            previewDiv.appendChild(twitchIframe);
+        }
     }
 
     appendContainer.appendChild(previewDiv);
 }
 
 function changeAndShowPreview() {
-    if (isImagePreviewMode) {
-        if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-        } else {
-            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-        }
-    } else {
-        if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
-            if (previewDiv.style.display !== "block") {
-                setTimeout(function () {
-                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                    setTimeout(function () {
-                        twitchIframe.style.display = 'block';
-                    },300);
-                    }, 50);
+    if(isStreamerOnline(lastHoveredCardEl)) {
+        previewDiv.style.backgroundImage = "none";
+        if (isImagePreviewMode) {
+            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
             } else {
-                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            }
+        } else {
+            if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
+                if (previewDiv.style.display !== "block") {
+                    setTimeout(function () {
+                        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                        setTimeout(function () {
+                            twitchIframe.style.display = 'block';
+                        },300);
+                    }, 50);
+                } else {
+                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                    twitchIframe.style.display = 'block';
+                }
+            } else {
+                twitchIframe.style.display = 'block';
             }
         }
+    } else {
+        previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
+        if (!isImagePreviewMode){
+            twitchIframe.style.display = "none";
+        }
     }
+
     previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl);
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
