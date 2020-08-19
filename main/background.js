@@ -62,8 +62,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_donate_btn_click":
             ga('send', 'event', 'popup_donate_btn_click', 'popup_donate_btn_click');
             break;
+        case "bg_rate_btn_click":
+            ga('send', 'event', 'popup_rate_btn_click', 'popup_rate_btn_click');
+            break;
+        case "bg_share_btn_click":
+            ga('send', 'event', 'popup_share_btn_click', 'popup_share_btn_click');
+            break;
         default:
-
     }
     sendResponse({ result: "any response from background" });
     return true;

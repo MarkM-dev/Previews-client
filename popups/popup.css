@@ -176,3 +176,18 @@
     background: limegreen;
     cursor: pointer;
 }
+
+.TP_popup_bottom_bar {
+    display: flex;
+    margin-top: 5px;
+}
+
+.TP_popup_bottom_bar div {
+    flex: 1;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.TP_popup_bottom_bar div:hover {
+    background-color: #9246ff;
+}
