@@ -108,7 +108,7 @@ function calculatePreviewDivPosition(navCardEl) {
 }
 
 function isStreamerOnline(navCardEl) {
-    return !!(navCardEl.querySelector('.tw-channel-status-indicator--live') || navCardEl.querySelector('.tw-svg__asset--videorerun'));
+    return !!(navCardEl.querySelector('.tw-channel-status-indicator--live') || navCardEl.querySelector('.tw-svg__asset--videorerun') || !navCardEl.querySelector('.side-nav-card__avatar--offline'));
 }
 
 function getPreviewOfflineImageUrl() {
