@@ -12,6 +12,7 @@ var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
 var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
 var isPipActive = false;
 var navCardPipBtn;
+var clearOverlaysInterval = null;
 
 function createPipBtn() {
     navCardPipBtn = document.createElement("div");
@@ -224,6 +225,52 @@ function hidePreview() {
     previewDiv.style.display = "none";
 }
 
+function clearOverlays() {
+    try {
+        if (twitchIframe) {
+            var intervalCount = 0;
+             clearOverlaysInterval = setInterval(function (){
+                if (!isHovering) {
+                    clearInterval(clearOverlaysInterval);
+                    clearOverlaysInterval = null;
+                    return;
+                }
+                if (twitchIframe.contentDocument) {
+                    if (twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]')) {
+                        twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]').click();
+                        setTimeout(function (){
+                            var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                            vpo.parentNode.removeChild(vpo);
+                        },100);
+                        clearInterval(clearOverlaysInterval);
+                        clearOverlaysInterval = null;
+                    } else {
+                        if (twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0]) {
+                            var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                            vpo.parentNode.removeChild(vpo);
+                            clearInterval(clearOverlaysInterval);
+                            clearOverlaysInterval = null;
+                        } else {
+                            if (intervalCount > 5) {
+                                clearInterval(clearOverlaysInterval);
+                                clearOverlaysInterval = null;
+                            } else {
+                                intervalCount++;
+                            }
+                        }
+                        if (isHovering && !isImagePreviewMode && !isNavBarCollapsed) {
+                            lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
+                        }
+                    }
+                }
+
+            }, 100);
+        }
+    } catch (e) {
+
+    }
+}
+
 function setMouseOverListeners(navCardEl) {
     navCardEl.onmouseover = function () {
         if (!isHovering) {
@@ -246,16 +293,12 @@ function setMouseOverListeners(navCardEl) {
             },200)
 
             setTimeout(function () {
-                try {
-                    if (twitchIframe) {
-                        var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
-                        vpo.parentNode.removeChild(vpo);
+                if (isStreamerOnline(lastHoveredCardEl)) {
+                    if(clearOverlaysInterval) {
+                        clearInterval(clearOverlaysInterval);
+                        clearOverlaysInterval = null;
                     }
-                } catch (e) {
-
-                }
-                if (isHovering && !isImagePreviewMode && !isNavBarCollapsed) {
-                    lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
+                    clearOverlays();
                 }
             }, 1000)
         } else {
