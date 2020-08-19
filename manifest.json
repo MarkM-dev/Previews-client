@@ -27,6 +27,6 @@
     "default_popup": "popups/popup.html",
     "default_title": "Twitch Previews"
   },
-  "web_accessible_resources": ["images/tpt.png"],
+  "web_accessible_resources": ["images/tpt.png", "images/tp_offline.jpg"],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }

@@ -107,7 +107,11 @@ function calculatePreviewDivPosition(navCardEl) {
 }
 
 function getPreviewImageUrl(navCardEl) {
-    return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + PREVIEWDIV_WIDTH + "x" + Math.round(PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+    if (navCardEl.querySelector('.tw-channel-status-indicator--live')) {
+        return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + PREVIEWDIV_WIDTH + "x" + Math.round(PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+    } else {
+        return "url('" + chrome.runtime.getURL('../images/tp_offline.jpg') + "')";
+    }
 }
 
 function getPreviewStreamUrl(navCardEl) {
