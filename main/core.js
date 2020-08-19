@@ -94,11 +94,15 @@ function getElementOffset(el) {
 function calculatePreviewDivPosition(navCardEl) {
     var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
     //var elOffset = getElementOffset(navCardEl).top + (30);
-    if (window.innerHeight - elOffset < PREVIEWDIV_HEIGHT) {
-        return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20);
-        //return elOffset - PREVIEWDIV_HEIGHT - (20);
+    if (window.innerHeight - elOffset < PREVIEWDIV_HEIGHT) { // if cuts off bottom
+        if (elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) < 0) { // if cuts off top too
+            return "5rem";
+        } else {
+            return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) + "px";
+            //return elOffset - PREVIEWDIV_HEIGHT - (20);
+        }
     } else {
-        return elOffset;
+        return elOffset + "px";
     }
 }
 
@@ -118,7 +122,7 @@ function createAndShowPreview() {
     previewDiv.style.width = PREVIEWDIV_WIDTH + "px";
     previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
     previewDiv.style.position = "fixed";
-    previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl) + "px";
+    previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl);
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.zIndex = "9";
@@ -169,7 +173,7 @@ function changeAndShowPreview() {
             }
         }
     }
-    previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl) + "px";
+    previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl);
     previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.display = "block";
