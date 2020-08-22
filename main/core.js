@@ -56,25 +56,14 @@ function startPip(e) {
     }
 }
 
-/*var mutationObserver = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        if (mutation.type === "childList") {
-            refreshNavCardsListAndListeners();
-        }
-    });
-});*/
-
 var mutationObserver = new MutationObserver(function(mutations) {
-    console.log("mutationObserver");
     var shouldRefresh = false;
     mutations.forEach(function(mutation) {
         if (mutation.type === "childList") {
             shouldRefresh = true;
-            console.log("shouldRefresh = true;");
         }
     });
     if (shouldRefresh){
-        console.log("REFRESHING");
         refreshNavCardsListAndListeners();
         shouldRefresh = false;
     }
@@ -352,50 +341,6 @@ function setMouseOverListeners(navCardEl) {
     }
 }
 
-/*function setCollapseBtnListener() {
-    var sideNavCollapseToggleBtn = document.getElementsByClassName('collapse-toggle')[0];
-    if (!sideNavCollapseToggleBtn) {
-        return;
-    }
-    sideNavCollapseToggleBtn.onmouseover = function () {
-        mutationObserver.disconnect();
-    };
-    sideNavCollapseToggleBtn.onmouseleave = function () {
-        setSideNavMutationObserver();
-    };
-
-    sideNavCollapseToggleBtn.onclick = function () {
-        setTimeout(function(){
-            refreshNavCardsListAndListeners();
-            setShowMoreBtnsListeners();
-            setSideNavMutationObserver();
-        }, 500);
-    }
-}*/
-
-/*function setShowMoreBtnsListeners() {
-    var sideNavShowMoreBtns = document.getElementsByClassName('side-nav-show-more-toggle__button');
-    for (var i=0;i < sideNavShowMoreBtns.length;i++) {
-        if (sideNavShowMoreBtns[i]) {
-
-            sideNavShowMoreBtns[i].onmouseover = function () {
-                mutationObserver.disconnect();
-            };
-
-            sideNavShowMoreBtns[i].onmouseleave = function () {
-                setSideNavMutationObserver();
-            };
-
-            sideNavShowMoreBtns[i].onclick = function () {
-                setTimeout(function(){
-                    refreshNavCardsListAndListeners();
-                    setSideNavMutationObserver();
-                }, 500);
-            }
-        }
-    }
-}*/
-
 function setSideNavMutationObserver() {
     mutationObserver.observe(document.getElementsByClassName("side-bar-contents")[0], {
         childList: true,
@@ -521,8 +466,6 @@ window.addEventListener('load', (event) => {
         document.getElementById('sideNav').style.zIndex = '10';
         setViewMode();
         setPreviewSizeFromStorage();
-        //setCollapseBtnListener();
-        //setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
         createPipBtn();
