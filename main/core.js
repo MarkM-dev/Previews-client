@@ -24,6 +24,7 @@ function createPipBtn() {
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
+    navCardPipBtn.title = "Twitch Previews - Picture In Picture";
     navCardPipBtn.onclick = startPip;
 }
 
