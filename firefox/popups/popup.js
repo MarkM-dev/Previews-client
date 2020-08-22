@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var rate_btn = document.getElementById('tp_popup_rate_btn');
     rate_btn.addEventListener('click', (event) => {
-        chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
+        chrome.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
         chrome.runtime.sendMessage({action: "bg_rate_btn_click", detail: ""}, function(response) {
 
         });
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var share_btn = document.getElementById('tp_popup_share_btn');
     share_btn.addEventListener('click', (event) => {
-        chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
+        chrome.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
         chrome.runtime.sendMessage({action: "bg_share_btn_click", detail: ""}, function(response) {
 
         });
