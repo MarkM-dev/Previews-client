@@ -24,6 +24,7 @@ function createPipBtn() {
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
+    navCardPipBtn.title = "Twitch Previews - Picture In Picture";
     navCardPipBtn.onclick = startPip;
 }
 
@@ -56,11 +57,16 @@ function startPip(e) {
 }
 
 var mutationObserver = new MutationObserver(function(mutations) {
+    var shouldRefresh = false;
     mutations.forEach(function(mutation) {
         if (mutation.type === "childList") {
-            refreshNavCardsListAndListeners();
+            shouldRefresh = true;
         }
     });
+    if (shouldRefresh){
+        refreshNavCardsListAndListeners();
+        shouldRefresh = false;
+    }
 });
 
 function onPreviewModeChange(imagePreviewMode, saveToStorage) {
@@ -335,48 +341,6 @@ function setMouseOverListeners(navCardEl) {
     }
 }
 
-function setCollapseBtnListener() {
-    var sideNavCollapseToggleBtn = document.getElementsByClassName('collapse-toggle')[0];
-
-    sideNavCollapseToggleBtn.onmouseover = function () {
-        mutationObserver.disconnect();
-    };
-    sideNavCollapseToggleBtn.onmouseleave = function () {
-        setSideNavMutationObserver();
-    };
-
-    sideNavCollapseToggleBtn.onclick = function () {
-        setTimeout(function(){
-            refreshNavCardsListAndListeners();
-            setShowMoreBtnsListeners();
-            setSideNavMutationObserver();
-        }, 500);
-    }
-}
-
-function setShowMoreBtnsListeners() {
-    var sideNavShowMoreBtns = document.getElementsByClassName('side-nav-show-more-toggle__button');
-    for (var i=0;i < sideNavShowMoreBtns.length;i++) {
-        if (sideNavShowMoreBtns[i]) {
-
-            sideNavShowMoreBtns[i].onmouseover = function () {
-                mutationObserver.disconnect();
-            };
-
-            sideNavShowMoreBtns[i].onmouseleave = function () {
-                setSideNavMutationObserver();
-            };
-
-            sideNavShowMoreBtns[i].onclick = function () {
-                setTimeout(function(){
-                    refreshNavCardsListAndListeners();
-                    setSideNavMutationObserver();
-                }, 500);
-            }
-        }
-    }
-}
-
 function setSideNavMutationObserver() {
     mutationObserver.observe(document.getElementsByClassName("side-bar-contents")[0], {
         childList: true,
@@ -502,8 +466,6 @@ window.addEventListener('load', (event) => {
         document.getElementById('sideNav').style.zIndex = '10';
         setViewMode();
         setPreviewSizeFromStorage();
-        setCollapseBtnListener();
-        setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
         createPipBtn();
