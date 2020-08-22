@@ -55,12 +55,28 @@ function startPip(e) {
     }
 }
 
-var mutationObserver = new MutationObserver(function(mutations) {
+/*var mutationObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
         if (mutation.type === "childList") {
             refreshNavCardsListAndListeners();
         }
     });
+});*/
+
+var mutationObserver = new MutationObserver(function(mutations) {
+    console.log("mutationObserver");
+    var shouldRefresh = false;
+    mutations.forEach(function(mutation) {
+        if (mutation.type === "childList") {
+            shouldRefresh = true;
+            console.log("shouldRefresh = true;");
+        }
+    });
+    if (shouldRefresh){
+        console.log("REFRESHING");
+        refreshNavCardsListAndListeners();
+        shouldRefresh = false;
+    }
 });
 
 function onPreviewModeChange(imagePreviewMode, saveToStorage) {
@@ -335,9 +351,11 @@ function setMouseOverListeners(navCardEl) {
     }
 }
 
-function setCollapseBtnListener() {
+/*function setCollapseBtnListener() {
     var sideNavCollapseToggleBtn = document.getElementsByClassName('collapse-toggle')[0];
-
+    if (!sideNavCollapseToggleBtn) {
+        return;
+    }
     sideNavCollapseToggleBtn.onmouseover = function () {
         mutationObserver.disconnect();
     };
@@ -352,9 +370,9 @@ function setCollapseBtnListener() {
             setSideNavMutationObserver();
         }, 500);
     }
-}
+}*/
 
-function setShowMoreBtnsListeners() {
+/*function setShowMoreBtnsListeners() {
     var sideNavShowMoreBtns = document.getElementsByClassName('side-nav-show-more-toggle__button');
     for (var i=0;i < sideNavShowMoreBtns.length;i++) {
         if (sideNavShowMoreBtns[i]) {
@@ -375,7 +393,7 @@ function setShowMoreBtnsListeners() {
             }
         }
     }
-}
+}*/
 
 function setSideNavMutationObserver() {
     mutationObserver.observe(document.getElementsByClassName("side-bar-contents")[0], {
@@ -502,8 +520,8 @@ window.addEventListener('load', (event) => {
         document.getElementById('sideNav').style.zIndex = '10';
         setViewMode();
         setPreviewSizeFromStorage();
-        setCollapseBtnListener();
-        setShowMoreBtnsListeners();
+        //setCollapseBtnListener();
+        //setShowMoreBtnsListeners();
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
         createPipBtn();
