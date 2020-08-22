@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Twitch Previews",
+  "description": "Twitch Previews - a live video or image preview window on twitch.",
+  "version": "1.4.0",
+  "permissions": ["storage"],
+  "background": {
+    "scripts": ["main/background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "css": ["main/css.css"],
+      "js": ["main/core.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "icons": {
+    "16": "images/TP16.png",
+    "24": "images/TP24.png",
+    "48": "images/TP48.png"
+  },
+  "browser_action": {
+    "default_icon": "images/TP48.png",
+    "default_popup": "popups/popup.html",
+    "default_title": "Twitch Previews"
+  },
+  "web_accessible_resources": ["images/tpt.png", "images/tp_offline.jpg"],
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
+}
