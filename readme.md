@@ -24,5 +24,5 @@
 **Extension is available for Chrome and Firefox:<br/>**
 
 **[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/
-) | [Firefox Add-on (available soon)](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
+) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
 
