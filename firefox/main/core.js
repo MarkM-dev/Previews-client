@@ -9,52 +9,8 @@ var PREVIEWDIV_HEIGHT = 248;
 var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
-var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
-var isPipActive = false;
-var navCardPipBtn;
 var clearOverlaysInterval = null;
 
-function createPipBtn() {
-    navCardPipBtn = document.createElement("div");
-    navCardPipBtn.id = "tp_navCard_pip_btn";
-    navCardPipBtn.style.width = "21px";
-    navCardPipBtn.style.height = "12px";
-    navCardPipBtn.style.position = "absolute";
-    navCardPipBtn.style.right = "1rem";
-    navCardPipBtn.style.backgroundSize = "contain";
-    navCardPipBtn.style.backgroundRepeat = "no-repeat";
-    navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
-    navCardPipBtn.title = "Twitch Previews - Picture In Picture";
-    navCardPipBtn.onclick = startPip;
-}
-
-function startPip(e) {
-    e.preventDefault();
-    e.cancelBubble = true;
-    try {
-        var video = twitchIframe.contentDocument.querySelector('video');
-        video.requestPictureInPicture();
-        isPipActive = true;
-        video.addEventListener('leavepictureinpicture', function() {
-            isPipActive = false;
-            clearExistingPreviewDivs(TP_PIP_DIV_CLASSNAME);
-        });
-        previewDiv.classList.remove(TP_PREVIEW_DIV_CLASSNAME);
-        previewDiv.classList.add(TP_PIP_DIV_CLASSNAME);
-
-        twitchIframe.style.display = 'none';
-        previewDiv.style.display = 'none';
-        previewDiv = null;
-        twitchIframe = null;
-        document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
-
-        chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
-
-        });
-    } catch (e) {
-
-    }
-}
 
 var mutationObserver = new MutationObserver(function(mutations) {
     var shouldRefresh = false;
@@ -264,9 +220,6 @@ function clearOverlays() {
                                 intervalCount++;
                             }
                         }
-                        /*if (isHovering && !isImagePreviewMode && !isNavBarCollapsed) {
-                            lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
-                        }*/
                     }
                 }
 
@@ -332,7 +285,6 @@ function setMouseOverListeners(navCardEl) {
                         previewDiv.classList.remove("slideOutLeft");
                     },250)
                 }
-                document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
             } catch (e) {
 
             }
@@ -361,13 +313,6 @@ function refreshNavCardsListAndListeners() {
         navCards[i].lastImageLoadTimeStamp = new Date().getTime();
         setMouseOverListeners(navCards[i]);
     }
-}
-
-function ga_heartbeat() {
-    chrome.runtime.sendMessage({action: "heartbeat", detail: ""}, function(response) {
-
-    });
-    setTimeout(ga_heartbeat, 325000);
 }
 
 function setViewMode() {
@@ -429,46 +374,14 @@ function onPreviewSizeChange(width) {
 
 }
 
-function ga_report_appStart() {
-    var size = "440px";
-    var mode = "image";
-    try {
-        browser.storage.local.get('previewSize', function(result) {
-            if (typeof result.previewSize == 'undefined') {
-
-            } else {
-                size = result.previewSize.width + "px";
-            }
-
-            browser.storage.local.get('isImagePreviewMode', function(result) {
-                if (typeof result.isImagePreviewMode == 'undefined') {
-
-                } else {
-                    mode = result.isImagePreviewMode ? "Image":"Video";
-                }
-                chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size}, function(response) {
-
-                });
-            });
-        });
-    } catch (e) {
-        chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + e.message}, function(response) {
-
-        });
-    }
-}
-
 window.addEventListener('load', (event) => {
     setTimeout(function(){
-        ga_report_appStart();
-        ga_heartbeat();
         appendContainer = document.body;
         document.getElementById('sideNav').style.zIndex = '10';
         setViewMode();
         setPreviewSizeFromStorage();
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
-        createPipBtn();
     }, 2000);
 });
 

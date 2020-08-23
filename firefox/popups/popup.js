@@ -5,17 +5,11 @@ function changePreviewMode(isImagePreviewMode){
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {action: "update_imagePreviewMode", isImagePreviewMode: isImagePreviewMode})
     });
-    chrome.runtime.sendMessage({action: "bg_update_imagePreviewMode", detail: isImagePreviewMode}, function(response) {
-
-    });
 }
 
 function changePreviewSize(width) {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {action: "update_previewSize", width: width})
-    });
-    chrome.runtime.sendMessage({action: "bg_update_previewSize", detail: width + "px"}, function(response) {
-
     });
 }
 
@@ -25,10 +19,6 @@ function setSliderAndViewValues(value) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    chrome.runtime.sendMessage({action: "bg_popup_opened", detail: "popup.html"}, function(response) {
-
-    });
 
     var checkbox = document.getElementById('TP_popup_preview_mode_checkbox');
     browser.storage.local.get('isImagePreviewMode', function(result) {
@@ -70,25 +60,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var donate_btn = document.getElementById('tp_popup_donate_btn');
     donate_btn.addEventListener('click', (event) => {
-        chrome.runtime.sendMessage({action: "bg_donate_btn_click", detail: ""}, function(response) {
 
-        });
     });
 
     var rate_btn = document.getElementById('tp_popup_rate_btn');
     rate_btn.addEventListener('click', (event) => {
         chrome.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
-        chrome.runtime.sendMessage({action: "bg_rate_btn_click", detail: ""}, function(response) {
-
-        });
     });
 
     var share_btn = document.getElementById('tp_popup_share_btn');
     share_btn.addEventListener('click', (event) => {
         chrome.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
-        chrome.runtime.sendMessage({action: "bg_share_btn_click", detail: ""}, function(response) {
-
-        });
     });
 
 });
