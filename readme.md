@@ -14,9 +14,8 @@
 2. **Hover your mouse over a streamer card on the left navigation bar.**
     - A preview window will appear next to the hovered card.
 <br/>
-<br/>
-- if you're in Video mode (on Chrome), a small button will appear under the view count, click it and a persistent preview window will appear (using chrome's PIP feature).
 
+- if you're in Video mode (on Chrome), a small button will appear under the view count, click it and a persistent preview window will appear (using chrome's PIP feature).
 - To change between an image preview or a live video preview click the extension at the top bar and use the toggle button.
 - To resize the preview window click the extension icon at the top bar and use the Preview size slider.
 
