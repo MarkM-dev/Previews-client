@@ -8,7 +8,7 @@
 
 ## How to use:
 
-1. **Add the extension to chrome.**
+1. **Add the extension to chrome/firefox.**
     - If you already have a twitch tab opened - refresh it.
 
 2. **Hover your mouse over a streamer card on the left navigation bar.**
