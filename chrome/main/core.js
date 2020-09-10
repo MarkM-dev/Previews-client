@@ -178,6 +178,25 @@ function createAndShowPreview() {
         }
     }
 
+    var tp_under_preview_div = document.createElement("div");
+    tp_under_preview_div.classList.add('tp-under-preview-logo');
+    tp_under_preview_div.classList.add('animated');
+    tp_under_preview_div.classList.add('slideInLeft');
+    tp_under_preview_div.classList.add('tp_anim_delay_1000ms');
+    tp_under_preview_div.classList.add('tp_anim_duration_700ms');
+    tp_under_preview_div.innerText = "Twitch Previews";
+
+    setTimeout(function (){
+        if (document.getElementsByClassName('tp-under-preview-logo').length > 0) {
+            tp_under_preview_div.classList.remove('slideInLeft');
+            tp_under_preview_div.classList.remove('tp_anim_delay_1000ms');
+            tp_under_preview_div.classList.remove('tp_anim_duration_700ms');
+            tp_under_preview_div.classList.add('tp_anim_duration_1000ms');
+            tp_under_preview_div.classList.add('slideOutLeft');
+        }
+    }, 4000);
+
+    previewDiv.appendChild(tp_under_preview_div);
     appendContainer.appendChild(previewDiv);
 }
 
