@@ -85,13 +85,6 @@
     box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
 }
 
-.tp_anim_delay_1000ms {
-    animation-delay: 1000ms;
-    -webkit-animation-delay: 1000ms;
-    -moz-animation-delay: 1000ms;
-    -o-animation-delay: 1000ms;
-}
-
 .tp_anim_duration_700ms {
     animation-duration: 700ms;
 }
