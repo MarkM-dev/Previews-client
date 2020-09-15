@@ -11,28 +11,17 @@ ga('send', 'pageview', 'main');
 var HEART_BEAT_INTERVAL_MS = 325000;
 var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 
-chrome.runtime.onInstalled.addListener(function(details) {
-    if (details.reason == "update")
-    {
-        //chrome.tabs.create({url:"../popups/updatePopup.html"});
-        try {
-            //ga('send', 'event', 'updatePopup_show-v1.3.6', 'updatePopup_show-v1.3.6', "updatePopup_show-v1.3.6");
-            ga('send', 'event', 'updated-v1.5.0.1', 'updated-v1.5.0.1', "updated-v1.5.0.1");
-        } catch (e) {
-
-        }
-    }
-});
 
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install")
     {
-        try {
-            ga('send', 'event', 'tp_install', 'tp_install', "tp_install");
-        } catch (e) {
-
+        ga('send', 'event', 'tp_install', 'tp_install', "tp_install");
+    } else {
+        if (details.reason == "update") {
+            //chrome.tabs.create({url:"../popups/updatePopup.html"});
+            //ga('send', 'event', 'updatePopup_show-v1.3.6', 'updatePopup_show-v1.3.6', "updatePopup_show-v1.3.6");
+            ga('send', 'event', 'updated-v1.5.0.2', 'updated-v1.5.0.2', "updated-v1.5.0.2");
         }
-
     }
 });
 
