@@ -4,20 +4,25 @@
 ## **Twitch Previews - a live video or image preview window on Twitch.**
                                                                                      
 **Twitch Previews creates a live video or image preview window when hovering the mouse over a streamer card on the navigation sidebar (followed streams list on the side).**
+<br/>
+<br/>
 
 ## Download
 **Extension is available for Chrome and Firefox:<br/>**
 
 **[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/
 ) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
-
+<br/>
+<br/>
 
 ## Features:
-- Image Preview
-- Live video stream preview
-- Preview resize
-- Picture In Picture via the button under the viewcount in the list (when in video mode)
-- Support also for inverted twitch layout (chat on the left and streamers on the right)
+- Image Preview.
+- Live video stream preview.
+- Preview resize.
+- Picture In Picture via the button under the viewcount in the list (when in video mode).
+-  Also supports inverted twitch layout (when chat is on the left and streamers on the right).
+<br/>
+<br/>
 
 ## How to use:
 
