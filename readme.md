@@ -25,7 +25,6 @@
 <br/>
 
 ## How to use:
-
 1. **Add the extension to chrome/firefox.**
     - If you already have a twitch tab opened - refresh it.
 
