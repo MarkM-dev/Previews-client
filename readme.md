@@ -3,7 +3,7 @@
 <br/>
 ## **Twitch Previews - a live video or image preview window on Twitch.**
                                                                                      
-**Twitch Previews creates a live video or image preview window when a user hovers the mouse over a streamer card on the navigation sidebar (followed streams list).**
+**Twitch Previews creates a live video or image preview window when hovering the mouse over a streamer card on the navigation sidebar (followed streams list on the side).**
 
 ## Download
 **Extension is available for Chrome and Firefox:<br/>**
@@ -17,7 +17,7 @@
 1. **Add the extension to chrome/firefox.**
     - If you already have a twitch tab opened - refresh it.
 
-2. **Hover your mouse over a streamer card on the navigation bar (followed streams list).**
+2. **Hover your mouse over a streamer on the navigation sidebar.**
     - A preview window will appear next to the hovered card.
 <br/>
 
