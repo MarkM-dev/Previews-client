@@ -12,6 +12,13 @@
 ) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
 
 
+##Features:
+- Image Preview
+- Live video stream preview
+- Preview resize
+- Picture In Picture via the button under the viewcount (when in video mode)
+- Support for inverted twitch layout (chat on the left and streamers on the right)
+
 ## How to use:
 
 1. **Add the extension to chrome/firefox.**
