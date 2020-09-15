@@ -12,7 +12,7 @@
 ) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
 
 
-##Features:
+## Features:
 - Image Preview
 - Live video stream preview
 - Preview resize
