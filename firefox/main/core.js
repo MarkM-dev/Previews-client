@@ -10,7 +10,7 @@ var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
 var clearOverlaysInterval = null;
-
+var isLayoutHorizontallyInverted = null;
 
 var mutationObserver = new MutationObserver(function(mutations) {
     var shouldRefresh = false;
@@ -104,13 +104,21 @@ function createAndShowPreview() {
     previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
     previewDiv.style.position = "fixed";
     previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl);
-    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    if (getElementOffset(lastHoveredCardEl).left > 50) {
+        isLayoutHorizontallyInverted = true;
+        previewDiv.style.right = isNavBarCollapsed? "6rem":"25rem";
+        previewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+    } else {
+        isLayoutHorizontallyInverted = false;
+        previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+        previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+    }
+    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.zIndex = "9";
     previewDiv.style.backgroundSize = "cover";
     previewDiv.style.backgroundColor = "#232323";
     previewDiv.style.borderRadius = "5px";
-    previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
     previewDiv.style.display = "block";
 
 
@@ -137,7 +145,17 @@ function createAndShowPreview() {
     var tp_under_preview_div = document.createElement("div");
     tp_under_preview_div.classList.add('tp-under-preview-logo');
     tp_under_preview_div.classList.add('animated');
-    tp_under_preview_div.classList.add('slideInLeft');
+    if (isLayoutHorizontallyInverted){
+        tp_under_preview_div.classList.add('slideInRight');
+        tp_under_preview_div.style.right = '0';
+        tp_under_preview_div.style.borderTopLeftRadius = "22px";
+        tp_under_preview_div.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+    } else {
+        tp_under_preview_div.classList.add('slideInLeft');
+        tp_under_preview_div.style.left = '0';
+        tp_under_preview_div.style.borderTopRightRadius = "22px";
+        tp_under_preview_div.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+    }
     tp_under_preview_div.classList.add('tp_anim_duration_700ms');
     tp_under_preview_div.innerText = "Twitch Previews";
     tp_under_preview_div.style.display = "none";
@@ -146,10 +164,10 @@ function createAndShowPreview() {
         tp_under_preview_div.style.display = "block";
         setTimeout(function (){
             if (document.getElementsByClassName('tp-under-preview-logo').length > 0) {
-                tp_under_preview_div.classList.remove('slideInLeft');
+                tp_under_preview_div.classList.remove(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
                 tp_under_preview_div.classList.remove('tp_anim_duration_700ms');
                 tp_under_preview_div.classList.add('tp_anim_duration_1000ms');
-                tp_under_preview_div.classList.add('slideOutLeft');
+                tp_under_preview_div.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
                 tp_under_preview_div.style.display = "block";
                 setTimeout(function (){
                     if (document.getElementsByClassName('tp-under-preview-logo').length > 0) {
@@ -199,7 +217,12 @@ function changeAndShowPreview() {
     }
 
     previewDiv.style.marginTop = calculatePreviewDivPosition(lastHoveredCardEl);
-    previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    if (isLayoutHorizontallyInverted) {
+        previewDiv.style.right = isNavBarCollapsed? "6rem":"25rem";
+    } else {
+        previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
+    }
+    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
     //previewDiv.style.marginLeft = "25rem";
     previewDiv.style.display = "block";
 }
@@ -266,16 +289,16 @@ function setMouseOverListeners(navCardEl) {
             if (previewDiv) {
                 //previewDiv.classList.remove("slideOutRight");
                 if (previewDiv.style.display === "none") {
-                    previewDiv.classList.add("slideInLeft");
+                    previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
                 }
                 changeAndShowPreview();
             } else {
                 createAndShowPreview();
-                previewDiv.classList.add("slideInLeft");
+                previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
             }
 
             setTimeout(function () {
-                previewDiv.classList.remove("slideInLeft");
+                previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
             },200)
 
             setTimeout(function () {
@@ -305,11 +328,11 @@ function setMouseOverListeners(navCardEl) {
             }
             try {
                 if (shouldSlideOut) {
-                    previewDiv.classList.add("slideOutLeft");
+                    previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
                     setTimeout(function () {
                         isHovering = false;
                         hidePreview();
-                        previewDiv.classList.remove("slideOutLeft");
+                        previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
                     },250)
                 }
             } catch (e) {
