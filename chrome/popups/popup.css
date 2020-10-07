@@ -13,14 +13,25 @@
 #TP_popup_sub_container {
     padding: 10px;
 }
-#TP_popup_toggle_container {
-    display: flex;justify-content: space-evenly;
+.TP_popup_toggle_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.TP_popup_dirp_title {
+    margin-top: 30px;
+    border-top: 1px solid whitesmoke;
+    font-weight: bold;
+    padding-top: 25px;
+    padding-bottom: 5px;
+    font-size: 14px;
 }
 
 .TP_toggle_text {
     margin: auto;
     text-align: center;
     font-weight: bold;
+    flex: 2;
 }
 
 #TP_popup_donation_container {
@@ -42,6 +53,7 @@
     width: 133px;
     height: 30px;
     padding: 3px;
+    flex: 3;
     /*
     background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
     background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);

@@ -18,9 +18,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
         ga('send', 'event', 'tp_install', 'tp_install', "tp_install");
     } else {
         if (details.reason == "update") {
-            //chrome.tabs.create({url:"../popups/updatePopup.html"});
+            chrome.tabs.create({url:"../popups/updatePopup.html"});
             //ga('send', 'event', 'updatePopup_show-v1.3.6', 'updatePopup_show-v1.3.6', "updatePopup_show-v1.3.6");
-            ga('send', 'event', 'updated-v1.5.0.2', 'updated-v1.5.0.2', "updated-v1.5.0.2");
+            ga('send', 'event', 'updated-v1.5.1', 'updated-v1.5.1', "updated-v1.5.1");
         }
     }
 });
@@ -29,6 +29,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_imagePreviewMode":
             ga('send', 'event', 'preview_mode', 'change', msg.detail ? "image":"video");
+            break;
+            case "bg_update_directoryPreviewMode":
+            ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
             break;
         case "bg_update_previewSize":
             ga('send', 'event', 'preview_size', 'change', msg.detail);
