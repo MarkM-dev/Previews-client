@@ -10,6 +10,15 @@ function changePreviewMode(isImagePreviewMode){
     });
 }
 
+function changeDirectoryPreviewMode(isDirectoryPreviewEnabled){
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: "update_directoryPreviewMode", isDirectoryPreviewEnabled: isDirectoryPreviewEnabled})
+    });
+    chrome.runtime.sendMessage({action: "bg_update_directoryPreviewMode", detail: isDirectoryPreviewEnabled}, function(response) {
+
+    });
+}
+
 function changePreviewSize(width) {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {action: "update_previewSize", width: width})
@@ -30,16 +39,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-    var checkbox = document.getElementById('TP_popup_preview_mode_checkbox');
+    var previewModeCheckbox = document.getElementById('TP_popup_preview_mode_checkbox');
     chrome.storage.sync.get('isImagePreviewMode', function(result) {
-        checkbox.checked = typeof result.isImagePreviewMode == 'undefined' ? false : !result.isImagePreviewMode;
+        previewModeCheckbox.checked = typeof result.isImagePreviewMode == 'undefined' ? false : !result.isImagePreviewMode;
     });
 
-    checkbox.addEventListener('change', (event) => {
+    previewModeCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
             changePreviewMode(false);
         } else {
             changePreviewMode(true);
+        }
+    });
+
+    var directoryPreviewCheckbox = document.getElementById('TP_popup_directory_preview_mode_checkbox');
+    chrome.storage.sync.get('isDirectoryPreviewEnabled', function(result) {
+        directoryPreviewCheckbox.checked = typeof result.isDirectoryPreviewEnabled == 'undefined' ? true : result.isDirectoryPreviewEnabled;
+    });
+
+    directoryPreviewCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            changeDirectoryPreviewMode(true);
+        } else {
+            changeDirectoryPreviewMode(false);
         }
     });
 
