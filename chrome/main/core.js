@@ -576,6 +576,7 @@ function setDirectoryMouseOverListeners(navCardEl) {
             }
 
             navCardEl.addEventListener('click', (event) => {
+                isHovering = false;
                 hideDirectoryPreview();
             });
 
