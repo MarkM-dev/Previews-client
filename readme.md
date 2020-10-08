@@ -17,7 +17,7 @@
 
 ## Features:
 - Image or Live video stream preview.
-- Previews in twitch directories.
+- Previews in sidebar & directories.
 - Preview resize.
 - Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
