@@ -18,9 +18,11 @@ chrome.runtime.onInstalled.addListener(function(details) {
         ga('send', 'event', 'tp_install', 'tp_install', "tp_install");
     } else {
         if (details.reason == "update") {
-            chrome.tabs.create({url:"../popups/updatePopup.html"});
+            if (details.previousVersion === "1.5.0.2") {
+                chrome.tabs.create({url:"../popups/updatePopup.html"});
+            }
             //ga('send', 'event', 'updatePopup_show-v1.3.6', 'updatePopup_show-v1.3.6', "updatePopup_show-v1.3.6");
-            ga('send', 'event', 'updated-v1.5.1', 'updated-v1.5.1', "updated-v1.5.1");
+            ga('send', 'event', 'updated-v1.5.1.1', 'updated-v1.5.1.1', "updated-v1.5.1.1");
         }
     }
 });

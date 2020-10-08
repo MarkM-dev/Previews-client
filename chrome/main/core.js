@@ -545,6 +545,16 @@ function setMouseOverListeners(navCardEl) {
     }
 }
 
+function hideDirectoryPreview() {
+    previewDiv.classList.add(isDirectoryPreviewCardTop ? 'backOutDown':'backOutUp');
+    setTimeout(function () {
+        isHovering = false;
+        hidePreview();
+        previewDiv.classList.remove('backOutUp');
+        previewDiv.classList.remove('backOutDown');
+    },250)
+}
+
 function setDirectoryMouseOverListeners(navCardEl) {
     navCardEl.onmouseover = function () {
         if (!isDirectoryPreviewEnabled) {
@@ -564,6 +574,11 @@ function setDirectoryMouseOverListeners(navCardEl) {
                 createAndShowDirectoryPreview();
                 previewDiv.classList.add(isDirectoryPreviewCardTop ? 'slideInUp':'slideInDown');
             }
+
+            navCardEl.addEventListener('click', (event) => {
+                isHovering = false;
+                hideDirectoryPreview();
+            });
 
             setTimeout(function () {
                 previewDiv.classList.remove('slideInDown');
@@ -595,13 +610,7 @@ function setDirectoryMouseOverListeners(navCardEl) {
             }
             try {
                 if (shouldSlideOut) {
-                    previewDiv.classList.add(isDirectoryPreviewCardTop ? 'backOutDown':'backOutUp');
-                    setTimeout(function () {
-                        isHovering = false;
-                        hidePreview();
-                        previewDiv.classList.remove('backOutUp');
-                        previewDiv.classList.remove('backOutDown');
-                    },250)
+                    hideDirectoryPreview();
                 }
             } catch (e) {
 
@@ -786,7 +795,7 @@ function ga_report_appStart() {
                     if (typeof result.isDirectoryPreviewEnabled == 'undefined') {
 
                     } else {
-                        mode = result.isDirectoryPreviewEnabled ? "dirp_ON":"dirp_OFF";
+                        dirp = result.isDirectoryPreviewEnabled ? "dirp_ON":"dirp_OFF";
                     }
                     chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp}, function(response) {
 
