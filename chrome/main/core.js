@@ -3,7 +3,7 @@ var previewDiv = null;
 var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = true;
-var isDirectoryPreviewEnabled = true;
+var isDirpEnabled = true;
 var twitchIframe;
 var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
@@ -15,7 +15,6 @@ var isPipActive = false;
 var navCardPipBtn;
 var clearOverlaysInterval = null;
 var isLayoutHorizontallyInverted = null;
-var isDirectoryPreviewCardTop = null;
 
 
 var sideNavMutationObserver = new MutationObserver(function(mutations) {
@@ -39,7 +38,6 @@ var sideNavMutationObserver = new MutationObserver(function(mutations) {
         }
     });
     if (shouldRefresh){
-        console.log("directoryMutationObserver called refreshing");
         refreshDirectoryNavCardsListAndListeners();
         shouldRefresh = false;
     }
@@ -95,7 +93,7 @@ function startPip(e) {
         isPipActive = true;
         video.addEventListener('leavepictureinpicture', function() {
             isPipActive = false;
-            clearExistingPreviewDivs(TP_PIP_DIV_CLASSNAME);
+            clearExistingPreviewDivs(TP_PIP_DIV_CLASSNAME, true);
         });
         previewDiv.classList.remove(TP_PREVIEW_DIV_CLASSNAME);
         previewDiv.classList.add(TP_PIP_DIV_CLASSNAME);
@@ -222,7 +220,7 @@ function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
                     }
                 }, 1000);
             }
-        }, 3500);
+        }, isCardFromDirectory ? 2500 : 3500);
     }, 1000)
 
     previewDiv.appendChild(tp_under_preview_div);
@@ -243,41 +241,41 @@ function setPreviewDivPosition() {
     //previewDiv.style.marginLeft = "25rem";
 }
 
-function setDirectoryPreviewTopPosition () {
-   // if (lastHoveredCardEl.getBoundingClientRect().top + lastHoveredCardEl.getBoundingClientRect().height < document.querySelector(".root-scrollable").getBoundingClientRect().height * 0.35) {
-    if (lastHoveredCardEl.getBoundingClientRect().top < document.querySelector(".root-scrollable").getBoundingClientRect().height * 0.35) {
-        // element is at the top
-        isDirectoryPreviewCardTop = true;
-        previewDiv.style.top =  "60%";
-    } else {
-        // bottom
-        isDirectoryPreviewCardTop = false;
-        previewDiv.style.top = "6rem";
-    }
-}
-
-function setDirectoryPreviewLeftPosition(calculatedSize) {
-    previewDiv.style.marginLeft = (document.querySelector(".root-scrollable").getBoundingClientRect().width / 2) - (calculatedSize.width / 2) + document.getElementById("sideNav").getBoundingClientRect().width + "px";
-}
-
 function createAndShowDirectoryPreview() {
     previewDiv = createPreviewDiv(TP_PREVIEW_DIV_CLASSNAME);
-    previewDiv.classList.add("tp-anim-duration-1s");
-    var calculatedSize = getCalculatedPreviewSizeByWidth(document.querySelector(".root-scrollable").getBoundingClientRect().width * 0.35);
+    previewDiv.style.position = "absolute";
+    previewDiv.style.left = "0px";
+    previewDiv.style.top = "0px";
+    var calculatedSize = lastHoveredCardEl.getBoundingClientRect();//getCalculatedPreviewSizeByWidth(document.querySelector(".root-scrollable").getBoundingClientRect().width * 0.35);
     previewDiv.style.width = calculatedSize.width + "px";
     previewDiv.style.height = calculatedSize.height + "px";
-    setDirectoryPreviewTopPosition();
-    setDirectoryPreviewLeftPosition(calculatedSize);
-    previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
     previewDiv.style.display = "block";
 
     if(isStreamerOnline(lastHoveredCardEl)) {
+        if (!lastHoveredCardEl.querySelector('.tp-roller')) {
+            var loader_container = document.createElement("div");
+            loader_container.innerHTML = "<div class=\"tp-roller\"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>".trim();
+            var loader = loader_container.firstChild;
+            loader.style.position = 'absolute';
+            loader.style.width = 'auto';
+            loader.style.height = 'auto';
+            loader.style.top = '1%';
+            loader.style.marginLeft = '84%';
+
+            lastHoveredCardEl.querySelector('img').parentNode.appendChild(loader);
+        }
+
+       /* var cur_card = lastHoveredCardEl;
+        setTimeout(function () {
+            if (cur_card.querySelector('.tp-roller')) {
+                cur_card.querySelector('img').parentNode.removeChild(cur_card.querySelector('.tp-roller'));
+            }
+        }, 2000);*/
         twitchIframe = createIframeElement();
         twitchIframe.width = calculatedSize.width + "px";
         twitchIframe.height = calculatedSize.height + "px";
-        setTimeout(function () {
-            twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-        },250)
+        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+        previewDiv.style.visibility = "hidden";
         previewDiv.appendChild(twitchIframe);
     } else {
         previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
@@ -287,54 +285,14 @@ function createAndShowDirectoryPreview() {
         twitchIframe.style.display = "none";
         previewDiv.appendChild(twitchIframe);
     }
-    createAndShowUnderPreviewDivBanner(true, calculatedSize.width / 2 - 67);
-    appendContainer.appendChild(previewDiv);
-}
+   // createAndShowUnderPreviewDivBanner(true, calculatedSize.width / 2 - 67);
 
-function changeAndShowDirectoryPreview() {
-    if(isStreamerOnline(lastHoveredCardEl)) {
-        previewDiv.style.backgroundImage = "none";
-        if (!twitchIframe) {
-            twitchIframe = createIframeElement();
-            previewDiv.appendChild(twitchIframe);
-        }
-        if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
-            if (previewDiv.style.display !== "block") {
-                setTimeout(function () {
-                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                    setTimeout(function () {
-                        twitchIframe.style.display = 'block';
-                    },300);
-                }, 50);
-            } else {
-                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                twitchIframe.style.display = 'block';
-            }
-        } else {
-            twitchIframe.style.display = 'block';
-        }
-    } else {
-        previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
-        if (!isImagePreviewMode){
-            twitchIframe.style.display = "none";
-        }
+    twitchIframe.onmouseleave = function () {
+        isHovering = false;
+        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     }
 
-    var calculatedSize = getCalculatedPreviewSizeByWidth(document.querySelector(".root-scrollable").getBoundingClientRect().width * 0.35);
-    previewDiv.style.width = calculatedSize.width + "px";
-    previewDiv.style.height = calculatedSize.height + "px";
-    twitchIframe.width = calculatedSize.width + "px";
-    twitchIframe.height = calculatedSize.height + "px";
-    setDirectoryPreviewTopPosition();
-    setDirectoryPreviewLeftPosition(calculatedSize);
-    if (!previewDiv.classList.contains("tp-anim-duration-1s")) {
-        previewDiv.classList.add("tp-anim-duration-1s");
-    }
-    if (previewDiv.style.display === "none") {
-        previewDiv.classList.add(isDirectoryPreviewCardTop ? 'slideInUp':'slideInDown');
-    }
-
-    previewDiv.style.display = "block";
+    lastHoveredCardEl.parentNode.appendChild(previewDiv);
 }
 
 function createAndShowPreview() {
@@ -430,7 +388,49 @@ function hidePreview() {
     previewDiv.style.display = "none";
 }
 
-function clearOverlays() {
+function clearLoadingRoller(navCardEl) {
+    var tproller = navCardEl.querySelector('.tp-roller');
+    if (tproller) {
+        tproller.parentNode.removeChild(tproller);
+    }
+}
+
+function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
+
+    try {
+        var intervalCount = 0;
+        var interval = setInterval(function (){
+            if (twitchIframe && twitchIframe.contentDocument && twitchIframe.contentDocument.querySelector('video')) {
+                if (!twitchIframe.contentDocument.querySelector('video').paused) {
+                    previewDiv.style.visibility = "visible";
+                    clearInterval(interval);
+                    clearLoadingRoller(navCardEl);
+                    if (isFromDirectory) {
+                        createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
+                    }
+                } else {
+                    if (intervalCount > 100) {
+                        clearInterval(interval);
+                    } else {
+                        intervalCount++;
+                    }
+                }
+            } else {
+                if (intervalCount > 100) {
+                    clearInterval(interval);
+                } else {
+                    intervalCount++;
+                }
+            }
+
+        }, 100);
+
+    } catch (e) {
+
+    }
+}
+
+function clearOverlays(navCardEl, isFromDirectory) {
     try {
         if (twitchIframe) {
             var intervalCount = 0;
@@ -440,12 +440,13 @@ function clearOverlays() {
                     clearOverlaysInterval = null;
                     return;
                 }
-                if (twitchIframe.contentDocument) {
+                if (twitchIframe && twitchIframe.contentDocument) {
                     if (twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]')) {
                         twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]').click();
                         setTimeout(function (){
                             var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
                             vpo.parentNode.removeChild(vpo);
+                            waitForVidPlayAndShow(navCardEl, isFromDirectory);
                         },100);
                         clearInterval(clearOverlaysInterval);
                         clearOverlaysInterval = null;
@@ -453,10 +454,12 @@ function clearOverlays() {
                         if (twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0]) {
                             var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
                             vpo.parentNode.removeChild(vpo);
+                            waitForVidPlayAndShow(navCardEl, isFromDirectory);
                             clearInterval(clearOverlaysInterval);
                             clearOverlaysInterval = null;
                         } else {
                             if (intervalCount > 5) {
+                                waitForVidPlayAndShow(navCardEl, isFromDirectory);
                                 clearInterval(clearOverlaysInterval);
                                 clearOverlaysInterval = null;
                             } else {
@@ -499,7 +502,9 @@ function setMouseOverListeners(navCardEl) {
             }
 
             setTimeout(function () {
-                previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
+                if (previewDiv) {
+                    previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
+                }
             },200)
 
             setTimeout(function () {
@@ -508,7 +513,7 @@ function setMouseOverListeners(navCardEl) {
                         clearInterval(clearOverlaysInterval);
                         clearOverlaysInterval = null;
                     }
-                    clearOverlays();
+                    clearOverlays(navCardEl);
                 }
             }, 1000)
         } else {
@@ -532,8 +537,10 @@ function setMouseOverListeners(navCardEl) {
                     previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
                     setTimeout(function () {
                         isHovering = false;
-                        hidePreview();
-                        previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
+                        if (previewDiv) {
+                            hidePreview();
+                            previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
+                        }
                     },250)
                 }
                 document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
@@ -545,78 +552,53 @@ function setMouseOverListeners(navCardEl) {
     }
 }
 
-function hideDirectoryPreview() {
-    previewDiv.classList.add(isDirectoryPreviewCardTop ? 'backOutDown':'backOutUp');
-    setTimeout(function () {
-        isHovering = false;
-        hidePreview();
-        previewDiv.classList.remove('backOutUp');
-        previewDiv.classList.remove('backOutDown');
-    },250)
-}
-
 function setDirectoryMouseOverListeners(navCardEl) {
+    navCardEl.onclick = function () {
+        isHovering = false;
+        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+    };
+
     navCardEl.onmouseover = function () {
-        if (!isDirectoryPreviewEnabled) {
+        if (!isDirpEnabled) {
             return;
         }
-        if (!isHovering) {
-            isHovering = true;
-            lastHoveredCardEl = navCardEl;
+        if (previewDiv) {
+            clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+        }
+        isHovering = true;
+        lastHoveredCardEl = navCardEl;
 
-            if(lastHoveredCardEl.href.indexOf("/videos/") > 0 || lastHoveredCardEl.href.indexOf("/clip/") > 0) {
-                return;
-            }
-            
-            if (previewDiv) {
-                changeAndShowDirectoryPreview();
-            } else {
-                createAndShowDirectoryPreview();
-                previewDiv.classList.add(isDirectoryPreviewCardTop ? 'slideInUp':'slideInDown');
-            }
+        if(lastHoveredCardEl.href.indexOf("/videos/") > 0 || lastHoveredCardEl.href.indexOf("/clip/") > 0) {
+            return;
+        }
 
-            navCardEl.addEventListener('click', (event) => {
-                isHovering = false;
-                hideDirectoryPreview();
-            });
+        createAndShowDirectoryPreview();
 
-            setTimeout(function () {
-                previewDiv.classList.remove('slideInDown');
-                previewDiv.classList.remove('slideInUp');
-            },200)
-
-            setTimeout(function () {
+        setTimeout(function () {
+            if (twitchIframe && twitchIframe.contentDocument && twitchIframe.contentDocument.querySelector('video')) {
+                twitchIframe.contentDocument.querySelector('video').style.cursor = "pointer";
+                twitchIframe.contentDocument.querySelector('video').onclick = function () {
+                    isHovering = false;
+                    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+                    window.location = "https://www.twitch.tv/" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1);
+                }
                 if (isStreamerOnline(lastHoveredCardEl)) {
                     if(clearOverlaysInterval) {
                         clearInterval(clearOverlaysInterval);
                         clearOverlaysInterval = null;
                     }
-                    clearOverlays();
+                    clearOverlays(navCardEl, true);
                 }
-            }, 1000)
-        } else {
+            }
+        }, 1000)
 
-        }
     };
-
     navCardEl.onmouseleave = function () {
-        isHovering = false;
-        setTimeout(function () {
-            var shouldSlideOut;
-            if (isHovering) {
-                shouldSlideOut = false;
-            } else {
-                shouldSlideOut = true;
-            }
-            try {
-                if (shouldSlideOut) {
-                    hideDirectoryPreview();
-                }
-            } catch (e) {
-
-            }
-
-        },400)
+        if (previewDiv && previewDiv.style.visibility === "hidden") {
+            clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+            clearLoadingRoller(navCardEl);
+            isHovering = false;
+        }
     }
 }
 
@@ -628,23 +610,26 @@ function refreshDirectoryNavCardsListAndListeners() {
 }
 
 function refreshNavCardsListAndListeners() {
-    isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
-    var navCards;
-    if (isNavBarCollapsed) {
-        if (document.getElementsByClassName('side-nav-card')[0].href){
-            navCards = document.getElementsByClassName('side-nav-card');
+    if (document.getElementById('sideNav')) {
+        isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
+        var navCards;
+        if (isNavBarCollapsed) {
+            if (document.getElementsByClassName('side-nav-card')[0].href){
+                navCards = document.getElementsByClassName('side-nav-card');
+            } else {
+                isNavBarCollapsed = false;
+                navCards = document.getElementsByClassName('side-nav-card__link');
+            }
         } else {
-            isNavBarCollapsed = false;
             navCards = document.getElementsByClassName('side-nav-card__link');
         }
-    } else {
-        navCards = document.getElementsByClassName('side-nav-card__link');
+        //var navCards = document.getElementsByClassName('side-nav-card__link');
+        for (var i = 0; i < navCards.length; i++) {
+            navCards[i].lastImageLoadTimeStamp = new Date().getTime();
+            setMouseOverListeners(navCards[i]);
+        }
     }
-    //var navCards = document.getElementsByClassName('side-nav-card__link');
-    for (var i = 0; i < navCards.length; i++) {
-        navCards[i].lastImageLoadTimeStamp = new Date().getTime();
-        setMouseOverListeners(navCards[i]);
-    }
+
 }
 
 function ga_heartbeat() {
@@ -676,11 +661,11 @@ function setViewMode() {
 
 function setDirectoryPreviewMode() {
     try {
-        chrome.storage.sync.get('isDirectoryPreviewEnabled', function(result) {
-            if (typeof result.isDirectoryPreviewEnabled == 'undefined') {
+        chrome.storage.sync.get('isDirpEnabled', function(result) {
+            if (typeof result.isDirpEnabled == 'undefined') {
                 onDirectoryPreviewModeChange(true, false);
             } else {
-                onDirectoryPreviewModeChange(result.isDirectoryPreviewEnabled, false);
+                onDirectoryPreviewModeChange(result.isDirpEnabled, false);
             }
         });
     } catch (e) {
@@ -727,7 +712,7 @@ function onPreviewModeChange(imagePreviewMode, saveToStorage) {
 }
 
 function setDirectoryCardsListeners() {
-    if (isDirectoryPreviewEnabled) {
+    if (isDirpEnabled) {
         //if (document.querySelector('div[data-target="directory-container"]')) {
         if (document.querySelector('.common-centered-column')) {
             //setDirectoryMutationObserver();
@@ -737,11 +722,11 @@ function setDirectoryCardsListeners() {
 }
 
 function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
-    isDirectoryPreviewEnabled = directoryPreviewEnabled;
+    isDirpEnabled = directoryPreviewEnabled;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
 
     if (saveToStorage) {
-        chrome.storage.sync.set({'isDirectoryPreviewEnabled': directoryPreviewEnabled}, function() {
+        chrome.storage.sync.set({'isDirpEnabled': directoryPreviewEnabled}, function() {
 
         });
     }
@@ -760,15 +745,17 @@ function onPreviewSizeChange(width) {
 
 }
 
-function clearExistingPreviewDivs(className) {
+function clearExistingPreviewDivs(className, isFromPip) {
     var previewDivs = document.getElementsByClassName(className);
-    for (var i = 0; i <= previewDivs.length; i++) {
+    for (var i = 0; i < previewDivs.length; i++) {
         if (previewDivs[i]) {
             previewDivs[i].parentNode.removeChild(previewDivs[i]);
         }
     }
-    previewDiv = null;
-    twitchIframe = null;
+    if (!isFromPip) {
+        previewDiv = null;
+        twitchIframe = null;
+    }
 }
 
 function ga_report_appStart() {
@@ -791,11 +778,11 @@ function ga_report_appStart() {
                     mode = result.isImagePreviewMode ? "Image":"Video";
                 }
 
-                chrome.storage.sync.get('isDirectoryPreviewEnabled', function(result) {
-                    if (typeof result.isDirectoryPreviewEnabled == 'undefined') {
+                chrome.storage.sync.get('isDirpEnabled', function(result) {
+                    if (typeof result.isDirpEnabled == 'undefined') {
 
                     } else {
-                        dirp = result.isDirectoryPreviewEnabled ? "dirp_ON":"dirp_OFF";
+                        dirp = result.isDirpEnabled ? "dirp_ON":"dirp_OFF";
                     }
                     chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp}, function(response) {
 
@@ -835,7 +822,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             onPreviewModeChange(msg.isImagePreviewMode, true);
             break;
         case "update_directoryPreviewMode":
-            onDirectoryPreviewModeChange(msg.isDirectoryPreviewEnabled, true);
+            onDirectoryPreviewModeChange(msg.isDirpEnabled, true);
             break;
         case "update_previewSize":
             onPreviewSizeChange(msg.width);

@@ -10,11 +10,11 @@ function changePreviewMode(isImagePreviewMode){
     });
 }
 
-function changeDirectoryPreviewMode(isDirectoryPreviewEnabled){
+function changeDirectoryPreviewMode(isDirpEnabled){
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "update_directoryPreviewMode", isDirectoryPreviewEnabled: isDirectoryPreviewEnabled})
+        chrome.tabs.sendMessage(tabs[0].id, {action: "update_directoryPreviewMode", isDirpEnabled: isDirpEnabled})
     });
-    chrome.runtime.sendMessage({action: "bg_update_directoryPreviewMode", detail: isDirectoryPreviewEnabled}, function(response) {
+    chrome.runtime.sendMessage({action: "bg_update_directoryPreviewMode", detail: isDirpEnabled}, function(response) {
 
     });
 }
@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     var directoryPreviewCheckbox = document.getElementById('TP_popup_directory_preview_mode_checkbox');
-    chrome.storage.sync.get('isDirectoryPreviewEnabled', function(result) {
-        directoryPreviewCheckbox.checked = typeof result.isDirectoryPreviewEnabled == 'undefined' ? true : result.isDirectoryPreviewEnabled;
+    chrome.storage.sync.get('isDirpEnabled', function(result) {
+        directoryPreviewCheckbox.checked = typeof result.isDirpEnabled == 'undefined' ? true : result.isDirpEnabled;
     });
 
     directoryPreviewCheckbox.addEventListener('change', (event) => {
