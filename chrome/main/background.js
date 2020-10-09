@@ -22,7 +22,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
             }
             //ga('send', 'event', 'updatePopup_show-v1.3.6', 'updatePopup_show-v1.3.6', "updatePopup_show-v1.3.6");
-            ga('send', 'event', 'updated-v1.5.1.1', 'updated-v1.5.1.1', "updated-v1.5.1.1");
+            ga('send', 'event', 'updated-v1.5.1.2', 'updated-v1.5.1.2', "updated-v1.5.1.2");
         }
     }
 });
