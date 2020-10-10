@@ -14,6 +14,7 @@ var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
 var isPipActive = false;
 var navCardPipBtn;
 var clearOverlaysInterval = null;
+var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
 
 
@@ -385,6 +386,7 @@ function changeAndShowPreview() {
             twitchIframe.height = PREVIEWDIV_HEIGHT + "px";
         }
     } else {
+        clearLoadingSpinnerFromSideNav();
         previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
         if (!isImagePreviewMode){
             twitchIframe.style.display = "none";
@@ -398,6 +400,10 @@ function changeAndShowPreview() {
 }
 
 function hidePreview() {
+    if (clearVidPlayInterval) {
+        clearInterval(clearVidPlayInterval);
+        clearVidPlayInterval = null;
+    }
     clearLoadingSpinnerFromSideNav();
     if (twitchIframe) {
         twitchIframe.src = '';
@@ -430,8 +436,17 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
 
     try {
         var intervalCount = 0;
-        var interval = setInterval(function (){
+        if (clearVidPlayInterval) {
+            clearInterval(clearVidPlayInterval);
+            clearVidPlayInterval = null;
+        }
+        clearVidPlayInterval = setInterval(function (){
             if (twitchIframe && twitchIframe.contentDocument && twitchIframe.contentDocument.querySelector('video')) {
+                if (!isHovering) {
+                    clearInterval(clearVidPlayInterval);
+                    clearVidPlayInterval = null;
+                    return;
+                }
                 if (!twitchIframe.contentDocument.querySelector('video').paused) {
                     previewDiv.style.visibility = "visible";
 
@@ -447,7 +462,8 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     }
                     twitchIframe.style.visibility = "visible";
 
-                    clearInterval(interval);
+                    clearInterval(clearVidPlayInterval);
+                    clearVidPlayInterval = null;
                     if (isFromDirectory) {
                         clearLoadingRoller(navCardEl);
                         createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
@@ -456,14 +472,16 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     }
                 } else {
                     if (intervalCount > 100) {
-                        clearInterval(interval);
+                        clearInterval(clearVidPlayInterval);
+                        clearVidPlayInterval = null;
                     } else {
                         intervalCount++;
                     }
                 }
             } else {
                 if (intervalCount > 100) {
-                    clearInterval(interval);
+                    clearInterval(clearVidPlayInterval);
+                    clearVidPlayInterval = null;
                 } else {
                     intervalCount++;
                 }
@@ -532,6 +550,11 @@ function setMouseOverListeners(navCardEl) {
         if (!isHovering) {
             isHovering = true;
             lastHoveredCardEl = navCardEl;
+
+            if (clearVidPlayInterval) {
+                clearInterval(clearVidPlayInterval);
+                clearVidPlayInterval = null;
+            }
 
             if (previewDiv) {
                 if (previewDiv.classList.contains("tp-anim-duration-1s")) {
