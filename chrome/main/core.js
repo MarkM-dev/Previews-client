@@ -167,7 +167,7 @@ function createPreviewDiv(cssClass) {
     previewDiv.style.position = "fixed";
     previewDiv.style.zIndex = "9";
     previewDiv.style.backgroundSize = "cover";
-    previewDiv.style.backgroundColor = "#232323";
+    previewDiv.style.backgroundColor = "#000";
     previewDiv.style.borderRadius = "5px";
 
     return previewDiv;
