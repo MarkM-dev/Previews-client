@@ -338,15 +338,6 @@
     animation-duration: 1000ms;
 }
 
-.tp-sidenavLoader {
-    position: absolute;
-    top: 40%;
-    left: 40%;
-    width: 20%;
-    height: 11.2%;
-    animation: sk-chase 2.5s infinite linear both;
-}
-
 .sk-chase {
     width: 30px !important;
     height: 30px !important;
@@ -403,4 +394,12 @@
     } 100%, 0% {
           transform: scale(1.0);
       }
+}
+
+.tp-loading {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    font-size: 1.25em;
+    color: white;
 }
