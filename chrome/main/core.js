@@ -299,13 +299,14 @@ function createAndShowDirectoryPreview() {
 }
 
 function createAndShowLoadingSpinnerForSideNav() {
-    if (!previewDiv.querySelector('#tp-preloader')) {
+    if (!previewDiv.querySelector('.tp-sidenavLoader')) {
         var loader_container = document.createElement("div");
-        loader_container.innerHTML = "<div id=\"tp-preloader\">\n" +
-            "  <div id=\"tp-loader\"></div>\n" +
+        loader_container.innerHTML = "<div class=\"tp-sidenavLoader\">\n" +
+            "  <div class=\"sk-chase-dot\"></div>\n" +
+            "  <div class=\"sk-chase-dot\"></div>\n" +
+            "  <div class=\"sk-chase-dot\"></div>\n" +
             "</div>".trim();
         var loader = loader_container.firstChild;
-
         previewDiv.appendChild(loader);
     }
 }
@@ -425,7 +426,7 @@ function clearLoadingRoller(navCardEl) {
 
 function clearLoadingSpinnerFromSideNav() {
     if (previewDiv) {
-        var tploading = previewDiv.querySelector('#tp-preloader');
+        var tploading = previewDiv.querySelector('.tp-sidenavLoader');
         if (tploading) {
             tploading.parentNode.removeChild(tploading);
         }
@@ -471,7 +472,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
 
                     }
                 } else {
-                    if (intervalCount > 100) {
+                    if (intervalCount > 33) {
                         clearInterval(clearVidPlayInterval);
                         clearVidPlayInterval = null;
                     } else {
@@ -479,7 +480,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     }
                 }
             } else {
-                if (intervalCount > 100) {
+                if (intervalCount > 33) {
                     clearInterval(clearVidPlayInterval);
                     clearVidPlayInterval = null;
                 } else {
@@ -487,7 +488,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                 }
             }
 
-        }, 100);
+        }, 300);
 
     } catch (e) {
 
