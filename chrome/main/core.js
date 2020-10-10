@@ -471,7 +471,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
 
                     }
                 } else {
-                    if (intervalCount > 100) {
+                    if (intervalCount > 33) {
                         clearInterval(clearVidPlayInterval);
                         clearVidPlayInterval = null;
                     } else {
@@ -479,7 +479,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     }
                 }
             } else {
-                if (intervalCount > 100) {
+                if (intervalCount > 33) {
                     clearInterval(clearVidPlayInterval);
                     clearVidPlayInterval = null;
                 } else {
@@ -487,7 +487,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                 }
             }
 
-        }, 100);
+        }, 300);
 
     } catch (e) {
 
