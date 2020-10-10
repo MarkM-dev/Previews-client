@@ -299,15 +299,14 @@ function createAndShowDirectoryPreview() {
 }
 
 function createAndShowLoadingSpinnerForSideNav() {
-    if (!previewDiv.querySelector('.tp-sidenavLoader')) {
-        var loader_container = document.createElement("div");
-        loader_container.innerHTML = "<div class=\"tp-sidenavLoader\">\n" +
-            "  <div class=\"sk-chase-dot\"></div>\n" +
-            "  <div class=\"sk-chase-dot\"></div>\n" +
-            "  <div class=\"sk-chase-dot\"></div>\n" +
-            "</div>".trim();
-        var loader = loader_container.firstChild;
+    if (!previewDiv.querySelector('.tp-loading')) {
+        var loader = document.createElement("span");
+        loader.classList.add('tp-loading');
+        loader.innerText = "loading..."
+
         previewDiv.appendChild(loader);
+    } else {
+        previewDiv.querySelector('.tp-loading').innerText = "loading..."
     }
 }
 
@@ -426,7 +425,7 @@ function clearLoadingRoller(navCardEl) {
 
 function clearLoadingSpinnerFromSideNav() {
     if (previewDiv) {
-        var tploading = previewDiv.querySelector('.tp-sidenavLoader');
+        var tploading = previewDiv.querySelector('.tp-loading');
         if (tploading) {
             tploading.parentNode.removeChild(tploading);
         }
@@ -487,7 +486,9 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     intervalCount++;
                 }
             }
-
+            if (intervalCount === 24) {
+                previewDiv.querySelector('.tp-loading').innerText = "stream might be offline..."
+            }
         }, 300);
 
     } catch (e) {
