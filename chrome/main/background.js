@@ -15,7 +15,7 @@ var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install")
     {
-        ga('send', 'event', 'tp_install-v-1.5.1.3', 'tp_install-v-1.5.1.3', "tp_install-v-1.5.1.3");
+        ga('send', 'event', 'tp_install', 'tp_install-v-1.5.1.3', "tp_install-v-1.5.1.3");
     } else {
         if (details.reason == "update") {
             if (details.previousVersion === "1.5.0.2") {
