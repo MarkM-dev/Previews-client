@@ -33,3 +33,14 @@
 
 - if you're in Video mode (on Chrome), a small button will appear under the view count, click it and a persistent preview window will appear (using chrome's PIP feature).
 - To change any feature setting click the extension at the top bar to open the extension's options menu.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+privacy policy: https://sites.google.com/view/twitchpreviews-privacy-policy <br/>
+terms and conditions: https://sites.google.com/view/twitchpreviews-t-a-c/
