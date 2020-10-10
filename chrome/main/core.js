@@ -303,7 +303,7 @@ function createAndShowLoadingSpinnerForSideNav() {
         var loader = document.createElement("span");
         loader.classList.add('tp-loading');
         loader.innerText = "loading..."
-
+        isLayoutHorizontallyInverted ? loader.style.left = "10px": loader.style.right = "10px";
         previewDiv.appendChild(loader);
     } else {
         previewDiv.querySelector('.tp-loading').innerText = "loading..."
