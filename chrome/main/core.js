@@ -307,7 +307,6 @@ function createAndShowLoadingSpinnerForSideNav() {
         previewDiv.appendChild(loader);
     } else {
         previewDiv.querySelector('.tp-loading').innerText = "loading..."
-        previewDiv.querySelector('.tp-loading').style.display = "inline";
     }
 }
 
@@ -428,8 +427,7 @@ function clearLoadingSpinnerFromSideNav() {
     if (previewDiv) {
         var tploading = previewDiv.querySelector('.tp-loading');
         if (tploading) {
-            tploading.style.display = "none";
-          //  tploading.parentNode.removeChild(tploading);
+            tploading.parentNode.removeChild(tploading);
         }
     }
 }
