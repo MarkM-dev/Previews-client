@@ -371,7 +371,7 @@ function changeAndShowPreview() {
                             twitchIframe.style.visibility = 'hidden';
 
                       //  },300);
-                    }, 50);
+                    }, 125);
                 } else {
                     twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
                     twitchIframe.style.display = 'block';
