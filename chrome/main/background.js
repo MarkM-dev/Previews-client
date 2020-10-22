@@ -15,14 +15,14 @@ var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install")
     {
-        ga('send', 'event', 'tp_install', 'tp_install-v-1.5.1.3', "tp_install-v-1.5.1.3");
+        ga('send', 'event', 'tp_install', 'tp_install-v-1.5.1.4', "tp_install-v-1.5.1.4");
     } else {
         if (details.reason == "update") {
-            if (details.previousVersion === "1.5.0.2") {
+            /*if (details.previousVersion === "1.5.0.2") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
-            }
+            }*/
             //ga('send', 'event', 'updatePopup_show-v1.3.6', 'updatePopup_show-v1.3.6', "updatePopup_show-v1.3.6");
-            ga('send', 'event', 'updated-v1.5.1.3', 'updated-v1.5.1.3', "updated-v1.5.1.3");
+            ga('send', 'event', 'updated-v1.5.1.4', 'updated-v1.5.1.4', "updated-v1.5.1.4");
         }
     }
 });
