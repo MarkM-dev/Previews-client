@@ -289,6 +289,10 @@ function createAndShowDirectoryPreview() {
         anch.style.left = "0px";
         anch.style.top = "0px";
         anch.href = "/" + lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+        anch.onmouseleave = function () {
+            isHovering = false;
+            clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+        }
         previewDiv.appendChild(anch);
     } else {
         previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
@@ -300,10 +304,10 @@ function createAndShowDirectoryPreview() {
     }
    // createAndShowUnderPreviewDivBanner(true, calculatedSize.width / 2 - 67);
 
-    twitchIframe.onmouseleave = function () {
+    /*twitchIframe.onmouseleave = function () {
         isHovering = false;
         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-    }
+    }*/
 
     lastHoveredCardEl.parentNode.appendChild(previewDiv);
 }
