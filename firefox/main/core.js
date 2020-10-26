@@ -236,6 +236,15 @@ function createAndShowDirectoryPreview() {
         twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
         previewDiv.style.visibility = "hidden";
         previewDiv.appendChild(twitchIframe);
+
+        var anch = document.createElement("a");
+        anch.style.width = calculatedSize.width + "px";
+        anch.style.height = calculatedSize.height + "px";
+        anch.style.position = "absolute";
+        anch.style.left = "0px";
+        anch.style.top = "0px";
+        anch.href = "/" + lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+        previewDiv.appendChild(anch);
     } else {
         previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
         twitchIframe = createIframeElement();
