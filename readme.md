@@ -31,10 +31,9 @@
 2. **Hover your mouse over a streamer on the navigation sidebar or in a twitch directory.**
     - A preview window will appear next to the hovered card.
 <br/>
+<br/>
 
 - if you're in Video mode (on Chrome), a small button will appear under the view count, click it and a persistent preview window will appear (using chrome's PIP feature).
-<br/>
-<br/>
 <br/>
 
 * **Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000)**
