@@ -19,6 +19,15 @@ function changeDirectoryPreviewMode(isDirpEnabled){
     });
 }
 
+function changeIsErrRefreshEnabled(isErrRefreshEnabled){
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: "update_isErrRefreshEnabled", isErrRefreshEnabled: isErrRefreshEnabled})
+    });
+    chrome.runtime.sendMessage({action: "bg_update_isErrRefreshEnabled", detail: isErrRefreshEnabled}, function(response) {
+
+    });
+}
+
 function changePreviewSize(width) {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {action: "update_previewSize", width: width})
@@ -43,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.storage.sync.get('isImagePreviewMode', function(result) {
         previewModeCheckbox.checked = typeof result.isImagePreviewMode == 'undefined' ? false : !result.isImagePreviewMode;
     });
-
     previewModeCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
             changePreviewMode(false);
@@ -56,12 +64,24 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.storage.sync.get('isDirpEnabled', function(result) {
         directoryPreviewCheckbox.checked = typeof result.isDirpEnabled == 'undefined' ? true : result.isDirpEnabled;
     });
-
     directoryPreviewCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
             changeDirectoryPreviewMode(true);
         } else {
             changeDirectoryPreviewMode(false);
+        }
+    });
+
+
+    var errRefreshCheckbox = document.getElementById('TP_popup_err_refresh_checkbox');
+    chrome.storage.sync.get('isErrRefreshEnabled', function(result) {
+        errRefreshCheckbox.checked = typeof result.isErrRefreshEnabled == 'undefined' ? false : result.isErrRefreshEnabled;
+    });
+    errRefreshCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            changeIsErrRefreshEnabled(true);
+        } else {
+            changeIsErrRefreshEnabled(false);
         }
     });
 

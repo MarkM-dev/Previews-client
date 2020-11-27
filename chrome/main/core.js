@@ -16,7 +16,9 @@ var navCardPipBtn;
 var clearOverlaysInterval = null;
 var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
-
+var isMainPlayerError = false;
+var isErrRefreshEnabled = false;
+var errRefreshListenerAlreadySet = false;
 
 var sideNavMutationObserver = new MutationObserver(function(mutations) {
     var shouldRefresh = false;
@@ -758,6 +760,20 @@ function setDirectoryPreviewMode() {
     }
 }
 
+function setIsErrRefreshEnabled() {
+    try {
+        chrome.storage.sync.get('isErrRefreshEnabled', function(result) {
+            if (typeof result.isErrRefreshEnabled == 'undefined') {
+                onIsErrRefreshEnabledChange(false, false);
+            } else {
+                onIsErrRefreshEnabledChange(result.isErrRefreshEnabled, false);
+            }
+        });
+    } catch (e) {
+        onIsErrRefreshEnabledChange(false, false);
+    }
+}
+
 function getCalculatedPreviewSizeByWidth (width) {
     return {width: width, height: 0.5636363636363636 * width};
 }
@@ -819,6 +835,20 @@ function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
     setDirectoryCardsListeners();
 }
 
+function onIsErrRefreshEnabledChange(_isErrRefreshEnabled, saveToStorage) {
+    isErrRefreshEnabled = _isErrRefreshEnabled;
+
+    if(_isErrRefreshEnabled) {
+        listenForPlayerError();
+    }
+
+    if (saveToStorage) {
+        chrome.storage.sync.set({'isErrRefreshEnabled': _isErrRefreshEnabled}, function() {
+
+        });
+    }
+}
+
 function onPreviewSizeChange(width) {
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     var previewSizeObj = getCalculatedPreviewSizeByWidth(width);
@@ -847,6 +877,7 @@ function ga_report_appStart() {
     var size = "440px";
     var mode = "image";
     var dirp = "dirp_on";
+    var errRefresh = "errRefresh_off";
 
     try {
         chrome.storage.sync.get('previewSize', function(result) {
@@ -869,8 +900,15 @@ function ga_report_appStart() {
                     } else {
                         dirp = result.isDirpEnabled ? "dirp_ON":"dirp_OFF";
                     }
-                    chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp}, function(response) {
+                    chrome.storage.sync.get('isErrRefreshEnabled', function(result) {
+                        if (typeof result.isErrRefreshEnabled == 'undefined') {
 
+                        } else {
+                            errRefresh = result.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
+                        }
+                        chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh}, function(response) {
+
+                        });
                     });
                 });
             });
@@ -879,6 +917,33 @@ function ga_report_appStart() {
         chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + e.message}, function(response) {
 
         });
+    }
+}
+
+function listenForPlayerError() {
+    if (errRefreshListenerAlreadySet) {
+        return;
+    }
+    try{
+        document.querySelector(".video-player").querySelector('video').addEventListener('abort', (event) => {
+            if (isErrRefreshEnabled) {
+                setTimeout(function (){
+                    var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
+                    if (el) {
+                        if (['#1000', '# 1000', '#2000', '# 2000', '#4000','# 4000'].some(x => el.innerText.indexOf(x) >= 0)) {
+                            if (!document.hidden) {
+                                location.replace(window.location);
+                            } else {
+                                isMainPlayerError = true;
+                            }
+                        }
+                    }
+                },100)
+            }
+        });
+        errRefreshListenerAlreadySet = true;
+    } catch (e) {
+
     }
 }
 
@@ -897,6 +962,7 @@ window.addEventListener('load', (event) => {
         setTimeout(function (){
             setTitleMutationObserverForDirectoryCardsRefresh();
         }, 1000);
+        setIsErrRefreshEnabled();
     }, 2000);
 });
 
@@ -912,6 +978,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "update_previewSize":
             onPreviewSizeChange(msg.width);
             break;
+        case "update_isErrRefreshEnabled":
+            onIsErrRefreshEnabledChange(msg.isErrRefreshEnabled, true);
+            break;
     }
 
 });
@@ -923,9 +992,13 @@ window.addEventListener('visibilitychange', function() {
 });
 
 function pageAwakened() {
+    if (isMainPlayerError) {
+        location.replace(window.location);
+    }
     setViewMode();
     setPreviewSizeFromStorage();
     setDirectoryPreviewMode();
+    setIsErrRefreshEnabled();
 }
 
 ///////////// END OF TAB RESUME /////////////
