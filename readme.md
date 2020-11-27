@@ -36,6 +36,7 @@
 <br/>
 <br/>
 <br/>
+
 **Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000)**
     - This feature works when the tab with the player that got an error is currently active.
     - If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.
