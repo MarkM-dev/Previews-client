@@ -920,6 +920,13 @@ function ga_report_appStart() {
     }
 }
 
+function refreshPageOnMainTwitchPlayerError() {
+    chrome.runtime.sendMessage({action: "bg_errRefresh_exec", detail: ""}, function(response) {
+
+    });
+    location.replace(window.location);
+}
+
 function listenForPlayerError() {
     if (errRefreshListenerAlreadySet) {
         return;
@@ -932,7 +939,7 @@ function listenForPlayerError() {
                     if (el) {
                         if (['#1000', '# 1000', '#2000', '# 2000', '#4000','# 4000'].some(x => el.innerText.indexOf(x) >= 0)) {
                             if (!document.hidden) {
-                                location.replace(window.location);
+                                refreshPageOnMainTwitchPlayerError();
                             } else {
                                 isMainPlayerError = true;
                             }
@@ -993,7 +1000,7 @@ window.addEventListener('visibilitychange', function() {
 
 function pageAwakened() {
     if (isMainPlayerError) {
-        location.replace(window.location);
+        refreshPageOnMainTwitchPlayerError();
     }
     setViewMode();
     setPreviewSizeFromStorage();
