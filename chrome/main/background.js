@@ -44,13 +44,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'preview_size', 'change', msg.detail);
             break;
         case "bg_popup_opened":
-            ga('send', 'event', 'popup_opened', 'popup.html');
+            ga('send', 'event', 'popup_opened', 'popup.html', 'popup.html');
             break;
         case "bg_pip_started":
-            ga('send', 'event', 'pip_started', 'pip_started');
+            ga('send', 'event', 'pip_started', 'pip_started', 'pip_started');
             break;
         case "bg_errRefresh_exec":
-            ga('send', 'event', 'errRefresh_exec', 'errRefresh_exec');
+            ga('send', 'event', 'errRefresh_exec', 'errRefresh_exec', 'errRefresh_exec');
             break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);
@@ -62,13 +62,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             }
             break;
         case "bg_donate_btn_click":
-            ga('send', 'event', 'popup_donate_btn_click', 'popup_donate_btn_click');
+            ga('send', 'event', 'popup_donate_btn_click', 'popup_donate_btn_click', 'popup_donate_btn_click');
             break;
         case "bg_rate_btn_click":
-            ga('send', 'event', 'popup_rate_btn_click', 'popup_rate_btn_click');
+            ga('send', 'event', 'popup_rate_btn_click', 'popup_rate_btn_click', 'popup_rate_btn_click');
             break;
         case "bg_share_btn_click":
-            ga('send', 'event', 'popup_share_btn_click', 'popup_share_btn_click');
+            ga('send', 'event', 'popup_share_btn_click', 'popup_share_btn_click', 'popup_share_btn_click');
             break;
         default:
     }
