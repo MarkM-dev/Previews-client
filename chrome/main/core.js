@@ -701,8 +701,8 @@ function refreshNavCardsListAndListeners() {
         isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
         var navCards;
         if (isNavBarCollapsed) {
-            if (document.getElementsByClassName('side-nav-card')[0].href){
-                navCards = document.getElementsByClassName('side-nav-card');
+            if (document.querySelectorAll('a.side-nav-card')[0].href){
+                navCards = document.querySelectorAll('a.side-nav-card');
             } else {
                 isNavBarCollapsed = false;
                 navCards = document.getElementsByClassName('side-nav-card__link');
