@@ -20,10 +20,13 @@ chrome.runtime.onInstalled.addListener(function(details) {
         ga('send', 'event', 'tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
     } else {
         if (details.reason === "update") {
-            if (details.previousVersion === "1.5.1.6") {
+            chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
+
+            });
+           /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
                 ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
-            }
+            }*/
             ga('send', 'event', 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer);
         }
     }
@@ -36,6 +39,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_directoryPreviewMode":
             ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
+            break;
+            case "bg_update_ChannelPointsClickerMode":
+            ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
@@ -51,6 +57,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_errRefresh_exec":
             ga('send', 'event', 'errRefresh_exec', 'errRefresh_exec', 'errRefresh_exec');
+            break;
+        case "updateToast":
+            ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
+            break;
+        case "showUpdatePopup":
+            chrome.tabs.create({url:"../popups/updatePopup.html"});
             break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);
