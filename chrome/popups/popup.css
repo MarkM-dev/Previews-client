@@ -39,7 +39,7 @@
     padding-bottom: 5px;
     padding-top: 25px;*/
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 input.apple-switch {
@@ -89,7 +89,7 @@ input.apple-switch:checked:after {
     margin-top: 20px;
     text-align: center;
     border-top: 1px solid whitesmoke;
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 #TP_popup_donation_container > form {
@@ -201,7 +201,7 @@ input.apple-switch:checked:after {
 }
 
 .slide-container {
-    margin-top: 25px;
+    margin-top: 20px;
     width: 100%;
     font-weight: bold;
 }

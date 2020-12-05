@@ -4,6 +4,8 @@ var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = true;
 var isDirpEnabled = true;
+var isChannelPointsClickerEnabled = false;
+var channelPointsClickerInterval = null;
 var twitchIframe;
 var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
@@ -760,6 +762,21 @@ function setDirectoryPreviewMode() {
     }
 }
 
+function setChannelPointsClickerMode() {
+    console.log("running setChannelPointsClickerMode");
+    try {
+        chrome.storage.sync.get('isChannelPointsClickerEnabled', function(result) {
+            if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
+                onChannelPointsClickerModeChange(false, false);
+            } else {
+                onChannelPointsClickerModeChange(result.isChannelPointsClickerEnabled, false);
+            }
+        });
+    } catch (e) {
+        onChannelPointsClickerModeChange(false, false);
+    }
+}
+
 function setIsErrRefreshEnabled() {
     try {
         chrome.storage.sync.get('isErrRefreshEnabled', function(result) {
@@ -822,6 +839,24 @@ function setDirectoryCardsListeners() {
     }
 }
 
+function clickChannelPointsBtn() {
+    console.log("running clickChannelPointsBtn");
+    var btn = document.querySelector('.claimable-bonus__icon');
+    if (btn) {
+        btn.click();
+    }
+}
+
+function setChannelPointsClickerListeners() {
+    console.log("running setChannelPointsClickerListeners");
+    if (isChannelPointsClickerEnabled && !channelPointsClickerInterval) {
+        clickChannelPointsBtn();
+        channelPointsClickerInterval = setInterval(function() {
+            clickChannelPointsBtn();
+        }, 15000);
+    }
+}
+
 function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
     isDirpEnabled = directoryPreviewEnabled;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
@@ -833,6 +868,27 @@ function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
     }
 
     setDirectoryCardsListeners();
+}
+
+function onChannelPointsClickerModeChange(ChannelPointsClickerEnabled, saveToStorage) {
+    console.log("running onChannelPointsClickerModeChange");
+    isChannelPointsClickerEnabled = ChannelPointsClickerEnabled;
+
+    if (saveToStorage) {
+        chrome.storage.sync.set({'isChannelPointsClickerEnabled': ChannelPointsClickerEnabled}, function() {
+
+        });
+    }
+
+    if (ChannelPointsClickerEnabled) {
+        setChannelPointsClickerListeners();
+    } else {
+        if (channelPointsClickerInterval) {
+            clearInterval(channelPointsClickerInterval);
+            channelPointsClickerInterval = null;
+        }
+    }
+
 }
 
 function onIsErrRefreshEnabledChange(_isErrRefreshEnabled, saveToStorage) {
@@ -878,6 +934,7 @@ function ga_report_appStart() {
     var mode = "image";
     var dirp = "dirp_on";
     var errRefresh = "errRefresh_off";
+    var channelPointsClicker = "cpc_off";
 
     try {
         chrome.storage.sync.get('previewSize', function(result) {
@@ -906,8 +963,15 @@ function ga_report_appStart() {
                         } else {
                             errRefresh = result.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
                         }
-                        chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh}, function(response) {
+                        chrome.storage.sync.get('isChannelPointsClickerEnabled', function(result) {
+                            if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
 
+                            } else {
+                                channelPointsClicker = result.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
+                            }
+                            chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker}, function(response) {
+
+                            });
                         });
                     });
                 });
@@ -968,6 +1032,7 @@ window.addEventListener('load', (event) => {
         setDirectoryPreviewMode();
         setTimeout(function (){
             setTitleMutationObserverForDirectoryCardsRefresh();
+            setChannelPointsClickerMode();
         }, 1000);
         setIsErrRefreshEnabled();
     }, 2000);
@@ -981,6 +1046,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "update_directoryPreviewMode":
             onDirectoryPreviewModeChange(msg.isDirpEnabled, true);
+            break;
+        case "update_ChannelPointsClickerMode":
+            console.log("running update_ChannelPointsClickerMode");
+            onChannelPointsClickerModeChange(msg.isChannelPointsClickerEnabled, true);
             break;
         case "update_previewSize":
             onPreviewSizeChange(msg.width);
@@ -1005,6 +1074,7 @@ function pageAwakened() {
     setViewMode();
     setPreviewSizeFromStorage();
     setDirectoryPreviewMode();
+    setChannelPointsClickerMode();
     setIsErrRefreshEnabled();
 }
 

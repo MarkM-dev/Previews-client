@@ -37,6 +37,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_directoryPreviewMode":
             ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
             break;
+            case "bg_update_ChannelPointsClickerMode":
+            ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
+            break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
             break;
