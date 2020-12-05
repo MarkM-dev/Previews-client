@@ -4,6 +4,8 @@ var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = true;
 var isDirpEnabled = true;
+var isChannelPointsClickerEnabled = false;
+var channelPointsClickerInterval = null;
 var twitchIframe;
 var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
@@ -760,6 +762,20 @@ function setDirectoryPreviewMode() {
     }
 }
 
+function setChannelPointsClickerMode() {
+    try {
+        chrome.storage.sync.get('isChannelPointsClickerEnabled', function(result) {
+            if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
+                onChannelPointsClickerModeChange(false, false);
+            } else {
+                onChannelPointsClickerModeChange(result.isChannelPointsClickerEnabled, false);
+            }
+        });
+    } catch (e) {
+        onChannelPointsClickerModeChange(false, false);
+    }
+}
+
 function setIsErrRefreshEnabled() {
     try {
         chrome.storage.sync.get('isErrRefreshEnabled', function(result) {
@@ -822,6 +838,22 @@ function setDirectoryCardsListeners() {
     }
 }
 
+function clickChannelPointsBtn() {
+    var btn = document.querySelector('.claimable-bonus__icon');
+    if (btn) {
+        btn.click();
+    }
+}
+
+function setChannelPointsClickerListeners() {
+    if (isChannelPointsClickerEnabled && !channelPointsClickerInterval) {
+        clickChannelPointsBtn();
+        channelPointsClickerInterval = setInterval(function() {
+            clickChannelPointsBtn();
+        }, 15000);
+    }
+}
+
 function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
     isDirpEnabled = directoryPreviewEnabled;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
@@ -833,6 +865,26 @@ function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
     }
 
     setDirectoryCardsListeners();
+}
+
+function onChannelPointsClickerModeChange(ChannelPointsClickerEnabled, saveToStorage) {
+    isChannelPointsClickerEnabled = ChannelPointsClickerEnabled;
+
+    if (saveToStorage) {
+        chrome.storage.sync.set({'isChannelPointsClickerEnabled': ChannelPointsClickerEnabled}, function() {
+
+        });
+    }
+
+    if (ChannelPointsClickerEnabled) {
+        setChannelPointsClickerListeners();
+    } else {
+        if (channelPointsClickerInterval) {
+            clearInterval(channelPointsClickerInterval);
+            channelPointsClickerInterval = null;
+        }
+    }
+
 }
 
 function onIsErrRefreshEnabledChange(_isErrRefreshEnabled, saveToStorage) {
@@ -878,6 +930,7 @@ function ga_report_appStart() {
     var mode = "image";
     var dirp = "dirp_on";
     var errRefresh = "errRefresh_off";
+    var channelPointsClicker = "cpc_off";
 
     try {
         chrome.storage.sync.get('previewSize', function(result) {
@@ -906,8 +959,15 @@ function ga_report_appStart() {
                         } else {
                             errRefresh = result.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
                         }
-                        chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh}, function(response) {
+                        chrome.storage.sync.get('isChannelPointsClickerEnabled', function(result) {
+                            if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
 
+                            } else {
+                                channelPointsClicker = result.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
+                            }
+                            chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker}, function(response) {
+
+                            });
                         });
                     });
                 });
@@ -954,6 +1014,74 @@ function listenForPlayerError() {
     }
 }
 
+function showUpdateToast() {
+    chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
+        if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
+
+        } else {
+            if (!result.hasConfirmedUpdatePopup) {
+
+                function setConfirmedToastFlag(bClickedOkay) {
+                    chrome.storage.sync.set({'hasConfirmedUpdatePopup': true}, function() {
+
+                    });
+                    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"updatePopup_btn"}, function(response) {
+
+                    });
+                }
+
+                function dismissUpdateToast() {
+                    setConfirmedToastFlag(true);
+                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+                }
+
+                function showWhatsNew() {
+                    setConfirmedToastFlag(false);
+                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+                    chrome.runtime.sendMessage({action: "showUpdatePopup", detail: ""}, function(response) {
+
+                    });
+                }
+
+                var updateToast = document.createElement("div");
+                updateToast.id = "tp_updateToast";
+                updateToast.style.padding = "10px 40px 10px 10px";
+                updateToast.style.background = "#9c60ff";
+                updateToast.style.color = "#fff";
+                updateToast.style.position = "fixed";
+                updateToast.style.right = "10rem";
+                updateToast.style.top = "10rem";
+                updateToast.style.zIndex = "9999";
+                updateToast.style.borderRadius = "5px";
+                updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+                updateToast.classList.add("animated");
+                updateToast.classList.add("slideInRight");
+
+                updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
+                    "            <div>\n" +
+                    "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 2px;\" >New Feature!</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Auto channel points clicker.</div>\n" +
+                    "            </div>\n" +
+                    "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
+                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >What's new</div>\n" +
+                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Okay</div>\n" +
+                    "            </div>\n" +
+                    "        </div>";
+
+                updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
+                    showWhatsNew();
+                };
+                updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
+                    dismissUpdateToast();
+                };
+
+                document.body.appendChild(updateToast);
+            }
+        }
+    });
+}
+
 window.addEventListener('load', (event) => {
     setTimeout(function(){
         ga_report_appStart();
@@ -968,8 +1096,10 @@ window.addEventListener('load', (event) => {
         setDirectoryPreviewMode();
         setTimeout(function (){
             setTitleMutationObserverForDirectoryCardsRefresh();
+            setChannelPointsClickerMode();
         }, 1000);
         setIsErrRefreshEnabled();
+        showUpdateToast();
     }, 2000);
 });
 
@@ -981,6 +1111,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "update_directoryPreviewMode":
             onDirectoryPreviewModeChange(msg.isDirpEnabled, true);
+            break;
+        case "update_ChannelPointsClickerMode":
+            onChannelPointsClickerModeChange(msg.isChannelPointsClickerEnabled, true);
             break;
         case "update_previewSize":
             onPreviewSizeChange(msg.width);
@@ -1005,6 +1138,7 @@ function pageAwakened() {
     setViewMode();
     setPreviewSizeFromStorage();
     setDirectoryPreviewMode();
+    setChannelPointsClickerMode();
     setIsErrRefreshEnabled();
 }
 
