@@ -1053,6 +1053,7 @@ function showUpdateToast() {
                 updateToast.style.top = "10rem";
                 updateToast.style.zIndex = "9999";
                 updateToast.style.borderRadius = "5px";
+                updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
                 updateToast.classList.add("animated");
                 updateToast.classList.add("slideInRight");
 
