@@ -763,7 +763,6 @@ function setDirectoryPreviewMode() {
 }
 
 function setChannelPointsClickerMode() {
-    console.log("running setChannelPointsClickerMode");
     try {
         chrome.storage.sync.get('isChannelPointsClickerEnabled', function(result) {
             if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
@@ -840,7 +839,6 @@ function setDirectoryCardsListeners() {
 }
 
 function clickChannelPointsBtn() {
-    console.log("running clickChannelPointsBtn");
     var btn = document.querySelector('.claimable-bonus__icon');
     if (btn) {
         btn.click();
@@ -848,7 +846,6 @@ function clickChannelPointsBtn() {
 }
 
 function setChannelPointsClickerListeners() {
-    console.log("running setChannelPointsClickerListeners");
     if (isChannelPointsClickerEnabled && !channelPointsClickerInterval) {
         clickChannelPointsBtn();
         channelPointsClickerInterval = setInterval(function() {
@@ -871,7 +868,6 @@ function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
 }
 
 function onChannelPointsClickerModeChange(ChannelPointsClickerEnabled, saveToStorage) {
-    console.log("running onChannelPointsClickerModeChange");
     isChannelPointsClickerEnabled = ChannelPointsClickerEnabled;
 
     if (saveToStorage) {
@@ -1018,6 +1014,73 @@ function listenForPlayerError() {
     }
 }
 
+function showUpdateToast() {
+    chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
+        if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
+
+        } else {
+            if (!result.hasConfirmedUpdatePopup) {
+
+                function setConfirmedToastFlag(bClickedOkay) {
+                    chrome.storage.sync.set({'hasConfirmedUpdatePopup': true}, function() {
+
+                    });
+                    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"updatePopup_btn"}, function(response) {
+
+                    });
+                }
+
+                function dismissUpdateToast() {
+                    setConfirmedToastFlag(true);
+                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+                }
+
+                function showWhatsNew() {
+                    setConfirmedToastFlag(false);
+                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+                    chrome.runtime.sendMessage({action: "showUpdatePopup", detail: ""}, function(response) {
+
+                    });
+                }
+
+                var updateToast = document.createElement("div");
+                updateToast.id = "tp_updateToast";
+                updateToast.style.padding = "10px 40px 10px 10px";
+                updateToast.style.background = "#9c60ff";
+                updateToast.style.color = "#fff";
+                updateToast.style.position = "fixed";
+                updateToast.style.right = "10rem";
+                updateToast.style.top = "10rem";
+                updateToast.style.zIndex = "9999";
+                updateToast.style.borderRadius = "5px";
+                updateToast.classList.add("animated");
+                updateToast.classList.add("slideInRight");
+
+                updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
+                    "            <div>\n" +
+                    "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 2px;\" >New Feature!</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Auto channel points clicker.</div>\n" +
+                    "            </div>\n" +
+                    "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
+                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >What's new</div>\n" +
+                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Okay</div>\n" +
+                    "            </div>\n" +
+                    "        </div>";
+
+                updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
+                    showWhatsNew();
+                };
+                updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
+                    dismissUpdateToast();
+                };
+
+                document.body.appendChild(updateToast);
+            }
+        }
+    });
+}
+
 window.addEventListener('load', (event) => {
     setTimeout(function(){
         ga_report_appStart();
@@ -1035,6 +1098,7 @@ window.addEventListener('load', (event) => {
             setChannelPointsClickerMode();
         }, 1000);
         setIsErrRefreshEnabled();
+        showUpdateToast();
     }, 2000);
 });
 
@@ -1048,7 +1112,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             onDirectoryPreviewModeChange(msg.isDirpEnabled, true);
             break;
         case "update_ChannelPointsClickerMode":
-            console.log("running update_ChannelPointsClickerMode");
             onChannelPointsClickerModeChange(msg.isChannelPointsClickerEnabled, true);
             break;
         case "update_previewSize":

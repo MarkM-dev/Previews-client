@@ -20,10 +20,13 @@ chrome.runtime.onInstalled.addListener(function(details) {
         ga('send', 'event', 'tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
     } else {
         if (details.reason === "update") {
-            if (details.previousVersion === "1.5.1.6") {
+            chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
+
+            });
+           /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
                 ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
-            }
+            }*/
             ga('send', 'event', 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer);
         }
     }
@@ -54,6 +57,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_errRefresh_exec":
             ga('send', 'event', 'errRefresh_exec', 'errRefresh_exec', 'errRefresh_exec');
+            break;
+        case "updateToast":
+            ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
+            break;
+        case "showUpdatePopup":
+            chrome.tabs.create({url:"../popups/updatePopup.html"});
             break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);
