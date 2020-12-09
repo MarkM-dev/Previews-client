@@ -13,6 +13,15 @@ function changeDirectoryPreviewMode(isDirpEnabled){
     });
 }
 
+function changeChannelPointsClickerMode(isChannelPointsClickerEnabled){
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: "update_ChannelPointsClickerMode", isChannelPointsClickerEnabled: isChannelPointsClickerEnabled})
+    });
+    chrome.runtime.sendMessage({action: "bg_update_ChannelPointsClickerMode", detail: isChannelPointsClickerEnabled}, function(response) {
+
+    });
+}
+
 function changePreviewSize(width) {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {action: "update_previewSize", width: width})
@@ -30,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
     browser.storage.local.get('isImagePreviewMode', function(result) {
         previewModeCheckbox.checked = typeof result.isImagePreviewMode == 'undefined' ? false : !result.isImagePreviewMode;
     });
-
     previewModeCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
             changePreviewMode(false);
@@ -43,12 +51,23 @@ document.addEventListener('DOMContentLoaded', function () {
     browser.storage.local.get('isDirpEnabled', function(result) {
         directoryPreviewCheckbox.checked = typeof result.isDirpEnabled == 'undefined' ? true : result.isDirpEnabled;
     });
-
     directoryPreviewCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
             changeDirectoryPreviewMode(true);
         } else {
             changeDirectoryPreviewMode(false);
+        }
+    });
+
+    var ChannelPointsCheckbox = document.getElementById('TP_popup_channel_points_checkbox');
+    browser.storage.local.get('isChannelPointsClickerEnabled', function(result) {
+        ChannelPointsCheckbox.checked = typeof result.isChannelPointsClickerEnabled == 'undefined' ? false : result.isChannelPointsClickerEnabled;
+    });
+    ChannelPointsCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            changeChannelPointsClickerMode(true);
+        } else {
+            changeChannelPointsClickerMode(false);
         }
     });
 
