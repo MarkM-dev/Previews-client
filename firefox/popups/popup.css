@@ -21,13 +21,64 @@
     justify-content: space-evenly;
 }
 
-.TP_popup_dirp_title {
-    margin-top: 30px;
+.TP_popup_sidebar_feature_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-top: 1px solid whitesmoke;
     font-weight: bold;
-    padding-top: 25px;
+    padding-top: 15px;
     padding-bottom: 5px;
     font-size: 14px;
+    margin-top: 0;
+}
+
+.TP_popup_dirp_feature_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*margin-top: 30px;
+    border-top: 1px solid whitesmoke;
+    padding-bottom: 5px;
+    padding-top: 25px;*/
+    font-weight: bold;
+    font-size: 12px;
+}
+
+input.apple-switch {
+    cursor: pointer;
+    transition: 300ms;
+    position: relative;
+    -webkit-appearance: none;
+    outline: none;
+    width: 25px;
+    height: 15px;
+    background-color: #fff;
+    border: 1px solid #D9DADC;
+    border-radius: 25px;
+    box-shadow: inset -10px 0 0 0 #fff;
+}
+
+input.apple-switch:after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background: transparent;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+}
+
+input.apple-switch:checked {
+    box-shadow: inset 10px 0 0 0 #4ed164;
+    border-color: #4ed164;
+}
+
+input.apple-switch:checked:after {
+    left: 10px;
+    box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
 }
 
 .TP_toggle_text {
@@ -38,7 +89,7 @@
 }
 
 #TP_popup_donation_container {
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
     border-top: 1px solid whitesmoke;
     padding-top: 25px;

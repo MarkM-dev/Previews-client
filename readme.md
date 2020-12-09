@@ -19,6 +19,7 @@
 - Image or Live video stream preview.
 - Previews in sidebar & directories.
 - Preview resize.
+- Auto bonus channel points clicker.
 - Chrome only - Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
 - Chrome only - Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
@@ -33,13 +34,24 @@
 <br/>
 <br/>
 
-- if you're in Video mode (on Chrome), a small button will appear under the view count, click it and a persistent preview window will appear (using chrome's PIP feature).
+* **picture in picture**
+    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (using chrome's PIP feature).
+    - You can still use the regular previews alongside with PIP.
 <br/>
+      
 
 * **Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000)**
     - This feature works when the tab with the player that got an error is currently active.
     - If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.
     - This feature is turned off by default and can be turned on in the extension options.
+<br/>
+
+
+* **Auto bonus channel points clicker**
+    - This feature automatically clicks the green channel points redeem button.
+    - It also works when chat is closed and when the tab or window is in the background.
+    - This feature is turned off by default and can be changed in the extension options.
+
 
 
 <br/>
