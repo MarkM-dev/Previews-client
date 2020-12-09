@@ -716,20 +716,6 @@ function setChannelPointsClickerMode() {
     }
 }
 
-function setIsErrRefreshEnabled() {
-    try {
-        browser.storage.local.get('isErrRefreshEnabled', function(result) {
-            if (typeof result.isErrRefreshEnabled == 'undefined') {
-                onIsErrRefreshEnabledChange(false, false);
-            } else {
-                onIsErrRefreshEnabledChange(result.isErrRefreshEnabled, false);
-            }
-        });
-    } catch (e) {
-        onIsErrRefreshEnabledChange(false, false);
-    }
-}
-
 function getCalculatedPreviewSizeByWidth (width) {
     return {width: width, height: 0.5636363636363636 * width};
 }
@@ -825,20 +811,6 @@ function onChannelPointsClickerModeChange(ChannelPointsClickerEnabled, saveToSto
         }
     }
 
-}
-
-function onIsErrRefreshEnabledChange(_isErrRefreshEnabled, saveToStorage) {
-    isErrRefreshEnabled = _isErrRefreshEnabled;
-
-    if(_isErrRefreshEnabled) {
-        listenForPlayerError();
-    }
-
-    if (saveToStorage) {
-        browser.storage.local.set({'isErrRefreshEnabled': _isErrRefreshEnabled}, function() {
-
-        });
-    }
 }
 
 function onPreviewSizeChange(width) {
