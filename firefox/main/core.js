@@ -4,6 +4,8 @@ var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var isImagePreviewMode = true;
 var isDirpEnabled = true;
+var isChannelPointsClickerEnabled = false;
+var channelPointsClickerInterval = null;
 var twitchIframe;
 var PREVIEWDIV_WIDTH = 440;
 var PREVIEWDIV_HEIGHT = 248;
@@ -700,6 +702,34 @@ function setDirectoryPreviewMode() {
     }
 }
 
+function setChannelPointsClickerMode() {
+    try {
+        browser.storage.local.get('isChannelPointsClickerEnabled', function(result) {
+            if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
+                onChannelPointsClickerModeChange(false, false);
+            } else {
+                onChannelPointsClickerModeChange(result.isChannelPointsClickerEnabled, false);
+            }
+        });
+    } catch (e) {
+        onChannelPointsClickerModeChange(false, false);
+    }
+}
+
+function setIsErrRefreshEnabled() {
+    try {
+        browser.storage.local.get('isErrRefreshEnabled', function(result) {
+            if (typeof result.isErrRefreshEnabled == 'undefined') {
+                onIsErrRefreshEnabledChange(false, false);
+            } else {
+                onIsErrRefreshEnabledChange(result.isErrRefreshEnabled, false);
+            }
+        });
+    } catch (e) {
+        onIsErrRefreshEnabledChange(false, false);
+    }
+}
+
 function getCalculatedPreviewSizeByWidth (width) {
     return {width: width, height: 0.5636363636363636 * width};
 }
@@ -748,6 +778,22 @@ function setDirectoryCardsListeners() {
     }
 }
 
+function clickChannelPointsBtn() {
+    var btn = document.querySelector('.claimable-bonus__icon');
+    if (btn) {
+        btn.click();
+    }
+}
+
+function setChannelPointsClickerListeners() {
+    if (isChannelPointsClickerEnabled && !channelPointsClickerInterval) {
+        clickChannelPointsBtn();
+        channelPointsClickerInterval = setInterval(function() {
+            clickChannelPointsBtn();
+        }, 15000);
+    }
+}
+
 function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
     isDirpEnabled = directoryPreviewEnabled;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
@@ -759,6 +805,40 @@ function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
     }
 
     setDirectoryCardsListeners();
+}
+
+function onChannelPointsClickerModeChange(ChannelPointsClickerEnabled, saveToStorage) {
+    isChannelPointsClickerEnabled = ChannelPointsClickerEnabled;
+
+    if (saveToStorage) {
+        browser.storage.local.set({'isChannelPointsClickerEnabled': ChannelPointsClickerEnabled}, function() {
+
+        });
+    }
+
+    if (ChannelPointsClickerEnabled) {
+        setChannelPointsClickerListeners();
+    } else {
+        if (channelPointsClickerInterval) {
+            clearInterval(channelPointsClickerInterval);
+            channelPointsClickerInterval = null;
+        }
+    }
+
+}
+
+function onIsErrRefreshEnabledChange(_isErrRefreshEnabled, saveToStorage) {
+    isErrRefreshEnabled = _isErrRefreshEnabled;
+
+    if(_isErrRefreshEnabled) {
+        listenForPlayerError();
+    }
+
+    if (saveToStorage) {
+        browser.storage.local.set({'isErrRefreshEnabled': _isErrRefreshEnabled}, function() {
+
+        });
+    }
 }
 
 function onPreviewSizeChange(width) {
@@ -796,6 +876,7 @@ window.addEventListener('load', (event) => {
         setDirectoryPreviewMode();
         setTimeout(function (){
             setTitleMutationObserverForDirectoryCardsRefresh();
+            setChannelPointsClickerMode();
         }, 1000);
     }, 2000);
 });
@@ -808,6 +889,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "update_directoryPreviewMode":
             onDirectoryPreviewModeChange(msg.isDirpEnabled, true);
+            break;
+        case "update_ChannelPointsClickerMode":
+            onChannelPointsClickerModeChange(msg.isChannelPointsClickerEnabled, true);
             break;
         case "update_previewSize":
             onPreviewSizeChange(msg.width);
@@ -826,6 +910,7 @@ function pageAwakened() {
     setViewMode();
     setPreviewSizeFromStorage();
     setDirectoryPreviewMode();
+    setChannelPointsClickerMode();
 }
 
 ///////////// END OF TAB RESUME /////////////
