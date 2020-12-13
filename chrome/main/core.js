@@ -497,7 +497,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     }
                 }
             } else {
-                if (intervalCount > 33) {
+                if (intervalCount > 33 || !isHovering) {
                     clearInterval(clearVidPlayInterval);
                     clearVidPlayInterval = null;
                 } else {
