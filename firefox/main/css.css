@@ -345,7 +345,7 @@
     position: absolute;
     margin-top: 3%;
     margin-left: 87%;
-
+    top: 0;
 }
 
 .sk-chase-dot {
@@ -401,4 +401,12 @@
     bottom: 5px;
     font-size: 1.25em;
     color: white;
+}
+
+.common-centered-column .pop-container__expanded-component {
+    display: none !important;
+}
+
+.common-centered-column div[data-test-selector="pop-container-base"].tw-hide {
+    display: block !important;
 }
