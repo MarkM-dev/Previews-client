@@ -347,12 +347,14 @@ function createAndShowPreview() {
 
 
     if(isStreamerOnline(lastHoveredCardEl)) {
+
+        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+        lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+
         if (isImagePreviewMode) {
-            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+         //   previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+           // lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         } else {
-            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
             twitchIframe.width = PREVIEWDIV_WIDTH + "px";
@@ -380,24 +382,18 @@ function createAndShowPreview() {
 
 function changeAndShowPreview() {
     if(isStreamerOnline(lastHoveredCardEl)) {
-        previewDiv.style.backgroundImage = "none";
+        //previewDiv.style.backgroundImage = "none";
+
+        if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+        }
+        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+
         if (isImagePreviewMode) {
             if (twitchIframe) { // in case its from directory and user in image mode.
                 twitchIframe.style.display = 'none';
             }
-            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            } else {
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            }
         } else {
-            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            } else {
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            }
             if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
                 if (previewDiv.style.display !== "block") {
                     setTimeout(function () {
