@@ -131,7 +131,7 @@ function createPreviewDiv(cssClass) {
     return previewDiv;
 }
 
-function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
+/*function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
     var tp_under_preview_div = document.createElement("div");
     tp_under_preview_div.classList.add('tp-under-preview-logo');
     tp_under_preview_div.classList.add('animated');
@@ -183,7 +183,7 @@ function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
     }, 1000)
 
     previewDiv.appendChild(tp_under_preview_div);
-}
+}*/
 
 function setPreviewDivPosition() {
     previewDiv.style.top = calculatePreviewDivPosition(lastHoveredCardEl);
@@ -300,12 +300,14 @@ function createAndShowPreview() {
 
 
     if(isStreamerOnline(lastHoveredCardEl)) {
+
+        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+        lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+
         if (isImagePreviewMode) {
-            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+         //   previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+           // lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         } else {
-            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
             twitchIframe.width = PREVIEWDIV_WIDTH + "px";
@@ -327,30 +329,24 @@ function createAndShowPreview() {
         }
     }
 
-    createAndShowUnderPreviewDivBanner();
+   // createAndShowUnderPreviewDivBanner();
     appendContainer.appendChild(previewDiv);
 }
 
 function changeAndShowPreview() {
     if(isStreamerOnline(lastHoveredCardEl)) {
-        previewDiv.style.backgroundImage = "none";
+        //previewDiv.style.backgroundImage = "none";
+
+        if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+        }
+        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+
         if (isImagePreviewMode) {
             if (twitchIframe) { // in case its from directory and user in image mode.
                 twitchIframe.style.display = 'none';
             }
-            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            } else {
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            }
         } else {
-            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            } else {
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            }
             if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
                 if (previewDiv.style.display !== "block") {
                     setTimeout(function () {
@@ -455,7 +451,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     clearVidPlayInterval = null;
                     if (isFromDirectory) {
                         clearLoadingRoller(navCardEl);
-                        createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
+                     //   createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
                     } else {
 
                     }
