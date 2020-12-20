@@ -273,11 +273,21 @@ function createAndShowLoadingSpinnerForSideNav() {
     if (!previewDiv.querySelector('.tp-loading')) {
         var loader = document.createElement("span");
         loader.classList.add('tp-loading');
-        loader.innerText = "loading..."
-        isLayoutHorizontallyInverted ? loader.style.left = "10px": loader.style.right = "10px";
+        loader.innerText = "loading stream..."
+        if(isLayoutHorizontallyInverted) {
+            loader.style.left = "0";
+            loader.style.borderTopRightRadius = "10px";
+            loader.style.borderRight = "1px solid #8f8f8f";
+        } else {
+            loader.style.right = "0";
+            loader.style.borderTopLeftRadius = "10px";
+            loader.style.borderLeft = "1px solid #8f8f8f";
+        }
+
+       // isLayoutHorizontallyInverted ? loader.style.left = "0": loader.style.right = "0";
         previewDiv.appendChild(loader);
     } else {
-        previewDiv.querySelector('.tp-loading').innerText = "loading..."
+        previewDiv.querySelector('.tp-loading').innerText = "loading stream..."
     }
 }
 
@@ -294,6 +304,8 @@ function createAndShowPreview() {
             previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
             lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         } else {
+            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
             twitchIframe.width = PREVIEWDIV_WIDTH + "px";
@@ -333,6 +345,12 @@ function changeAndShowPreview() {
                 previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
             }
         } else {
+            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            } else {
+                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            }
             if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
                 if (previewDiv.style.display !== "block") {
                     setTimeout(function () {

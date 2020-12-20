@@ -320,11 +320,21 @@ function createAndShowLoadingSpinnerForSideNav() {
     if (!previewDiv.querySelector('.tp-loading')) {
         var loader = document.createElement("span");
         loader.classList.add('tp-loading');
-        loader.innerText = "loading..."
-        isLayoutHorizontallyInverted ? loader.style.left = "10px": loader.style.right = "10px";
+        loader.innerText = "loading stream..."
+        if(isLayoutHorizontallyInverted) {
+            loader.style.left = "0";
+            loader.style.borderTopRightRadius = "10px";
+            loader.style.borderRight = "1px solid #8f8f8f";
+        } else {
+            loader.style.right = "0";
+            loader.style.borderTopLeftRadius = "10px";
+            loader.style.borderLeft = "1px solid #8f8f8f";
+        }
+
+       // isLayoutHorizontallyInverted ? loader.style.left = "0": loader.style.right = "0";
         previewDiv.appendChild(loader);
     } else {
-        previewDiv.querySelector('.tp-loading').innerText = "loading..."
+        previewDiv.querySelector('.tp-loading').innerText = "loading stream..."
     }
 }
 
@@ -341,6 +351,8 @@ function createAndShowPreview() {
             previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
             lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         } else {
+            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
             twitchIframe.width = PREVIEWDIV_WIDTH + "px";
@@ -380,6 +392,12 @@ function changeAndShowPreview() {
                 previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
             }
         } else {
+            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            } else {
+                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+            }
             if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
                 if (previewDiv.style.display !== "block") {
                     setTimeout(function () {
@@ -1045,7 +1063,8 @@ function showUpdateToast() {
 
                 var updateToast = document.createElement("div");
                 updateToast.id = "tp_updateToast";
-                updateToast.style.padding = "10px 40px 10px 10px";
+                updateToast.style.padding = "10px 15px 10px 10px";
+                updateToast.style.width = "30rem";
                 updateToast.style.background = "#9c60ff";
                 updateToast.style.color = "#fff";
                 updateToast.style.position = "fixed";
@@ -1060,12 +1079,12 @@ function showUpdateToast() {
                 updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
                     "            <div>\n" +
                     "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 2px;\" >New Feature!</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Auto channel points clicker.</div>\n" +
+                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >Small change to video feature</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- added thumbnail image preview while stream video is loading.</div>\n" +
                     "            </div>\n" +
                     "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
                     "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >What's new</div>\n" +
-                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Okay</div>\n" +
+                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Got it</div>\n" +
                     "            </div>\n" +
                     "        </div>";
 
