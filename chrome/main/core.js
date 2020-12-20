@@ -178,7 +178,7 @@ function createPreviewDiv(cssClass) {
     return previewDiv;
 }
 
-function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
+/*function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
     var tp_under_preview_div = document.createElement("div");
     tp_under_preview_div.classList.add('tp-under-preview-logo');
     tp_under_preview_div.classList.add('animated');
@@ -230,7 +230,7 @@ function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
     }, 1000)
 
     previewDiv.appendChild(tp_under_preview_div);
-}
+}*/
 
 function setPreviewDivPosition() {
     previewDiv.style.top = calculatePreviewDivPosition(lastHoveredCardEl);
@@ -376,7 +376,7 @@ function createAndShowPreview() {
         }
     }
 
-    createAndShowUnderPreviewDivBanner();
+   // createAndShowUnderPreviewDivBanner();
     appendContainer.appendChild(previewDiv);
 }
 
@@ -498,7 +498,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     clearVidPlayInterval = null;
                     if (isFromDirectory) {
                         clearLoadingRoller(navCardEl);
-                        createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
+                     //   createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
                     } else {
 
                     }
