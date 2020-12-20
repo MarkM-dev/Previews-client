@@ -131,7 +131,7 @@ function createPreviewDiv(cssClass) {
     return previewDiv;
 }
 
-function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
+/*function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
     var tp_under_preview_div = document.createElement("div");
     tp_under_preview_div.classList.add('tp-under-preview-logo');
     tp_under_preview_div.classList.add('animated');
@@ -183,7 +183,7 @@ function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
     }, 1000)
 
     previewDiv.appendChild(tp_under_preview_div);
-}
+}*/
 
 function setPreviewDivPosition() {
     previewDiv.style.top = calculatePreviewDivPosition(lastHoveredCardEl);
@@ -273,11 +273,21 @@ function createAndShowLoadingSpinnerForSideNav() {
     if (!previewDiv.querySelector('.tp-loading')) {
         var loader = document.createElement("span");
         loader.classList.add('tp-loading');
-        loader.innerText = "loading..."
-        isLayoutHorizontallyInverted ? loader.style.left = "10px": loader.style.right = "10px";
+        loader.innerText = "loading stream..."
+        if(isLayoutHorizontallyInverted) {
+            loader.style.left = "0";
+            loader.style.borderTopRightRadius = "10px";
+            loader.style.borderRight = "1px solid #8f8f8f";
+        } else {
+            loader.style.right = "0";
+            loader.style.borderTopLeftRadius = "10px";
+            loader.style.borderLeft = "1px solid #8f8f8f";
+        }
+
+       // isLayoutHorizontallyInverted ? loader.style.left = "0": loader.style.right = "0";
         previewDiv.appendChild(loader);
     } else {
-        previewDiv.querySelector('.tp-loading').innerText = "loading..."
+        previewDiv.querySelector('.tp-loading').innerText = "loading stream..."
     }
 }
 
@@ -290,9 +300,13 @@ function createAndShowPreview() {
 
 
     if(isStreamerOnline(lastHoveredCardEl)) {
+
+        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+        lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+
         if (isImagePreviewMode) {
-            previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+         //   previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+           // lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         } else {
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
@@ -315,22 +329,22 @@ function createAndShowPreview() {
         }
     }
 
-    createAndShowUnderPreviewDivBanner();
+   // createAndShowUnderPreviewDivBanner();
     appendContainer.appendChild(previewDiv);
 }
 
 function changeAndShowPreview() {
     if(isStreamerOnline(lastHoveredCardEl)) {
-        previewDiv.style.backgroundImage = "none";
+        //previewDiv.style.backgroundImage = "none";
+
+        if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
+            lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
+        }
+        previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
+
         if (isImagePreviewMode) {
             if (twitchIframe) { // in case its from directory and user in image mode.
                 twitchIframe.style.display = 'none';
-            }
-            if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
-                lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-            } else {
-                previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
             }
         } else {
             if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
@@ -437,7 +451,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     clearVidPlayInterval = null;
                     if (isFromDirectory) {
                         clearLoadingRoller(navCardEl);
-                        createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
+                     //   createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
                     } else {
 
                     }
