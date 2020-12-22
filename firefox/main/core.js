@@ -1,3 +1,5 @@
+// (c) Twitch Previews.
+
 var isNavBarCollapsed;
 var previewDiv = null;
 var appendContainer;
