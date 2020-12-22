@@ -70,4 +70,4 @@
 [privacy policy](https://sites.google.com/view/twitchpreviews-privacy-policy
 ) | [terms and conditions](https://sites.google.com/view/twitchpreviews-t-a-c/) 
 <br/>
-© Twitch Previews.
+<sub>© Twitch Previews.</sub>
