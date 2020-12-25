@@ -719,7 +719,7 @@ function refreshNavCardsListAndListeners() {
         isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
         var navCards;
         if (isNavBarCollapsed) {
-            if (document.querySelectorAll('a.side-nav-card')[0].href){
+            if (document.querySelectorAll('a.side-nav-card')[0] && document.querySelectorAll('a.side-nav-card')[0].href){
                 navCards = document.querySelectorAll('a.side-nav-card');
             } else {
                 isNavBarCollapsed = false;
@@ -734,7 +734,6 @@ function refreshNavCardsListAndListeners() {
             setMouseOverListeners(navCards[i]);
         }
     }
-
 }
 
 function ga_heartbeat() {
