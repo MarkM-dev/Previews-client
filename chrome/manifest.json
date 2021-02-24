@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Twitch Previews",
   "description": "Live previews when hovering over streams on twitch | auto channel points clicker | auto refresh on errors (#1000, #2000, #4000)",
-  "version": "1.5.3.7",
+  "version": "1.6",
   "permissions": ["storage"],
   "background": {
     "scripts": ["main/background.js"],
