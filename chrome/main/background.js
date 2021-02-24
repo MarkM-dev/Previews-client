@@ -21,11 +21,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-           /* if (details.previousVersion !== "1.5.3.0") {
-                chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
+            chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
 
-                });
-            }*/
+            });
 
 
            /* if (details.previousVersion === "1.5.1.6") {
@@ -67,7 +65,8 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
             break;
         case "showUpdatePopup":
-            chrome.tabs.create({url:"../popups/updatePopup.html"});
+            //chrome.tabs.create({url:"../popups/updatePopup.html"});
+            chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);
