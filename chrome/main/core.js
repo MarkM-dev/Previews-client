@@ -999,7 +999,13 @@ function refreshPageOnMainTwitchPlayerError() {
     chrome.runtime.sendMessage({action: "bg_errRefresh_exec", detail: ""}, function(response) {
 
     });
-    location.replace(window.location);
+
+    var btn = document.querySelector('.content-overlay-gate__allow-pointers button');
+    if(btn) {
+        btn.click();
+    } else {
+        location.replace(window.location);
+    }
 }
 
 function listenForPlayerError() {
@@ -1012,7 +1018,7 @@ function listenForPlayerError() {
                 setTimeout(function (){
                     var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
                     if (el) {
-                        if (['#1000', '# 1000', '#2000', '# 2000', '#4000','# 4000'].some(x => el.innerText.indexOf(x) >= 0)) {
+                        if (['1000', '2000', '4000'].some(x => el.innerText.indexOf(x) >= 0)) {
                             if (!document.hidden) {
                                 refreshPageOnMainTwitchPlayerError();
                             } else {
@@ -1076,11 +1082,13 @@ function showUpdateToast() {
                 updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
                     "            <div>\n" +
                     "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >Small change to video feature</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- added thumbnail image preview while stream video is loading.</div>\n" +
+                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >Fixes & improvements to auto-refresh feature</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Fix for auto error refresh feature for all languages.</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Improvement to auto error refresh feature (inline refresh on errors #1000 and #2000 instead of full page refresh).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 15px;\" >Also, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
                     "            </div>\n" +
                     "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
-                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >What's new</div>\n" +
+                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
                     "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Got it</div>\n" +
                     "            </div>\n" +
                     "        </div>";
