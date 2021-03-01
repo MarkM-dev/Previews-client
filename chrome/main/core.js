@@ -1014,11 +1014,13 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
 }
 
 function listenForPlayerError() {
-    if (errRefreshListenerAlreadySet) {
-        return;
-    }
     try{
-        document.querySelector(".video-player").querySelector('video').addEventListener('abort', (event) => {
+        var t_player = document.querySelector(".video-player").querySelector('video');
+        if (t_player.attributes.tp_abort_listener) {
+            return;
+        }
+
+        t_player.addEventListener('abort', (event) => {
             if (isErrRefreshEnabled) {
                 setTimeout(function (){
                     var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
@@ -1034,7 +1036,7 @@ function listenForPlayerError() {
                 },100)
             }
         });
-        errRefreshListenerAlreadySet = true;
+        t_player.setAttribute('tp_abort_listener', 'true');
     } catch (e) {
 
     }
