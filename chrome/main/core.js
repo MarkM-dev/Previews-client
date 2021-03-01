@@ -995,25 +995,32 @@ function ga_report_appStart() {
     }
 }
 
-function refreshPageOnMainTwitchPlayerError() {
+function refreshPageOnMainTwitchPlayerError(fullRefresh) {
     chrome.runtime.sendMessage({action: "bg_errRefresh_exec", detail: ""}, function(response) {
 
     });
 
-    var btn = document.querySelector('.content-overlay-gate__allow-pointers button');
-    if(btn) {
-        btn.click();
-    } else {
+    if (fullRefresh) {
         location.replace(window.location);
+    } else {
+        var btn = document.querySelector('.content-overlay-gate__allow-pointers button');
+        if(btn) {
+            btn.click();
+            isMainPlayerError = false;
+        } else {
+            location.replace(window.location);
+        }
     }
 }
 
 function listenForPlayerError() {
-    if (errRefreshListenerAlreadySet) {
-        return;
-    }
     try{
-        document.querySelector(".video-player").querySelector('video').addEventListener('abort', (event) => {
+        var t_player = document.querySelector(".video-player").querySelector('video');
+        if (t_player.attributes.tp_abort_listener) {
+            return;
+        }
+
+        t_player.addEventListener('abort', (event) => {
             if (isErrRefreshEnabled) {
                 setTimeout(function (){
                     var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
@@ -1029,7 +1036,7 @@ function listenForPlayerError() {
                 },100)
             }
         });
-        errRefreshListenerAlreadySet = true;
+        t_player.setAttribute('tp_abort_listener', 'true');
     } catch (e) {
 
     }
@@ -1157,7 +1164,7 @@ window.addEventListener('visibilitychange', function() {
 
 function pageAwakened() {
     if (isMainPlayerError) {
-        refreshPageOnMainTwitchPlayerError();
+        refreshPageOnMainTwitchPlayerError(true);
     }
     setViewMode();
     setPreviewSizeFromStorage();
