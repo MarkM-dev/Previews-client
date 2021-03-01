@@ -995,16 +995,21 @@ function ga_report_appStart() {
     }
 }
 
-function refreshPageOnMainTwitchPlayerError() {
+function refreshPageOnMainTwitchPlayerError(fullRefresh) {
     chrome.runtime.sendMessage({action: "bg_errRefresh_exec", detail: ""}, function(response) {
 
     });
 
-    var btn = document.querySelector('.content-overlay-gate__allow-pointers button');
-    if(btn) {
-        btn.click();
-    } else {
+    if (fullRefresh) {
         location.replace(window.location);
+    } else {
+        var btn = document.querySelector('.content-overlay-gate__allow-pointers button');
+        if(btn) {
+            btn.click();
+            isMainPlayerError = false;
+        } else {
+            location.replace(window.location);
+        }
     }
 }
 
@@ -1157,7 +1162,7 @@ window.addEventListener('visibilitychange', function() {
 
 function pageAwakened() {
     if (isMainPlayerError) {
-        refreshPageOnMainTwitchPlayerError();
+        refreshPageOnMainTwitchPlayerError(true);
     }
     setViewMode();
     setPreviewSizeFromStorage();
