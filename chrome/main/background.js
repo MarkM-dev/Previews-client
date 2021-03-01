@@ -21,9 +21,12 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
+            if (details.previousVersion !== "1.6") {
+                chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
 
-            });
+                });
+            }
+
 
 
            /* if (details.previousVersion === "1.5.1.6") {
