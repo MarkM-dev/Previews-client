@@ -10,7 +10,8 @@
     <img id="TP_popup_logo" src="../images/TP96.png" width="96" height="96">
     <h2>Twitch Previews <span style="font-size: 12px;font-weight: normal;">©</span></h2>
     <div id="TP_popup_sub_container" >
-        <p class="TP_popup_sidebar_feature_title" ><span>Sidebar Previews</span> <!--<input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox">--></p>
+        <p class="TP_popup_sidebar_feature_title" ><span>Sidebar Previews</span> <input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox"> <!--<input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox">--></p>
+        <div id="refreshChangeDivInfo" style="display: none;font-size: 12px;color: limegreen;text-align: left;margin-top: -20px;" >refresh your twitch tabs for sidebar preview change to take affect</div>
         <div class="TP_popup_toggle_container" >
             <div class="TP_toggle_text" >Image Preview</div>
             <label class="switch" >
@@ -22,11 +23,12 @@
 
         <div class="slide-container">
             <p>Preview Size: <span id="TP_popup_preview_size_display"></span></p>
-            <input type="range" min="1" max="100" value="50" class="slider" id="TP_popup_preview_size_input_slider">
+            <input type="range" min="1" max="100" value="50" step="20" class="slider" id="TP_popup_preview_size_input_slider">
         </div>
 
         <p class="TP_popup_dirp_feature_title" style="border-top: 1px solid whitesmoke;margin-top: 20px;padding-top: 15px;" ><span>Directory Previews</span> <input id="TP_popup_directory_preview_mode_checkbox" class="apple-switch" type="checkbox"></p>
         <p class="TP_popup_dirp_feature_title" ><span>Auto channel points clicker</span> <input id="TP_popup_channel_points_checkbox" class="apple-switch" type="checkbox"></p>
+        <p class="TP_popup_dirp_feature_title" ><span>Show sidebar search button</span> <input id="TP_popup_sidebar_search_checkbox" class="apple-switch" type="checkbox"></p>
         <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto refresh on twitch player error <span style="font-weight: normal;font-size: 11px;" >(#1000, #2000, #4000)</span></span> <input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" style="flex: 1;"></p>
        <!-- <div class="TP_popup_toggle_container" >
             <div class="TP_toggle_text" >OFF</div>

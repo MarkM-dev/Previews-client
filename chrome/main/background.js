@@ -11,23 +11,37 @@ ga('send', 'pageview', 'main');
 var HEART_BEAT_INTERVAL_MS = 325000;
 var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 
+var options = {
+    isSidebarPreviewsEnabled: true,
+    isImagePreviewMode: true,
+    PREVIEWDIV_WIDTH: 440,
+    PREVIEWDIV_HEIGHT: 248,
+    isDirpEnabled: true,
+    isChannelPointsClickerEnabled: false,
+    isErrRefreshEnabled: false,
+    isSidebarSearchEnabled: false
+};
+
 chrome.runtime.onInstalled.addListener(function(details) {
     var manifestData = chrome.runtime.getManifest();
     var appVer = "v" + manifestData.version;
-    
-    if (details.reason === "install")
-    {
+
+     chrome.storage.sync.get('tp_options', function(result) {
+        if (typeof result.tp_options == 'undefined') {
+            chrome.storage.sync.set({'tp_options': options}, function() {
+
+            });
+        }
+    });
+
+    if (details.reason === "install") {
         ga('send', 'event', 'tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.6") {
-                chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
+            chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
 
-                });
-            }
-
-
+            });
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -40,20 +54,23 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
-        case "bg_update_imagePreviewMode":
+        case "bg_update_isImagePreviewMode":
             ga('send', 'event', 'preview_mode', 'change', msg.detail ? "image":"video");
             break;
-        case "bg_update_directoryPreviewMode":
+        case "bg_update_isDirpEnabled":
             ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
             break;
-            case "bg_update_ChannelPointsClickerMode":
+            case "bg_update_isChannelPointsClickerEnabled":
             ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
+            break;
+            case "bg_update_isSidebarSearchEnabled":
+            ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarSearch_ON":"sidebarSearch_OFF");
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
             break;
-        case "bg_update_previewSize":
-            ga('send', 'event', 'preview_size', 'change', msg.detail);
+        case "bg_update_PREVIEWDIV_WIDTH":
+            ga('send', 'event', 'preview_size', 'change', msg.detail + "px");
             break;
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html', 'popup.html');
