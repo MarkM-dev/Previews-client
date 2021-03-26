@@ -91,7 +91,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarSearch_ON":"sidebarSearch_OFF");
             break;
         case "bg_update_isSidebarExtendEnabled":
-            ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarExtend_ON":"sidebarExtend_OFF");
+            ga('send', 'event', 'sidebarExtend_mode', 'change', msg.detail ? "sidebarExtend_ON":"sidebarExtend_OFF");
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
