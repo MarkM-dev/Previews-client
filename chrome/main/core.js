@@ -18,17 +18,7 @@ var isLayoutHorizontallyInverted = null;
 var isMainPlayerError = false;
 var timesExtendedSidebar = 0;
 
-var options = {
-    isSidebarPreviewsEnabled: true,
-    isImagePreviewMode: true,
-    PREVIEWDIV_WIDTH: 440,
-    PREVIEWDIV_HEIGHT: 248,
-    isDirpEnabled: true,
-    isChannelPointsClickerEnabled: false,
-    isErrRefreshEnabled: false,
-    isSidebarExtendEnabled: false,
-    isSidebarSearchEnabled: false
-};
+var options = {};
 
 var sideNavMutationObserver = new MutationObserver(function(mutations) {
     var shouldRefresh = false;
@@ -1031,14 +1021,8 @@ function showUpdateToast() {
 function setOptionsFromDB() {
     return new Promise((resolve, reject) => {
         chrome.storage.sync.get('tp_options', function(result) {
-            if (typeof result.tp_options == 'undefined') {
-                chrome.storage.sync.set({'tp_options': options}, function() {
-                    resolve(options);
-                });
-            } else {
-                options = result.tp_options;
-                resolve(options);
-            }
+            options = result.tp_options;
+            resolve(options);
         });
     })
 
