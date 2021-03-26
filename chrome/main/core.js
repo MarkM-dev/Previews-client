@@ -797,6 +797,7 @@ function clearExistingPreviewDivs(className, isFromPip) {
 }
 
 function ga_report_appStart() {
+    var sidebar_previews = options.isSidebarPreviewsEnabled ? "sBarP_ON":"sBarP_OFF";
     var size = options.PREVIEWDIV_WIDTH + "px";
     var mode = options.isImagePreviewMode ? "Image":"Video";
     var dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
@@ -805,7 +806,7 @@ function ga_report_appStart() {
     var sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
     var sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
 
-    chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker + " : " + sidebarExtend + " : " + sidebarSearch}, function(response) {
+    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker + " : " + sidebarExtend + " : " + sidebarSearch}, function(response) {
 
     });
 }
