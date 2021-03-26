@@ -923,6 +923,9 @@ function sidebarSearchBtnClick() {
     showSidebarSearchInput();
     document.getElementById('tp_sidebar_search_input').focus();
     extendSidebar();
+    chrome.runtime.sendMessage({action: "bg_sBarS_btn_click", detail: true}, function(response) {
+
+    });
 }
 
 function createSideBarSearchBtn() {

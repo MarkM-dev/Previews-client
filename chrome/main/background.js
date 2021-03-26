@@ -105,6 +105,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_PN_show":
             ga('send', 'event', 'predictionsNotifications_show', 'PN_show', 'PN_show');
             break;
+        case "bg_sBarS_btn_click":
+            ga('send', 'event', 'sBar_streamSearch_btn_click', 'sBar_streamSearch_btn_click', 'sBar_streamSearch_btn_click');
+            break;
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html', 'popup.html');
             break;
