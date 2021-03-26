@@ -50,6 +50,7 @@
 
 * **Predictions notifications**
     - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
+    - Works on opened stream tabs in the browser.
     - This feature is currently only for users who have twitch in English.
     - When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
 <br/>
