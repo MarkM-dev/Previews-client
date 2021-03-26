@@ -16,10 +16,12 @@
 <br/>
 
 ## Features:
-- Image or Live video stream preview.
-- Previews in sidebar & directories.
+- Image or live video stream Previews in sidebar & directories.
 - Preview resize.
-- Auto bonus channel points clicker.
+- Auto channel points clicker.
+- Chrome only - Auto extend the sidebar to show all online streamers (when sidebar is open).
+- Chrome only - A purple search button on the top of the sidebar to find live streamers easily in the sidebar.
+- Chrome only - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - currently only supports twitch in English.
 - Chrome only - Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
 - Chrome only - Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
@@ -38,7 +40,20 @@
     - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (using chrome's PIP feature).
     - You can still use the regular previews alongside with PIP.
 <br/>
-      
+
+
+* **Sidebar streamer search**
+    - A purple search button on the top of the sidebar to find live streamers easily.
+    - Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
+<br/>
+
+
+* **Predictions notifications**
+    - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
+    - This feature is currently only for users who have twitch in English.
+    - When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
+<br/>
+
 
 * **Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000)**
     - This feature works when the tab with the player that got an error is currently active.
