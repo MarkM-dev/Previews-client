@@ -998,7 +998,7 @@ function showUpdateToast() {
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - this feature is currently only for users who have twitch in English. when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and allow it there).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - this feature is currently only for users who have twitch in English. when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
                     "            </div>\n" +
@@ -1073,14 +1073,17 @@ function showNotification(title, body, icon) {
 }
 
 function checkForPredictions() {
-    if (document.querySelector('button[aria-label="Collapse Chat"]')) {
-        if (!document.hidden) {
-            return;
-        }
-    }
     var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
     if(btn) {
-        var curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText.substring(1);
+        if (document.querySelector('button[aria-label="Collapse Chat"]')) {
+            if (!document.hidden) {
+                last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+                last_prediction_button_text = btn.innerText;
+                return;
+            }
+        }
+
+        var curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
         if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
             return;
         }
@@ -1093,7 +1096,8 @@ function checkForPredictions() {
                 showNotification(curr_streamer, "Prediction Started", curr_streamer_img_url);
                 break;
             case "See Details":
-                showNotification(curr_streamer, "Prediction Ended", curr_streamer_img_url);
+                var result_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
+                showNotification(curr_streamer, "Prediction Ended\n" + result_text, curr_streamer_img_url);
                 break;
         }
     }
