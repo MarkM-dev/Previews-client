@@ -417,9 +417,9 @@
 
 .tp-sidebar-search-btn {
     width: 30px;
-    height: 30px;
+    height: 25px;
     position: absolute;
-    top: 0.9rem;
+    top: 1rem;
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
