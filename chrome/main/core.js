@@ -925,10 +925,12 @@ function showUpdateToast() {
                 updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
                     "            <div>\n" +
                     "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >Fixes & improvements to auto-refresh feature</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Fix for auto error refresh feature for all languages.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Improvement to auto error refresh feature (inline refresh on errors #1000 and #2000 instead of full page refresh).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 15px;\" >Also, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
+                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Always extend the sidebar to show all online streamers (when sidebar is open).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- A search button on the top of the sidebar to find live streamers easily (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - when enabling the feature, you need to enable notifications from twitch.tv.</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Changed the way the extension handles preferences for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
                     "            </div>\n" +
                     "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
                     "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
