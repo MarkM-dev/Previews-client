@@ -951,6 +951,86 @@ function showSidebarSearchBtn() {
     }
 }
 
+function checkForTwitchNotificationsPermissions(featureName, value) {
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission().then(function (res){
+            chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
+
+            });
+            onSettingChange(featureName, true);
+            showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
+        },function (err) {
+            onSettingChange(featureName, false);
+        });
+    } else {
+        chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
+
+        });
+        onSettingChange(featureName, true);
+    }
+}
+
+function showNotification(title, body, icon) {
+    if (Notification.permission !== "granted") {
+        onSettingChange('isPredictionsNotificationsEnabled', false);
+        return;
+    }
+    var notification = new Notification(title, {
+        icon: icon,
+        body: body,
+        silent: true
+    });
+
+    notification.onclick = function () {
+        parent.focus();
+        window.focus();
+        this.close();
+    };
+    chrome.runtime.sendMessage({action: "bg_PN_show", detail: "PN_show"}, function(response) {
+
+    });
+}
+
+function checkForPredictions() {
+    var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
+    if(btn) {
+        if (document.querySelector('button[aria-label="Collapse Chat"]')) {
+            if (!document.hidden) {
+                last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+                last_prediction_button_text = btn.innerText;
+                return;
+            }
+        }
+
+        var curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+        if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
+            return;
+        }
+        var curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
+        last_prediction_streamer = curr_streamer;
+        last_prediction_button_text = btn.innerText;
+
+        switch (btn.innerText) {
+            case "Predict":
+                showNotification(curr_streamer, "Prediction Started", curr_streamer_img_url);
+                break;
+            case "See Details":
+                var result_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
+                showNotification(curr_streamer, "Prediction Ended\n" + result_text, curr_streamer_img_url);
+                break;
+        }
+    }
+}
+
+function setPredictionsNotifications() {
+    if (!predictionsNotificationsInterval) {
+        checkForPredictions();
+        predictionsNotificationsInterval = setInterval(function() {
+            checkForPredictions();
+        }, 15000);
+    }
+}
+
 function showUpdateToast() {
     chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
         if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
@@ -1043,86 +1123,6 @@ function onSettingChange(key, value) {
     chrome.storage.sync.set({'tp_options': options}, function() {
         toggleFeatures();
     });
-}
-
-function checkForTwitchNotificationsPermissions(featureName, value) {
-    if (Notification.permission !== "granted") {
-        Notification.requestPermission().then(function (res){
-            chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
-
-            });
-            onSettingChange(featureName, true);
-            showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
-        },function (err) {
-            onSettingChange(featureName, false);
-        });
-    } else {
-        chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
-
-        });
-        onSettingChange(featureName, true);
-    }
-}
-
-function showNotification(title, body, icon) {
-    if (Notification.permission !== "granted") {
-        onSettingChange('isPredictionsNotificationsEnabled', false);
-        return;
-    }
-        var notification = new Notification(title, {
-            icon: icon,
-            body: body,
-            silent: true
-        });
-
-        notification.onclick = function () {
-            parent.focus();
-            window.focus();
-            this.close();
-        };
-    chrome.runtime.sendMessage({action: "bg_PN_show", detail: "PN_show"}, function(response) {
-
-    });
-}
-
-function checkForPredictions() {
-    var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
-    if(btn) {
-        if (document.querySelector('button[aria-label="Collapse Chat"]')) {
-            if (!document.hidden) {
-                last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
-                last_prediction_button_text = btn.innerText;
-                return;
-            }
-        }
-
-        var curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
-        if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
-            return;
-        }
-        var curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
-        last_prediction_streamer = curr_streamer;
-        last_prediction_button_text = btn.innerText;
-
-        switch (btn.innerText) {
-            case "Predict":
-                showNotification(curr_streamer, "Prediction Started", curr_streamer_img_url);
-                break;
-            case "See Details":
-                var result_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
-                showNotification(curr_streamer, "Prediction Ended\n" + result_text, curr_streamer_img_url);
-                break;
-        }
-    }
-}
-
-function setPredictionsNotifications() {
-    if (!predictionsNotificationsInterval) {
-        checkForPredictions();
-        predictionsNotificationsInterval = setInterval(function() {
-            checkForPredictions();
-        }, 15000);
-    }
 }
 
 function toggleFeatures() {
