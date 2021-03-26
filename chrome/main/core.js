@@ -1077,6 +1077,9 @@ function showNotification(title, body, icon) {
             window.focus();
             this.close();
         };
+    chrome.runtime.sendMessage({action: "bg_PN_show", detail: "PN_show"}, function(response) {
+
+    });
 }
 
 function checkForPredictions() {
