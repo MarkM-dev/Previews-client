@@ -19,6 +19,7 @@ var options = {
     isDirpEnabled: true,
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
+    isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false
 };
 
@@ -31,6 +32,22 @@ chrome.runtime.onInstalled.addListener(function(details) {
             chrome.storage.sync.set({'tp_options': options}, function() {
 
             });
+        } else {
+            // upgrade db.
+            var loaded_options = result.tp_options;
+            var bSetToStorage = false;
+            Object.keys(options).forEach(function(key,index) {
+                if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
+                    loaded_options[key] = options[key];
+                    bSetToStorage = true;
+                }
+            });
+
+            if (bSetToStorage) {
+                chrome.storage.sync.set({'tp_options': loaded_options}, function() {
+
+                });
+            }
         }
     });
 
@@ -62,6 +79,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
             case "bg_update_isChannelPointsClickerEnabled":
             ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
+            break;
+            case "bg_update_isSidebarExtendEnabled":
+            ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarExtend_ON":"sidebarExtend_OFF");
             break;
             case "bg_update_isSidebarSearchEnabled":
             ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarSearch_ON":"sidebarSearch_OFF");
