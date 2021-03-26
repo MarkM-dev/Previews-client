@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCheckbox('isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
         initCheckbox('isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
         initCheckbox('isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
+        initCheckbox('isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox('isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
         initCheckbox('isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
 

@@ -16,6 +16,7 @@ var clearOverlaysInterval = null;
 var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
 var isMainPlayerError = false;
+var timesExtendedSidebar = 0;
 
 var options = {
     isSidebarPreviewsEnabled: true,
@@ -25,6 +26,7 @@ var options = {
     isDirpEnabled: true,
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
+    isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false
 };
 
@@ -36,7 +38,9 @@ var sideNavMutationObserver = new MutationObserver(function(mutations) {
         }
     });
     if (shouldRefresh){
-        refreshNavCardsListAndListeners();
+        if (options.isSidebarPreviewsEnabled) {
+            refreshNavCardsListAndListeners();
+        }
         shouldRefresh = false;
     }
 });
@@ -716,20 +720,26 @@ function refreshDirectoryNavCardsListAndListeners() {
     }
 }
 
+function getSidebarNavCards(ancestor) {
+    isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
+    var parentSearchContainer = ancestor || document;
+    var navCards;
+    if (isNavBarCollapsed) {
+        if (parentSearchContainer.querySelectorAll('a.side-nav-card')[0] && parentSearchContainer.querySelectorAll('a.side-nav-card')[0].href){
+            navCards = parentSearchContainer.querySelectorAll('a.side-nav-card');
+        } else {
+            isNavBarCollapsed = false;
+            navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+        }
+    } else {
+        navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+    }
+    return navCards;
+}
+
 function refreshNavCardsListAndListeners() {
     if (document.getElementById('sideNav')) {
-        isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
-        var navCards;
-        if (isNavBarCollapsed) {
-            if (document.querySelectorAll('a.side-nav-card')[0] && document.querySelectorAll('a.side-nav-card')[0].href){
-                navCards = document.querySelectorAll('a.side-nav-card');
-            } else {
-                isNavBarCollapsed = false;
-                navCards = document.getElementsByClassName('side-nav-card__link');
-            }
-        } else {
-            navCards = document.getElementsByClassName('side-nav-card__link');
-        }
+        var navCards = getSidebarNavCards();
         //var navCards = document.getElementsByClassName('side-nav-card__link');
         for (var i = 0; i < navCards.length; i++) {
             navCards[i].lastImageLoadTimeStamp = new Date().getTime();
@@ -794,8 +804,10 @@ function ga_report_appStart() {
     var dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
     var errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
     var channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
+    var sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
+    var sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
 
-    chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker}, function(response) {
+    chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker + " : " + sidebarExtend + " : " + sidebarSearch}, function(response) {
 
     });
 }
@@ -944,12 +956,32 @@ function onSettingChange(key, value) {
     });
 }
 
+function extendSidebar() {
+    if(document.getElementsByClassName('side-nav-section')[0]) {
+        var navCards = getSidebarNavCards(document.getElementsByClassName('side-nav-section')[0]);
+        if (!isNavBarCollapsed) {
+            if (isStreamerOnline(navCards[navCards.length - 1])) {
+                document.getElementsByClassName('side-nav-section')[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+                if (timesExtendedSidebar < 10) {
+                    timesExtendedSidebar++;
+                    setTimeout(function (){
+                        extendSidebar();
+                    },300);
+                } else {
+                    timesExtendedSidebar = 0;
+                }
+            } else {
+                timesExtendedSidebar = 0;
+            }
+        }
+    }
+}
+
 function toggleFeatures() {
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
 
     if (options.isSidebarPreviewsEnabled) {
         refreshNavCardsListAndListeners();
-        setSideNavMutationObserver();
     }
 
     if (options.isDirpEnabled) {
@@ -967,6 +999,10 @@ function toggleFeatures() {
 
     if (options.isErrRefreshEnabled) {
         listenForPlayerError();
+    }
+
+    if (options.isSidebarExtendEnabled) {
+        extendSidebar();
     }
 
     if (options.isSidebarSearchEnabled) {
@@ -990,6 +1026,7 @@ window.addEventListener('load', (event) => {
         setOptionsFromDB().then(
             function (options){
                 ga_report_appStart();
+                setSideNavMutationObserver();
                 toggleFeatures();
                 createPipBtn();
                 setTimeout(function (){
