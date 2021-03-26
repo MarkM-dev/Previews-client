@@ -1,4 +1,6 @@
 #TPBodyEl {
+    display: flex;
+    width: 540px;
     background-color: #232323;
     text-align: center;
     color: whitesmoke;

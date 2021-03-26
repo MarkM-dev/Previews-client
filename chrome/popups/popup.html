@@ -7,6 +7,15 @@
     <title>Twitch Previews</title>
 </head>
 <body id="TPBodyEl" >
+<div style="width: 50%" >
+    <div style="padding: 10px 5px;" >
+        <p class="TP_popup_dirp_feature_title" ><span>Show sidebar search button</span> <input id="TP_popup_sidebar_search_checkbox" class="apple-switch" type="checkbox"></p>
+        <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Extend sidebar to show all live <br><span style="font-weight: normal;font-size: 11px;" >(when sidebar is open)</span></span> <input id="TP_popup_sidebar_extend_checkbox" class="apple-switch" type="checkbox" ></p>
+        <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto refresh on twitch player error <br><span style="font-weight: normal;font-size: 11px;" >(#1000, #2000, #4000)</span></span> <input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" ></p>
+        <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Predictions notifications <br><span style="font-weight: normal;font-size: 11px;" >(currently supports twitch in english)</span></span> <input id="TP_popup_predictions_notifications_checkbox" class="apple-switch" type="checkbox" ></p>
+    </div>
+   </div>
+<div style="width: 50%" >
     <img id="TP_popup_logo" src="../images/TP96.png" width="96" height="96">
     <h2>Twitch Previews <span style="font-size: 12px;font-weight: normal;">©</span></h2>
     <div id="refreshChangeDivInfo" style="display: none;font-size: 12px;color: limegreen;text-align: left;" >refresh your twitch tabs for changes to take affect</div>
@@ -25,14 +34,10 @@
             <p>Preview Size: <span id="TP_popup_preview_size_display"></span></p>
             <input type="range" min="1" max="100" value="50" step="20" class="slider" id="TP_popup_preview_size_input_slider">
         </div>
-
         <p class="TP_popup_dirp_feature_title" style="border-top: 1px solid whitesmoke;margin-top: 20px;padding-top: 15px;" ><span>Directory Previews</span> <input id="TP_popup_directory_preview_mode_checkbox" class="apple-switch" type="checkbox"></p>
         <p class="TP_popup_dirp_feature_title" ><span>Auto channel points clicker</span> <input id="TP_popup_channel_points_checkbox" class="apple-switch" type="checkbox"></p>
-        <p class="TP_popup_dirp_feature_title" ><span>Show sidebar search button</span> <input id="TP_popup_sidebar_search_checkbox" class="apple-switch" type="checkbox"></p>
-        <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Extend sidebar to show all live <br><span style="font-weight: normal;font-size: 11px;" >(when sidebar is open)</span></span> <input id="TP_popup_sidebar_extend_checkbox" class="apple-switch" type="checkbox" style="flex: 1;"></p>
-        <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto refresh on twitch player error <br><span style="font-weight: normal;font-size: 11px;" >(#1000, #2000, #4000)</span></span> <input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" style="flex: 1;"></p>
-        <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Predictions notifications <br><span style="font-weight: normal;font-size: 11px;" >(currently supports twitch in english)</span></span> <input id="TP_popup_predictions_notifications_checkbox" class="apple-switch" type="checkbox" style="flex: 1;"></p>
-        <!-- <div class="TP_popup_toggle_container" >
+
+         <!-- <div class="TP_popup_toggle_container" >
             <div class="TP_toggle_text" >OFF</div>
             <label class="switch" >
                 <input id="TP_popup_directory_preview_mode_checkbox" class="switch-input" type="checkbox">
@@ -55,5 +60,7 @@
         <div id="tp_popup_rate_btn" >Rate</div>
         <div id="tp_popup_share_btn" >Share</div>
     </div>
+</div>
+
 </body>
 </html>
