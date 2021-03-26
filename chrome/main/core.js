@@ -38,9 +38,7 @@ var sideNavMutationObserver = new MutationObserver(function(mutations) {
         }
     });
     if (shouldRefresh){
-        if (options.isSidebarPreviewsEnabled) {
-            refreshNavCardsListAndListeners();
-        }
+        refreshNavCardsListAndListeners();
         shouldRefresh = false;
     }
 });
@@ -982,6 +980,7 @@ function toggleFeatures() {
 
     if (options.isSidebarPreviewsEnabled) {
         refreshNavCardsListAndListeners();
+        setSideNavMutationObserver();
     }
 
     if (options.isDirpEnabled) {
@@ -1026,7 +1025,6 @@ window.addEventListener('load', (event) => {
         setOptionsFromDB().then(
             function (options){
                 ga_report_appStart();
-                setSideNavMutationObserver();
                 toggleFeatures();
                 createPipBtn();
                 setTimeout(function (){
