@@ -71,8 +71,14 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
+        case "bg_update_isSidebarPreviewsEnabled":
+            ga('send', 'event', 'sidebarPreview_mode', 'change', msg.detail ? "sBarPreview_ON":"sBarPreview_OFF");
+            break;
         case "bg_update_isImagePreviewMode":
             ga('send', 'event', 'preview_mode', 'change', msg.detail ? "image":"video");
+            break;
+        case "bg_update_PREVIEWDIV_WIDTH":
+            ga('send', 'event', 'preview_size', 'change', msg.detail + "px");
             break;
         case "bg_update_isDirpEnabled":
             ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
@@ -80,17 +86,14 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isChannelPointsClickerEnabled":
             ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
             break;
-        case "bg_update_isSidebarExtendEnabled":
-            ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarExtend_ON":"sidebarExtend_OFF");
-            break;
         case "bg_update_isSidebarSearchEnabled":
             ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarSearch_ON":"sidebarSearch_OFF");
             break;
+        case "bg_update_isSidebarExtendEnabled":
+            ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarExtend_ON":"sidebarExtend_OFF");
+            break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
-            break;
-        case "bg_update_PREVIEWDIV_WIDTH":
-            ga('send', 'event', 'preview_size', 'change', msg.detail + "px");
             break;
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html', 'popup.html');
