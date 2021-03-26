@@ -4,13 +4,9 @@ var isNavBarCollapsed;
 var previewDiv = null;
 var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
-var isImagePreviewMode = true;
-var isDirpEnabled = true;
-var isChannelPointsClickerEnabled = false;
 var channelPointsClickerInterval = null;
+var predictionsNotificationsInterval = null;
 var twitchIframe;
-var PREVIEWDIV_WIDTH = 440;
-var PREVIEWDIV_HEIGHT = 248;
 var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
@@ -21,8 +17,11 @@ var clearOverlaysInterval = null;
 var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
 var isMainPlayerError = false;
-var isErrRefreshEnabled = false;
-var errRefreshListenerAlreadySet = false;
+var timesExtendedSidebar = 0;
+var last_prediction_streamer = "";
+var last_prediction_button_text = "";
+
+var options = {};
 
 var sideNavMutationObserver = new MutationObserver(function(mutations) {
     var shouldRefresh = false;
@@ -129,12 +128,12 @@ function getElementOffset(el) {
 function calculatePreviewDivPosition(navCardEl) {
     var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
     //var elOffset = getElementOffset(navCardEl).top + (30);
-    if (window.innerHeight - elOffset < PREVIEWDIV_HEIGHT) { // if cuts off bottom
-        if (elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) < 0) { // if cuts off top too
+    if (window.innerHeight - elOffset < options.PREVIEWDIV_HEIGHT) { // if cuts off bottom
+        if (elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) < 0) { // if cuts off top too
             return "5rem";
         } else {
-            return elOffset - PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) + "px";
-            //return elOffset - PREVIEWDIV_HEIGHT - (20);
+            return elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) + "px";
+            //return elOffset - options.PREVIEWDIV_HEIGHT - (20);
         }
     } else {
         return elOffset + "px";
@@ -150,12 +149,10 @@ function getPreviewOfflineImageUrl() {
 }
 
 function getPreviewImageUrl(navCardEl) {
-        return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + PREVIEWDIV_WIDTH + "x" + Math.round(PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+        return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + options.PREVIEWDIV_WIDTH + "x" + Math.round(options.PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
 }
 
 function getPreviewStreamUrl(navCardEl) {
-   // return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&!controls&muted";
-    //return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&muted&parent=twitch.tv";
     return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
 }
 
@@ -342,8 +339,8 @@ function createAndShowLoadingSpinnerForSideNav() {
 
 function createAndShowPreview() {
     previewDiv = createPreviewDiv(TP_PREVIEW_DIV_CLASSNAME);
-    previewDiv.style.width = PREVIEWDIV_WIDTH + "px";
-    previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
+    previewDiv.style.width = options.PREVIEWDIV_WIDTH + "px";
+    previewDiv.style.height = options.PREVIEWDIV_HEIGHT + "px";
     setPreviewDivPosition();
     previewDiv.style.display = "block";
 
@@ -353,14 +350,14 @@ function createAndShowPreview() {
         previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
         lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
 
-        if (isImagePreviewMode) {
+        if (options.isImagePreviewMode) {
          //   previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
            // lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         } else {
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
-            twitchIframe.width = PREVIEWDIV_WIDTH + "px";
-            twitchIframe.height = PREVIEWDIV_HEIGHT + "px";
+            twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
+            twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
@@ -369,10 +366,10 @@ function createAndShowPreview() {
         }
     } else {
         previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
-        if (!isImagePreviewMode) {
+        if (!options.isImagePreviewMode) {
             twitchIframe = createIframeElement();
-            twitchIframe.width = PREVIEWDIV_WIDTH + "px";
-            twitchIframe.height = PREVIEWDIV_HEIGHT + "px";
+            twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
+            twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
             twitchIframe.style.display = "none";
             previewDiv.appendChild(twitchIframe);
         }
@@ -391,7 +388,7 @@ function changeAndShowPreview() {
         }
         previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
 
-        if (isImagePreviewMode) {
+        if (options.isImagePreviewMode) {
             if (twitchIframe) { // in case its from directory and user in image mode.
                 twitchIframe.style.display = 'none';
             }
@@ -416,19 +413,19 @@ function changeAndShowPreview() {
                 twitchIframe.style.display = 'block';
                 twitchIframe.style.visibility = 'visible';
             }
-            twitchIframe.width = PREVIEWDIV_WIDTH + "px";
-            twitchIframe.height = PREVIEWDIV_HEIGHT + "px";
+            twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
+            twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
         }
     } else {
         clearLoadingSpinnerFromSideNav();
         previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
-        if (!isImagePreviewMode){
+        if (!options.isImagePreviewMode){
             twitchIframe.style.display = "none";
         }
     }
 
-    previewDiv.style.width = PREVIEWDIV_WIDTH + "px";
-    previewDiv.style.height = PREVIEWDIV_HEIGHT + "px";
+    previewDiv.style.width = options.PREVIEWDIV_WIDTH + "px";
+    previewDiv.style.height = options.PREVIEWDIV_HEIGHT + "px";
     setPreviewDivPosition();
     previewDiv.style.display = "block";
 }
@@ -566,7 +563,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                                 intervalCount++;
                             }
                         }
-                        if (isHovering && !isImagePreviewMode && !isNavBarCollapsed) {
+                        if (isHovering && !options.isImagePreviewMode && !isNavBarCollapsed) {
                             if (lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]')) {
                                 lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
                             }
@@ -664,7 +661,7 @@ function setDirectoryMouseOverListeners(navCardEl) {
     };
 
     navCardEl.onmouseover = function () {
-        if (!isDirpEnabled) {
+        if (!options.isDirpEnabled) {
             return;
         }
         if (previewDiv) {
@@ -714,20 +711,26 @@ function refreshDirectoryNavCardsListAndListeners() {
     }
 }
 
+function getSidebarNavCards(ancestor) {
+    isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
+    var parentSearchContainer = ancestor || document;
+    var navCards;
+    if (isNavBarCollapsed) {
+        if (parentSearchContainer.querySelectorAll('a.side-nav-card')[0] && parentSearchContainer.querySelectorAll('a.side-nav-card')[0].href){
+            navCards = parentSearchContainer.querySelectorAll('a.side-nav-card');
+        } else {
+            isNavBarCollapsed = false;
+            navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+        }
+    } else {
+        navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+    }
+    return navCards;
+}
+
 function refreshNavCardsListAndListeners() {
     if (document.getElementById('sideNav')) {
-        isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
-        var navCards;
-        if (isNavBarCollapsed) {
-            if (document.querySelectorAll('a.side-nav-card')[0] && document.querySelectorAll('a.side-nav-card')[0].href){
-                navCards = document.querySelectorAll('a.side-nav-card');
-            } else {
-                isNavBarCollapsed = false;
-                navCards = document.getElementsByClassName('side-nav-card__link');
-            }
-        } else {
-            navCards = document.getElementsByClassName('side-nav-card__link');
-        }
+        var navCards = getSidebarNavCards();
         //var navCards = document.getElementsByClassName('side-nav-card__link');
         for (var i = 0; i < navCards.length; i++) {
             navCards[i].lastImageLoadTimeStamp = new Date().getTime();
@@ -743,108 +746,12 @@ function ga_heartbeat() {
     setTimeout(ga_heartbeat, 325000);
 }
 
-function setViewMode() {
-    try {
-        chrome.storage.sync.get('isImagePreviewMode', function(result) {
-            if (typeof result.isImagePreviewMode == 'undefined') {
-                isImagePreviewMode = true;
-            } else {
-                if(isImagePreviewMode) {
-                    if (isImagePreviewMode !== result.isImagePreviewMode) {
-                        onPreviewModeChange(result.isImagePreviewMode, false);
-                    }
-                } else {
-                    isImagePreviewMode = result.isImagePreviewMode;
-                }
-            }
-        });
-    } catch (e) {
-        onPreviewModeChange(true, false);
-    }
-}
-
-function setDirectoryPreviewMode() {
-    try {
-        chrome.storage.sync.get('isDirpEnabled', function(result) {
-            if (typeof result.isDirpEnabled == 'undefined') {
-                onDirectoryPreviewModeChange(true, false);
-            } else {
-                onDirectoryPreviewModeChange(result.isDirpEnabled, false);
-            }
-        });
-    } catch (e) {
-        onDirectoryPreviewModeChange(true, false);
-    }
-}
-
-function setChannelPointsClickerMode() {
-    try {
-        chrome.storage.sync.get('isChannelPointsClickerEnabled', function(result) {
-            if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
-                onChannelPointsClickerModeChange(false, false);
-            } else {
-                onChannelPointsClickerModeChange(result.isChannelPointsClickerEnabled, false);
-            }
-        });
-    } catch (e) {
-        onChannelPointsClickerModeChange(false, false);
-    }
-}
-
-function setIsErrRefreshEnabled() {
-    try {
-        chrome.storage.sync.get('isErrRefreshEnabled', function(result) {
-            if (typeof result.isErrRefreshEnabled == 'undefined') {
-                onIsErrRefreshEnabledChange(false, false);
-            } else {
-                onIsErrRefreshEnabledChange(result.isErrRefreshEnabled, false);
-            }
-        });
-    } catch (e) {
-        onIsErrRefreshEnabledChange(false, false);
-    }
-}
-
 function getCalculatedPreviewSizeByWidth (width) {
     return {width: width, height: 0.5636363636363636 * width};
 }
 
-function setPreviewSize(previewSizeObj) {
-    PREVIEWDIV_WIDTH = previewSizeObj.width;
-    PREVIEWDIV_HEIGHT = previewSizeObj.height;
-}
-
-function setPreviewSizeFromStorage() {
-    if (previewDiv) {
-        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-    }
-
-    try {
-        chrome.storage.sync.get('previewSize', function(result) {
-            if (typeof result.previewSize == 'undefined') {
-                setPreviewSize(getCalculatedPreviewSizeByWidth(PREVIEWDIV_WIDTH));
-            } else {
-                setPreviewSize(result.previewSize);
-            }
-        });
-    } catch (e) {
-        setPreviewSize(getCalculatedPreviewSizeByWidth(PREVIEWDIV_WIDTH));
-    }
-}
-
-function onPreviewModeChange(imagePreviewMode, saveToStorage) {
-    isImagePreviewMode = imagePreviewMode;
-    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-
-    if (saveToStorage) {
-        chrome.storage.sync.set({'isImagePreviewMode': imagePreviewMode}, function() {
-
-        });
-    }
-}
-
 function setDirectoryCardsListeners() {
-    if (isDirpEnabled) {
+    if (options.isDirpEnabled) {
         //if (document.querySelector('div[data-target="directory-container"]')) {
         if (document.querySelector('.common-centered-column')) {
             //setDirectoryMutationObserver();
@@ -861,70 +768,12 @@ function clickChannelPointsBtn() {
 }
 
 function setChannelPointsClickerListeners() {
-    if (isChannelPointsClickerEnabled && !channelPointsClickerInterval) {
+    if (!channelPointsClickerInterval) {
         clickChannelPointsBtn();
         channelPointsClickerInterval = setInterval(function() {
             clickChannelPointsBtn();
         }, 15000);
     }
-}
-
-function onDirectoryPreviewModeChange(directoryPreviewEnabled, saveToStorage) {
-    isDirpEnabled = directoryPreviewEnabled;
-    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-
-    if (saveToStorage) {
-        chrome.storage.sync.set({'isDirpEnabled': directoryPreviewEnabled}, function() {
-
-        });
-    }
-
-    setDirectoryCardsListeners();
-}
-
-function onChannelPointsClickerModeChange(ChannelPointsClickerEnabled, saveToStorage) {
-    isChannelPointsClickerEnabled = ChannelPointsClickerEnabled;
-
-    if (saveToStorage) {
-        chrome.storage.sync.set({'isChannelPointsClickerEnabled': ChannelPointsClickerEnabled}, function() {
-
-        });
-    }
-
-    if (ChannelPointsClickerEnabled) {
-        setChannelPointsClickerListeners();
-    } else {
-        if (channelPointsClickerInterval) {
-            clearInterval(channelPointsClickerInterval);
-            channelPointsClickerInterval = null;
-        }
-    }
-
-}
-
-function onIsErrRefreshEnabledChange(_isErrRefreshEnabled, saveToStorage) {
-    isErrRefreshEnabled = _isErrRefreshEnabled;
-
-    if(_isErrRefreshEnabled) {
-        listenForPlayerError();
-    }
-
-    if (saveToStorage) {
-        chrome.storage.sync.set({'isErrRefreshEnabled': _isErrRefreshEnabled}, function() {
-
-        });
-    }
-}
-
-function onPreviewSizeChange(width) {
-    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-    var previewSizeObj = getCalculatedPreviewSizeByWidth(width);
-    setPreviewSize(previewSizeObj);
-
-    chrome.storage.sync.set({'previewSize': previewSizeObj}, function() {
-
-    });
-
 }
 
 function clearExistingPreviewDivs(className, isFromPip) {
@@ -941,58 +790,18 @@ function clearExistingPreviewDivs(className, isFromPip) {
 }
 
 function ga_report_appStart() {
-    var size = "440px";
-    var mode = "image";
-    var dirp = "dirp_on";
-    var errRefresh = "errRefresh_off";
-    var channelPointsClicker = "cpc_off";
+    var sidebar_previews = options.isSidebarPreviewsEnabled ? "sBarP_ON":"sBarP_OFF";
+    var size = options.PREVIEWDIV_WIDTH + "px";
+    var mode = options.isImagePreviewMode ? "Image":"Video";
+    var dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
+    var errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
+    var channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
+    var sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
+    var sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
 
-    try {
-        chrome.storage.sync.get('previewSize', function(result) {
-            if (typeof result.previewSize == 'undefined') {
+    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker + " : " + sidebarExtend + " : " + sidebarSearch}, function(response) {
 
-            } else {
-                size = result.previewSize.width + "px";
-            }
-
-            chrome.storage.sync.get('isImagePreviewMode', function(result) {
-                if (typeof result.isImagePreviewMode == 'undefined') {
-
-                } else {
-                    mode = result.isImagePreviewMode ? "Image":"Video";
-                }
-
-                chrome.storage.sync.get('isDirpEnabled', function(result) {
-                    if (typeof result.isDirpEnabled == 'undefined') {
-
-                    } else {
-                        dirp = result.isDirpEnabled ? "dirp_ON":"dirp_OFF";
-                    }
-                    chrome.storage.sync.get('isErrRefreshEnabled', function(result) {
-                        if (typeof result.isErrRefreshEnabled == 'undefined') {
-
-                        } else {
-                            errRefresh = result.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
-                        }
-                        chrome.storage.sync.get('isChannelPointsClickerEnabled', function(result) {
-                            if (typeof result.isChannelPointsClickerEnabled == 'undefined') {
-
-                            } else {
-                                channelPointsClicker = result.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
-                            }
-                            chrome.runtime.sendMessage({action: "appStart", detail: mode + " : " + size + " : " + dirp + " : " + errRefresh + " : " + channelPointsClicker}, function(response) {
-
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    } catch (e) {
-        chrome.runtime.sendMessage({action: "appStart", detail: "-- err: " + e.message}, function(response) {
-
-        });
-    }
+    });
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -1021,7 +830,7 @@ function listenForPlayerError() {
         }
 
         t_player.addEventListener('abort', (event) => {
-            if (isErrRefreshEnabled) {
+            if (options.isErrRefreshEnabled) {
                 setTimeout(function (){
                     var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
                     if (el) {
@@ -1039,6 +848,102 @@ function listenForPlayerError() {
         t_player.setAttribute('tp_abort_listener', 'true');
     } catch (e) {
 
+    }
+}
+
+function extendSidebar() {
+    if(document.getElementsByClassName('side-nav-section')[0]) {
+        var navCards = getSidebarNavCards(document.getElementsByClassName('side-nav-section')[0]);
+        if (!isNavBarCollapsed) {
+            if (isStreamerOnline(navCards[navCards.length - 1])) {
+                document.getElementsByClassName('side-nav-section')[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+                if (timesExtendedSidebar < 10) {
+                    timesExtendedSidebar++;
+                    setTimeout(function (){
+                        extendSidebar();
+                    },300);
+                } else {
+                    timesExtendedSidebar = 0;
+                }
+            } else {
+                timesExtendedSidebar = 0;
+            }
+        }
+    }
+}
+
+function searchStreamer(e) {
+    filter = e.target.value.toUpperCase()
+    var navCards = getSidebarNavCards();
+
+    for (var i = 0; i < navCards.length; i++) {
+        if (navCards[i].href.toUpperCase().indexOf(filter) > -1) {
+            navCards[i].parentElement.classList.remove("tp_display_none");
+        } else {
+            navCards[i].parentElement.classList.add("tp_display_none");
+        }
+    }
+}
+
+function createSidebarSearchInput() {
+    var search_input_container = document.createElement("div");
+    search_input_container.id = "tp_sidebar_search_input_container";
+
+    isLayoutHorizontallyInverted ? search_input_container.style.right = "1rem" : search_input_container.style.left = "1rem";
+    search_input_container.classList.add('tp_search_input_container');
+    search_input_container.classList.add('animated');
+    search_input_container.classList.add('fadeIn');
+
+    var search_input = document.createElement("input");
+    search_input.id = "tp_sidebar_search_input";
+    search_input.placeholder = "Search Streamer";
+    search_input.classList.add('tp_search_input');
+    search_input.addEventListener('input', searchStreamer);
+
+    var search_close_btn = document.createElement("div");
+    search_close_btn.classList.add('tp_search_close_btn');
+    search_close_btn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tp_sidebar_search_close.png') + "')";
+    search_close_btn.onclick = function () {
+        searchStreamer({target: {value: ""}});
+        document.getElementById('tp_sidebar_search_input_container').parentElement.removeChild(document.getElementById('tp_sidebar_search_input_container'));
+    }
+
+    search_input_container.appendChild(search_input);
+    search_input_container.appendChild(search_close_btn);
+
+    return search_input_container;
+}
+
+function showSidebarSearchInput() {
+    document.getElementsByClassName('side-nav-header')[0].appendChild(createSidebarSearchInput());
+}
+
+function sidebarSearchBtnClick() {
+    showSidebarSearchInput();
+    document.getElementById('tp_sidebar_search_input').focus();
+    extendSidebar();
+}
+
+function createSideBarSearchBtn() {
+    var search_btn = document.createElement("div");
+    search_btn.id = "tp_sidebar_search_btn";
+    search_btn.classList.add('tp-sidebar-search-btn');
+    search_btn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tp_sidebar_search.png') + "')";
+    isLayoutHorizontallyInverted ? search_btn.style.left = "4rem" : search_btn.style.right = "4rem";
+    search_btn.title = "Twitch Previews - Search Streamers";
+    search_btn.onclick = sidebarSearchBtnClick;
+
+    return search_btn;
+}
+
+function showSidebarSearchBtn() {
+    if (!isNavBarCollapsed) {
+        var sidenav_header = document.getElementsByClassName('side-nav-header')[0];
+        if (sidenav_header) {
+            if (!document.getElementById('tp_sidebar_search_btn')) {
+                sidenav_header.appendChild(createSideBarSearchBtn());
+            }
+        }
     }
 }
 
@@ -1089,10 +994,13 @@ function showUpdateToast() {
                 updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
                     "            <div>\n" +
                     "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >Fixes & improvements to auto-refresh feature</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Fix for auto error refresh feature for all languages.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 5px;\" >- Improvement to auto error refresh feature (inline refresh on errors #1000 and #2000 instead of full page refresh).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 15px;\" >Also, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
+                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - this feature is currently only for users who have twitch in English. when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
                     "            </div>\n" +
                     "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
                     "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
@@ -1113,47 +1021,171 @@ function showUpdateToast() {
     });
 }
 
-window.addEventListener('load', (event) => {
-    setTimeout(function(){
-        ga_report_appStart();
-        ga_heartbeat();
-        appendContainer = document.body;
-        document.getElementById('sideNav').style.zIndex = '10';
-        setViewMode();
-        setPreviewSizeFromStorage();
+function setOptionsFromDB() {
+    return new Promise((resolve, reject) => {
+        chrome.storage.sync.get('tp_options', function(result) {
+            options = result.tp_options;
+            resolve(options);
+        });
+    })
+
+}
+
+function onSettingChange(key, value) {
+    options[key] = value;
+    if (key === 'PREVIEWDIV_WIDTH') {
+        options['PREVIEWDIV_HEIGHT'] = getCalculatedPreviewSizeByWidth(value).height;
+    }
+    chrome.storage.sync.set({'tp_options': options}, function() {
+        toggleFeatures();
+    });
+}
+
+function checkForTwitchNotificationsPermissions(featureName, value) {
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission().then(function (res){
+            chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
+
+            });
+            onSettingChange(featureName, true);
+            showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
+        },function (err) {
+            onSettingChange(featureName, false);
+        });
+    } else {
+        chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
+
+        });
+        onSettingChange(featureName, true);
+    }
+}
+
+function showNotification(title, body, icon) {
+    if (Notification.permission !== "granted") {
+        onSettingChange('isPredictionsNotificationsEnabled', false);
+        return;
+    }
+        var notification = new Notification(title, {
+            icon: icon,
+            body: body,
+            silent: true
+        });
+
+        notification.onclick = function () {
+            parent.focus();
+            window.focus();
+            this.close();
+        };
+}
+
+function checkForPredictions() {
+    var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
+    if(btn) {
+        if (document.querySelector('button[aria-label="Collapse Chat"]')) {
+            if (!document.hidden) {
+                last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+                last_prediction_button_text = btn.innerText;
+                return;
+            }
+        }
+
+        var curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+        if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
+            return;
+        }
+        var curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
+        last_prediction_streamer = curr_streamer;
+        last_prediction_button_text = btn.innerText;
+
+        switch (btn.innerText) {
+            case "Predict":
+                showNotification(curr_streamer, "Prediction Started", curr_streamer_img_url);
+                break;
+            case "See Details":
+                var result_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
+                showNotification(curr_streamer, "Prediction Ended\n" + result_text, curr_streamer_img_url);
+                break;
+        }
+    }
+}
+
+function setPredictionsNotifications() {
+    if (!predictionsNotificationsInterval) {
+        checkForPredictions();
+        predictionsNotificationsInterval = setInterval(function() {
+            checkForPredictions();
+        }, 15000);
+    }
+}
+
+function toggleFeatures() {
+    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+
+    if (options.isSidebarPreviewsEnabled) {
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
-        createPipBtn();
-        setDirectoryPreviewMode();
-        setTimeout(function (){
-            setTitleMutationObserverForDirectoryCardsRefresh();
-            setChannelPointsClickerMode();
-        }, 1000);
-        setIsErrRefreshEnabled();
-        showUpdateToast();
-    }, 2000);
-});
+    }
+
+    if (options.isDirpEnabled) {
+        setDirectoryCardsListeners();
+    }
+
+    if (options.isChannelPointsClickerEnabled) {
+        setChannelPointsClickerListeners();
+    }
+
+    if (options.isErrRefreshEnabled) {
+        listenForPlayerError();
+    }
+
+    if (options.isSidebarExtendEnabled) {
+        document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", extendSidebar);
+        extendSidebar();
+    }
+
+    if (options.isSidebarSearchEnabled) {
+        document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", showSidebarSearchBtn);
+        showSidebarSearchBtn();
+    }
+
+    if (options.isPredictionsNotificationsEnabled) {
+        setPredictionsNotifications();
+    }
+}
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
-    switch(msg.action) {
-        case "update_imagePreviewMode":
-            onPreviewModeChange(msg.isImagePreviewMode, true);
-            break;
-        case "update_directoryPreviewMode":
-            onDirectoryPreviewModeChange(msg.isDirpEnabled, true);
-            break;
-        case "update_ChannelPointsClickerMode":
-            onChannelPointsClickerModeChange(msg.isChannelPointsClickerEnabled, true);
-            break;
-        case "update_previewSize":
-            onPreviewSizeChange(msg.width);
-            break;
-        case "update_isErrRefreshEnabled":
-            onIsErrRefreshEnabledChange(msg.isErrRefreshEnabled, true);
-            break;
+    if (msg.action === "update_options") {
+        onSettingChange(msg.detail.featureName, msg.detail.value);
+    } else {
+        if ("check_notifications_permissions") {
+            checkForTwitchNotificationsPermissions(msg.detail.featureName, msg.detail.value);
+        }
     }
 
+});
+
+window.addEventListener('load', (event) => {
+    setTimeout(function(){
+
+
+        ga_heartbeat();
+        appendContainer = document.body;
+        document.getElementById('sideNav').style.zIndex = '10';
+        setOptionsFromDB().then(
+            function (options){
+                ga_report_appStart();
+                toggleFeatures();
+                createPipBtn();
+                setTimeout(function (){
+                    setTitleMutationObserverForDirectoryCardsRefresh();
+                }, 1000);
+                showUpdateToast();
+            },
+            function (err){
+
+            });
+    }, 2000);
 });
 
 ///////////// TAB RESUME /////////////
@@ -1166,11 +1198,13 @@ function pageAwakened() {
     if (isMainPlayerError) {
         refreshPageOnMainTwitchPlayerError(true);
     }
-    setViewMode();
-    setPreviewSizeFromStorage();
-    setDirectoryPreviewMode();
-    setChannelPointsClickerMode();
-    setIsErrRefreshEnabled();
+    setOptionsFromDB().then(
+        function (options){
+            toggleFeatures();
+        },
+        function (err){
+
+        });
 }
 
 ///////////// END OF TAB RESUME /////////////
