@@ -5,6 +5,7 @@ var previewDiv = null;
 var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var channelPointsClickerInterval = null;
+var predictionsNotificationsInterval = null;
 var twitchIframe;
 var isHovering = false;
 var lastHoveredCardEl = null;
@@ -17,6 +18,8 @@ var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
 var isMainPlayerError = false;
 var timesExtendedSidebar = 0;
+var last_prediction_streamer = "";
+var last_prediction_button_text = "";
 
 var options = {};
 
@@ -765,7 +768,7 @@ function clickChannelPointsBtn() {
 }
 
 function setChannelPointsClickerListeners() {
-    if (options.isChannelPointsClickerEnabled && !channelPointsClickerInterval) {
+    if (!channelPointsClickerInterval) {
         clickChannelPointsBtn();
         channelPointsClickerInterval = setInterval(function() {
             clickChannelPointsBtn();
@@ -992,11 +995,11 @@ function showUpdateToast() {
                     "            <div>\n" +
                     "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
                     "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- On/off toggle for sidebar previews.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Always extend the sidebar to show all online streamers (when sidebar is open).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- A search button on the top of the sidebar to find live streamers easily (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - when enabling the feature, you need to enable notifications from twitch.tv.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Changed the way the extension handles preferences for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - this feature is currently only for users who have twitch in English. when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and allow it there).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
                     "            </div>\n" +
                     "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
@@ -1038,6 +1041,73 @@ function onSettingChange(key, value) {
     });
 }
 
+function checkForTwitchNotificationsPermissions(featureName, value) {
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission().then(function (res){
+            onSettingChange(featureName, true);
+            showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
+        },function (err) {
+            onSettingChange(featureName, false);
+        });
+    } else {
+        onSettingChange(featureName, true);
+    }
+}
+
+function showNotification(title, body, icon) {
+    if (Notification.permission !== "granted") {
+        onSettingChange('isPredictionsNotificationsEnabled', false);
+        return;
+    }
+        var notification = new Notification(title, {
+            icon: icon,
+            body: body,
+            silent: true
+        });
+
+        notification.onclick = function () {
+            parent.focus();
+            window.focus();
+            this.close();
+        };
+}
+
+function checkForPredictions() {
+    if (document.querySelector('button[aria-label="Collapse Chat"]')) {
+        if (!document.hidden) {
+            return;
+        }
+    }
+    var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
+    if(btn) {
+        var curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText.substring(1);
+        if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
+            return;
+        }
+        var curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
+        last_prediction_streamer = curr_streamer;
+        last_prediction_button_text = btn.innerText;
+
+        switch (btn.innerText) {
+            case "Predict":
+                showNotification(curr_streamer, "Prediction Started", curr_streamer_img_url);
+                break;
+            case "See Details":
+                showNotification(curr_streamer, "Prediction Ended", curr_streamer_img_url);
+                break;
+        }
+    }
+}
+
+function setPredictionsNotifications() {
+    if (!predictionsNotificationsInterval) {
+        checkForPredictions();
+        predictionsNotificationsInterval = setInterval(function() {
+            checkForPredictions();
+        }, 15000);
+    }
+}
+
 function toggleFeatures() {
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
 
@@ -1067,18 +1137,28 @@ function toggleFeatures() {
         document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", showSidebarSearchBtn);
         showSidebarSearchBtn();
     }
+
+    if (options.isPredictionsNotificationsEnabled) {
+        setPredictionsNotifications();
+    }
 }
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     if (msg.action === "update_options") {
         onSettingChange(msg.detail.featureName, msg.detail.value);
+    } else {
+        if ("check_notifications_permissions") {
+            checkForTwitchNotificationsPermissions(msg.detail.featureName, msg.detail.value);
+        }
     }
 
 });
 
 window.addEventListener('load', (event) => {
     setTimeout(function(){
+
+
         ga_heartbeat();
         appendContainer = document.body;
         document.getElementById('sideNav').style.zIndex = '10';

@@ -20,7 +20,8 @@ var options = {
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
     isSidebarExtendEnabled: false,
-    isSidebarSearchEnabled: false
+    isSidebarSearchEnabled: false,
+    isPredictionsNotificationsEnabled: false,
 };
 
 chrome.runtime.onInstalled.addListener(function(details) {

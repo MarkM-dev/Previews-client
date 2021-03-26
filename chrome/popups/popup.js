@@ -16,12 +16,16 @@ function initCheckbox(featureName, checkboxID, invertBool) {
     checkbox.checked = invertBool ? !options[featureName] : options[featureName];
     checkbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            changeFeatureMode(featureName,invertBool ? false : true);
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+                    chrome.tabs.sendMessage(tabs[0].id, {action: "check_notifications_permissions", detail:{featureName:featureName, value:true}})
+                });
+            } else {
+                changeFeatureMode(featureName,invertBool ? false : true);
+            }
         } else {
             changeFeatureMode(featureName,invertBool ? true : false);
-            if (featureName === "isSidebarPreviewsEnabled" || featureName === "isSidebarExtendEnabled" || featureName === "isSidebarSearchEnabled" || featureName === "isChannelPointsClickerEnabled" || featureName === "isErrRefreshEnabled") {
-                document.getElementById('refreshChangeDivInfo').style.display = "block";
-            }
+            document.getElementById('refreshChangeDivInfo').style.display = "block";
         }
     });
 }
@@ -71,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCheckbox('isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox('isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
         initCheckbox('isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
+        initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
 
         initPreviewSizeSlider();
     });
