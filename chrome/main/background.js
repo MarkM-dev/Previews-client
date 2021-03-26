@@ -91,16 +91,16 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
             break;
         case "bg_update_isSidebarSearchEnabled":
-            ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarSearch_ON":"sidebarSearch_OFF");
+            ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sBarSearch_ON":"sBarSearch_OFF");
             break;
         case "bg_update_isSidebarExtendEnabled":
-            ga('send', 'event', 'sidebarExtend_mode', 'change', msg.detail ? "sidebarExtend_ON":"sidebarExtend_OFF");
+            ga('send', 'event', 'sidebarExtend_mode', 'change', msg.detail ? "sBarExtend_ON":"sBarExtend_OFF");
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
             break;
         case "bg_update_isPredictionsNotificationsEnabled":
-            ga('send', 'event', 'PredictionsNotifications_mode', 'change', msg.detail ? "sBarS_ON":"sBarS_OFF");
+            ga('send', 'event', 'PredictionsNotifications_mode', 'change', msg.detail ? "PN_ON":"PN_OFF");
             break;
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html', 'popup.html');
