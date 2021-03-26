@@ -859,6 +859,27 @@ function listenForPlayerError() {
     }
 }
 
+function extendSidebar() {
+    if(document.getElementsByClassName('side-nav-section')[0]) {
+        var navCards = getSidebarNavCards(document.getElementsByClassName('side-nav-section')[0]);
+        if (!isNavBarCollapsed) {
+            if (isStreamerOnline(navCards[navCards.length - 1])) {
+                document.getElementsByClassName('side-nav-section')[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+                if (timesExtendedSidebar < 10) {
+                    timesExtendedSidebar++;
+                    setTimeout(function (){
+                        extendSidebar();
+                    },300);
+                } else {
+                    timesExtendedSidebar = 0;
+                }
+            } else {
+                timesExtendedSidebar = 0;
+            }
+        }
+    }
+}
+
 function showUpdateToast() {
     chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
         if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
@@ -954,27 +975,6 @@ function onSettingChange(key, value) {
     chrome.storage.sync.set({'tp_options': options}, function() {
         toggleFeatures();
     });
-}
-
-function extendSidebar() {
-    if(document.getElementsByClassName('side-nav-section')[0]) {
-        var navCards = getSidebarNavCards(document.getElementsByClassName('side-nav-section')[0]);
-        if (!isNavBarCollapsed) {
-            if (isStreamerOnline(navCards[navCards.length - 1])) {
-                document.getElementsByClassName('side-nav-section')[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
-                if (timesExtendedSidebar < 10) {
-                    timesExtendedSidebar++;
-                    setTimeout(function (){
-                        extendSidebar();
-                    },300);
-                } else {
-                    timesExtendedSidebar = 0;
-                }
-            } else {
-                timesExtendedSidebar = 0;
-            }
-        }
-    }
 }
 
 function toggleFeatures() {

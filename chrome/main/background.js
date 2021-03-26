@@ -77,13 +77,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isDirpEnabled":
             ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
             break;
-            case "bg_update_isChannelPointsClickerEnabled":
+        case "bg_update_isChannelPointsClickerEnabled":
             ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
             break;
-            case "bg_update_isSidebarExtendEnabled":
+        case "bg_update_isSidebarExtendEnabled":
             ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarExtend_ON":"sidebarExtend_OFF");
             break;
-            case "bg_update_isSidebarSearchEnabled":
+        case "bg_update_isSidebarSearchEnabled":
             ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sidebarSearch_ON":"sidebarSearch_OFF");
             break;
         case "bg_update_isErrRefreshEnabled":
