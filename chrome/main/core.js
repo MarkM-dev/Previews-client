@@ -1001,6 +1001,7 @@ function showUpdateToast() {
                     "            <div>\n" +
                     "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
                     "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- On/off toggle for sidebar previews.</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Always extend the sidebar to show all online streamers (when sidebar is open).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- A search button on the top of the sidebar to find live streamers easily (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - when enabling the feature, you need to enable notifications from twitch.tv.</div>\n" +
