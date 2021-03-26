@@ -1044,12 +1044,18 @@ function onSettingChange(key, value) {
 function checkForTwitchNotificationsPermissions(featureName, value) {
     if (Notification.permission !== "granted") {
         Notification.requestPermission().then(function (res){
+            chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
+
+            });
             onSettingChange(featureName, true);
             showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
         },function (err) {
             onSettingChange(featureName, false);
         });
     } else {
+        chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
+
+        });
         onSettingChange(featureName, true);
     }
 }

@@ -24,6 +24,11 @@ function initCheckbox(featureName, checkboxID, invertBool) {
                 changeFeatureMode(featureName,invertBool ? false : true);
             }
         } else {
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: false}, function(response) {
+
+                });
+            }
             changeFeatureMode(featureName,invertBool ? true : false);
             document.getElementById('refreshChangeDivInfo').style.display = "block";
         }
