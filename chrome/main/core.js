@@ -1001,6 +1001,7 @@ function toggleFeatures() {
     }
 
     if (options.isSidebarExtendEnabled) {
+        document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", extendSidebar);
         extendSidebar();
     }
 
