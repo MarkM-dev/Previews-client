@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Twitch Previews",
   "description": "Live previews when hovering over streams on twitch | auto channel points clicker | auto refresh on errors (#1000, #2000, #4000)",
-  "version": "1.7.0",
+  "version": "1.7",
   "permissions": ["storage"],
   "background": {
     "scripts": ["main/background.js"],
@@ -27,6 +27,6 @@
     "default_popup": "popups/popup.html",
     "default_title": "Twitch Previews"
   },
-  "web_accessible_resources": ["images/tpt.png", "images/tp_offline.jpg"],
+  "web_accessible_resources": ["images/tpt.png", "images/tp_sidebar_search.png", "images/tp_sidebar_search_close.png", "images/tp_offline.jpg"],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }

@@ -19,7 +19,7 @@ function initCheckbox(featureName, checkboxID, invertBool) {
             changeFeatureMode(featureName,invertBool ? false : true);
         } else {
             changeFeatureMode(featureName,invertBool ? true : false);
-            if (featureName === "isSidebarPreviewsEnabled" || featureName === "isSidebarExtendEnabled") {
+            if (featureName === "isSidebarPreviewsEnabled" || featureName === "isSidebarExtendEnabled" || featureName === "isSidebarSearchEnabled" || featureName === "isChannelPointsClickerEnabled") {
                 document.getElementById('refreshChangeDivInfo').style.display = "block";
             }
         }

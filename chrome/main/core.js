@@ -878,6 +878,81 @@ function extendSidebar() {
     }
 }
 
+function searchStreamer(e) {
+    filter = e.target.value.toUpperCase()
+    var navCards = getSidebarNavCards();
+
+    for (var i = 0; i < navCards.length; i++) {
+        if (navCards[i].href.toUpperCase().indexOf(filter) > -1) {
+            navCards[i].parentElement.classList.remove("tp_display_none");
+        } else {
+            navCards[i].parentElement.classList.add("tp_display_none");
+        }
+    }
+}
+
+function createSidebarSearchInput() {
+    var search_input_container = document.createElement("div");
+    search_input_container.id = "tp_sidebar_search_input_container";
+
+    isLayoutHorizontallyInverted ? search_input_container.style.right = "1rem" : search_input_container.style.left = "1rem";
+    search_input_container.classList.add('tp_search_input_container');
+    search_input_container.classList.add('animated');
+    search_input_container.classList.add('fadeIn');
+
+    var search_input = document.createElement("input");
+    search_input.id = "tp_sidebar_search_input";
+    search_input.placeholder = "Search Streamer";
+    search_input.classList.add('tp_search_input');
+    search_input.addEventListener('input', searchStreamer);
+
+    var search_close_btn = document.createElement("div");
+    search_close_btn.classList.add('tp_search_close_btn');
+    search_close_btn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tp_sidebar_search_close.png') + "')";
+    search_close_btn.onclick = function () {
+        searchStreamer({target: {value: ""}});
+        document.getElementById('tp_sidebar_search_input_container').parentElement.removeChild(document.getElementById('tp_sidebar_search_input_container'));
+    }
+
+    search_input_container.appendChild(search_input);
+    search_input_container.appendChild(search_close_btn);
+
+    return search_input_container;
+}
+
+function showSidebarSearchInput() {
+    document.getElementsByClassName('side-nav-header')[0].appendChild(createSidebarSearchInput());
+}
+
+function sidebarSearchBtnClick() {
+    showSidebarSearchInput();
+    document.getElementById('tp_sidebar_search_input').focus();
+    extendSidebar();
+}
+
+function createSideBarSearchBtn() {
+    var search_btn = document.createElement("div");
+    search_btn.id = "tp_sidebar_search_btn";
+    search_btn.classList.add('tp-sidebar-search-btn');
+    search_btn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tp_sidebar_search.png') + "')";
+    isLayoutHorizontallyInverted ? search_btn.style.left = "4rem" : search_btn.style.right = "4rem";
+    search_btn.title = "Twitch Previews - Search Streamers";
+    search_btn.onclick = sidebarSearchBtnClick;
+
+    return search_btn;
+}
+
+function showSidebarSearchBtn() {
+    if (!isNavBarCollapsed) {
+        var sidenav_header = document.getElementsByClassName('side-nav-header')[0];
+        if (sidenav_header) {
+            if (!document.getElementById('tp_sidebar_search_btn')) {
+                sidenav_header.appendChild(createSideBarSearchBtn());
+            }
+        }
+    }
+}
+
 function showUpdateToast() {
     chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
         if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
@@ -991,11 +1066,6 @@ function toggleFeatures() {
 
     if (options.isChannelPointsClickerEnabled) {
         setChannelPointsClickerListeners();
-    } else {
-        if (channelPointsClickerInterval) {
-            clearInterval(channelPointsClickerInterval);
-            channelPointsClickerInterval = null;
-        }
     }
 
     if (options.isErrRefreshEnabled) {
@@ -1008,7 +1078,8 @@ function toggleFeatures() {
     }
 
     if (options.isSidebarSearchEnabled) {
-
+        document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", showSidebarSearchBtn);
+        showSidebarSearchBtn();
     }
 }
 
