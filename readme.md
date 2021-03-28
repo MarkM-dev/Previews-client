@@ -1,9 +1,11 @@
 ![](summ1gx.png)
 <br/>
 <br/>
-## **Twitch Previews - a live video or image preview window on Twitch.**
+## **Twitch Previews**
                                                                                      
-**Twitch Previews creates a live video or image preview window when hovering the mouse over a streamer card on the navigation sidebar (followed streams list on the side) and in twitch directories.**
+**Twitch Previews creates a live video or image preview when hovering over a stream on the navigation sidebar (followed streams list on the side) and in twitch directories.**
+<br/><br/>
+**Check out the features list for more quality of life improvement features to twitch.**
 <br/>
 <br/>
 
