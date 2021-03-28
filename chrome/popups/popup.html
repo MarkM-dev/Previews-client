@@ -9,18 +9,21 @@
     <body id="TPBodyEl" >
         <div style="width: 50%" >
             <div style="padding: 10px 5px;" >
-                <p class="TP_popup_dirp_feature_title" ><span>Show sidebar search button</span> <input id="TP_popup_sidebar_search_checkbox" class="apple-switch" type="checkbox"></p>
-                <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Extend sidebar to show all live <br><span style="font-weight: normal;font-size: 11px;" >(when sidebar is open)</span></span> <input id="TP_popup_sidebar_extend_checkbox" class="apple-switch" type="checkbox" ></p>
-                <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto refresh on twitch player error <br><span style="font-weight: normal;font-size: 11px;" >(#1000, #2000, #4000)</span></span> <input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" ></p>
-                <p class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Predictions notifications <br><span style="font-weight: normal;font-size: 11px;" >(works on twitch tabs in the browser, currently supports twitch in english only)</span></span> <input id="TP_popup_predictions_notifications_checkbox" class="apple-switch" type="checkbox" ></p>
+                <p id="tp_popup_feature_directory_previews" class="TP_popup_dirp_feature_title" ><span>Directory previews</span> <input id="TP_popup_directory_preview_mode_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_cpc" class="TP_popup_dirp_feature_title" ><span>Auto channel points clicker</span> <input id="TP_popup_channel_points_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_sBar_search" class="TP_popup_dirp_feature_title" ><span>Show sidebar search button</span> <input id="TP_popup_sidebar_search_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_sBar_extend" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Extend sidebar to show all live <br><span style="font-weight: normal;font-size: 11px;" >(when sidebar is open)</span></span> <input id="TP_popup_sidebar_extend_checkbox" class="apple-switch" type="checkbox" ></p>
+                <p id="tp_popup_feature_errRefresh" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto refresh on twitch player error <br><span style="font-weight: normal;font-size: 11px;" >(#1000, #2000, #4000)</span></span> <input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" ></p>
+                <p id="tp_popup_feature_predictions" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Predictions notifications <br><span style="font-weight: normal;font-size: 11px;" >(works on twitch tabs in the browser)</span></span> <input id="TP_popup_predictions_notifications_checkbox" class="apple-switch" type="checkbox" ></p>
+
             </div>
         </div>
         <div style="width: 50%" >
             <img id="TP_popup_logo" src="../images/TP96.png" width="96" height="96">
-            <h2>Twitch Previews <span style="font-size: 12px;font-weight: normal;">©</span></h2>
+            <h2 style="margin-top: 0px;" >Twitch Previews <span style="font-size: 12px;font-weight: normal;">©</span></h2>
             <div id="refreshChangeDivInfo" style="display: none;font-size: 12px;color: limegreen;text-align: left;" >refresh your twitch tabs for changes to take affect</div>
             <div id="TP_popup_sub_container" >
-                <p class="TP_popup_sidebar_feature_title" ><span>Sidebar Previews</span> <input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox"> <!--<input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox">--></p>
+                <p id="tp_popup_feature_sBar_previews" class="TP_popup_sidebar_feature_title" ><span>Sidebar Previews</span> <input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox"> <!--<input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox">--></p>
                 <div class="TP_popup_toggle_container" >
                     <div class="TP_toggle_text" >Image Preview</div>
                     <label class="switch" >
@@ -34,8 +37,6 @@
                     <p>Preview Size: <span id="TP_popup_preview_size_display"></span></p>
                     <input type="range" min="1" max="100" value="50" step="20" class="slider" id="TP_popup_preview_size_input_slider">
                 </div>
-                <p class="TP_popup_dirp_feature_title" style="border-top: 1px solid whitesmoke;margin-top: 20px;padding-top: 15px;" ><span>Directory Previews</span> <input id="TP_popup_directory_preview_mode_checkbox" class="apple-switch" type="checkbox"></p>
-                <p class="TP_popup_dirp_feature_title" ><span>Auto channel points clicker</span> <input id="TP_popup_channel_points_checkbox" class="apple-switch" type="checkbox"></p>
 
                  <!-- <div class="TP_popup_toggle_container" >
                     <div class="TP_toggle_text" >OFF</div>

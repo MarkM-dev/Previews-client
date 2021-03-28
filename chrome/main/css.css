@@ -459,3 +459,16 @@
 .tp_display_none {
     display: none !important;
 }
+
+.tp_update_toast {
+    padding: 10px 15px 10px 10px;
+    width: 30rem;
+    background: #9c60ff;
+    color: #ffffff;
+    position: fixed;
+    right: 10rem;
+    top: 10rem;
+    z-index: 9999;
+    border-radius: 5px;
+    box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
+}

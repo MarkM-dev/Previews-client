@@ -21,7 +21,7 @@
 - Auto channel points clicker.
 - Chrome only - Auto extend the sidebar to show all online streamers (when sidebar is open).
 - Chrome only - A purple search button on the top of the sidebar to find live streamers easily in the sidebar.
-- Chrome only - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - currently only supports twitch in English.
+- Chrome only - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Chrome only - Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
 - Chrome only - Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
@@ -50,8 +50,7 @@
 
 * **Predictions notifications**
     - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
-    - Works on opened stream tabs in the browser.
-    - This feature is currently only for users who have twitch in English.
+    - Works on twitch tabs in the browser.
     - When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
 <br/>
 
