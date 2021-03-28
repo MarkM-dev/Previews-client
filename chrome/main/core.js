@@ -20,6 +20,63 @@ var isMainPlayerError = false;
 var timesExtendedSidebar = 0;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
+var predict_langs = {
+    'Predict':'English'
+    ,'Forudsig':'Dansk'
+    ,'Vorhersagen':'Deutch'
+    ,'Predecir':'Español - España'
+    ,'Prédire':'Français'
+    ,'Pronostica':'Italiano'
+    ,'Előrejelzés':'Magyar'
+    ,'Voorspellen':'Nederlands'
+    ,'Spå':'Norsk'
+    ,'Obstaw':'Polski'
+    ,'Prever':'Português'
+    ,'Dar Palpite':'Português - Brasil'
+    ,'Prezicere':'Română'
+    ,'Predpovedať':'Slovenčina'
+    ,'Ennusta':'Suomi'
+    ,'Förutsäg':'Svenska'
+    ,'Dự đoán':'Tiếng Việt'
+    ,'Öngör':'Türkçe'
+    ,'Předpovědět':'Čeština'
+    ,'Πρόβλεψη':'Ελληνικά'
+    ,'Прогнозиране':'Български'
+    ,'Прогноз':'Русский'
+    ,'ทำนาย':'ภาษาไทย'
+    ,'预测':'中文 简体'
+    ,'預測':'中文 繁體'
+    ,'予想':'日本語'
+    ,'예측':'한국어'
+};
+var see_details_langs = {
+    'See Details':'English'
+    ,'Se detaljer':'Dansk'
+    ,'Details ansehen':'Deutch'
+    ,'Ver detalles':'Español - España'
+    ,'Voir les détails':'Français'
+    ,'Vedi dettagli':'Italiano'
+    ,'Részletek megtekintése':'Magyar'
+    ,'Meer informatie':'Nederlands'
+    ,'Vis detaljer':'Norsk'
+    ,'Szczegóły':'Polski'
+    ,'Ver detalhes':'Português'
+    ,'Vezi detalii':'Română'
+    ,'Detaily':'Slovenčina'
+    ,'Näytä tiedot':'Suomi'
+    ,'Se mer information':'Svenska'
+    ,'Xem chi tiết':'Tiếng Việt'
+    ,'Ayrıntıları göster':'Türkçe'
+    ,'Podrobnosti':'Čeština'
+    ,'Δες τις λεπτομέρειες':'Ελληνικά'
+    ,'Преглед на детайлите':'Български'
+    ,'Подробнее':'Русский'
+    ,'ดูรายละเอียด':'ภาษาไทย'
+    ,'查看详细信息':'中文 简体'
+    ,'查看詳細資料':'中文 繁體'
+    ,'詳細':'日本語'
+    ,'자세히 보기':'한국어'
+};
 
 var options = {};
 
@@ -1012,13 +1069,12 @@ function checkForPredictions() {
 
         var prediction_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
 
-        switch (btn.innerText) {
-            case "Predict":
-                showNotification(curr_streamer, "Prediction Started\n" + prediction_text, curr_streamer_img_url);
-                break;
-            case "See Details":
+        if (predict_langs[btn.innerText]) {
+            showNotification(curr_streamer, "Prediction Started\n" + prediction_text, curr_streamer_img_url);
+        } else {
+            if (see_details_langs[btn.innerText]) {
                 showNotification(curr_streamer, "Prediction Ended\n" + prediction_text, curr_streamer_img_url);
-                break;
+            }
         }
     }
 }
