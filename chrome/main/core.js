@@ -994,7 +994,7 @@ function showNotification(title, body, icon) {
 function checkForPredictions() {
     var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
     if(btn) {
-        if (document.querySelector('button[aria-label="Collapse Chat"]')) {
+        if (document.querySelector('.toggle-visibility__right-column--expanded')) {
             if (!document.hidden) {
                 last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
                 last_prediction_button_text = btn.innerText;
@@ -1010,13 +1010,14 @@ function checkForPredictions() {
         last_prediction_streamer = curr_streamer;
         last_prediction_button_text = btn.innerText;
 
+        var prediction_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
+
         switch (btn.innerText) {
             case "Predict":
-                showNotification(curr_streamer, "Prediction Started", curr_streamer_img_url);
+                showNotification(curr_streamer, "Prediction Started\n" + prediction_text, curr_streamer_img_url);
                 break;
             case "See Details":
-                var result_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
-                showNotification(curr_streamer, "Prediction Ended\n" + result_text, curr_streamer_img_url);
+                showNotification(curr_streamer, "Prediction Ended\n" + prediction_text, curr_streamer_img_url);
                 break;
         }
     }
