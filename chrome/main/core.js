@@ -935,7 +935,7 @@ function searchStreamer(e) {
     var navCards = getSidebarNavCards();
 
     for (var i = 0; i < navCards.length; i++) {
-        if (navCards[i].href.toUpperCase().indexOf(filter) > -1) {
+        if (navCards[i].getElementsByTagName('p')[0].innerText.toUpperCase().indexOf(filter) > -1) {
             navCards[i].parentElement.classList.remove("tp_display_none");
         } else {
             navCards[i].parentElement.classList.add("tp_display_none");
