@@ -1099,7 +1099,7 @@ function showUpdateToast() {
                     chrome.storage.sync.set({'hasConfirmedUpdatePopup': true}, function() {
 
                     });
-                    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"updatePopup_btn"}, function(response) {
+                    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"rate_btn"}, function(response) {
 
                     });
                 }
@@ -1109,26 +1109,17 @@ function showUpdateToast() {
                     document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
                 }
 
-                function showWhatsNew() {
+                function showRate() {
                     setConfirmedToastFlag(false);
                     document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
-                    chrome.runtime.sendMessage({action: "showUpdatePopup", detail: ""}, function(response) {
+                    chrome.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
 
                     });
                 }
 
                 var updateToast = document.createElement("div");
                 updateToast.id = "tp_updateToast";
-                updateToast.style.padding = "10px 15px 10px 10px";
-                updateToast.style.width = "30rem";
-                updateToast.style.background = "#9c60ff";
-                updateToast.style.color = "#fff";
-                updateToast.style.position = "fixed";
-                updateToast.style.right = "10rem";
-                updateToast.style.top = "10rem";
-                updateToast.style.zIndex = "9999";
-                updateToast.style.borderRadius = "5px";
-                updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+                updateToast.classList.add("tp_update_toast");
                 updateToast.classList.add("animated");
                 updateToast.classList.add("slideInRight");
 
@@ -1150,7 +1141,7 @@ function showUpdateToast() {
                     "        </div>";
 
                 updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
-                    showWhatsNew();
+                    showRate();
                 };
                 updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
                     dismissUpdateToast();
