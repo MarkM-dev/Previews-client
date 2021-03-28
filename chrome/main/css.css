@@ -469,6 +469,6 @@
     right: 10rem;
     top: 10rem;
     z-index: 9999;
-    borderRadius: 5px;
-    boxShadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
+    border-radius: 5px;
+    box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
 }

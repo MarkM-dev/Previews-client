@@ -1088,66 +1088,74 @@ function setPredictionsNotifications() {
     }
 }
 
+function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
+    var storageFlagObj = {};
+    storageFlagObj[storageFlagName] = true;
+    chrome.storage.sync.set(storageFlagObj, function() {
+
+    });
+    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"rate_btn"}, function(response) {
+
+    });
+}
+
+function showToast(toast_body, storageFlagName) {
+
+    function dismissUpdateToast(storageFlagName) {
+        setConfirmedToastFlag(true, storageFlagName);
+        document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+    }
+
+    function showRate(storageFlagName) {
+        setConfirmedToastFlag(false, storageFlagName);
+        document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+        chrome.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
+
+        });
+    }
+
+    var updateToast = document.createElement("div");
+    updateToast.id = "tp_updateToast";
+    updateToast.classList.add("tp_update_toast");
+    updateToast.classList.add("animated");
+    updateToast.classList.add("slideInRight");
+
+    updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
+        "            <div>\n" +
+                        toast_body +
+        "            </div>\n" +
+        "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
+        "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
+        "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Got it</div>\n" +
+        "            </div>\n" +
+        "        </div>";
+
+    updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
+        showRate(storageFlagName);
+    };
+    updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
+        dismissUpdateToast(storageFlagName);
+    };
+
+    document.body.appendChild(updateToast);
+}
+
 function showUpdateToast() {
     chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
         if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
 
         } else {
             if (!result.hasConfirmedUpdatePopup) {
-
-                function setConfirmedToastFlag(bClickedOkay) {
-                    chrome.storage.sync.set({'hasConfirmedUpdatePopup': true}, function() {
-
-                    });
-                    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"rate_btn"}, function(response) {
-
-                    });
-                }
-
-                function dismissUpdateToast() {
-                    setConfirmedToastFlag(true);
-                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
-                }
-
-                function showRate() {
-                    setConfirmedToastFlag(false);
-                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
-                    chrome.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
-
-                    });
-                }
-
-                var updateToast = document.createElement("div");
-                updateToast.id = "tp_updateToast";
-                updateToast.classList.add("tp_update_toast");
-                updateToast.classList.add("animated");
-                updateToast.classList.add("slideInRight");
-
-                updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
-                    "            <div>\n" +
-                    "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
                     "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser). when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
-                    "            </div>\n" +
-                    "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
-                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
-                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Got it</div>\n" +
-                    "            </div>\n" +
-                    "        </div>";
+                    "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n";
 
-                updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
-                    showRate();
-                };
-                updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
-                    dismissUpdateToast();
-                };
-
-                document.body.appendChild(updateToast);
+                showToast(toast_body, 'hasConfirmedUpdatePopup');
             }
         }
     });
