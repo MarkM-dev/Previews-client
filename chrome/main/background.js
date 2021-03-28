@@ -57,8 +57,27 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.7.0.1") {
+            if (details.previousVersion === "1.7" || details.previousVersion === "1.7.0.1" || details.previousVersion === "1.7.0.2") {
+                chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
+                    if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
+
+                    } else {
+                        if (!result.hasConfirmedUpdatePopup) {
+                            chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': true}, function() {
+
+                            });
+                        } else {
+                            chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': false}, function() {
+
+                            });
+                        }
+                    }
+                });
+            } else {
                 chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
+
+                });
+                chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': true}, function() {
 
                 });
             }
