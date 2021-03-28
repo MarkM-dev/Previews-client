@@ -20,6 +20,63 @@ var isMainPlayerError = false;
 var timesExtendedSidebar = 0;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
+var predict_langs = {
+    'Predict':'English'
+    ,'Forudsig':'Dansk'
+    ,'Vorhersagen':'Deutch'
+    ,'Predecir':'Español - España'
+    ,'Prédire':'Français'
+    ,'Pronostica':'Italiano'
+    ,'Előrejelzés':'Magyar'
+    ,'Voorspellen':'Nederlands'
+    ,'Spå':'Norsk'
+    ,'Obstaw':'Polski'
+    ,'Prever':'Português'
+    ,'Dar Palpite':'Português - Brasil'
+    ,'Prezicere':'Română'
+    ,'Predpovedať':'Slovenčina'
+    ,'Ennusta':'Suomi'
+    ,'Förutsäg':'Svenska'
+    ,'Dự đoán':'Tiếng Việt'
+    ,'Öngör':'Türkçe'
+    ,'Předpovědět':'Čeština'
+    ,'Πρόβλεψη':'Ελληνικά'
+    ,'Прогнозиране':'Български'
+    ,'Прогноз':'Русский'
+    ,'ทำนาย':'ภาษาไทย'
+    ,'预测':'中文 简体'
+    ,'預測':'中文 繁體'
+    ,'予想':'日本語'
+    ,'예측':'한국어'
+};
+var see_details_langs = {
+    'See Details':'English'
+    ,'Se detaljer':'Dansk'
+    ,'Details ansehen':'Deutch'
+    ,'Ver detalles':'Español - España'
+    ,'Voir les détails':'Français'
+    ,'Vedi dettagli':'Italiano'
+    ,'Részletek megtekintése':'Magyar'
+    ,'Meer informatie':'Nederlands'
+    ,'Vis detaljer':'Norsk'
+    ,'Szczegóły':'Polski'
+    ,'Ver detalhes':'Português'
+    ,'Vezi detalii':'Română'
+    ,'Detaily':'Slovenčina'
+    ,'Näytä tiedot':'Suomi'
+    ,'Se mer information':'Svenska'
+    ,'Xem chi tiết':'Tiếng Việt'
+    ,'Ayrıntıları göster':'Türkçe'
+    ,'Podrobnosti':'Čeština'
+    ,'Δες τις λεπτομέρειες':'Ελληνικά'
+    ,'Преглед на детайлите':'Български'
+    ,'Подробнее':'Русский'
+    ,'ดูรายละเอียด':'ภาษาไทย'
+    ,'查看详细信息':'中文 简体'
+    ,'查看詳細資料':'中文 繁體'
+    ,'詳細':'日本語'
+    ,'자세히 보기':'한국어'
+};
 
 var options = {};
 
@@ -878,7 +935,7 @@ function searchStreamer(e) {
     var navCards = getSidebarNavCards();
 
     for (var i = 0; i < navCards.length; i++) {
-        if (navCards[i].href.toUpperCase().indexOf(filter) > -1) {
+        if (navCards[i].getElementsByTagName('p')[0].innerText.toUpperCase().indexOf(filter) > -1) {
             navCards[i].parentElement.classList.remove("tp_display_none");
         } else {
             navCards[i].parentElement.classList.add("tp_display_none");
@@ -994,7 +1051,7 @@ function showNotification(title, body, icon) {
 function checkForPredictions() {
     var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
     if(btn) {
-        if (document.querySelector('button[aria-label="Collapse Chat"]')) {
+        if (document.querySelector('.toggle-visibility__right-column--expanded')) {
             if (!document.hidden) {
                 last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
                 last_prediction_button_text = btn.innerText;
@@ -1009,15 +1066,20 @@ function checkForPredictions() {
         var curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
         last_prediction_streamer = curr_streamer;
         last_prediction_button_text = btn.innerText;
+        var prediction_text = "";
 
-        switch (btn.innerText) {
-            case "Predict":
-                showNotification(curr_streamer, "Prediction Started", curr_streamer_img_url);
-                break;
-            case "See Details":
-                var result_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
-                showNotification(curr_streamer, "Prediction Ended\n" + result_text, curr_streamer_img_url);
-                break;
+        try {
+            prediction_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
+        } catch (e) {
+
+        }
+
+        if (predict_langs[btn.innerText]) {
+            showNotification(curr_streamer, "Prediction Started\n" + prediction_text, curr_streamer_img_url);
+        } else {
+            if (see_details_langs[btn.innerText]) {
+                showNotification(curr_streamer, "Prediction Ended\n" + prediction_text, curr_streamer_img_url);
+            }
         }
     }
 }
@@ -1031,75 +1093,88 @@ function setPredictionsNotifications() {
     }
 }
 
+function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
+    var storageFlagObj = {};
+    storageFlagObj[storageFlagName] = true;
+    chrome.storage.sync.set(storageFlagObj, function() {
+
+    });
+    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"rate_btn"}, function(response) {
+
+    });
+}
+
+function showToast(toast_body, storageFlagName) {
+
+    function dismissUpdateToast(storageFlagName) {
+        setConfirmedToastFlag(true, storageFlagName);
+        document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+    }
+
+    function showRate(storageFlagName) {
+        setConfirmedToastFlag(false, storageFlagName);
+        document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+        chrome.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
+
+        });
+    }
+
+    var updateToast = document.createElement("div");
+    updateToast.id = "tp_updateToast";
+    updateToast.classList.add("tp_update_toast");
+    updateToast.classList.add("animated");
+    updateToast.classList.add("slideInRight");
+
+    updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
+        "            <div>\n" +
+                        toast_body +
+        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
+        "            </div>\n" +
+        "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
+        "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
+        "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Got it</div>\n" +
+        "            </div>\n" +
+        "        </div>";
+
+    updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
+        showRate(storageFlagName);
+    };
+    updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
+        dismissUpdateToast(storageFlagName);
+    };
+
+    document.body.appendChild(updateToast);
+}
+
 function showUpdateToast() {
     chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
         if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
 
         } else {
             if (!result.hasConfirmedUpdatePopup) {
-
-                function setConfirmedToastFlag(bClickedOkay) {
-                    chrome.storage.sync.set({'hasConfirmedUpdatePopup': true}, function() {
-
-                    });
-                    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"updatePopup_btn"}, function(response) {
-
-                    });
-                }
-
-                function dismissUpdateToast() {
-                    setConfirmedToastFlag(true);
-                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
-                }
-
-                function showWhatsNew() {
-                    setConfirmedToastFlag(false);
-                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
-                    chrome.runtime.sendMessage({action: "showUpdatePopup", detail: ""}, function(response) {
-
-                    });
-                }
-
-                var updateToast = document.createElement("div");
-                updateToast.id = "tp_updateToast";
-                updateToast.style.padding = "10px 15px 10px 10px";
-                updateToast.style.width = "30rem";
-                updateToast.style.background = "#9c60ff";
-                updateToast.style.color = "#fff";
-                updateToast.style.position = "fixed";
-                updateToast.style.right = "10rem";
-                updateToast.style.top = "10rem";
-                updateToast.style.zIndex = "9999";
-                updateToast.style.borderRadius = "5px";
-                updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
-                updateToast.classList.add("animated");
-                updateToast.classList.add("slideInRight");
-
-                updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
-                    "            <div>\n" +
-                    "                <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
                     "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
                     "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser) - this feature is currently only for users who have twitch in English. when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
-                    "            </div>\n" +
-                    "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
-                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
-                    "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Got it</div>\n" +
-                    "            </div>\n" +
-                    "        </div>";
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser). when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>";
 
-                updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
-                    showWhatsNew();
-                };
-                updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
-                    dismissUpdateToast();
-                };
+                showToast(toast_body, 'hasConfirmedUpdatePopup');
+            }
+        }
+    });
 
-                document.body.appendChild(updateToast);
+    chrome.storage.sync.get('hasConfirmedSecondaryUpdatePopup', function(result) {
+        if (typeof result.hasConfirmedSecondaryUpdatePopup == 'undefined') {
+
+        } else {
+            if (!result.hasConfirmedSecondaryUpdatePopup) {
+                var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions notifications feature is now available for ALL languages.</strong><br>you can enable it in the extension options.</div>\n" +
+                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Small fix to sidebar streamer search to support all languages.</strong></div>";
+
+                showToast(toast_body, 'hasConfirmedSecondaryUpdatePopup');
             }
         }
     });
@@ -1174,8 +1249,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
 window.addEventListener('load', (event) => {
     setTimeout(function(){
-
-
         ga_heartbeat();
         appendContainer = document.body;
         document.getElementById('sideNav').style.zIndex = '10';

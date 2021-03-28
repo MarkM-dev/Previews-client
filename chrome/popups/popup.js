@@ -65,6 +65,34 @@ function initPreviewSizeSlider() {
     }
 }
 
+function setFeatureTitles() {
+    document.getElementById('tp_popup_feature_sBar_previews').title = "* Sidebar Previews\n" +
+        "- Shows a live video or image preview when hovering over a stream on the sidebar (followed channels list on the side)";
+
+    document.getElementById('tp_popup_feature_directory_previews').title = "* Directory Previews\n" +
+        "- Shows a video stream preview when hovering over streams in twitch directories (channels in browsing directory, following, etc..).";
+
+    document.getElementById('tp_popup_feature_cpc').title = "* Auto Channel Points Clicker\n" +
+        "- This feature automatically clicks the green channel points redeem button.\n" +
+        "- It also works when chat is closed and when the tab or window is in the background.";
+
+    document.getElementById('tp_popup_feature_sBar_search').title = "* Sidebar Streamer Search\n" +
+        "- A purple search button on the top of the sidebar to find live streamers easily.\n" +
+        "- Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching."
+
+    document.getElementById('tp_popup_feature_sBar_extend').title = "* Extend Sidebar\n" +
+        "- Auto extends the sidebar to show all online streamers (when sidebar is open).";
+
+    document.getElementById('tp_popup_feature_errRefresh').title = "* Auto Refresh On Errors (#1000, #2000, #4000)\n" +
+        "- This feature works when the tab with the player that got an error is currently active.\n" +
+        "- If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.";
+
+    document.getElementById('tp_popup_feature_predictions').title = "* Predictions Notifications" +
+        "\n- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser)." +
+        "\n- Works on twitch tabs in the browser." +
+        "\n- When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there)."
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
     chrome.runtime.sendMessage({action: "bg_popup_opened", detail: "popup.html"}, function(response) {
@@ -83,10 +111,13 @@ document.addEventListener('DOMContentLoaded', function () {
         initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
 
         initPreviewSizeSlider();
+        setFeatureTitles();
     });
 
     initSocialBtn('donate', null)
     initSocialBtn('rate', 'https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/')
     initSocialBtn('share', 'https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/')
+
+
 
 });

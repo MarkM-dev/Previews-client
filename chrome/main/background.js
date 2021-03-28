@@ -57,8 +57,27 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.7.0.1") {
+            if (details.previousVersion === "1.7" || details.previousVersion === "1.7.0.1" || details.previousVersion === "1.7.0.2") {
+                chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
+                    if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
+
+                    } else {
+                        if (!result.hasConfirmedUpdatePopup) {
+                            chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': true}, function() {
+
+                            });
+                        } else {
+                            chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': false}, function() {
+
+                            });
+                        }
+                    }
+                });
+            } else {
                 chrome.storage.sync.set({'hasConfirmedUpdatePopup': false}, function() {
+
+                });
+                chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': true}, function() {
 
                 });
             }
@@ -120,7 +139,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast":
             ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
             break;
-        case "showUpdatePopup":
+        case "bg_showRate":
             //chrome.tabs.create({url:"../popups/updatePopup.html"});
             chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
