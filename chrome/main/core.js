@@ -1096,7 +1096,7 @@ function setPredictionsNotifications() {
 
 function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
     var storageFlagObj = {};
-    storageFlagObj[storageFlagName] = true;
+    storageFlagObj[storageFlagName] = false;
     chrome.storage.sync.set(storageFlagObj, function() {
 
     });
@@ -1148,35 +1148,17 @@ function showToast(toast_body, storageFlagName) {
 }
 
 function showUpdateToast() {
-    chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
-        if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
+    chrome.storage.sync.get('shouldShowUpdatePopup', function(result) {
+        if (result.shouldShowUpdatePopup) {
+            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser). when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>";
 
-        } else {
-            if (!result.hasConfirmedUpdatePopup) {
-                var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser). when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>";
-
-                showToast(toast_body, 'hasConfirmedUpdatePopup');
-            }
-        }
-    });
-
-    chrome.storage.sync.get('hasConfirmedSecondaryUpdatePopup', function(result) {
-        if (typeof result.hasConfirmedSecondaryUpdatePopup == 'undefined') {
-
-        } else {
-            if (!result.hasConfirmedSecondaryUpdatePopup) {
-                var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions notifications feature is now available for ALL languages.</strong><br>you can enable it in the extension options.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Small fix to sidebar streamer search to support all languages.</strong></div>";
-
-                showToast(toast_body, 'hasConfirmedSecondaryUpdatePopup');
-            }
+            showToast(toast_body, 'shouldShowUpdatePopup');
         }
     });
 }
