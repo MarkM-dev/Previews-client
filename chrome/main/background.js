@@ -57,10 +57,11 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {
+            if (details.previousVersion !== "1.7" && details.previousVersion !== "1.7.0.1" && details.previousVersion !== "1.7.0.2" && details.previousVersion !== "1.7.0.4") {
+                chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {
 
-            });
-
+                });
+            }
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
