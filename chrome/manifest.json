@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Twitch Previews",
   "description": "Live previews when hovering over streams on twitch | A bunch of quality of life improvement features for twitch.",
-  "version": "1.7.0.4",
+  "version": "1.7.0.5",
   "permissions": ["storage"],
   "background": {
     "scripts": ["main/background.js"],
