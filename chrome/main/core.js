@@ -1024,6 +1024,7 @@ function checkForTwitchNotificationsPermissions(featureName, value) {
 
         });
         onSettingChange(featureName, true);
+        showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
     }
 }
 
@@ -1069,18 +1070,25 @@ function checkForPredictions() {
         var prediction_text = "";
 
         try {
-            prediction_text = document.querySelector('p[data-test-selector="community-prediction-highlight-header__title"]').innerText;
+            var el = document.querySelector('.community-highlight').querySelectorAll('p');
+            if (el.length > 2) {
+                prediction_text = el[el.length - 2].innerText.replace(/^ /, '') + "\n" + el[el.length - 1].innerText.replace(/^ /, '');
+            } else {
+                prediction_text = el[0].innerText.replace(/^ /, '') + el[1] ? "\n" + el[1].innerText.replace(/^ /, '') : "";
+            }
         } catch (e) {
 
         }
 
         if (predict_langs[btn.innerText]) {
-            showNotification(curr_streamer, "Prediction Started\n" + prediction_text, curr_streamer_img_url);
+            showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text, curr_streamer_img_url);
         } else {
             if (see_details_langs[btn.innerText]) {
-                showNotification(curr_streamer, "Prediction Ended\n" + prediction_text, curr_streamer_img_url);
+                showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
             }
         }
+    } else {
+        last_prediction_streamer = "";
     }
 }
 
@@ -1089,13 +1097,13 @@ function setPredictionsNotifications() {
         checkForPredictions();
         predictionsNotificationsInterval = setInterval(function() {
             checkForPredictions();
-        }, 15000);
+        }, 15100);
     }
 }
 
 function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
     var storageFlagObj = {};
-    storageFlagObj[storageFlagName] = true;
+    storageFlagObj[storageFlagName] = false;
     chrome.storage.sync.set(storageFlagObj, function() {
 
     });
@@ -1147,35 +1155,27 @@ function showToast(toast_body, storageFlagName) {
 }
 
 function showUpdateToast() {
-    chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
-        if (typeof result.hasConfirmedUpdatePopup == 'undefined') {
+    chrome.storage.sync.get('shouldShowUpdatePopup', function(result) {
+        if (result.shouldShowUpdatePopup) {
+            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser). when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>";
 
-        } else {
-            if (!result.hasConfirmedUpdatePopup) {
-                var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser). when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>";
-
-                showToast(toast_body, 'hasConfirmedUpdatePopup');
-            }
+            showToast(toast_body, 'shouldShowUpdatePopup');
         }
     });
 
-    chrome.storage.sync.get('hasConfirmedSecondaryUpdatePopup', function(result) {
-        if (typeof result.hasConfirmedSecondaryUpdatePopup == 'undefined') {
+    chrome.storage.sync.get('shouldShowSecondaryUpdatePopup', function(result) {
+        if (result.shouldShowSecondaryUpdatePopup) {
+            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions notifications feature is now available for ALL languages.</strong><br>you can enable it in the extension options.</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Small fix to sidebar streamer search to support all languages.</strong></div>";
 
-        } else {
-            if (!result.hasConfirmedSecondaryUpdatePopup) {
-                var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions notifications feature is now available for ALL languages.</strong><br>you can enable it in the extension options.</div>\n" +
-                    "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Small fix to sidebar streamer search to support all languages.</strong></div>";
-
-                showToast(toast_body, 'hasConfirmedSecondaryUpdatePopup');
-            }
+            showToast(toast_body, 'shouldShowSecondaryUpdatePopup');
         }
     });
 }
