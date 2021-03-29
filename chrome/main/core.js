@@ -1161,6 +1161,16 @@ function showUpdateToast() {
             showToast(toast_body, 'shouldShowUpdatePopup');
         }
     });
+
+    chrome.storage.sync.get('shouldShowSecondaryUpdatePopup', function(result) {
+        if (result.shouldShowSecondaryUpdatePopup) {
+            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions notifications feature is now available for ALL languages.</strong><br>you can enable it in the extension options.</div>\n" +
+                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Small fix to sidebar streamer search to support all languages.</strong></div>";
+
+            showToast(toast_body, 'shouldShowSecondaryUpdatePopup');
+        }
+    });
 }
 
 function setOptionsFromDB() {

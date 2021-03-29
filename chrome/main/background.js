@@ -57,10 +57,25 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.7" && details.previousVersion !== "1.7.0.1" && details.previousVersion !== "1.7.0.2" && details.previousVersion !== "1.7.0.4") {
-                chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {
-
+            if (details.previousVersion === "1.7" || details.previousVersion === "1.7.0.1" || details.previousVersion === "1.7.0.2" || details.previousVersion === "1.7.0.4") {
+                chrome.storage.sync.get('hasConfirmedSecondaryUpdatePopup', function(result) {
+                    if (!result.hasConfirmedSecondaryUpdatePopup) {
+                        chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
+                            if (result.hasConfirmedUpdatePopup) {
+                                chrome.storage.sync.set({'shouldShowSecondaryUpdatePopup': true}, function() {});
+                                chrome.storage.sync.set({'shouldShowUpdatePopup': false}, function() {});
+                            } else {
+                                chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {});
+                                chrome.storage.sync.set({'shouldShowSecondaryUpdatePopup': false}, function() {});
+                                chrome.storage.sync.set({'hasConfirmedUpdatePopup': true}, function() {});
+                            }
+                            chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': true}, function() {});
+                        });
+                    }
                 });
+            } else {
+                chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {});
+                chrome.storage.sync.set({'shouldShowSecondaryUpdatePopup': false}, function() {});
             }
 
            /* if (details.previousVersion === "1.5.1.6") {
