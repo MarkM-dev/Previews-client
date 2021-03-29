@@ -5,7 +5,7 @@
                                                                                      
 **Twitch Previews creates a live video or image preview when hovering over a stream on the navigation sidebar (followed streams list on the side) and in twitch directories.**
 <br/><br/>
-**Check out the features list for more quality of life improvement features to twitch.**
+**Check out the features list below for more quality of life improvement features to twitch.**
 <br/>
 <br/>
 
