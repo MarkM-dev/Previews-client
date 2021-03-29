@@ -1024,6 +1024,7 @@ function checkForTwitchNotificationsPermissions(featureName, value) {
 
         });
         onSettingChange(featureName, true);
+        showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
     }
 }
 
@@ -1078,7 +1079,7 @@ function checkForPredictions() {
             showNotification(curr_streamer, "Prediction Started\n" + prediction_text, curr_streamer_img_url);
         } else {
             if (see_details_langs[btn.innerText]) {
-                showNotification(curr_streamer, "Prediction Ended\n" + prediction_text, curr_streamer_img_url);
+                showNotification(curr_streamer, "Prediction Closed / Ended / Details\n" + prediction_text, curr_streamer_img_url);
             }
         }
     }
