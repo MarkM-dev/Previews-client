@@ -1,114 +1,123 @@
 var slider;
 var output;
+var options = {};
 
-function changePreviewMode(isImagePreviewMode){
+function changeFeatureMode(featureName, value) {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "update_imagePreviewMode", isImagePreviewMode: isImagePreviewMode})
+        chrome.tabs.sendMessage(tabs[0].id, {action: "update_options", detail:{featureName:featureName, value:value}})
     });
-}
-
-function changeDirectoryPreviewMode(isDirpEnabled){
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "update_directoryPreviewMode", isDirpEnabled: isDirpEnabled})
-    });
-}
-
-function changeChannelPointsClickerMode(isChannelPointsClickerEnabled){
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "update_ChannelPointsClickerMode", isChannelPointsClickerEnabled: isChannelPointsClickerEnabled})
-    });
-    chrome.runtime.sendMessage({action: "bg_update_ChannelPointsClickerMode", detail: isChannelPointsClickerEnabled}, function(response) {
+    browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: value}, function(response) {
 
     });
 }
 
-function changePreviewSize(width) {
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "update_previewSize", width: width})
-    });
-}
-
-function setSliderAndViewValues(value) {
-    slider.value = value ? value:440;
-    output.innerText = slider.value + "px";
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    var previewModeCheckbox = document.getElementById('TP_popup_preview_mode_checkbox');
-    browser.storage.local.get('isImagePreviewMode', function(result) {
-        previewModeCheckbox.checked = typeof result.isImagePreviewMode == 'undefined' ? false : !result.isImagePreviewMode;
-    });
-    previewModeCheckbox.addEventListener('change', (event) => {
+function initCheckbox(featureName, checkboxID, invertBool) {
+    var checkbox = document.getElementById(checkboxID);
+    checkbox.checked = invertBool ? !options[featureName] : options[featureName];
+    checkbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            changePreviewMode(false);
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+                    chrome.tabs.sendMessage(tabs[0].id, {action: "check_notifications_permissions", detail:{featureName:featureName, value:true}})
+                });
+            } else {
+                changeFeatureMode(featureName,invertBool ? false : true);
+            }
         } else {
-            changePreviewMode(true);
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: false}, function(response) {
+
+                });
+            }
+            changeFeatureMode(featureName,invertBool ? true : false);
+            document.getElementById('refreshChangeDivInfo').style.display = "block";
         }
     });
+}
 
-    var directoryPreviewCheckbox = document.getElementById('TP_popup_directory_preview_mode_checkbox');
-    browser.storage.local.get('isDirpEnabled', function(result) {
-        directoryPreviewCheckbox.checked = typeof result.isDirpEnabled == 'undefined' ? true : result.isDirpEnabled;
-    });
-    directoryPreviewCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            changeDirectoryPreviewMode(true);
-        } else {
-            changeDirectoryPreviewMode(false);
+function initSocialBtn(name, url) {
+    var btn = document.getElementById('tp_popup_' + name +'_btn');
+    btn.addEventListener('click', (event) => {
+        if (url) {
+            chrome.tabs.create({url:url});
         }
-    });
+        browser.runtime.sendMessage({action: 'bg_' + name +'_btn_click', detail: ""}, function(response) {
 
-    var ChannelPointsCheckbox = document.getElementById('TP_popup_channel_points_checkbox');
-    browser.storage.local.get('isChannelPointsClickerEnabled', function(result) {
-        ChannelPointsCheckbox.checked = typeof result.isChannelPointsClickerEnabled == 'undefined' ? false : result.isChannelPointsClickerEnabled;
+        });
     });
-    ChannelPointsCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            changeChannelPointsClickerMode(true);
-        } else {
-            changeChannelPointsClickerMode(false);
-        }
-    });
+}
 
+function initPreviewSizeSlider() {
     slider = document.getElementById("TP_popup_preview_size_input_slider");
     output = document.getElementById("TP_popup_preview_size_display");
     slider.min = 300;
     slider.max = 1000;
 
-    try {
-        browser.storage.local.get('previewSize', function(result) {
-            if (typeof result.previewSize == 'undefined') {
-                setSliderAndViewValues(null);
-            } else {
-                setSliderAndViewValues(result.previewSize.width);
-            }
-        });
-    } catch (e) {
-        setSliderAndViewValues(null);
-    }
+    slider.value = options.PREVIEWDIV_WIDTH;
+    output.innerHTML = slider.value + "px";
 
     slider.onchange = function() {
-        changePreviewSize(this.value);
+        changeFeatureMode('PREVIEWDIV_WIDTH', this.value);
     }
 
     slider.oninput = function() {
-        output.innerText = this.value + "px";
+        output.innerHTML = this.value + "px";
     }
+}
 
-    var donate_btn = document.getElementById('tp_popup_donate_btn');
-    donate_btn.addEventListener('click', (event) => {
+function setFeatureTitles() {
+    document.getElementById('tp_popup_feature_sBar_previews').title = "* Sidebar Previews\n" +
+        "- Shows a live video or image preview when hovering over a stream on the sidebar (followed channels list on the side)";
+
+    document.getElementById('tp_popup_feature_directory_previews').title = "* Directory Previews\n" +
+        "- Shows a video stream preview when hovering over streams in twitch directories (channels in browsing directory, following, etc..).";
+
+    document.getElementById('tp_popup_feature_cpc').title = "* Auto Channel Points Clicker\n" +
+        "- This feature automatically clicks the green channel points redeem button.\n" +
+        "- It also works when chat is closed and when the tab or window is in the background.";
+
+    document.getElementById('tp_popup_feature_sBar_search').title = "* Sidebar Streamer Search\n" +
+        "- A purple search button on the top of the sidebar to find live streamers easily.\n" +
+        "- Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching."
+
+    document.getElementById('tp_popup_feature_sBar_extend').title = "* Extend Sidebar\n" +
+        "- Auto extends the sidebar to show all online streamers (when sidebar is open).";
+
+    document.getElementById('tp_popup_feature_errRefresh').title = "* Auto Refresh On Errors (#1000, #2000)\n" +
+        "- This feature works when the tab with the player that got an error is currently active.\n" +
+        "- If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.";
+
+    document.getElementById('tp_popup_feature_predictions').title = "* Predictions Notifications" +
+        "\n- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser)." +
+        "\n- Works on twitch tabs in the browser." +
+        "\n- When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there)."
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    browser.runtime.sendMessage({action: "bg_popup_opened", detail: "popup.html"}, function(response) {
 
     });
 
-    var rate_btn = document.getElementById('tp_popup_rate_btn');
-    rate_btn.addEventListener('click', (event) => {
-        chrome.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+    browser.storage.local.get('tp_options', function(result) {
+        options = result.tp_options;
+        initCheckbox('isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
+        initCheckbox('isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
+        initCheckbox('isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
+        initCheckbox('isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
+        initCheckbox('isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
+        initCheckbox('isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
+        initCheckbox('isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
+        initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
+
+        initPreviewSizeSlider();
+        setFeatureTitles();
     });
 
-    var share_btn = document.getElementById('tp_popup_share_btn');
-    share_btn.addEventListener('click', (event) => {
-        chrome.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
-    });
+    initSocialBtn('donate', null)
+    initSocialBtn('rate', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
+    initSocialBtn('share', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
+
+
 
 });

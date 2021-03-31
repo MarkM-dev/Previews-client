@@ -1,10 +1,10 @@
 #TPBodyEl {
-    width: 280px;
     font-family: "Segoe UI", Tahoma, sans-serif;
+    display: flex;
+    width: 540px;
     background-color: #232323;
     text-align: center;
     color: whitesmoke;
-    font-size: small;
 }
 #TPBodyEl > h2 {
     text-align: center;
@@ -92,7 +92,7 @@ input.apple-switch:checked:after {
     margin-top: 20px;
     text-align: center;
     border-top: 1px solid whitesmoke;
-    padding-top: 25px;
+    padding-top: 15px;
 }
 
 #TP_popup_donation_container > form {
@@ -204,7 +204,7 @@ input.apple-switch:checked:after {
 }
 
 .slide-container {
-    margin-top: 25px;
+    margin-top: 20px;
     width: 100%;
     font-weight: bold;
 }
