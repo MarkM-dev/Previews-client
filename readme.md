@@ -21,10 +21,10 @@
 - Image or live video stream Previews in sidebar & directories.
 - Preview resize.
 - Auto channel points clicker.
-- Chrome only - Auto extend the sidebar to show all online streamers (when sidebar is open).
-- Chrome only - A purple search button on the top of the sidebar to find live streamers easily in the sidebar.
-- Chrome only - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
-- Chrome only - Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
+- Auto extend the sidebar to show all online streamers (when sidebar is open).
+- A purple search button on the top of the sidebar to find live streamers easily in the sidebar.
+- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
+- Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
 - Chrome only - Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
@@ -59,7 +59,7 @@
 
 * **Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000)**
     - This feature works when the tab with the player that got an error is currently active.
-    - If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.
+    - If the player got an error while the tab was not active (in the background or the browser wasn't the active window) the page will automatically refresh when you come back to it.
     - This feature is turned off by default and can be turned on in the extension options.
 <br/>
 
