@@ -83,6 +83,12 @@ function setFeatureTitles() {
     document.getElementById('tp_popup_feature_sBar_extend').title = "* Extend Sidebar\n" +
         "- Auto extends the sidebar to show all online streamers (when sidebar is open).";
 
+    document.getElementById('tp_popup_feature_fScrnWithChat').title = "* Full screen with chat\n" +
+        "- The button will show next to the 'theater mode' button in the player controls.\n" +
+        "- Clicking it will toggle browser fullscreen (like F11), theater mode and chat.\n" +
+        "- You can exit the mode by clicking the button again or double-tapping ESC.\n" +
+        "- When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you chat while in mode - then it will remain closed).";
+
     document.getElementById('tp_popup_feature_errRefresh').title = "* Auto Refresh On Errors (#1000, #2000, #4000)\n" +
         "- This feature works when the tab with the player that got an error is currently active.\n" +
         "- If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.";
@@ -108,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCheckbox('isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox('isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
         initCheckbox('isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
+        initCheckbox('isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
 
         initPreviewSizeSlider();

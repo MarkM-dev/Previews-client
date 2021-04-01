@@ -18,6 +18,8 @@ var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
 var isMainPlayerError = false;
 var timesExtendedSidebar = 0;
+var bLastChatOpenState = null;
+var hasEnteredFScreenWithChat = false;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predict_langs = {
@@ -1200,6 +1202,103 @@ function onSettingChange(key, value) {
     });
 }
 
+function toggleBrowserFullScreen(elem) {
+    if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+        if (elem.requestFullScreen) {
+            elem.requestFullScreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    } else {
+        if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
+function setTheatreMode(bool) {
+    if (document.getElementsByClassName('video-player__container--theatre').length > 0 !== bool) {
+        document.querySelector('button[data-a-target="player-theatre-mode-button"]').click();
+    }
+}
+
+function setChatOpenMode(bool) {
+    if (document.getElementsByClassName('toggle-visibility__right-column--expanded').length > 0 !== bool) {
+        document.querySelector('button[data-a-target="right-column__toggle-collapse-btn"]').click();
+    }
+}
+
+function fScreenWithChatESC_callback(evt) {
+    var isEscape;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    } else {
+        isEscape = (evt.keyCode === 27);
+    }
+    if (isEscape) {
+        exit_fScrnWithChat();
+    }
+}
+
+function enter_fScrnWithChat() {
+    bLastChatOpenState = document.getElementsByClassName('toggle-visibility__right-column--expanded').length > 0;
+    setChatOpenMode(true);
+    setTheatreMode(true);
+    document.addEventListener("keydown", fScreenWithChatESC_callback);
+    hasEnteredFScreenWithChat = true;
+}
+
+function exit_fScrnWithChat() {
+    setTheatreMode(false);
+    setChatOpenMode(bLastChatOpenState);
+    document.removeEventListener("keydown", fScreenWithChatESC_callback);
+    hasEnteredFScreenWithChat = false;
+}
+
+function toggle_fScrnWithChat() {
+    if (hasEnteredFScreenWithChat) {
+        exit_fScrnWithChat();
+    } else {
+        enter_fScrnWithChat();
+    }
+    toggleBrowserFullScreen(document.body);
+}
+
+function setfScrnWithChatBtn() {
+    if (document.getElementById('tp_fScrnWithChat_btn')) {
+        return;
+    }
+    var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+    if (ttv_theater_mode_btn) {
+        var btn = document.createElement('div');
+        btn.id = "tp_fScrnWithChat_btn";
+        btn.title = "Toggle Full Screen With Chat";
+        btn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tp_fScrnWithChat.png') + "')";
+        var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+        btn.style.width = ttv_theater_mode_btn_size.width * 0.833 + "px";
+        btn.style.height = ttv_theater_mode_btn_size.height * 0.833 + "px";
+        btn.onclick = function (){
+            toggle_fScrnWithChat();
+        }
+
+        try {
+            ttv_theater_mode_btn.parentNode.before(btn);
+        } catch (e) {
+
+        }
+    }
+}
+
 function toggleFeatures() {
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
 
@@ -1232,6 +1331,10 @@ function toggleFeatures() {
 
     if (options.isPredictionsNotificationsEnabled) {
         setPredictionsNotifications();
+    }
+
+    if (options.isfScrnWithChatEnabled) {
+        setfScrnWithChatBtn();
     }
 }
 

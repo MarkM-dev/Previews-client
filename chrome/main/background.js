@@ -21,6 +21,7 @@ var options = {
     isErrRefreshEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
+    isfScrnWithChatEnabled: false,
     isPredictionsNotificationsEnabled: false,
 };
 
