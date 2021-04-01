@@ -99,6 +99,10 @@ function setFeatureTitles() {
         "\n- When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there)."
 }
 
+function setAppVer() {
+    document.getElementById('tp_version').innerText = "v" + chrome.runtime.getManifest().version;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
     chrome.runtime.sendMessage({action: "bg_popup_opened", detail: "popup.html"}, function(response) {
@@ -119,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         initPreviewSizeSlider();
         setFeatureTitles();
+        setAppVer();
     });
 
     initSocialBtn('donate', null)
