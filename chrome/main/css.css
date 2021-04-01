@@ -472,3 +472,10 @@
     border-radius: 5px;
     box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
 }
+
+#tp_fScrnWithChat_btn {
+    display: inline-flex;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
+}

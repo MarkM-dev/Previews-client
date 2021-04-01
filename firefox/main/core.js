@@ -18,6 +18,8 @@ var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
 var isMainPlayerError = false;
 var timesExtendedSidebar = 0;
+var bLastChatOpenState = null;
+var hasEnteredFScreenWithChat = false;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predict_langs = {
@@ -855,9 +857,10 @@ function ga_report_appStart() {
     var channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
     var sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
     var sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
+    var isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
     var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
 
-    browser.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + errRefresh + " : " + predictionsNotifications}, function(response) {
+    browser.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + predictionsNotifications}, function(response) {
 
     });
 }
@@ -887,7 +890,7 @@ function listenForPlayerError() {
             return;
         }
 
-        t_player.addEventListener('abort', (event,arg1,arg2,arg3) => {
+        t_player.addEventListener('abort', (event) => {
             if (options.isErrRefreshEnabled) {
                 setTimeout(function (){
                     var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
@@ -1107,6 +1110,106 @@ function setPredictionsNotifications() {
     }
 }
 
+function toggleBrowserFullScreen(elem) {
+    if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+        if (elem.requestFullScreen) {
+            elem.requestFullScreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    } else {
+        if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
+function setTheatreMode(bool) {
+    if (document.getElementsByClassName('video-player__container--theatre').length > 0 !== bool) {
+        document.querySelector('button[data-a-target="player-theatre-mode-button"]').click();
+    }
+}
+
+function setChatOpenMode(bool) {
+    if (document.getElementsByClassName('toggle-visibility__right-column--expanded').length > 0 !== bool) {
+        document.querySelector('button[data-a-target="right-column__toggle-collapse-btn"]').click();
+    }
+}
+
+function fScreenWithChatESC_callback(evt) {
+    var isEscape;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    } else {
+        isEscape = (evt.keyCode === 27);
+    }
+    if (isEscape) {
+        exit_fScrnWithChat();
+    }
+}
+
+function enter_fScrnWithChat() {
+    bLastChatOpenState = document.getElementsByClassName('toggle-visibility__right-column--expanded').length > 0;
+    setChatOpenMode(true);
+    setTheatreMode(true);
+    document.addEventListener("keydown", fScreenWithChatESC_callback);
+    hasEnteredFScreenWithChat = true;
+    browser.runtime.sendMessage({action: "bg_fScrnWithChat_click", detail: true}, function(response) {
+
+    });
+}
+
+function exit_fScrnWithChat() {
+    setTheatreMode(false);
+    setChatOpenMode(bLastChatOpenState);
+    document.removeEventListener("keydown", fScreenWithChatESC_callback);
+    hasEnteredFScreenWithChat = false;
+}
+
+function toggle_fScrnWithChat() {
+    if (hasEnteredFScreenWithChat) {
+        exit_fScrnWithChat();
+    } else {
+        enter_fScrnWithChat();
+    }
+    toggleBrowserFullScreen(document.body);
+}
+
+function setfScrnWithChatBtn() {
+    if (document.getElementById('tp_fScrnWithChat_btn')) {
+        return;
+    }
+    var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+    if (ttv_theater_mode_btn) {
+        var btn = document.createElement('div');
+        btn.id = "tp_fScrnWithChat_btn";
+        btn.title = "Toggle Full Screen With Chat";
+        btn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/tp_fScrnWithChat.png') + "')";
+        var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+        btn.style.width = ttv_theater_mode_btn_size.width * 0.833 + "px";
+        btn.style.height = ttv_theater_mode_btn_size.height * 0.833 + "px";
+        btn.onclick = function (){
+            toggle_fScrnWithChat();
+        }
+
+        try {
+            ttv_theater_mode_btn.parentNode.before(btn);
+        } catch (e) {
+
+        }
+    }
+}
+
 function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
     var storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
@@ -1142,7 +1245,7 @@ function showToast(toast_body, storageFlagName) {
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>\n" +
                         toast_body +
-        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
+        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the firefox addon webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
@@ -1163,14 +1266,15 @@ function showToast(toast_body, storageFlagName) {
 function showUpdateToast() {
     browser.storage.local.get('shouldShowUpdatePopup', function(result) {
         if (result.shouldShowUpdatePopup) {
-            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>\n" +
-                "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>\n" +
-                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>On/off toggle for sidebar previews.</strong></div>\n" +
-                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Always extend the sidebar to show all online streamers</strong> (when sidebar is open).</div>\n" +
-                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>A purple search button on the top of the sidebar to find live streamers easily</strong> (searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching).</div>\n" +
-                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Auto Refresh On Errors (#1000, #2000)</strong>This feature works when the tab with the player that got an error is currently active and if the player got an error while the tab was not active (in the background or the browser wasn't the active window) the page will automatically refresh when you come back to it.</div>\n" +
-                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions started and Predictions results notifications</strong> when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser). when enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).</div>\n" +
-                "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Changed the way the extension handles preferences</strong> for easier maintenance and adding new features easily - this means settings were reset and you need to set them again in the extension options.</div>";
+            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
+                +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Feature!</div>"
+                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Full screen with chat.</strong>"
+                +  "</br><span>* The button will show next to the 'theater mode' button in the player controls.</span>"
+                +  "</br><span>* Clicking it will toggle browser fullscreen (like F11), theater mode and chat.</span>"
+                +  "</br><span>* You can exit the mode by double-tapping ESC (first ESC is exit full screen, second ESC is to set twitch back to normal).</span>"
+                +  "</br><span>* When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode then it will remain closed).</span>"
+                +  "</div>"
+            +   "<div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>You can hover over features in the options to see a tooltip with the feature's descriptions.</strong></div>"
 
             showToast(toast_body, 'shouldShowUpdatePopup');
         }
@@ -1231,6 +1335,10 @@ function toggleFeatures() {
         setTimeout(function () {
             setPredictionsNotifications();
         }, 2500)
+    }
+
+    if (options.isfScrnWithChatEnabled) {
+        setfScrnWithChatBtn();
     }
 }
 

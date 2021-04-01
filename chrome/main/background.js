@@ -21,6 +21,7 @@ var options = {
     isErrRefreshEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
+    isfScrnWithChatEnabled: false,
     isPredictionsNotificationsEnabled: false,
 };
 
@@ -57,26 +58,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion === "1.7" || details.previousVersion === "1.7.0.1" || details.previousVersion === "1.7.0.2" || details.previousVersion === "1.7.0.4") {
-                chrome.storage.sync.get('hasConfirmedSecondaryUpdatePopup', function(result) {
-                    if (!result.hasConfirmedSecondaryUpdatePopup) {
-                        chrome.storage.sync.get('hasConfirmedUpdatePopup', function(result) {
-                            if (result.hasConfirmedUpdatePopup) {
-                                chrome.storage.sync.set({'shouldShowSecondaryUpdatePopup': true}, function() {});
-                                chrome.storage.sync.set({'shouldShowUpdatePopup': false}, function() {});
-                            } else {
-                                chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {});
-                                chrome.storage.sync.set({'shouldShowSecondaryUpdatePopup': false}, function() {});
-                                chrome.storage.sync.set({'hasConfirmedUpdatePopup': true}, function() {});
-                            }
-                            chrome.storage.sync.set({'hasConfirmedSecondaryUpdatePopup': true}, function() {});
-                        });
-                    }
-                });
-            } else {
-                chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {});
-                chrome.storage.sync.set({'shouldShowSecondaryUpdatePopup': false}, function() {});
-            }
+            chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -109,6 +91,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isSidebarExtendEnabled":
             ga('send', 'event', 'sidebarExtend_mode', 'change', msg.detail ? "sBarExtend_ON":"sBarExtend_OFF");
+            break;
+        case "bg_update_isfScrnWithChatEnabled":
+            ga('send', 'event', 'fScrnWithChat_mode', 'change', msg.detail ? "fScrnWithChat_ON":"fScrnWithChat_OFF");
+            break;
+        case "bg_fScrnWithChat_click":
+            ga('send', 'event', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click');
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
