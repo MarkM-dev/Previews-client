@@ -87,7 +87,7 @@ function setFeatureTitles() {
         "- The button will show next to the 'theater mode' button in the player controls.\n" +
         "- Clicking it will toggle browser fullscreen (like F11), theater mode and chat.\n" +
         "- You can exit the mode by clicking the button again or double-tapping ESC.\n" +
-        "- When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you chat while in mode - then it will remain closed).";
+        "- When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).";
 
     document.getElementById('tp_popup_feature_errRefresh').title = "* Auto Refresh On Errors (#1000, #2000, #4000)\n" +
         "- This feature works when the tab with the player that got an error is currently active.\n" +
