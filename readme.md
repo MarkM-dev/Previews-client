@@ -25,6 +25,7 @@
 - A purple search button on the top of the sidebar to find live streamers easily in the sidebar.
 - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
+- Full screen with chat.
 - Chrome only - Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
@@ -38,7 +39,7 @@
 <br/>
 <br/>
 
-* **picture in picture**
+* **Picture in picture**
     - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (using chrome's PIP feature).
     - You can still use the regular previews alongside with PIP.
 <br/>
@@ -67,9 +68,16 @@
 * **Auto bonus channel points clicker**
     - This feature automatically clicks the green channel points redeem button.
     - It also works when chat is closed and when the tab or window is in the background.
-    - This feature is turned off by default and can be changed in the extension options.
+    - This feature is turned off by default and can be changed in the extension options.<br/>
+      <br/>
 
 
+* **Full screen with chat**
+  - The button will show next to the 'theater mode' button in the player controls.
+  - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
+  - You can exit the mode by clicking the button again or double-tapping ESC.
+  - When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).
+  
 
 <br/>
 <br/>

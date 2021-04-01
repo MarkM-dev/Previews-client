@@ -461,11 +461,8 @@
 }
 
 .tp_update_toast {
-    overflow: auto;
-    height: 75%;
-    width: 35rem;
     padding: 10px 15px 10px 10px;
-    /*width: 30rem;*/
+    width: 30rem;
     background: #9c60ff;
     color: #ffffff;
     position: fixed;
@@ -474,4 +471,11 @@
     z-index: 9999;
     border-radius: 5px;
     box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
+}
+
+#tp_fScrnWithChat_btn {
+    display: inline-flex;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
 }

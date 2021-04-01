@@ -20,6 +20,14 @@
     justify-content: space-evenly;
 }
 
+#tp_version {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    color: darkgrey;
+    font-size: 10px;
+}
+
 .TP_popup_sidebar_feature_title {
     display: flex;
     align-items: center;
@@ -42,6 +50,7 @@
     padding-top: 25px;*/
     font-weight: bold;
     font-size: 12px;
+    text-align: left;
 }
 
 input.apple-switch {
