@@ -89,7 +89,7 @@ function setFeatureTitles() {
         "- You can exit the mode by double-tapping ESC (first ESC is exit full screen, second ESC is to set twitch back to normal).\n" +
         "- When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).";
 
-    document.getElementById('tp_popup_feature_errRefresh').title = "* Auto Refresh On Errors (#1000, #2000, #4000)\n" +
+    document.getElementById('tp_popup_feature_errRefresh').title = "* Auto Refresh On Errors (#1000, #2000)\n" +
         "- This feature works when the tab with the player that got an error is currently active.\n" +
         "- If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.";
 
