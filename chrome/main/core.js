@@ -857,10 +857,11 @@ function ga_report_appStart() {
     var channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
     var sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
     var sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
+    var pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
     var isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
     var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
 
-    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + predictionsNotifications}, function(response) {
+    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + predictionsNotifications + " : " + pvqc}, function(response) {
 
     });
 }
@@ -1056,7 +1057,7 @@ function checkForPredictions() {
     var btn = document.querySelector('button[data-test-selector="community-prediction-highlight-header__action-button"]');
     if(btn) {
         if (document.querySelector('.toggle-visibility__right-column--expanded')) {
-            if (!document.hidden) {
+            if (!options.isPvqcEnabled && !document.hidden) {
                 last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
                 last_prediction_button_text = btn.innerText;
                 return;
@@ -1204,6 +1205,25 @@ function setfScrnWithChatBtn() {
     }
 }
 
+function setPvqc() {
+    if (document.getElementById('tp_pvqc')) {
+        return;
+    }
+
+    var pvqc = document.createElement("script");
+    pvqc.id = "tp_pvqc"
+    pvqc.innerHTML = "Object.defineProperty(document, \"visibilityState\", {value: \"visible\", writable: false});\n" +
+        "    Object.defineProperty(document, \"webkitVisibilityState\", {value: \"visible\", writable: false});\n" +
+        "    Object.defineProperty(document, \"hidden\", {value: false, writable: false});\n" +
+        "    document.dispatchEvent(new Event(\"visibilitychange\"));\n" +
+        "    document.hasFocus = function() {\n" +
+        "        return true;\n" +
+        "    };\n" +
+        "    window.localStorage.setItem(\"video-quality\", '{\"default\":\"chunked\"}');";
+
+    document.body.appendChild(pvqc);
+}
+
 function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
     var storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
@@ -1262,13 +1282,12 @@ function showUpdateToast() {
         if (result.shouldShowUpdatePopup) {
             var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
                 +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Feature!</div>"
-                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Full screen with chat.</strong>"
-                +  "</br><span>* The button will show next to the 'theater mode' button in the player controls.</span>"
-                +  "</br><span>* Clicking it will toggle browser fullscreen (like F11), theater mode and chat.</span>"
-                +  "</br><span>* You can exit the mode by clicking the button again or double-tapping ESC.</span>"
-                +  "</br><span>* When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode then it will remain closed).</span>"
+                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Prevent automatic video quality change.</strong>"
+                +  "</br><span>Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).</span>"
+                +  "</br></br><span><strong>* Notes on conflicts with other features:</strong></span>"
+                +  "</br><span><strong>Auto refresh</strong> - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused.</span>"
+                +  "</br><span><strong>Predictions notifications</strong> - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.</span>"
                 +  "</div>"
-            +   "<div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>You can hover over features in the options to see a tooltip with the feature's descriptions.</strong></div>"
 
             showToast(toast_body, 'shouldShowUpdatePopup');
         }
@@ -1316,13 +1335,22 @@ function toggleFeatures() {
     }
 
     if (options.isSidebarExtendEnabled) {
-        document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", extendSidebar);
-        extendSidebar();
+        try {
+            document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", extendSidebar);
+            extendSidebar();
+        } catch (e) {
+
+        }
+
     }
 
     if (options.isSidebarSearchEnabled) {
-        document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", showSidebarSearchBtn);
-        showSidebarSearchBtn();
+        try {
+            document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", showSidebarSearchBtn);
+            showSidebarSearchBtn();
+        } catch (e) {
+
+        }
     }
 
     if (options.isPredictionsNotificationsEnabled) {
@@ -1331,6 +1359,10 @@ function toggleFeatures() {
 
     if (options.isfScrnWithChatEnabled) {
         setfScrnWithChatBtn();
+    }
+
+    if (options.isPvqcEnabled) {
+        setPvqc();
     }
 }
 
