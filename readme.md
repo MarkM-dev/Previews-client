@@ -10,12 +10,14 @@
 <br/>
 
 ## Download
-**Extension is available for Chrome, Firefox and Opera:<br/>**
+**Extension is available for Chrome, Firefox, Opera and Edge:<br/>**
 
-**[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/
-) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/
-) | [Opera Add-on](https://addons.opera.com/en/extensions/details/twitch-previews/)**
+**[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/)
+ | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)
+ | [Opera Add-on](https://addons.opera.com/en/extensions/details/twitch-previews/)
+ | [Edge Extension](https://addons.opera.com/en/extensions/details/twitch-previews/)**
 <br/>
+* Edge users can install extensions from the chrome webstore. 
 <br/>
 
 ## Features:
