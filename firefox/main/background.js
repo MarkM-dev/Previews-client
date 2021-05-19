@@ -13,6 +13,7 @@ var options = {
     isErrRefreshEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
+    isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
     isPredictionsNotificationsEnabled: false,
 };

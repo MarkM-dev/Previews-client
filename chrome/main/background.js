@@ -21,6 +21,7 @@ var options = {
     isErrRefreshEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
+    isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
     isPredictionsNotificationsEnabled: false,
 };
@@ -88,6 +89,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isSidebarSearchEnabled":
             ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sBarSearch_ON":"sBarSearch_OFF");
+            break;
+            case "bg_update_isPvqcEnabled":
+            ga('send', 'event', 'pvqc_mode', 'change', msg.detail ? "pvqc_ON":"pvqc_OFF");
             break;
         case "bg_update_isSidebarExtendEnabled":
             ga('send', 'event', 'sidebarExtend_mode', 'change', msg.detail ? "sBarExtend_ON":"sBarExtend_OFF");
