@@ -97,6 +97,13 @@ function setFeatureTitles() {
         "\n- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser)." +
         "\n- Works on twitch tabs in the browser." +
         "\n- When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there)."
+
+    document.getElementById('tp_popup_feature_pvqc').title = "* Prevent Automatic Video Quality Change\n" +
+        "- Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).\n" +
+        "- Notes on conflicts with other features:\n" +
+        "- Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused.\n" +
+        "- Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab."
+
 }
 
 function setAppVer() {
@@ -117,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCheckbox('isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
         initCheckbox('isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox('isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
+        initCheckbox('isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox('isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox('isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);

@@ -10,28 +10,31 @@
 <br/>
 
 ## Download
-**Extension is available for Chrome and Firefox:<br/>**
+**Extension is available for Chrome, Firefox and Edge:<br/>**
 
-**[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/
-) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
+**[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/)
+ | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)
+ | [Edge Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/)**
 <br/>
+* Edge users can install extensions from the chrome webstore. 
 <br/>
 
 ## Features:
 - Image or live video stream Previews in sidebar & directories.
 - Preview resize.
+- Prevent automatic video quality change.
 - Auto channel points clicker.
 - Auto extend the sidebar to show all online streamers (when sidebar is open).
 - A purple search button on the top of the sidebar to find live streamers easily in the sidebar.
 - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
 - Full screen with chat.
-- Chrome only - Picture In Picture via the button under the viewcount in the list (when in video mode).
+- Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
 
 ## How to use:
-1. **Add the extension to chrome/firefox.**
+1. **Add the extension to your browser.**
     - If you already have a twitch tab opened - refresh it.
 
 2. **Hover your mouse over a streamer on the navigation sidebar or in a twitch directory.**
@@ -40,7 +43,7 @@
 <br/>
 
 * **Picture in picture**
-    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (using chrome's PIP feature).
+    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (using browser's PIP feature).
     - You can still use the regular previews alongside with PIP.
 <br/>
 
@@ -64,6 +67,15 @@
     - This feature is turned off by default and can be turned on in the extension options.
 <br/>
 
+
+* **Prevent Automatic Video Quality Change**
+    - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
+    - Notes on conflicts with other features:
+    - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused.
+    - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
+    - This feature is turned off by default and can be turned on in the extension options.
+      <br/>
+      
 
 * **Auto bonus channel points clicker**
     - This feature automatically clicks the green channel points redeem button.
