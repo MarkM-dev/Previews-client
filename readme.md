@@ -70,8 +70,8 @@
 
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
-    - Notes on conflicts with other features:
-    - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused.
+    - Notes on behavior with other features:
+    - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).
     - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
     - This feature is turned off by default and can be turned on in the extension options.
       <br/>

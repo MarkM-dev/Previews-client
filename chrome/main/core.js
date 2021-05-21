@@ -1218,8 +1218,7 @@ function setPvqc() {
         "    document.dispatchEvent(new Event(\"visibilitychange\"));\n" +
         "    document.hasFocus = function() {\n" +
         "        return true;\n" +
-        "    };\n" +
-        "    window.localStorage.setItem(\"video-quality\", '{\"default\":\"chunked\"}');";
+        "    };";
 
     document.body.appendChild(pvqc);
 }
@@ -1284,8 +1283,8 @@ function showUpdateToast() {
                 +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Feature!</div>"
                 +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Prevent automatic video quality change.</strong>"
                 +  "</br><span>Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).</span>"
-                +  "</br></br><span><strong>* Notes on conflicts with other features:</strong></span>"
-                +  "</br><span><strong>Auto refresh</strong> - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused.</span>"
+                +  "</br></br><span><strong>* Notes on behavior with other features:</strong></span>"
+                +  "</br><span><strong>Auto refresh</strong> - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).</span>"
                 +  "</br><span><strong>Predictions notifications</strong> - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.</span>"
                 +  "</div>"
 
