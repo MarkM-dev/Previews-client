@@ -73,19 +73,19 @@
     - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).
     - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
       <br/>
-
+      <br/>
 
 * **Auto bonus channel points clicker**
     - This feature automatically clicks the green channel points redeem button.
     - It also works when chat is closed and when the tab or window is in the background.
       <br/>
-
+      <br/>
 
 * **Full screen with chat**
-  - The button will show next to the 'theater mode' button in the player controls.
-  - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
-  - You can exit the mode by clicking the button again or double-tapping ESC.
-  - When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).
+    - The button will show next to the 'theater mode' button in the player controls.
+    - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
+    - You can exit the mode by clicking the button again or double-tapping ESC.
+    - When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).
   
 
 <br/>
