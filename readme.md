@@ -75,7 +75,7 @@
     - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
     - This feature is turned off by default and can be turned on in the extension options.
       <br/>
-      
+
 
 * **Auto bonus channel points clicker**
     - This feature automatically clicks the green channel points redeem button.
