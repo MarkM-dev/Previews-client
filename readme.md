@@ -64,23 +64,20 @@
 * **Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000)**
     - This feature works when the tab with the player that got an error is currently active.
     - If the player got an error while the tab was not active (in the background or the browser wasn't the active window) the page will automatically refresh when you come back to it.
-    - This feature is turned off by default and can be turned on in the extension options.
 <br/>
 
 
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
-    - Notes on conflicts with other features:
-    - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused.
+    - Notes on behavior with other features:
+    - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).
     - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
-    - This feature is turned off by default and can be turned on in the extension options.
       <br/>
-      
+
 
 * **Auto bonus channel points clicker**
     - This feature automatically clicks the green channel points redeem button.
     - It also works when chat is closed and when the tab or window is in the background.
-    - This feature is turned off by default and can be changed in the extension options.<br/>
       <br/>
 
 

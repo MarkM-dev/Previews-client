@@ -100,8 +100,8 @@ function setFeatureTitles() {
 
     document.getElementById('tp_popup_feature_pvqc').title = "* Prevent Automatic Video Quality Change\n" +
         "- Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).\n" +
-        "- Notes on conflicts with other features:\n" +
-        "- Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused.\n" +
+        "- Notes on behavior with other features:\n" +
+        "- Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).\n" +
         "- Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab."
 
 }
