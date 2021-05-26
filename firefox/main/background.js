@@ -51,7 +51,7 @@ browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.7.2.0") {
+            if (details.previousVersion !== "1.7.2.0" && details.previousVersion !== "1.7.2.1") {
                 browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
             }
 
