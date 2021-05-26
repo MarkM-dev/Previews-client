@@ -1218,7 +1218,8 @@ function setPvqc() {
         "    document.dispatchEvent(new Event(\"visibilitychange\"));\n" +
         "    document.hasFocus = function() {\n" +
         "        return true;\n" +
-        "    };";
+        "    };\n" +
+        "    window.localStorage.setItem(\"video-quality\", '{\"default\":\"chunked\"}');";
 
     document.body.appendChild(pvqc);
 }
