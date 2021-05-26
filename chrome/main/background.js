@@ -59,7 +59,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-             if (details.previousVersion !== "1.7.2.0") {
+             if (details.previousVersion !== "1.7.2.0" && details.previousVersion !== "1.7.2.1") {
                  chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {});
              }
 
