@@ -26,31 +26,43 @@ var options = {
     isPredictionsNotificationsEnabled: false,
 };
 
+function upgradeDB(optionsFromStorage, bSaveToStorage_default) {
+    var loaded_options = optionsFromStorage;
+    var bSetToStorage = bSaveToStorage_default;
+    Object.keys(options).forEach(function(key,index) {
+        if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
+            loaded_options[key] = options[key];
+            bSetToStorage = true;
+        }
+    });
+
+    if (bSetToStorage) {
+        chrome.storage.local.set({'tp_options': loaded_options}, function() {
+
+        });
+    }
+}
+
 chrome.runtime.onInstalled.addListener(function(details) {
     var manifestData = chrome.runtime.getManifest();
     var appVer = "v" + manifestData.version;
 
-     chrome.storage.sync.get('tp_options', function(result) {
+     chrome.storage.local.get('tp_options', function(result) {
         if (typeof result.tp_options == 'undefined') {
-            chrome.storage.sync.set({'tp_options': options}, function() {
+            chrome.storage.sync.get('tp_options', function(syncResult) {
+                if (typeof syncResult.tp_options == 'undefined') {
+                    chrome.storage.local.set({'tp_options': options}, function() {
 
-            });
-        } else {
-            // upgrade db.
-            var loaded_options = result.tp_options;
-            var bSetToStorage = false;
-            Object.keys(options).forEach(function(key,index) {
-                if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
-                    loaded_options[key] = options[key];
-                    bSetToStorage = true;
+                    });
+                } else {
+                    upgradeDB(syncResult.tp_options, true);
+                    chrome.storage.sync.remove('tp_options', function () {
+
+                    });
                 }
             });
-
-            if (bSetToStorage) {
-                chrome.storage.sync.set({'tp_options': loaded_options}, function() {
-
-                });
-            }
+        } else {
+            upgradeDB(result.tp_options, false);
         }
     });
 
@@ -59,9 +71,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-             if (details.previousVersion !== "1.7.2.0" && details.previousVersion !== "1.7.2.1") {
-                 chrome.storage.sync.set({'shouldShowUpdatePopup': true}, function() {});
-             }
+
+            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});

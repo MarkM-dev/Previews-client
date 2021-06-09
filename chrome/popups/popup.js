@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-    chrome.storage.sync.get('tp_options', function(result) {
+    chrome.storage.local.get('tp_options', function(result) {
         options = result.tp_options;
         initCheckbox('isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox('isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);

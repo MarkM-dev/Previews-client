@@ -1227,7 +1227,7 @@ function setPvqc() {
 function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
     var storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
-    chrome.storage.sync.set(storageFlagObj, function() {
+    chrome.storage.local.set(storageFlagObj, function() {
 
     });
     chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"rate_btn"}, function(response) {
@@ -1278,7 +1278,7 @@ function showToast(toast_body, storageFlagName) {
 }
 
 function showUpdateToast() {
-    chrome.storage.sync.get('shouldShowUpdatePopup', function(result) {
+    chrome.storage.local.get('shouldShowUpdatePopup', function(result) {
         if (result.shouldShowUpdatePopup) {
             var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
                 +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Feature!</div>"
@@ -1296,7 +1296,7 @@ function showUpdateToast() {
 
 function setOptionsFromDB() {
     return new Promise((resolve, reject) => {
-        chrome.storage.sync.get('tp_options', function(result) {
+        chrome.storage.local.get('tp_options', function(result) {
             options = result.tp_options;
             resolve(options);
         });
@@ -1309,7 +1309,7 @@ function onSettingChange(key, value) {
     if (key === 'PREVIEWDIV_WIDTH') {
         options['PREVIEWDIV_HEIGHT'] = getCalculatedPreviewSizeByWidth(value).height;
     }
-    chrome.storage.sync.set({'tp_options': options}, function() {
+    chrome.storage.local.set({'tp_options': options}, function() {
         toggleFeatures();
     });
 }
