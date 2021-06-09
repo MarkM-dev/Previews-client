@@ -104,6 +104,12 @@ function setFeatureTitles() {
         "- Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).\n" +
         "- Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab."
 
+    document.getElementById('tp_popup_feature_predictionsSniper').title = "* Predictions Sniper" +
+        "\n- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser)." +
+        "\n- Works on twitch tabs in the browser." +
+        "\n- When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there)."
+
+
 }
 
 function setAppVer() {
@@ -128,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initCheckbox('isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox('isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
+        initCheckbox('isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
 
         initPreviewSizeSlider();
         setFeatureTitles();

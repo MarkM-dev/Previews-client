@@ -24,6 +24,10 @@ var options = {
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
     isPredictionsNotificationsEnabled: false,
+    isPredictionsSniperEnabled: false,
+    aps_percent: 2,
+    aps_secondsBefore: 10,
+    aps_selection: 'most'
 };
 
 function upgradeDB(optionsFromStorage, bSaveToStorage_default) {
@@ -72,7 +76,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
         if (details.reason === "update") {
 
 
-            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+           // chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
 
            /* if (details.previousVersion === "1.5.1.6") {
@@ -124,6 +128,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_PN_show":
             ga('send', 'event', 'predictionsNotifications_show', 'PN_show', 'PN_show');
+            break;
+        case "bg_update_isPredictionsSniperEnabled":
+            ga('send', 'event', 'APS_mode', 'change', msg.detail ? "APS_ON":"APS_OFF");
             break;
         case "bg_sBarS_btn_click":
             ga('send', 'event', 'sBar_streamSearch_btn_click', 'sBar_streamSearch_btn_click', 'sBar_streamSearch_btn_click');

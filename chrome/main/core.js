@@ -22,6 +22,7 @@ var bLastChatOpenState = null;
 var hasEnteredFScreenWithChat = false;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
+var predictionSniperTimeout = null;
 var predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
@@ -1068,7 +1069,13 @@ function checkForPredictions() {
         if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
             return;
         }
-        var curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
+        var curr_streamer_img_url = '';
+
+        try {
+            curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
+        } catch (e) {
+
+        }
         last_prediction_streamer = curr_streamer;
         last_prediction_button_text = btn.innerText;
         var prediction_text = "";
@@ -1085,7 +1092,12 @@ function checkForPredictions() {
         }
 
         if (predict_langs[btn.innerText]) {
-            showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text, curr_streamer_img_url);
+            if(options.isPredictionsNotificationsEnabled) {
+                showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text, curr_streamer_img_url);
+            }
+            if(options.isPredictionsSniperEnabled) {
+                initAutoPredictionsSniper();
+            }
         } else {
             if (see_details_langs[btn.innerText]) {
                 showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
@@ -1314,6 +1326,139 @@ function onSettingChange(key, value) {
     });
 }
 
+function simulateHoverForPoints(selectedEvent ,el) {
+    const event = new MouseEvent(selectedEvent, {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+
+    el.dispatchEvent(event);
+}
+
+function getChannelPointsNum() {
+    return new Promise((resolve, reject) => {
+
+        // simulate hover to get channel points from tooltip
+        simulateHoverForPoints('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+        // get points from tooltip
+        setTimeout(function (){
+            var points_str_extract_arr = document.getElementsByClassName('tw-tooltip-wrapper')[0].innerText.match(/\d+/g);
+            var points = '';
+            for (var i = 0; i < points_str_extract_arr.length; i++) {
+                points += points_str_extract_arr[i];
+            }
+            simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+            resolve(points);
+        }, 400);
+    })
+}
+
+function setTextAreaValue(element, value) {
+    var prototypeValueSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;
+    prototypeValueSetter.call(element, value);
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+function initAutoPredictionsSniper() {
+// add % of points to spend (min 0.1 max 100)
+// add seconds to predict before prediction ends (min 2)
+// add which option to bet on
+
+    // handle cases
+    // if still in same stream where prediction started
+    // if prediction is still going on
+    // check if elements exist before executing commands
+    setTimeout(function (){
+
+
+        // click channel points button
+        document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0].click();
+
+        // get time remaining
+                                                // channel points view time left
+        var time_remaining_str_extract_arr = document.querySelector('p[data-test-selector="predictions-list-item__subtitle"]').innerText.match(/\d+/g)
+        var ms_UntillPrediction = (time_remaining_str_extract_arr[0] * 60 * 1000) + (time_remaining_str_extract_arr[1] * 1000);
+        ms_UntillPrediction -= 10000; // options.aps_secondsBefore //decrease by seconds set in options (seconds * 1000)
+
+        if (ms_UntillPrediction > 1000) {
+            // close channel points view
+            document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0].click();
+        }
+
+        // clear time out in case the user switched streams and a new prediction started there.
+        if (predictionSniperTimeout) {
+            clearTimeout(predictionSniperTimeout);
+        }
+        
+        // wait amount of seconds to predict
+        predictionSniperTimeout = setTimeout(function (){
+            // execute prediction sniper
+
+            // check if channel points view is active
+            if (document.getElementsByClassName('prediction-checkout-details-header').length < 1) {
+                // channel point view is inactive
+                // click channel points button
+                document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0].click();
+            }
+            setTimeout(function () {
+                // click predictions title body button at the top of channel points view to open predictions view
+                var predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
+                if (!predictions_list_item_body) {
+                    return;
+                }
+                predictions_list_item_body.click();
+
+                setTimeout(function (){
+                    // click the "predict with custom points" button.
+                    var predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
+                    if (!predict_with_custom_points_btn) {
+                        return;
+                    }
+                    predict_with_custom_points_btn.click();
+
+
+                    // get number of channel points
+                    getChannelPointsNum().then(function (totalChannelPointNum) {
+
+                        // get most votes option
+                        var left = parseInt(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--left')[2].getElementsByTagName('span')[0].innerText);
+                        var right = parseInt(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--right')[2].getElementsByTagName('span')[0].innerText);
+
+                        var selectedOption;
+
+                        if (options.aps_selection === 'most') {
+                            selectedOption = left > right ? 0 : 1;
+                        } else {
+                            if (options.aps_selection === 'least') {
+                                selectedOption = left > right ? 1 : 0;
+                            }
+                        }
+
+
+                        // input number to predict with % of total points
+                        // input.value = Math.floor((options.aps_percent / 100) * totalChannelPointNum);
+                        setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], Math.floor((options.aps_percent / 100) * totalChannelPointNum));
+                        //document.getElementsByClassName('custom-prediction-button')[0].getElementsByTagName('input').value = "";
+                        //document.getElementsByClassName('custom-prediction-button')[1]
+
+                        // click vote
+                        document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
+                        //document.getElementsByClassName('custom-prediction-button__interactive')[1].click();
+
+                        // click channel points button to close the view
+                        document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0].click();
+                    });
+
+                }, 100);
+            }, 100)
+        },ms_UntillPrediction > 0 ? ms_UntillPrediction : 0)
+
+    }, 500);
+    // prediction view time left
+    // document.getElementsByClassName('prediction-checkout-details-header')[0].getElementsByTagName('p')[1].innerText
+}
+
 function toggleFeatures() {
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
 
@@ -1354,6 +1499,10 @@ function toggleFeatures() {
     }
 
     if (options.isPredictionsNotificationsEnabled) {
+        setPredictionsNotifications();
+    }
+
+    if (options.isPredictionsSniperEnabled) {
         setPredictionsNotifications();
     }
 
