@@ -25,9 +25,9 @@ var options = {
     isfScrnWithChatEnabled: false,
     isPredictionsNotificationsEnabled: false,
     isPredictionsSniperEnabled: false,
-    aps_percent: 2,
+    aps_percent: 0.1,
     aps_secondsBefore: 10,
-    aps_selection: 'most'
+    aps_min_vote_margin_percent: 5
 };
 
 function upgradeDB(optionsFromStorage, bSaveToStorage_default) {
@@ -131,6 +131,15 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isPredictionsSniperEnabled":
             ga('send', 'event', 'APS_mode', 'change', msg.detail ? "APS_ON":"APS_OFF");
+            break;
+        case "bg_update_aps_percent":
+            ga('send', 'event', 'APS_percent', 'change', msg.detail  + "%");
+            break;
+        case "bg_update_aps_min_vote_margin_percent":
+            ga('send', 'event', 'APS_margin', 'change', msg.detail  + "%");
+            break;
+        case "bg_update_aps_secondsBefore":
+            ga('send', 'event', 'APS_secondsBefore', 'change', msg.detail + "s");
             break;
         case "bg_sBarS_btn_click":
             ga('send', 'event', 'sBar_streamSearch_btn_click', 'sBar_streamSearch_btn_click', 'sBar_streamSearch_btn_click');

@@ -65,6 +65,22 @@ function initPreviewSizeSlider() {
     }
 }
 
+function initNumInputValue(featureName, inputID, minimum) {
+    var input = document.getElementById(inputID);
+    input.value = options[featureName];
+
+    input.addEventListener('change', (event) => {
+        console.log(event);
+        var newVal = parseFloat(event.target.value);
+        if (newVal < minimum) {
+            newVal = minimum;
+            input.value = minimum;
+        }
+
+        changeFeatureMode(featureName, newVal);
+    })
+}
+
 function setFeatureTitles() {
     document.getElementById('tp_popup_feature_sBar_previews').title = "* Sidebar Previews\n" +
         "- Shows a live video or image preview when hovering over a stream on the sidebar (followed channels list on the side)";
@@ -93,22 +109,29 @@ function setFeatureTitles() {
         "- This feature works when the tab with the player that got an error is currently active.\n" +
         "- If the player got an error while the tab was not active (in the background or chrome wasn't the active window) the page will automatically refresh when you come back to it.";
 
-    document.getElementById('tp_popup_feature_predictions').title = "* Predictions Notifications" +
-        "\n- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser)." +
-        "\n- Works on twitch tabs in the browser." +
-        "\n- When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there)."
-
     document.getElementById('tp_popup_feature_pvqc').title = "* Prevent Automatic Video Quality Change\n" +
         "- Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).\n" +
         "- Notes on behavior with other features:\n" +
         "- Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).\n" +
         "- Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab."
 
-    document.getElementById('tp_popup_feature_predictionsSniper').title = "* Predictions Sniper" +
+    document.getElementById('tp_popup_feature_predictions').title = "* Predictions Notifications" +
         "\n- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser)." +
         "\n- Works on twitch tabs in the browser." +
         "\n- When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there)."
 
+    document.getElementById('tp_popup_feature_predictionsSniper').title = "* Predictions Sniper" +
+        "\n- The predictions sniper will participate in predictions for you." +
+        "\n- Works on twitch tabs in the browser." +
+        "\n- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes)." +
+        "\n- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction." +
+        "\n- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time." +
+        "\nSettings:" +
+        "\nBet % - the percentage of channel points you want the sniper to bet." +
+        "\nMin vote margin % - a percentage representation of the vote margin between the two prediction options." +
+        "\nFor example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%)." +
+        "\nSeconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s)." +
+        "\n- Remember that this is a statistical tool and wins are not guaranteed."
 
 }
 
@@ -135,6 +158,9 @@ document.addEventListener('DOMContentLoaded', function () {
         initCheckbox('isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox('isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
+        initNumInputValue('aps_percent', 'TP_popup_aps_percent_input', 0);
+        initNumInputValue('aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
+        initNumInputValue('aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
 
         initPreviewSizeSlider();
         setFeatureTitles();

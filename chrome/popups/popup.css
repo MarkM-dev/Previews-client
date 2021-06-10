@@ -265,3 +265,31 @@ input.apple-switch:checked:after {
 .TP_popup_bottom_bar div:hover {
     background-color: #9246ff;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#tp_popup_feature_predictionsSniper > span input {
+    display: inline-block;
+    background-color: #232323;
+    text-align: center;
+    width: 30px;
+    color: whitesmoke;
+    font-size: 12px;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+#TP_popup_predictions_sniper_checkbox {
+    align-self: baseline;
+}
