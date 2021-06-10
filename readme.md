@@ -22,13 +22,14 @@
 ## Features:
 - Image or live video stream Previews in sidebar & directories.
 - Preview resize.
-- Prevent automatic video quality change.
 - Auto channel points clicker.
+- Auto refresh on player errors (#1000, #2000, #4000).
+- Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
+- Predictions sniper (will participate in predictions for you).
+- Prevent automatic video quality change.
 - Auto extend the sidebar to show all online streamers (when sidebar is open).
-- A purple search button on the top of the sidebar to find live streamers easily in the sidebar.
-- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
-- Auto page refresh when the main twitch player gets an error (#1000, #2000, #4000).
-- Full screen with chat.
+- A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
+- Full screen with chat mode.
 - Picture In Picture via the button under the viewcount in the list (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
@@ -58,6 +59,21 @@
     - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
     - Works on twitch tabs in the browser.
     - When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
+<br/>
+
+
+* **Predictions sniper**
+    - The predictions sniper will participate in predictions for you.
+    - Works on twitch tabs in the browser.
+    - The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).
+    - If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
+    - You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
+    - Settings:
+        - Bet % - the percentage of channel points you want the sniper to bet.
+        - Min vote margin % - a percentage representation of the vote margin between the two prediction options.
+            - For example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%).
+        - Seconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).
+    - Remember that this is a statistical tool and wins are not guaranteed.
 <br/>
 
 
