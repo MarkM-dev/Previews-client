@@ -76,7 +76,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
         if (details.reason === "update") {
 
 
-           // chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
 
            /* if (details.previousVersion === "1.5.1.6") {
@@ -159,6 +159,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_showRate":
             //chrome.tabs.create({url:"../popups/updatePopup.html"});
             chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
+            break;
+        case "bg_showShare":
+            //chrome.tabs.create({url:"../popups/updatePopup.html"});
+            chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
             break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);

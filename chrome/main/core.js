@@ -1306,30 +1306,21 @@ function setPvqc() {
     document.body.appendChild(pvqc);
 }
 
-function setConfirmedToastFlag(bClickedOkay, storageFlagName) {
+function setConfirmedToastFlag(clickName, storageFlagName) {
     var storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
     chrome.storage.local.set(storageFlagObj, function() {
 
     });
-    chrome.runtime.sendMessage({action: "updateToast", detail: bClickedOkay ? "okay_btn":"rate_btn"}, function(response) {
+    chrome.runtime.sendMessage({action: "updateToast", detail: clickName}, function(response) {
 
     });
 }
 
 function showToast(toast_body, storageFlagName) {
 
-    function dismissUpdateToast(storageFlagName) {
-        setConfirmedToastFlag(true, storageFlagName);
+    function remove_toast() {
         document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
-    }
-
-    function showRate(storageFlagName) {
-        setConfirmedToastFlag(false, storageFlagName);
-        document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
-        chrome.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
-
-        });
     }
 
     var updateToast = document.createElement("div");
@@ -1343,17 +1334,42 @@ function showToast(toast_body, storageFlagName) {
                         toast_body +
         "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
         "            </div>\n" +
-        "            <div style=\"font-size: 12px;margin-top: 10px;text-align: left;\" >\n" +
-        "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_showUpdatePopup_btn' >Rate</div>\n" +
-        "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Got it</div>\n" +
+        "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
+        "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
+        "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
+        "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
+        "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
+        "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
+        "                        <input id=\"tp_updateToast_donate_btn\" style=\"width: 80%;box-shadow: 0px 3px 10px -5px rgb(23 23 23 / 75%);\" type=\"image\" src=\"" + chrome.runtime.getURL('../images/coffee.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
+        "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
+        "                    </form>\n" +
         "            </div>\n" +
+        "            <div style=\"display: inline-block;margin-top: 10px;padding: 5px;cursor: pointer;font-size: 12px;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Close</div>\n" +
         "        </div>";
 
-    updateToast.querySelector('#tp_updateToast_showUpdatePopup_btn').onclick = function () {
-        showRate(storageFlagName);
+    updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
+        setConfirmedToastFlag('rate_btn', storageFlagName);
+        remove_toast();
+        chrome.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
+
+        });
+    };
+    updateToast.querySelector('#tp_updateToast_share_btn').onclick = function () {
+        setConfirmedToastFlag('share_btn', storageFlagName);
+        remove_toast();
+        chrome.runtime.sendMessage({action: "bg_showShare", detail: ""}, function(response) {
+
+        });
+    };
+    updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
+        setTimeout(function (){
+            setConfirmedToastFlag('donate_btn', storageFlagName);
+            remove_toast();
+        },200);
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
-        dismissUpdateToast(storageFlagName);
+        setConfirmedToastFlag('close_btn', storageFlagName);
+        remove_toast();
     };
 
     document.body.appendChild(updateToast);
@@ -1364,11 +1380,17 @@ function showUpdateToast() {
         if (result.shouldShowUpdatePopup) {
             var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
                 +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Feature!</div>"
-                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Prevent automatic video quality change.</strong>"
-                +  "</br><span>Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).</span>"
-                +  "</br></br><span><strong>* Notes on behavior with other features:</strong></span>"
-                +  "</br><span><strong>Auto refresh</strong> - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).</span>"
-                +  "</br><span><strong>Predictions notifications</strong> - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.</span>"
+                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions Sniper.</strong>"
+                +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
+                +  "</br><span>- Works on twitch tabs in the browser.</span>"
+                +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
+                +  "</br><span>- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.</span>"
+                +  "</br><span>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.</span>"
+                +  "</br></br><span><strong>Settings:</strong></span>"
+                +  "</br><span><strong>- Bet % -</strong> the percentage of channel points you want the sniper to bet.</span>"
+                +  "</br><span><strong>- Min vote margin % -</strong> a percentage representation of the vote margin between the two prediction options.</span>"
+                +  "</br><span>For example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%).</span>"
+                +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
                 +  "</div>"
 
             showToast(toast_body, 'shouldShowUpdatePopup');
