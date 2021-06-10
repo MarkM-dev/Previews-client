@@ -128,8 +128,8 @@ function setFeatureTitles() {
         "\n- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time." +
         "\nSettings:" +
         "\nBet % - the percentage of channel points you want the sniper to bet." +
-        "\nMin vote margin % - a percentage representation of the vote margin between the two prediction options." +
-        "\nFor example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%)." +
+        "\nMin vote margin % - a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate." +
+        "\nFor example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%). if the minimum vote margin is lower than 6.98%, the sniper will participate in the prediction." +
         "\nSeconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s)." +
         "\n- Remember that this is a statistical tool and wins are not guaranteed."
 

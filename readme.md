@@ -70,8 +70,8 @@
     - You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
     - Settings:
         - Bet % - the percentage of channel points you want the sniper to bet.
-        - Min vote margin % - a percentage representation of the vote margin between the two prediction options.
-            - For example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%).
+        - Min vote margin % - a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
+            - For example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%). if the minimum vote margin is lower than 6.98%, the sniper will participate in the prediction.
         - Seconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).
     - Remember that this is a statistical tool and wins are not guaranteed.
 <br/>

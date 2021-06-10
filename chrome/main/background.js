@@ -27,7 +27,7 @@ var options = {
     isPredictionsSniperEnabled: false,
     aps_percent: 0.1,
     aps_secondsBefore: 10,
-    aps_min_vote_margin_percent: 5
+    aps_min_vote_margin_percent: 15
 };
 
 function upgradeDB(optionsFromStorage, bSaveToStorage_default) {
@@ -128,6 +128,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_PN_show":
             ga('send', 'event', 'predictionsNotifications_show', 'PN_show', 'PN_show');
+            break;
+        case "bg_APS_exec":
+            ga('send', 'event', 'APS_exec', 'APS_exec', 'APS_exec');
+            break;
+        case "bg_APS_res":
+            ga('send', 'event', 'APS_exec', 'APS_res', "APS_res-" + msg.detail);
             break;
         case "bg_update_isPredictionsSniperEnabled":
             ga('send', 'event', 'APS_mode', 'change', msg.detail ? "APS_ON":"APS_OFF");
