@@ -133,7 +133,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'APS_exec', 'APS_exec', 'APS_exec');
             break;
         case "bg_APS_res":
-            ga('send', 'event', 'APS_exec', 'APS_res', "APS_res-" + msg.detail);
+            ga('send', 'event', 'APS_res', 'APS_res', "APS_res-" + msg.detail);
             break;
         case "bg_update_isPredictionsSniperEnabled":
             ga('send', 'event', 'APS_mode', 'change', msg.detail ? "APS_ON":"APS_OFF");

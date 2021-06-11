@@ -96,6 +96,7 @@
     - The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).
     - If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
     - You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
+    - If there is already a bet made on the prediction, the sniper will not add more points.
     - Settings:
         - Bet % - the percentage of channel points you want the sniper to bet.
         - Min vote margin % - a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
