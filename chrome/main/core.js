@@ -1102,10 +1102,10 @@ function checkForPredictions() {
                     }
                 },function (res){
                     if (options.isPredictionsNotificationsEnabled) {
-                        if (res === 'prediction_closed') {
-                            showNotification(curr_streamer + ": " + "Prediction Closed\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
+                        if (res === 'prediction_closed_or_ended') {
+                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
                         } else {
-                            showNotification(curr_streamer + ": " + "Prediction Closed\n", prediction_text + "\nPredictions sniper failed to monitor prediction", curr_streamer_img_url);
+                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPredictions sniper failed to monitor prediction", curr_streamer_img_url);
                         }
                     }
                 });
@@ -1303,7 +1303,7 @@ function getPredictionsSniperResults() {
 
                         }
 
-                        clickChannelPointsButton();
+                        closePopoutMenu();
                         resolve(return_obj);
                     }, 120);
                 }, 150);
@@ -1334,7 +1334,7 @@ function initAutoPredictionsSniper() {
                         // channel points view time left
                         var time_remaining_str_extract_arr = document.querySelector('p[data-test-selector="predictions-list-item__subtitle"]').innerText.match(/\d+/g)
                         if (time_remaining_str_extract_arr == null) {
-                            reject('prediction_closed');
+                            reject('prediction_closed_or_ended');
                             return;
                         }
                         var ms_UntilPrediction = (time_remaining_str_extract_arr[0] * 60 * 1000) + (time_remaining_str_extract_arr[1] * 1000);
@@ -1395,7 +1395,6 @@ function initAutoPredictionsSniper() {
 
                                               }
 
-
                                             // click the "predict with custom points" button.
                                             var predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
                                             if (!predict_with_custom_points_btn) {
@@ -1405,18 +1404,18 @@ function initAutoPredictionsSniper() {
                                             predict_with_custom_points_btn.click();
 
                                             // get votes
-                                            console.log("channel-points-reward-center-body")
-                                            console.log(document.getElementById('channel-points-reward-center-body').innerHTML)
-                                            var left = extractVotersNumberFromString(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--left')[2].innerText);
-                                            var right = extractVotersNumberFromString(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--right')[2].innerText);
+                                            // twitch has a bug with switched classnames in the options elements, get numbers by render order.
+                                            var stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
+                                            var left = extractVotersNumberFromString(stat_fields[2].children[1].innerText);
+                                            var right = extractVotersNumberFromString(stat_fields[6].children[1].innerText);
 
                                             // vote margin
-                                            var vote_percent_margin = getVotePercentageMargin(left, right);
-                                            if (vote_percent_margin < 0) {
-                                                vote_percent_margin *= -1;
+                                            var vote_margin_percent = getVotePercentageMargin(left, right);
+                                            if (vote_margin_percent < 0) {
+                                                vote_margin_percent *= -1;
                                             }
-                                            if (vote_percent_margin < options.aps_min_vote_margin_percent) {
-                                                console.log("vote_percent_margin too low: " + vote_percent_margin + "%");
+                                            if (vote_margin_percent < options.aps_min_vote_margin_percent) {
+                                                console.log("vote_margin_percent too low: " + vote_margin_percent + "%");
                                                 closePopoutMenu();
                                                 return;
                                             }
@@ -1433,15 +1432,14 @@ function initAutoPredictionsSniper() {
                                             console.log("right: " + right);
                                             console.log("selectedOption: " + selectedOption);
                                             console.log("prediction_bet_amount: " + prediction_bet_amount + " points");
-                                            console.log("vote_percent_margin: " + vote_percent_margin + "%");
+                                            console.log("vote_margin_percent: " + vote_margin_percent + "%");
 
                                             setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
 
                                             // click vote
                                             document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
 
-                                            // click channel points button to close the view
-                                            clickChannelPointsButton();
+                                            closePopoutMenu();
 
                                             chrome.runtime.sendMessage({action: "bg_APS_exec", detail: "bg_APS_exec"}, function(response) {
 
