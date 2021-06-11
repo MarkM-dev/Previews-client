@@ -23,7 +23,6 @@ var hasEnteredFScreenWithChat = false;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
-var lastPredictionSniperStreamer = null;
 var predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
@@ -1218,11 +1217,9 @@ function extractVotersNumberFromString(str) {
 
 function sendPredictionCompletionEvent() {
     try {
-        if (document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText === lastPredictionSniperStreamer) {
-            chrome.runtime.sendMessage({action: "bg_APS_res", detail: document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') ? 'W' : document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]') ? 'L': ''}, function(response) {
+        chrome.runtime.sendMessage({action: "bg_APS_res", detail: document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') ? 'W' : document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]') ? 'L': ''}, function(response) {
 
-            });
-        }
+        });
     } catch (e) {
 
     }
@@ -1386,7 +1383,6 @@ function initAutoPredictionsSniper() {
                                         clickChannelPointsButton();
 
                                         try {
-                                            lastPredictionSniperStreamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText
                                             chrome.runtime.sendMessage({action: "bg_APS_exec", detail: "bg_APS_exec"}, function(response) {
 
                                             });
