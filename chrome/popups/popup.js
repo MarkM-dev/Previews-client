@@ -123,15 +123,14 @@ function setFeatureTitles() {
     document.getElementById('tp_popup_feature_predictionsSniper').title = "* Predictions Sniper" +
         "\n- The predictions sniper will participate in predictions for you." +
         "\n- Works on twitch tabs in the browser." +
-        "\n- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes)." +
-        "\n- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction." +
+        "\n- The sniper will choose the option with the most amount of votes at the time of entry (x seconds before prediction closes)." +
+        "\n- If you have chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction." +
         "\n- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time." +
         "\nSettings:" +
         "\nBet % - the percentage of channel points you want the sniper to bet." +
         "\nMin vote margin % - a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate." +
-        "\nFor example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%). if the minimum vote margin is lower than 6.98%, the sniper will participate in the prediction." +
-        "\nSeconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s)." +
-        "\n- Remember that this is a statistical tool and wins are not guaranteed."
+        "\nFor example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%). if the Min vote margin is lower than 6.98%, the sniper will participate." +
+        "\nSeconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s)."
 
 }
 

@@ -1597,7 +1597,7 @@ function showToast(toast_body, storageFlagName) {
         },200);
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
-        setConfirmedToastFlag('close_btn', storageFlagName);
+        setConfirmedToastFlag('okay_btn', storageFlagName);
         remove_toast();
     };
 
