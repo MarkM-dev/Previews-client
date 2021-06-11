@@ -1102,7 +1102,11 @@ function checkForPredictions() {
                     }
                 },function (res){
                     if (options.isPredictionsNotificationsEnabled) {
-                        showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text + "\nPredictions sniper failed to monitor prediction", curr_streamer_img_url);
+                        if (res === 'prediction_closed') {
+                            showNotification(curr_streamer + ": " + "Prediction Closed\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
+                        } else {
+                            showNotification(curr_streamer + ": " + "Prediction Closed\n", prediction_text + "\nPredictions sniper failed to monitor prediction", curr_streamer_img_url);
+                        }
                     }
                 });
             } else {
@@ -1161,14 +1165,33 @@ function getChannelPointsNum() {
         simulateHoverForPoints('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
         // get points from tooltip
         setTimeout(function (){
-            var points_str_extract_arr = document.getElementsByClassName('tw-tooltip-wrapper')[0].innerText.match(/\d+/g);
-            var points = '';
-            for (var i = 0; i < points_str_extract_arr.length; i++) {
-                points += points_str_extract_arr[i];
+            var tooltip = document.getElementsByClassName('tw-tooltip-wrapper')[0];
+            if (tooltip) {
+                var points_str_extract_arr = tooltip.innerText.match(/\d+/g);
+                var points = '';
+                for (var i = 0; i < points_str_extract_arr.length; i++) {
+                    points += points_str_extract_arr[i];
+                }
+                simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+                resolve(points);
+            } else {
+                simulateHoverForPoints('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+                setTimeout(function (){
+                    tooltip = document.getElementsByClassName('tw-tooltip-wrapper')[0];
+                    if (tooltip) {
+                        var points_str_extract_arr = tooltip.innerText.match(/\d+/g);
+                        var points = '';
+                        for (var i = 0; i < points_str_extract_arr.length; i++) {
+                            points += points_str_extract_arr[i];
+                        }
+                        simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+                        resolve(points);
+                    } else {
+                        resolve(null);
+                    }
+                }, 450);
             }
-            simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
-            resolve(points);
-        }, 400);
+        }, 450);
     })
 }
 
@@ -1249,6 +1272,7 @@ function getPredictionsSniperResults() {
                     var predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
                     if (!predictions_list_item_body) {
                         return_obj.prediction_status = 'unknown';
+                        closePopoutMenu();
                         resolve(return_obj);
                         return;
                     }
@@ -1309,6 +1333,10 @@ function initAutoPredictionsSniper() {
                         // get time remaining
                         // channel points view time left
                         var time_remaining_str_extract_arr = document.querySelector('p[data-test-selector="predictions-list-item__subtitle"]').innerText.match(/\d+/g)
+                        if (time_remaining_str_extract_arr == null) {
+                            reject('prediction_closed');
+                            return;
+                        }
                         var ms_UntilPrediction = (time_remaining_str_extract_arr[0] * 60 * 1000) + (time_remaining_str_extract_arr[1] * 1000);
                         ms_UntilPrediction -= (options.aps_secondsBefore * 1000) + 2000; //decrease by seconds set in options (seconds * 1000)
 
@@ -1333,6 +1361,10 @@ function initAutoPredictionsSniper() {
                             // get number of channel points
                             getChannelPointsNum().then(function (totalChannelPointNum) {
 
+                                if(!totalChannelPointNum) {
+                                    return;
+                                }
+
                                 // close the popout menu if it's opened.
                                 closePopoutMenu();
 
@@ -1345,6 +1377,7 @@ function initAutoPredictionsSniper() {
                                         // click predictions title body button at the top of channel points view to open predictions view
                                         var predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
                                         if (!predictions_list_item_body) {
+                                            closePopoutMenu();
                                             return;
                                         }
                                         predictions_list_item_body.click();
@@ -1355,6 +1388,7 @@ function initAutoPredictionsSniper() {
                                               try {
                                                   if (document.getElementsByClassName('prediction-checkout-details-header')[0].parentElement.children[2].firstChild.getElementsByClassName('channel-points-icon')[0].parentElement.innerText.length > 5) {
                                                       console.log("already voted");
+                                                      closePopoutMenu();
                                                       return;
                                                   }
                                               } catch (e) {
@@ -1365,13 +1399,16 @@ function initAutoPredictionsSniper() {
                                             // click the "predict with custom points" button.
                                             var predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
                                             if (!predict_with_custom_points_btn) {
+                                                closePopoutMenu();
                                                 return;
                                             }
                                             predict_with_custom_points_btn.click();
 
                                             // get votes
-                                            var left = extractVotersNumberFromString(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--left')[2].getElementsByTagName('span')[0].innerText);
-                                            var right = extractVotersNumberFromString(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--right')[2].getElementsByTagName('span')[0].innerText);
+                                            console.log("channel-points-reward-center-body")
+                                            console.log(document.getElementById('channel-points-reward-center-body').innerHTML)
+                                            var left = extractVotersNumberFromString(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--left')[2].innerText);
+                                            var right = extractVotersNumberFromString(document.getElementById('channel-points-reward-center-body').getElementsByClassName('prediction-summary-stat__value--right')[2].innerText);
 
                                             // vote margin
                                             var vote_percent_margin = getVotePercentageMargin(left, right);
@@ -1380,6 +1417,7 @@ function initAutoPredictionsSniper() {
                                             }
                                             if (vote_percent_margin < options.aps_min_vote_margin_percent) {
                                                 console.log("vote_percent_margin too low: " + vote_percent_margin + "%");
+                                                closePopoutMenu();
                                                 return;
                                             }
 
