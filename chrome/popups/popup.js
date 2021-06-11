@@ -93,11 +93,11 @@ function setFeatureTitles() {
         "- It also works when chat is closed and when the tab or window is in the background.";
 
     document.getElementById('tp_popup_feature_sBar_search').title = "* Sidebar Streamer Search\n" +
-        "- A purple search button on the top of the sidebar to find live streamers easily.\n" +
+        "- A purple search button at the top of the sidebar to find live streamers easily.\n" +
         "- Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.";
 
     document.getElementById('tp_popup_feature_sBar_extend').title = "* Extend Sidebar\n" +
-        "- Auto extends the sidebar to show all online streamers (when sidebar is open).";
+        "- Auto extends the sidebar to show all live streamers (when sidebar is open).";
 
     document.getElementById('tp_popup_feature_fScrnWithChat').title = "* Full screen with chat\n" +
         "- The button will show next to the 'theater mode' button in the player controls.\n" +
