@@ -47,18 +47,18 @@
 * **Auto channel points clicker**
     - This feature automatically clicks the green channel points redeem button.
     - It also works when chat is closed and when the tab or window is in the background.
-      <br/>
+      <br/><br/>
 
 
 * **Sidebar streamer search**
     - A purple search button on the top of the sidebar to find live streamers easily.
     - Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
-      <br/>
+      <br/><br/>
 
 
 * **Sidebar extend**
     - Auto extends the sidebar to show all live streamers (when sidebar is open).
-      <br/>
+      <br/><br/>
 
 
 * **Full screen with chat**
@@ -66,13 +66,13 @@
     - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
     - You can exit the mode by clicking the button again or double-tapping ESC.
     - When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).
-      <br/>
+      <br/><br/>
 
 
 * **Auto refresh when the main twitch player gets an error (#1000, #2000, #4000)**
     - This feature works when the tab with the player that got an error is currently active.
     - If the player got an error while the tab was not active (in the background or the browser wasn't the active window) the page will automatically refresh when you come back to it.
-      <br/>
+      <br/><br/>
 
 
 * **Prevent Automatic Video Quality Change**
@@ -80,14 +80,14 @@
     - Notes on behavior with other features:
     - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).
     - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
-      <br/>
+      <br/><br/>
       
 
 * **Predictions notifications**
     - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
     - Works on twitch tabs in the browser.
     - When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
-      <br/>
+      <br/><br/>
 
 
 * **Predictions sniper**
@@ -102,8 +102,10 @@
         - Min vote margin % - a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
             - For example: option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, vote margin: 6.98% (53.49% - 46.51%). if the minimum vote margin is lower than 6.98%, the sniper will participate in the prediction.
         - Seconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).
+          <br/><br/>
     - Remember that this is a statistical tool and wins are not guaranteed.
-      <br/>
+    - <b>Note:</b> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history screen and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)
+      <br/><br/>
 
 
 * **Picture in picture**
