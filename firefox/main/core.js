@@ -1524,7 +1524,7 @@ function toggleBrowserFullScreen(elem) {
 }
 
 function setTheatreMode(bool) {
-    if (document.getElementsByClassName('video-player__container--theatre').length > 0 !== bool) {
+    if (document.getElementsByClassName('video-player__container--theatre').length !== bool) {
         document.querySelector('button[data-a-target="player-theatre-mode-button"]').click();
     }
 }
@@ -1567,11 +1567,14 @@ function exit_fScrnWithChat() {
 
 function toggle_fScrnWithChat() {
     if (hasEnteredFScreenWithChat) {
-        exit_fScrnWithChat();
+        toggleBrowserFullScreen(document.body);
+        setTimeout(function (){
+            exit_fScrnWithChat();
+        }, 500);
     } else {
         enter_fScrnWithChat();
+        toggleBrowserFullScreen(document.body);
     }
-    toggleBrowserFullScreen(document.body);
 }
 
 function setfScrnWithChatBtn() {
