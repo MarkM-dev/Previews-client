@@ -1087,12 +1087,11 @@ function checkForPredictions() {
             if (el.length > 2) {
                 prediction_text = el[el.length - 2].innerText.replace(/^ /, '') + "\n" + el[el.length - 1].innerText.replace(/^ /, '');
             } else {
-                prediction_text = el[0].innerText.replace(/^ /, '') + el[1] ? "\n" + el[1].innerText.replace(/^ /, '') : "";
+                prediction_text = el[0].innerText.replace(/^ /, '') + (el[1] ? "\n" + el[1].innerText.replace(/^ /, '') : "");
             }
         } catch (e) {
 
         }
-
 
 
         if (predict_langs[btn.innerText]) {
