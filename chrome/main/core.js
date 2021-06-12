@@ -1106,9 +1106,9 @@ function checkForPredictions() {
                         if (res === 'prediction_closed_or_ended') {
                             showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
                         } else {
-                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPredictions sniper failed to monitor / join prediction, retrying..", curr_streamer_img_url);
+                            //showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPredictions sniper failed to monitor / join prediction, retrying..", curr_streamer_img_url);
                             initAutoPredictionsSniper().then(function (res) {
-                                showNotification(curr_streamer + ": " + "Predictions sniper started monitoring the prediction successfully!", curr_streamer_img_url);
+                                showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text + "\nPredictions sniper active!", curr_streamer_img_url);
                             }, function (res){
                                 if (res === 'prediction_closed_or_ended') {
                                     showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
