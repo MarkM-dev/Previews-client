@@ -1524,7 +1524,7 @@ function toggleBrowserFullScreen(elem) {
 }
 
 function setTheatreMode(bool) {
-    if (document.getElementsByClassName('video-player__container--theatre').length !== bool) {
+    if (document.getElementsByClassName('video-player__container--theatre').length > 0 !== bool) {
         document.querySelector('button[data-a-target="player-theatre-mode-button"]').click();
     }
 }
