@@ -104,7 +104,7 @@
         - Seconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).
           <br/><br/>
     - Remember that this is a statistical tool and wins are not guaranteed.
-    - <b>Note:</b> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history screen and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)
+    - <b>Note:</b> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)
       <br/><br/>
 
 
