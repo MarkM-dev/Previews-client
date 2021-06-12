@@ -1228,7 +1228,7 @@ function clickChannelPointsButton() {
     try {
         document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0].click();
     } catch (e) {
-        console.log(e);
+        //console.log(e);
     }
 
 }
@@ -1305,7 +1305,7 @@ function getPredictionsSniperResults() {
                         if(results_str && results_str.innerText) {
                             return_obj.prediction_status = 'ended';
                             return_obj.text1 = results_str.innerText.replace(' \n','');
-                            console.log(return_obj.text1);
+                            console.log(new Date().toLocaleString() + "\nAPS: " + return_obj.text1);
                             sendPredictionCompletionEvent();
                         }
 
@@ -1326,7 +1326,7 @@ function getPredictionsSniperResults() {
             }, 400);
         } catch (e) {
             return_obj.prediction_status = 'unknown';
-            console.log(e);
+            //console.log(e);
             resolve(return_obj);
         }
     })
@@ -1404,7 +1404,7 @@ function initAutoPredictionsSniper() {
                                             // check if already entered
                                               try {
                                                   if (document.getElementsByClassName('prediction-checkout-details-header')[0].parentElement.children[2].firstChild.getElementsByClassName('channel-points-icon')[0].parentElement.innerText.length > 5) {
-                                                      console.log("already voted");
+                                                      console.log(new Date().toLocaleString() + "\nAPS: already voted");
                                                       closePopoutMenu();
                                                       return;
                                                   }
@@ -1432,7 +1432,7 @@ function initAutoPredictionsSniper() {
                                                 vote_margin_percent *= -1;
                                             }
                                             if (vote_margin_percent < options.aps_min_vote_margin_percent) {
-                                                console.log("vote_margin_percent too low: " + vote_margin_percent + "%");
+                                                console.log(new Date().toLocaleString() + "\nAPS:\nvote_margin_percent too low: " + vote_margin_percent + "%\nmin_vote_margin_percent: " + options.aps_min_vote_margin_percent + "%");
                                                 closePopoutMenu();
                                                 return;
                                             }
@@ -1445,11 +1445,15 @@ function initAutoPredictionsSniper() {
                                                 prediction_bet_amount = 1;
                                             }
 
-                                            console.log("left: " + left);
-                                            console.log("right: " + right);
-                                            console.log("selectedOption: " + selectedOption);
-                                            console.log("prediction_bet_amount: " + prediction_bet_amount + " points");
-                                            console.log("vote_margin_percent: " + vote_margin_percent + "%");
+                                            console.log(new Date().toLocaleString() +
+                                                "\nAPS: " +
+                                                "\nleft: " + left +
+                                                "\nright: " + right +
+                                                "\nselected_option: " + (selectedOption ? "right" : "left") +
+                                                "\nbet_amount: " + prediction_bet_amount + " points" +
+                                                "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText +
+                                                "\nvote_margin_percent: " + vote_margin_percent + "%"
+                                            );
 
                                             setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
 
@@ -1469,13 +1473,13 @@ function initAutoPredictionsSniper() {
                         }, ms_UntilPrediction > 0 ? ms_UntilPrediction : 0);
                         resolve('ok');
                     } catch (e) {
-                        console.log(e);
+                        console.log(new Date().toLocaleString() + "\nAPS:\n" + e);
                         reject(e);
                     }
                 }, 150);
             }, 400);
         } catch (e) {
-            console.log(e);
+            console.log(new Date().toLocaleString() + "\nAPS:\n" + e);
             reject(e);
         }
     })
@@ -1696,7 +1700,7 @@ function showUpdateToast() {
                 +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
                 +  "</br></br><span>- Remember that this is a statistical tool and wins are not guaranteed.</span>"
                 +  "</br><span>- Turned off by default --> enable in the extension options.</span>"
-                +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history screen and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
+                +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
                 +  "</div>"
 
             showToast(toast_body, 'shouldShowUpdatePopup');
