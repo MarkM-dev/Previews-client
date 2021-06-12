@@ -108,7 +108,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isSidebarSearchEnabled":
             ga('send', 'event', 'sidebarSearch_mode', 'change', msg.detail ? "sBarSearch_ON":"sBarSearch_OFF");
             break;
-            case "bg_update_isPvqcEnabled":
+        case "bg_update_isPvqcEnabled":
             ga('send', 'event', 'pvqc_mode', 'change', msg.detail ? "pvqc_ON":"pvqc_OFF");
             break;
         case "bg_update_isSidebarExtendEnabled":
@@ -167,7 +167,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
         case "bg_showShare":
-            //chrome.tabs.create({url:"../popups/updatePopup.html"});
             chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
             break;
         case "appStart":

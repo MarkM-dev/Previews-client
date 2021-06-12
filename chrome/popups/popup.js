@@ -70,7 +70,6 @@ function initNumInputValue(featureName, inputID, minimum) {
     input.value = options[featureName];
 
     input.addEventListener('change', (event) => {
-        console.log(event);
         var newVal = parseFloat(event.target.value);
         if (newVal < minimum) {
             newVal = minimum;
