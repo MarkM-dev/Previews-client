@@ -16,6 +16,10 @@ var options = {
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
     isPredictionsNotificationsEnabled: false,
+    isPredictionsSniperEnabled: false,
+    aps_percent: 0.1,
+    aps_secondsBefore: 10,
+    aps_min_vote_margin_percent: 15
 };
 
 browser.runtime.onInstalled.addListener(function(details) {
@@ -51,9 +55,9 @@ browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.7.2.0" && details.previousVersion !== "1.7.2.1") {
-                browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            }
+
+            browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -117,7 +121,10 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_showRate":
             //chrome.tabs.create({url:"../popups/updatePopup.html"});
-            chrome.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            break;
+        case "bg_showShare":
+            browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
             break;
         case "appStart":
 
@@ -132,7 +139,7 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
             break;
         case "bg_share_btn_click":
-            
+
             break;
         default:
     }
