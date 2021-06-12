@@ -1775,13 +1775,7 @@ function toggleFeatures() {
         }
     }
 
-    if (options.isPredictionsNotificationsEnabled) {
-        setTimeout(function () {
-            setPredictionsNotifications();
-        }, 2500)
-    }
-
-    if (options.isPredictionsSniperEnabled) {
+    if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
         setTimeout(function () {
             setPredictionsNotifications();
         }, 2500)

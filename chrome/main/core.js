@@ -1766,11 +1766,7 @@ function toggleFeatures() {
         }
     }
 
-    if (options.isPredictionsNotificationsEnabled) {
-        setPredictionsNotifications();
-    }
-
-    if (options.isPredictionsSniperEnabled) {
+    if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
         setPredictionsNotifications();
     }
 
