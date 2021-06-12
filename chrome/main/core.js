@@ -23,6 +23,7 @@ var hasEnteredFScreenWithChat = false;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
+var APS_awaiting_to_place_bet_streamName = false;
 var predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
@@ -1105,7 +1106,16 @@ function checkForPredictions() {
                         if (res === 'prediction_closed_or_ended') {
                             showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
                         } else {
-                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPredictions sniper failed to monitor prediction", curr_streamer_img_url);
+                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPredictions sniper failed to monitor / join prediction, retrying..", curr_streamer_img_url);
+                            initAutoPredictionsSniper().then(function (res) {
+                                showNotification(curr_streamer + ": " + "Predictions sniper started monitoring the prediction successfully!", curr_streamer_img_url);
+                            }, function (res){
+                                if (res === 'prediction_closed_or_ended') {
+                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
+                                } else {
+                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
+                                }
+                            })
                         }
                     }
                 });
@@ -1120,18 +1130,24 @@ function checkForPredictions() {
                     getPredictionsSniperResults().then(function (res){
                         if (options.isPredictionsNotificationsEnabled) {
 
+                            var extraText = '';
+                            if (APS_awaiting_to_place_bet_streamName === curr_streamer) {
+                                extraText = '\nPrediction closed before the sniper could vote';
+                                APS_awaiting_to_place_bet_streamName = null;
+                            }
+
                             switch(res.prediction_status) {
                                 case "ended":
                                     showNotification(curr_streamer + ": " + "Prediction Ended", prediction_text + "\n" + res.text1, curr_streamer_img_url);
                                     break;
                                 case "closed":
-                                    showNotification(curr_streamer + ": " + "Prediction Closed", prediction_text + "\n" + res.text1, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + "Prediction Closed", prediction_text + "\n" + res.text1 + extraText, curr_streamer_img_url);
                                     break;
                                 case "unknown":
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
                                     break;
                                 default:
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
                                     break;
                             }
                         }
@@ -1350,10 +1366,11 @@ function initAutoPredictionsSniper() {
                             clearTimeout(predictionSniperTimeout);
                         }
 
+                        APS_awaiting_to_place_bet_streamName = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
                         // wait amount of seconds to predict
                         predictionSniperTimeout = setTimeout(function () {
                             // execute prediction sniper
-
+                            APS_awaiting_to_place_bet_streamName = null;
                             if (options.aps_percent === 0) {
                                 return;
                             }
@@ -1678,6 +1695,8 @@ function showUpdateToast() {
                 +  "</br><span><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.</span>"
                 +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
                 +  "</br></br><span>- Remember that this is a statistical tool and wins are not guaranteed.</span>"
+                +  "</br><span>- Turned off by default --> enable in the extension options.</span>"
+                +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history screen and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
                 +  "</div>"
 
             showToast(toast_body, 'shouldShowUpdatePopup');
