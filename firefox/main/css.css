@@ -462,7 +462,7 @@
 
 .tp_update_toast {
     padding: 10px 15px 10px 10px;
-    width: 30rem;
+    width: 35rem;
     background: #9c60ff;
     color: #ffffff;
     position: fixed;
@@ -478,4 +478,11 @@
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.tp_update_toast {
+    overflow: auto;
+    bottom: 10%;
+    scrollbar-color: rgba(255,255,255,0.5) #9c60ff;
+    scrollbar-width: thin;
 }
