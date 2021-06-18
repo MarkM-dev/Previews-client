@@ -1895,18 +1895,7 @@ function setAppVer(settingsContainer) {
     settingsContainer.querySelector('#tp_version').innerText = " - v" + chrome.runtime.getManifest().version;
 }
 
-function showSettings() {
-    if (document.getElementById('TPBodyEl')) {
-        return;
-    }
-
-    if (!options.PREVIEWDIV_WIDTH) {
-        setTimeout(function (){
-            showSettings();
-        }, 1000);
-        return;
-    }
-
+function showSettingsMenu() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', chrome.runtime.getURL('main/settings.html'), true);
     xhr.onreadystatechange = function() {
@@ -1973,6 +1962,24 @@ function showSettings() {
     xhr.send();
 }
 
+function showSettings() {
+    if (document.getElementById('TPBodyEl')) {
+        return;
+    }
+
+    if (!options.PREVIEWDIV_WIDTH) {
+        setOptionsFromDB().then(
+            function (options){
+                showSettingsMenu();
+            },
+            function (err){
+
+            });
+        return;
+    }
+    showSettingsMenu();
+}
+
 ///////////////////////////////////////// END OF SETTINGS /////////////////////////////////////////
 
 window.addEventListener('load', (event) => {
@@ -1989,7 +1996,7 @@ window.addEventListener('load', (event) => {
                     setTitleMutationObserverForDirectoryCardsRefresh();
                 }, 1000);
                 showUpdateToast();
-                check_showSettings();
+                //check_showSettings();
             },
             function (err){
 
@@ -2017,3 +2024,4 @@ function pageAwakened() {
 }
 
 ///////////// END OF TAB RESUME /////////////
+check_showSettings();
