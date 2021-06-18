@@ -78,7 +78,7 @@
     background-color: #fff !important;
     border: 1px solid #D9DADC;
     border-radius: 25px;
-    box-shadow: inset -10px 0 0 0 #fff;
+    box-shadow: inset -10px 0 0 0 #232323;
 }
 
 #TPBodyEl input.apple-switch:after {
@@ -449,4 +449,12 @@
 
 #TPBodyEl .tp_settings_switch_container::-webkit-scrollbar {
     display: none; /* for Chrome, Safari, and Opera */
+}
+
+#TPBodyEl #refreshChangeDivInfo {
+    display: none;
+    font-size: 12px;
+    color: limegreen;
+    text-align: center;
+    font-weight: bold;
 }
