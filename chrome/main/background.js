@@ -178,9 +178,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_show_bugReport":
             chrome.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
             break;
-        case "bg_show_something":
-            //chrome.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
-            break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);
             break;
@@ -205,8 +202,8 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_bugReport_btn_click":
             ga('send', 'event', 'settings_bug_report_btn_click', 'settings_bug_report_btn_click', 'settings_bug_report_btn_click');
             break;
-        case "bg_something_btn_click":
-            ga('send', 'event', 'settings_something_btn_click', 'settings_something_btn_click', 'settings_something_btn_click');
+        case "bg_changelog_btn_click":
+            ga('send', 'event', 'settings_changelog_btn_click', 'settings_changelog_btn_click', 'settings_changelog_btn_click');
             break;
         case "bg_contact_btn_click":
             ga('send', 'event', 'settings_contact_btn_click', 'settings_contact_btn_click', 'settings_contact_btn_click');

@@ -1687,29 +1687,31 @@ function showToast(toast_body, storageFlagName) {
     document.body.appendChild(updateToast);
 }
 
+function getUpdateToastBody() {
+    return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
+        +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>1. A new settings menu</strong>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>2. Predictions Sniper</strong>"
+        +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
+        +  "</br><span>- Works on twitch tabs in the browser.</span>"
+        +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
+        +  "</br><span>- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.</span>"
+        +  "</br><span>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.</span>"
+        +  "</br></br><span><strong>Predictions sniper settings:</strong></span>"
+        +  "</br><span><strong>- Bet % -</strong> the percentage of channel points you want the sniper to bet.</span>"
+        +  "</br><span><strong>- Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.</span>"
+        +  "</br><span><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.</span>"
+        +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
+        +  "</br></br><span>- Remember that this is a statistical tool and wins are not guaranteed.</span>"
+        +  "</br><span>- Turned off by default --> enable in the extension options.</span>"
+        +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
+        +  "</div>";
+}
+
 function showUpdateToast() {
     chrome.storage.local.get('shouldShowUpdatePopup', function(result) {
         if (result.shouldShowUpdatePopup) {
-            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
-                +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
-                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>1. A new settings menu</strong>"
-                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>2. Predictions Sniper</strong>"
-                +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
-                +  "</br><span>- Works on twitch tabs in the browser.</span>"
-                +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
-                +  "</br><span>- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.</span>"
-                +  "</br><span>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.</span>"
-                +  "</br></br><span><strong>Predictions sniper settings:</strong></span>"
-                +  "</br><span><strong>- Bet % -</strong> the percentage of channel points you want the sniper to bet.</span>"
-                +  "</br><span><strong>- Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.</span>"
-                +  "</br><span><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.</span>"
-                +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
-                +  "</br></br><span>- Remember that this is a statistical tool and wins are not guaranteed.</span>"
-                +  "</br><span>- Turned off by default --> enable in the extension options.</span>"
-                +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
-                +  "</div>"
-
-            showToast(toast_body, 'shouldShowUpdatePopup');
+            showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
         }
     });
 }
@@ -1915,6 +1917,11 @@ function initSocialBtn(settingsContainer, name, url) {
         chrome.runtime.sendMessage({action: 'bg_' + name +'_btn_click', detail: ""}, function(response) {
 
         });
+        if (name === "changelog") {
+            if (!document.getElementById('tp_updateToast')) {
+                showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
+            }
+        }
     });
 }
 
@@ -1971,7 +1978,7 @@ function showSettingsMenu() {
 
         initSocialBtn(settingsContainer, 'github', true);
         initSocialBtn(settingsContainer, 'bugReport', true);
-        initSocialBtn(settingsContainer, 'something', true);
+        initSocialBtn(settingsContainer, 'changelog', false);
         initSocialBtn(settingsContainer, 'contact', false);
 
         setAppVer(settingsContainer);
