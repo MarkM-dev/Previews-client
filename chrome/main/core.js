@@ -1691,14 +1691,15 @@ function showUpdateToast() {
     chrome.storage.local.get('shouldShowUpdatePopup', function(result) {
         if (result.shouldShowUpdatePopup) {
             var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
-                +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Feature!</div>"
-                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions Sniper</strong>"
+                +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
+                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>1. A new settings menu</strong>"
+                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>2. Predictions Sniper</strong>"
                 +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
                 +  "</br><span>- Works on twitch tabs in the browser.</span>"
                 +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
                 +  "</br><span>- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.</span>"
                 +  "</br><span>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.</span>"
-                +  "</br></br><span><strong>Settings:</strong></span>"
+                +  "</br></br><span><strong>Predictions sniper settings:</strong></span>"
                 +  "</br><span><strong>- Bet % -</strong> the percentage of channel points you want the sniper to bet.</span>"
                 +  "</br><span><strong>- Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.</span>"
                 +  "</br><span><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.</span>"
