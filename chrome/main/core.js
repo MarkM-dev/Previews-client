@@ -1860,10 +1860,15 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
                 });
             }
             changeFeatureMode(featureName,invertBool ? true : false);
-            settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
+            if (featureName !== "isImagePreviewMode") {
+                settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
+            }
         }
     });
-    initSettingsInfoBtn(settingsContainer, checkboxID);
+
+    if (featureName !== "isSidebarPreviewsEnabled" && featureName !== "isImagePreviewMode") {
+        initSettingsInfoBtn(settingsContainer, checkboxID);
+    }
 }
 
 function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
