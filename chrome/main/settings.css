@@ -440,3 +440,13 @@
 #TPBodyEl .tp_settings_expand:active {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+#TPBodyEl .tp_settings_switch_container {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+}
+
+#TPBodyEl .tp_settings_switch_container::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}

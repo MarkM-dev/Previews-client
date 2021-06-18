@@ -1828,11 +1828,11 @@ function initSettingsInfoBtn(settingsContainer, checkboxID) {
         infoBtn.src = chrome.runtime.getURL('images/expand.png');
         infoBtn.addEventListener('click', (event) => {
             var infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
-            if (infoDiv.style.maxHeight === "200px") {
+            if (infoDiv.style.maxHeight === "350px") {
                 infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
                 infoBtn.style.transform = "rotate(0deg)";
             } else {
-                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "200px";
+                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "350px";
                 infoBtn.style.transform = "rotate(180deg)";
             }
         });
