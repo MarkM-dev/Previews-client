@@ -61,7 +61,7 @@
     border-top: 1px solid whitesmoke;
     padding-bottom: 5px;
     padding-top: 25px;*/
-    margin-bottom: 15px;
+    margin-top: 15px;
     font-weight: bold;
     font-size: 12px;
     text-align: left;
@@ -73,9 +73,9 @@
     position: relative;
     -webkit-appearance: none;
     outline: none;
-    width: 25px;
-    height: 15px;
-    background-color: #fff;
+    width: 25px !important;
+    height: 15px !important;
+    background-color: #fff !important;
     border: 1px solid #D9DADC;
     border-radius: 25px;
     box-shadow: inset -10px 0 0 0 #fff;
@@ -401,4 +401,42 @@
     color: whitesmoke;
     border: 1px solid #a160fe;
     text-decoration: none;
+}
+
+#TPBodyEl .tp_settings_feature_info_div {
+    max-height: 0;
+    margin-top: 5px;
+    text-align: left;
+    color: darkgray;
+    font-size: 12px;
+    overflow: hidden;
+    transition: max-height 1s ease-in-out;
+    -webkit-transition: max-height 1s ease-in-out;
+    -moz-transition: max-height 1s ease-in-out;
+    -o-transition: max-height 1s ease-in-out;
+}
+
+#TPBodyEl .tp_settings_cb_container {
+    display: flex;
+    align-items: center;
+}
+
+#TPBodyEl .tp_settings_expand {
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 2px;
+    transform: rotate(0deg);
+    transition: transform 275ms ease-in-out;
+    -webkit-transition: transform 275ms ease-in-out;
+    -moz-transition: transform 275ms ease-in-out;
+    -o-transition: transform 275ms ease-in-out;
+}
+
+#TPBodyEl .tp_settings_expand:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#TPBodyEl .tp_settings_expand:active {
+    background-color: rgba(255, 255, 255, 0.2);
 }

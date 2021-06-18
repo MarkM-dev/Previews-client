@@ -1822,6 +1822,26 @@ function changeFeatureMode(featureName, value) {
     });
 }
 
+function initSettingsInfoBtn(settingsContainer, checkboxID) {
+    try {
+        var infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
+        infoBtn.src = chrome.runtime.getURL('images/expand.png');
+        infoBtn.addEventListener('click', (event) => {
+            var infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
+            if (infoDiv.style.maxHeight === "200px") {
+                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
+                infoBtn.style.transform = "rotate(0deg)";
+            } else {
+                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "200px";
+                infoBtn.style.transform = "rotate(180deg)";
+            }
+        });
+    } catch (e) {
+        
+    }
+   
+}
+
 function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
     var checkbox = settingsContainer.querySelector('#' + checkboxID);
     checkbox.checked = invertBool ? !options[featureName] : options[featureName];
@@ -1842,6 +1862,7 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
             settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
         }
     });
+    initSettingsInfoBtn(settingsContainer, checkboxID);
 }
 
 function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
@@ -1996,7 +2017,6 @@ window.addEventListener('load', (event) => {
                     setTitleMutationObserverForDirectoryCardsRefresh();
                 }, 1000);
                 showUpdateToast();
-                //check_showSettings();
             },
             function (err){
 
