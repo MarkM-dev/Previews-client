@@ -24,6 +24,7 @@ var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
 var APS_awaiting_to_place_bet_streamName = false;
+var isTryingToShowSettings = false;
 var predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
@@ -1899,6 +1900,16 @@ function showSettings() {
     if (document.getElementById('TPBodyEl')) {
         return;
     }
+
+    if (!options.PREVIEWDIV_WIDTH) {
+        isTryingToShowSettings = true;
+        setTimeout(function (){
+            showSettings();
+        }, 1000);
+        return;
+    }
+    isTryingToShowSettings = false;
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', chrome.runtime.getURL('main/settings.html'), true);
     xhr.onreadystatechange = function() {
