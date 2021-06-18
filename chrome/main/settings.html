@@ -1,0 +1,83 @@
+<div id="TPBodyEl" >
+    <div id="tp_settings_title_container" >
+        <div style="display: inline-flex;align-items: center;" >
+            <img id="TP_popup_title_logo" src="../images/TP96.png" width="30" height="30" >
+            <span id="tp_settings_title" >Twitch Previews  <span id="tp_version" ></span></span>
+        </div>
+        <div id="tp_settings_close_btn" >X</div>
+    </div>
+    <div class="tp_title_shadow_el" ></div>
+    <div style="display: flex;" >
+        <div style="width: 65%;padding: 10px;padding-bottom: 0;" >
+            <div style="padding: 10px 5px;" >
+                <p id="tp_popup_feature_directory_previews" class="TP_popup_dirp_feature_title" ><span>Directory previews</span> <input id="TP_popup_directory_preview_mode_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_cpc" class="TP_popup_dirp_feature_title" ><span>Auto channel points clicker</span> <input id="TP_popup_channel_points_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_sBar_search" class="TP_popup_dirp_feature_title" ><span>Show sidebar search button</span> <input id="TP_popup_sidebar_search_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_sBar_extend" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Extend sidebar to show all live <br><span style="font-weight: normal;font-size: 11px;" >(when sidebar is open)</span></span> <input id="TP_popup_sidebar_extend_checkbox" class="apple-switch" type="checkbox" ></p>
+                <p id="tp_popup_feature_fScrnWithChat" class="TP_popup_dirp_feature_title" ><span>Show "full screen + chat" button (<img id="tp_fScrnWithChat_img" src="../images/tp_fScrnWithChat.png" style="margin-bottom: -5px;" width="18" height="18">)<br><span style="font-weight: normal;font-size: 11px;" >(shows in player controls)</span></span> <input id="TP_popup_fScrnWithChat_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_errRefresh" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto refresh on twitch player error <br><span style="font-weight: normal;font-size: 11px;" >(#1000, #2000, #4000)</span></span> <input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" ></p>
+                <p id="tp_popup_feature_pvqc" class="TP_popup_dirp_feature_title" ><span>Prevent auto video quality change</span> <input id="TP_popup_pvqc_checkbox" class="apple-switch" type="checkbox"></p>
+                <p id="tp_popup_feature_predictions" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Predictions notifications <br><span style="font-weight: normal;font-size: 11px;" >(works on twitch tabs in the browser)</span></span> <input id="TP_popup_predictions_notifications_checkbox" class="apple-switch" type="checkbox" ></p>
+                <p id="tp_popup_feature_predictionsSniper" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;">Predictions sniper <br><span style="font-weight: normal;font-size: 11px;">Bet: <input id="TP_popup_aps_percent_input" type="number"> % of points <br>Min vote margin:  <input id="TP_popup_aps_min_vote_margin_percent_input" type="number"> %<br><input id="TP_popup_aps_secondsBefore_input" type="number"> seconds or less before voting closes</span></span> <input id="TP_popup_predictions_sniper_checkbox" class="apple-switch" type="checkbox" ></p>
+            </div>
+        </div>
+        <div style="width: 35%;height: 560px;" >
+             <div style="background-color: #2b2b2b;box-shadow: -4px 4px 10px -4px rgb(162 96 254);border-bottom-right-radius: 5px;border-bottom-left-radius: 10px;" >
+                <img id="TP_popup_logo" src="../images/TP96.png" width="96" height="96">
+                    <h2 style="margin-top: 0px;font-size: 20px;" >Twitch Previews <span style="font-size: 12px;font-weight: normal;">©</span></h2>
+                    <div id="refreshChangeDivInfo" style="display: none;font-size: 12px;color: limegreen;text-align: left;" >refresh your twitch tabs for changes to take affect</div>
+                    <div id="TP_popup_sub_container" >
+                        <p id="tp_popup_feature_sBar_previews" class="TP_popup_sidebar_feature_title" ><span>Sidebar Previews</span> <input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox"> <!--<input id="TP_popup_sidebar_previews_checkbox" class="apple-switch" type="checkbox">--></p>
+                        <div class="TP_popup_toggle_container" >
+                            <div class="TP_toggle_text" >Image Preview</div>
+                            <label class="switch" >
+                                <input id="TP_popup_preview_mode_checkbox" class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="video" data-off="image"></span> <span class="switch-handle"></span>
+                            </label>
+                            <div class="TP_toggle_text" >Video Preview</div>
+                        </div>
+
+                        <div class="slide-container">
+                            <p>Preview Size: <span id="TP_popup_preview_size_display"></span></p>
+                            <input type="range" min="1" max="100" value="50" step="20" class="slider" id="TP_popup_preview_size_input_slider">
+                        </div>
+
+                        <!-- <div class="TP_popup_toggle_container" >
+                           <div class="TP_toggle_text" >OFF</div>
+                           <label class="switch" >
+                               <input id="TP_popup_directory_preview_mode_checkbox" class="switch-input" type="checkbox">
+                               <span class="switch-label" data-on="ON" data-off="OFF"></span> <span class="switch-handle"></span>
+                           </label>
+                           <div class="TP_toggle_text" >ON</div>
+                       </div>-->
+
+                        <div id="TP_popup_donation_container" >
+                            <div>If you like this extension, consider contributing :)</div>
+                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                                <input type="hidden" name="cmd" value="_s-xclick" />
+                                <input type="hidden" name="hosted_button_id" value="QM8HG45PYA4EU" />
+                                <input id="tp_popup_donate_btn" style="width: 80%;" type="image" src="../images/coffee.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="TP_popup_bottom_bar" >
+                        <div id="tp_popup_rate_btn" >Rate</div>
+                        <div id="tp_popup_share_btn" >Share</div>
+                    </div>
+             </div>
+            <div style="padding: 0 30px;margin-top: 24px;" >
+                <div style="display: flex;justify-content: space-between;" >
+                    <div id="tp_popup_github_btn" class="tp_settings_info_btn" >Github</div>
+                    <div id="tp_popup_bugReport_btn" class="tp_settings_info_btn" >Bug Report</div>
+                </div>
+                <div style="display: flex;justify-content: space-between;margin-top: 12px;" >
+                    <div id="tp_popup_something_btn" class="tp_settings_info_btn" >something</div>
+                    <a id="tp_popup_contact_btn" class="tp_settings_info_btn" href="mailto:twitchPreviews@gmail.com">Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

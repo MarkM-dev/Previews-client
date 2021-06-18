@@ -1,45 +1,59 @@
+.tp-settings-container {
+    display: block;
+    position: fixed;
+    z-index: 9999999;
+    width: 800px;
+    height: 600px;
+    left: 50%;
+    margin-left: -400px;
+    top: 50%;
+    margin-top: -300px;
+}
+
 #TPBodyEl {
-    width: 270px;
+    width: 800px;
+    height: 600px;
     background-color: #232323;
+    border-radius: 5px;
     text-align: center;
     color: whitesmoke;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
 }
 #TPBodyEl > h2 {
     text-align: center;
     margin-top: -5px;
 }
-#TP_popup_logo {
+#TPBodyEl #TP_popup_logo {
     margin-top: -10px;
 }
-#TP_popup_sub_container {
+#TPBodyEl #TP_popup_sub_container {
     padding: 10px;
 }
-.TP_popup_toggle_container {
+#TPBodyEl .TP_popup_toggle_container {
     display: flex;
     justify-content: space-evenly;
+    margin-top: 15px;
 }
 
-#tp_version {
-    position: absolute;
-    bottom: 5px;
-    left: 10px;
+#TPBodyEl #tp_version {
     color: darkgrey;
     font-size: 10px;
+    font-weight: normal;
 }
 
-.TP_popup_sidebar_feature_title {
+#TPBodyEl .TP_popup_sidebar_feature_title {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-top: 1px solid whitesmoke;
     font-weight: bold;
     padding-top: 15px;
-    padding-bottom: 5px;
     font-size: 14px;
     margin-top: 0;
 }
 
-.TP_popup_dirp_feature_title {
+#TPBodyEl .TP_popup_dirp_feature_title {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,12 +61,13 @@
     border-top: 1px solid whitesmoke;
     padding-bottom: 5px;
     padding-top: 25px;*/
+    margin-bottom: 15px;
     font-weight: bold;
     font-size: 12px;
     text-align: left;
 }
 
-input.apple-switch {
+#TPBodyEl input.apple-switch {
     cursor: pointer;
     transition: 300ms;
     position: relative;
@@ -66,7 +81,7 @@ input.apple-switch {
     box-shadow: inset -10px 0 0 0 #fff;
 }
 
-input.apple-switch:after {
+#TPBodyEl input.apple-switch:after {
     content: "";
     position: absolute;
     top: 1px;
@@ -78,35 +93,35 @@ input.apple-switch:after {
     box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
 }
 
-input.apple-switch:checked {
+#TPBodyEl input.apple-switch:checked {
     box-shadow: inset 10px 0 0 0 #4ed164;
     border-color: #4ed164;
 }
 
-input.apple-switch:checked:after {
+#TPBodyEl input.apple-switch:checked:after {
     left: 10px;
     box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
 }
 
-.TP_toggle_text {
+#TPBodyEl .TP_toggle_text {
     margin: auto;
     text-align: center;
     font-weight: bold;
     flex: 2;
 }
 
-#TP_popup_donation_container {
-    margin-top: 10px;
+#TPBodyEl #TP_popup_donation_container {
+    margin-top: 20px;
     text-align: center;
     border-top: 1px solid whitesmoke;
     padding-top: 15px;
 }
 
-#TP_popup_donation_container > form {
+#TPBodyEl #TP_popup_donation_container > form {
     margin-top: 15px;
 }
 
-.switch {
+#TPBodyEl .switch {
     margin: auto 10px;
     position: relative;
     display: block;
@@ -124,13 +139,13 @@ input.apple-switch:checked:after {
 
     cursor: pointer;
 }
-.switch-input {
+#TPBodyEl .switch-input {
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
 }
-.switch-label {
+#TPBodyEl .switch-label {
     position: relative;
     display: block;
     height: inherit;
@@ -140,7 +155,7 @@ input.apple-switch:checked:after {
     border-radius: inherit;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
 }
-.switch-label:before, .switch-label:after {
+#TPBodyEl .switch-label:before, .switch-label:after {
     position: absolute;
     top: 50%;
     margin-top: -.5em;
@@ -150,30 +165,30 @@ input.apple-switch:checked:after {
     -o-transition: inherit;
     transition: inherit;
 }
-.switch-label:before {
+#TPBodyEl .switch-label:before {
     content: attr(data-off);
     right: 11px;
     color: #FFFFFF;
     text-shadow: 0 1px rgba(0, 0, 0, 0.2);
 }
-.switch-label:after {
+#TPBodyEl .switch-label:after {
     content: attr(data-on);
     left: 11px;
     color: #FFFFFF;
     text-shadow: 0 1px rgba(0, 0, 0, 0.2);
     opacity: 0;
 }
-.switch-input:checked ~ .switch-label {
+#TPBodyEl .switch-input:checked ~ .switch-label {
     background: limegreen;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
-.switch-input:checked ~ .switch-label:before {
+#TPBodyEl .switch-input:checked ~ .switch-label:before {
     opacity: 0;
 }
-.switch-input:checked ~ .switch-label:after {
+#TPBodyEl .switch-input:checked ~ .switch-label:after {
     opacity: 1;
 }
-.switch-handle {
+#TPBodyEl .switch-handle {
     position: absolute;
     top: 4px;
     left: 4px;
@@ -184,7 +199,7 @@ input.apple-switch:checked:after {
     border-radius: 100%;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
-.switch-handle:before {
+#TPBodyEl .switch-handle:before {
     content: "";
     position: absolute;
     top: 50%;
@@ -197,26 +212,26 @@ input.apple-switch:checked:after {
     border-radius: 6px;
     box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
 }
-.switch-input:checked ~ .switch-handle {
+#TPBodyEl .switch-input:checked ~ .switch-handle {
     left: 74px;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 /* Transition
     ========================== */
-.switch-label, .switch-handle {
+#TPBodyEl .switch-label, .switch-handle {
     transition: All 0.3s ease;
     -webkit-transition: All 0.3s ease;
     -moz-transition: All 0.3s ease;
     -o-transition: All 0.3s ease;
 }
 
-.slide-container {
+#TPBodyEl .slide-container {
     margin-top: 20px;
     width: 100%;
     font-weight: bold;
 }
 
-.slider {
+#TPBodyEl .slider {
     -webkit-appearance: none;
     width: 92%;
     height: 15px;
@@ -228,11 +243,11 @@ input.apple-switch:checked:after {
     transition: opacity .2s;
 }
 
-.slider:hover {
+#TPBodyEl .slider:hover {
     opacity: 1;
 }
 
-.slider::-webkit-slider-thumb {
+#TPBodyEl .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
@@ -242,7 +257,7 @@ input.apple-switch:checked:after {
     cursor: pointer;
 }
 
-.slider::-moz-range-thumb {
+#TPBodyEl .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
     border-radius: 50%;
@@ -250,34 +265,44 @@ input.apple-switch:checked:after {
     cursor: pointer;
 }
 
-.TP_popup_bottom_bar {
+#TPBodyEl .TP_popup_bottom_bar {
     display: flex;
-    margin-top: 5px;
+    margin-top: 9px;
 }
 
-.TP_popup_bottom_bar div {
+#TPBodyEl .TP_popup_bottom_bar div {
     flex: 1;
     padding: 8px;
     cursor: pointer;
 }
 
-.TP_popup_bottom_bar div:hover {
-    background-color: #9246ff;
+#TPBodyEl #tp_popup_rate_btn:hover {
+    border-bottom-left-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+}
+
+#TPBodyEl #tp_popup_share_btn:hover {
+    border-bottom-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+}
+
+#TPBodyEl .TP_popup_bottom_bar div:hover {
+    background-color: rgb(162, 96, 254);
 }
 
 /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+#TPBodyEl input::-webkit-outer-spin-button,
+#TPBodyEl input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
+#TPBodyEl input[type=number] {
     -moz-appearance: textfield;
 }
 
-#tp_popup_feature_predictionsSniper > span input {
+#TPBodyEl #tp_popup_feature_predictionsSniper > span input {
     display: inline-block;
     background-color: #232323;
     text-align: center;
@@ -289,46 +314,91 @@ input[type=number] {
     border-bottom: 1px solid gray;
 }
 
-#TP_popup_predictions_sniper_checkbox {
+#TPBodyEl #TP_popup_predictions_sniper_checkbox {
     align-self: baseline;
 }
 
-.TP_popup_settings_btn_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 1px solid whitesmoke;
-    padding-top: 15px;
-    padding-bottom: 5px;
-    margin-top: 0;
+#TPBodyEl #tp_settings_title_container{
+    width: 100%;
+    height: 40px;
 }
 
-#TP_popup_settings_btn {
-    display: flex;
-    justify-content: center;
-    width: 80%;
-    margin: 15px 0;
-    padding: 10px 10px 8px 10px;
-    font-size: 15px;
+#TPBodyEl #tp_settings_title {
+    margin-left: 5px;
+    font-size: 14px;
     font-weight: bold;
-    border-radius: 5px;
-    background-color: #9c60ff;
+}
+
+#TPBodyEl .tp_title_shadow_el {
+    width: 512px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 13px 13px -14px rgb(78, 209, 100);
+}
+
+#TPBodyEl #TP_popup_preview_size_input_slider {
+    margin-top: 12px;
+}
+
+#TPBodyEl #tp_settings_title_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    background-color: rgba(255,255,255,0.035);
+}
+
+#TPBodyEl #tp_settings_close_btn {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px 10px;
+    font-size: 15px;
+    color: grey;
     cursor: pointer;
+    border-radius: 2px;
+    -webkit-transform: scale(1.4,1);
+    -moz-transform: scale(1.4,1);
+    -ms-transform: scale(1.4,1);
+    -o-transform: scale(1.4,1);
+    transform: scale(1.4,1);
 }
 
-#TP_popup_settings_btn:hover {
-    background-color: #a46aff;
+#TPBodyEl #tp_settings_close_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: whitesmoke;
 }
 
-#TP_popup_settings_btn:active {
-    background-color: #9a5eff;
+#TPBodyEl #tp_settings_close_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: whitesmoke;
 }
 
-#TP_popup_settings_btn > img {
-    margin-top: -4px;
+#TPBodyEl .tp_settings_info_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    border: 1px dashed #a160fe;
+    border-radius: 20px;
+    padding: 3px 5px;
+    cursor: pointer;
+    color: darkgrey;
+    font-size: 11px;
+    text-decoration: none;
 }
 
-#TP_popup_settings_btn > span {
-    margin-top: -2px;
-    margin-left: 2px;
+#TPBodyEl .tp_settings_info_btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: whitesmoke;
+    border: 1px solid #a160fe;
+    text-decoration: none;
+}
+
+#TPBodyEl .tp_settings_info_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: whitesmoke;
+    border: 1px solid #a160fe;
+    text-decoration: none;
 }

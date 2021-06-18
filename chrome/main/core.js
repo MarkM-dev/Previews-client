@@ -1018,12 +1018,17 @@ function showSidebarSearchBtn() {
 function checkForTwitchNotificationsPermissions(featureName, value) {
     if (Notification.permission !== "granted") {
         Notification.requestPermission().then(function (res){
+            if (res === "denied") {
+                settings_predictionsNotifications_cb_off();
+                return;
+            }
             chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
 
             });
             onSettingChange(featureName, true);
             showNotification("Twitch Previews", "Predictions Notifications Enabled!", chrome.runtime.getURL('../images/TP96.png'));
         },function (err) {
+            settings_predictionsNotifications_cb_off();
             onSettingChange(featureName, false);
         });
     } else {
@@ -1038,6 +1043,7 @@ function checkForTwitchNotificationsPermissions(featureName, value) {
 function showNotification(title, body, icon) {
     if (Notification.permission !== "granted") {
         onSettingChange('isPredictionsNotificationsEnabled', false);
+        settings_predictionsNotifications_cb_off();
         return;
     }
     var notification = new Notification(title, {
@@ -1656,14 +1662,14 @@ function showToast(toast_body, storageFlagName) {
     updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
         setConfirmedToastFlag('rate_btn', storageFlagName);
         remove_toast();
-        chrome.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
+        chrome.runtime.sendMessage({action: "bg_show_rate", detail: ""}, function(response) {
 
         });
     };
     updateToast.querySelector('#tp_updateToast_share_btn').onclick = function () {
         setConfirmedToastFlag('share_btn', storageFlagName);
         remove_toast();
-        chrome.runtime.sendMessage({action: "bg_showShare", detail: ""}, function(response) {
+        chrome.runtime.sendMessage({action: "bg_show_share", detail: ""}, function(response) {
 
         });
     };
@@ -1703,6 +1709,18 @@ function showUpdateToast() {
                 +  "</div>"
 
             showToast(toast_body, 'shouldShowUpdatePopup');
+        }
+    });
+}
+
+function check_showSettings() {
+    chrome.storage.local.get('shouldShowSettings', function(result) {
+        var shouldShowSettings = result.shouldShowSettings;
+        if (shouldShowSettings) {
+            showSettings();
+            chrome.storage.local.set({'shouldShowSettings': false}, function() {
+
+            });
         }
     });
 }
@@ -1781,15 +1799,173 @@ function toggleFeatures() {
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
-    if (msg.action === "update_options") {
-        onSettingChange(msg.detail.featureName, msg.detail.value);
-    } else {
-        if ("check_notifications_permissions") {
-            checkForTwitchNotificationsPermissions(msg.detail.featureName, msg.detail.value);
-        }
+    if (msg.action === "tp_open_settings") {
+        sendResponse({action: 'content-available'});
+        showSettings();
     }
 
 });
+
+///////////////////////////////////////// SETTINGS /////////////////////////////////////////
+
+function settings_predictionsNotifications_cb_off() {
+    var settingsContainer = document.getElementById('TPBodyEl');
+    if (settingsContainer) {
+        settingsContainer.querySelector('#TP_popup_predictions_notifications_checkbox').checked = false;
+    }
+}
+
+function changeFeatureMode(featureName, value) {
+    onSettingChange(featureName, value);
+    chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: value}, function(response) {
+
+    });
+}
+
+function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
+    var checkbox = settingsContainer.querySelector('#' + checkboxID);
+    checkbox.checked = invertBool ? !options[featureName] : options[featureName];
+    checkbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                checkForTwitchNotificationsPermissions(featureName);
+            } else {
+                changeFeatureMode(featureName,invertBool ? false : true);
+            }
+        } else {
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: false}, function(response) {
+
+                });
+            }
+            changeFeatureMode(featureName,invertBool ? true : false);
+            settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
+        }
+    });
+}
+
+function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
+    var input = settingsContainer.querySelector('#' + inputID);
+    input.value = options[featureName];
+
+    input.addEventListener('change', (event) => {
+        var newVal = parseFloat(event.target.value);
+        if (newVal < minimum) {
+            newVal = minimum;
+            input.value = minimum;
+        }
+
+        changeFeatureMode(featureName, newVal);
+    })
+}
+
+function initPreviewSizeSlider(settingsContainer) {
+    slider = settingsContainer.querySelector("#TP_popup_preview_size_input_slider");
+    output = settingsContainer.querySelector("#TP_popup_preview_size_display");
+    slider.min = 300;
+    slider.max = 1000;
+
+    slider.value = options.PREVIEWDIV_WIDTH;
+    output.innerHTML = slider.value + "px";
+
+    slider.onchange = function() {
+        changeFeatureMode('PREVIEWDIV_WIDTH', this.value);
+    }
+
+    slider.oninput = function() {
+        output.innerHTML = this.value + "px";
+    }
+}
+
+function initSocialBtn(settingsContainer, name, url) {
+    var btn = settingsContainer.querySelector('#tp_popup_' + name +'_btn');
+    btn.addEventListener('click', (event) => {
+        if (url) {
+            chrome.runtime.sendMessage({action: "bg_show_" + name, detail: ""}, function(response) {
+
+            });
+        }
+        chrome.runtime.sendMessage({action: 'bg_' + name +'_btn_click', detail: ""}, function(response) {
+
+        });
+    });
+}
+
+function setAppVer(settingsContainer) {
+    settingsContainer.querySelector('#tp_version').innerText = " - v" + chrome.runtime.getManifest().version;
+}
+
+function showSettings() {
+    if (document.getElementById('TPBodyEl')) {
+        return;
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', chrome.runtime.getURL('main/settings.html'), true);
+    xhr.onreadystatechange = function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return;
+
+        var settingsContainer = document.createElement('div');
+        settingsContainer.classList.add('tp-settings-container');
+        settingsContainer.classList.add('animated');
+        settingsContainer.classList.add('bounceIn');
+        settingsContainer.innerHTML = this.responseText;
+
+        var close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
+        close_settings_btn.addEventListener('click', (event) => {
+            settingsContainer.classList.add('zoomOut');
+            setTimeout(function (){
+                settingsContainer.parentNode.removeChild(settingsContainer);
+            }, 700);
+        });
+
+        settingsContainer.querySelector('#TP_popup_title_logo').src = chrome.runtime.getURL('images/TP96.png');
+        settingsContainer.querySelector('#TP_popup_logo').src = chrome.runtime.getURL('images/TP96.png');
+        settingsContainer.querySelector('#tp_popup_donate_btn').src = chrome.runtime.getURL('images/coffee.png');
+        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = chrome.runtime.getURL('images/tp_fScrnWithChat.png');
+
+        initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
+        initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
+        initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
+        initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
+        initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
+        initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
+        initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
+        initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
+        initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
+        initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
+        initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
+        initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+
+        initPreviewSizeSlider(settingsContainer);
+
+        initSocialBtn(settingsContainer, 'donate', null);
+        initSocialBtn(settingsContainer, 'rate', true);
+        initSocialBtn(settingsContainer, 'share', true);
+
+        initSocialBtn(settingsContainer, 'github', true);
+        initSocialBtn(settingsContainer, 'bugReport', true);
+        initSocialBtn(settingsContainer, 'something', true);
+        initSocialBtn(settingsContainer, 'contact', false);
+
+        setAppVer(settingsContainer);
+
+        document.body.appendChild(settingsContainer);
+
+        setTimeout(function (){
+            settingsContainer.classList.remove('bounceIn');
+        }, 700);
+
+        chrome.runtime.sendMessage({action: "bg_settings_opened", detail: "settings.html"}, function(response) {
+
+        });
+    };
+    xhr.send();
+}
+
+///////////////////////////////////////// END OF SETTINGS /////////////////////////////////////////
 
 window.addEventListener('load', (event) => {
     setTimeout(function(){
@@ -1805,6 +1981,7 @@ window.addEventListener('load', (event) => {
                     setTitleMutationObserverForDirectoryCardsRefresh();
                 }, 1000);
                 showUpdateToast();
+                check_showSettings();
             },
             function (err){
 

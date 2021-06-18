@@ -1,85 +1,3 @@
-var slider;
-var output;
-var options = {};
-
-function changeFeatureMode(featureName, value) {
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "update_options", detail:{featureName:featureName, value:value}})
-    });
-    chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: value}, function(response) {
-
-    });
-}
-
-function initCheckbox(featureName, checkboxID, invertBool) {
-    var checkbox = document.getElementById(checkboxID);
-    checkbox.checked = invertBool ? !options[featureName] : options[featureName];
-    checkbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            if (featureName === "isPredictionsNotificationsEnabled") {
-                chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-                    chrome.tabs.sendMessage(tabs[0].id, {action: "check_notifications_permissions", detail:{featureName:featureName, value:true}})
-                });
-            } else {
-                changeFeatureMode(featureName,invertBool ? false : true);
-            }
-        } else {
-            if (featureName === "isPredictionsNotificationsEnabled") {
-                chrome.runtime.sendMessage({action: "bg_update_" + featureName, detail: false}, function(response) {
-
-                });
-            }
-            changeFeatureMode(featureName,invertBool ? true : false);
-            document.getElementById('refreshChangeDivInfo').style.display = "block";
-        }
-    });
-}
-
-function initSocialBtn(name, url) {
-    var btn = document.getElementById('tp_popup_' + name +'_btn');
-    btn.addEventListener('click', (event) => {
-        if (url) {
-            chrome.tabs.create({url:url});
-        }
-        chrome.runtime.sendMessage({action: 'bg_' + name +'_btn_click', detail: ""}, function(response) {
-
-        });
-    });
-}
-
-function initPreviewSizeSlider() {
-    slider = document.getElementById("TP_popup_preview_size_input_slider");
-    output = document.getElementById("TP_popup_preview_size_display");
-    slider.min = 300;
-    slider.max = 1000;
-
-    slider.value = options.PREVIEWDIV_WIDTH;
-    output.innerHTML = slider.value + "px";
-
-    slider.onchange = function() {
-        changeFeatureMode('PREVIEWDIV_WIDTH', this.value);
-    }
-
-    slider.oninput = function() {
-        output.innerHTML = this.value + "px";
-    }
-}
-
-function initNumInputValue(featureName, inputID, minimum) {
-    var input = document.getElementById(inputID);
-    input.value = options[featureName];
-
-    input.addEventListener('change', (event) => {
-        var newVal = parseFloat(event.target.value);
-        if (newVal < minimum) {
-            newVal = minimum;
-            input.value = minimum;
-        }
-
-        changeFeatureMode(featureName, newVal);
-    })
-}
-
 function setFeatureTitles() {
     document.getElementById('tp_popup_feature_sBar_previews').title = "* Sidebar Previews\n" +
         "- Shows a live video or image preview when hovering over a stream on the sidebar (followed channels list on the side)";
@@ -133,42 +51,27 @@ function setFeatureTitles() {
 
 }
 
-function setAppVer() {
-    document.getElementById('tp_version').innerText = "v" + chrome.runtime.getManifest().version;
-}
-
 document.addEventListener('DOMContentLoaded', function () {
 
     chrome.runtime.sendMessage({action: "bg_popup_opened", detail: "popup.html"}, function(response) {
 
     });
 
-    chrome.storage.local.get('tp_options', function(result) {
-        options = result.tp_options;
-        initCheckbox('isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
-        initCheckbox('isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
-        initCheckbox('isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
-        initCheckbox('isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
-        initCheckbox('isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
-        initCheckbox('isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
-        initCheckbox('isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
-        initCheckbox('isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
-        initCheckbox('isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
-        initCheckbox('isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
-        initCheckbox('isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
-        initNumInputValue('aps_percent', 'TP_popup_aps_percent_input', 0);
-        initNumInputValue('aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
-        initNumInputValue('aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+    var settings_btn = document.getElementById('TP_popup_settings_btn');
+    settings_btn.addEventListener('click', (event) => {
+        var errString = "Could not establish connection. Receiving end does not exist.";
+        chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
+                var lastError = chrome.runtime.lastError;
+                if (lastError && lastError.message === errString) {
+                    chrome.storage.local.set({'shouldShowSettings': true}, function() {
 
-        initPreviewSizeSlider();
-        setFeatureTitles();
-        setAppVer();
+                    });
+                    chrome.tabs.create({url:'https://www.twitch.tv/'});
+                    console.log('no content');
+                }
+            })
+        });
+        window.close();
     });
-
-    initSocialBtn('donate', null)
-    initSocialBtn('rate', 'https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/')
-    initSocialBtn('share', 'https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/')
-
-
-
 });
