@@ -20,7 +20,10 @@
   "icons": {
     "16": "images/TP16.png",
     "24": "images/TP24.png",
-    "48": "images/TP48.png"
+    "32": "images/TP32.png",
+    "48": "images/TP48.png",
+    "64": "images/TP64.png",
+    "128": "images/TP128.png"
   },
   "browser_action": {
     "default_icon": "images/TP48.png",
