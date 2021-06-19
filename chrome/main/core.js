@@ -1906,14 +1906,14 @@ function initPreviewSizeSlider(settingsContainer) {
     slider.max = 1000;
 
     slider.value = options.PREVIEWDIV_WIDTH;
-    output.innerHTML = slider.value + "px";
+    output.innerText = slider.value + "px";
 
     slider.onchange = function() {
         changeFeatureMode('PREVIEWDIV_WIDTH', this.value);
     }
 
     slider.oninput = function() {
-        output.innerHTML = this.value + "px";
+        output.innerText = this.value + "px";
     }
 }
 
