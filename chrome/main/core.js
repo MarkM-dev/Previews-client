@@ -1881,6 +1881,7 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
 
     if (featureName !== "isSidebarPreviewsEnabled" && featureName !== "isImagePreviewMode") {
         initSettingsInfoBtn(settingsContainer, checkboxID);
+        initTranslateInfoDivBtn(settingsContainer, checkboxID);
     }
 }
 
@@ -1975,6 +1976,20 @@ function initDragForSettings(settingsContainer) {
             document.onmouseup = null;
             document.onmousemove = null;
         }
+    }
+}
+
+function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
+    try {
+        var translateInfoBtn = settingsContainer.querySelector('#' + checkboxID).parentNode.parentNode.nextElementSibling.querySelector('.translate_div_btn');
+        translateInfoBtn.src = chrome.runtime.getURL('images/translate.png');
+        translateInfoBtn.addEventListener('click', (event) => {
+            chrome.runtime.sendMessage({action: "bg_translate_infoDiv", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(translateInfoBtn.parentNode.innerText) + '&op=translate'}, function(response) {
+
+            });
+        });
+    } catch (e) {
+
     }
 }
 

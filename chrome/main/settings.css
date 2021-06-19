@@ -406,6 +406,7 @@
 }
 
 #TPBodyEl .tp_settings_feature_info_div {
+    position: relative;
     max-height: 0;
     margin-top: 5px;
     text-align: left;
@@ -440,6 +441,23 @@
 }
 
 #TPBodyEl .tp_settings_expand:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#TPBodyEl .translate_div_btn {
+    position: absolute;
+    right: 1px;
+    top: 0px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#TPBodyEl .translate_div_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+#TPBodyEl .translate_div_btn:active {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
