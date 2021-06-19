@@ -278,12 +278,12 @@
     cursor: pointer;
 }
 
-#TPBodyEl #tp_popup_rate_btn:hover {
+#TPBodyEl #tp_popup_rate_btn {
     border-bottom-left-radius: 10px;
     -webkit-border-bottom-left-radius: 10px;
 }
 
-#TPBodyEl #tp_popup_share_btn:hover {
+#TPBodyEl #tp_popup_share_btn {
     border-bottom-right-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
 }
