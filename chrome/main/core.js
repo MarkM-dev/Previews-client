@@ -1932,6 +1932,8 @@ function initSocialBtn(settingsContainer, name, url) {
         if (name === "changelog") {
             if (!document.getElementById('tp_updateToast')) {
                 showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
+            } else {
+                document.getElementById('tp_updateToast').querySelector('#tp_updateToast_dismiss_btn').click();
             }
         }
     });
