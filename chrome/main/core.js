@@ -1933,7 +1933,7 @@ function initSocialBtn(settingsContainer, name, url) {
             if (!document.getElementById('tp_updateToast')) {
                 showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
             } else {
-                document.getElementById('tp_updateToast').querySelector('#tp_updateToast_dismiss_btn').click();
+                document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
             }
         }
     });
