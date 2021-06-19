@@ -166,12 +166,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
             break;
         case "bg_translate_infoDiv":
-            //chrome.tabs.create({url:"../popups/updatePopup.html"});
             chrome.tabs.create({url:msg.detail});
             ga('send', 'event', 'settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_rate":
-            //chrome.tabs.create({url:"../popups/updatePopup.html"});
             chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
         case "bg_show_share":
