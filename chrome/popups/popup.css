@@ -3,6 +3,7 @@
     background-color: #232323;
     text-align: center;
     color: whitesmoke;
+    cursor: default;
 }
 #TPBodyEl > h2 {
     text-align: center;
