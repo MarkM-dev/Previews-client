@@ -1697,8 +1697,9 @@ function showToast(toast_body, storageFlagName) {
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
         +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
-        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>1. A new settings menu</strong>"
-        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>2. Predictions Sniper</strong>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>1. A new settings menu!</strong>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>2. Fix for directory previews where it wouldn't start when trying to preview for the first stream hover or any after entering a directory</strong>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>3. Predictions Sniper</strong>"
         +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
         +  "</br><span>- Works on twitch tabs in the browser.</span>"
         +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
