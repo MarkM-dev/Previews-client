@@ -1864,6 +1864,7 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
             changeFeatureMode(featureName,invertBool ? true : false);
             if (featureName !== "isImagePreviewMode") {
                 settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
+                settingsContainer.querySelector('.tp_settings_switch_container').style.height = "532px";
             }
         }
     });
