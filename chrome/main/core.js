@@ -111,9 +111,16 @@ var sideNavMutationObserver = new MutationObserver(function(mutations) {
 });*/
 
 var titleMutationObserver = new MutationObserver(function(mutations) {
-    setTimeout(function (){
-        setDirectoryCardsListeners();
-    },1000);
+    if (window.location.pathname.indexOf('directory') > -1) {
+        setTimeout(function (){
+            setDirectoryCardsListeners();
+        },1000);
+    } else {
+        setTimeout(function (){
+            toggleFeatures(true);
+        }, 2000);
+    }
+
 });
 
 function setTitleMutationObserverForDirectoryCardsRefresh() {
@@ -1748,8 +1755,10 @@ function onSettingChange(key, value) {
     });
 }
 
-function toggleFeatures() {
-    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+function toggleFeatures(isFromTitleObserver) {
+    if (!isFromTitleObserver) {
+        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+    }
 
     if (options.isSidebarPreviewsEnabled) {
         refreshNavCardsListAndListeners();
