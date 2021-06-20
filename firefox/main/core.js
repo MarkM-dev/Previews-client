@@ -1026,6 +1026,7 @@ function checkForTwitchNotificationsPermissions(featureName, value) {
     if (Notification.permission !== "granted") {
         Notification.requestPermission().then(function (res){
             if (res === "denied") {
+                alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.");
                 settings_predictionsNotifications_cb_off();
                 return;
             }
