@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     });
                     chrome.tabs.create({url:'https://www.twitch.tv/'});
-                    console.log('no content');
                 }
             })
         });
