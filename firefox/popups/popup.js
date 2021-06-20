@@ -18,6 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
         });
-        window.close();
+       // window.close();
     });
 });
