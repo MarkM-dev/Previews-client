@@ -75,9 +75,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-
-            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-
+            if (details.previousVersion !== "1.8") {
+                chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            }
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -153,6 +153,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_popup_opened":
             ga('send', 'event', 'popup_opened', 'popup.html', 'popup.html');
             break;
+        case "bg_settings_opened":
+            ga('send', 'event', 'settings_opened', 'settings.html', 'settings.html');
+            break;
         case "bg_pip_started":
             ga('send', 'event', 'pip_started', 'pip_started', 'pip_started');
             break;
@@ -162,12 +165,21 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast":
             ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
             break;
-        case "bg_showRate":
-            //chrome.tabs.create({url:"../popups/updatePopup.html"});
+        case "bg_translate_infoDiv":
+            chrome.tabs.create({url:msg.detail});
+            ga('send', 'event', 'settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
+            break;
+        case "bg_show_rate":
             chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
-        case "bg_showShare":
+        case "bg_show_share":
             chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
+            break;
+        case "bg_show_github":
+            chrome.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
+            break;
+        case "bg_show_bugReport":
+            chrome.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
             break;
         case "appStart":
             ga('send', 'event', 'appStart', 'content.js', msg.detail);
@@ -179,13 +191,25 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             }
             break;
         case "bg_donate_btn_click":
-            ga('send', 'event', 'popup_donate_btn_click', 'popup_donate_btn_click', 'popup_donate_btn_click');
+            ga('send', 'event', 'settings_donate_btn_click', 'settings_donate_btn_click', 'settings_donate_btn_click');
             break;
         case "bg_rate_btn_click":
-            ga('send', 'event', 'popup_rate_btn_click', 'popup_rate_btn_click', 'popup_rate_btn_click');
+            ga('send', 'event', 'settings_rate_btn_click', 'settings_rate_btn_click', 'settings_rate_btn_click');
             break;
         case "bg_share_btn_click":
-            ga('send', 'event', 'popup_share_btn_click', 'popup_share_btn_click', 'popup_share_btn_click');
+            ga('send', 'event', 'settings_share_btn_click', 'settings_share_btn_click', 'settings_share_btn_click');
+            break;
+        case "bg_github_btn_click":
+            ga('send', 'event', 'settings_github_btn_click', 'settings_github_btn_click', 'settings_github_btn_click');
+            break;
+        case "bg_bugReport_btn_click":
+            ga('send', 'event', 'settings_bug_report_btn_click', 'settings_bug_report_btn_click', 'settings_bug_report_btn_click');
+            break;
+        case "bg_changelog_btn_click":
+            ga('send', 'event', 'settings_changelog_btn_click', 'settings_changelog_btn_click', 'settings_changelog_btn_click');
+            break;
+        case "bg_contact_btn_click":
+            ga('send', 'event', 'settings_contact_btn_click', 'settings_contact_btn_click', 'settings_contact_btn_click');
             break;
         default:
     }

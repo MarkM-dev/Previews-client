@@ -111,9 +111,16 @@ var sideNavMutationObserver = new MutationObserver(function(mutations) {
 });*/
 
 var titleMutationObserver = new MutationObserver(function(mutations) {
-    setTimeout(function (){
-        setDirectoryCardsListeners();
-    },1000);
+    if (window.location.pathname.indexOf('directory') > -1) {
+        setTimeout(function (){
+            setDirectoryCardsListeners();
+        },1000);
+    } else {
+        setTimeout(function (){
+            toggleFeatures(true);
+        }, 2000);
+    }
+
 });
 
 function setTitleMutationObserverForDirectoryCardsRefresh() {
@@ -1018,8 +1025,9 @@ function showSidebarSearchBtn() {
 function checkForTwitchNotificationsPermissions(featureName, value) {
     if (Notification.permission !== "granted") {
         Notification.requestPermission().then(function (res){
-            if (Notification.permission !== "granted") {
-                alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature in the extension options.");
+            if (res === "denied") {
+                alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.");
+                settings_predictionsNotifications_cb_off();
                 return;
             }
             browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
@@ -1028,6 +1036,7 @@ function checkForTwitchNotificationsPermissions(featureName, value) {
             onSettingChange(featureName, true);
             showNotification("Twitch Previews", "Predictions Notifications Enabled!", browser.runtime.getURL('../images/TP96.png'));
         },function (err) {
+            settings_predictionsNotifications_cb_off();
             onSettingChange(featureName, false);
         });
     } else {
@@ -1041,9 +1050,8 @@ function checkForTwitchNotificationsPermissions(featureName, value) {
 
 function showNotification(title, body, icon) {
     if (Notification.permission !== "granted") {
-        Notification.requestPermission().then(function (){},function (){});
-        alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature in the extension options.");
         onSettingChange('isPredictionsNotificationsEnabled', false);
+        settings_predictionsNotifications_cb_off();
         return;
     }
     var notification = new Notification(title, {
@@ -1665,14 +1673,14 @@ function showToast(toast_body, storageFlagName) {
     updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
         setConfirmedToastFlag('rate_btn', storageFlagName);
         remove_toast();
-        browser.runtime.sendMessage({action: "bg_showRate", detail: ""}, function(response) {
+        browser.runtime.sendMessage({action: "bg_show_rate", detail: ""}, function(response) {
 
         });
     };
     updateToast.querySelector('#tp_updateToast_share_btn').onclick = function () {
         setConfirmedToastFlag('share_btn', storageFlagName);
         remove_toast();
-        browser.runtime.sendMessage({action: "bg_showShare", detail: ""}, function(response) {
+        browser.runtime.sendMessage({action: "bg_show_share", detail: ""}, function(response) {
 
         });
     };
@@ -1690,28 +1698,44 @@ function showToast(toast_body, storageFlagName) {
     document.body.appendChild(updateToast);
 }
 
+function getUpdateToastBody() {
+    return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
+        +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>1. A new settings menu!</strong>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>2. Fix for directory previews where it wouldn't start when trying to preview for the first stream hover or any after entering a directory</strong>"
+        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>3. Predictions Sniper</strong>"
+        +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
+        +  "</br><span>- Works on twitch tabs in the browser.</span>"
+        +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
+        +  "</br><span>- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.</span>"
+        +  "</br><span>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.</span>"
+        +  "</br></br><span><strong>Predictions sniper settings:</strong></span>"
+        +  "</br><span><strong>- Bet % -</strong> the percentage of channel points you want the sniper to bet.</span>"
+        +  "</br><span><strong>- Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.</span>"
+        +  "</br><span><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.</span>"
+        +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
+        +  "</br></br><span>- Remember that this is a statistical tool and wins are not guaranteed.</span>"
+        +  "</br><span>- Turned off by default --> enable in the extension options.</span>"
+        +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
+        +  "</div>";
+}
+
 function showUpdateToast() {
     browser.storage.local.get('shouldShowUpdatePopup', function(result) {
         if (result.shouldShowUpdatePopup) {
-            var toast_body = "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
-                +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Feature!</div>"
-                +  "                <div style=\"font-size: 12px;margin-top: 10px;\" >- <strong>Predictions Sniper</strong>"
-                +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
-                +  "</br><span>- Works on twitch tabs in the browser.</span>"
-                +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
-                +  "</br><span>- If you have your chat open (no need, altough it seems to work better sometimes when chat is open if the tab is in the background), you will see the prediction menu for a split second when the sniper is entering a prediction.</span>"
-                +  "</br><span>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.</span>"
-                +  "</br></br><span><strong>Settings:</strong></span>"
-                +  "</br><span><strong>- Bet % -</strong> the percentage of channel points you want the sniper to bet.</span>"
-                +  "</br><span><strong>- Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.</span>"
-                +  "</br><span><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.</span>"
-                +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
-                +  "</br></br><span>- Remember that this is a statistical tool and wins are not guaranteed.</span>"
-                +  "</br><span>- Turned off by default --> enable in the extension options.</span>"
-                +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
-                +  "</div>"
+            showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
+        }
+    });
+}
 
-            showToast(toast_body, 'shouldShowUpdatePopup');
+function check_showSettings() {
+    browser.storage.local.get('shouldShowSettings', function(result) {
+        var shouldShowSettings = result.shouldShowSettings;
+        if (shouldShowSettings) {
+            showSettings();
+            browser.storage.local.set({'shouldShowSettings': false}, function() {
+
+            });
         }
     });
 }
@@ -1736,8 +1760,10 @@ function onSettingChange(key, value) {
     });
 }
 
-function toggleFeatures() {
-    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+function toggleFeatures(isFromTitleObserver) {
+    if (!isFromTitleObserver) {
+        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+    }
 
     if (options.isSidebarPreviewsEnabled) {
         refreshNavCardsListAndListeners();
@@ -1792,15 +1818,281 @@ function toggleFeatures() {
 
 browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
-    if (msg.action === "update_options") {
-        onSettingChange(msg.detail.featureName, msg.detail.value);
-    } else {
-        if ("check_notifications_permissions") {
-            checkForTwitchNotificationsPermissions(msg.detail.featureName, msg.detail.value);
-        }
+    if (msg.action === "tp_open_settings") {
+        sendResponse({action: 'content-available'});
+        showSettings();
     }
 
 });
+
+///////////////////////////////////////// SETTINGS /////////////////////////////////////////
+
+function settings_predictionsNotifications_cb_off() {
+    var settingsContainer = document.getElementById('TPBodyEl');
+    if (settingsContainer) {
+        settingsContainer.querySelector('#TP_popup_predictions_notifications_checkbox').checked = false;
+    }
+}
+
+function changeFeatureMode(featureName, value) {
+    onSettingChange(featureName, value);
+    browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: value}, function(response) {
+
+    });
+}
+
+function initSettingsInfoBtn(settingsContainer, checkboxID) {
+    try {
+        var infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
+        infoBtn.src = browser.runtime.getURL('images/expand.png');
+        infoBtn.addEventListener('click', (event) => {
+            var infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
+            if (infoDiv.style.maxHeight === "350px") {
+                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
+                infoBtn.style.transform = "rotate(0deg)";
+            } else {
+                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "350px";
+                infoBtn.style.transform = "rotate(180deg)";
+            }
+        });
+    } catch (e) {
+
+    }
+
+}
+
+function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
+    var checkbox = settingsContainer.querySelector('#' + checkboxID);
+    checkbox.checked = invertBool ? !options[featureName] : options[featureName];
+    checkbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                checkForTwitchNotificationsPermissions(featureName);
+            } else {
+                changeFeatureMode(featureName,invertBool ? false : true);
+            }
+        } else {
+            if (featureName === "isPredictionsNotificationsEnabled") {
+                browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: false}, function(response) {
+
+                });
+            }
+            changeFeatureMode(featureName,invertBool ? true : false);
+            if (featureName !== "isImagePreviewMode") {
+                settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
+                settingsContainer.querySelector('.tp_settings_switch_container').style.height = "532px";
+            }
+        }
+    });
+
+    if (featureName !== "isSidebarPreviewsEnabled" && featureName !== "isImagePreviewMode") {
+        initSettingsInfoBtn(settingsContainer, checkboxID);
+        initTranslateInfoDivBtn(settingsContainer, checkboxID);
+    }
+}
+
+function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
+    var input = settingsContainer.querySelector('#' + inputID);
+    input.value = options[featureName];
+
+    input.addEventListener('change', (event) => {
+        var newVal = parseFloat(event.target.value);
+        if (newVal < minimum) {
+            newVal = minimum;
+            input.value = minimum;
+        }
+
+        changeFeatureMode(featureName, newVal);
+    })
+}
+
+function initPreviewSizeSlider(settingsContainer) {
+    slider = settingsContainer.querySelector("#TP_popup_preview_size_input_slider");
+    output = settingsContainer.querySelector("#TP_popup_preview_size_display");
+    slider.min = 300;
+    slider.max = 1000;
+
+    slider.value = options.PREVIEWDIV_WIDTH;
+    output.innerText = slider.value + "px";
+
+    slider.onchange = function() {
+        changeFeatureMode('PREVIEWDIV_WIDTH', this.value);
+    }
+
+    slider.oninput = function() {
+        output.innerText = this.value + "px";
+    }
+}
+
+function initSocialBtn(settingsContainer, name, url) {
+    var btn = settingsContainer.querySelector('#tp_popup_' + name +'_btn');
+    btn.addEventListener('click', (event) => {
+        if (url) {
+            browser.runtime.sendMessage({action: "bg_show_" + name, detail: ""}, function(response) {
+
+            });
+        }
+        browser.runtime.sendMessage({action: 'bg_' + name +'_btn_click', detail: ""}, function(response) {
+
+        });
+        if (name === "changelog") {
+            if (!document.getElementById('tp_updateToast')) {
+                showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
+            } else {
+                document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+            }
+        }
+    });
+}
+
+function setAppVer(settingsContainer) {
+    settingsContainer.querySelector('#tp_version').innerText = " - v" + browser.runtime.getManifest().version;
+}
+
+function initDragForSettings(settingsContainer) {
+    dragElement(settingsContainer.querySelector('#TPBodyEl'));
+
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (settingsContainer.querySelector('#tp_settings_title_container')) {
+            settingsContainer.querySelector('#tp_settings_title_container').onmousedown = dragMouseDown;
+        } else {
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+}
+
+function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
+    try {
+        var translateInfoBtn = settingsContainer.querySelector('#' + checkboxID).parentNode.parentNode.nextElementSibling.querySelector('.translate_div_btn');
+        translateInfoBtn.src = browser.runtime.getURL('images/translate.png');
+        translateInfoBtn.addEventListener('click', (event) => {
+            browser.runtime.sendMessage({action: "bg_translate_infoDiv", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(translateInfoBtn.parentNode.innerText) + '&op=translate'}, function(response) {
+
+            });
+        });
+    } catch (e) {
+
+    }
+}
+
+function showSettingsMenu() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', browser.runtime.getURL('main/settings.html'), true);
+    xhr.onreadystatechange = function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return;
+
+        var settingsContainer = document.createElement('div');
+        settingsContainer.classList.add('tp-settings-container');
+        settingsContainer.classList.add('animated');
+        settingsContainer.classList.add('bounceIn');
+        settingsContainer.innerHTML = this.responseText;
+
+        var close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
+        close_settings_btn.addEventListener('click', (event) => {
+            settingsContainer.style.width = '800px';
+            settingsContainer.style.height = '600px';
+            settingsContainer.classList.remove('bounceIn');
+            settingsContainer.classList.add('zoomOut');
+            setTimeout(function (){
+                settingsContainer.parentNode.removeChild(settingsContainer);
+            }, 700);
+        });
+
+        settingsContainer.querySelector('#TP_popup_title_logo').src = browser.runtime.getURL('images/TP96.png');
+        settingsContainer.querySelector('#TP_popup_logo').src = browser.runtime.getURL('images/TP96.png');
+        settingsContainer.querySelector('#tp_popup_donate_btn').src = browser.runtime.getURL('images/coffee.png');
+        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = browser.runtime.getURL('images/tp_fScrnWithChat.png');
+
+        initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
+        initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
+        initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
+        initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
+        initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
+        initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
+        initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
+        initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
+        initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
+        initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
+        initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
+        initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+
+        initPreviewSizeSlider(settingsContainer);
+
+        initSocialBtn(settingsContainer, 'donate', null);
+        initSocialBtn(settingsContainer, 'rate', true);
+        initSocialBtn(settingsContainer, 'share', true);
+
+        initSocialBtn(settingsContainer, 'github', true);
+        initSocialBtn(settingsContainer, 'bugReport', true);
+        initSocialBtn(settingsContainer, 'changelog', false);
+        initSocialBtn(settingsContainer, 'contact', false);
+
+        setAppVer(settingsContainer);
+
+        initDragForSettings(settingsContainer);
+
+        document.body.appendChild(settingsContainer);
+
+        setTimeout(function (){
+            settingsContainer.style.width = '1px';
+            settingsContainer.style.height = '1px';
+        }, 700);
+
+        browser.runtime.sendMessage({action: "bg_settings_opened", detail: "settings.html"}, function(response) {
+
+        });
+    };
+    xhr.send();
+}
+
+function showSettings() {
+    if (document.getElementById('TPBodyEl')) {
+        return;
+    }
+
+    if (!options.PREVIEWDIV_WIDTH) {
+        setOptionsFromDB().then(
+            function (options){
+                showSettingsMenu();
+            },
+            function (err){
+
+            });
+        return;
+    }
+    showSettingsMenu();
+}
+
+///////////////////////////////////////// END OF SETTINGS /////////////////////////////////////////
 
 window.addEventListener('load', (event) => {
     setTimeout(function(){
@@ -1843,3 +2135,4 @@ function pageAwakened() {
 }
 
 ///////////// END OF TAB RESUME /////////////
+check_showSettings();
