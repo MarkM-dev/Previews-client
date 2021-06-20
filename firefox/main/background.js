@@ -55,9 +55,9 @@ browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-
-            browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-
+            if (details.previousVersion !== "1.8") {
+                browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            }
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -119,12 +119,20 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast":
 
             break;
-        case "bg_showRate":
-            //chrome.tabs.create({url:"../popups/updatePopup.html"});
+        case "bg_translate_infoDiv":
+            browser.tabs.create({url:msg.detail});
+            break;
+        case "bg_show_rate":
             browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
             break;
-        case "bg_showShare":
+        case "bg_show_share":
             browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            break;
+        case "bg_show_github":
+            browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
+            break;
+        case "bg_show_bugReport":
+            browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
             break;
         case "appStart":
 
