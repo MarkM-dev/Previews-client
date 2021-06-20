@@ -2010,6 +2010,9 @@ function showSettingsMenu() {
 
         var close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
         close_settings_btn.addEventListener('click', (event) => {
+            settingsContainer.style.width = '800px';
+            settingsContainer.style.height = '600px';
+            settingsContainer.classList.remove('bounceIn');
             settingsContainer.classList.add('zoomOut');
             setTimeout(function (){
                 settingsContainer.parentNode.removeChild(settingsContainer);
@@ -2054,7 +2057,8 @@ function showSettingsMenu() {
         document.body.appendChild(settingsContainer);
 
         setTimeout(function (){
-            settingsContainer.classList.remove('bounceIn');
+            settingsContainer.style.width = '1px';
+            settingsContainer.style.height = '1px';
         }, 700);
 
         chrome.runtime.sendMessage({action: "bg_settings_opened", detail: "settings.html"}, function(response) {
