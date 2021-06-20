@@ -1814,13 +1814,7 @@ function toggleFeatures(isFromTitleObserver) {
         setPvqc();
     }
 }
-let myPort = browser.runtime.connect({name:"port-from-cs"});
-myPort.postMessage({greeting: "hello from content script"});
 
-myPort.onMessage.addListener(function(m) {
-    console.log("In content script, received message from background script: ");
-    console.log(m.greeting);
-});
 browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     if (msg.action === "tp_open_settings") {
