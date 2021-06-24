@@ -173,7 +173,7 @@ function adjustVidPreviewVolScroll(e) {
             if (video.muted) {
                 video.muted = false;
                 setTimeout(function (){
-                    video.volume = 0.1;
+                    video.volume = 0.05;
                 }, 7);
             } else {
                 video.volume += 0.05;
