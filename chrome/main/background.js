@@ -75,7 +75,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.8") {
+            if (details.previousVersion !== "1.8" && details.previousVersion !== "1.9") {
                 chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
             }
 
@@ -164,6 +164,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "updateToast":
             ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
+            break;
+        case "updateToast_settings_btn_click":
+            ga('send', 'event', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
             break;
         case "bg_translate_infoDiv":
             chrome.tabs.create({url:msg.detail});
