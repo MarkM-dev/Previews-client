@@ -154,7 +154,7 @@ function adjustVidPreviewVolClick(e) {
             video.muted = false;
             setTimeout(function (){
                 video.volume = 0.2;
-            }, 10);
+            }, 8);
         } else {
             video.muted = true;
         }
@@ -174,7 +174,7 @@ function adjustVidPreviewVolScroll(e) {
                 video.muted = false;
                 setTimeout(function (){
                     video.volume = 0.1;
-                }, 10);
+                }, 8);
             } else {
                 video.volume += 0.05;
             }
