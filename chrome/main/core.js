@@ -1804,6 +1804,8 @@ function getUpdateToastBody() {
         +  "    </br><span>- The volume button is located under the view count in the sidebar.</span>"
         +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
         +  "    </br><span>- You can also click the button to mute/unmute.</span>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend quickly one after another.</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fix for directory previews where sometimes it wouldn't start previewing.</strong>"
         +  "</div>";
 }
 
