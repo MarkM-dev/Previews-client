@@ -1823,6 +1823,8 @@ function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features! (and fixes)</div>"
         +  "       <div style=\"font-size: 12px;margin-top: 20px;\" ><strong>- A new settings menu!</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Sniper</strong>"
+        +  "    </br><span>- The predictions sniper can vote on predictions for you, check the settings for more info.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Added a volume control button to video preview</strong>"
         +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
         +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
