@@ -206,7 +206,7 @@ function createVidPreviewVolBtn() {
     vidPreviewVolBtn.style.backgroundSize = "contain";
     vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
     vidPreviewVolBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/vidPreviewVolBtn.png') + "')";
-    vidPreviewVolBtn.title = "Click / scroll for preview volume";
+    vidPreviewVolBtn.title = "Click / Scroll for preview volume";
     vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
     vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
 }
