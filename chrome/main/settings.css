@@ -304,7 +304,7 @@
     -moz-appearance: textfield;
 }
 
-#TPBodyEl #tp_popup_feature_predictionsSniper > span input {
+#TPBodyEl #tp_popup_feature_predictionsSniper > span:first-child input {
     display: inline-block;
     background-color: #232323;
     text-align: center;
