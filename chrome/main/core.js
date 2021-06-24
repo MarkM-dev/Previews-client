@@ -1738,6 +1738,10 @@ function setConfirmedToastFlag(clickName, storageFlagName) {
     });
 }
 
+function isOverflown(element) {
+    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+}
+
 function showToast(toast_body, storageFlagName) {
 
     function remove_toast() {
@@ -1794,6 +1798,10 @@ function showToast(toast_body, storageFlagName) {
     };
 
     document.body.appendChild(updateToast);
+
+    if (isOverflown(updateToast)) {
+        updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+    }
 }
 
 function getUpdateToastBody() {
