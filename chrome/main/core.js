@@ -12,7 +12,8 @@ var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
 var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
 var isPipActive = false;
-var navCardPipBtn;
+var navCardPipBtn = null;
+var vidPreviewVolBtn = null;
 var clearOverlaysInterval = null;
 var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
@@ -144,18 +145,95 @@ function setSideNavMutationObserver() {
     });
 }*/
 
+function adjustVidPreviewVolClick(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+    try {
+        var video = twitchIframe.contentDocument.querySelector('video');
+        if (video.muted) {
+            video.muted = false;
+            setTimeout(function (){
+                video.volume = 0.2;
+            }, 10);
+        } else {
+            video.muted = true;
+        }
+    } catch (e) {
+
+    }
+}
+
+function adjustVidPreviewVolScroll(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+    try {
+        var video = twitchIframe.contentDocument.querySelector('video');
+
+        if (e.deltaY < 0) {
+            if (video.muted) {
+                video.muted = false;
+                setTimeout(function (){
+                    video.volume = 0.1;
+                }, 10);
+            } else {
+                video.volume += 0.05;
+            }
+        } else {
+            video.volume -= 0.05;
+        }
+    } catch (e) {
+        
+    }
+}
+
+function removeVidPreviewVolBtn() {
+    var volBtn = document.getElementById("tp_navCard_vpv_btn");
+    if (volBtn) {
+        volBtn.parentElement.removeChild(volBtn);
+    }
+}
+
+function createVidPreviewVolBtn() {
+    if (vidPreviewVolBtn) {
+        return;
+    }
+    vidPreviewVolBtn = document.createElement("div");
+    vidPreviewVolBtn.id = "tp_navCard_vpv_btn";
+    vidPreviewVolBtn.style.width = "21px";
+    vidPreviewVolBtn.style.height = "15px";
+    vidPreviewVolBtn.style.position = "absolute";
+    vidPreviewVolBtn.style.right = "0.8rem";
+    vidPreviewVolBtn.style.backgroundSize = "contain";
+    vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
+    vidPreviewVolBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/vidPreviewVolBtn.png') + "')";
+    vidPreviewVolBtn.title = "click / scroll for preview volume";
+    vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
+    vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
+}
+
 function createPipBtn() {
+    if (navCardPipBtn) {
+        return;
+    }
     navCardPipBtn = document.createElement("div");
     navCardPipBtn.id = "tp_navCard_pip_btn";
     navCardPipBtn.style.width = "21px";
     navCardPipBtn.style.height = "12px";
     navCardPipBtn.style.position = "absolute";
-    navCardPipBtn.style.right = "1rem";
+    navCardPipBtn.style.marginTop = "1px";
+    navCardPipBtn.style.right = "3rem";
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
     navCardPipBtn.title = "Twitch Previews - Picture In Picture";
     navCardPipBtn.onclick = startPip;
+}
+
+function removePipBtn() {
+    var pipBtn = document.getElementById("tp_navCard_pip_btn");
+    if (pipBtn) {
+        pipBtn.parentElement.removeChild(pipBtn);
+    }
 }
 
 function startPip(e) {
@@ -176,7 +254,7 @@ function startPip(e) {
         previewDiv.style.display = 'none';
         previewDiv = null;
         twitchIframe = null;
-        document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+        removePipBtn();
 
         chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
 
@@ -426,6 +504,8 @@ function createAndShowPreview() {
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
+            twitchIframe.allow = "autoplay;";
+           // twitchIframe.autoplay = "true";
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
@@ -438,6 +518,8 @@ function createAndShowPreview() {
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
+            twitchIframe.allow = "autoplay;";
+            //twitchIframe.autoplay = "true";
             twitchIframe.style.display = "none";
             previewDiv.appendChild(twitchIframe);
         }
@@ -634,6 +716,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                         if (isHovering && !options.isImagePreviewMode && !isNavBarCollapsed) {
                             if (lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]')) {
                                 lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
+                                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(vidPreviewVolBtn);
                             }
                         }
                     }
@@ -713,7 +796,8 @@ function setMouseOverListeners(navCardEl) {
                         }
                     },250)
                 }
-                document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+                removePipBtn();
+                removeVidPreviewVolBtn();
             } catch (e) {
 
             }
@@ -1762,6 +1846,11 @@ function toggleFeatures(isFromTitleObserver) {
     }
 
     if (options.isSidebarPreviewsEnabled) {
+        if (!options.isImagePreviewMode) {
+            createVidPreviewVolBtn();
+            createPipBtn();
+        }
+
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
     }
@@ -2097,7 +2186,6 @@ window.addEventListener('load', (event) => {
             function (options){
                 ga_report_appStart();
                 toggleFeatures();
-                createPipBtn();
                 setTimeout(function (){
                     setTitleMutationObserverForDirectoryCardsRefresh();
                 }, 1000);
