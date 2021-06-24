@@ -1,4 +1,4 @@
-![](summ1gx.png)
+![](tp_main.png)
 <br/>
 <br/>
 ## **Twitch Previews**
