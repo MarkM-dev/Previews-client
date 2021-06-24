@@ -55,7 +55,7 @@ browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.8") {
+            if (details.previousVersion !== "1.8" && details.previousVersion !== "1.9") {
                 browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
             }
 

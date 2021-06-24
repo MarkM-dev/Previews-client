@@ -11,8 +11,9 @@ var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
 var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
-var isPipActive = false;
-// var navCardPipBtn;
+//var isPipActive = false;
+//var navCardPipBtn = null;
+var vidPreviewVolBtn = null;
 var clearOverlaysInterval = null;
 var clearVidPlayInterval = null;
 var isLayoutHorizontallyInverted = null;
@@ -144,18 +145,96 @@ function setSideNavMutationObserver() {
     });
 }*/
 
+function adjustVidPreviewVolClick(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+    try {
+        var video = twitchIframe.contentDocument.querySelector('video');
+        if (video.muted) {
+            video.muted = false;
+            setTimeout(function (){
+                video.volume = 0.2;
+            }, 7);
+        } else {
+            video.muted = true;
+        }
+    } catch (e) {
+
+    }
+}
+
+function adjustVidPreviewVolScroll(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+    try {
+        var video = twitchIframe.contentDocument.querySelector('video');
+
+        if (e.deltaY < 0) {
+            if (video.muted) {
+                video.muted = false;
+                setTimeout(function (){
+                    video.volume = 0.05;
+                }, 7);
+            } else {
+                video.volume += 0.05;
+            }
+        } else {
+            video.volume -= 0.05;
+        }
+    } catch (e) {
+
+    }
+}
+
+function removeVidPreviewVolBtn() {
+    var volBtn = document.getElementById("tp_navCard_vpv_btn");
+    if (volBtn) {
+        volBtn.parentElement.removeChild(volBtn);
+    }
+}
+
+function createVidPreviewVolBtn() {
+    if (vidPreviewVolBtn) {
+        return;
+    }
+    vidPreviewVolBtn = document.createElement("div");
+    vidPreviewVolBtn.id = "tp_navCard_vpv_btn";
+    vidPreviewVolBtn.style.width = "21px";
+    vidPreviewVolBtn.style.height = "15px";
+    vidPreviewVolBtn.style.position = "absolute";
+    vidPreviewVolBtn.style.marginTop = "-1px";
+    vidPreviewVolBtn.style.right = "0.5rem";
+    vidPreviewVolBtn.style.backgroundSize = "contain";
+    vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
+    vidPreviewVolBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/vidPreviewVolBtn.png') + "')";
+    vidPreviewVolBtn.title = "Click / Scroll for preview volume";
+    vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
+    vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
+}
+
 /*function createPipBtn() {
+    if (navCardPipBtn) {
+        return;
+    }
     navCardPipBtn = document.createElement("div");
     navCardPipBtn.id = "tp_navCard_pip_btn";
     navCardPipBtn.style.width = "21px";
     navCardPipBtn.style.height = "12px";
     navCardPipBtn.style.position = "absolute";
-    navCardPipBtn.style.right = "1rem";
+    navCardPipBtn.style.marginTop = "1px";
+    navCardPipBtn.style.right = "2.7rem";
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/tpt.png') + "')";
-    navCardPipBtn.title = "Twitch Previews - Picture In Picture";
+    navCardPipBtn.title = "Picture In Picture";
     navCardPipBtn.onclick = startPip;
+}*/
+
+/*function removePipBtn() {
+    var pipBtn = document.getElementById("tp_navCard_pip_btn");
+    if (pipBtn) {
+        pipBtn.parentElement.removeChild(pipBtn);
+    }
 }*/
 
 /*function startPip(e) {
@@ -176,7 +255,7 @@ function setSideNavMutationObserver() {
         previewDiv.style.display = 'none';
         previewDiv = null;
         twitchIframe = null;
-        document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+        removePipBtn();
 
         browser.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
 
@@ -426,6 +505,8 @@ function createAndShowPreview() {
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
+            twitchIframe.allow = "autoplay;";
+           // twitchIframe.autoplay = "true";
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
@@ -438,6 +519,8 @@ function createAndShowPreview() {
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
+            twitchIframe.allow = "autoplay;";
+            //twitchIframe.autoplay = "true";
             twitchIframe.style.display = "none";
             previewDiv.appendChild(twitchIframe);
         }
@@ -631,11 +714,12 @@ function clearOverlays(navCardEl, isFromDirectory) {
                                 intervalCount++;
                             }
                         }
-                       /* if (isHovering && !options.isImagePreviewMode && !isNavBarCollapsed) {
+                        if (isHovering && !options.isImagePreviewMode && !isNavBarCollapsed) {
                             if (lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]')) {
-                                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
+                                //lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
+                                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(vidPreviewVolBtn);
                             }
-                        }*/
+                        }
                     }
                 }
 
@@ -713,7 +797,8 @@ function setMouseOverListeners(navCardEl) {
                         }
                     },250)
                 }
-               // document.getElementById("tp_navCard_pip_btn").parentElement.removeChild(document.getElementById("tp_navCard_pip_btn"));
+                //removePipBtn();
+                removeVidPreviewVolBtn();
             } catch (e) {
 
             }
@@ -888,8 +973,24 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
         if(btn) {
             btn.click();
             isMainPlayerError = false;
+            setTimeout(function (){
+                checkForAutoRefresh();
+            }, 5000);
         } else {
             location.replace(window.location);
+        }
+    }
+}
+
+function checkForAutoRefresh() {
+    var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
+    if (el) {
+        if (['1000', '2000'].some(x => el.innerText.indexOf(x) >= 0)) {
+            if (!document.hidden) {
+                refreshPageOnMainTwitchPlayerError();
+            } else {
+                isMainPlayerError = true;
+            }
         }
     }
 }
@@ -904,16 +1005,7 @@ function listenForPlayerError() {
         t_player.addEventListener('abort', (event) => {
             if (options.isErrRefreshEnabled) {
                 setTimeout(function (){
-                    var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
-                    if (el) {
-                        if (['1000', '2000'].some(x => el.innerText.indexOf(x) >= 0)) {
-                            if (!document.hidden) {
-                                refreshPageOnMainTwitchPlayerError();
-                            } else {
-                                isMainPlayerError = true;
-                            }
-                        }
-                    }
+                    checkForAutoRefresh();
                 },100)
             }
         });
@@ -923,12 +1015,21 @@ function listenForPlayerError() {
     }
 }
 
+function extendSidebarRecommended(sideNavSection) {
+    if(sideNavSection) {
+        if (sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]')) {
+            sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+        }
+    }
+}
+
 function extendSidebar() {
-    if(document.getElementsByClassName('side-nav-section')[0]) {
-        var navCards = getSidebarNavCards(document.getElementsByClassName('side-nav-section')[0]);
-        if (!isNavBarCollapsed) {
+    if (!isNavBarCollapsed) {
+        var sideNavSections = document.getElementsByClassName('side-nav-section');
+        if(sideNavSections[0]) {
+            var navCards = getSidebarNavCards(sideNavSections[0]);
             if (isStreamerOnline(navCards[navCards.length - 1])) {
-                document.getElementsByClassName('side-nav-section')[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+                sideNavSections[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
                 if (timesExtendedSidebar < 10) {
                     timesExtendedSidebar++;
                     setTimeout(function (){
@@ -936,9 +1037,11 @@ function extendSidebar() {
                     },300);
                 } else {
                     timesExtendedSidebar = 0;
+                    extendSidebarRecommended(sideNavSections[1]);
                 }
             } else {
                 timesExtendedSidebar = 0;
+                extendSidebarRecommended(sideNavSections[1]);
             }
         }
     }
@@ -1640,6 +1743,10 @@ function setConfirmedToastFlag(clickName, storageFlagName) {
     });
 }
 
+function isOverflown(element) {
+    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+}
+
 function showToast(toast_body, storageFlagName) {
 
     function remove_toast() {
@@ -1660,6 +1767,7 @@ function showToast(toast_body, storageFlagName) {
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
+        "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >Settings</div>\n" +
         "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
         "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
         "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
@@ -1684,6 +1792,12 @@ function showToast(toast_body, storageFlagName) {
 
         });
     };
+    updateToast.querySelector('#tp_updateToast_settings_btn').onclick = function () {
+        showSettings();
+        browser.runtime.sendMessage({action: "updateToast_settings_btn_click", detail: ""}, function(response) {
+
+        });
+    };
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
             setConfirmedToastFlag('donate_btn', storageFlagName);
@@ -1696,27 +1810,28 @@ function showToast(toast_body, storageFlagName) {
     };
 
     document.body.appendChild(updateToast);
+
+    if (isOverflown(updateToast)) {
+        updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+    } else {
+        updateToast.style.width = "35rem";
+        updateToast.firstChild.style.width = "30rem";
+    }
 }
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
-        +  "                <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
-        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>1. A new settings menu!</strong>"
-        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>2. Fix for directory previews where it wouldn't start when trying to preview for the first stream hover or any after entering a directory</strong>"
-        +  "                <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>3. Predictions Sniper</strong>"
-        +  "</br><span>- The predictions sniper will participate in predictions for you.</span>"
-        +  "</br><span>- Works on twitch tabs in the browser.</span>"
-        +  "</br><span>- The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).</span>"
-        +  "</br><span>- If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.</span>"
-        +  "</br><span>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.</span>"
-        +  "</br></br><span><strong>Predictions sniper settings:</strong></span>"
-        +  "</br><span><strong>- Bet % -</strong> the percentage of channel points you want the sniper to bet.</span>"
-        +  "</br><span><strong>- Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.</span>"
-        +  "</br><span><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.</span>"
-        +  "</br><span><strong>- Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).</span>"
-        +  "</br></br><span>- Remember that this is a statistical tool and wins are not guaranteed.</span>"
-        +  "</br><span>- Turned off by default --> enable in the extension options.</span>"
-        +  "</br></br></br><span><strong>- Note:</strong> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)</span>"
+        +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features! (and fixes)</div>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;\" ><strong>- A new settings menu!</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Sniper</strong>"
+        +  "    </br><span>- The predictions sniper can participate in predictions for you, check the settings for more info.</span>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Added a volume control button to video preview</strong>"
+        +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
+        +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
+        +  "    </br><span>- You can also click the button to mute/unmute.</span>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend quickly one after another.</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fix for directory previews where sometimes it wouldn't start the preview.</strong>"
+        +  "</br></br>"
         +  "</div>";
 }
 
@@ -1766,6 +1881,11 @@ function toggleFeatures(isFromTitleObserver) {
     }
 
     if (options.isSidebarPreviewsEnabled) {
+        if (!options.isImagePreviewMode) {
+            createVidPreviewVolBtn();
+            //createPipBtn();
+        }
+
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
     }
@@ -1784,7 +1904,7 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isSidebarExtendEnabled) {
         try {
-            document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", extendSidebar);
+            document.getElementsByClassName('side-nav-section')[0].parentNode.addEventListener("mouseenter", extendSidebar);
             extendSidebar();
         } catch (e) {
 
@@ -2103,7 +2223,6 @@ window.addEventListener('load', (event) => {
             function (options){
                 ga_report_appStart();
                 toggleFeatures();
-               // createPipBtn();
                 setTimeout(function (){
                     setTitleMutationObserverForDirectoryCardsRefresh();
                 }, 1000);
