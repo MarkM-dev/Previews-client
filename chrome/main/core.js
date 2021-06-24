@@ -1809,19 +1809,23 @@ function showToast(toast_body, storageFlagName) {
 
     if (isOverflown(updateToast)) {
         updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+    } else {
+        updateToast.style.width = "35rem";
+        updateToast.firstChild.style.width = "30rem";
     }
 }
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features! (and fixes)</div>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- A new settings menu!</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;\" ><strong>- A new settings menu!</strong>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Added a volume control button to video preview</strong>"
         +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
         +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
         +  "    </br><span>- You can also click the button to mute/unmute.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend quickly one after another.</strong>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fix for directory previews where sometimes it wouldn't start the preview.</strong>"
+        +  "</br></br>"
         +  "</div>";
 }
 
