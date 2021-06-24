@@ -972,8 +972,24 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
         if(btn) {
             btn.click();
             isMainPlayerError = false;
+            setTimeout(function (){
+                checkForAutoRefresh();
+            }, 5000);
         } else {
             location.replace(window.location);
+        }
+    }
+}
+
+function checkForAutoRefresh() {
+    var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
+    if (el) {
+        if (['1000', '2000', '4000'].some(x => el.innerText.indexOf(x) >= 0)) {
+            if (!document.hidden) {
+                refreshPageOnMainTwitchPlayerError();
+            } else {
+                isMainPlayerError = true;
+            }
         }
     }
 }
@@ -988,16 +1004,7 @@ function listenForPlayerError() {
         t_player.addEventListener('abort', (event) => {
             if (options.isErrRefreshEnabled) {
                 setTimeout(function (){
-                    var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
-                    if (el) {
-                        if (['1000', '2000', '4000'].some(x => el.innerText.indexOf(x) >= 0)) {
-                            if (!document.hidden) {
-                                refreshPageOnMainTwitchPlayerError();
-                            } else {
-                                isMainPlayerError = true;
-                            }
-                        }
-                    }
+                    checkForAutoRefresh();
                 },100)
             }
         });
