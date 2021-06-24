@@ -1762,6 +1762,7 @@ function showToast(toast_body, storageFlagName) {
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
+        "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >Settings</div>\n" +
         "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
         "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
         "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
@@ -1783,6 +1784,12 @@ function showToast(toast_body, storageFlagName) {
         setConfirmedToastFlag('share_btn', storageFlagName);
         remove_toast();
         chrome.runtime.sendMessage({action: "bg_show_share", detail: ""}, function(response) {
+
+        });
+    };
+    updateToast.querySelector('#tp_updateToast_settings_btn').onclick = function () {
+        showSettings();
+        chrome.runtime.sendMessage({action: "updateToast_settings_btn_click", detail: ""}, function(response) {
 
         });
     };
