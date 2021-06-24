@@ -1007,12 +1007,21 @@ function listenForPlayerError() {
     }
 }
 
+function extendSidebarRecommended(sideNavSection) {
+    if(sideNavSection) {
+        if (sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]')) {
+            sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+        }
+    }
+}
+
 function extendSidebar() {
-    if(document.getElementsByClassName('side-nav-section')[0]) {
-        var navCards = getSidebarNavCards(document.getElementsByClassName('side-nav-section')[0]);
-        if (!isNavBarCollapsed) {
+    if (!isNavBarCollapsed) {
+        var sideNavSections = document.getElementsByClassName('side-nav-section');
+        if(sideNavSections[0]) {
+            var navCards = getSidebarNavCards(sideNavSections[0]);
             if (isStreamerOnline(navCards[navCards.length - 1])) {
-                document.getElementsByClassName('side-nav-section')[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+                sideNavSections[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
                 if (timesExtendedSidebar < 10) {
                     timesExtendedSidebar++;
                     setTimeout(function (){
@@ -1020,9 +1029,11 @@ function extendSidebar() {
                     },300);
                 } else {
                     timesExtendedSidebar = 0;
+                    extendSidebarRecommended(sideNavSections[1]);
                 }
             } else {
                 timesExtendedSidebar = 0;
+                extendSidebarRecommended(sideNavSections[1]);
             }
         }
     }
@@ -1858,7 +1869,7 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isSidebarExtendEnabled) {
         try {
-            document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", extendSidebar);
+            document.getElementsByClassName('side-nav-section')[0].parentNode.addEventListener("mouseenter", extendSidebar);
             extendSidebar();
         } catch (e) {
 
