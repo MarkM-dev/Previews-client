@@ -11,8 +11,8 @@ var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
 var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
-var isPipActive = false;
-var navCardPipBtn = null;
+//var isPipActive = false;
+//var navCardPipBtn = null;
 var vidPreviewVolBtn = null;
 var clearOverlaysInterval = null;
 var clearVidPlayInterval = null;
@@ -212,7 +212,7 @@ function createVidPreviewVolBtn() {
     vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
 }
 
-function createPipBtn() {
+/*function createPipBtn() {
     if (navCardPipBtn) {
         return;
     }
@@ -228,16 +228,16 @@ function createPipBtn() {
     navCardPipBtn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/tpt.png') + "')";
     navCardPipBtn.title = "Picture In Picture";
     navCardPipBtn.onclick = startPip;
-}
+}*/
 
-function removePipBtn() {
+/*function removePipBtn() {
     var pipBtn = document.getElementById("tp_navCard_pip_btn");
     if (pipBtn) {
         pipBtn.parentElement.removeChild(pipBtn);
     }
-}
+}*/
 
-function startPip(e) {
+/*function startPip(e) {
     e.preventDefault();
     e.cancelBubble = true;
     try {
@@ -263,7 +263,7 @@ function startPip(e) {
     } catch (e) {
 
     }
-}
+}*/
 
 function getElementOffset(el) {
     var rect = el.getBoundingClientRect(),
@@ -716,7 +716,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                         }
                         if (isHovering && !options.isImagePreviewMode && !isNavBarCollapsed) {
                             if (lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]')) {
-                                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
+                                //lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
                                 lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(vidPreviewVolBtn);
                             }
                         }
@@ -797,7 +797,7 @@ function setMouseOverListeners(navCardEl) {
                         }
                     },250)
                 }
-                removePipBtn();
+                //removePipBtn();
                 removeVidPreviewVolBtn();
             } catch (e) {
 
@@ -1881,7 +1881,7 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSidebarPreviewsEnabled) {
         if (!options.isImagePreviewMode) {
             createVidPreviewVolBtn();
-            createPipBtn();
+            //createPipBtn();
         }
 
         refreshNavCardsListAndListeners();
