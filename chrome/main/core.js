@@ -154,7 +154,7 @@ function adjustVidPreviewVolClick(e) {
             video.muted = false;
             setTimeout(function (){
                 video.volume = 0.2;
-            }, 8);
+            }, 7);
         } else {
             video.muted = true;
         }
@@ -174,7 +174,7 @@ function adjustVidPreviewVolScroll(e) {
                 video.muted = false;
                 setTimeout(function (){
                     video.volume = 0.1;
-                }, 8);
+                }, 7);
             } else {
                 video.volume += 0.05;
             }
@@ -1798,14 +1798,14 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
+        +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features! (and fixes)</div>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- A new settings menu!</strong>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Added a volume control button to video preview</strong>"
-        +  "    </br><span>- The volume button is located under the view count in the sidebar.</span>"
+        +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
         +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
         +  "    </br><span>- You can also click the button to mute/unmute.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend quickly one after another.</strong>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fix for directory previews where sometimes it wouldn't start previewing.</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fix for directory previews where sometimes it wouldn't start the preview.</strong>"
         +  "</div>";
 }
 
