@@ -206,7 +206,7 @@ function createVidPreviewVolBtn() {
     vidPreviewVolBtn.style.backgroundSize = "contain";
     vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
     vidPreviewVolBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/vidPreviewVolBtn.png') + "')";
-    vidPreviewVolBtn.title = "click / scroll for preview volume";
+    vidPreviewVolBtn.title = "Click / scroll for preview volume";
     vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
     vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
 }
@@ -225,7 +225,7 @@ function createPipBtn() {
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
-    navCardPipBtn.title = "Twitch Previews - Picture In Picture";
+    navCardPipBtn.title = "Picture In Picture";
     navCardPipBtn.onclick = startPip;
 }
 
