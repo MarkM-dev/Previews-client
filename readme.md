@@ -30,7 +30,8 @@
 - Auto extend the sidebar to show all live streamers (when sidebar is open).
 - A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
 - Full screen with chat mode.
-- Picture In Picture via the button under the viewcount in the sidebar (when in video mode).
+- Picture In Picture via the button under the view count in the sidebar (when in video mode).
+- Preview volume control via the button under the view count in the sidebar (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
 
