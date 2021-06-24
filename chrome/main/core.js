@@ -202,7 +202,8 @@ function createVidPreviewVolBtn() {
     vidPreviewVolBtn.style.width = "21px";
     vidPreviewVolBtn.style.height = "15px";
     vidPreviewVolBtn.style.position = "absolute";
-    vidPreviewVolBtn.style.right = "0.8rem";
+    vidPreviewVolBtn.style.marginTop = "-1px";
+    vidPreviewVolBtn.style.right = "0.5rem";
     vidPreviewVolBtn.style.backgroundSize = "contain";
     vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
     vidPreviewVolBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/vidPreviewVolBtn.png') + "')";
@@ -221,7 +222,7 @@ function createPipBtn() {
     navCardPipBtn.style.height = "12px";
     navCardPipBtn.style.position = "absolute";
     navCardPipBtn.style.marginTop = "1px";
-    navCardPipBtn.style.right = "3rem";
+    navCardPipBtn.style.right = "2.5rem";
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
