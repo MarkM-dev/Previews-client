@@ -25,6 +25,7 @@ var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
 var APS_awaiting_to_place_bet_streamName = false;
+var APS_didnt_vote_reason_margin_percent = null;
 var predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
@@ -1196,7 +1197,28 @@ function getPredictionBtn() {
 }
 
 function checkForPredictions() {
-    var btn = getPredictionBtn();
+    var btn_arr = document.querySelectorAll('button[data-test-selector="community-prediction-highlight-header__action-button"]');
+    var btn;
+    var details_btn;
+    if(btn_arr.length > 0) {
+        for (var i = 0; i < btn_arr.length; i++) {
+            if (predict_langs[btn_arr[i].innerText]) {
+                btn = btn_arr[i];
+                break;
+            } else {
+                if (!details_btn) {
+                    if (see_details_langs[btn_arr[i].innerText]) {
+                        details_btn = btn_arr[i];
+                    }
+                }
+            }
+        }
+        var isPredictBtn = !!btn;
+        btn = btn || details_btn;
+        details_btn = null;
+    }
+
+
     if(btn) {
         if (document.querySelector('.toggle-visibility__right-column--expanded')) {
             if (!options.isPvqcEnabled && !document.hidden) {
@@ -1228,8 +1250,7 @@ function checkForPredictions() {
         }
 
 
-        if (predict_langs[btn.innerText]) {
-
+        if (isPredictBtn) {
             if (elements) {
                 for (let i = 0; i < elements.length; i++) {
                     prediction_text += elements[i].innerText.replace(/^ /, '');
@@ -1267,43 +1288,46 @@ function checkForPredictions() {
                 }
             }
         } else {
-            if (see_details_langs[btn.innerText]) {
+            if (elements) {
+                prediction_text = elements[0].innerText.replace(/^ /, '');
+            }
 
-                if (elements) {
-                    prediction_text = elements[0].innerText.replace(/^ /, '');
-                }
-
-                if (options.isPredictionsSniperEnabled) {
-                    getPredictionsSniperResults().then(function (res){
-                        if (options.isPredictionsNotificationsEnabled) {
-
-                            var extraText = '';
-                            if (APS_awaiting_to_place_bet_streamName === curr_streamer) {
-                                extraText = '\nPrediction closed before the sniper could vote';
-                                APS_awaiting_to_place_bet_streamName = null;
-                            }
-
-                            switch(res.prediction_status) {
-                                case "ended":
-                                    showNotification(curr_streamer + ": " + "Prediction Ended", (res.prediction_question_answer_str ? res.prediction_question_answer_str : prediction_text) + "\n" + res.text1, curr_streamer_img_url);
-                                   // showNotification(curr_streamer + ": " + "Prediction Ended", prediction_text + "\n" + res.text1, curr_streamer_img_url);
-                                    break;
-                                case "closed":
-                                    showNotification(curr_streamer + ": " + "Prediction Closed", (res.prediction_title_and_options_str ? res.prediction_title_and_options_str : prediction_text) + "\n" + res.text1 + extraText, curr_streamer_img_url);
-                                    break;
-                                case "unknown":
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
-                                    break;
-                                default:
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
-                                    break;
-                            }
-                        }
-                    });
-                } else {
+            if (options.isPredictionsSniperEnabled) {
+                getPredictionsSniperResults().then(function (res){
                     if (options.isPredictionsNotificationsEnabled) {
-                        showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
+
+                        var extraText = '';
+                        if (APS_awaiting_to_place_bet_streamName === curr_streamer) {
+                            extraText = '\nPrediction closed before the sniper could vote';
+                            APS_awaiting_to_place_bet_streamName = null;
+                        }
+
+                        if (APS_didnt_vote_reason_margin_percent) {
+                            extraText = "\nSniper didn't vote: vote margin was too low: " + APS_didnt_vote_reason_margin_percent;
+                            APS_didnt_vote_reason_margin_percent = null;
+                        }
+
+
+                        switch(res.prediction_status) {
+                            case "ended":
+                                showNotification(curr_streamer + ": " + "Prediction Ended", (res.prediction_question_answer_str ? res.prediction_question_answer_str : prediction_text) + "\n" + res.text1, curr_streamer_img_url);
+                               // showNotification(curr_streamer + ": " + "Prediction Ended", prediction_text + "\n" + res.text1, curr_streamer_img_url);
+                                break;
+                            case "closed":
+                                showNotification(curr_streamer + ": " + "Prediction Closed", (res.prediction_title_and_options_str ? res.prediction_title_and_options_str : prediction_text) + "\n" + res.text1 + extraText, curr_streamer_img_url);
+                                break;
+                            case "unknown":
+                                showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
+                                break;
+                            default:
+                                showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
+                                break;
+                        }
                     }
+                });
+            } else {
+                if (options.isPredictionsNotificationsEnabled) {
+                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
                 }
             }
         }
@@ -1592,6 +1616,7 @@ function initAutoPredictionsSniper() {
                                             }
                                             if (vote_margin_percent < options.aps_min_vote_margin_percent) {
                                                 console.log(new Date().toLocaleString() + "\nAPS:\nvote_margin_percent too low: " + vote_margin_percent + "%\nmin_vote_margin_percent: " + options.aps_min_vote_margin_percent + "%");
+                                                APS_didnt_vote_reason_margin_percent = vote_margin_percent + "%";
                                                 closePopoutMenu();
                                                 return;
                                             }
