@@ -170,6 +170,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast_settings_btn_click":
             ga('send', 'event', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
             break;
+        case "updateToast_settings_top_btn_click":
+            ga('send', 'event', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click');
+            break;
         case "bg_translate_infoDiv":
             chrome.tabs.create({url:msg.detail});
             ga('send', 'event', 'settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
