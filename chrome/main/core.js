@@ -1898,13 +1898,14 @@ function showToast(toast_body, storageFlagName) {
     };
 
     document.body.appendChild(updateToast);
-
-    if (isOverflown(updateToast)) {
-        updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
-    } else {
-        updateToast.style.width = "35rem";
-        updateToast.firstChild.style.width = "30rem";
-    }
+    setTimeout(function (){
+        if (isOverflown(updateToast)) {
+            updateToast.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+        } else {
+            updateToast.style.width = "35rem";
+            updateToast.firstChild.style.width = "30rem";
+        }
+    }, 500);
 }
 
 function getUpdateToastBody() {
