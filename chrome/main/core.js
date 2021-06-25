@@ -994,6 +994,8 @@ function checkForAutoRefresh() {
                 isMainPlayerError = true;
             }
         }
+    } else {
+        listenForPlayerError();
     }
 }
 
