@@ -79,7 +79,11 @@
                     <br>- When enabling the feature, you will need to allow notification permissions for Twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
                 </div>
 
-                <p id="tp_popup_feature_predictionsSniper" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;">Predictions sniper <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;">Bet: <input id="TP_popup_aps_percent_input" type="number"> % of points <br>Min vote margin:  <input id="TP_popup_aps_min_vote_margin_percent_input" type="number"> %<br><input id="TP_popup_aps_secondsBefore_input" type="number"> seconds or less before voting closes</span></span> <span class="tp_settings_cb_container" style="align-self: flex-start;" ><input id="TP_popup_predictions_sniper_checkbox" class="apple-switch" type="checkbox" style="align-self: auto;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <p id="tp_popup_feature_predictionsSniper" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;">Predictions sniper
+                    <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;">Bet: <input id="TP_popup_aps_percent_input" type="number"> % of points (Max <input id="TP_popup_aps_max_points_input" style="width: 60px;" type="number"> points)
+                    <br>Min vote margin:  <input id="TP_popup_aps_min_vote_margin_percent_input" type="number"> %
+                    <br><input id="TP_popup_aps_secondsBefore_input" type="number"> seconds or less before voting closes</span>
+                </span> <span class="tp_settings_cb_container" style="align-self: flex-start;" ><input id="TP_popup_predictions_sniper_checkbox" class="apple-switch" type="checkbox" style="align-self: auto;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
                     <strong>* Predictions Sniper</strong>
@@ -90,6 +94,7 @@
                     <br>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
                     <br><strong>Settings:</strong>
                     <br><strong>Bet % -</strong> the percentage of channel points you want the sniper to bet.
+                    <br><strong>Max num of points -</strong> the maximum amount of points the sniper is allowed to vote with.
                     <br><strong>Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
                     <br><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the Min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.
                     <br><strong>Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (minimum 2s).

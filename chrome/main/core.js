@@ -1600,8 +1600,12 @@ function initAutoPredictionsSniper() {
 
                                             // input number to predict with % of total points
                                             var prediction_bet_amount = Math.floor((options.aps_percent / 100) * totalChannelPointNum);
+
                                             if (prediction_bet_amount === 0) {
                                                 prediction_bet_amount = 1;
+                                            }
+                                            if (prediction_bet_amount > options.aps_max_points) {
+                                                prediction_bet_amount = options.aps_max_points;
                                             }
 
                                             console.log(new Date().toLocaleString() +
@@ -1886,7 +1890,9 @@ function getUpdateToastBody() {
         +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
         +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
         +  "    </br><span>- You can also click the button to mute/unmute.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Notification & Sniper</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Sniper</strong>"
+        +  "    </br><span>- Added setting: Maximum amount of points the sniper is allowed to vote with.</span>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Notification</strong>"
         +  "    </br><span>- Predictions notifications text is now more accurate.</span>"
         +  "    </br><span>- Added a notification when sniper votes on a prediction.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend one after another in a short period of time.</strong>"
@@ -2220,6 +2226,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
         initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
+        initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
         initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
         initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
 
