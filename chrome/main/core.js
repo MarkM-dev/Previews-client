@@ -977,7 +977,7 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
             isMainPlayerError = false;
             setTimeout(function (){
                 checkForAutoRefresh();
-            }, 5000);
+            }, 10000);
         } else {
             location.replace(window.location);
         }
