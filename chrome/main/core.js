@@ -1017,7 +1017,7 @@ function listenForPlayerError() {
     }
 }
 
-function extendSidebarRecommended(sideNavSection) {
+function extendSidebarSection(sideNavSection) {
     if(sideNavSection) {
         if (sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]')) {
             sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]').click();
@@ -1031,19 +1031,21 @@ function extendSidebar() {
         if(sideNavSections[0]) {
             var navCards = getSidebarNavCards(sideNavSections[0]);
             if (isStreamerOnline(navCards[navCards.length - 1])) {
-                sideNavSections[0].querySelector('button[data-a-target="side-nav-show-more-button"]').click();
-                if (timesExtendedSidebar < 10) {
+                extendSidebarSection(sideNavSections[0]);
+                if (timesExtendedSidebar < 15) {
                     timesExtendedSidebar++;
                     setTimeout(function (){
-                        extendSidebar();
+                        extendSidebarSection(sideNavSections[0]);
                     },300);
                 } else {
                     timesExtendedSidebar = 0;
-                    extendSidebarRecommended(sideNavSections[1]);
+                    extendSidebarSection(sideNavSections[1]);
+                    extendSidebarSection(sideNavSections[2]);
                 }
             } else {
                 timesExtendedSidebar = 0;
-                extendSidebarRecommended(sideNavSections[1]);
+                extendSidebarSection(sideNavSections[1]);
+                extendSidebarSection(sideNavSections[2]);
             }
         }
     }
