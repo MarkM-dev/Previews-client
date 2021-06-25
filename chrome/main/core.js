@@ -1892,7 +1892,7 @@ function getUpdateToastBody() {
         +  "    </br><span>- You can also click the button to mute/unmute.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Sniper</strong>"
         +  "    </br><span>- Added setting: Maximum amount of points the sniper is allowed to vote with.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Notification</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Notifications</strong>"
         +  "    </br><span>- Predictions notifications text is now more accurate.</span>"
         +  "    </br><span>- Added a notification when sniper votes on a prediction.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend one after another in a short period of time.</strong>"
