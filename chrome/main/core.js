@@ -1292,17 +1292,17 @@ function checkForPredictions() {
                                     showNotification(curr_streamer + ": " + "Prediction Closed", (res.prediction_title_and_options_str ? res.prediction_title_and_options_str : prediction_text) + "\n" + res.text1 + extraText, curr_streamer_img_url);
                                     break;
                                 case "unknown":
-                                    showNotification(curr_streamer + ": " + "Prediction Closed/Ended", prediction_text + extraText, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
                                     break;
                                 default:
-                                    showNotification(curr_streamer + ": " + "Prediction Closed/Ended", prediction_text + extraText, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
                                     break;
                             }
                         }
                     });
                 } else {
                     if (options.isPredictionsNotificationsEnabled) {
-                        showNotification(curr_streamer + ": " + "Prediction Closed/Ended", prediction_text, curr_streamer_img_url);
+                        showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
                     }
                 }
             }
@@ -1892,6 +1892,7 @@ function getUpdateToastBody() {
         +  "    </br><span>- You can also click the button to mute/unmute.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Sniper</strong>"
         +  "    </br><span>- Added setting: Maximum amount of points the sniper is allowed to vote with.</span>"
+        +  "    </br><span>- The sniper can now handle fast predictions correctly.</span>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Notifications</strong>"
         +  "    </br><span>- Predictions notifications text is now more accurate.</span>"
         +  "    </br><span>- Added a notification when sniper votes on a prediction.</span>"
