@@ -1377,7 +1377,7 @@ function getChannelPointsNum() {
                     } else {
                         resolve(null);
                     }
-                }, 450);
+                }, 500);
             }
         }, 450);
     })
@@ -1554,6 +1554,7 @@ function initAutoPredictionsSniper() {
                         predictionSniperTimeout = setTimeout(function () {
                             // execute prediction sniper
                             APS_awaiting_to_place_bet_streamName = null;
+                            APS_didnt_vote_reason_margin_percent = null;
                             if (options.aps_percent === 0) {
                                 return;
                             }
@@ -1886,6 +1887,14 @@ function showToast(toast_body, storageFlagName) {
 
         });
     };
+
+    updateToast.querySelector('#tp_updateToast_settings_top_btn').onclick = function () {
+        showSettings();
+        chrome.runtime.sendMessage({action: "updateToast_settings_top_btn_click", detail: ""}, function(response) {
+
+        });
+    };
+
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
             setConfirmedToastFlag('donate_btn', storageFlagName);
@@ -1905,13 +1914,13 @@ function showToast(toast_body, storageFlagName) {
             updateToast.style.width = "35rem";
             updateToast.firstChild.style.width = "30rem";
         }
-    }, 500);
+    }, 1000);
 }
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features! (and fixes)</div>"
-        +  "       <div style=\"font-size: 12px;margin-top: 20px;\" ><strong>- A new settings menu!</strong>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;\" ><strong>- A new <span id='tp_updateToast_settings_top_btn' style='border-bottom: 1px dashed white;cursor: pointer;' >settings menu</span>!</strong>"
         +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Added a volume control button to video preview</strong>"
         +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
         +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
