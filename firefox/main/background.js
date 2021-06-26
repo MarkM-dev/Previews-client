@@ -18,6 +18,7 @@ var options = {
     isPredictionsNotificationsEnabled: false,
     isPredictionsSniperEnabled: false,
     aps_percent: 0.1,
+    aps_max_points: 10000,
     aps_secondsBefore: 10,
     aps_min_vote_margin_percent: 15
 };
@@ -55,9 +56,7 @@ browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.8" && details.previousVersion !== "1.9") {
-                browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            }
+            browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});

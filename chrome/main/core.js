@@ -1181,21 +1181,6 @@ function showNotification(title, body, icon, dont_send_PN_SHOW_event) {
     }
 }
 
-function getPredictionBtn() {
-    var btn_arr = document.querySelectorAll('button[data-test-selector="community-prediction-highlight-header__action-button"]');
-
-    if(btn_arr.length > 0) {
-        for (let i = 0; i < btn_arr.length; i++) {
-            if (predict_langs[btn_arr[i].innerText]) {
-                return btn_arr[i];
-            }
-        }
-        return btn_arr[0];
-    } else {
-        return null;
-    }
-}
-
 function checkForPredictions() {
     var btn_arr = document.querySelectorAll('button[data-test-selector="community-prediction-highlight-header__action-button"]');
     var btn;
