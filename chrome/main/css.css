@@ -590,6 +590,7 @@
 .tp_update_toast::-webkit-scrollbar {
     background-color: #9c60ff;
     width: 12px;
+    border-radius: 5px;
 }
 
 .tp_update_toast::-webkit-scrollbar-track {

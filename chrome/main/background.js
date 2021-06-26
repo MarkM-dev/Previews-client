@@ -26,6 +26,7 @@ var options = {
     isPredictionsNotificationsEnabled: false,
     isPredictionsSniperEnabled: false,
     aps_percent: 0.1,
+    aps_max_points: 10000,
     aps_secondsBefore: 10,
     aps_min_vote_margin_percent: 15
 };
@@ -75,9 +76,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.8" && details.previousVersion !== "1.9") {
-                chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            }
+            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -141,6 +140,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_aps_percent":
             ga('send', 'event', 'APS_percent', 'change', msg.detail  + "%");
             break;
+        case "bg_update_aps_max_points":
+            ga('send', 'event', 'APS_max_points', 'change', msg.detail);
+            break;
         case "bg_update_aps_min_vote_margin_percent":
             ga('send', 'event', 'APS_margin', 'change', msg.detail  + "%");
             break;
@@ -167,6 +169,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "updateToast_settings_btn_click":
             ga('send', 'event', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
+            break;
+        case "updateToast_settings_top_btn_click":
+            ga('send', 'event', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click');
             break;
         case "bg_translate_infoDiv":
             chrome.tabs.create({url:msg.detail});
