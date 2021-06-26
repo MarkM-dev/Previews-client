@@ -1617,7 +1617,7 @@ function initAutoPredictionsSniper() {
                                             }
                                             if (vote_margin_percent < options.aps_min_vote_margin_percent) {
                                                 console.log(new Date().toLocaleString() + "\nAPS:\nvote_margin_percent too low: " + vote_margin_percent + "%\nmin_vote_margin_percent: " + options.aps_min_vote_margin_percent + "%");
-                                                APS_didnt_vote_reason_margin_percent = vote_margin_percent + "%";
+                                                APS_didnt_vote_reason_margin_percent = vote_margin_percent.toFixed(2) + "%";
                                                 closePopoutMenu();
                                                 return;
                                             }
