@@ -77,9 +77,8 @@
 
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
-    - Notes on behavior with other features:
-    - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).
-    - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
+    - This feature will prevent 99% of Twitch player errors (#1000, #2000).
+    - This feature will also prevent that small video stutter when switching back to the Twitch tab.
       <br/><br/>
       
 
@@ -97,7 +96,9 @@
     - If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
     - You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
     - If there is already a bet made on the prediction, the sniper will not add more points.
-    - Settings:
+    - To change Sniper settings for individual streams, click the Sniper settings button under the chat.
+      <br/><br/>
+    - Default Settings:
         - Bet % - the percentage of channel points you want the sniper to bet.
         - Max num of points - the maximum amount of points the sniper is allowed to vote with.
         - Min vote margin % - a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
