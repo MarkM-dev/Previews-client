@@ -94,7 +94,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+          //  chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -175,6 +175,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_settings_opened":
             ga('send', 'event', 'settings_opened', 'settings.html', 'settings.html');
+            break;
+            case "bg_APS_settings_opened":
+            ga('send', 'event', 'APS_settings_opened', 'APS_settings.html', 'APS_settings.html');
             break;
         case "bg_pip_started":
             ga('send', 'event', 'pip_started', 'pip_started', 'pip_started');
