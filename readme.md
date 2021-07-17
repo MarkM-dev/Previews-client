@@ -78,7 +78,7 @@
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
     - This feature will prevent 99% of Twitch player errors (#1000, #2000).
-    - This feature will also prevent that small video stutter when switching back to the Twitch tab.
+    - This feature will also prevent that video hang when switching back to the Twitch tab after it was in the background for a while.
       <br/><br/>
       
 
