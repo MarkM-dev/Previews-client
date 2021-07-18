@@ -490,25 +490,29 @@ function createAndShowLoadingSpinnerForSideNav() {
 }
 
 function setSelfThumbnailPreviewListeners() {
-    document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseenter", function() {
-        if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
-            return;
-        }
-        var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
-        selfPreviewDiv.style.width = "440px";
-        selfPreviewDiv.style.height = "248px";
-        selfPreviewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
-        selfPreviewDiv.style.marginTop = "6rem";
-        selfPreviewDiv.style.right = "5rem";
-        selfPreviewDiv.style.display = "block";
-        selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
+    try {
+        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseenter", function() {
+            if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
+                return;
+            }
+            var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
+            selfPreviewDiv.style.width = "440px";
+            selfPreviewDiv.style.height = "248px";
+            selfPreviewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+            selfPreviewDiv.style.marginTop = "6rem";
+            selfPreviewDiv.style.right = "5rem";
+            selfPreviewDiv.style.display = "block";
+            selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
 
-        appendContainer.appendChild(selfPreviewDiv);
-    });
+            appendContainer.appendChild(selfPreviewDiv);
+        });
 
-    document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseleave", function() {
-        clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
-    });
+        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseleave", function() {
+            clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+        });
+    } catch (e) {
+
+    }
 }
 
 function createAndShowPreview() {
@@ -2357,7 +2361,9 @@ function toggleFeatures(isFromTitleObserver) {
     }
 
     if (options.isSelfPreviewEnabled) {
-        setSelfThumbnailPreviewListeners();
+        setTimeout(function (){
+            setSelfThumbnailPreviewListeners();
+        }, 2500);
     }
 }
 
