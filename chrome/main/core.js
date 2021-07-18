@@ -26,6 +26,7 @@ var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
 var APS_awaiting_to_place_bet_streamName = false;
 var APS_didnt_vote_reason_margin_percent = null;
+var predictionsNotificationsWorker;
 var predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
@@ -1205,6 +1206,7 @@ function checkForPredictions(should_bet_now) {
 
 
     if(btn) {
+
         /*if (document.querySelector('.toggle-visibility__right-column--expanded')) {
             if (!options.isPvqcEnabled && !document.hidden) {
                 last_prediction_streamer = getCurrentStreamerName();
@@ -1729,12 +1731,40 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
 }
 
 function setPredictionsNotifications() {
-    if (!predictionsNotificationsInterval) {
+    if (!predictionsNotificationsWorker) {
+        function worker_function() {
+            var timer;
+            self.onmessage = function(event) {
+                if (event.data === "start_predictions_timer") {
+                    timer = setInterval(function() {
+                        postMessage('worker-predictions-tick');
+                    }, 15100);
+                    postMessage('worker-started');
+                }
+            };
+        }
+
+        if(window !== self) {
+            worker_function();
+        }
+
+        checkForPredictions();
+        predictionsNotificationsWorker = new Worker(URL.createObjectURL(new Blob(["("+worker_function.toString()+")()"], {type: 'text/javascript'})));
+        predictionsNotificationsWorker.onmessage = function(event) {
+            if (event.data === "worker-predictions-tick") {
+                checkForPredictions();
+            }
+        };
+        predictionsNotificationsWorker.postMessage("start_predictions_timer");
+    }
+
+
+    /*if (!predictionsNotificationsInterval) {
         checkForPredictions();
         predictionsNotificationsInterval = setInterval(function() {
             checkForPredictions();
         }, 15100);
-    }
+    }*/
 }
 
 function toggleBrowserFullScreen(elem) {
