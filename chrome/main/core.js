@@ -491,20 +491,23 @@ function createAndShowLoadingSpinnerForSideNav() {
 
 function setSelfThumbnailPreviewListeners() {
     document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseenter", function() {
-        previewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
-        previewDiv.style.width = "440px";
-        previewDiv.style.height = "248px";
-        previewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
-        previewDiv.style.marginTop = "6rem";
-        previewDiv.style.right = "5rem";
-        previewDiv.style.display = "block";
-        previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
+        if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
+            return;
+        }
+        var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
+        selfPreviewDiv.style.width = "440px";
+        selfPreviewDiv.style.height = "248px";
+        selfPreviewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+        selfPreviewDiv.style.marginTop = "6rem";
+        selfPreviewDiv.style.right = "5rem";
+        selfPreviewDiv.style.display = "block";
+        selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
 
-        appendContainer.appendChild(previewDiv);
+        appendContainer.appendChild(selfPreviewDiv);
     });
 
     document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseleave", function() {
-        clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME);
+        clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
     });
 }
 
@@ -954,7 +957,7 @@ function setChannelPointsClickerListeners() {
 }
 
 function clearExistingPreviewDivs(className, isFromPip) {
-    var previewDivs = document.getElementsByClassName(className);
+    var previewDivs = document.querySelectorAll('.' + className);
     for (var i = 0; i < previewDivs.length; i++) {
         if (previewDivs[i]) {
             previewDivs[i].parentNode.removeChild(previewDivs[i]);
