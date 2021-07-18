@@ -1856,7 +1856,7 @@ function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stre
                         aps_percent: options.aps_percent,
                         aps_max_points: options.aps_max_points,
                         aps_secondsBefore: options.aps_secondsBefore,
-                        aps_min_vote_margin_percent: options.aps_secondsBefore
+                        aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
                     }
                 };
                 aps_streams_settings_obj[streamName][featureName] = newVal;
@@ -1874,7 +1874,7 @@ function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stre
                         aps_percent: options.aps_percent,
                         aps_max_points: options.aps_max_points,
                         aps_secondsBefore: options.aps_secondsBefore,
-                        aps_min_vote_margin_percent: options.aps_secondsBefore
+                        aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
                     }
                     res.aps_streams_settings_obj[streamName][featureName] = newVal;
                     chrome.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
@@ -2321,11 +2321,11 @@ function initSettingsInfoBtn(settingsContainer, checkboxID) {
         infoBtn.src = chrome.runtime.getURL('images/expand.png');
         infoBtn.addEventListener('click', (event) => {
             var infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
-            if (infoDiv.style.maxHeight === "350px") {
+            if (infoDiv.style.maxHeight === "415px") {
                 infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
                 infoBtn.style.transform = "rotate(0deg)";
             } else {
-                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "350px";
+                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "415px";
                 infoBtn.style.transform = "rotate(180deg)";
             }
         });

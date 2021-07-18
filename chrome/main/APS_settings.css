@@ -142,15 +142,15 @@
 
 .tp-aps-settings-bet-now-active-btn {
     cursor: pointer !important;
-    background-color: #772ce8 !important;
+    background-color: #9147ff !important;
     color: white !important;
 }
 .tp-aps-settings-bet-now-active-btn:hover {
-    background-color: #9147ff !important;
+    background-color: #a66bff !important;
 }
 
 .tp-aps-settings-bet-now-active-btn:active {
-    background-color: #772ce8 !important;
+    background-color: #9147ff !important;
 }
 
 .tp-aps-settings-cancel-bet-active-btn {
