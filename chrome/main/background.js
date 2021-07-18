@@ -122,7 +122,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
             break;
         case "bg_update_isSelfPreviewEnabled":
-            ga('send', 'event', 'self_preview_mode', 'change', msg.detail ? "SP_ON":"SP_OFF");
+            ga('send', 'event', 'selfPreview_mode', 'change', msg.detail ? "SP_ON":"SP_OFF");
             break;
         case "bg_update_isChannelPointsClickerEnabled":
             ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
