@@ -2237,13 +2237,17 @@ function showToast(toast_body, storageFlagName) {
 }
 
 function getUpdateToastBody() {
-    return "   <div style=\"font-weight: bold;font-size: 15px;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 13px;margin-top: 20px;\" ><strong>- Improved reliabilty of the predictions features.</strong></div>"
-        +  "       <div style=\"font-size: 13px;margin-top: 10px;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
-        +  "    <span style=\"font-size: 12px;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
-        +  "    </br><span style=\"font-size: 12px;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check / Re-enable</strong> according to the sniper's current status.</span>"
-        +  "    </br><span style=\"font-size: 12px;\" >- You can also move the menu up and down if you want to see live stats from Twitch's predictions menu while the Sniper menu is open.</span>"
+    return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
+        +  "       <div style=\"font-size: 14px;margin-top: 20px;color: white;\" ><strong>- For Streamers:</strong> "
+        +  "             <br><span style=\"font-size: 12px;font-weight: bold;color: whitesmoke;\" >- See your own live stream thumbnail</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the profile icon at the top right.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- To enable it, fill in your stream's name in the text box in the settings and enable the feature's toggle switch.</span>"
+        +  "        </div>"
+        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
+        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
+        +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
+        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check / Re-enable</strong> according to the sniper's current status.</span>"
         +  "    </br></br>"
 }
 
