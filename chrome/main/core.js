@@ -1883,6 +1883,9 @@ function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stre
                 }
             }
         });
+        chrome.runtime.sendMessage({action: "bg_APS_settings_menu_update_" + featureName, detail: newVal}, function(response) {
+
+        });
     })
 }
 
@@ -1942,6 +1945,9 @@ function create_and_show_APS_settings_menu() {
                 last_prediction_streamer = "";
                 toggle_APS_settings_menu();
                 checkForPredictions(true);
+                chrome.runtime.sendMessage({action: "bg_APS_settings_menu_vote_now_btn_click", detail: ""}, function(response) {
+
+                });
             }
         });
 
@@ -1949,6 +1955,9 @@ function create_and_show_APS_settings_menu() {
         cancel_current_bet_btn.addEventListener('click', (event) => {
             if (predictionSniperTimeout) {
                 clearPredictionStatus();
+                chrome.runtime.sendMessage({action: "bg_APS_settings_menu_cancel_upcoming_vote_btn_click", detail: ""}, function(response) {
+
+                });
             } else {
                 last_prediction_streamer = "";
                 checkForPredictions();
@@ -1960,6 +1969,9 @@ function create_and_show_APS_settings_menu() {
                         set_APS_settings_btn_icon_and_title('idle');
                     }
                 }, 1500);
+                chrome.runtime.sendMessage({action: "bg_APS_settings_menu_check_prediction_btn_click", detail: ""}, function(response) {
+
+                });
             }
         });
 
@@ -1997,13 +2009,9 @@ function create_and_show_APS_settings_menu() {
         settingsContainer.querySelector('#tp_APS_settings_menu').classList.add('animated');
         settingsContainer.querySelector('#tp_APS_settings_menu').classList.add('slideInUp');
         document.getElementsByClassName('chat-input__buttons-container')[0].appendChild(settingsContainer);
-        chrome.runtime.sendMessage({action: "bg_APS_settings_opened", detail: "APS_settings.html"}, function(response) {
+        chrome.runtime.sendMessage({action: "bg_APS_settings_menu_opened", detail: "APS_settings.html"}, function(response) {
 
         });
-        setTimeout(function (){
-
-        }, 700);
-
     };
     xhr.send();
 }

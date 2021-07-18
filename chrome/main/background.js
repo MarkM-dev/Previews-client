@@ -176,8 +176,29 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_settings_opened":
             ga('send', 'event', 'settings_opened', 'settings.html', 'settings.html');
             break;
-            case "bg_APS_settings_opened":
+        case "bg_APS_settings_menu_opened":
             ga('send', 'event', 'APS_settings_opened', 'APS_settings.html', 'APS_settings.html');
+            break;
+        case "bg_APS_settings_menu_vote_now_btn_click":
+            ga('send', 'event', 'APS_s_vote_now_btn_click', 'APS_s_vote_now_btn_click', 'APS_s_vote_now_btn_click');
+            break;
+        case "bg_APS_settings_menu_cancel_upcoming_vote_btn_click":
+            ga('send', 'event', 'APS_s_cancel_vote_btn_click', 'APS_s_cancel_vote_btn_click', 'APS_s_cancel_vote_btn_click');
+            break;
+        case "bg_APS_settings_menu_check_prediction_btn_click":
+            ga('send', 'event', 'APS_s_check_prediction_btn_click', 'APS_s_check_prediction_btn_click', 'APS_s_check_prediction_btn_click');
+            break;
+        case "bg_APS_settings_menu_update_aps_percent":
+            ga('send', 'event', 'APS_s_percent', 'change', msg.detail  + "%");
+            break;
+        case "bg_APS_settings_menu_update_aps_max_points":
+            ga('send', 'event', 'APS_s_max_points', 'change', msg.detail);
+            break;
+        case "bg_APS_settings_menu_update_aps_min_vote_margin_percent":
+            ga('send', 'event', 'APS_s_margin', 'change', msg.detail  + "%");
+            break;
+        case "bg_APS_settings_menu_update_aps_secondsBefore":
+            ga('send', 'event', 'APS_s_secondsBefore', 'change', msg.detail + "s");
             break;
         case "bg_pip_started":
             ga('send', 'event', 'pip_started', 'pip_started', 'pip_started');
