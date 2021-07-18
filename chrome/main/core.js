@@ -10,6 +10,7 @@ var twitchIframe;
 var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
+var TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
 var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
 var isPipActive = false;
 var navCardPipBtn = null;
@@ -488,6 +489,25 @@ function createAndShowLoadingSpinnerForSideNav() {
     }
 }
 
+function setSelfThumbnailPreviewListeners() {
+    document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseenter", function() {
+        previewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
+        previewDiv.style.width = "440px";
+        previewDiv.style.height = "248px";
+        previewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+        previewDiv.style.marginTop = "6rem";
+        previewDiv.style.right = "5rem";
+        previewDiv.style.display = "block";
+        previewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
+
+        appendContainer.appendChild(previewDiv);
+    });
+
+    document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseleave", function() {
+        clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME);
+    });
+}
+
 function createAndShowPreview() {
     previewDiv = createPreviewDiv(TP_PREVIEW_DIV_CLASSNAME);
     previewDiv.style.width = options.PREVIEWDIV_WIDTH + "px";
@@ -959,8 +979,9 @@ function ga_report_appStart() {
     var isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
     var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
     var predictionsSniper = options.isPredictionsSniperEnabled ? "APS_ON" : "APS_OFF";
+    var selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
 
-    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper}, function(response) {
+    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview}, function(response) {
 
     });
 }
@@ -2327,6 +2348,10 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isPvqcEnabled) {
         setPvqc();
     }
+
+    if (options.isSelfPreviewEnabled) {
+        setSelfThumbnailPreviewListeners();
+    }
 }
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -2402,6 +2427,15 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
         initSettingsInfoBtn(settingsContainer, checkboxID);
         initTranslateInfoDivBtn(settingsContainer, checkboxID);
     }
+}
+
+function initTextInputValue(settingsContainer, featureName, inputID) {
+    var input = settingsContainer.querySelector('#' + inputID);
+    input.value = options[featureName];
+
+    input.addEventListener('change', (event) => {
+        changeFeatureMode(featureName, event.target.value);
+    })
 }
 
 function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
@@ -2580,6 +2614,8 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
         initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
+        initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox', false);
+        initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
         initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
