@@ -2126,7 +2126,7 @@ function showToast(toast_body, storageFlagName) {
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>\n" +
                         toast_body +
-        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
+        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, I would love it if you rated the extension on the chrome webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
