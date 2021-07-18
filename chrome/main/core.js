@@ -2183,6 +2183,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 13px;margin-top: 20px;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
         +  "    <span style=\"font-size: 12px;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
         +  "    </br><span style=\"font-size: 12px;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check / Re-enable</strong> according to the sniper's current status.</span>"
+        +  "    </br><span style=\"font-size: 12px;\" >- You can also move the menu up and down if you want to see live stats from Twitch's predictions menu while the Sniper menu is open.</span>"
         +  "    </br></br>"
 }
 
