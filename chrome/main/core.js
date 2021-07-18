@@ -2155,13 +2155,6 @@ function showToast(toast_body, storageFlagName) {
         });
     };
 
-    updateToast.querySelector('#tp_updateToast_settings_top_btn').onclick = function () {
-        showSettings();
-        chrome.runtime.sendMessage({action: "updateToast_settings_top_btn_click", detail: ""}, function(response) {
-
-        });
-    };
-
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
             setConfirmedToastFlag('donate_btn', storageFlagName);
@@ -2185,23 +2178,12 @@ function showToast(toast_body, storageFlagName) {
 }
 
 function getUpdateToastBody() {
-    return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features! (and fixes)</div>"
-        +  "       <div style=\"font-size: 12px;margin-top: 20px;\" ><strong>- A new <span id='tp_updateToast_settings_top_btn' style='border-bottom: 1px dashed white;cursor: pointer;' >settings menu</span>!</strong>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Added a volume control button to video preview</strong>"
-        +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
-        +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
-        +  "    </br><span>- You can also click the button to mute/unmute.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Sniper</strong>"
-        +  "    </br><span>- Added setting: Maximum amount of points the sniper is allowed to vote with.</span>"
-        +  "    </br><span>- The sniper can now handle fast predictions correctly.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Notifications</strong>"
-        +  "    </br><span>- Predictions notifications text is now more accurate.</span>"
-        +  "    </br><span>- Added a notification when sniper votes on a prediction.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend one after another in a short period of time.</strong>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fix for directory previews where sometimes it wouldn't start the preview.</strong>"
-        +  "</br></br>"
-        +  "</div>";
+    return "   <div style=\"font-weight: bold;font-size: 15px;\" >Twitch Previews updated!</div>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;\" >New Features!</div>"
+        +  "       <div style=\"font-size: 13px;margin-top: 20px;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
+        +  "    <span style=\"font-size: 12px;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
+        +  "    </br><span style=\"font-size: 12px;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check / Re-enable</strong> according to the sniper's current status.</span>"
+        +  "    </br></br>"
 }
 
 function showUpdateToast() {

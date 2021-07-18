@@ -94,7 +94,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-          //  chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -190,9 +190,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "updateToast_settings_btn_click":
             ga('send', 'event', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
-            break;
-        case "updateToast_settings_top_btn_click":
-            ga('send', 'event', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click');
             break;
         case "bg_translate_infoDiv":
             chrome.tabs.create({url:msg.detail});
