@@ -84,14 +84,14 @@
 
 * **Predictions notifications**
     - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
-    - Works on twitch tabs in the browser.
+    - Works on twitch tabs in the browser, works best on the most recent tab in the browser.
     - When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
       <br/><br/>
 
 
 * **Predictions sniper**
     - The predictions sniper will participate in predictions for you.
-    - Works on twitch tabs in the browser.
+    - Works on twitch tabs in the browser, works best on the most recent tab in the browser.
     - The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).
     - If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
     - You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
