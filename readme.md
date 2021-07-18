@@ -20,7 +20,8 @@
 
 ## Features:
 - Image or live video stream Previews in the sidebar & directories.
-- Preview resize.
+- Preview resize & volume control.
+- For streamers: See your own live stream thumbnail when hovering over the top right profile icon.
 - Auto channel points clicker.
 - Auto refresh on player errors (#1000, #2000, #4000).
 - Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -42,6 +43,12 @@
     - A preview will appear next to the hovered card.
 <br/>
 <br/>
+
+
+* **Streaming - see your own live stream thumbnail**
+    - Shows your own stream's live thumbnail preview when hovering the mouse over the profile icon at the top right.
+    - This feature is only active on 'twitch.tv' pages, it's not active in the clips directory or in the dashboard (like clips.twitch.tv).
+      <br/><br/>
 
 
 * **Auto channel points clicker**
@@ -106,7 +113,6 @@
         - Seconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).
           <br/><br/>
     - Remember that this is a statistical tool and wins are not guaranteed.
-    - <b>Note:</b> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)
       <br/><br/>
 
 
