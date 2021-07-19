@@ -10,9 +10,10 @@ var twitchIframe;
 var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
-//var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
-//var isPipActive = false;
-//var navCardPipBtn = null;
+var TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
+/*var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
+var isPipActive = false;
+var navCardPipBtn = null;*/
 var vidPreviewVolBtn = null;
 var clearOverlaysInterval = null;
 var clearVidPlayInterval = null;
@@ -26,6 +27,7 @@ var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
 var APS_awaiting_to_place_bet_streamName = false;
 var APS_didnt_vote_reason_margin_percent = null;
+var predictionsNotificationsWorker;
 var predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
@@ -487,6 +489,32 @@ function createAndShowLoadingSpinnerForSideNav() {
     }
 }
 
+function setSelfThumbnailPreviewListeners() {
+    try {
+        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseenter", function() {
+            if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
+                return;
+            }
+            var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
+            selfPreviewDiv.style.width = "440px";
+            selfPreviewDiv.style.height = "248px";
+            selfPreviewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+            selfPreviewDiv.style.marginTop = "6rem";
+            selfPreviewDiv.style.right = "5rem";
+            selfPreviewDiv.style.display = "block";
+            selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
+
+            appendContainer.appendChild(selfPreviewDiv);
+        });
+
+        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseleave", function() {
+            clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+        });
+    } catch (e) {
+
+    }
+}
+
 function createAndShowPreview() {
     previewDiv = createPreviewDiv(TP_PREVIEW_DIV_CLASSNAME);
     previewDiv.style.width = options.PREVIEWDIV_WIDTH + "px";
@@ -933,7 +961,7 @@ function setChannelPointsClickerListeners() {
 }
 
 function clearExistingPreviewDivs(className, isFromPip) {
-    var previewDivs = document.getElementsByClassName(className);
+    var previewDivs = document.querySelectorAll('.' + className);
     for (var i = 0; i < previewDivs.length; i++) {
         if (previewDivs[i]) {
             previewDivs[i].parentNode.removeChild(previewDivs[i]);
@@ -958,8 +986,9 @@ function ga_report_appStart() {
     var isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
     var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
     var predictionsSniper = options.isPredictionsSniperEnabled ? "APS_ON" : "APS_OFF";
+    var selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
 
-    browser.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper}, function(response) {
+    browser.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview}, function(response) {
 
     });
 }
@@ -1182,7 +1211,7 @@ function showNotification(title, body, icon, dont_send_PN_SHOW_event) {
     }
 }
 
-function checkForPredictions() {
+function checkForPredictions(should_bet_now) {
     var btn_arr = document.querySelectorAll('button[data-test-selector="community-prediction-highlight-header__action-button"]');
     var btn;
     var details_btn;
@@ -1206,15 +1235,16 @@ function checkForPredictions() {
 
 
     if(btn) {
-        if (document.querySelector('.toggle-visibility__right-column--expanded')) {
+
+        /*if (document.querySelector('.toggle-visibility__right-column--expanded')) {
             if (!options.isPvqcEnabled && !document.hidden) {
-                last_prediction_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+                last_prediction_streamer = getCurrentStreamerName();
                 last_prediction_button_text = btn.innerText;
                 return;
             }
-        }
+        }*/
 
-        var curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+        var curr_streamer = getCurrentStreamerName();
         if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
             return;
         }
@@ -1247,26 +1277,37 @@ function checkForPredictions() {
             }
 
             if(options.isPredictionsSniperEnabled) {
-                initAutoPredictionsSniper().then(function (res){
-                    if (options.isPredictionsNotificationsEnabled) {
-                        showNotification(curr_streamer + ": " + "Prediction Started\n",  prediction_text + "\nPredictions sniper active!", curr_streamer_img_url);
+
+                browser.storage.local.get('aps_streams_settings_obj', function(res) {
+                    var curr_stream_aps_settings = null;
+                    if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_streamer]) {
+                        curr_stream_aps_settings = res.aps_streams_settings_obj[curr_streamer];
                     }
-                },function (res){
-                    if (options.isPredictionsNotificationsEnabled) {
-                        if (res === 'prediction_closed_or_ended') {
-                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
-                        } else {
-                            initAutoPredictionsSniper().then(function (res) {
-                                showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text + "\nPredictions sniper active!", curr_streamer_img_url);
-                            }, function (res){
-                                if (res === 'prediction_closed_or_ended') {
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
-                                } else {
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
-                                }
-                            })
+                    initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res){
+                        if (options.isPredictionsNotificationsEnabled) {
+                            if (!should_bet_now) {
+                                showNotification(curr_streamer + ": " + "Prediction Started\n",  prediction_text + "\nPredictions sniper active!", curr_streamer_img_url);
+                            }
                         }
-                    }
+                    },function (res){
+                        if (options.isPredictionsNotificationsEnabled) {
+                            if (res === 'prediction_closed_or_ended') {
+                                showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
+                            } else {
+                                initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
+                                    if (!should_bet_now) {
+                                        showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text + "\nPredictions sniper active!", curr_streamer_img_url);
+                                    }
+                                }, function (res){
+                                    if (res === 'prediction_closed_or_ended') {
+                                        showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
+                                    } else {
+                                        showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
+                                    }
+                                })
+                            }
+                        }
+                    });
                 });
             } else {
                 if(options.isPredictionsNotificationsEnabled) {
@@ -1279,6 +1320,7 @@ function checkForPredictions() {
             }
 
             if (options.isPredictionsSniperEnabled) {
+                set_APS_settings_btn_icon_and_title('idle');
                 getPredictionsSniperResults().then(function (res){
                     if (options.isPredictionsNotificationsEnabled) {
 
@@ -1499,7 +1541,17 @@ function getPredictionsSniperResults() {
     })
 }
 
-function initAutoPredictionsSniper() {
+function clearPredictionStatus() {
+    clearTimeout(predictionSniperTimeout);
+    predictionSniperTimeout = null
+    set_APS_settings_btn_icon_and_title('idle');
+}
+
+function getCurrentStreamerName() {
+    return document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+}
+
+function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
 
     return new Promise((resolve, reject) => {
         try {
@@ -1517,11 +1569,18 @@ function initAutoPredictionsSniper() {
                         // channel points view time left
                         var time_remaining_str_extract_arr = document.querySelector('p[data-test-selector="predictions-list-item__subtitle"]').innerText.match(/\d+/g)
                         if (time_remaining_str_extract_arr == null) {
+                            clearPredictionStatus();
                             reject('prediction_closed_or_ended');
                             return;
                         }
-                        var ms_UntilPrediction = (time_remaining_str_extract_arr[0] * 60 * 1000) + (time_remaining_str_extract_arr[1] * 1000);
-                        ms_UntilPrediction -= (options.aps_secondsBefore * 1000) + 2000; //decrease by seconds set in options (seconds * 1000)
+
+                        var ms_UntilPrediction;
+                        if (should_bet_now) {
+                            ms_UntilPrediction = 0;
+                        } else {
+                            ms_UntilPrediction = (time_remaining_str_extract_arr[0] * 60 * 1000) + (time_remaining_str_extract_arr[1] * 1000);
+                            ms_UntilPrediction -= ((curr_stream_aps_settings ? curr_stream_aps_settings.aps_secondsBefore : options.aps_secondsBefore) * 1000) + 2000; //decrease by seconds set in options (seconds * 1000)
+                        }
 
                         //var prediction_question = document.querySelector('p[data-test-selector="predictions-list-item__title"]').innerText
 
@@ -1532,160 +1591,209 @@ function initAutoPredictionsSniper() {
 
                         // clear time out in case the user switched streams and a new prediction started there.
                         if (predictionSniperTimeout) {
-                            clearTimeout(predictionSniperTimeout);
+                            clearPredictionStatus();
                         }
 
-                        APS_awaiting_to_place_bet_streamName = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+                        APS_awaiting_to_place_bet_streamName = getCurrentStreamerName();
                         // wait amount of seconds to predict
                         predictionSniperTimeout = setTimeout(function () {
                             // execute prediction sniper
-                            APS_awaiting_to_place_bet_streamName = null;
-                            APS_didnt_vote_reason_margin_percent = null;
-                            if (options.aps_percent === 0) {
-                                return;
-                            }
 
-                            // get number of channel points
-                            getChannelPointsNum().then(function (totalChannelPointNum) {
+                            browser.storage.local.get('aps_streams_settings_obj', function(res) {
+                                var curr_stream_aps_settings = null;
+                                var curr_stream_name = getCurrentStreamerName();
+                                if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
+                                    curr_stream_aps_settings = res.aps_streams_settings_obj[curr_stream_name];
+                                } else {
+                                    curr_stream_aps_settings = options;
+                                }
 
-                                if(!totalChannelPointNum) {
+                                APS_awaiting_to_place_bet_streamName = null;
+                                APS_didnt_vote_reason_margin_percent = null;
+                                if (curr_stream_aps_settings.aps_percent === 0) {
+                                    clearPredictionStatus();
                                     return;
                                 }
 
-                                // close the popout menu if it's opened.
-                                closePopoutMenu();
+                                // get number of channel points
+                                getChannelPointsNum().then(function (totalChannelPointNum) {
 
-                                setTimeout(function (){
+                                    if(!totalChannelPointNum) {
+                                        clearPredictionStatus();
+                                        return;
+                                    }
 
-                                    // click channel points button
-                                    clickChannelPointsButton();
+                                    // close the popout menu if it's opened.
+                                    closePopoutMenu();
 
-                                    setTimeout(function () {
-                                        // click predictions title body button at the top of channel points view to open predictions view
-                                        var predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
-                                        if (!predictions_list_item_body) {
-                                            closePopoutMenu();
-                                            return;
-                                        }
-                                        predictions_list_item_body.click();
+                                    setTimeout(function (){
+
+                                        // click channel points button
+                                        clickChannelPointsButton();
 
                                         setTimeout(function () {
-
-                                            // check if already entered
-                                              try {
-                                                  if (document.getElementsByClassName('prediction-checkout-details-header')[0].parentElement.children[2].firstChild.getElementsByClassName('channel-points-icon')[0].parentElement.innerText.length > 5) {
-                                                      console.log(new Date().toLocaleString() + "\nAPS: already voted");
-                                                      closePopoutMenu();
-                                                      return;
-                                                  }
-                                              } catch (e) {
-
-                                              }
-
-                                            // click the "predict with custom points" button.
-                                            var predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
-                                            if (!predict_with_custom_points_btn) {
+                                            // click predictions title body button at the top of channel points view to open predictions view
+                                            var predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
+                                            if (!predictions_list_item_body) {
                                                 closePopoutMenu();
+                                                clearPredictionStatus();
                                                 return;
                                             }
-                                            predict_with_custom_points_btn.click();
+                                            predictions_list_item_body.click();
 
-                                            // get votes
-                                            // twitch has a bug with switched classnames in the options elements, get numbers by render order.
-                                            var stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
-                                            var left_vote_count = extractVotersNumberFromString(stat_fields[2].children[1].innerText);
-                                            var right_vote_count = extractVotersNumberFromString(stat_fields[6].children[1].innerText);
+                                            setTimeout(function () {
 
-                                            // vote margin
-                                            var vote_margin_percent = getVotePercentageMargin(left_vote_count, right_vote_count);
-                                            if (vote_margin_percent < 0) {
-                                                vote_margin_percent *= -1;
-                                            }
-                                            if (vote_margin_percent < options.aps_min_vote_margin_percent) {
-                                                console.log(new Date().toLocaleString() + "\nAPS:\nvote_margin_percent too low: " + vote_margin_percent + "%\nmin_vote_margin_percent: " + options.aps_min_vote_margin_percent + "%");
-                                                APS_didnt_vote_reason_margin_percent = vote_margin_percent.toFixed(2) + "%";
-                                                closePopoutMenu();
-                                                return;
-                                            }
-
-                                            var selectedOption = left_vote_count > right_vote_count ? 0 : 1;
-
-                                            // input number to predict with % of total points
-                                            var prediction_bet_amount = Math.floor((options.aps_percent / 100) * totalChannelPointNum);
-
-                                            if (prediction_bet_amount === 0) {
-                                                prediction_bet_amount = 1;
-                                            }
-                                            if (prediction_bet_amount > options.aps_max_points) {
-                                                prediction_bet_amount = options.aps_max_points;
-                                            }
-
-                                            console.log(new Date().toLocaleString() +
-                                                "\nAPS: " +
-                                                "\nleft: " + left_vote_count +
-                                                "\nright: " + right_vote_count +
-                                                "\nselected_option: " + (selectedOption ? "right" : "left") +
-                                                "\nbet_amount: " + prediction_bet_amount + " points" +
-                                                "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText +
-                                                "\nvote_margin_percent: " + vote_margin_percent + "%"
-                                            );
-
-                                            setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
-
-                                            // click vote
-                                            document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
-
-                                            if(options.isPredictionsNotificationsEnabled) {
-                                                var curr_streamer = '';
-                                                var curr_streamer_img_url = '';
-                                                var prediction_question = '';
-                                                var sniper_selection_str = '';
-                                                var prediction_options_str = '';
-
+                                                // check if already entered
                                                 try {
-                                                    curr_streamer = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
-                                                    curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
-                                                    prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText;
-                                                    sniper_selection_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[selectedOption].innerText;
-                                                    prediction_options_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[0].innerText + " / " + document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[1].innerText
+                                                    if (document.getElementsByClassName('prediction-checkout-details-header')[0].parentElement.children[2].firstChild.getElementsByClassName('channel-points-icon')[0].parentElement.innerText.length > 5) {
+                                                        console.log(new Date().toLocaleString() + "\nAPS: already voted");
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }
                                                 } catch (e) {
 
                                                 }
 
-                                                showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
-                                            }
+                                                // click the "predict with custom points" button.
+                                                var predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
+                                                if (!predict_with_custom_points_btn) {
+                                                    closePopoutMenu();
+                                                    clearPredictionStatus();
+                                                    return;
+                                                }
+                                                predict_with_custom_points_btn.click();
 
-                                            closePopoutMenu();
+                                                // get votes
+                                                // twitch has a bug with switched classnames in the options elements, get numbers by render order.
+                                                var stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
+                                                var left_vote_count = extractVotersNumberFromString(stat_fields[2].children[1].innerText);
+                                                var right_vote_count = extractVotersNumberFromString(stat_fields[6].children[1].innerText);
 
-                                            browser.runtime.sendMessage({action: "bg_APS_exec", detail: "bg_APS_exec"}, function(response) {
+                                                // vote margin
+                                                var vote_margin_percent = getVotePercentageMargin(left_vote_count, right_vote_count);
+                                                if (vote_margin_percent < 0) {
+                                                    vote_margin_percent *= -1;
+                                                }
+                                                if (vote_margin_percent < curr_stream_aps_settings.aps_min_vote_margin_percent) {
+                                                    console.log(new Date().toLocaleString() + "\nAPS:\nvote_margin_percent too low: " + vote_margin_percent + "%\nmin_vote_margin_percent: " + curr_stream_aps_settings.aps_min_vote_margin_percent + "%");
+                                                    APS_didnt_vote_reason_margin_percent = vote_margin_percent.toFixed(2) + "%";
+                                                    closePopoutMenu();
+                                                    clearPredictionStatus();
+                                                    return;
+                                                }
 
-                                            });
-                                        }, 120);
-                                    }, 150);
-                                },400);
+                                                var selectedOption = left_vote_count > right_vote_count ? 0 : 1;
+
+                                                // input number to predict with % of total points
+                                                var prediction_bet_amount = Math.floor((curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+
+                                                if (prediction_bet_amount === 0) {
+                                                    prediction_bet_amount = 1;
+                                                }
+                                                if (prediction_bet_amount > curr_stream_aps_settings.aps_max_points) {
+                                                    prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
+                                                }
+
+                                                console.log(new Date().toLocaleString() +
+                                                    "\nAPS: " +
+                                                    "\nleft: " + left_vote_count +
+                                                    "\nright: " + right_vote_count +
+                                                    "\nselected_option: " + (selectedOption ? "right" : "left") +
+                                                    "\nbet_amount: " + prediction_bet_amount + " points" +
+                                                    "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText +
+                                                    "\nvote_margin_percent: " + vote_margin_percent + "%"
+                                                );
+
+                                                setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
+
+                                                // click vote
+                                                document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
+
+                                                if(options.isPredictionsNotificationsEnabled) {
+                                                    var curr_streamer = '';
+                                                    var curr_streamer_img_url = '';
+                                                    var prediction_question = '';
+                                                    var sniper_selection_str = '';
+                                                    var prediction_options_str = '';
+
+                                                    try {
+                                                        curr_streamer = getCurrentStreamerName();
+                                                        curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
+                                                        prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText;
+                                                        sniper_selection_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[selectedOption].innerText;
+                                                        prediction_options_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[0].innerText + " / " + document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[1].innerText
+                                                    } catch (e) {
+
+                                                    }
+
+                                                    showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
+                                                }
+
+                                                closePopoutMenu();
+
+                                                browser.runtime.sendMessage({action: "bg_APS_exec", detail: "bg_APS_exec"}, function(response) {
+
+                                                });
+                                                clearPredictionStatus();
+                                            }, 120);
+                                        }, 150);
+                                    },400);
+                                });
                             });
                         }, ms_UntilPrediction > 0 ? ms_UntilPrediction : 0);
+                        set_APS_settings_btn_icon_and_title('active');
                         resolve('ok');
                     } catch (e) {
                         console.log(new Date().toLocaleString() + "\nAPS:\n" + e);
+                        clearPredictionStatus();
                         reject(e);
                     }
                 }, 150);
             }, 400);
         } catch (e) {
             console.log(new Date().toLocaleString() + "\nAPS:\n" + e);
+            clearPredictionStatus();
             reject(e);
         }
     })
 }
 
 function setPredictionsNotifications() {
-    if (!predictionsNotificationsInterval) {
+    if (!predictionsNotificationsWorker) {
+        function worker_function() {
+            var timer;
+            self.onmessage = function(event) {
+                if (event.data === "start_predictions_timer") {
+                    timer = setInterval(function() {
+                        postMessage('worker-predictions-tick');
+                    }, 15100);
+                    postMessage('worker-started');
+                }
+            };
+        }
+
+        if(window !== self) {
+            worker_function();
+        }
+
+        checkForPredictions();
+        predictionsNotificationsWorker = new Worker(URL.createObjectURL(new Blob(["("+worker_function.toString()+")()"], {type: 'text/javascript'})));
+        predictionsNotificationsWorker.onmessage = function(event) {
+            if (event.data === "worker-predictions-tick") {
+                checkForPredictions();
+            }
+        };
+        predictionsNotificationsWorker.postMessage("start_predictions_timer");
+    }
+
+
+    /*if (!predictionsNotificationsInterval) {
         checkForPredictions();
         predictionsNotificationsInterval = setInterval(function() {
             checkForPredictions();
         }, 15100);
-    }
+    }*/
 }
 
 function toggleBrowserFullScreen(elem) {
@@ -1791,6 +1899,246 @@ function setfScrnWithChatBtn() {
     }
 }
 
+function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stream_settings, featureName, inputID, minimum) {
+
+    var input = settingsContainer.querySelector('#' + inputID);
+    input.value = curr_stream_settings ? curr_stream_settings[featureName] : options[featureName];
+
+    input.addEventListener('change', (event) => {
+        var newVal = parseFloat(event.target.value);
+        if (newVal < minimum) {
+            newVal = minimum;
+            input.value = minimum;
+        }
+
+        browser.storage.local.get('aps_streams_settings_obj', function(res) {
+            if (!res.aps_streams_settings_obj) {
+                var aps_streams_settings_obj = {
+                    [streamName] : {
+                        aps_percent: options.aps_percent,
+                        aps_max_points: options.aps_max_points,
+                        aps_secondsBefore: options.aps_secondsBefore,
+                        aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
+                    }
+                };
+                aps_streams_settings_obj[streamName][featureName] = newVal;
+                browser.storage.local.set({'aps_streams_settings_obj': aps_streams_settings_obj}, function() {
+
+                });
+            } else {
+                if (res.aps_streams_settings_obj[streamName]) {
+                    res.aps_streams_settings_obj[streamName][featureName] = newVal;
+                    browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
+
+                    });
+                } else {
+                    res.aps_streams_settings_obj[streamName] = {
+                        aps_percent: options.aps_percent,
+                        aps_max_points: options.aps_max_points,
+                        aps_secondsBefore: options.aps_secondsBefore,
+                        aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
+                    }
+                    res.aps_streams_settings_obj[streamName][featureName] = newVal;
+                    browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
+
+                    });
+                }
+            }
+        });
+        browser.runtime.sendMessage({action: "bg_APS_settings_menu_update_" + featureName, detail: newVal}, function(response) {
+
+        });
+    })
+}
+
+function refresh_aps_settings_menu_ui(status) {
+    var aps_settings_menu = document.getElementById('tp_APS_settings_menu');
+    if (aps_settings_menu) {
+        var menu_shadow_el = aps_settings_menu.querySelector('#tp_APS_title_shadow_el');
+        var bet_now_btn = aps_settings_menu.querySelector('#tp_APS_bet_now_btn');
+        var cancel_current_bet_btn = aps_settings_menu.querySelector('#tp_APS_cancel_current_bet');
+
+        if (status === 'active') {
+            menu_shadow_el.classList.remove('tp-shadow-idle');
+            menu_shadow_el.classList.add('tp-shadow-active');
+
+            cancel_current_bet_btn.classList.remove('tp-aps-settings-check-bet-active-btn');
+            cancel_current_bet_btn.classList.add('tp-aps-settings-cancel-bet-active-btn');
+            cancel_current_bet_btn.innerText = 'Cancel Upcoming Vote';
+
+            bet_now_btn.classList.add('tp-aps-settings-bet-now-active-btn');
+        } else {
+            menu_shadow_el.classList.remove('tp-shadow-active');
+            menu_shadow_el.classList.add('tp-shadow-idle');
+
+            cancel_current_bet_btn.classList.remove('tp-aps-settings-cancel-bet-active-btn');
+            cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
+            cancel_current_bet_btn.innerText = 'Check / Re-enable';
+
+            bet_now_btn.classList.remove('tp-aps-settings-bet-now-active-btn');
+        }
+    }
+}
+
+function create_and_show_APS_settings_menu() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', browser.runtime.getURL('main/APS_settings.html'), true);
+    xhr.onreadystatechange = function() {
+        if (this.readyState !== 4) return;
+        if (this.status !== 200) return;
+
+        var settingsContainer = document.createElement('div');
+        settingsContainer.classList.add('tp-APS-settings-container');
+        settingsContainer.innerHTML = this.responseText;
+
+        var close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
+        close_settings_btn.addEventListener('click', (event) => {
+            toggle_APS_settings_menu();
+        });
+
+        settingsContainer.style.width = document.getElementsByClassName('chat-input__buttons-container')[0].getBoundingClientRect().width + "px";
+        settingsContainer.firstChild.style.width = settingsContainer.style.width;
+
+        var menu_shadow_el = settingsContainer.querySelector('#tp_APS_title_shadow_el');
+
+        var bet_now_btn = settingsContainer.querySelector('#tp_APS_bet_now_btn');
+        bet_now_btn.addEventListener('click', (event) => {
+            if (predictionSniperTimeout) {
+                last_prediction_streamer = "";
+                toggle_APS_settings_menu();
+                checkForPredictions(true);
+                browser.runtime.sendMessage({action: "bg_APS_settings_menu_vote_now_btn_click", detail: ""}, function(response) {
+
+                });
+            }
+        });
+
+        var cancel_current_bet_btn = settingsContainer.querySelector('#tp_APS_cancel_current_bet');
+        cancel_current_bet_btn.addEventListener('click', (event) => {
+            if (predictionSniperTimeout) {
+                clearPredictionStatus();
+                browser.runtime.sendMessage({action: "bg_APS_settings_menu_cancel_upcoming_vote_btn_click", detail: ""}, function(response) {
+
+                });
+            } else {
+                last_prediction_streamer = "";
+                checkForPredictions();
+                cancel_current_bet_btn.innerText = "Checking...";
+                setTimeout(function (){
+                    if (predictionSniperTimeout) {
+                        set_APS_settings_btn_icon_and_title('active');
+                    } else {
+                        set_APS_settings_btn_icon_and_title('idle');
+                    }
+                }, 1500);
+                browser.runtime.sendMessage({action: "bg_APS_settings_menu_check_prediction_btn_click", detail: ""}, function(response) {
+
+                });
+            }
+        });
+
+        if (predictionSniperTimeout) {
+            set_APS_settings_btn_icon_and_title('active');
+            menu_shadow_el.classList.add('tp-shadow-active');
+            bet_now_btn.classList.add('tp-aps-settings-bet-now-active-btn');
+
+            cancel_current_bet_btn.classList.add('tp-aps-settings-cancel-bet-active-btn');
+            cancel_current_bet_btn.innerText = 'Cancel Upcoming Vote';
+        } else {
+            set_APS_settings_btn_icon_and_title('idle');
+            menu_shadow_el.classList.add('tp-shadow-idle');
+
+            cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
+            cancel_current_bet_btn.innerText = 'Check / Re-enable';
+        }
+
+        var curr_stream_name = getCurrentStreamerName();
+        settingsContainer.querySelector('#tp_aps_settings_menu_stream_name').innerText = curr_stream_name;
+
+        var aps_curr_stream_settings = null;
+        browser.storage.local.get('aps_streams_settings_obj', function(res) {
+            if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
+                aps_curr_stream_settings = res.aps_streams_settings_obj[curr_stream_name];
+            }
+            aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_percent', 'tp_APS_settings_percent_input', 0);
+            aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_max_points', 'tp_APS_settings_max_points_input', 0);
+            aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_min_vote_margin_percent', 'tp_APS_settings_min_vote_margin_percent_input', 0);
+            aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_secondsBefore', 'tp_APS_settings_secondsBefore_input', 2);
+        });
+
+        initDragForAPSSettings(settingsContainer);
+
+        settingsContainer.querySelector('#tp_APS_settings_menu').classList.add('animated');
+        settingsContainer.querySelector('#tp_APS_settings_menu').classList.add('slideInUp');
+        document.getElementsByClassName('chat-input__buttons-container')[0].appendChild(settingsContainer);
+        browser.runtime.sendMessage({action: "bg_APS_settings_menu_opened", detail: "APS_settings.html"}, function(response) {
+
+        });
+    };
+    xhr.send();
+}
+
+function toggle_APS_settings_menu() {
+    var aps_settings_menu = document.getElementsByClassName('tp-APS-settings-container')[0];
+    if (aps_settings_menu) {
+        var aps_settings_menu_el = aps_settings_menu.querySelector('#tp_APS_settings_menu');
+        aps_settings_menu_el.classList.remove('slideInUp');
+        aps_settings_menu_el.classList.add('fadeOutDown');
+        setTimeout(function () {
+            aps_settings_menu.parentNode.removeChild(aps_settings_menu);
+        }, 200);
+    } else {
+        create_and_show_APS_settings_menu();
+    }
+}
+
+function set_APS_settings_btn_icon_and_title(status) {
+    // idle
+    // active
+    try {
+        var settings_btn = document.getElementById('tp_APS_settings_btn');
+        settings_btn.firstChild.src = browser.runtime.getURL('../images/gamepad_' + status + '.png');
+        settings_btn.title = "Predictions Sniper - " + status;
+        refresh_aps_settings_menu_ui(status);
+    } catch (e) {
+
+    }
+}
+
+function append_APS_settings_btn() {
+    if (document.getElementById('tp_APS_settings_btn')) {
+        return;
+    }
+    var chat_settings_btn = document.querySelector('button[data-a-target="chat-settings"]');
+    if (chat_settings_btn) {
+        var btn_container = document.createElement('div');
+        btn_container.id = "tp_APS_settings_btn";
+        btn_container.title = "Predictions Sniper - idle";
+
+        var chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
+        btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
+        btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
+        btn_container.style.zIndex = "1";
+
+        var img = document.createElement('img');
+        img.src = browser.runtime.getURL('../images/gamepad_idle.png');
+        img.width = (chat_settings_btn_size.width || "30") * 0.6;
+        img.height = (chat_settings_btn_size.height || "30") * 0.6;
+        img.style.margin = "auto";
+
+        btn_container.onclick = function (){
+            toggle_APS_settings_menu();
+        }
+
+        try {
+            btn_container.appendChild(img);
+            chat_settings_btn.parentNode.parentNode.before(btn_container);
+        } catch (e) {
+
+        }
+    }
+}
+
 function setPvqc() {
     if (document.getElementById('tp_pvqc')) {
         return;
@@ -1840,7 +2188,7 @@ function showToast(toast_body, storageFlagName) {
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>\n" +
                         toast_body +
-        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the firefox addon webstore :)</div>\n" +
+        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, I would love it if you rated the extension on the firefox addon webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -1877,13 +2225,6 @@ function showToast(toast_body, storageFlagName) {
         });
     };
 
-    updateToast.querySelector('#tp_updateToast_settings_top_btn').onclick = function () {
-        showSettings();
-        browser.runtime.sendMessage({action: "updateToast_settings_top_btn_click", detail: ""}, function(response) {
-
-        });
-    };
-
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
             setConfirmedToastFlag('donate_btn', storageFlagName);
@@ -1907,23 +2248,18 @@ function showToast(toast_body, storageFlagName) {
 }
 
 function getUpdateToastBody() {
-    return "   <div style=\"font-weight: bold;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 12px;font-weight: bold;margin-top: 10px;\" >New Features! (and fixes)</div>"
-        +  "       <div style=\"font-size: 12px;margin-top: 20px;\" ><strong>- A new <span id='tp_updateToast_settings_top_btn' style='border-bottom: 1px dashed white;cursor: pointer;' >settings menu</span>!</strong>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Added a volume control button to video preview</strong>"
-        +  "    </br><span>- The volume button is located under the streamer's view count in the sidebar.</span>"
-        +  "    </br><span>- scroll up / down on the button to change the volume.</span>"
-        +  "    </br><span>- You can also click the button to mute/unmute.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Sniper</strong>"
-        +  "    </br><span>- Added setting: Maximum amount of points the sniper is allowed to vote with.</span>"
-        +  "    </br><span>- The sniper can now handle fast predictions correctly.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Predictions Notifications</strong>"
-        +  "    </br><span>- Predictions notifications text is now more accurate.</span>"
-        +  "    </br><span>- Added a notification when sniper votes on a prediction.</span>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fixed an issue where auto-refresh sometimes didn't refresh if errors happend one after another in a short period of time.</strong>"
-        +  "       <div style=\"font-size: 12px;margin-top: 10px;\" ><strong>- Fix for directory previews where sometimes it wouldn't start the preview.</strong>"
-        +  "</br></br>"
-        +  "</div>";
+    return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
+        +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- For Streamers:</strong> "
+        +  "             <br><span style=\"font-size: 12px;font-weight: bold;color: white;\" >- See your own live stream thumbnail</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the profile icon at the top right.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- To enable it, fill in your stream's name in the text box in the settings and enable the feature's toggle switch.</span>"
+        +  "        </div>"
+        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
+        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
+        +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
+        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check / Re-enable</strong> according to the sniper's current status.</span>"
+        +  "    </br></br>"
 }
 
 function showUpdateToast() {
@@ -2018,12 +2354,22 @@ function toggleFeatures(isFromTitleObserver) {
         }, 2500)
     }
 
+    if (options.isPredictionsSniperEnabled) {
+        append_APS_settings_btn();
+    }
+
     if (options.isfScrnWithChatEnabled) {
         setfScrnWithChatBtn();
     }
 
     if (options.isPvqcEnabled) {
         setPvqc();
+    }
+
+    if (options.isSelfPreviewEnabled) {
+        setTimeout(function (){
+            setSelfThumbnailPreviewListeners();
+        }, 2500);
     }
 }
 
@@ -2058,11 +2404,11 @@ function initSettingsInfoBtn(settingsContainer, checkboxID) {
         infoBtn.src = browser.runtime.getURL('images/expand.png');
         infoBtn.addEventListener('click', (event) => {
             var infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
-            if (infoDiv.style.maxHeight === "350px") {
+            if (infoDiv.style.maxHeight === "415px") {
                 infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
                 infoBtn.style.transform = "rotate(0deg)";
             } else {
-                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "350px";
+                infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "415px";
                 infoBtn.style.transform = "rotate(180deg)";
             }
         });
@@ -2100,6 +2446,15 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
         initSettingsInfoBtn(settingsContainer, checkboxID);
         initTranslateInfoDivBtn(settingsContainer, checkboxID);
     }
+}
+
+function initTextInputValue(settingsContainer, featureName, inputID) {
+    var input = settingsContainer.querySelector('#' + inputID);
+    input.value = options[featureName];
+
+    input.addEventListener('change', (event) => {
+        changeFeatureMode(featureName, event.target.value);
+    })
 }
 
 function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
@@ -2158,6 +2513,40 @@ function initSocialBtn(settingsContainer, name, url) {
 
 function setAppVer(settingsContainer) {
     settingsContainer.querySelector('#tp_version').innerText = " - v" + browser.runtime.getManifest().version;
+}
+
+function initDragForAPSSettings(settingsContainer) {
+    dragElement(settingsContainer.querySelector('#tp_APS_settings_menu'));
+
+    function dragElement(elmnt) {
+        var pos2 = 0, pos4 = 0;
+        if (settingsContainer.querySelector('#tp_settings_title_container')) {
+            settingsContainer.querySelector('#tp_settings_title_container').onmousedown = dragMouseDown;
+        } else {
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos2 = pos4 - e.clientY;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
 }
 
 function initDragForSettings(settingsContainer) {
@@ -2244,6 +2633,8 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
         initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
+        initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox', false);
+        initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
         initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);

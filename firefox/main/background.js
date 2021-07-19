@@ -15,6 +15,8 @@ var options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
+    isSelfPreviewEnabled: false,
+    selfPreviewStreamName: '',
     isPredictionsNotificationsEnabled: false,
     isPredictionsSniperEnabled: false,
     aps_percent: 0.1,
@@ -22,6 +24,23 @@ var options = {
     aps_secondsBefore: 10,
     aps_min_vote_margin_percent: 15
 };
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+
+    var errString = "Could not establish connection. Receiving end does not exist.";
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
+            var lastError = chrome.runtime.lastError;
+            if (lastError && lastError.message === errString) {
+                chrome.storage.local.set({'shouldShowSettings': true}, function() {
+
+                });
+                chrome.tabs.create({url:'https://www.twitch.tv/'});
+            }
+        })
+    });
+
+});
 
 browser.runtime.onInstalled.addListener(function(details) {
     var manifestData = browser.runtime.getManifest();
@@ -79,10 +98,16 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isDirpEnabled":
 
             break;
+        case "bg_update_isSelfPreviewEnabled":
+
+            break;
         case "bg_update_isChannelPointsClickerEnabled":
 
             break;
         case "bg_update_isSidebarSearchEnabled":
+
+            break;
+        case "bg_update_isPvqcEnabled":
 
             break;
         case "bg_update_isSidebarExtendEnabled":
@@ -103,10 +128,58 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_PN_show":
 
             break;
+        case "bg_APS_exec":
+
+            break;
+        case "bg_APS_res":
+
+            break;
+        case "bg_update_isPredictionsSniperEnabled":
+
+            break;
+        case "bg_update_aps_percent":
+
+            break;
+        case "bg_update_aps_max_points":
+
+            break;
+        case "bg_update_aps_min_vote_margin_percent":
+
+            break;
+        case "bg_update_aps_secondsBefore":
+
+            break;
         case "bg_sBarS_btn_click":
 
             break;
         case "bg_popup_opened":
+
+            break;
+        case "bg_settings_opened":
+
+            break;
+        case "bg_APS_settings_menu_opened":
+
+            break;
+        case "bg_APS_settings_menu_vote_now_btn_click":
+
+            break;
+        case "bg_APS_settings_menu_cancel_upcoming_vote_btn_click":
+
+            break;
+        case "bg_APS_settings_menu_check_prediction_btn_click":
+
+            break;
+        case "bg_APS_settings_menu_update_aps_percent":
+
+            break;
+        case "bg_APS_settings_menu_update_aps_max_points":
+
+            break;
+        case "bg_APS_settings_menu_update_aps_min_vote_margin_percent":
+
+            break;
+        case "bg_APS_settings_menu_update_aps_secondsBefore":
 
             break;
         case "bg_pip_started":
@@ -116,6 +189,9 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
             break;
         case "updateToast":
+
+            break;
+        case "updateToast_settings_btn_click":
 
             break;
         case "bg_translate_infoDiv":
@@ -146,6 +222,18 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
             break;
         case "bg_share_btn_click":
+
+            break;
+        case "bg_github_btn_click":
+
+            break;
+        case "bg_bugReport_btn_click":
+
+            break;
+        case "bg_changelog_btn_click":
+
+            break;
+        case "bg_contact_btn_click":
 
             break;
         default:
