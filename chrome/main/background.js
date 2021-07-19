@@ -23,6 +23,8 @@ var options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
+    isSelfPreviewEnabled: false,
+    selfPreviewStreamName: '',
     isPredictionsNotificationsEnabled: false,
     isPredictionsSniperEnabled: false,
     aps_percent: 0.1,
@@ -30,6 +32,24 @@ var options = {
     aps_secondsBefore: 10,
     aps_min_vote_margin_percent: 15
 };
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+
+        var errString = "Could not establish connection. Receiving end does not exist.";
+        chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
+                var lastError = chrome.runtime.lastError;
+                if (lastError && lastError.message === errString) {
+                    chrome.storage.local.set({'shouldShowSettings': true}, function() {
+
+                    });
+                    chrome.tabs.create({url:'https://www.twitch.tv/'});
+                }
+            })
+        });
+
+});
+
 
 function upgradeDB(optionsFromStorage, bSaveToStorage_default) {
     var loaded_options = optionsFromStorage;
@@ -101,6 +121,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isDirpEnabled":
             ga('send', 'event', 'dirp_mode', 'change', msg.detail ? "dirp_ON":"dirp_OFF");
             break;
+        case "bg_update_isSelfPreviewEnabled":
+            ga('send', 'event', 'selfPreview_mode', 'change', msg.detail ? "SP_ON":"SP_OFF");
+            break;
         case "bg_update_isChannelPointsClickerEnabled":
             ga('send', 'event', 'channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
             break;
@@ -158,6 +181,30 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_settings_opened":
             ga('send', 'event', 'settings_opened', 'settings.html', 'settings.html');
             break;
+        case "bg_APS_settings_menu_opened":
+            ga('send', 'event', 'APS_settings_opened', 'APS_settings.html', 'APS_settings.html');
+            break;
+        case "bg_APS_settings_menu_vote_now_btn_click":
+            ga('send', 'event', 'APS_s_vote_now_btn_click', 'APS_s_vote_now_btn_click', 'APS_s_vote_now_btn_click');
+            break;
+        case "bg_APS_settings_menu_cancel_upcoming_vote_btn_click":
+            ga('send', 'event', 'APS_s_cancel_vote_btn_click', 'APS_s_cancel_vote_btn_click', 'APS_s_cancel_vote_btn_click');
+            break;
+        case "bg_APS_settings_menu_check_prediction_btn_click":
+            ga('send', 'event', 'APS_s_check_prediction_btn_click', 'APS_s_check_prediction_btn_click', 'APS_s_check_prediction_btn_click');
+            break;
+        case "bg_APS_settings_menu_update_aps_percent":
+            ga('send', 'event', 'APS_s_percent', 'change', msg.detail  + "%");
+            break;
+        case "bg_APS_settings_menu_update_aps_max_points":
+            ga('send', 'event', 'APS_s_max_points', 'change', msg.detail);
+            break;
+        case "bg_APS_settings_menu_update_aps_min_vote_margin_percent":
+            ga('send', 'event', 'APS_s_margin', 'change', msg.detail  + "%");
+            break;
+        case "bg_APS_settings_menu_update_aps_secondsBefore":
+            ga('send', 'event', 'APS_s_secondsBefore', 'change', msg.detail + "s");
+            break;
         case "bg_pip_started":
             ga('send', 'event', 'pip_started', 'pip_started', 'pip_started');
             break;
@@ -169,9 +216,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "updateToast_settings_btn_click":
             ga('send', 'event', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
-            break;
-        case "updateToast_settings_top_btn_click":
-            ga('send', 'event', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click');
             break;
         case "bg_translate_infoDiv":
             chrome.tabs.create({url:msg.detail});

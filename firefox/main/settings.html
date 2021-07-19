@@ -20,6 +20,16 @@
                     <br>- Shows a video stream preview when hovering over streams in Twitch directories (channels in browsing directory, following, etc..).
                 </div>
 
+                <p id="tp_popup_feature_selfPreviews" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;">Streaming - see your own live stream thumbnail
+                    <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;">Stream name (english): <input id="TP_popup_self_preview_input" placeholder="stream name" autocomplete="off" type="text"></span>
+                </span> <span class="tp_settings_cb_container" style="align-self: center;" ><input id="TP_popup_self_previews_checkbox" class="apple-switch" type="checkbox" style="align-self: auto;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <div class="tp_settings_feature_info_div" >
+                    <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
+                    <strong>* See your own live stream thumbnail</strong>
+                    <br>- Shows your own stream's live thumbnail preview when hovering the mouse over the profile icon at the top right.
+                    <br>- This feature is <strong>only active on 'twitch.tv' pages</strong>, it's <strong>not active in the clips directory or in the dashboard</strong> (like clips.twitch.tv).
+                </div>
+
                 <p id="tp_popup_feature_cpc" class="TP_popup_dirp_feature_title" ><span>Auto channel points clicker</span> <span class="tp_settings_cb_container" ><input id="TP_popup_channel_points_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
@@ -66,9 +76,8 @@
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
                     <strong>* Prevent Automatic Video Quality Change</strong>
                     <br>- Prevents automatic video quality change when Twitch is in the background (when switching tabs / tasks).
-                    <br><strong>- Notes on behavior with other features:</strong>
-                    <br>- <strong>Auto refresh -</strong> if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the Twitch tab if it wasn't focused (this is a better behavior).
-                    <br>- <strong>Predictions notifications -</strong> if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused Twitch tab.
+                    <br>- This feature will prevent 99% of Twitch player errors (#1000, #2000).
+                    <br>- This feature will also prevent that video hang when switching back to the Twitch tab after it was in the background for a while.
                 </div>
                 <p id="tp_popup_feature_predictions" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Predictions notifications <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(works on twitch tabs in the browser)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_predictions_notifications_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
@@ -80,6 +89,7 @@
                 </div>
 
                 <p id="tp_popup_feature_predictionsSniper" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;">Predictions sniper
+                    <br><span style="font-weight: bold;font-size: 11px;color: darkgrey;" >Default settings:</span>
                     <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;">Bet: <input id="TP_popup_aps_percent_input" type="number"> % of points (Max <input id="TP_popup_aps_max_points_input" style="width: 60px;" type="number"> points)
                     <br>Min vote margin:  <input id="TP_popup_aps_min_vote_margin_percent_input" type="number"> %
                     <br><input id="TP_popup_aps_secondsBefore_input" type="number"> seconds or less before voting closes</span>
@@ -92,7 +102,8 @@
                     <br>- The sniper will choose the option with the most amount of votes at the time of entry (x seconds before prediction closes).
                     <br>- If you have chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
                     <br>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
-                    <br><strong>Settings:</strong>
+                    <br>- To change Sniper settings for individual streams, click the Sniper settings button under the chat.
+                    <br><strong>Default Settings:</strong>
                     <br><strong>Bet % -</strong> the percentage of channel points you want the sniper to bet.
                     <br><strong>Max num of points -</strong> the maximum amount of points the sniper is allowed to vote with.
                     <br><strong>Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.

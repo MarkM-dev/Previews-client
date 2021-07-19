@@ -20,7 +20,8 @@
 
 ## Features:
 - Image or live video stream Previews in the sidebar & directories.
-- Preview resize.
+- Preview resize & volume control.
+- For streamers: See your own live stream thumbnail when hovering over the top right profile icon.
 - Auto channel points clicker.
 - Auto refresh on player errors (#1000, #2000, #4000).
 - Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -30,7 +31,6 @@
 - A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
 - Full screen with chat mode.
 - Picture In Picture via the button under the view count in the sidebar (when in video mode).
-- Preview volume control via the button under the view count in the sidebar (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
 
@@ -42,6 +42,12 @@
     - A preview will appear next to the hovered card.
 <br/>
 <br/>
+
+
+* **Streaming - see your own live stream thumbnail**
+    - Shows your own stream's live thumbnail preview when hovering the mouse over the profile icon at the top right.
+    - This feature is only active on 'twitch.tv' pages, it's not active in the clips directory or in the dashboard (like clips.twitch.tv).
+      <br/><br/>
 
 
 * **Auto channel points clicker**
@@ -77,9 +83,8 @@
 
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
-    - Notes on behavior with other features:
-    - Auto refresh - if you have this enabled with auto-refresh enabled, the auto-refresh feature will refresh immediately upon error instead of waiting for you to return to the twitch tab if it wasn't focused (this is a better behavior).
-    - Predictions notifications - if you have this enabled with predictions notifications enabled, predictions notifications will show even when chat is open in a focused twitch tab.
+    - This feature will prevent 99% of Twitch player errors (#1000, #2000).
+    - This feature will also prevent that video hang when switching back to the Twitch tab after it was in the background for a while.
       <br/><br/>
       
 
@@ -97,7 +102,9 @@
     - If you have your chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
     - You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
     - If there is already a bet made on the prediction, the sniper will not add more points.
-    - Settings:
+    - To change Sniper settings for individual streams, click the Sniper settings button under the chat.
+      <br/><br/>
+    - Default Settings:
         - Bet % - the percentage of channel points you want the sniper to bet.
         - Max num of points - the maximum amount of points the sniper is allowed to vote with.
         - Min vote margin % - a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
@@ -105,7 +112,6 @@
         - Seconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).
           <br/><br/>
     - Remember that this is a statistical tool and wins are not guaranteed.
-    - <b>Note:</b> This is the first and basic version of the Predictions sniper feature and there are a lot more settings and functionality that this feature needs (like a history view (for now, it prints the details to the console) and individual settings per stream and more) and they will be added in the next versions. but for now, lets see how the basic version goes :)
       <br/><br/>
 
 

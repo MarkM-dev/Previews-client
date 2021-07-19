@@ -316,6 +316,18 @@
     border-bottom: 1px solid gray;
 }
 
+#TPBodyEl #tp_popup_feature_selfPreviews > span:first-child input {
+    display: inline-block;
+    background-color: #232323;
+    text-align: center;
+    width: 100px;
+    color: whitesmoke;
+    font-size: 12px;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
 #TPBodyEl #TP_popup_predictions_sniper_checkbox {
     align-self: baseline;
 }
