@@ -8,7 +8,7 @@
 **Check out the features list below for more quality of life improvement features to twitch.**
 <br/>
 <br/>
- 
+
 ## Download
 **Extension is available for Chrome, Firefox, Brave and Edge:<br/>**
 
