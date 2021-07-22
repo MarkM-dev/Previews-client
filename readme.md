@@ -17,7 +17,7 @@
 <br/>
 * Brave & Edge users can install extensions from the chrome webstore. 
 <br/>
-
+ 
 ## Features:
 - Image or live video stream Previews in the sidebar & directories.
 - Preview resize & volume control.
