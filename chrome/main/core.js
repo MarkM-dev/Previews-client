@@ -504,11 +504,21 @@ function setSelfThumbnailPreviewListeners() {
             selfPreviewDiv.style.display = "block";
             selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
 
+            selfPreviewDiv.classList.add('animated');
+            selfPreviewDiv.classList.add('slideInDown');
+
             appendContainer.appendChild(selfPreviewDiv);
         });
 
         document.querySelector('a[data-a-target="home-link"]').addEventListener("mouseleave", function() {
-            clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+            var preview_el = document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME);
+            if (preview_el) {
+                preview_el.classList.remove('slideInDown');
+                preview_el.classList.add('slideOutUp');
+                setTimeout(function () {
+                    clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+                }, 200);
+            }
         });
     } catch (e) {
 
