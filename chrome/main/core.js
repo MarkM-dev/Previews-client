@@ -491,23 +491,23 @@ function createAndShowLoadingSpinnerForSideNav() {
 
 function setSelfThumbnailPreviewListeners() {
     try {
-        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseenter", function() {
+        document.querySelector('a[data-a-target="home-link"]').addEventListener("mouseenter", function() {
             if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
                 return;
             }
             var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
             selfPreviewDiv.style.width = "440px";
             selfPreviewDiv.style.height = "248px";
-            selfPreviewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+            selfPreviewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
             selfPreviewDiv.style.marginTop = "6rem";
-            selfPreviewDiv.style.right = "5rem";
+            selfPreviewDiv.style.left = "5rem";
             selfPreviewDiv.style.display = "block";
             selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
 
             appendContainer.appendChild(selfPreviewDiv);
         });
 
-        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseleave", function() {
+        document.querySelector('a[data-a-target="home-link"]').addEventListener("mouseleave", function() {
             clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
         });
     } catch (e) {
@@ -2248,7 +2248,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- For Streamers:</strong> "
         +  "             <br><span style=\"font-size: 12px;font-weight: bold;color: white;\" >- See your own live stream thumbnail</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the profile icon at the top right.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the Twitch logo at the top left.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- To enable it, fill in your stream's name in the text box in the settings and enable the feature's toggle switch.</span>"
         +  "        </div>"
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
