@@ -327,60 +327,6 @@ function createPreviewDiv(cssClass) {
     return previewDiv;
 }
 
-/*function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
-    var tp_under_preview_div = document.createElement("div");
-    tp_under_preview_div.classList.add('tp-under-preview-logo');
-    tp_under_preview_div.classList.add('animated');
-    if (isCardFromDirectory) {
-        tp_under_preview_div.classList.add('fadeIn');
-        tp_under_preview_div.style.left = left + "px";
-        tp_under_preview_div.style.borderTopRightRadius = "10px";
-        tp_under_preview_div.style.borderTopLeftRadius = "10px";
-    } else {
-        if (isLayoutHorizontallyInverted){
-            tp_under_preview_div.classList.add('slideInRight');
-            tp_under_preview_div.style.right = '0';
-            tp_under_preview_div.style.borderTopLeftRadius = "22px";
-            tp_under_preview_div.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
-        } else {
-            tp_under_preview_div.classList.add('slideInLeft');
-            tp_under_preview_div.style.left = '0';
-            tp_under_preview_div.style.borderTopRightRadius = "22px";
-            tp_under_preview_div.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
-        }
-    }
-
-    tp_under_preview_div.classList.add('tp_anim_duration_700ms');
-    tp_under_preview_div.innerText = "Twitch Previews";
-    tp_under_preview_div.style.display = "none";
-
-    setTimeout(function (){
-        tp_under_preview_div.style.display = "block";
-        setTimeout(function (){
-            if (document.getElementsByClassName('tp-under-preview-logo').length > 0) {
-                if (isCardFromDirectory) {
-                    tp_under_preview_div.classList.remove('fadeIn');
-                    tp_under_preview_div.classList.add('fadeOut');
-                } else {
-                    tp_under_preview_div.classList.remove(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
-                    tp_under_preview_div.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
-                }
-
-                tp_under_preview_div.classList.remove('tp_anim_duration_700ms');
-                tp_under_preview_div.classList.add('tp_anim_duration_1000ms');
-                tp_under_preview_div.style.display = "block";
-                setTimeout(function (){
-                    if (document.getElementsByClassName('tp-under-preview-logo').length > 0) {
-                        tp_under_preview_div.style.display = "none";
-                    }
-                }, 1000);
-            }
-        }, isCardFromDirectory ? 2500 : 3500);
-    }, 1000)
-
-    previewDiv.appendChild(tp_under_preview_div);
-}*/
-
 function setPreviewDivPosition() {
     previewDiv.style.top = calculatePreviewDivPosition(lastHoveredCardEl);
     if (getElementOffset(lastHoveredCardEl).left > 50) {
@@ -457,7 +403,6 @@ function createAndShowDirectoryPreview() {
         twitchIframe.style.display = "none";
         previewDiv.appendChild(twitchIframe);
     }
-   // createAndShowUnderPreviewDivBanner(true, calculatedSize.width / 2 - 67);
 
     /*twitchIframe.onmouseleave = function () {
         isHovering = false;
@@ -567,7 +512,6 @@ function createAndShowPreview() {
         }
     }
 
-   // createAndShowUnderPreviewDivBanner();
     appendContainer.appendChild(previewDiv);
 }
 
@@ -689,7 +633,6 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     clearVidPlayInterval = null;
                     if (isFromDirectory) {
                         clearLoadingRoller(navCardEl);
-                     //   createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
                     } else {
 
                     }
