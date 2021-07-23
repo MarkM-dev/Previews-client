@@ -5,7 +5,7 @@ var previewDiv = null;
 var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var channelPointsClickerInterval = null;
-var predictionsNotificationsInterval = null;
+//var predictionsNotificationsInterval = null;
 var twitchIframe;
 var isHovering = false;
 var lastHoveredCardEl = null;
@@ -500,7 +500,7 @@ function setSelfThumbnailPreviewListeners() {
             selfPreviewDiv.style.height = "248px";
             selfPreviewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
             selfPreviewDiv.style.marginTop = "6rem";
-            selfPreviewDiv.style.left = "5rem";
+            selfPreviewDiv.style.left = isNavBarCollapsed ? "6rem":"25rem";
             selfPreviewDiv.style.display = "block";
             selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
 
