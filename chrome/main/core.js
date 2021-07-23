@@ -1969,7 +1969,7 @@ function refresh_aps_settings_menu_ui(status) {
 
             cancel_current_bet_btn.classList.remove('tp-aps-settings-cancel-bet-active-btn');
             cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
-            cancel_current_bet_btn.innerText = 'Check / Re-enable';
+            cancel_current_bet_btn.innerText = 'Check Prediction Now';
 
             bet_now_btn.classList.remove('tp-aps-settings-bet-now-active-btn');
         }
@@ -2045,7 +2045,7 @@ function create_and_show_APS_settings_menu() {
             menu_shadow_el.classList.add('tp-shadow-idle');
 
             cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
-            cancel_current_bet_btn.innerText = 'Check / Re-enable';
+            cancel_current_bet_btn.innerText = 'Check Prediction now';
         }
 
         var curr_stream_name = getCurrentStreamerName();
@@ -2184,7 +2184,7 @@ function showToast(toast_body, storageFlagName) {
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>\n" +
                         toast_body +
-        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, I would love it if you rated the extension on the chrome webstore :)</div>\n" +
+        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the chrome webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -2254,7 +2254,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
         +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
-        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check / Re-enable</strong> according to the sniper's current status.</span>"
+        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check Prediction now</strong> according to the sniper's current status.</span>"
         +  "    </br></br>"
 }
 
