@@ -2045,7 +2045,7 @@ function create_and_show_APS_settings_menu() {
             menu_shadow_el.classList.add('tp-shadow-idle');
 
             cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
-            cancel_current_bet_btn.innerText = 'Check Prediction now';
+            cancel_current_bet_btn.innerText = 'Check Prediction Now';
         }
 
         var curr_stream_name = getCurrentStreamerName();
@@ -2254,7 +2254,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
         +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
-        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check Prediction now</strong> according to the sniper's current status.</span>"
+        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check Prediction Now</strong> according to the sniper's current status.</span>"
         +  "    </br></br>"
 }
 
