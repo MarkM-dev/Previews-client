@@ -436,7 +436,12 @@ function createAndShowLoadingSpinnerForSideNav() {
 
 function setSelfThumbnailPreviewListeners() {
     try {
-        document.querySelector('a[data-a-target="home-link"]').addEventListener("mouseenter", function() {
+        var twitchLogo = document.querySelector('a[data-a-target="home-link"]');
+        if (twitchLogo.attributes.tp_mouseover_listener) {
+            return;
+        }
+
+        twitchLogo.addEventListener("mouseenter", function() {
             if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
                 return;
             }
@@ -455,7 +460,7 @@ function setSelfThumbnailPreviewListeners() {
             appendContainer.appendChild(selfPreviewDiv);
         });
 
-        document.querySelector('a[data-a-target="home-link"]').addEventListener("mouseleave", function() {
+        twitchLogo.addEventListener("mouseleave", function() {
             var preview_el = document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME);
             if (preview_el) {
                 preview_el.classList.remove('slideInDown');
@@ -465,6 +470,7 @@ function setSelfThumbnailPreviewListeners() {
                 }, 200);
             }
         });
+        twitchLogo.setAttribute('tp_mouseover_listener', 'true');
     } catch (e) {
 
     }
