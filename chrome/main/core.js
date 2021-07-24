@@ -434,6 +434,55 @@ function createAndShowLoadingSpinnerForSideNav() {
     }
 }
 
+function setTempSelfPreview() {
+    var profileIcon = document.querySelector('figure[data-a-target="top-nav-avatar"]');
+    if (profileIcon.attributes.tp_mouseover_listener) {
+        return;
+    }
+
+    try {
+        profileIcon.addEventListener("mouseenter", function() {
+            if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
+                return;
+            }
+            var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
+            selfPreviewDiv.style.width = "440px";
+            selfPreviewDiv.style.height = "248px";
+            selfPreviewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+            selfPreviewDiv.style.marginTop = "6rem";
+            selfPreviewDiv.style.right = "6rem";
+            selfPreviewDiv.style.display = "block";
+            selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
+
+            var textDiv = document.createElement('div');
+            textDiv.innerText = "This feature has moved to the Twitch logo\nHover over the Twitch logo on the top left";
+            textDiv.style.padding = "10px";
+            textDiv.style.fontSize = "18px";
+            textDiv.style.textAlign = "center";
+            textDiv.style.color = "whitesmoke";
+            textDiv.style.backgroundColor = "rgba(23,23,23,0.7)";
+            textDiv.style.marginTop = "60px";
+            textDiv.style.borderTop = "1px solid whitesmoke";
+            textDiv.style.borderBottom = "1px solid whitesmoke";
+
+            var moreText = document.createElement('div');
+            moreText.innerText = "\n\n* this temporary preview window will stop showing after the 1st of aug";
+            moreText.style.fontSize = "11px";
+
+            textDiv.appendChild(moreText);
+            selfPreviewDiv.appendChild(textDiv);
+            appendContainer.appendChild(selfPreviewDiv);
+        });
+
+        profileIcon.addEventListener("mouseleave", function() {
+            clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+        });
+        profileIcon.setAttribute('tp_mouseover_listener', 'true');
+    } catch (e) {
+
+    }
+}
+
 function setSelfThumbnailPreviewListeners() {
     try {
         var twitchLogo = document.querySelector('a[data-a-target="home-link"]');
@@ -471,6 +520,9 @@ function setSelfThumbnailPreviewListeners() {
             }
         });
         twitchLogo.setAttribute('tp_mouseover_listener', 'true');
+        if (new Date().getTime() < new Date('aug 1, 2021 02:31:00').getTime()) {
+            setTempSelfPreview();
+        }
     } catch (e) {
 
     }
@@ -2322,7 +2374,7 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSelfPreviewEnabled) {
         setTimeout(function (){
             setSelfThumbnailPreviewListeners();
-        }, 2500);
+        }, 1500);
     }
 }
 
