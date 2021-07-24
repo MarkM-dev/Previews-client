@@ -5,7 +5,7 @@ var previewDiv = null;
 var appendContainer;
 var IMAGE_CACHE_TTL_MS = 20000;
 var channelPointsClickerInterval = null;
-var predictionsNotificationsInterval = null;
+//var predictionsNotificationsInterval = null;
 var twitchIframe;
 var isHovering = false;
 var lastHoveredCardEl = null;
@@ -327,60 +327,6 @@ function createPreviewDiv(cssClass) {
     return previewDiv;
 }
 
-/*function createAndShowUnderPreviewDivBanner(isCardFromDirectory, left) {
-    var tp_under_preview_div = document.createElement("div");
-    tp_under_preview_div.classList.add('tp-under-preview-logo');
-    tp_under_preview_div.classList.add('animated');
-    if (isCardFromDirectory) {
-        tp_under_preview_div.classList.add('fadeIn');
-        tp_under_preview_div.style.left = left + "px";
-        tp_under_preview_div.style.borderTopRightRadius = "10px";
-        tp_under_preview_div.style.borderTopLeftRadius = "10px";
-    } else {
-        if (isLayoutHorizontallyInverted){
-            tp_under_preview_div.classList.add('slideInRight');
-            tp_under_preview_div.style.right = '0';
-            tp_under_preview_div.style.borderTopLeftRadius = "22px";
-            tp_under_preview_div.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
-        } else {
-            tp_under_preview_div.classList.add('slideInLeft');
-            tp_under_preview_div.style.left = '0';
-            tp_under_preview_div.style.borderTopRightRadius = "22px";
-            tp_under_preview_div.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
-        }
-    }
-
-    tp_under_preview_div.classList.add('tp_anim_duration_700ms');
-    tp_under_preview_div.innerText = "Twitch Previews";
-    tp_under_preview_div.style.display = "none";
-
-    setTimeout(function (){
-        tp_under_preview_div.style.display = "block";
-        setTimeout(function (){
-            if (document.getElementsByClassName('tp-under-preview-logo').length > 0) {
-                if (isCardFromDirectory) {
-                    tp_under_preview_div.classList.remove('fadeIn');
-                    tp_under_preview_div.classList.add('fadeOut');
-                } else {
-                    tp_under_preview_div.classList.remove(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
-                    tp_under_preview_div.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
-                }
-
-                tp_under_preview_div.classList.remove('tp_anim_duration_700ms');
-                tp_under_preview_div.classList.add('tp_anim_duration_1000ms');
-                tp_under_preview_div.style.display = "block";
-                setTimeout(function (){
-                    if (document.getElementsByClassName('tp-under-preview-logo').length > 0) {
-                        tp_under_preview_div.style.display = "none";
-                    }
-                }, 1000);
-            }
-        }, isCardFromDirectory ? 2500 : 3500);
-    }, 1000)
-
-    previewDiv.appendChild(tp_under_preview_div);
-}*/
-
 function setPreviewDivPosition() {
     previewDiv.style.top = calculatePreviewDivPosition(lastHoveredCardEl);
     if (getElementOffset(lastHoveredCardEl).left > 50) {
@@ -457,7 +403,6 @@ function createAndShowDirectoryPreview() {
         twitchIframe.style.display = "none";
         previewDiv.appendChild(twitchIframe);
     }
-   // createAndShowUnderPreviewDivBanner(true, calculatedSize.width / 2 - 67);
 
     /*twitchIframe.onmouseleave = function () {
         isHovering = false;
@@ -489,27 +434,95 @@ function createAndShowLoadingSpinnerForSideNav() {
     }
 }
 
-function setSelfThumbnailPreviewListeners() {
+function setTempSelfPreview() {
+    var profileIcon = document.querySelector('figure[data-a-target="top-nav-avatar"]');
+    if (profileIcon.attributes.tp_mouseover_listener) {
+        return;
+    }
+
     try {
-        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseenter", function() {
+        profileIcon.addEventListener("mouseenter", function() {
             if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
                 return;
             }
             var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
             selfPreviewDiv.style.width = "440px";
             selfPreviewDiv.style.height = "248px";
-            selfPreviewDiv.style.boxShadow = "-10px 15px 10px -5px rgba(23,23,23,0.75)";
+            selfPreviewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
             selfPreviewDiv.style.marginTop = "6rem";
-            selfPreviewDiv.style.right = "5rem";
+            selfPreviewDiv.style.right = "6rem";
             selfPreviewDiv.style.display = "block";
             selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
+
+            var textDiv = document.createElement('div');
+            textDiv.innerText = "This feature has moved to the Twitch logo\nHover over the Twitch logo on the top left";
+            textDiv.style.padding = "10px";
+            textDiv.style.fontSize = "18px";
+            textDiv.style.textAlign = "center";
+            textDiv.style.color = "whitesmoke";
+            textDiv.style.backgroundColor = "rgba(23,23,23,0.7)";
+            textDiv.style.marginTop = "60px";
+            textDiv.style.borderTop = "1px solid whitesmoke";
+            textDiv.style.borderBottom = "1px solid whitesmoke";
+
+            var moreText = document.createElement('div');
+            moreText.innerText = "\n\n* this temporary preview window will stop showing after the 1st of aug";
+            moreText.style.fontSize = "11px";
+
+            textDiv.appendChild(moreText);
+            selfPreviewDiv.appendChild(textDiv);
+            appendContainer.appendChild(selfPreviewDiv);
+        });
+
+        profileIcon.addEventListener("mouseleave", function() {
+            clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+        });
+        profileIcon.setAttribute('tp_mouseover_listener', 'true');
+    } catch (e) {
+
+    }
+}
+
+function setSelfThumbnailPreviewListeners() {
+    try {
+        var twitchLogo = document.querySelector('a[data-a-target="home-link"]');
+        if (twitchLogo.attributes.tp_mouseover_listener) {
+            return;
+        }
+
+        twitchLogo.addEventListener("mouseenter", function() {
+            if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
+                return;
+            }
+            var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
+            selfPreviewDiv.style.width = "440px";
+            selfPreviewDiv.style.height = "248px";
+            selfPreviewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
+            selfPreviewDiv.style.marginTop = "6rem";
+            selfPreviewDiv.style.left = isNavBarCollapsed ? "6rem":"25rem";
+            selfPreviewDiv.style.display = "block";
+            selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
+
+            selfPreviewDiv.classList.add('animated');
+            selfPreviewDiv.classList.add('slideInDown');
 
             appendContainer.appendChild(selfPreviewDiv);
         });
 
-        document.querySelector('figure[data-a-target="top-nav-avatar"]').addEventListener("mouseleave", function() {
-            clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+        twitchLogo.addEventListener("mouseleave", function() {
+            var preview_el = document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME);
+            if (preview_el) {
+                preview_el.classList.remove('slideInDown');
+                preview_el.classList.add('slideOutUp');
+                setTimeout(function () {
+                    clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
+                }, 200);
+            }
         });
+        twitchLogo.setAttribute('tp_mouseover_listener', 'true');
+        if (new Date().getTime() < new Date('aug 1, 2021 02:31:00').getTime()) {
+            setTempSelfPreview();
+        }
     } catch (e) {
 
     }
@@ -557,7 +570,6 @@ function createAndShowPreview() {
         }
     }
 
-   // createAndShowUnderPreviewDivBanner();
     appendContainer.appendChild(previewDiv);
 }
 
@@ -679,7 +691,6 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
                     clearVidPlayInterval = null;
                     if (isFromDirectory) {
                         clearLoadingRoller(navCardEl);
-                     //   createAndShowUnderPreviewDivBanner(isFromDirectory, navCardEl.getBoundingClientRect().width / 2 - 67);
                     } else {
 
                     }
@@ -1973,7 +1984,7 @@ function refresh_aps_settings_menu_ui(status) {
 
             cancel_current_bet_btn.classList.remove('tp-aps-settings-cancel-bet-active-btn');
             cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
-            cancel_current_bet_btn.innerText = 'Check / Re-enable';
+            cancel_current_bet_btn.innerText = 'Check Prediction Now';
 
             bet_now_btn.classList.remove('tp-aps-settings-bet-now-active-btn');
         }
@@ -2049,7 +2060,7 @@ function create_and_show_APS_settings_menu() {
             menu_shadow_el.classList.add('tp-shadow-idle');
 
             cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
-            cancel_current_bet_btn.innerText = 'Check / Re-enable';
+            cancel_current_bet_btn.innerText = 'Check Prediction Now';
         }
 
         var curr_stream_name = getCurrentStreamerName();
@@ -2188,7 +2199,7 @@ function showToast(toast_body, storageFlagName) {
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>\n" +
                         toast_body +
-        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, I would love it if you rated the extension on the firefox addon webstore :)</div>\n" +
+        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the firefox addon webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -2252,13 +2263,13 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- For Streamers:</strong> "
         +  "             <br><span style=\"font-size: 12px;font-weight: bold;color: white;\" >- See your own live stream thumbnail</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the profile icon at the top right.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the Twitch logo at the top left.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- To enable it, fill in your stream's name in the text box in the settings and enable the feature's toggle switch.</span>"
         +  "        </div>"
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
         +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
-        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check / Re-enable</strong> according to the sniper's current status.</span>"
+        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check Prediction Now</strong> according to the sniper's current status.</span>"
         +  "    </br></br>"
 }
 
@@ -2369,7 +2380,7 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSelfPreviewEnabled) {
         setTimeout(function (){
             setSelfThumbnailPreviewListeners();
-        }, 2500);
+        }, 1500);
     }
 }
 
