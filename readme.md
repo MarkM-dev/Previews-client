@@ -21,7 +21,7 @@
 ## Features:
 - Image or live video stream Previews in the sidebar & directories.
 - Preview resize & volume control.
-- For streamers: See your own live stream thumbnail when hovering over the top right profile icon.
+- For streamers: See your own live stream thumbnail when hovering over the Twitch logo at the top left.
 - Auto channel points clicker.
 - Auto refresh on player errors (#1000, #2000, #4000).
 - Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
