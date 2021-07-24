@@ -520,7 +520,7 @@ function setSelfThumbnailPreviewListeners() {
             }
         });
         twitchLogo.setAttribute('tp_mouseover_listener', 'true');
-        if (new Date().getTime() < new Date('aug 1, 2021 02:31:00').getTime()) {
+        if (new Date().getTime() < new Date('aug 1, 2021 02:30:00').getTime()) {
             setTempSelfPreview();
         }
     } catch (e) {
