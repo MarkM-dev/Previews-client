@@ -2282,6 +2282,10 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
+        +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper fixed :)</strong></div>"
+        +  "    </br></br>"
+
+    /*return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- For Streamers:</strong> "
         +  "             <br><span style=\"font-size: 12px;font-weight: bold;color: white;\" >- See your own live stream thumbnail</span>"
@@ -2292,7 +2296,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
         +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
         +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check Prediction Now</strong> according to the sniper's current status.</span>"
-        +  "    </br></br>"
+        +  "    </br></br>"*/
 }
 
 function showUpdateToast() {
