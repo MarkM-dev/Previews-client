@@ -1781,6 +1781,7 @@ function setPredictionsNotifications() {
         var s = document.createElement("script");
         s.innerHTML = "window.addEventListener(\"message\", (event) => {\n" +
             "            if (event.origin !== \"https://www.twitch.tv\"){return;}\n" +
+            "            if (!event.data.prediction_bet_amount){return;}\n" +
             "        try {\n" +
             "            var element = document.getElementsByClassName('custom-prediction-button')[event.data.selectedOption].getElementsByTagName('input')[0];\n" +
             "            var prototypeValueSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;\n" +
