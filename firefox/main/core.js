@@ -2282,8 +2282,7 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper fixed :)</strong></div>"
-        +  "    </br></br>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper fixed :)</strong></div>"
 
     /*return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
