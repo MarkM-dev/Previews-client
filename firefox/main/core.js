@@ -1716,37 +1716,42 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
                                                     "\nvote_margin_percent: " + vote_margin_percent + "%"
                                                 );
 
-                                                setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
+                                                window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
 
-                                                // click vote
-                                                document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
+                                                setTimeout(function (){
+                                                    // click vote
+                                                    //document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
 
-                                                if(options.isPredictionsNotificationsEnabled) {
-                                                    var curr_streamer = '';
-                                                    var curr_streamer_img_url = '';
-                                                    var prediction_question = '';
-                                                    var sniper_selection_str = '';
-                                                    var prediction_options_str = '';
+                                                    if(options.isPredictionsNotificationsEnabled) {
+                                                        var curr_streamer = '';
+                                                        var curr_streamer_img_url = '';
+                                                        var prediction_question = '';
+                                                        var sniper_selection_str = '';
+                                                        var prediction_options_str = '';
 
-                                                    try {
-                                                        curr_streamer = getCurrentStreamerName();
-                                                        curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
-                                                        prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText;
-                                                        sniper_selection_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[selectedOption].innerText;
-                                                        prediction_options_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[0].innerText + " / " + document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[1].innerText
-                                                    } catch (e) {
+                                                        try {
+                                                            curr_streamer = getCurrentStreamerName();
+                                                            curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
+                                                            prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText;
+                                                            sniper_selection_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[selectedOption].innerText;
+                                                            prediction_options_str = document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[0].innerText + " / " + document.querySelectorAll('div[data-test-selector="prediction-summary-outcome__title"]')[1].innerText
+                                                        } catch (e) {
 
+                                                        }
+
+                                                        showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
                                                     }
 
-                                                    showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
-                                                }
+                                                    closePopoutMenu();
 
-                                                closePopoutMenu();
+                                                    browser.runtime.sendMessage({action: "bg_APS_exec", detail: "bg_APS_exec"}, function(response) {
 
-                                                browser.runtime.sendMessage({action: "bg_APS_exec", detail: "bg_APS_exec"}, function(response) {
+                                                    });
+                                                    clearPredictionStatus();
+                                                }, 250);
+                                                //setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
 
-                                                });
-                                                clearPredictionStatus();
+
                                             }, 120);
                                         }, 150);
                                     },400);
@@ -1772,6 +1777,23 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
 
 function setPredictionsNotifications() {
     if (!predictionsNotificationsWorker) {
+
+        var s = document.createElement("script");
+        s.innerHTML = "window.addEventListener(\"message\", (event) => {\n" +
+            "            if (event.origin !== \"https://www.twitch.tv\"){return;}\n" +
+            "        try {\n" +
+            "            var element = document.getElementsByClassName('custom-prediction-button')[event.data.selectedOption].getElementsByTagName('input')[0];\n" +
+            "            var prototypeValueSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;\n" +
+            "            prototypeValueSetter.call(element, event.data.prediction_bet_amount);\n" +
+            "            element.dispatchEvent(new Event('input', { bubbles: true }));\n" +
+            "            document.getElementsByClassName('custom-prediction-button__interactive')[event.data.selectedOption].click();\n" +
+            "        } catch (e) {\n" +
+            "            console.log(e);\n" +
+            "        }\n" +
+            "        }, false);";
+
+        document.body.appendChild(s);
+
         function worker_function() {
             var timer;
             self.onmessage = function(event) {
