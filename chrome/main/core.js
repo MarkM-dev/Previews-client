@@ -2165,15 +2165,6 @@ function setPvqc() {
     document.body.appendChild(pvqc);
 }
 
-
-
-
-
-
-
-
-
-
 function append_MultiStream_btn() {
     if (document.getElementById('tp_multi_stream_btn')) {
         return;
@@ -2196,7 +2187,9 @@ function append_MultiStream_btn() {
         img.style.margin = "auto";
 
         btn_container.onclick = function (){
-            toggle_APS_settings_menu();
+            chrome.runtime.sendMessage({action: "bg_start_multi_stream", detail: 'https://www.twitch.tv/#multistream_' + window.location.pathname.substring(1)}, function(response) {
+
+            });
         }
 
         try {
@@ -2207,30 +2200,6 @@ function append_MultiStream_btn() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function setConfirmedToastFlag(clickName, storageFlagName) {
     var storageFlagObj = {};

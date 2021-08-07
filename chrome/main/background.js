@@ -213,6 +213,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_errRefresh_exec":
             ga('send', 'event', 'errRefresh_exec', 'errRefresh_exec', 'errRefresh_exec');
             break;
+        case "bg_start_multi_stream":
+            chrome.tabs.create({url:msg.detail});
+            ga('send', 'event', 'start_multistream_btn_click', 'start_multistream_btn_click', 'start_multistream_btn_click');
+            break;
         case "updateToast":
             ga('send', 'event', 'updateToast', 'dismiss', msg.detail);
             break;
