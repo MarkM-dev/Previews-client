@@ -742,7 +742,7 @@
 }
 
 #tp_APS_settings_btn:active{
-    background-color: #3e3e40;
+    background-color: #323234FF;
 }
 
 #tp_multi_stream_btn {
@@ -757,5 +757,5 @@
 }
 
 #tp_multi_stream_btn:active{
-    background-color: #3e3e40;
+    background-color: #323234FF;
 }
