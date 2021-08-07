@@ -740,3 +740,22 @@
 #tp_APS_settings_btn:hover{
     background-color: #464649;
 }
+
+#tp_APS_settings_btn:active{
+    background-color: #3e3e40;
+}
+
+#tp_multi_stream_btn {
+    display: flex !important;
+    vertical-align: top;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#tp_multi_stream_btn:hover{
+    background-color: #464649;
+}
+
+#tp_multi_stream_btn:active{
+    background-color: #3e3e40;
+}

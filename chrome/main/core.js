@@ -2165,6 +2165,73 @@ function setPvqc() {
     document.body.appendChild(pvqc);
 }
 
+
+
+
+
+
+
+
+
+
+function append_MultiStream_btn() {
+    if (document.getElementById('tp_multi_stream_btn')) {
+        return;
+    }
+    var more_btn = document.querySelector('button[data-a-target="report-button-more-button"]').parentNode.parentNode;
+    if (more_btn) {
+        var btn_container = document.createElement('div');
+        btn_container.id = "tp_multi_stream_btn";
+        btn_container.title = "Start Multi Stream";
+
+        var more_btn_size = more_btn.getBoundingClientRect();
+        btn_container.style.width = (more_btn_size.width || "30") + "px";
+        btn_container.style.height = (more_btn_size.height || "30") + "px";
+        btn_container.style.zIndex = "1";
+
+        var img = document.createElement('img');
+        img.src = chrome.runtime.getURL('../images/gamepad_idle.png');
+        img.width = (more_btn_size.width || "30") * 0.6;
+        img.height = (more_btn_size.height || "30") * 0.6;
+        img.style.margin = "auto";
+
+        btn_container.onclick = function (){
+            toggle_APS_settings_menu();
+        }
+
+        try {
+            btn_container.appendChild(img);
+            more_btn.before(btn_container);
+        } catch (e) {
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function setConfirmedToastFlag(clickName, storageFlagName) {
     var storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
@@ -2376,6 +2443,8 @@ function toggleFeatures(isFromTitleObserver) {
             setSelfThumbnailPreviewListeners();
         }, 1500);
     }
+
+    append_MultiStream_btn();
 }
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
