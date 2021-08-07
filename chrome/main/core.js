@@ -2165,39 +2165,44 @@ function setPvqc() {
     document.body.appendChild(pvqc);
 }
 
+function initMultiStream(firstStreamName) {
+    document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
+
+
+}
+
 function append_MultiStream_btn() {
     if (document.getElementById('tp_multi_stream_btn')) {
         return;
     }
-    var more_btn = document.querySelector('button[data-a-target="report-button-more-button"]').parentNode.parentNode;
-    if (more_btn) {
-        var btn_container = document.createElement('div');
-        btn_container.id = "tp_multi_stream_btn";
-        btn_container.title = "Start Multi Stream";
+    try {
+        var more_btn = document.querySelector('button[data-a-target="report-button-more-button"]').parentNode.parentNode;
+        if (more_btn) {
+            var btn_container = document.createElement('div');
+            btn_container.id = "tp_multi_stream_btn";
+            btn_container.title = "Start Multi Stream";
 
-        var more_btn_size = more_btn.getBoundingClientRect();
-        btn_container.style.width = (more_btn_size.width || "30") + "px";
-        btn_container.style.height = (more_btn_size.height || "30") + "px";
-        btn_container.style.zIndex = "1";
+            var more_btn_size = more_btn.getBoundingClientRect();
+            btn_container.style.width = (more_btn_size.width || "30") + "px";
+            btn_container.style.height = (more_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
 
-        var img = document.createElement('img');
-        img.src = chrome.runtime.getURL('../images/gamepad_idle.png');
-        img.width = (more_btn_size.width || "30") * 0.6;
-        img.height = (more_btn_size.height || "30") * 0.6;
-        img.style.margin = "auto";
+            var img = document.createElement('img');
+            img.src = chrome.runtime.getURL('../images/gamepad_idle.png');
+            img.width = (more_btn_size.width || "30") * 0.6;
+            img.height = (more_btn_size.height || "30") * 0.6;
+            img.style.margin = "auto";
 
-        btn_container.onclick = function (){
-            chrome.runtime.sendMessage({action: "bg_start_multi_stream", detail: 'https://www.twitch.tv/#multistream_' + window.location.pathname.substring(1)}, function(response) {
+            btn_container.onclick = function (){
+                chrome.runtime.sendMessage({action: "bg_start_multi_stream", detail: 'https://www.twitch.tv/#multistream_' + window.location.pathname.substring(1)}, function(response) {
 
-            });
-        }
-
-        try {
+                });
+            }
             btn_container.appendChild(img);
             more_btn.before(btn_container);
-        } catch (e) {
-
         }
+    } catch (e) {
+
     }
 }
 
@@ -2413,7 +2418,13 @@ function toggleFeatures(isFromTitleObserver) {
         }, 1500);
     }
 
-    append_MultiStream_btn();
+    if (!options.isMultiStreamEnabled) {
+        if (window.location.hash.indexOf('#multistream_') > -1) {
+            initMultiStream(window.location.hash.split('#multistream_')[1])
+        } else {
+            append_MultiStream_btn();
+        }
+    }
 }
 
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {

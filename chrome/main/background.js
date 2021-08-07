@@ -17,6 +17,7 @@ var options = {
     PREVIEWDIV_WIDTH: 440,
     PREVIEWDIV_HEIGHT: 248,
     isDirpEnabled: true,
+    isMultiStreamEnabled: false,
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
     isSidebarExtendEnabled: false,
