@@ -2312,7 +2312,7 @@ function setTwitchSearchBarListener() {
     })
 }
 
-function appendMultiStreamSearchInfoText () {
+function appendMultiStreamSearchInfoText() {
     var div = document.createElement('div');
     div.classList.add('tp-multi-stream-info-div');
     div.innerText = "Search & Click to add -->"
