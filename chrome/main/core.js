@@ -2500,7 +2500,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 15px;' >- Multi-Stream</strong> (without leaving Twitch!)"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the stream uptime under the stream.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the stream you want to add.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).</span>"
         +  "        </div>"
         +  "  <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- Picture in Picture</strong>"
