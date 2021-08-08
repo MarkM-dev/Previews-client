@@ -2225,13 +2225,13 @@ function makeResizableDiv(container) {
     }
 }
 
-function createMultiStreamBox(streamName) {
+function createMultiStreamBox(streamName, isFromSearchBar) {
     var previewDiv = createPreviewDiv("tp-multi-stream-box");
     previewDiv.style.position = "absolute";
     previewDiv.style.width = "440px";
     previewDiv.style.height = "268px";
-    previewDiv.style.top = "10px";
-    previewDiv.style.left = "10px";
+    previewDiv.style.top = isFromSearchBar ? "20px":"10px";
+    previewDiv.style.left = isFromSearchBar ? "20px":"10px";
     previewDiv.style.display = "block";
     previewDiv.style.backgroundColor = "#232323";
     previewDiv.style.borderTop = "1px solid #434343";
@@ -2279,9 +2279,34 @@ function createMultiStreamBox(streamName) {
     makeResizableDiv(previewDiv);
 }
 
+function setTwitchSearchBarListener() {
+    var input = document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input');
+
+    input.addEventListener('input', (event) => {
+        if (event.target.value.length > 0) {
+            setTimeout(function (){
+
+                var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
+                for (let i = 0; i < elements.length; i++) {
+                    elements[i].addEventListener('click', function (e) {
+                        event.target.value = "";
+                        e.preventDefault();
+                        e.cancelBubble = true;
+                        var href = e.target.closest('a').href
+                        href = href.substr(href.lastIndexOf("/") + 1);
+                        console.log(href);
+                        createMultiStreamBox(href, true);
+                    })
+                }
+            }, 500);
+        }
+    })
+}
+
 function initMultiStream(firstStreamName) {
     window.location.hash = "";
     document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
+    setTwitchSearchBarListener();
     createMultiStreamBox(firstStreamName);
 }
 
