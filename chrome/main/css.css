@@ -684,13 +684,6 @@
     display: none !important;
 }
 
-#tp_fScrnWithChat_btn {
-    display: inline-flex;
-    cursor: pointer;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
 .tp_update_toast {
     overflow: auto;
     bottom: 10%;
@@ -816,13 +809,17 @@
     color: #a66bff;
 }
 
-#tp_fScrnWithChat_btn {
+.tp-player-control {
+    display: inline-flex;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
     border-radius: 4px;
 }
 
-#tp_fScrnWithChat_btn:hover {
+.tp-player-control:hover {
     background-color: #ffffff33;
 }
-#tp_fScrnWithChat_btn:active {
+.tp-player-control:active {
     background-color: rgb(38, 38, 38);
 }

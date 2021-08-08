@@ -1838,6 +1838,7 @@ function setfScrnWithChatBtn() {
         if (ttv_theater_mode_btn) {
             var btn_container = document.createElement('div');
             btn_container.id = "tp_fScrnWithChat_btn";
+            btn_container.classList.add('tp-player-control');
             btn_container.title = "Toggle Full Screen With Chat";
 
             var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
@@ -1853,6 +1854,44 @@ function setfScrnWithChatBtn() {
 
             btn_container.onclick = function (){
                 toggle_fScrnWithChat();
+            }
+            btn_container.appendChild(img);
+            ttv_theater_mode_btn.parentNode.before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+function setPIPBtn() {
+    if (document.getElementById('tp_pip_btn')) {
+        return;
+    }
+    try {
+        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            var btn_container = document.createElement('div');
+            btn_container.id = "tp_pip_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Toggle Picture In Picture";
+
+            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            var img = document.createElement('img');
+            img.src = chrome.runtime.getURL('../images/pip.png');
+            img.width = (ttv_theater_mode_btn_size.width || "18") * 0.7;
+            img.height = (ttv_theater_mode_btn_size.height || "18") * 0.7;
+            img.style.margin = "auto";
+
+            btn_container.onclick = function (){
+                var video = document.querySelector(".video-player").querySelector('video');
+                video.requestPictureInPicture();
+                chrome.runtime.sendMessage({action: "bg_pip_main_started", detail: true}, function(response) {
+
+                });
             }
             btn_container.appendChild(img);
             ttv_theater_mode_btn.parentNode.before(btn_container);
@@ -2531,6 +2570,10 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isPredictionsSniperEnabled) {
         append_APS_settings_btn();
+    }
+
+    if (options.isPipEnabled) {
+        setPIPBtn();
     }
 
     if (options.isfScrnWithChatEnabled) {

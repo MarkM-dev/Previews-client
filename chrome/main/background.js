@@ -23,6 +23,7 @@ var options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
+    isPipEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -98,7 +99,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
         if (details.reason === "update") {
 
 
-            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            //chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
 
            /* if (details.previousVersion === "1.5.1.6") {
@@ -217,6 +218,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_pip_started":
             ga('send', 'event', 'pip_started', 'pip_started', 'pip_started');
+            break;
+        case "bg_pip_main_started":
+            ga('send', 'event', 'pip_main_started', 'pip_main_started', 'pip_main_started');
             break;
         case "bg_errRefresh_exec":
             ga('send', 'event', 'errRefresh_exec', 'errRefresh_exec', 'errRefresh_exec');
