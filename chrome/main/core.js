@@ -2476,7 +2476,7 @@ function getUpdateToastBody() {
         +  "        <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' button in the player controls.</span>"
         +  "        <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start chrome's Picture In Picture for the current stream.</span>"
         +  "        </div>"
-       +  "    </br></br>"
+       +  "    </br>"
 }
 
 function showUpdateToast() {
