@@ -2466,16 +2466,17 @@ function showToast(toast_body, storageFlagName) {
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- For Streamers:</strong> "
-        +  "             <br><span style=\"font-size: 12px;font-weight: bold;color: white;\" >- See your own live stream thumbnail</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the Twitch logo at the top left.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- To enable it, fill in your stream's name in the text box in the settings and enable the feature's toggle switch.</span>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 15px;' >- Multi-Stream</strong> (without leaving Twitch!)"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the stream uptime under the stream.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the stream you want to add.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).</span>"
         +  "        </div>"
-        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
-        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
-        +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
-        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check Prediction Now</strong> according to the sniper's current status.</span>"
-        +  "    </br></br>"
+        +  "  <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- Picture in Picture</strong>"
+        +  "        <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' button in the player controls.</span>"
+        +  "        <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start chrome's Picture In Picture for the current stream.</span>"
+        +  "        </div>"
+       +  "    </br></br>"
 }
 
 function showUpdateToast() {
