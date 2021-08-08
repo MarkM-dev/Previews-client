@@ -775,7 +775,6 @@
 }
 
 .tp-multi-stream-box .tp-multi-stream-box-close-btn {
-    display: inline-block;
     font-size: 15px;
     color: grey;
     cursor: pointer;
@@ -788,8 +787,10 @@
     position: absolute;
     right: 0;
     margin: 0;
-    height: 20px;
-    top: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
     padding: 0 7px;
 }
 

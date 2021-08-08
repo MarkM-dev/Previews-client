@@ -2297,7 +2297,7 @@ function append_MultiStream_btn() {
             btn_container.style.zIndex = "1";
 
             var img = document.createElement('img');
-            img.src = chrome.runtime.getURL('../images/gamepad_idle.png');
+            img.src = chrome.runtime.getURL('../images/multistream.png');
             img.width = (more_btn_size.width || "30") * 0.6;
             img.height = (more_btn_size.height || "30") * 0.6;
             img.style.margin = "auto";
@@ -2811,7 +2811,7 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#TP_popup_logo').src = chrome.runtime.getURL('images/TP96.png');
         settingsContainer.querySelector('#tp_popup_donate_btn').src = chrome.runtime.getURL('images/coffee.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = chrome.runtime.getURL('images/tp_fScrnWithChat.png');
-        settingsContainer.querySelector('#tp_multiStream_img').src = chrome.runtime.getURL('images/gamepad_idle.png');
+        settingsContainer.querySelector('#tp_multiStream_img').src = chrome.runtime.getURL('images/multistream.png');
 
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
