@@ -2177,7 +2177,7 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     var previewDiv = createPreviewDiv("tp-multi-stream-box");
     previewDiv.style.position = "absolute";
     previewDiv.style.width = "440px";
-    previewDiv.style.height = "268px";
+    previewDiv.style.height = "273px";
     previewDiv.style.top = isFromSearchBar ? "20px":"10px";
     previewDiv.style.left = isFromSearchBar ? "20px":"10px";
     previewDiv.style.display = "block";
@@ -2187,10 +2187,14 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     var title = document.createElement('div');
     title.classList.add('tp_multistream_box_title');
     title.style.width = "100%";
-    title.style.height = "20px";
+    title.style.height = "25px";
     title.style.top = "0px";
     title.style.paddingLeft = "5px";
     title.style.color = "darkgrey";
+    title.style.display = "flex";
+    title.style.justifyContent = "left";
+    title.style.alignItems = "center";
+
     title.innerText = streamName.charAt(0).toUpperCase() + streamName.slice(1);
 
     var closeBtn = document.createElement('div');
@@ -2299,7 +2303,10 @@ function append_MultiStream_btn() {
             img.style.margin = "auto";
 
             btn_container.onclick = function (){
-                chrome.runtime.sendMessage({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/#multistream_' + window.location.pathname.substring(1)}, function(response) {
+                chrome.storage.local.set({'startMultiStream_name': window.location.pathname.substring(1)}, function() {
+
+                });
+                chrome.runtime.sendMessage({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/'}, function(response) {
 
                 });
             }
@@ -2533,13 +2540,18 @@ function toggleFeatures(isFromTitleObserver) {
     }
 
     if (options.isMultiStreamEnabled) {
-        if (window.location.hash.indexOf('#multistream_') > -1) {
-            initMultiStream(window.location.hash.split('#multistream_')[1])
-        } else {
-            setTimeout(function (){
-                append_MultiStream_btn();
-            }, 1500);
-        }
+        chrome.storage.local.get('startMultiStream_name', function(result) {
+            if (result.startMultiStream_name) {
+                initMultiStream(result.startMultiStream_name);
+                chrome.storage.local.set({'startMultiStream_name': false}, function() {
+
+                });
+            } else {
+                setTimeout(function (){
+                    append_MultiStream_btn();
+                }, 1500);
+            }
+        });
     }
 }
 
