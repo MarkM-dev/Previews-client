@@ -17,13 +17,13 @@ var options = {
     PREVIEWDIV_WIDTH: 440,
     PREVIEWDIV_HEIGHT: 248,
     isDirpEnabled: true,
-    isMultiStreamEnabled: false,
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
+    isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
     isPredictionsNotificationsEnabled: false,
@@ -97,9 +97,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.9.3.0") {
-                chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            }
+
+            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -144,6 +144,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_fScrnWithChat_click":
             ga('send', 'event', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click');
+            break;
+        case "bg_update_isMultiStreamEnabled":
+            ga('send', 'event', 'MultiStream_mode', 'change', msg.detail ? "MultiStream_ON":"MultiStream_OFF");
+            break;
+        case "bg_multiStream_btn_click":
+            ga('send', 'event', 'multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");

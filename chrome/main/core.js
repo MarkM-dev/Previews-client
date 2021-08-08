@@ -2342,6 +2342,9 @@ function append_MultiStream_btn() {
             img.style.margin = "auto";
 
             btn_container.onclick = function (){
+                chrome.runtime.sendMessage({action: "bg_multiStream_btn_click", detail: true}, function(response) {
+
+                });
                 chrome.runtime.sendMessage({action: "bg_start_multi_stream", detail: 'https://www.twitch.tv/#multistream_' + window.location.pathname.substring(1)}, function(response) {
 
                 });
