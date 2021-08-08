@@ -55,7 +55,7 @@
 * **Multi Stream**
     - The button will show next to the stream uptime under the stream.
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
-    - In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the stream you want to add.
+    - In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
     - You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).
       <br/><br/>
 

@@ -946,8 +946,14 @@ function ga_report_appStart() {
     var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
     var predictionsSniper = options.isPredictionsSniperEnabled ? "APS_ON" : "APS_OFF";
     var selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
+    var multiStream = options.isMultiStreamEnabled ? "multiStream_ON" : "multiStream_OFF";
+    var pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
 
-    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview}, function(response) {
+    chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
+            + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
+            + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
+            + " : " + pip_main},
+        function(response) {
 
     });
 }
@@ -2279,16 +2285,40 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
 }
 
 function setSearchResultsClickListeners(input) {
-    var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].addEventListener('click', function (e) {
-            setTextAreaValue(input, "");
-            e.preventDefault();
-            e.cancelBubble = true;
-            var href = e.target.closest('a').href
-            href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-            createMultiStreamBox(href, true);
-        })
+    try {
+        var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].querySelector('.tp-player-control')) {
+                return;
+            }
+            var btn_container = document.createElement('div');
+            btn_container.title = "Add Multi Stream";
+            btn_container.classList.add('tp-player-control');
+
+            btn_container.style.width = "30px";
+            btn_container.style.height = "30px";
+            btn_container.style.marginBottom = "2px";
+            btn_container.style.marginLeft = "5px";
+
+            var img = document.createElement('img');
+            img.src = chrome.runtime.getURL('../images/multistream.png');
+            img.width = 18;
+            img.height = 18;
+            img.style.margin = "auto";
+
+            btn_container.addEventListener('click', function (e) {
+                setTextAreaValue(input, "");
+                e.preventDefault();
+                e.cancelBubble = true;
+                var href = e.target.closest('a').href
+                href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
+                createMultiStreamBox(href, true);
+            })
+            btn_container.appendChild(img);
+            elements[i].querySelector('a').firstChild.appendChild(btn_container);
+        }
+    } catch (e) {
+
     }
 }
 
@@ -2314,7 +2344,8 @@ function setTwitchSearchBarListener() {
 function appendMultiStreamSearchInfoText() {
     var div = document.createElement('div');
     div.classList.add('tp-multi-stream-info-div');
-    div.innerText = "Search & Click to add -->"
+    div.innerHTML = "Search & Click <img width='18' height='18' style='margin: auto 5px' /> to add -->"
+    div.querySelector('img').src = chrome.runtime.getURL('../images/multistream.png');
 
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
@@ -2469,7 +2500,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 15px;' >- Multi-Stream</strong> (without leaving Twitch!)"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the stream uptime under the stream.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the stream you want to add.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).</span>"
         +  "        </div>"
         +  "  <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- Picture in Picture</strong>"
