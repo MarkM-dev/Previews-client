@@ -2279,16 +2279,40 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
 }
 
 function setSearchResultsClickListeners(input) {
-    var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].addEventListener('click', function (e) {
-            setTextAreaValue(input, "");
-            e.preventDefault();
-            e.cancelBubble = true;
-            var href = e.target.closest('a').href
-            href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-            createMultiStreamBox(href, true);
-        })
+    try {
+        var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].querySelector('.tp-player-control')) {
+                return;
+            }
+            var btn_container = document.createElement('div');
+            btn_container.title = "Add Multi Stream";
+            btn_container.classList.add('tp-player-control');
+
+            btn_container.style.width = "30px";
+            btn_container.style.height = "30px";
+            btn_container.style.marginBottom = "2px";
+            btn_container.style.marginLeft = "5px";
+
+            var img = document.createElement('img');
+            img.src = chrome.runtime.getURL('../images/multistream.png');
+            img.width = 18;
+            img.height = 18;
+            img.style.margin = "auto";
+
+            btn_container.addEventListener('click', function (e) {
+                setTextAreaValue(input, "");
+                e.preventDefault();
+                e.cancelBubble = true;
+                var href = e.target.closest('a').href
+                href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
+                createMultiStreamBox(href, true);
+            })
+            btn_container.appendChild(img);
+            elements[i].querySelector('a').firstChild.appendChild(btn_container);
+        }
+    } catch (e) {
+
     }
 }
 
