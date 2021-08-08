@@ -23,6 +23,8 @@ var options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
+    isPipEnabled: false,
+    isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
     isPredictionsNotificationsEnabled: false,
@@ -96,9 +98,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.9.3.0") {
-                chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            }
+
+            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+
 
            /* if (details.previousVersion === "1.5.1.6") {
                 chrome.tabs.create({url:"../popups/updatePopup.html"});
@@ -143,6 +145,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_fScrnWithChat_click":
             ga('send', 'event', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click');
+            break;
+        case "bg_update_isMultiStreamEnabled":
+            ga('send', 'event', 'MultiStream_mode', 'change', msg.detail ? "MultiStream_ON":"MultiStream_OFF");
+            break;
+        case "bg_multiStream_btn_click":
+            chrome.tabs.create({url:msg.detail});
+            ga('send', 'event', 'multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
@@ -209,6 +218,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_pip_started":
             ga('send', 'event', 'pip_started', 'pip_started', 'pip_started');
+            break;
+        case "bg_pip_main_started":
+            ga('send', 'event', 'pip_main_started', 'pip_main_started', 'pip_main_started');
             break;
         case "bg_errRefresh_exec":
             ga('send', 'event', 'errRefresh_exec', 'errRefresh_exec', 'errRefresh_exec');

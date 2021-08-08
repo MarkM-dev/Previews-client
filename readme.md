@@ -22,6 +22,7 @@
 - Image or live video stream Previews in the sidebar & directories.
 - Preview resize & volume control.
 - For streamers: See your own live stream thumbnail when hovering over the Twitch logo at the top left.
+- Multi Stream.
 - Auto channel points clicker.
 - Auto refresh on player errors (#1000, #2000, #4000).
 - Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -30,6 +31,7 @@
 - Auto extend the sidebar to show all live streamers (when sidebar is open).
 - A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
 - Full screen with chat mode.
+- Picture In Picture in current stream.
 - Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
@@ -48,6 +50,15 @@
     - Shows your own stream's live thumbnail preview when hovering over the Twitch logo at the top left.
     - This feature is only active on 'twitch.tv' pages, it's not active in the clips directory or in the dashboard (like clips.twitch.tv).
       <br/><br/>
+
+
+* **Multi Stream**
+    - The button will show next to the stream uptime under the stream.
+    - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
+    - In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the stream you want to add.
+    - You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).
+      <br/><br/>
+
 
 
 * **Auto channel points clicker**
@@ -72,6 +83,12 @@
     - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
     - You can exit the mode by clicking the button again or double-tapping ESC.
     - When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).
+      <br/><br/>
+
+
+* **Picture In Picture**
+    - The button will show next to the 'theater mode' button in the player controls.
+    - Clicking it will start chrome's Picture In Picture for the current stream.
       <br/><br/>
 
 
