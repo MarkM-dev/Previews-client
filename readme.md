@@ -31,6 +31,7 @@
 - Auto extend the sidebar to show all live streamers (when sidebar is open).
 - A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
 - Full screen with chat mode.
+- Picture In Picture in current stream.
 - Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
@@ -82,6 +83,12 @@
     - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
     - You can exit the mode by clicking the button again or double-tapping ESC.
     - When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).
+      <br/><br/>
+
+
+* **Picture In Picture**
+    - The button will show next to the 'theater mode' button in the player controls.
+    - Clicking it will start chrome's Picture In Picture for the current stream.
       <br/><br/>
 
 
