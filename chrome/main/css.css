@@ -815,3 +815,14 @@
     font-size: 15px;
     color: #a66bff;
 }
+
+#tp_fScrnWithChat_btn {
+    border-radius: 4px;
+}
+
+#tp_fScrnWithChat_btn:hover {
+    background-color: #ffffff33;
+}
+#tp_fScrnWithChat_btn:active {
+    background-color: rgb(38, 38, 38);
+}

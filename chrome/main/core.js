@@ -1833,24 +1833,32 @@ function setfScrnWithChatBtn() {
     if (document.getElementById('tp_fScrnWithChat_btn')) {
         return;
     }
-    var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
-    if (ttv_theater_mode_btn) {
-        var btn = document.createElement('div');
-        btn.id = "tp_fScrnWithChat_btn";
-        btn.title = "Toggle Full Screen With Chat";
-        btn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tp_fScrnWithChat.png') + "')";
-        var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
-        btn.style.width = ttv_theater_mode_btn_size.width * 0.833 + "px";
-        btn.style.height = ttv_theater_mode_btn_size.height * 0.833 + "px";
-        btn.onclick = function (){
-            toggle_fScrnWithChat();
-        }
+    try {
+        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            var btn_container = document.createElement('div');
+            btn_container.id = "tp_fScrnWithChat_btn";
+            btn_container.title = "Toggle Full Screen With Chat";
 
-        try {
-            ttv_theater_mode_btn.parentNode.before(btn);
-        } catch (e) {
+            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
 
+            var img = document.createElement('img');
+            img.src = chrome.runtime.getURL('../images/tp_fScrnWithChat.png');
+            img.width = (ttv_theater_mode_btn_size.width || "30") * 0.8;
+            img.height = (ttv_theater_mode_btn_size.height || "30") * 0.8;
+            img.style.margin = "auto";
+
+            btn_container.onclick = function (){
+                toggle_fScrnWithChat();
+            }
+            btn_container.appendChild(img);
+            ttv_theater_mode_btn.parentNode.before(btn_container);
         }
+    } catch (e) {
+
     }
 }
 
