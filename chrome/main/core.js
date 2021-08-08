@@ -2575,11 +2575,13 @@ function toggleFeatures(isFromTitleObserver) {
         }, 1500);
     }
 
-    if (!options.isMultiStreamEnabled) {
+    if (options.isMultiStreamEnabled) {
         if (window.location.hash.indexOf('#multistream_') > -1) {
             initMultiStream(window.location.hash.split('#multistream_')[1])
         } else {
-            append_MultiStream_btn();
+            setTimeout(function (){
+                append_MultiStream_btn();
+            }, 1500);
         }
     }
 }
@@ -2840,6 +2842,7 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#TP_popup_logo').src = chrome.runtime.getURL('images/TP96.png');
         settingsContainer.querySelector('#tp_popup_donate_btn').src = chrome.runtime.getURL('images/coffee.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = chrome.runtime.getURL('images/tp_fScrnWithChat.png');
+        settingsContainer.querySelector('#tp_multiStream_img').src = chrome.runtime.getURL('images/gamepad_idle.png');
 
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
@@ -2852,6 +2855,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
+        initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
         initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
