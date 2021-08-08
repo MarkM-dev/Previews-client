@@ -2279,25 +2279,34 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     makeResizableDiv(previewDiv);
 }
 
+function setSearchResultsClickListeners(input) {
+    var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].addEventListener('click', function (e) {
+            setTextAreaValue(input, "");
+            e.preventDefault();
+            e.cancelBubble = true;
+            var href = e.target.closest('a').href
+            href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
+            createMultiStreamBox(href, true);
+        })
+    }
+}
+
 function setTwitchSearchBarListener() {
-    var input = document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input');
+    let input = document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input');
 
     input.addEventListener('input', (event) => {
         if (event.target.value.length > 0) {
             setTimeout(function (){
-
-                var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
-                for (let i = 0; i < elements.length; i++) {
-                    elements[i].addEventListener('click', function (e) {
-                        setTextAreaValue(input, "");
-                        e.preventDefault();
-                        e.cancelBubble = true;
-                        var href = e.target.closest('a').href
-                        href = href.substr(href.lastIndexOf("/") + 1);
-                        console.log(href);
-                        createMultiStreamBox(href, true);
-                    })
-                }
+                setSearchResultsClickListeners(input);
+            }, 500);
+        }
+    })
+    input.addEventListener('click', (event) => {
+        if (event.target.value.length === 0) {
+            setTimeout(function (){
+                setSearchResultsClickListeners(input);
             }, 500);
         }
     })
