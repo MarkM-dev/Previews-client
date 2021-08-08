@@ -2312,10 +2312,19 @@ function setTwitchSearchBarListener() {
     })
 }
 
+function appendMultiStreamSearchInfoText () {
+    var div = document.createElement('div');
+    div.classList.add('tp-multi-stream-info-div');
+    div.innerText = "Search & Click to add -->"
+
+    document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
+}
+
 function initMultiStream(firstStreamName) {
     window.location.hash = "";
     document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
     setTwitchSearchBarListener();
+    appendMultiStreamSearchInfoText();
     createMultiStreamBox(firstStreamName);
 }
 
