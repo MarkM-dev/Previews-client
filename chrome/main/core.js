@@ -2289,7 +2289,7 @@ function setTwitchSearchBarListener() {
                 var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
                 for (let i = 0; i < elements.length; i++) {
                     elements[i].addEventListener('click', function (e) {
-                        event.target.value = "";
+                        setTextAreaValue(input, "");
                         e.preventDefault();
                         e.cancelBubble = true;
                         var href = e.target.closest('a').href
