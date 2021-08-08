@@ -22,6 +22,7 @@
 - Image or live video stream Previews in the sidebar & directories.
 - Preview resize & volume control.
 - For streamers: See your own live stream thumbnail when hovering over the Twitch logo at the top left.
+- Multi Stream.
 - Auto channel points clicker.
 - Auto refresh on player errors (#1000, #2000, #4000).
 - Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -48,6 +49,15 @@
     - Shows your own stream's live thumbnail preview when hovering over the Twitch logo at the top left.
     - This feature is only active on 'twitch.tv' pages, it's not active in the clips directory or in the dashboard (like clips.twitch.tv).
       <br/><br/>
+
+
+* **Multi Stream**
+    - The button will show next to the stream uptime under the stream.
+    - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
+    - In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the stream you want to add.
+    - You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).
+      <br/><br/>
+
 
 
 * **Auto channel points clicker**
