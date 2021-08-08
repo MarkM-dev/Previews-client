@@ -98,8 +98,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-
-            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            if (details.previousVersion !== "1.9.4.0") {
+                chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            }
 
 
            /* if (details.previousVersion === "1.5.1.6") {
@@ -147,7 +148,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             ga('send', 'event', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click');
             break;
         case "bg_update_isMultiStreamEnabled":
-            ga('send', 'event', 'MultiStream_mode', 'change', msg.detail ? "MultiStream_ON":"MultiStream_OFF");
+            ga('send', 'event', 'multiStream_mode', 'change', msg.detail ? "multiStream_ON":"multiStream_OFF");
+            break;
+        case "bg_update_isPipEnabled":
+            ga('send', 'event', 'pip_main_mode', 'change', msg.detail ? "pip_main_ON":"pip_main_OFF");
             break;
         case "bg_multiStream_btn_click":
             chrome.tabs.create({url:msg.detail});
