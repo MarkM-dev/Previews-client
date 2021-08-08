@@ -2165,10 +2165,124 @@ function setPvqc() {
     document.body.appendChild(pvqc);
 }
 
+
+
+function initDragForMultiStream(container) {
+    dragElement(container);
+
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+        elmnt.querySelector('.tp_multistream_box_title').onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+}
+function makeResizableDiv(container) {
+    const element = container;
+
+    const currentResizer = element.querySelector('.resizer');
+
+    currentResizer.addEventListener('mousedown', function(e) {
+        currentResizer.onmouseup = closeResizeElement;
+        currentResizer.onmousemove = resize;
+    })
+
+    function resize(e) {
+        let width = e.pageX - element.getBoundingClientRect().left;
+        let height = e.pageY - element.getBoundingClientRect().top;
+        element.style.width = width + 'px';
+        element.style.height = height + 'px';
+        element.lastChild.height = (height - 20) + 'px';
+    }
+
+    function closeResizeElement() {
+        currentResizer.onmouseup = null;
+        currentResizer.onmousemove = null;
+    }
+}
+
+function createMultiStreamBox(streamName) {
+    var previewDiv = createPreviewDiv("tp-multi-stream-box");
+    previewDiv.style.position = "absolute";
+    previewDiv.style.width = "440px";
+    previewDiv.style.height = "268px";
+    previewDiv.style.top = "10px";
+    previewDiv.style.left = "10px";
+    previewDiv.style.display = "block";
+    previewDiv.style.backgroundColor = "#232323";
+    previewDiv.style.borderTop = "1px solid #434343";
+
+    var title = document.createElement('div');
+    title.classList.add('tp_multistream_box_title');
+    title.style.width = "100%";
+    title.style.height = "20px";
+    title.style.top = "0px";
+    title.style.paddingLeft = "5px";
+    title.style.color = "darkgrey";
+    title.innerText = streamName.charAt(0).toUpperCase() + streamName.slice(1);
+
+    var closeBtn = document.createElement('div');
+    closeBtn.innerText = 'X';
+    closeBtn.classList.add('tp-multi-stream-box-close-btn');
+
+    closeBtn.onclick = function () {
+        previewDiv.parentNode.removeChild(previewDiv);
+    }
+
+    var iframe = document.createElement("Iframe");
+    iframe.width = "100%";
+    iframe.height = "248px";
+    iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
+
+
+
+    var resizable = document.createElement('div');
+    resizable.innerHTML = "<div class='resizable'>\n" +
+        "  <div class='resizers'>\n" +
+        "    <div class='resizer bottom-right'></div>\n" +
+        "  </div>\n" +
+        "</div>"
+
+
+
+    title.appendChild(closeBtn);
+    previewDiv.appendChild(resizable);
+    previewDiv.appendChild(title);
+    previewDiv.appendChild(iframe);
+
+    document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(previewDiv);
+    initDragForMultiStream(previewDiv);
+    makeResizableDiv(previewDiv);
+}
+
 function initMultiStream(firstStreamName) {
+    window.location.hash = "";
     document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
-
-
+    createMultiStreamBox(firstStreamName);
 }
 
 function append_MultiStream_btn() {
@@ -2205,6 +2319,15 @@ function append_MultiStream_btn() {
 
     }
 }
+
+
+
+
+
+
+
+
+
 
 function setConfirmedToastFlag(clickName, storageFlagName) {
     var storageFlagObj = {};

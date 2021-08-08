@@ -759,3 +759,46 @@
 #tp_multi_stream_btn:active{
     background-color: #323234FF;
 }
+
+.resizable .resizers .resizer{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.resizable .resizers .resizer.bottom-right {
+    right: -20px;
+    bottom: -20px;
+    cursor: nwse-resize;
+    z-index: 99999;
+}
+
+.tp-multi-stream-box .tp-multi-stream-box-close-btn {
+    display: inline-block;
+    font-size: 15px;
+    color: grey;
+    cursor: pointer;
+    border-radius: 2px;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+    position: absolute;
+    right: 0;
+    margin: 0;
+    height: 20px;
+    top: 0;
+    padding: 0 7px;
+}
+
+.tp-multi-stream-box .tp-multi-stream-box-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: whitesmoke;
+}
+
+.tp-multi-stream-box .tp-multi-stream-box-close-btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: whitesmoke;
+}
