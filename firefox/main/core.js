@@ -434,55 +434,6 @@ function createAndShowLoadingSpinnerForSideNav() {
     }
 }
 
-function setTempSelfPreview() {
-    var profileIcon = document.querySelector('figure[data-a-target="top-nav-avatar"]');
-    if (profileIcon.attributes.tp_mouseover_listener) {
-        return;
-    }
-
-    try {
-        profileIcon.addEventListener("mouseenter", function() {
-            if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
-                return;
-            }
-            var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
-            selfPreviewDiv.style.width = "440px";
-            selfPreviewDiv.style.height = "248px";
-            selfPreviewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
-            selfPreviewDiv.style.marginTop = "6rem";
-            selfPreviewDiv.style.right = "6rem";
-            selfPreviewDiv.style.display = "block";
-            selfPreviewDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + options.selfPreviewStreamName + "-440x248.jpg?" + new Date().getTime() + "')";
-
-            var textDiv = document.createElement('div');
-            textDiv.innerText = "This feature has moved to the Twitch logo\nHover over the Twitch logo on the top left";
-            textDiv.style.padding = "10px";
-            textDiv.style.fontSize = "18px";
-            textDiv.style.textAlign = "center";
-            textDiv.style.color = "whitesmoke";
-            textDiv.style.backgroundColor = "rgba(23,23,23,0.7)";
-            textDiv.style.marginTop = "60px";
-            textDiv.style.borderTop = "1px solid whitesmoke";
-            textDiv.style.borderBottom = "1px solid whitesmoke";
-
-            var moreText = document.createElement('div');
-            moreText.innerText = "\n\n* this temporary preview window will stop showing after the 1st of aug";
-            moreText.style.fontSize = "11px";
-
-            textDiv.appendChild(moreText);
-            selfPreviewDiv.appendChild(textDiv);
-            appendContainer.appendChild(selfPreviewDiv);
-        });
-
-        profileIcon.addEventListener("mouseleave", function() {
-            clearExistingPreviewDivs(TP_SELF_PREVIEW_DIV_CLASSNAME, true);
-        });
-        profileIcon.setAttribute('tp_mouseover_listener', 'true');
-    } catch (e) {
-
-    }
-}
-
 function setSelfThumbnailPreviewListeners() {
     try {
         var twitchLogo = document.querySelector('a[data-a-target="home-link"]');
@@ -520,9 +471,6 @@ function setSelfThumbnailPreviewListeners() {
             }
         });
         twitchLogo.setAttribute('tp_mouseover_listener', 'true');
-        if (new Date().getTime() < new Date('aug 1, 2021 02:30:00').getTime()) {
-            setTempSelfPreview();
-        }
     } catch (e) {
 
     }
@@ -998,8 +946,13 @@ function ga_report_appStart() {
     var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
     var predictionsSniper = options.isPredictionsSniperEnabled ? "APS_ON" : "APS_OFF";
     var selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
+    var multiStream = options.isMultiStreamEnabled ? "multiStream_ON" : "multiStream_OFF";
+    //var pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
 
-    browser.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : " + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview}, function(response) {
+    browser.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
+            + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
+            + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream},
+        function(response) {
 
     });
 }
@@ -1912,24 +1865,71 @@ function setfScrnWithChatBtn() {
     if (document.getElementById('tp_fScrnWithChat_btn')) {
         return;
     }
-    var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
-    if (ttv_theater_mode_btn) {
-        var btn = document.createElement('div');
-        btn.id = "tp_fScrnWithChat_btn";
-        btn.title = "Toggle Full Screen With Chat";
-        btn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/tp_fScrnWithChat.png') + "')";
-        var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
-        btn.style.width = ttv_theater_mode_btn_size.width * 0.833 + "px";
-        btn.style.height = ttv_theater_mode_btn_size.height * 0.833 + "px";
-        btn.onclick = function (){
-            toggle_fScrnWithChat();
-        }
+    try {
+        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            var btn_container = document.createElement('div');
+            btn_container.id = "tp_fScrnWithChat_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Toggle Full Screen With Chat";
 
-        try {
-            ttv_theater_mode_btn.parentNode.before(btn);
-        } catch (e) {
+            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
 
+            var img = document.createElement('img');
+            img.src = browser.runtime.getURL('../images/tp_fScrnWithChat.png');
+            img.width = (ttv_theater_mode_btn_size.width || "30") * 0.8;
+            img.height = (ttv_theater_mode_btn_size.height || "30") * 0.8;
+            img.style.margin = "auto";
+
+            btn_container.onclick = function (){
+                toggle_fScrnWithChat();
+            }
+            btn_container.appendChild(img);
+            ttv_theater_mode_btn.parentNode.before(btn_container);
         }
+    } catch (e) {
+
+    }
+}
+
+function setPIPBtn() {
+    if (document.getElementById('tp_pip_btn')) {
+        return;
+    }
+    try {
+        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            var btn_container = document.createElement('div');
+            btn_container.id = "tp_pip_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Toggle Picture In Picture";
+
+            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            var img = document.createElement('img');
+            img.src = browser.runtime.getURL('../images/pip.png');
+            img.width = (ttv_theater_mode_btn_size.width || "18") * 0.7;
+            img.height = (ttv_theater_mode_btn_size.height || "18") * 0.7;
+            img.style.margin = "auto";
+
+            btn_container.onclick = function (){
+                var video = document.querySelector(".video-player").querySelector('video');
+                video.requestPictureInPicture();
+                browser.runtime.sendMessage({action: "bg_pip_main_started", detail: true}, function(response) {
+
+                });
+            }
+            btn_container.appendChild(img);
+            ttv_theater_mode_btn.parentNode.before(btn_container);
+        }
+    } catch (e) {
+
     }
 }
 
@@ -2192,6 +2192,244 @@ function setPvqc() {
     document.body.appendChild(pvqc);
 }
 
+
+
+function initDragForMultiStream(container) {
+    dragElement(container);
+
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+        elmnt.querySelector('.tp_multistream_box_title').onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+}
+function makeResizableDiv(container) {
+    const element = container;
+
+    const currentResizer = element.querySelector('.resizer');
+
+    currentResizer.addEventListener('mousedown', function(e) {
+        currentResizer.onmouseup = closeResizeElement;
+        currentResizer.onmousemove = resize;
+    })
+
+    function resize(e) {
+        let width = e.pageX - element.getBoundingClientRect().left;
+        let height = e.pageY - element.getBoundingClientRect().top;
+        element.style.width = width + 'px';
+        element.style.height = height + 'px';
+        element.lastChild.height = (height - 20) + 'px';
+    }
+
+    function closeResizeElement() {
+        currentResizer.onmouseup = null;
+        currentResizer.onmousemove = null;
+    }
+}
+
+function createMultiStreamBox(streamName, isFromSearchBar) {
+    var previewDiv = createPreviewDiv("tp-multi-stream-box");
+    previewDiv.style.position = "absolute";
+    previewDiv.style.width = "440px";
+    previewDiv.style.height = "273px";
+    previewDiv.style.top = isFromSearchBar ? "20px":"10px";
+    previewDiv.style.left = isFromSearchBar ? "20px":"10px";
+    previewDiv.style.display = "block";
+    previewDiv.style.backgroundColor = "#232323";
+    previewDiv.style.borderTop = "1px solid #434343";
+
+    var title = document.createElement('div');
+    title.classList.add('tp_multistream_box_title');
+    title.style.width = "100%";
+    title.style.height = "25px";
+    title.style.top = "0px";
+    title.style.paddingLeft = "5px";
+    title.style.color = "darkgrey";
+    title.style.display = "flex";
+    title.style.justifyContent = "left";
+    title.style.alignItems = "center";
+
+    title.innerText = streamName.charAt(0).toUpperCase() + streamName.slice(1);
+
+    var closeBtn = document.createElement('div');
+    closeBtn.innerText = 'X';
+    closeBtn.classList.add('tp-multi-stream-box-close-btn');
+
+    closeBtn.onclick = function () {
+        previewDiv.parentNode.removeChild(previewDiv);
+    }
+
+    var iframe = document.createElement("Iframe");
+    iframe.width = "100%";
+    iframe.height = "248px";
+    iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
+
+
+
+    var resizable = document.createElement('div');
+    resizable.innerHTML = "<div class='resizable'>\n" +
+        "  <div class='resizers'>\n" +
+        "    <div class='resizer bottom-right'></div>\n" +
+        "  </div>\n" +
+        "</div>"
+
+
+
+    title.appendChild(closeBtn);
+    previewDiv.appendChild(resizable);
+    previewDiv.appendChild(title);
+    previewDiv.appendChild(iframe);
+
+    document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(previewDiv);
+    initDragForMultiStream(previewDiv);
+    makeResizableDiv(previewDiv);
+}
+
+function setSearchResultsClickListeners(input) {
+    try {
+        var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].querySelector('.tp-player-control')) {
+                return;
+            }
+            var btn_container = document.createElement('div');
+            btn_container.title = "Add Multi Stream";
+            btn_container.classList.add('tp-player-control');
+
+            btn_container.style.width = "30px";
+            btn_container.style.height = "30px";
+            btn_container.style.marginBottom = "2px";
+            btn_container.style.marginLeft = "5px";
+
+            var img = document.createElement('img');
+            img.src = browser.runtime.getURL('../images/multistream.png');
+            img.width = 18;
+            img.height = 18;
+            img.style.margin = "auto";
+
+            btn_container.addEventListener('click', function (e) {
+                setTextAreaValue(input, "");
+                e.preventDefault();
+                e.cancelBubble = true;
+                var href = e.target.closest('a').href
+                href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
+                createMultiStreamBox(href, true);
+            })
+            btn_container.appendChild(img);
+            elements[i].querySelector('a').firstChild.appendChild(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+function setTwitchSearchBarListener() {
+    let input = document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input');
+
+    input.addEventListener('input', (event) => {
+        if (event.target.value.length > 0) {
+            setTimeout(function (){
+                setSearchResultsClickListeners(input);
+            }, 500);
+        }
+    })
+    input.addEventListener('click', (event) => {
+        if (event.target.value.length === 0) {
+            setTimeout(function (){
+                setSearchResultsClickListeners(input);
+            }, 500);
+        }
+    })
+}
+
+function appendMultiStreamSearchInfoText() {
+    var div = document.createElement('div');
+    div.classList.add('tp-multi-stream-info-div');
+    div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' /> to add"
+    div.querySelector('img').src = browser.runtime.getURL('../images/multistream.png');
+
+    document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
+}
+
+function initMultiStream(firstStreamName) {
+    document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
+    setTwitchSearchBarListener();
+    appendMultiStreamSearchInfoText();
+    createMultiStreamBox(firstStreamName);
+}
+
+function append_MultiStream_btn() {
+    if (document.getElementById('tp_multi_stream_btn')) {
+        return;
+    }
+    try {
+        var more_btn = document.querySelector('button[data-a-target="report-button-more-button"]').parentNode.parentNode;
+        if (more_btn) {
+            var btn_container = document.createElement('div');
+            btn_container.id = "tp_multi_stream_btn";
+            btn_container.title = "Start Multi Stream";
+
+            var more_btn_size = more_btn.getBoundingClientRect();
+            btn_container.style.width = (more_btn_size.width || "30") + "px";
+            btn_container.style.height = (more_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            var img = document.createElement('img');
+            img.src = browser.runtime.getURL('../images/multistream.png');
+            img.width = (more_btn_size.width || "30") * 0.6;
+            img.height = (more_btn_size.height || "30") * 0.6;
+            img.style.margin = "auto";
+
+            btn_container.onclick = function (){
+                browser.storage.local.set({'startMultiStream_name': window.location.pathname.substring(1)}, function() {
+
+                });
+                browser.runtime.sendMessage({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/'}, function(response) {
+
+                });
+            }
+            btn_container.appendChild(img);
+            more_btn.before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
 function setConfirmedToastFlag(clickName, storageFlagName) {
     var storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
@@ -2283,20 +2521,14 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper fixed :)</strong></div>"
-
-    /*return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- For Streamers:</strong> "
-        +  "             <br><span style=\"font-size: 12px;font-weight: bold;color: white;\" >- See your own live stream thumbnail</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature shows your own stream's live thumbnail preview when hovering the mouse over the Twitch logo at the top left.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- To enable it, fill in your stream's name in the text box in the settings and enable the feature's toggle switch.</span>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 15px;' >- Multi-Stream</strong> (without leaving Twitch!)"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the stream uptime under the stream.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).</span>"
         +  "        </div>"
-        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Improved reliabilty of the predictions features</strong></div>"
-        +  "       <div style=\"font-size: 13px;margin-top: 20px;color: white;\" ><strong>- Predictions Sniper Per Stream Settings</strong></div>"
-        +  "    <span style=\"font-size: 12px;color: whitesmoke;\" >- To change Sniper individual settings per stream, click the Sniper settings button under the chat (available when the feature is enabled).</span>"
-        +  "    </br><span style=\"font-size: 12px;color: whitesmoke;\" >- The menu also contains two buttons: <strong>Vote Now</strong> and <strong>Cancel Upcoming Vote</strong> or <strong>Check Prediction Now</strong> according to the sniper's current status.</span>"
-        +  "    </br></br>"*/
+       +  "    </br>"
 }
 
 function showUpdateToast() {
@@ -2395,6 +2627,10 @@ function toggleFeatures(isFromTitleObserver) {
         append_APS_settings_btn();
     }
 
+    /*if (options.isPipEnabled) {
+        setPIPBtn();
+    }*/
+
     if (options.isfScrnWithChatEnabled) {
         setfScrnWithChatBtn();
     }
@@ -2407,6 +2643,21 @@ function toggleFeatures(isFromTitleObserver) {
         setTimeout(function (){
             setSelfThumbnailPreviewListeners();
         }, 1500);
+    }
+
+    if (options.isMultiStreamEnabled) {
+        browser.storage.local.get('startMultiStream_name', function(result) {
+            if (result.startMultiStream_name) {
+                initMultiStream(result.startMultiStream_name);
+                browser.storage.local.set({'startMultiStream_name': false}, function() {
+
+                });
+            } else {
+                setTimeout(function (){
+                    append_MultiStream_btn();
+                }, 1500);
+            }
+        });
     }
 }
 
@@ -2666,6 +2917,8 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#TP_popup_logo').src = browser.runtime.getURL('images/TP96.png');
         settingsContainer.querySelector('#tp_popup_donate_btn').src = browser.runtime.getURL('images/coffee.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = browser.runtime.getURL('images/tp_fScrnWithChat.png');
+        settingsContainer.querySelector('#tp_multiStream_img').src = browser.runtime.getURL('images/multistream.png');
+        //settingsContainer.querySelector('#tp_pip_img').src = browser.runtime.getURL('images/pip.png');
 
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
@@ -2678,6 +2931,8 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
+        //initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
+        initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
         initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
