@@ -2658,6 +2658,7 @@ function toggleFeatures(isFromTitleObserver) {
             } else {
                 setTimeout(function (){
                     append_MultiStream_btn();
+                    setTwitchSearchBarListener();
                 }, 1500);
             }
         });
