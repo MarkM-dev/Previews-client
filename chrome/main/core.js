@@ -2351,7 +2351,6 @@ function appendMultiStreamSearchInfoText() {
 }
 
 function initMultiStream(firstStreamName) {
-    window.location.hash = "";
     document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
