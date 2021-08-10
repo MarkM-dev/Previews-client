@@ -2344,7 +2344,7 @@ function setTwitchSearchBarListener() {
 function appendMultiStreamSearchInfoText() {
     var div = document.createElement('div');
     div.classList.add('tp-multi-stream-info-div');
-    div.innerHTML = "Search & Click <img width='18' height='18' style='margin: auto 5px' /> to add -->"
+    div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' /> to add"
     div.querySelector('img').src = chrome.runtime.getURL('../images/multistream.png');
 
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
