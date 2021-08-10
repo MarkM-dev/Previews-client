@@ -823,3 +823,17 @@
 .tp-player-control:active {
     background-color: rgb(38, 38, 38);
 }
+
+#multistream_loading_overlay {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 50px;
+    z-index: 999999999;
+}

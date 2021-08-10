@@ -2351,10 +2351,15 @@ function appendMultiStreamSearchInfoText() {
 }
 
 function initMultiStream(firstStreamName) {
-    document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
-    setTwitchSearchBarListener();
-    appendMultiStreamSearchInfoText();
-    createMultiStreamBox(firstStreamName);
+    setTimeout(function (){
+        document.querySelector('.front-page-carousel').querySelector('video').pause();
+        document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
+        setTwitchSearchBarListener();
+        appendMultiStreamSearchInfoText();
+        createMultiStreamBox(firstStreamName);
+        document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
+    }, 5000)
+
 }
 
 function append_MultiStream_btn() {
@@ -2395,7 +2400,17 @@ function append_MultiStream_btn() {
     }
 }
 
+function check_multistream_start() {
+    chrome.storage.local.get('startMultiStream_name', function(result) {
+        if (result.startMultiStream_name) {
+            var overlay = document.createElement('div');
+            overlay.id = "multistream_loading_overlay";
+            overlay.innerText = "Loading\nMulti-Stream..."
 
+            document.body.appendChild(overlay);
+        }
+    });
+}
 
 
 
@@ -2624,10 +2639,10 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isMultiStreamEnabled) {
         chrome.storage.local.get('startMultiStream_name', function(result) {
             if (result.startMultiStream_name) {
-                initMultiStream(result.startMultiStream_name);
                 chrome.storage.local.set({'startMultiStream_name': false}, function() {
 
                 });
+                initMultiStream(result.startMultiStream_name);
             } else {
                 setTimeout(function (){
                     append_MultiStream_btn();
@@ -3006,3 +3021,4 @@ function pageAwakened() {
 
 ///////////// END OF TAB RESUME /////////////
 check_showSettings();
+check_multistream_start();
