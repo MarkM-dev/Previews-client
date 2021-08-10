@@ -1879,7 +1879,7 @@ function setPIPBtn() {
             var btn_container = document.createElement('div');
             btn_container.id = "tp_pip_btn";
             btn_container.classList.add('tp-player-control');
-            btn_container.title = "Toggle Picture In Picture";
+            btn_container.title = "Start Picture In Picture";
 
             var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
             btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
