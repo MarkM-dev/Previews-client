@@ -687,9 +687,10 @@ function clearOverlays(navCardEl, isFromDirectory) {
                             }
                         }
                         if (isHovering && !options.isImagePreviewMode && !isNavBarCollapsed) {
-                            if (lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]')) {
-                                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(navCardPipBtn);
-                                lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]').appendChild(vidPreviewVolBtn);
+                            var container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
+                            if (container) {
+                                container.appendChild(navCardPipBtn);
+                                container.appendChild(vidPreviewVolBtn);
                             }
                         }
                     }
