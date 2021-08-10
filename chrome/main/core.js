@@ -11,8 +11,6 @@ var isHovering = false;
 var lastHoveredCardEl = null;
 var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
 var TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
-var TP_PIP_DIV_CLASSNAME = "twitch_previews_pip";
-var isPipActive = false;
 var navCardPipBtn = null;
 var vidPreviewVolBtn = null;
 var clearOverlaysInterval = null;
@@ -251,34 +249,6 @@ function startCustomPip(e) {
 
     });
 }
-
-/*function startPip(e) {
-    e.preventDefault();
-    e.cancelBubble = true;
-    try {
-        var video = twitchIframe.contentDocument.querySelector('video');
-        video.requestPictureInPicture();
-        isPipActive = true;
-        video.addEventListener('leavepictureinpicture', function() {
-            isPipActive = false;
-            clearExistingPreviewDivs(TP_PIP_DIV_CLASSNAME, true);
-        });
-        previewDiv.classList.remove(TP_PREVIEW_DIV_CLASSNAME);
-        previewDiv.classList.add(TP_PIP_DIV_CLASSNAME);
-
-        twitchIframe.style.display = 'none';
-        previewDiv.style.display = 'none';
-        previewDiv = null;
-        twitchIframe = null;
-        removePipBtn();
-
-        chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
-
-        });
-    } catch (e) {
-
-    }
-}*/
 
 function getElementOffset(el) {
     var rect = el.getBoundingClientRect(),
