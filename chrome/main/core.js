@@ -221,16 +221,15 @@ function createPipBtn() {
     }
     navCardPipBtn = document.createElement("div");
     navCardPipBtn.id = "tp_navCard_pip_btn";
-    navCardPipBtn.style.width = "21px";
-    navCardPipBtn.style.height = "12px";
+    navCardPipBtn.style.width = "18px";
+    navCardPipBtn.style.height = "14px";
     navCardPipBtn.style.position = "absolute";
-    navCardPipBtn.style.marginTop = "1px";
     navCardPipBtn.style.right = "2.7rem";
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
-    navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/tpt.png') + "')";
+    navCardPipBtn.style.backgroundImage = "url('" + chrome.runtime.getURL('../images/multistream_sidebar.png') + "')";
     navCardPipBtn.title = "Picture In Picture";
-    navCardPipBtn.onclick = startPip;
+    navCardPipBtn.onclick = startCustomPip;
 }
 
 function removePipBtn() {
@@ -240,7 +239,20 @@ function removePipBtn() {
     }
 }
 
-function startPip(e) {
+function startCustomPip(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+    clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME)
+
+    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true);
+    removePipBtn();
+    removeVidPreviewVolBtn();
+    chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
+
+    });
+}
+
+/*function startPip(e) {
     e.preventDefault();
     e.cancelBubble = true;
     try {
@@ -266,7 +278,7 @@ function startPip(e) {
     } catch (e) {
 
     }
-}
+}*/
 
 function getElementOffset(el) {
     var rect = el.getBoundingClientRect(),
