@@ -15,6 +15,8 @@ var options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
+    isPipEnabled: false,
+    isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
     isPredictionsNotificationsEnabled: false,
@@ -25,17 +27,17 @@ var options = {
     aps_min_vote_margin_percent: 15
 };
 
-chrome.browserAction.onClicked.addListener(function(tab) {
+browser.browserAction.onClicked.addListener(function(tab) {
 
     var errString = "Could not establish connection. Receiving end does not exist.";
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
-            var lastError = chrome.runtime.lastError;
+    browser.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        browser.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
+            var lastError = browser.runtime.lastError;
             if (lastError && lastError.message === errString) {
-                chrome.storage.local.set({'shouldShowSettings': true}, function() {
+                browser.storage.local.set({'shouldShowSettings': true}, function() {
 
                 });
-                chrome.tabs.create({url:'https://www.twitch.tv/'});
+                browser.tabs.create({url:'https://www.twitch.tv/'});
             }
         })
     });
@@ -78,7 +80,7 @@ browser.runtime.onInstalled.addListener(function(details) {
             browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
-                chrome.tabs.create({url:"../popups/updatePopup.html"});
+                browser.tabs.create({url:"../popups/updatePopup.html"});
             }*/
         }
     }
@@ -117,7 +119,13 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
             break;
         case "bg_fScrnWithChat_click":
-
+            break;
+        case "bg_update_isMultiStreamEnabled":
+            break;
+        case "bg_update_isPipEnabled":
+            break;
+        case "bg_multiStream_btn_click":
+            browser.tabs.create({url:msg.detail});
             break;
         case "bg_update_isErrRefreshEnabled":
 
@@ -183,7 +191,8 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
             break;
         case "bg_pip_started":
-
+            break;
+        case "bg_pip_main_started":
             break;
         case "bg_errRefresh_exec":
 

@@ -802,7 +802,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    left: -220px;
+    right: -250px;
     width: 200px;
     height: 100%;
     font-size: 15px;
