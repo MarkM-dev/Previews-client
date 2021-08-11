@@ -869,3 +869,10 @@
     height: calc(100% - 5rem) !important;
     position: fixed !important;
 }
+
+.tp-theme-support {
+    -webkit-filter: drop-shadow(1px 1px 0 #232323);
+    drop-shadow(-1px -1px 0 #232323);
+    filter: drop-shadow(1px 1px 0 #232323)
+    drop-shadow(-1px -1px 0 #232323);
+}

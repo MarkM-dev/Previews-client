@@ -2125,6 +2125,7 @@ function append_APS_settings_btn() {
         img.width = (chat_settings_btn_size.width || "30") * 0.6;
         img.height = (chat_settings_btn_size.height || "30") * 0.6;
         img.style.margin = "auto";
+        img.classList.add('tp-theme-support');
 
         btn_container.onclick = function (){
             toggle_APS_settings_menu();
@@ -2277,6 +2278,7 @@ function setSearchResultsClickListeners(input) {
             img.width = 18;
             img.height = 18;
             img.style.margin = "auto";
+            img.classList.add('tp-theme-support');
 
             btn_container.addEventListener('click', function (e) {
                 setTextAreaValue(input, "");
@@ -2326,6 +2328,7 @@ function appendMultiStreamSearchInfoText() {
     div.classList.add('tp-multi-stream-info-div');
     div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' /> to add"
     div.querySelector('img').src = chrome.runtime.getURL('../images/multistream.png');
+    div.querySelector('img').classList.add('tp-theme-support');
 
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
@@ -2360,6 +2363,7 @@ function append_MultiStream_btn() {
             img.width = (more_btn_size.width || "30") * 0.6;
             img.height = (more_btn_size.height || "30") * 0.6;
             img.style.margin = "auto";
+            img.classList.add('tp-theme-support');
 
             btn_container.onclick = function (){
                 chrome.storage.local.set({'startMultiStream_name': window.location.pathname.substring(1)}, function() {
