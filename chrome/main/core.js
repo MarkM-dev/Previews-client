@@ -2312,15 +2312,12 @@ function appendMultiStreamSearchInfoText() {
 }
 
 function initMultiStream(firstStreamName) {
-    setTimeout(function (){
-        document.querySelector('.front-page-carousel').querySelector('video').pause();
-        document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
-        setTwitchSearchBarListener();
-        appendMultiStreamSearchInfoText();
-        createMultiStreamBox(firstStreamName);
-        isMultiStreamMode = true;
-        document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
-    }, 5000)
+    document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
+    setTwitchSearchBarListener();
+    appendMultiStreamSearchInfoText();
+    createMultiStreamBox(firstStreamName);
+    isMultiStreamMode = true;
+    document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
 }
 
 function append_MultiStream_btn() {
@@ -2349,7 +2346,7 @@ function append_MultiStream_btn() {
                 chrome.storage.local.set({'startMultiStream_name': window.location.pathname.substring(1)}, function() {
 
                 });
-                chrome.runtime.sendMessage({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/'}, function(response) {
+                chrome.runtime.sendMessage({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/directory/game/' + new Date().getTime()}, function(response) {
 
                 });
             }
