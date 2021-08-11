@@ -2507,6 +2507,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added multistream functionality to the top search bar on all pages (if the multistream feature is enabled in the settings) so you can also search for streams not on your followed list and add them as picture in picture in the current page.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When you're in the Multi-Stream page, you can now add streams directly from the sidebar with the multi-stream button (even in Image Preview mode)</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- These changes should provide a more intuitive and hassle-free experience.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Mitigated an issue where the twitch main page player would play audio in the background when starting Multi-Stream.</span>"
         +  "        </div>"
        +  "    </br>"
 }
