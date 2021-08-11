@@ -2316,6 +2316,10 @@ function setSearchResultsClickListeners(input) {
 function setTwitchSearchBarListener() {
     let input = document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input');
 
+    if (input.attributes.tp_listener) {
+        return;
+    }
+
     input.addEventListener('input', (event) => {
         if (event.target.value.length > 0) {
             setTimeout(function (){
@@ -2330,6 +2334,7 @@ function setTwitchSearchBarListener() {
             }, 500);
         }
     })
+    input.setAttribute('tp_listener', 'true');
 }
 
 function appendMultiStreamSearchInfoText() {
