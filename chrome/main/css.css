@@ -753,20 +753,6 @@
     background-color: #323234FF;
 }
 
-.resizable .resizers .resizer{
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    position: absolute;
-}
-
-.resizable .resizers .resizer.bottom-right {
-    right: -40px;
-    bottom: -40px;
-    cursor: nwse-resize;
-    z-index: 99999;
-}
-
 .tp-multi-stream-box {
     display: block;
     position: absolute;
