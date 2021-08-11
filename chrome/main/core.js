@@ -21,6 +21,7 @@ var timesExtendedSidebar = 0;
 var bLastChatOpenState = null;
 var hasEnteredFScreenWithChat = false;
 var isMultiStreamMode = false;
+var multiStream_curr_zIndex = 5000;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
@@ -2168,6 +2169,7 @@ function initDragForMultiStream(container) {
         elmnt.querySelector('.tp_multistream_box_title').onmousedown = dragMouseDown;
 
         function dragMouseDown(e) {
+            container.style.zIndex = (multiStream_curr_zIndex++) + "";
             e = e || window.event;
             e.preventDefault();
             pos3 = e.clientX;
@@ -2206,6 +2208,7 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     previewDiv.style.borderTop = "1px solid #434343";
     previewDiv.style.resize = "both";
     previewDiv.style.overflow = "hidden";
+    previewDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
 
     var title = document.createElement('div');
     title.classList.add('tp_multistream_box_title');
