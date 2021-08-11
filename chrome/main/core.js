@@ -2197,18 +2197,14 @@ function initDragForMultiStream(container) {
 }
 
 function createMultiStreamBox(streamName, isFromSearchBar) {
-    var previewDiv = createPreviewDiv("tp-multi-stream-box");
-    previewDiv.style.position = "absolute";
-    previewDiv.style.width = "440px";
-    previewDiv.style.height = "273px";
-    previewDiv.style.top = isFromSearchBar ? "20px":"10px";
-    previewDiv.style.left = isFromSearchBar ? "20px":"10px";
-    previewDiv.style.display = "block";
-    previewDiv.style.backgroundColor = "#232323";
-    previewDiv.style.borderTop = "1px solid #434343";
-    previewDiv.style.resize = "both";
-    previewDiv.style.overflow = "hidden";
-    previewDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
+    var multiStreamDiv = document.createElement("div");
+    multiStreamDiv.classList.add('tp-multi-stream-box');
+
+    if(isFromSearchBar) {
+        multiStreamDiv.classList.add('tp-fromSearchBar');
+    }
+
+    multiStreamDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
 
     var title = document.createElement('div');
     title.classList.add('tp_multistream_box_title');
@@ -2225,22 +2221,39 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
 
     var closeBtn = document.createElement('div');
     closeBtn.innerText = 'X';
-    closeBtn.classList.add('tp-multi-stream-box-close-btn');
+    closeBtn.classList.add('tp-multi-stream-box-title-btn');
 
     closeBtn.onclick = function () {
-        previewDiv.parentNode.removeChild(previewDiv);
+        multiStreamDiv.parentNode.removeChild(multiStreamDiv);
+    }
+
+    var fullScreenBtn = document.createElement('div');
+    fullScreenBtn.innerText = 'F';
+    fullScreenBtn.style.right = '20px';
+    fullScreenBtn.classList.add('tp-multi-stream-box-title-btn');
+
+    fullScreenBtn.onclick = function () {
+        if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
+            multiStreamDiv.classList.remove('tp-multistream-box-fullscreen');
+        } else {
+            if (!document.querySelector('div[data-a-target="side-nav-bar-collapsed"]')) {
+                document.querySelector('button[data-a-target="side-nav-arrow"]').click();
+            }
+            multiStreamDiv.classList.add('tp-multistream-box-fullscreen');
+        }
     }
 
     var iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
     iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
 
+    title.appendChild(fullScreenBtn);
     title.appendChild(closeBtn);
-    previewDiv.appendChild(title);
-    previewDiv.appendChild(iframe);
+    multiStreamDiv.appendChild(title);
+    multiStreamDiv.appendChild(iframe);
 
-    document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(previewDiv);
-    initDragForMultiStream(previewDiv);
+    initDragForMultiStream(multiStreamDiv);
+    document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
 }
 
 function setSearchResultsClickListeners(input) {
