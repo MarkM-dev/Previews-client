@@ -2193,29 +2193,6 @@ function initDragForMultiStream(container) {
         }
     }
 }
-function makeResizableDiv(container) {
-    const element = container;
-
-    const currentResizer = element.querySelector('.resizer');
-
-    currentResizer.addEventListener('mousedown', function(e) {
-        currentResizer.onmouseup = closeResizeElement;
-        currentResizer.onmousemove = resize;
-    })
-
-    function resize(e) {
-        let width = e.pageX - element.getBoundingClientRect().left;
-        let height = e.pageY - element.getBoundingClientRect().top;
-        element.style.width = width + 'px';
-        element.style.height = height + 'px';
-        element.lastChild.height = (height - 20) + 'px';
-    }
-
-    function closeResizeElement() {
-        currentResizer.onmouseup = null;
-        currentResizer.onmousemove = null;
-    }
-}
 
 function createMultiStreamBox(streamName, isFromSearchBar) {
     var previewDiv = createPreviewDiv("tp-multi-stream-box");
@@ -2227,6 +2204,8 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     previewDiv.style.display = "block";
     previewDiv.style.backgroundColor = "#232323";
     previewDiv.style.borderTop = "1px solid #434343";
+    previewDiv.style.resize = "both";
+    previewDiv.style.overflow = "hidden";
 
     var title = document.createElement('div');
     title.classList.add('tp_multistream_box_title');
@@ -2251,28 +2230,15 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
 
     var iframe = document.createElement("Iframe");
     iframe.width = "100%";
-    iframe.height = "248px";
+    iframe.height = "94%";
     iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
 
-
-
-    var resizable = document.createElement('div');
-    resizable.innerHTML = "<div class='resizable'>\n" +
-        "  <div class='resizers'>\n" +
-        "    <div class='resizer bottom-right'></div>\n" +
-        "  </div>\n" +
-        "</div>"
-
-
-
     title.appendChild(closeBtn);
-    previewDiv.appendChild(resizable);
     previewDiv.appendChild(title);
     previewDiv.appendChild(iframe);
 
     document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(previewDiv);
     initDragForMultiStream(previewDiv);
-    makeResizableDiv(previewDiv);
 }
 
 function setSearchResultsClickListeners(input) {
