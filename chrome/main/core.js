@@ -20,6 +20,7 @@ var isMainPlayerError = false;
 var timesExtendedSidebar = 0;
 var bLastChatOpenState = null;
 var hasEnteredFScreenWithChat = false;
+var isMultiStreamMode = false;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
@@ -686,7 +687,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                                 intervalCount++;
                             }
                         }
-                        if (isHovering && !options.isImagePreviewMode && !isNavBarCollapsed) {
+                        if (isHovering && !isNavBarCollapsed) {
                             var container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                             if (container) {
                                 container.appendChild(navCardPipBtn);
@@ -697,6 +698,13 @@ function clearOverlays(navCardEl, isFromDirectory) {
                 }
 
             }, 100);
+        } else {
+            if (isMultiStreamMode && !isNavBarCollapsed && isHovering) {
+                var container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
+                if (container) {
+                    container.appendChild(navCardPipBtn);
+                }
+            }
         }
     } catch (e) {
 
@@ -2340,9 +2348,9 @@ function initMultiStream(firstStreamName) {
         setTwitchSearchBarListener();
         appendMultiStreamSearchInfoText();
         createMultiStreamBox(firstStreamName);
+        isMultiStreamMode = true;
         document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
     }, 5000)
-
 }
 
 function append_MultiStream_btn() {
@@ -2555,9 +2563,8 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSidebarPreviewsEnabled) {
         if (!options.isImagePreviewMode) {
             createVidPreviewVolBtn();
-            createPipBtn();
         }
-
+        createPipBtn();
         refreshNavCardsListAndListeners();
         setSideNavMutationObserver();
     }
