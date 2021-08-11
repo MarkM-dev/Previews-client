@@ -98,9 +98,8 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.9.4.0") {
-                chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            }
+            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            chrome.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
 
            /* if (details.previousVersion === "1.5.1.6") {
@@ -156,6 +155,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_multiStream_btn_click":
             chrome.tabs.create({url:msg.detail});
             ga('send', 'event', 'multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
+            break;
+        case "bg_searchBar_multiStream_started":
+            ga('send', 'event', 'multiStream_searchBar_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
             break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
