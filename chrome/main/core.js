@@ -2269,6 +2269,9 @@ function setSearchResultsClickListeners(input) {
                 var href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
                 createMultiStreamBox(href, true);
+                chrome.runtime.sendMessage({action: "bg_searchBar_multiStream_started", detail: ""}, function(response) {
+
+                });
             })
             btn_container.appendChild(img);
             elements[i].querySelector('a').firstChild.appendChild(btn_container);
