@@ -2366,7 +2366,7 @@ function check_multistream_start() {
         if (result.startMultiStream_name) {
             var overlay = document.createElement('div');
             overlay.id = "multistream_loading_overlay";
-            overlay.innerText = "Loading\nMulti-Stream..."
+            overlay.innerText = "Starting\nMulti-Stream..."
 
             document.body.appendChild(overlay);
         }
