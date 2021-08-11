@@ -2228,7 +2228,7 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     }
 
     var fullScreenBtn = document.createElement('div');
-    fullScreenBtn.innerText = 'F';
+    fullScreenBtn.innerHTML = "&#x26F6;"
     fullScreenBtn.style.right = '20px';
     fullScreenBtn.classList.add('tp-multi-stream-box-title-btn');
 

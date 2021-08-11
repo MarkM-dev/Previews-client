@@ -787,6 +787,7 @@
 
 .tp-multi-stream-box .tp-multi-stream-box-title-btn {
     font-size: 15px;
+    font-weight: bold;
     color: grey;
     cursor: pointer;
     border-radius: 2px;
