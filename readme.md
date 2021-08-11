@@ -134,7 +134,6 @@
 
 * **Picture in picture**
     - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (you can add as many as you like).
-    - You can still use the regular previews alongside with PIP.
 <br/>
       <br/>
 
