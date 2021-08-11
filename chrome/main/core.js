@@ -2501,16 +2501,12 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 15px;' >- Multi-Stream</strong> (without leaving Twitch!)"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the stream uptime under the stream.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).</span>"
-        +  "        </div>"
-        +  "  <div style=\"font-size: 15px;margin-top: 20px;color: white;\" ><strong>- Picture in Picture</strong>"
-        +  "        <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' button in the player controls.</span>"
-        +  "        <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will start chrome's Picture In Picture for the current stream.</span>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features And Changes!</div>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 15px;' >- Multi-Stream changes</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Replaced sidebar Native Picture In Picture button with the custom multi-stream button so you can add as many streams as you want to any page you want (when in Video Preview mode).</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added multistream functionality to the top search bar on all pages (if the multistream feature is enabled in the settings) so you can also search for streams not on your followed list and add them as picture in picture in the current page.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When you're in the Multi-Stream page, you can now add streams directly from the sidebar with the multi-stream button (even in Image Preview mode)</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- These changes should provide a more intuitive and hassle-free experience.</span>"
         +  "        </div>"
        +  "    </br>"
 }
