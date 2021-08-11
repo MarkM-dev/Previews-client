@@ -2229,8 +2229,7 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     }
 
     var iframe = document.createElement("Iframe");
-    iframe.width = "100%";
-    iframe.height = "94%";
+    iframe.classList.add('tp-multistream-iframe');
     iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
 
     title.appendChild(closeBtn);

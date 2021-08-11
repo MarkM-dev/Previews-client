@@ -837,3 +837,8 @@
     font-size: 50px;
     z-index: 999999999;
 }
+
+.tp-multistream-iframe {
+    width: 100%;
+    height: calc(100% - 25px);;
+}
