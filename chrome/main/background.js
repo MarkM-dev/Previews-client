@@ -99,6 +99,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
         if (details.reason === "update") {
 
             chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            chrome.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
 
            /* if (details.previousVersion === "1.5.1.6") {

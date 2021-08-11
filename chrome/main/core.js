@@ -2920,6 +2920,18 @@ function showSettingsMenu() {
         initSocialBtn(settingsContainer, 'changelog', false);
         initSocialBtn(settingsContainer, 'contact', false);
 
+
+        chrome.storage.local.get('shouldShowNewFeatureSettingsSpan', function(result) {
+            if (result.shouldShowNewFeatureSettingsSpan) {
+                let spans = settingsContainer.querySelectorAll('.tp-settings-new-feature-span');
+                for (let i = 0; i < spans.length; i++) {
+                    spans[i].style.display = "inline-block";
+                }
+                chrome.storage.local.set({'shouldShowNewFeatureSettingsSpan': false}, function() {});
+            }
+        });
+
+
         setAppVer(settingsContainer);
 
         initDragForSettings(settingsContainer);
