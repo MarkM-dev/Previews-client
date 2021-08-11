@@ -55,12 +55,12 @@
 * **Multi Stream**
     - The button will show next to the stream uptime under the stream.
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
-    - In the new Multi Stream tab, search for a streamer at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
+    - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
     - You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).
+    - You can also add Multi-Stream on the fly to any page you are currently on directly from the sidebar (if in Video Preview mode) or via the top search bar (if the Multi-Stream feature is enabled).
       <br/><br/>
 
-
-
+      
 * **Auto channel points clicker**
     - This feature automatically clicks the green channel points redeem button.
     - It also works when chat is closed and when the tab or window is in the background.
@@ -133,7 +133,7 @@
 
 
 * **Picture in picture**
-    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (using browser's PIP feature).
+    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (you can add as many as you like).
     - You can still use the regular previews alongside with PIP.
 <br/>
       <br/>
