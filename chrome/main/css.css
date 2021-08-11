@@ -865,7 +865,7 @@
 .tp-multi-stream-box.tp-multistream-box-fullscreen {
     top: 5rem !important;
     left: 5rem !important;
-    width: calc(100% - 5rem);
-    height: calc(100% - 5rem);
-    position: fixed;
+    width: calc(100% - 5rem) !important;
+    height: calc(100% - 5rem) !important;
+    position: fixed !important;
 }
