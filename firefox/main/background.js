@@ -78,6 +78,8 @@ browser.runtime.onInstalled.addListener(function(details) {
         if (details.reason === "update") {
 
             browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+
 
            /* if (details.previousVersion === "1.5.1.6") {
                 browser.tabs.create({url:"../popups/updatePopup.html"});
@@ -119,13 +121,20 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
             break;
         case "bg_fScrnWithChat_click":
+
             break;
         case "bg_update_isMultiStreamEnabled":
+
             break;
         case "bg_update_isPipEnabled":
+
             break;
         case "bg_multiStream_btn_click":
             browser.tabs.create({url:msg.detail});
+
+            break;
+        case "bg_searchBar_multiStream_started":
+
             break;
         case "bg_update_isErrRefreshEnabled":
 
@@ -191,8 +200,10 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
             break;
         case "bg_pip_started":
+
             break;
         case "bg_pip_main_started":
+
             break;
         case "bg_errRefresh_exec":
 

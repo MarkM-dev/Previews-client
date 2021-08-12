@@ -739,22 +739,28 @@
     background-color: #323234FF;
 }
 
-.resizable .resizers .resizer{
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+.tp-multi-stream-box {
+    display: block;
     position: absolute;
+    background-color: #232323;
+    border-top: 1px solid #434343;
+    border-radius: 5px;
+    resize: both;
+    overflow: hidden;
+    width: 440px;
+    height: 273px;
+    top: 10px;
+    left: 10px;
 }
 
-.resizable .resizers .resizer.bottom-right {
-    right: -40px;
-    bottom: -40px;
-    cursor: nwse-resize;
-    z-index: 99999;
+.tp-multi-stream-box.tp-fromSearchBar {
+    top: 20px;
+    left: 20px;
 }
 
-.tp-multi-stream-box .tp-multi-stream-box-close-btn {
+.tp-multi-stream-box .tp-multi-stream-box-title-btn {
     font-size: 15px;
+    font-weight: bold;
     color: grey;
     cursor: pointer;
     border-radius: 2px;
@@ -773,12 +779,12 @@
     padding: 0 7px;
 }
 
-.tp-multi-stream-box .tp-multi-stream-box-close-btn:hover {
+.tp-multi-stream-box .tp-multi-stream-box-title-btn:hover {
     background-color: rgba(255, 255, 255, 0.4);
     color: whitesmoke;
 }
 
-.tp-multi-stream-box .tp-multi-stream-box-close-btn:active {
+.tp-multi-stream-box .tp-multi-stream-box-title-btn:active {
     background-color: rgba(255, 255, 255, 0.2);
     color: whitesmoke;
 }
@@ -788,7 +794,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    right: -250px;
+    right: -275px;
     width: 200px;
     height: 100%;
     font-size: 15px;
@@ -808,4 +814,38 @@
 }
 .tp-player-control:active {
     background-color: rgb(38, 38, 38);
+}
+
+#multistream_loading_overlay {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 50px;
+    z-index: 999999999;
+}
+
+.tp-multi-stream-box .tp-multistream-iframe {
+    width: 100%;
+    height: calc(100% - 25px);
+}
+
+.tp-multi-stream-box.tp-multistream-box-fullscreen {
+    top: 5rem !important;
+    left: 5rem !important;
+    width: calc(100% - 5rem) !important;
+    height: calc(100% - 5rem) !important;
+    position: fixed !important;
+}
+
+.tp-theme-support {
+    -webkit-filter: drop-shadow(1px 1px 0 #232323);
+    drop-shadow(-1px -1px 0 #232323);
+    filter: drop-shadow(1px 1px 0 #232323)
+    drop-shadow(-1px -1px 0 #232323);
 }
