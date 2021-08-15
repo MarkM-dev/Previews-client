@@ -22,6 +22,7 @@ var bLastChatOpenState = null;
 var hasEnteredFScreenWithChat = false;
 var isMultiStreamMode = false;
 var multiStream_curr_zIndex = 5000;
+var startMultiStream_name = false;
 var last_prediction_streamer = "";
 var last_prediction_button_text = "";
 var predictionSniperTimeout = null;
@@ -1111,15 +1112,13 @@ function showSidebarSearchBtn() {
     if (document.getElementById('tp_sidebar_search_btn')) {
         return;
     }
-    
+
     if (!isNavBarCollapsed) {
         var sidenav_header = document.getElementsByClassName('side-nav-header')[0];
         if (sidenav_header) {
             sidenav_header.appendChild(createSideBarSearchBtn());
         }
     }
-
-
 }
 
 function checkForTwitchNotificationsPermissions(featureName, value) {
@@ -2388,21 +2387,19 @@ function append_MultiStream_btn() {
 function check_multistream_start() {
     chrome.storage.local.get('startMultiStream_name', function(result) {
         if (result.startMultiStream_name) {
+            startMultiStream_name = result.startMultiStream_name;
+
             var overlay = document.createElement('div');
             overlay.id = "multistream_loading_overlay";
             overlay.innerText = "Starting\nMulti-Stream..."
-
             document.body.appendChild(overlay);
+
+            chrome.storage.local.set({'startMultiStream_name': false}, function() {
+
+            });
         }
     });
 }
-
-
-
-
-
-
-
 
 function setConfirmedToastFlag(clickName, storageFlagName) {
     var storageFlagObj = {};
@@ -2621,19 +2618,15 @@ function toggleFeatures(isFromTitleObserver) {
     }
 
     if (options.isMultiStreamEnabled) {
-        chrome.storage.local.get('startMultiStream_name', function(result) {
-            if (result.startMultiStream_name) {
-                chrome.storage.local.set({'startMultiStream_name': false}, function() {
-
-                });
-                initMultiStream(result.startMultiStream_name);
-            } else {
-                setTimeout(function (){
-                    append_MultiStream_btn();
-                    setTwitchSearchBarListener();
-                }, 1500);
-            }
-        });
+        if(startMultiStream_name) {
+            initMultiStream(startMultiStream_name);
+            startMultiStream_name = false;
+        } else {
+            setTimeout(function (){
+                append_MultiStream_btn();
+                setTwitchSearchBarListener();
+            }, 1500);
+        }
     }
 }
 
