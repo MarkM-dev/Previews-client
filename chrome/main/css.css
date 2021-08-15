@@ -861,3 +861,16 @@
     -webkit-filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
     filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
 }
+
+.tp_multistream_container {
+    overflow: auto;
+}
+
+.tp_multistream_container::-webkit-scrollbar {
+    display: none;
+}
+
+.tp_multistream_container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

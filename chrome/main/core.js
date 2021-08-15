@@ -2452,6 +2452,7 @@ function appendMultiStreamSearchInfoText() {
 
 function initMultiStream(firstStreamName) {
     document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
+    document.querySelector('.root-scrollable__wrapper').classList.add('tp_multistream_container');
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
     createMultiStreamBox(firstStreamName);
