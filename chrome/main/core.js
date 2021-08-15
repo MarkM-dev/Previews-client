@@ -3062,21 +3062,25 @@ function showSettings() {
 
 window.addEventListener('load', (event) => {
     setTimeout(function(){
-        ga_heartbeat();
-        appendContainer = document.body;
-        document.getElementById('sideNav').style.zIndex = '10';
-        setOptionsFromDB().then(
-            function (options){
-                ga_report_appStart();
-                toggleFeatures();
-                setTimeout(function (){
-                    setTitleMutationObserverForDirectoryCardsRefresh();
-                }, 1000);
-                showUpdateToast();
-            },
-            function (err){
+        try {
+            ga_heartbeat();
+            appendContainer = document.body;
+            document.getElementById('sideNav').style.zIndex = '10';
+            setOptionsFromDB().then(
+                function (options){
+                    ga_report_appStart();
+                    toggleFeatures();
+                    setTimeout(function (){
+                        setTitleMutationObserverForDirectoryCardsRefresh();
+                    }, 1000);
+                    showUpdateToast();
+                },
+                function (err){
 
-            });
+                });
+        } catch (e) {
+
+        }
     }, 2000);
 });
 
