@@ -2252,13 +2252,15 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     var minimizeBtn = createMultiStreamTitleBtn("Minimize", "__", "40px");
     var streamBox_last_height = multiStreamDiv.getBoundingClientRect();
     minimizeBtn.onclick = function () {
-        if (multiStreamDiv.getBoundingClientRect().height === 30) {
+        if (multiStreamDiv.getBoundingClientRect().height === 27) {
             multiStreamDiv.style.height = streamBox_last_height + "px";
             minimizeBtn.innerHTML = "__";
+            multiStreamDiv.style.border = "none";
         } else {
             streamBox_last_height = multiStreamDiv.getBoundingClientRect().height;
-            multiStreamDiv.style.height = "30px";
+            multiStreamDiv.style.height = "27px";
             minimizeBtn.innerHTML = "&#8212;";
+            multiStreamDiv.style.border = "1px solid grey";
         }
     };
 
