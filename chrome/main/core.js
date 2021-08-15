@@ -2230,7 +2230,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     title.style.display = "flex";
     title.style.justifyContent = "left";
     title.style.alignItems = "center";
-
+    title.style.cursor = "default";
 
 
     var closeBtn = createMultiStreamTitleBtn("Close", "X", "0px");
