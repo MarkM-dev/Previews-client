@@ -57,7 +57,7 @@
     - There is also a button that is located next to the stream uptime under the stream.
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
     - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
-    - You can scroll the page, fullscreen, drag and resize the stream and chat boxes (top bar and bottom right corner of the boxes).
+    - You can scroll the page, fullscreen, minimize, drag and resize the stream and chat boxes (top bar and bottom right corner of the boxes).
       <br/><br/>
 
       
