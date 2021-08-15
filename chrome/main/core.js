@@ -2221,7 +2221,7 @@ function createMultiStreamBox(streamName, isOTF) {
     title.style.justifyContent = "left";
     title.style.alignItems = "center";
 
-    title.innerText = streamName.charAt(0).toUpperCase() + streamName.slice(1);
+    title.innerHTML = "&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
 
     var closeBtn = document.createElement('div');
     closeBtn.innerText = 'X';
@@ -2251,7 +2251,7 @@ function createMultiStreamBox(streamName, isOTF) {
 
     var openChatBtn = document.createElement('div');
     openChatBtn.innerHTML = "&#9703;"
-    openChatBtn.style.right = '40px';
+    openChatBtn.style.right = '60px';
     openChatBtn.classList.add('tp-multi-stream-box-title-btn');
     openChatBtn.title = "Add Multi-Chat";
 
@@ -2262,11 +2262,30 @@ function createMultiStreamBox(streamName, isOTF) {
         });
     }
 
+    var minimizeBtn = document.createElement('div');
+    minimizeBtn.innerHTML = "__"
+    minimizeBtn.style.right = '40px';
+    minimizeBtn.classList.add('tp-multi-stream-box-title-btn');
+    minimizeBtn.title = "Minimize";
+
+    var streamBox_last_height = multiStreamDiv.getBoundingClientRect();
+    minimizeBtn.onclick = function () {
+        if (multiStreamDiv.getBoundingClientRect().height === 30) {
+            multiStreamDiv.style.height = streamBox_last_height + "px";
+            minimizeBtn.innerHTML = "__";
+        } else {
+            streamBox_last_height = multiStreamDiv.getBoundingClientRect().height;
+            multiStreamDiv.style.height = "30px";
+            minimizeBtn.innerHTML = "&#8212;";
+        }
+    };
+
     var iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
     iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
 
     title.appendChild(openChatBtn);
+    title.appendChild(minimizeBtn);
     title.appendChild(fullScreenBtn);
     title.appendChild(closeBtn);
     multiStreamDiv.appendChild(title);
@@ -2300,7 +2319,7 @@ function createMultiStreamChatBox(streamName, isOTF) {
     title.style.justifyContent = "left";
     title.style.alignItems = "center";
 
-    title.innerText = streamName.charAt(0).toUpperCase() + streamName.slice(1);
+    title.innerHTML = "&#9703; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
 
     var closeBtn = document.createElement('div');
     closeBtn.innerText = 'X';
@@ -2330,7 +2349,7 @@ function createMultiStreamChatBox(streamName, isOTF) {
 
     var openStreamBtn = document.createElement('div');
     openStreamBtn.innerHTML = "&#11208;"
-    openStreamBtn.style.right = '40px';
+    openStreamBtn.style.right = '60px';
     openStreamBtn.classList.add('tp-multi-stream-box-title-btn');
     openStreamBtn.title = "Add Multi-Stream";
 
@@ -2341,12 +2360,31 @@ function createMultiStreamChatBox(streamName, isOTF) {
         });
     }
 
+    var minimizeBtn = document.createElement('div');
+    minimizeBtn.innerHTML = "__"
+    minimizeBtn.style.right = '40px';
+    minimizeBtn.classList.add('tp-multi-stream-box-title-btn');
+    minimizeBtn.title = "Minimize";
+
+    var streamBox_last_height = multiStreamDiv.getBoundingClientRect();
+    minimizeBtn.onclick = function () {
+        if (multiStreamDiv.getBoundingClientRect().height === 30) {
+            multiStreamDiv.style.height = streamBox_last_height + "px";
+            minimizeBtn.innerHTML = "__";
+        } else {
+            streamBox_last_height = multiStreamDiv.getBoundingClientRect().height;
+            multiStreamDiv.style.height = "30px";
+            minimizeBtn.innerHTML = "&#8212;";
+        }
+    };
+
     var iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
 
     iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
 
     title.appendChild(openStreamBtn);
+    title.appendChild(minimizeBtn);
     title.appendChild(fullScreenBtn);
     title.appendChild(closeBtn);
     multiStreamDiv.appendChild(title);
