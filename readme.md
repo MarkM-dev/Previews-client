@@ -10,10 +10,10 @@
 <br/>
 
 ## Download
-**Extension is available for Chrome, Firefox, Brave and Edge:<br/>**
+**Extension is available for Chrome, Firefox, Brave, Edge and Opera:<br/>**
 
 **[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/)
- | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
+ | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/) | [Opera Extension](https://addons.opera.com/en/extensions/details/twitch-previews/)**
 <br/>
 * Brave & Edge users can install extensions from the chrome webstore. 
 <br/>
@@ -22,7 +22,7 @@
 - Image or live video stream Previews in the sidebar & directories.
 - Preview resize & volume control.
 - For streamers: See your own live stream thumbnail when hovering over the Twitch logo at the top left.
-- Multi Stream.
+- Multi Stream & Multi Chat.
 - Auto channel points clicker.
 - Auto refresh on player errors (#1000, #2000, #4000).
 - Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -52,12 +52,12 @@
       <br/><br/>
 
 
-* **Multi Stream**
-    - The button will show next to the stream uptime under the stream.
+* **Multi Stream & Multi Chat**
+    - You can add Multi-Stream and Chat on the fly to any page you are currently on directly from the sidebar (if in Video Preview mode) or via the top search bar (if the Multi-Stream feature is enabled).
+    - There is also a button that is located next to the stream uptime under the stream.
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
     - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
-    - You can drag and resize the stream boxes (top bar and bottom right corner of the boxes).
-    - You can also add Multi-Stream on the fly to any page you are currently on directly from the sidebar (if in Video Preview mode) or via the top search bar (if the Multi-Stream feature is enabled).
+    - You can fullscreen, drag and resize the stream and chat boxes (top bar and bottom right corner of the boxes).
       <br/><br/>
 
       
