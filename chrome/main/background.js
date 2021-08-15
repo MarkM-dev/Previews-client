@@ -162,6 +162,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_searchBar_multiStream_chat_started":
             ga('send', 'event', 'multiStream_chat_searchBar_btn_click', 'multiStream_chat_searchBar_btn_click', 'multiStream_chat_searchBar_btn_click');
             break;
+        case "bg_multiStream_box_stream_started":
+            ga('send', 'event', 'multiStream_box_stream_started', 'multiStream_box_stream_started', 'multiStream_box_stream_started');
+            break;
+        case "bg_multiStream_box_chat_started":
+            ga('send', 'event', 'multiStream_box_chat_started', 'multiStream_box_chat_started', 'multiStream_box_chat_started');
+            break;
         case "bg_update_isErrRefreshEnabled":
             ga('send', 'event', 'errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
             break;
