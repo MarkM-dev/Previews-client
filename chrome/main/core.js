@@ -245,7 +245,7 @@ function startCustomPip(e) {
     e.cancelBubble = true;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME)
 
-    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true);
+    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false);
     removePipBtn();
     removeVidPreviewVolBtn();
     chrome.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
@@ -2200,111 +2200,23 @@ function initDragForMultiStream(container) {
     }
 }
 
-function createMultiStreamBox(streamName, isOTF) {
-    var multiStreamDiv = document.createElement("div");
-    multiStreamDiv.classList.add('tp-multi-stream-box');
+function createMultiStreamTitleBtn(title, innerHTML, right) {
+    var btn = document.createElement('div');
+    btn.classList.add('tp-multi-stream-box-title-btn');
+    btn.innerHTML = innerHTML
+    btn.style.right = right;
+    btn.title = title;
 
-    if(isOTF) {
-        multiStreamDiv.classList.add('tp-fromSearchBar');
-    }
-
-    multiStreamDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
-
-    var title = document.createElement('div');
-    title.classList.add('tp_multistream_box_title');
-    title.style.width = "100%";
-    title.style.height = "25px";
-    title.style.top = "0px";
-    title.style.paddingLeft = "5px";
-    title.style.color = "darkgrey";
-    title.style.display = "flex";
-    title.style.justifyContent = "left";
-    title.style.alignItems = "center";
-
-    title.innerHTML = "&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
-
-    var closeBtn = document.createElement('div');
-    closeBtn.innerText = 'X';
-    closeBtn.classList.add('tp-multi-stream-box-title-btn');
-    closeBtn.title = 'Close';
-
-    closeBtn.onclick = function () {
-        multiStreamDiv.parentNode.removeChild(multiStreamDiv);
-    }
-
-    var fullScreenBtn = document.createElement('div');
-    fullScreenBtn.innerHTML = "&#x26F6;"
-    fullScreenBtn.style.right = '20px';
-    fullScreenBtn.classList.add('tp-multi-stream-box-title-btn');
-    fullScreenBtn.title = "Fullscreen";
-
-    fullScreenBtn.onclick = function () {
-        if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
-            multiStreamDiv.classList.remove('tp-multistream-box-fullscreen');
-        } else {
-            if (!document.querySelector('div[data-a-target="side-nav-bar-collapsed"]')) {
-                document.querySelector('button[data-a-target="side-nav-arrow"]').click();
-            }
-            multiStreamDiv.classList.add('tp-multistream-box-fullscreen');
-        }
-    }
-
-    var openChatBtn = document.createElement('div');
-    openChatBtn.innerHTML = "&#9703;"
-    openChatBtn.style.right = '60px';
-    openChatBtn.classList.add('tp-multi-stream-box-title-btn');
-    openChatBtn.title = "Add Multi-Chat";
-
-    openChatBtn.onclick = function () {
-        createMultiStreamChatBox(streamName, true);
-        chrome.runtime.sendMessage({action: "bg_multiStream_box_chat_started", detail: ""}, function(response) {
-
-        });
-    }
-
-    var minimizeBtn = document.createElement('div');
-    minimizeBtn.innerHTML = "__"
-    minimizeBtn.style.right = '40px';
-    minimizeBtn.classList.add('tp-multi-stream-box-title-btn');
-    minimizeBtn.title = "Minimize";
-
-    var streamBox_last_height = multiStreamDiv.getBoundingClientRect();
-    minimizeBtn.onclick = function () {
-        if (multiStreamDiv.getBoundingClientRect().height === 30) {
-            multiStreamDiv.style.height = streamBox_last_height + "px";
-            minimizeBtn.innerHTML = "__";
-        } else {
-            streamBox_last_height = multiStreamDiv.getBoundingClientRect().height;
-            multiStreamDiv.style.height = "30px";
-            minimizeBtn.innerHTML = "&#8212;";
-        }
-    };
-
-    var iframe = document.createElement("Iframe");
-    iframe.classList.add('tp-multistream-iframe');
-    iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
-
-    title.appendChild(openChatBtn);
-    title.appendChild(minimizeBtn);
-    title.appendChild(fullScreenBtn);
-    title.appendChild(closeBtn);
-    multiStreamDiv.appendChild(title);
-    multiStreamDiv.appendChild(iframe);
-
-    initDragForMultiStream(multiStreamDiv);
-    document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
+    return btn;
 }
 
-function createMultiStreamChatBox(streamName, isOTF) {
+function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     var multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
 
     if(isOTF) {
-        multiStreamDiv.classList.add('tp-fromSearchBar');
+        multiStreamDiv.classList.add('tp-multi-stream-otf');
     }
-
-    multiStreamDiv.style.width = "350px";
-    multiStreamDiv.style.height = "600px";
 
     multiStreamDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
 
@@ -2319,23 +2231,14 @@ function createMultiStreamChatBox(streamName, isOTF) {
     title.style.justifyContent = "left";
     title.style.alignItems = "center";
 
-    title.innerHTML = "&#9703; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
 
-    var closeBtn = document.createElement('div');
-    closeBtn.innerText = 'X';
-    closeBtn.classList.add('tp-multi-stream-box-title-btn');
-    closeBtn.title = 'Close';
 
+    var closeBtn = createMultiStreamTitleBtn("Close", "X", "0px");
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
     }
 
-    var fullScreenBtn = document.createElement('div');
-    fullScreenBtn.innerHTML = "&#x26F6;"
-    fullScreenBtn.style.right = '20px';
-    fullScreenBtn.classList.add('tp-multi-stream-box-title-btn');
-    fullScreenBtn.title = "Fullscreen";
-
+    var fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6", "20px");
     fullScreenBtn.onclick = function () {
         if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
             multiStreamDiv.classList.remove('tp-multistream-box-fullscreen');
@@ -2347,25 +2250,7 @@ function createMultiStreamChatBox(streamName, isOTF) {
         }
     }
 
-    var openStreamBtn = document.createElement('div');
-    openStreamBtn.innerHTML = "&#11208;"
-    openStreamBtn.style.right = '60px';
-    openStreamBtn.classList.add('tp-multi-stream-box-title-btn');
-    openStreamBtn.title = "Add Multi-Stream";
-
-    openStreamBtn.onclick = function () {
-        createMultiStreamBox(streamName, true);
-        chrome.runtime.sendMessage({action: "bg_multiStream_box_stream_started", detail: ""}, function(response) {
-
-        });
-    }
-
-    var minimizeBtn = document.createElement('div');
-    minimizeBtn.innerHTML = "__"
-    minimizeBtn.style.right = '40px';
-    minimizeBtn.classList.add('tp-multi-stream-box-title-btn');
-    minimizeBtn.title = "Minimize";
-
+    var minimizeBtn = createMultiStreamTitleBtn("Minimize", "__", "40px");
     var streamBox_last_height = multiStreamDiv.getBoundingClientRect();
     minimizeBtn.onclick = function () {
         if (multiStreamDiv.getBoundingClientRect().height === 30) {
@@ -2380,10 +2265,32 @@ function createMultiStreamChatBox(streamName, isOTF) {
 
     var iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
+    var extraBtn;
+    if (isMultiStreamChat) {
+        extraBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;", "60px");
+        extraBtn.onclick = function () {
+            createMultiStreamBox(streamName, true, false);
+            chrome.runtime.sendMessage({action: "bg_multiStream_box_stream_started", detail: ""}, function(response) {
 
-    iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
+            });
+        }
+        title.innerHTML = "&#9703; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
+        multiStreamDiv.style.width = "350px";
+        multiStreamDiv.style.height = "600px";
+        iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
+    } else {
+        extraBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;", "60px");
+        extraBtn.onclick = function () {
+            createMultiStreamBox(streamName, true, true);
+            chrome.runtime.sendMessage({action: "bg_multiStream_box_chat_started", detail: ""}, function(response) {
 
-    title.appendChild(openStreamBtn);
+            });
+        }
+        title.innerHTML = "&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
+        iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+    }
+
+    title.appendChild(extraBtn);
     title.appendChild(minimizeBtn);
     title.appendChild(fullScreenBtn);
     title.appendChild(closeBtn);
@@ -2424,7 +2331,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 var href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamBox(href, true);
+                createMultiStreamBox(href, true, false);
                 chrome.runtime.sendMessage({action: "bg_searchBar_multiStream_started", detail: ""}, function(response) {
 
                 });
@@ -2452,7 +2359,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 var href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamChatBox(href, true);
+                createMultiStreamBox(href, true, true);
                 chrome.runtime.sendMessage({action: "bg_searchBar_multiStream_chat_started", detail: ""}, function(response) {
 
                 });
@@ -2479,7 +2386,7 @@ function setTwitchSearchBarListener() {
         if (event.target.value.length > 0) {
             setTimeout(function (){
                 setSearchResultsClickListeners(input);
-            }, 800);
+            }, 500);
         }
     })
 
@@ -2499,7 +2406,7 @@ function initMultiStream(firstStreamName) {
     document.querySelector('.root-scrollable__wrapper').classList.add('tp_multistream_container');
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
-    createMultiStreamBox(firstStreamName);
+    createMultiStreamBox(firstStreamName, false, false);
     isMultiStreamMode = true;
     document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
 }
