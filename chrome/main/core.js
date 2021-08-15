@@ -2563,6 +2563,7 @@ function getUpdateToastBody() {
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Multi Chat button to the top search bar results.</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Similar to the Multi Stream feature, you can add any channel's chat to any page you are on, and as many as you want. You can also fullscreen the chat.</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added \"Add Multi-Stream\" and \"Add Multi-Chat\" buttons</strong> to Multi Stream box title respectively (next to the close(x) button) for ease of use.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Minimize button</strong> to Multi Stream boxes (next to the close(x) button) so you can temporarily make room for other elements if you need an empty space (the stream / chat will still be active while minimized).</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added scroll functionality to Multi-Stream</strong> page so you can add even more streams.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue where if you started a new multi-stream page and navigated to another tab quickly it wouldn't load the multi stream on that new tab.</span>"
         +  "        </div>"
