@@ -3061,26 +3061,25 @@ function showSettings() {
 ///////////////////////////////////////// END OF SETTINGS /////////////////////////////////////////
 
 window.addEventListener('load', (event) => {
+    if (window.location.href.indexOf('twitch.tv/embed/') > -1) {
+        return;
+    }
     setTimeout(function(){
-        try {
-            ga_heartbeat();
-            appendContainer = document.body;
-            document.getElementById('sideNav').style.zIndex = '10';
-            setOptionsFromDB().then(
-                function (options){
-                    ga_report_appStart();
-                    toggleFeatures();
-                    setTimeout(function (){
-                        setTitleMutationObserverForDirectoryCardsRefresh();
-                    }, 1000);
-                    showUpdateToast();
-                },
-                function (err){
+        ga_heartbeat();
+        appendContainer = document.body;
+        document.getElementById('sideNav').style.zIndex = '10';
+        setOptionsFromDB().then(
+            function (options){
+                ga_report_appStart();
+                toggleFeatures();
+                setTimeout(function (){
+                    setTitleMutationObserverForDirectoryCardsRefresh();
+                }, 1000);
+                showUpdateToast();
+            },
+            function (err){
 
-                });
-        } catch (e) {
-
-        }
+            });
     }, 2000);
 });
 
@@ -3091,6 +3090,11 @@ window.addEventListener('visibilitychange', function() {
 });
 
 function pageAwakened() {
+    if (window.location.href.indexOf('twitch.tv/embed/') > -1) {
+        return;
+    }
+    console.log("tab resume")
+    console.log(window.location.href);
     if (isMainPlayerError) {
         refreshPageOnMainTwitchPlayerError(true);
     }
