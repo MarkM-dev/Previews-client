@@ -2370,7 +2370,7 @@ function setSearchResultsClickListeners(input) {
             btn_containerChat.style.marginLeft = "5px";
 
             var imgChat = document.createElement('img');
-            imgChat.src = chrome.runtime.getURL('../images/tpt.png');
+            imgChat.src = chrome.runtime.getURL('../images/multistream_chat.png');
             imgChat.width = 18;
             imgChat.height = 18;
             imgChat.style.margin = "auto";
@@ -2387,29 +2387,6 @@ function setSearchResultsClickListeners(input) {
 
                 });
             })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             btn_container.appendChild(img);
             btn_containerChat.appendChild(imgChat);
@@ -3006,6 +2983,7 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#tp_popup_donate_btn').src = chrome.runtime.getURL('images/coffee.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = chrome.runtime.getURL('images/tp_fScrnWithChat.png');
         settingsContainer.querySelector('#tp_multiStream_img').src = chrome.runtime.getURL('images/multistream.png');
+        settingsContainer.querySelector('#tp_multiStream_chat_img').src = chrome.runtime.getURL('images/multistream_chat.png');
         settingsContainer.querySelector('#tp_pip_img').src = chrome.runtime.getURL('images/pip.png');
 
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
