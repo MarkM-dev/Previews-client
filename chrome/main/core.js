@@ -2253,7 +2253,7 @@ function createMultiStreamBox(streamName, isOTF) {
     openChatBtn.innerHTML = "&#9703;"
     openChatBtn.style.right = '40px';
     openChatBtn.classList.add('tp-multi-stream-box-title-btn');
-    openChatBtn.title = "Add Chat";
+    openChatBtn.title = "Add Multi-Chat";
 
     openChatBtn.onclick = function () {
         createMultiStreamChatBox(streamName, true);
@@ -2329,7 +2329,7 @@ function createMultiStreamChatBox(streamName, isOTF) {
     openStreamBtn.innerHTML = "&#11208;"
     openStreamBtn.style.right = '40px';
     openStreamBtn.classList.add('tp-multi-stream-box-title-btn');
-    openStreamBtn.title = "Add Stream";
+    openStreamBtn.title = "Add Multi-Stream";
 
     openStreamBtn.onclick = function () {
         createMultiStreamBox(streamName, true);
@@ -2359,7 +2359,7 @@ function setSearchResultsClickListeners(input) {
             }
 
             var btn_container = document.createElement('div');
-            btn_container.title = "Add Stream To Multi Stream";
+            btn_container.title = "Add Multi-Stream";
             btn_container.classList.add('tp-player-control');
 
             btn_container.style.width = "30px";
@@ -2387,7 +2387,7 @@ function setSearchResultsClickListeners(input) {
             })
 
             var btn_containerChat = document.createElement('div');
-            btn_containerChat.title = "Add Chat To Multi Stream";
+            btn_containerChat.title = "Add Multi-Chat";
             btn_containerChat.classList.add('tp-player-control');
 
             btn_containerChat.style.width = "30px";
@@ -2611,7 +2611,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 14px;' >- Multi-Chat</strong>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Multi Chat button to the top search bar results.</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Similar to the Multi Stream feature, you can add any channel's chat to any page you are on, and as many as you want. You can also fullscreen the chat.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added \"Add Stream\" and \"Add Chat\" buttons</strong> to Multi Stream box title respectively (next to the close(x) button) for ease of use.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added \"Add Multi-Stream\" and \"Add Multi-Chat\" buttons</strong> to Multi Stream box title respectively (next to the close(x) button) for ease of use.</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added scroll functionality to Multi-Stream</strong> page so you can add even more streams.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue where if you started a new multi-stream page and navigated to another tab quickly it wouldn't load the multi stream on that new tab.</span>"
         +  "        </div>"
