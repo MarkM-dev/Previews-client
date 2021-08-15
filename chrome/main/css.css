@@ -767,7 +767,7 @@
     left: 10px;
 }
 
-.tp-multi-stream-box.tp-fromSearchBar {
+.tp-multi-stream-box.tp-multi-stream-otf {
     top: 20px;
     left: 20px;
 }
@@ -858,8 +858,20 @@
 }
 
 .tp-theme-support {
-    -webkit-filter: drop-shadow(1px 1px 0 #232323);
-    drop-shadow(-1px -1px 0 #232323);
-    filter: drop-shadow(1px 1px 0 #232323)
-    drop-shadow(-1px -1px 0 #232323);
+    -webkit-filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
+    filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
+}
+
+.tp_multistream_container {
+    overflow: auto;
+    height: 200vh;
+}
+
+.tp_multistream_container::-webkit-scrollbar {
+    display: none;
+}
+
+.tp_multistream_container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
