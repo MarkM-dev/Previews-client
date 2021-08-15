@@ -2260,6 +2260,70 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
 }
 
+function createMultiStreamChatBox(streamName, isFromSearchBar) {
+    var multiStreamDiv = document.createElement("div");
+    multiStreamDiv.classList.add('tp-multi-stream-box');
+
+    if(isFromSearchBar) {
+        multiStreamDiv.classList.add('tp-fromSearchBar');
+    }
+
+    multiStreamDiv.style.width = "350px";
+    multiStreamDiv.style.height = "600px";
+
+    multiStreamDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
+
+    var title = document.createElement('div');
+    title.classList.add('tp_multistream_box_title');
+    title.style.width = "100%";
+    title.style.height = "25px";
+    title.style.top = "0px";
+    title.style.paddingLeft = "5px";
+    title.style.color = "darkgrey";
+    title.style.display = "flex";
+    title.style.justifyContent = "left";
+    title.style.alignItems = "center";
+
+    title.innerText = streamName.charAt(0).toUpperCase() + streamName.slice(1);
+
+    var closeBtn = document.createElement('div');
+    closeBtn.innerText = 'X';
+    closeBtn.classList.add('tp-multi-stream-box-title-btn');
+
+    closeBtn.onclick = function () {
+        multiStreamDiv.parentNode.removeChild(multiStreamDiv);
+    }
+
+    var fullScreenBtn = document.createElement('div');
+    fullScreenBtn.innerHTML = "&#x26F6;"
+    fullScreenBtn.style.right = '20px';
+    fullScreenBtn.classList.add('tp-multi-stream-box-title-btn');
+
+    fullScreenBtn.onclick = function () {
+        if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
+            multiStreamDiv.classList.remove('tp-multistream-box-fullscreen');
+        } else {
+            if (!document.querySelector('div[data-a-target="side-nav-bar-collapsed"]')) {
+                document.querySelector('button[data-a-target="side-nav-arrow"]').click();
+            }
+            multiStreamDiv.classList.add('tp-multistream-box-fullscreen');
+        }
+    }
+
+    var iframe = document.createElement("Iframe");
+    iframe.classList.add('tp-multistream-iframe');
+
+    iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
+
+    title.appendChild(fullScreenBtn);
+    title.appendChild(closeBtn);
+    multiStreamDiv.appendChild(title);
+    multiStreamDiv.appendChild(iframe);
+
+    initDragForMultiStream(multiStreamDiv);
+    document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
+}
+
 function setSearchResultsClickListeners(input) {
     try {
         var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
@@ -2267,8 +2331,9 @@ function setSearchResultsClickListeners(input) {
             if (elements[i].querySelector('.tp-player-control')) {
                 return;
             }
+
             var btn_container = document.createElement('div');
-            btn_container.title = "Add Multi Stream";
+            btn_container.title = "Add Stream To Multi Stream";
             btn_container.classList.add('tp-player-control');
 
             btn_container.style.width = "30px";
@@ -2294,8 +2359,62 @@ function setSearchResultsClickListeners(input) {
 
                 });
             })
+
+            var btn_containerChat = document.createElement('div');
+            btn_containerChat.title = "Add Chat To Multi Stream";
+            btn_containerChat.classList.add('tp-player-control');
+
+            btn_containerChat.style.width = "30px";
+            btn_containerChat.style.height = "30px";
+            btn_containerChat.style.marginBottom = "2px";
+            btn_containerChat.style.marginLeft = "5px";
+
+            var imgChat = document.createElement('img');
+            imgChat.src = chrome.runtime.getURL('../images/tpt.png');
+            imgChat.width = 18;
+            imgChat.height = 18;
+            imgChat.style.margin = "auto";
+            imgChat.classList.add('tp-theme-support');
+
+            btn_containerChat.addEventListener('click', function (e) {
+                setTextAreaValue(input, "");
+                e.preventDefault();
+                e.cancelBubble = true;
+                var href = e.target.closest('a').href
+                href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
+                createMultiStreamChatBox(href, true);
+                chrome.runtime.sendMessage({action: "bg_searchBar_multiStream_chat_started", detail: ""}, function(response) {
+
+                });
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             btn_container.appendChild(img);
+            btn_containerChat.appendChild(imgChat);
             elements[i].querySelector('a').firstChild.appendChild(btn_container);
+            elements[i].querySelector('a').firstChild.appendChild(btn_containerChat);
         }
     } catch (e) {
 
