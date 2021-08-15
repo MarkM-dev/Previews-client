@@ -2200,11 +2200,11 @@ function initDragForMultiStream(container) {
     }
 }
 
-function createMultiStreamBox(streamName, isFromSearchBar) {
+function createMultiStreamBox(streamName, isOTF) {
     var multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
 
-    if(isFromSearchBar) {
+    if(isOTF) {
         multiStreamDiv.classList.add('tp-fromSearchBar');
     }
 
@@ -2226,6 +2226,7 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     var closeBtn = document.createElement('div');
     closeBtn.innerText = 'X';
     closeBtn.classList.add('tp-multi-stream-box-title-btn');
+    closeBtn.title = 'Close';
 
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
@@ -2235,6 +2236,7 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     fullScreenBtn.innerHTML = "&#x26F6;"
     fullScreenBtn.style.right = '20px';
     fullScreenBtn.classList.add('tp-multi-stream-box-title-btn');
+    fullScreenBtn.title = "Fullscreen";
 
     fullScreenBtn.onclick = function () {
         if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
@@ -2247,10 +2249,21 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
         }
     }
 
+    var openChatBtn = document.createElement('div');
+    openChatBtn.innerHTML = "&#9703;"
+    openChatBtn.style.right = '40px';
+    openChatBtn.classList.add('tp-multi-stream-box-title-btn');
+    openChatBtn.title = "Add Chat";
+
+    openChatBtn.onclick = function () {
+        createMultiStreamChatBox(streamName, true);
+    }
+
     var iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
     iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true"
 
+    title.appendChild(openChatBtn);
     title.appendChild(fullScreenBtn);
     title.appendChild(closeBtn);
     multiStreamDiv.appendChild(title);
@@ -2260,11 +2273,11 @@ function createMultiStreamBox(streamName, isFromSearchBar) {
     document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
 }
 
-function createMultiStreamChatBox(streamName, isFromSearchBar) {
+function createMultiStreamChatBox(streamName, isOTF) {
     var multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
 
-    if(isFromSearchBar) {
+    if(isOTF) {
         multiStreamDiv.classList.add('tp-fromSearchBar');
     }
 
@@ -2289,6 +2302,7 @@ function createMultiStreamChatBox(streamName, isFromSearchBar) {
     var closeBtn = document.createElement('div');
     closeBtn.innerText = 'X';
     closeBtn.classList.add('tp-multi-stream-box-title-btn');
+    closeBtn.title = 'Close';
 
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
@@ -2298,6 +2312,7 @@ function createMultiStreamChatBox(streamName, isFromSearchBar) {
     fullScreenBtn.innerHTML = "&#x26F6;"
     fullScreenBtn.style.right = '20px';
     fullScreenBtn.classList.add('tp-multi-stream-box-title-btn');
+    fullScreenBtn.title = "Fullscreen";
 
     fullScreenBtn.onclick = function () {
         if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
@@ -2310,11 +2325,22 @@ function createMultiStreamChatBox(streamName, isFromSearchBar) {
         }
     }
 
+    var openStreamBtn = document.createElement('div');
+    openStreamBtn.innerHTML = "&#11208;"
+    openStreamBtn.style.right = '40px';
+    openStreamBtn.classList.add('tp-multi-stream-box-title-btn');
+    openStreamBtn.title = "Add Stream";
+
+    openStreamBtn.onclick = function () {
+        createMultiStreamBox(streamName, true);
+    }
+
     var iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
 
     iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
 
+    title.appendChild(openStreamBtn);
     title.appendChild(fullScreenBtn);
     title.appendChild(closeBtn);
     multiStreamDiv.appendChild(title);
