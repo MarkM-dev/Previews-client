@@ -3093,8 +3093,6 @@ function pageAwakened() {
     if (window.location.href.indexOf('twitch.tv/embed/') > -1) {
         return;
     }
-    console.log("tab resume")
-    console.log(window.location.href);
     if (isMainPlayerError) {
         refreshPageOnMainTwitchPlayerError(true);
     }
