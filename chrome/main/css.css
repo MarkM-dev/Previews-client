@@ -864,6 +864,7 @@
 
 .tp_multistream_container {
     overflow: auto;
+    height: 200vh;
 }
 
 .tp_multistream_container::-webkit-scrollbar {
