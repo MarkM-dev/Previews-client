@@ -2609,6 +2609,7 @@ function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 14px;' >- Multi-Chat</strong>"
+        +  "       <div style=\"font-size: 12px;color: white;\" ><strong style='font-size: 14px;' >- Multi-Stream Improvements</strong>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Multi Chat button to the top search bar results.</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Similar to the Multi Stream feature, you can add any channel's chat to any page you are on, and as many as you want. You can also fullscreen the chat.</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added \"Add Multi-Stream\" and \"Add Multi-Chat\" buttons</strong> to Multi Stream box title respectively (next to the close(x) button) for ease of use.</span>"
