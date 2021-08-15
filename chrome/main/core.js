@@ -2588,16 +2588,11 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features And Improvements!</div>"
-        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 14px;' >- Multi-Stream & General Improvements</strong>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Replaced sidebar Native Picture In Picture button with the custom multi-stream button so you can add as many streams as you want to any page you want (when in Video Preview mode).</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added multistream functionality to the top search bar on all pages (if the multistream feature is enabled) so you can also search for streams not on your followed list and add them as picture in picture in the current page.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- When you're in the Multi-Stream page, you can now add streams directly from the sidebar with the multi-stream button (even in Image Preview mode).</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added a Theater mode button to the Multi-Stream boxes next to the close(X) button.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Changed Multi-Stream boxes resize implementation to drastically improve resize performance.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue where the twitch main page player would play audio in the background when starting Multi-Stream (fixed by changing the multi-stream page to a non-exsistent game category page).</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added light theme support to several icons that didn't show in light theme.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- These changes should provide a more intuitive and hassle-free experience.</span>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
+        +  "       <div style=\"font-size: 12px;margin-top: 20px;color: white;\" ><strong style='font-size: 14px;' >- Multi-Stream Chat</strong>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added Multi Chat button to the top search bar results.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Similar to the Multi Stream, you can add any channel's chat to any page you are on, and as many as you want.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue where if you started a new multi-stream page and navigated to another tab quickly it wouldn't load the multi stream on that new tab.</span>"
         +  "        </div>"
        +  "    </br>"
 }
