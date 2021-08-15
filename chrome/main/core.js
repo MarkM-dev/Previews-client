@@ -2257,7 +2257,7 @@ function createMultiStreamBox(streamName, isOTF) {
 
     openChatBtn.onclick = function () {
         createMultiStreamChatBox(streamName, true);
-        chrome.runtime.sendMessage({action: "multiStream_box_chat_started", detail: ""}, function(response) {
+        chrome.runtime.sendMessage({action: "bg_multiStream_box_chat_started", detail: ""}, function(response) {
 
         });
     }
