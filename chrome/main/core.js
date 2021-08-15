@@ -1108,14 +1108,18 @@ function createSideBarSearchBtn() {
 }
 
 function showSidebarSearchBtn() {
+    if (document.getElementById('tp_sidebar_search_btn')) {
+        return;
+    }
+    
     if (!isNavBarCollapsed) {
         var sidenav_header = document.getElementsByClassName('side-nav-header')[0];
         if (sidenav_header) {
-            if (!document.getElementById('tp_sidebar_search_btn')) {
-                sidenav_header.appendChild(createSideBarSearchBtn());
-            }
+            sidenav_header.appendChild(createSideBarSearchBtn());
         }
     }
+
+
 }
 
 function checkForTwitchNotificationsPermissions(featureName, value) {
