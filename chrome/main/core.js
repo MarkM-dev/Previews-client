@@ -2409,16 +2409,10 @@ function setTwitchSearchBarListener() {
         if (event.target.value.length > 0) {
             setTimeout(function (){
                 setSearchResultsClickListeners(input);
-            }, 500);
+            }, 800);
         }
     })
-    input.addEventListener('click', (event) => {
-        if (event.target.value.length === 0) {
-            setTimeout(function (){
-                setSearchResultsClickListeners(input);
-            }, 500);
-        }
-    })
+
     input.setAttribute('tp_listener', 'true');
 }
 
