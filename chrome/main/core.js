@@ -2232,7 +2232,6 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     title.style.alignItems = "center";
     title.style.cursor = "default";
 
-
     var closeBtn = createMultiStreamTitleBtn("Close", "X", "0px");
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
