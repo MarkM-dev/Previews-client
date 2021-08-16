@@ -136,6 +136,15 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_searchBar_multiStream_started":
 
             break;
+        case "bg_searchBar_multiStream_chat_started":
+
+            break;
+        case "bg_multiStream_box_stream_started":
+
+            break;
+        case "bg_multiStream_box_chat_started":
+
+            break;
         case "bg_update_isErrRefreshEnabled":
 
             break;
