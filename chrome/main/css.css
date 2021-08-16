@@ -756,7 +756,6 @@
 .tp-multi-stream-box {
     display: block;
     position: absolute;
-    background-color: #232323;
     border-top: 1px solid #434343;
     border-radius: 5px;
     resize: both;
@@ -874,4 +873,9 @@
 .tp_multistream_container {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+.tp-multi-chat-transparent body, .tp-multi-chat-transparent .stream-chat>div, .tp-multi-chat-transparent .stream-chat>section, .tp-multi-chat-transparent .stream-chat>section .channel-leaderboard-header-rotating, .tp-multi-chat-transparent .stream-chat>section button[data-a-target="chat-send-button"] {
+    background: transparent !important;
+    background-color: transparent !important;
 }

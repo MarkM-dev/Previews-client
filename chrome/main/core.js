@@ -2231,6 +2231,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     title.style.justifyContent = "left";
     title.style.alignItems = "center";
     title.style.cursor = "default";
+    title.style.backgroundColor = "#232323";
 
     var closeBtn = createMultiStreamTitleBtn("Close", "X", "0px");
     closeBtn.onclick = function () {
@@ -2268,7 +2269,16 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     iframe.classList.add('tp-multistream-iframe');
     var extraBtn;
     if (isMultiStreamChat) {
-        extraBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;", "60px");
+        var makeTransparentBtn = createMultiStreamTitleBtn("transparent chat", "&#9682;", "60px");
+        makeTransparentBtn.onclick = function () {
+            if (iframe.contentDocument.querySelector('html').classList.contains('tp-multi-chat-transparent')) {
+                iframe.contentDocument.querySelector('html').classList.remove('tp-multi-chat-transparent');
+            } else {
+                iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
+            }
+        }
+
+        extraBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;", "80px");
         extraBtn.onclick = function () {
             createMultiStreamBox(streamName, true, false);
             chrome.runtime.sendMessage({action: "bg_multiStream_box_stream_started", detail: ""}, function(response) {
@@ -2292,6 +2302,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     }
 
     title.appendChild(extraBtn);
+    if (makeTransparentBtn) {
+        title.appendChild(makeTransparentBtn);
+    }
     title.appendChild(minimizeBtn);
     title.appendChild(fullScreenBtn);
     title.appendChild(closeBtn);
