@@ -1015,7 +1015,7 @@
     background: transparent;
     position: fixed;
     text-align: center;
-    z-index: 9999;
+    z-index: 99999999;
 }
 
 .tp-fte-toast-content {
