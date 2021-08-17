@@ -23,6 +23,7 @@
 - Preview resize & volume control.
 - For streamers: See your own live stream thumbnail when hovering over the Twitch logo at the top left.
 - Multi Stream & Multi Chat.
+- Transparent Chat Overlay.
 - Auto channel points clicker.
 - Auto refresh on player errors (#1000, #2000, #4000).
 - Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -46,7 +47,7 @@
 <br/>
 
 ## Feature notes:
-* **Streaming - see your own live stream thumbnail**
+* **Streaming - See Your Own Live Stream Thumbnail**
     - Shows your own stream's live thumbnail preview when hovering over the Twitch logo at the top left.
     - This feature is only active on 'twitch.tv' pages, it's not active in the clips directory or in the dashboard (like clips.twitch.tv).
       <br/><br/>
@@ -57,28 +58,37 @@
     - There is also a button that is located next to the stream uptime under the stream.
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
     - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
-    - You can scroll the page, fullscreen, minimize, drag and resize the stream and chat boxes (top bar and bottom right corner of the boxes).
+    - You can scroll the page, change transparency & background color, fullscreen, minimize, drag and resize the boxes (top bar and bottom right corner of the boxes).
       <br/><br/>
 
-      
-* **Auto channel points clicker**
+
+* **Transparent Chat Overlay**
+    - The button will show next to the 'theater mode' button in the player controls.
+    - Clicking it will add a transparent chat overlay to the page.
+    - Clickin benefits of the sidebar and the search function at the top bar.
+    - You can change its transparency & background color, fullscreen, drag, resize and minimize using the buttons at the top.
+    - Works well with the "Full Screen With Chat" feature.
+      <br/><br/>
+
+
+* **Auto Channel Points Clicker**
     - This feature automatically clicks the green channel points redeem button.
     - It also works when chat is closed and when the tab or window is in the background.
       <br/><br/>
 
 
-* **Sidebar streamer search**
+* **Sidebar Streamer Search**
     - A purple search button on the top of the sidebar to find live streamers easily.
     - Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
       <br/><br/>
 
 
-* **Sidebar extend**
+* **Sidebar Extend**
     - Auto extends the sidebar to show all live streamers (when sidebar is open).
       <br/><br/>
 
 
-* **Full screen with chat**
+* **Full Screen With Chat**
     - The button will show next to the 'theater mode' button in the player controls.
     - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
     - You can exit the mode by clicking the button again or double-tapping ESC.
@@ -86,13 +96,18 @@
       <br/><br/>
 
 
-* **Picture In Picture**
+* **Native Picture In Picture**
     - The button will show next to the 'theater mode' button in the player controls.
     - Clicking it will start chrome's Picture In Picture for the current stream.
       <br/><br/>
 
 
-* **Auto refresh when the main twitch player gets an error (#1000, #2000, #4000)**
+* **Custom Picture in picture**
+    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (you can add as many as you like).
+      <br/><br/>
+
+
+* **Auto Refresh When The Main Twitch Player Gets An Error (#1000, #2000, #4000)**
     - This feature works when the tab with the player that got an error is currently active.
     - If the player got an error while the tab was not active (in the background or the browser wasn't the active window) the page will automatically refresh when you come back to it.
       <br/><br/>
@@ -100,19 +115,19 @@
 
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
-    - This feature will prevent 99% of Twitch player errors (#1000, #2000).
-    - This feature will also prevent that video hang when switching back to the Twitch tab after it was in the background for a while.
+    - prevents 99% of Twitch player errors (#1000, #2000).
+    - prevents that video hang when switching back to the Twitch tab after it was in the background for a while.
       <br/><br/>
       
 
-* **Predictions notifications**
+* **Predictions Notifications**
     - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
     - Works on twitch tabs in the browser.
     - When enabling the feature, you will need to allow notification permissions for twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
       <br/><br/>
 
 
-* **Predictions sniper**
+* **Predictions Sniper**
     - The predictions sniper will participate in predictions for you.
     - Works on twitch tabs in the browser.
     - The sniper will choose the prediction option with the most amount of votes received at the time of entry (x seconds before prediction closes).
@@ -130,10 +145,7 @@
           <br/><br/>
     - Remember that this is a statistical tool and wins are not guaranteed.
       <br/><br/>
-
-
-* **Picture in picture**
-    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (you can add as many as you like).
+    
 <br/>
       <br/>
 
