@@ -2256,7 +2256,7 @@ function createMultiStreamTitleBtn(title, innerHTML) {
 }
 
 function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentChat) {
-    var extraBtn;
+    var extraMultiBoxBtn;
 
     var multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
@@ -2338,8 +2338,8 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             }
         }
 
-        extraBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
-        extraBtn.onclick = function () {
+        extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
+        extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, false);
             chrome.runtime.sendMessage({action: "bg_multiStream_box_stream_started", detail: ""}, function(response) {
 
@@ -2350,8 +2350,8 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         multiStreamDiv.style.height = "600px";
         iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
     } else {
-        extraBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
-        extraBtn.onclick = function () {
+        extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
+        extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, true);
             chrome.runtime.sendMessage({action: "bg_multiStream_box_chat_started", detail: ""}, function(response) {
 
@@ -2364,7 +2364,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
     var titleBtnContainer = document.createElement('div');
     titleBtnContainer.classList.add('tp-multi-stream-box-title-btn-container');
 
-    titleBtnContainer.appendChild(extraBtn);
+    titleBtnContainer.appendChild(extraMultiBoxBtn);
     if (makeTransparentBtn) {
         titleBtnContainer.appendChild(makeTransparentBtn);
     }
