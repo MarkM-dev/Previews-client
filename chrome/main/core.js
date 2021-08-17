@@ -2365,12 +2365,12 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
 
             opacitySlider = document.createElement('input');
             opacitySlider.classList.add('tp-multi-stream-box-title-btn');
+            opacitySlider.classList.add('tp-multi-stream-box-title-opacity-slider');
             opacitySlider.type = 'range';
             opacitySlider.min = '0';
             opacitySlider.max = '1';
-            opacitySlider.step = '0.1';
+            opacitySlider.step = '0.05';
             opacitySlider.value = '0';
-            opacitySlider.style.width = '70px';
             opacitySlider.title = 'Opacity';
 
             opacitySlider.oninput = function (e) {
@@ -2456,7 +2456,10 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
     document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
     if (transparentChat) {
         setTimeout(function (){
-            iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
+            if (makeTransparentBtn) {
+                makeTransparentBtn.click();
+            }
+            //iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
         }, 1000);
     }
 }
