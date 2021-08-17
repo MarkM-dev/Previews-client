@@ -2272,7 +2272,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
     iframe.classList.add('tp-multistream-iframe');
     var extraBtn;
     if (isMultiStreamChat) {
-        var makeTransparentBtn = createMultiStreamTitleBtn("transparent chat", "&#9682;", "60px");
+        var makeTransparentBtn = createMultiStreamTitleBtn("Toggle transparent chat", "&#9682;", "60px");
         makeTransparentBtn.onclick = function () {
             if (iframe.contentDocument.querySelector('html').classList.contains('tp-multi-chat-transparent')) {
                 iframe.contentDocument.querySelector('html').classList.remove('tp-multi-chat-transparent');
