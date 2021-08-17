@@ -2400,7 +2400,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             }
         }
 
-        var makeTransparentBtn = createMultiStreamTitleBtn("Toggle Transparent Chat", "&#9682;");
+        var makeTransparentBtn = createMultiStreamTitleBtn("Toggle Transparent Chat", "&#9681;");
         makeTransparentBtn.onclick = function () {
             if (iframe.contentDocument.querySelector('html').classList.contains('tp-multi-chat-transparent')) {
                 iframe.contentDocument.querySelector('html').classList.remove('tp-multi-chat-transparent');
@@ -2459,7 +2459,6 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             if (makeTransparentBtn) {
                 makeTransparentBtn.click();
             }
-            //iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
         }, 1000);
     }
 }
