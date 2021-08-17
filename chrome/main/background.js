@@ -96,6 +96,8 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
     if (details.reason === "install") {
         ga('send', 'event', 'tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
+        chrome.storage.local.set({'isFTE': true}, function() {});
+        chrome.storage.local.set({'shouldShowSettings': true}, function() {});
     } else {
         if (details.reason === "update") {
 

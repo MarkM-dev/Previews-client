@@ -918,14 +918,6 @@
     background: lightgrey;
 }
 
-
-
-
-
-
-
-
-
 .tp-multi-stream-info-div {
     position: absolute;
     display: flex;
@@ -1013,4 +1005,47 @@
 , .tp-multi-chat-transparent .stream-chat>section button[data-a-target="chat-send-button"] {
     background: transparent !important;
     background-color: transparent !important;
+}
+
+.tp-fte-toast-container {
+    width: 100%;
+    padding: 0;
+    top: 2%;
+    left: 0;
+    background: transparent;
+    position: fixed;
+    text-align: center;
+    z-index: 9999;
+}
+
+.tp-fte-toast-content {
+    position: relative;
+    margin: auto;
+    width: 50%;
+    padding: 15px 0 0 0;
+    font-size: 14px;
+    color: white;
+    background: rgb(156, 96, 255);
+    box-shadow: rgba(23, 23, 23, 0.75) 10px 15px 10px -5px;
+    border-radius: 10px;
+}
+
+.tp-fte-toast-close-btn {
+    display: block;
+    margin-top: 15px;
+    padding: 5px 0 5px 0;
+    border-radius: 5px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tp-fte-toast-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.tp-fte-toast-close-btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
 }

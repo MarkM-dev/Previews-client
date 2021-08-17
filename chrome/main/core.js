@@ -2744,10 +2744,44 @@ function showUpdateToast() {
 
 function check_showSettings() {
     chrome.storage.local.get('shouldShowSettings', function(result) {
-        var shouldShowSettings = result.shouldShowSettings;
-        if (shouldShowSettings) {
+        if (result.shouldShowSettings) {
             showSettings();
             chrome.storage.local.set({'shouldShowSettings': false}, function() {
+
+            });
+        }
+    });
+}
+
+function show_FTE() {
+    var container = document.createElement('div');
+    container.classList.add('tp-fte-toast-container');
+    container.classList.add('animated');
+    container.classList.add('slideInDown');
+
+    var content = document.createElement('div');
+    content.classList.add('tp-fte-toast-content');
+    content.innerText = "Yay! you just got Twitch Previews! your life is about to get so much easier :)\n" +
+        "Check out the features in the settings menu below";
+
+    var closeBtn = document.createElement('div');
+    closeBtn.classList.add('tp-fte-toast-close-btn');
+    closeBtn.innerText = "Close";
+
+    closeBtn.onclick = function () {
+        document.body.removeChild(container);
+    };
+
+    content.appendChild(closeBtn);
+    container.appendChild(content);
+    document.body.appendChild(container);
+}
+
+function check_FTE() {
+    chrome.storage.local.get('isFTE', function(result) {
+        if (result.isFTE) {
+            show_FTE();
+            chrome.storage.local.set({'isFTE': false}, function() {
 
             });
         }
@@ -3252,4 +3286,5 @@ function pageAwakened() {
 
 ///////////// END OF TAB RESUME /////////////
 check_showSettings();
+check_FTE();
 check_multistream_start();
