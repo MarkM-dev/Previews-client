@@ -2200,8 +2200,6 @@ function setPvqc() {
     document.body.appendChild(pvqc);
 }
 
-
-
 function initDragForMultiStream(container) {
     dragElement(container);
 
@@ -2218,11 +2216,14 @@ function initDragForMultiStream(container) {
             }
 
             e = e || window.event;
-            e.preventDefault();
+
             pos3 = e.clientX;
             pos4 = e.clientY;
             document.onmouseup = closeDragElement;
-            document.onmousemove = elementDrag;
+            if (!container.attributes.tp_dontDrag) {
+                e.preventDefault();
+                document.onmousemove = elementDrag;
+            }
         }
 
         function elementDrag(e) {
@@ -2256,8 +2257,8 @@ function createMultiStreamTitleBtn(title, innerHTML) {
 }
 
 function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentChat) {
+    var titleBtnContainer;
     var extraMultiBoxBtn;
-
     var multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
 
@@ -2329,12 +2330,84 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
     }
 
     if (isMultiStreamChat) {
+        var opacitySlider;
+        var colorPickerCustomBtn;
+        var colorPicker;
+        function add_ColorPickerAndOpacitySlider() {
+
+            function hexToRgbA(hex, opacity){
+                var c;
+                if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+                    c= hex.substring(1).split('');
+                    if(c.length === 3){
+                        c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+                    }
+                    c= '0x'+c.join('');
+                    return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + opacity + ')';
+                }
+            }
+
+            colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
+            colorPickerCustomBtn.onclick = function () {
+                colorPicker.click();
+            }
+
+            colorPicker = document.createElement('input');
+            colorPicker.type = 'color';
+            colorPicker.classList.add('tp-multi-stream-box-title-btn');
+            colorPicker.style.opacity = "0";
+            colorPicker.style.position = 'relative';
+            colorPicker.style.right = '-25px';
+            colorPicker.style.pointerEvents = 'none';
+            colorPicker.oninput = function (e) {
+                iframe.contentDocument.querySelector('html').style.backgroundColor = hexToRgbA(e.target.value, opacitySlider.value);
+            }
+
+            opacitySlider = document.createElement('input');
+            opacitySlider.classList.add('tp-multi-stream-box-title-btn');
+            opacitySlider.type = 'range';
+            opacitySlider.min = '0';
+            opacitySlider.max = '1';
+            opacitySlider.step = '0.1';
+            opacitySlider.value = '0';
+            opacitySlider.style.width = '70px';
+            opacitySlider.title = 'Opacity';
+
+            opacitySlider.oninput = function (e) {
+                iframe.contentDocument.querySelector('html').style.backgroundColor = hexToRgbA(colorPicker.value, e.target.value);
+            }
+
+            opacitySlider.onmousedown = function (e) {
+                multiStreamDiv.setAttribute('tp_dontDrag', 'true');
+            }
+            opacitySlider.onmouseup = function (e) {
+                multiStreamDiv.removeAttribute('tp_dontDrag');
+            }
+
+            titleBtnContainer.prepend(opacitySlider);
+            titleBtnContainer.prepend(colorPickerCustomBtn);
+            titleBtnContainer.prepend(colorPicker);
+        }
+
+        function remove_ColorPickerAndOpacitySlider() {
+            if (opacitySlider) {
+                titleBtnContainer.removeChild(colorPickerCustomBtn);
+                titleBtnContainer.removeChild(colorPicker);
+                titleBtnContainer.removeChild(opacitySlider);
+                opacitySlider = null;
+                colorPickerCustomBtn = null;
+                colorPicker = null;
+            }
+        }
+
         var makeTransparentBtn = createMultiStreamTitleBtn("Toggle Transparent Chat", "&#9682;");
         makeTransparentBtn.onclick = function () {
             if (iframe.contentDocument.querySelector('html').classList.contains('tp-multi-chat-transparent')) {
                 iframe.contentDocument.querySelector('html').classList.remove('tp-multi-chat-transparent');
+                remove_ColorPickerAndOpacitySlider();
             } else {
                 iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
+                add_ColorPickerAndOpacitySlider();
             }
         }
 
@@ -2345,6 +2418,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
 
             });
         }
+
         title.innerHTML = "&#9703; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
         multiStreamDiv.style.width = "350px";
         multiStreamDiv.style.height = "600px";
@@ -2361,7 +2435,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
     }
 
-    var titleBtnContainer = document.createElement('div');
+    titleBtnContainer = document.createElement('div');
     titleBtnContainer.classList.add('tp-multi-stream-box-title-btn-container');
 
     titleBtnContainer.appendChild(extraMultiBoxBtn);
