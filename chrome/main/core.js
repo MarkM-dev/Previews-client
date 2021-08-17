@@ -2194,6 +2194,9 @@ function initDragForMultiStream(container) {
         }
 
         function closeDragElement() {
+            if (elmnt.offsetTop - pos2 < 0) {
+                elmnt.style.top = "0px";
+            }
             document.onmouseup = null;
             document.onmousemove = null;
         }
