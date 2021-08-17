@@ -875,6 +875,10 @@
     scrollbar-width: none;
 }
 
+.tp-multi-chat-transparent {
+    border: 1px solid rgba(255, 255, 255 ,0.1);
+    border-top: none;
+}
 .tp-multi-chat-transparent body,
 .tp-multi-chat-transparent .stream-chat>div
 , .tp-multi-chat-transparent .stream-chat>section

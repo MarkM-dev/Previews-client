@@ -936,6 +936,7 @@ function ga_report_appStart() {
     var sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
     var pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
     var isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
+    var isTransparentChatEnabled = options.isTransparentChatEnabled ? "tChat_ON" : "tChat_OFF";
     var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
     var predictionsSniper = options.isPredictionsSniperEnabled ? "APS_ON" : "APS_OFF";
     var selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
@@ -943,7 +944,7 @@ function ga_report_appStart() {
     var pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
 
     chrome.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
-            + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
+            + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + isTransparentChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
             + " : " + pip_main},
         function(response) {
@@ -1830,6 +1831,43 @@ function toggle_fScrnWithChat() {
     toggleBrowserFullScreen(document.body);
 }
 
+function setTransparentChatBtn() {
+    if (document.getElementById('tp_transparentChat_btn')) {
+        return;
+    }
+    try {
+        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            var btn_container = document.createElement('div');
+            btn_container.id = "tp_transparentChat_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Transparent Chat Overlay";
+
+            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            var img = document.createElement('img');
+            img.src = chrome.runtime.getURL('../images/tp_transparentChat.png');
+            img.width = (ttv_theater_mode_btn_size.width || "30") * 0.6;
+            img.height = (ttv_theater_mode_btn_size.height || "30") * 0.6;
+            img.style.margin = "auto";
+
+            btn_container.onclick = function (){
+                createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
+                chrome.runtime.sendMessage({action: "bg_transparentChat_click", detail: true}, function(response) {
+
+                });
+            }
+            btn_container.appendChild(img);
+            ttv_theater_mode_btn.parentNode.before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
 function setfScrnWithChatBtn() {
     if (document.getElementById('tp_fScrnWithChat_btn')) {
         return;
@@ -2213,7 +2251,7 @@ function createMultiStreamTitleBtn(title, innerHTML, right) {
     return btn;
 }
 
-function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
+function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentChat) {
     var multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
 
@@ -2316,6 +2354,11 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat) {
 
     initDragForMultiStream(multiStreamDiv);
     document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
+    if (transparentChat) {
+        setTimeout(function (){
+            iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
+        }, 1000);
+    }
 }
 
 function setSearchResultsClickListeners(input) {
@@ -2685,6 +2728,10 @@ function toggleFeatures(isFromTitleObserver) {
         setPIPBtn();
     }
 
+    if (options.isTransparentChatEnabled) {
+        setTransparentChatBtn();
+    }
+
     if (options.isfScrnWithChatEnabled) {
         setfScrnWithChatBtn();
     }
@@ -2968,6 +3015,7 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#TP_popup_logo').src = chrome.runtime.getURL('images/TP96.png');
         settingsContainer.querySelector('#tp_popup_donate_btn').src = chrome.runtime.getURL('images/coffee.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = chrome.runtime.getURL('images/tp_fScrnWithChat.png');
+        settingsContainer.querySelector('#tp_transparentChat_img').src = chrome.runtime.getURL('images/tp_transparentChat.png');
         settingsContainer.querySelector('#tp_multiStream_img').src = chrome.runtime.getURL('images/multistream.png');
         settingsContainer.querySelector('#tp_multiStream_chat_img').src = chrome.runtime.getURL('images/multistream_chat.png');
         settingsContainer.querySelector('#tp_pip_img').src = chrome.runtime.getURL('images/pip.png');
@@ -2983,6 +3031,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
+        initCheckbox(settingsContainer, 'isTransparentChatEnabled', 'TP_popup_transparentChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);

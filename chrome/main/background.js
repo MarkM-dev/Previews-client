@@ -23,6 +23,7 @@ var options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
+    isTransparentChatEnabled: false,
     isPipEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
@@ -98,8 +99,8 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            chrome.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            //chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            //chrome.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
 
            /* if (details.previousVersion === "1.5.1.6") {
@@ -145,6 +146,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_fScrnWithChat_click":
             ga('send', 'event', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click');
+            break;
+        case "bg_update_isTransparentChatEnabled":
+            ga('send', 'event', 'tChat_mode', 'change', msg.detail ? "tChat_ON":"tChat_OFF");
+            break;
+        case "bg_transparentChat_click":
+            ga('send', 'event', 'tChat_btn_click', 'tChat_btn_click', 'tChat_btn_click');
             break;
         case "bg_update_isMultiStreamEnabled":
             ga('send', 'event', 'multiStream_mode', 'change', msg.detail ? "multiStream_ON":"multiStream_OFF");
