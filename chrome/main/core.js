@@ -2211,7 +2211,12 @@ function initDragForMultiStream(container) {
         elmnt.querySelector('.tp_multistream_box_title').onmousedown = dragMouseDown;
 
         function dragMouseDown(e) {
-            container.style.zIndex = (multiStream_curr_zIndex++) + "";
+            if (elmnt.attributes.tp_alwaysOnTop) {
+                container.style.zIndex = (1000 + multiStream_curr_zIndex++) + "";
+            } else {
+                container.style.zIndex = (multiStream_curr_zIndex++) + "";
+            }
+
             e = e || window.event;
             e.preventDefault();
             pos3 = e.clientX;
@@ -2241,17 +2246,18 @@ function initDragForMultiStream(container) {
     }
 }
 
-function createMultiStreamTitleBtn(title, innerHTML, right) {
+function createMultiStreamTitleBtn(title, innerHTML) {
     var btn = document.createElement('div');
     btn.classList.add('tp-multi-stream-box-title-btn');
     btn.innerHTML = innerHTML
-    btn.style.right = right;
     btn.title = title;
 
     return btn;
 }
 
 function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentChat) {
+    var extraBtn;
+
     var multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
 
@@ -2274,12 +2280,15 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
     title.style.cursor = "default";
     title.style.backgroundColor = "#232323";
 
-    var closeBtn = createMultiStreamTitleBtn("Close", "X", "0px");
+    var iframe = document.createElement("Iframe");
+    iframe.classList.add('tp-multistream-iframe');
+
+    var closeBtn = createMultiStreamTitleBtn("Close", "X");
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
     }
 
-    var fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6", "20px");
+    var fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6");
     fullScreenBtn.onclick = function () {
         if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
             multiStreamDiv.classList.remove('tp-multistream-box-fullscreen');
@@ -2291,7 +2300,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         }
     }
 
-    var minimizeBtn = createMultiStreamTitleBtn("Minimize", "__", "40px");
+    var minimizeBtn = createMultiStreamTitleBtn("Minimize", "__");
     var streamBox_last_height = multiStreamDiv.getBoundingClientRect();
     minimizeBtn.onclick = function () {
         if (multiStreamDiv.getBoundingClientRect().height === 27) {
@@ -2306,11 +2315,21 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         }
     };
 
-    var iframe = document.createElement("Iframe");
-    iframe.classList.add('tp-multistream-iframe');
-    var extraBtn;
+    var alwaysOnTopBtn = createMultiStreamTitleBtn("Always On Top", "A");
+    alwaysOnTopBtn.onclick = function () {
+        if (multiStreamDiv.attributes.tp_alwaysOnTop) {
+            multiStreamDiv.removeAttribute('tp_alwaysOnTop');
+            alwaysOnTopBtn.style.color = "grey";
+            multiStreamDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
+        } else {
+            multiStreamDiv.setAttribute('tp_alwaysOnTop', 'true');
+            alwaysOnTopBtn.style.color = "lightgrey";
+            multiStreamDiv.style.zIndex = (1000 + multiStream_curr_zIndex++) + "";
+        }
+    }
+
     if (isMultiStreamChat) {
-        var makeTransparentBtn = createMultiStreamTitleBtn("Toggle Transparent Chat", "&#9682;", "60px");
+        var makeTransparentBtn = createMultiStreamTitleBtn("Toggle Transparent Chat", "&#9682;");
         makeTransparentBtn.onclick = function () {
             if (iframe.contentDocument.querySelector('html').classList.contains('tp-multi-chat-transparent')) {
                 iframe.contentDocument.querySelector('html').classList.remove('tp-multi-chat-transparent');
@@ -2319,7 +2338,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             }
         }
 
-        extraBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;", "80px");
+        extraBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
         extraBtn.onclick = function () {
             createMultiStreamBox(streamName, true, false);
             chrome.runtime.sendMessage({action: "bg_multiStream_box_stream_started", detail: ""}, function(response) {
@@ -2331,7 +2350,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         multiStreamDiv.style.height = "600px";
         iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
     } else {
-        extraBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;", "60px");
+        extraBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraBtn.onclick = function () {
             createMultiStreamBox(streamName, true, true);
             chrome.runtime.sendMessage({action: "bg_multiStream_box_chat_started", detail: ""}, function(response) {
@@ -2342,13 +2361,20 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
     }
 
-    title.appendChild(extraBtn);
+    var titleBtnContainer = document.createElement('div');
+    titleBtnContainer.classList.add('tp-multi-stream-box-title-btn-container');
+
+    titleBtnContainer.appendChild(extraBtn);
     if (makeTransparentBtn) {
-        title.appendChild(makeTransparentBtn);
+        titleBtnContainer.appendChild(makeTransparentBtn);
     }
-    title.appendChild(minimizeBtn);
-    title.appendChild(fullScreenBtn);
-    title.appendChild(closeBtn);
+    titleBtnContainer.appendChild(alwaysOnTopBtn);
+    titleBtnContainer.appendChild(minimizeBtn);
+    titleBtnContainer.appendChild(fullScreenBtn);
+    titleBtnContainer.appendChild(closeBtn);
+
+    title.appendChild(titleBtnContainer);
+
     multiStreamDiv.appendChild(title);
     multiStreamDiv.appendChild(iframe);
 
