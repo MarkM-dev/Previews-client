@@ -21,19 +21,19 @@
 ## Features:
 - Image or live video stream Previews in the sidebar & directories.
 - Preview resize & volume control.
-- For streamers: See your own live stream thumbnail when hovering over the Twitch logo at the top left.
+- Streaming: See your own live stream thumbnail as seen by viewers on twitch.
 - Multi Stream & Multi Chat.
-- Transparent Chat Overlay.
-- Auto channel points clicker.
-- Auto refresh on player errors (#1000, #2000, #4000).
-- Predictions notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
-- Predictions sniper (will participate in predictions for you).
-- Prevent automatic video quality change.
-- Auto extend the sidebar to show all live streamers (when sidebar is open).
-- A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
-- Full screen with chat mode.
-- Picture In Picture in current stream.
-- Picture In Picture via the button under the view count in the sidebar (when in video mode).
+- Transparent / Dynamic Chat Overlay.
+- Auto Channel Points Clicker.
+- Auto Refresh on player errors (#1000, #2000, #4000).
+- Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
+- Predictions Sniper (will participate in predictions for you).
+- Prevent Automatic Video Quality Change.
+- Full Screen With Chat Mode.
+- Native Picture In Picture in current stream (Browser's PIP feature).
+- Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
+- Auto Extend the sidebar to show all live streamers (when sidebar is open).
+- Sidebar Stream Search: A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
 
@@ -42,11 +42,16 @@
     - If you already have a twitch tab opened - refresh it.
 
 2. **Hover your mouse over a streamer on the sidebar / directories.**
-    - A preview will appear next to the hovered card.
+    - A preview will appear next to the hovered stream.
 <br/>
 <br/>
 
-## Feature notes:
+## Feature Notes:
+* **Stream Previews**
+    - Live image and video previews when hovering over streams in the sidebar and directories.
+      <br/><br/>
+
+
 * **Streaming - See Your Own Live Stream Thumbnail**
     - Shows your own stream's live thumbnail preview when hovering over the Twitch logo at the top left.
     - This feature is only active on 'twitch.tv' pages, it's not active in the clips directory or in the dashboard (like clips.twitch.tv).
@@ -62,10 +67,9 @@
       <br/><br/>
 
 
-* **Transparent Chat Overlay**
+* **Transparent / Dynamic Chat Overlay**
     - The button will show next to the 'theater mode' button in the player controls.
     - Clicking it will add a transparent chat overlay to the page.
-    - Clickin benefits of the sidebar and the search function at the top bar.
     - You can change its transparency & background color, fullscreen, drag, resize and minimize using the buttons at the top.
     - Works well with the "Full Screen With Chat" feature.
       <br/><br/>
@@ -115,8 +119,8 @@
 
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
-    - prevents 99% of Twitch player errors (#1000, #2000).
-    - prevents that video hang when switching back to the Twitch tab after it was in the background for a while.
+    - Prevents 99% of Twitch player errors (#1000, #2000).
+    - Prevents that video hang when switching back to the Twitch tab after it was in the background for a while.
       <br/><br/>
       
 
