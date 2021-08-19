@@ -63,14 +63,14 @@
     - There is also a button that is located next to the stream uptime under the stream.
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
     - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
-    - You can scroll the page, change transparency & background color, fullscreen, minimize, drag and resize the boxes (top bar and bottom right corner of the boxes).
+    - You can scroll the page, change background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
       <br/><br/>
 
 
 * **Transparent / Dynamic Chat Overlay**
     - The button will show next to the 'theater mode' button in the player controls.
     - Clicking it will add a transparent chat overlay to the page.
-    - You can change its transparency & background color, fullscreen, drag, resize and minimize using the buttons at the top.
+    - You can change its background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
     - Works well with the "Full Screen With Chat" feature.
       <br/><br/>
 
