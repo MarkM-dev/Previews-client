@@ -64,6 +64,7 @@
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
     - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
     - You can scroll the page, change background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
+    - If the Auto Channel Points feature is enabled, it will collect points in the chat box.
       <br/><br/>
 
 
@@ -72,6 +73,7 @@
     - Clicking it will add a transparent chat overlay to the page.
     - You can change its background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
     - Works well with the "Full Screen With Chat" feature.
+    - If the Auto Channel Points feature is enabled, it will collect points in the chat box.
       <br/><br/>
 
 
