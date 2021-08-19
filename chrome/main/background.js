@@ -280,7 +280,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "heartbeat":
             if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
-                send_ga_event('heartbeat', 'heartbeat');
+                send_ga_event('heartbeat', 'heartbeat', 'heartbeat');
                 lastHeartBeat = new Date().getTime();
             }
             break;
