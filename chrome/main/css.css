@@ -1007,6 +1007,10 @@
     background-color: transparent !important;
 }
 
+.tp-hide-channel-leaderboard .channel-leaderboard{
+    display: none !important;
+}
+
 .tp-fte-toast-container {
     width: 100%;
     padding: 0;

@@ -2454,13 +2454,21 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
 
     initDragForMultiStream(multiStreamDiv);
     document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
-    if (transparentChat) {
-        setTimeout(function (){
+
+    setTimeout(function (){
+        if (isMultiStreamChat) {
+            if (iframe.contentDocument.querySelector('html')) {
+                iframe.contentDocument.querySelector('html').classList.add('tp-hide-channel-leaderboard');
+            }
+        }
+
+        if (transparentChat) {
             if (makeTransparentBtn) {
                 makeTransparentBtn.click();
             }
-        }, 1000);
-    }
+        }
+    }, 1000);
+
 }
 
 function setSearchResultsClickListeners(input) {
