@@ -2359,6 +2359,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             colorPicker.style.position = 'relative';
             colorPicker.style.right = '-25px';
             colorPicker.style.pointerEvents = 'none';
+            colorPicker.value = "#18181b";
             colorPicker.oninput = function (e) {
                 iframe.contentDocument.querySelector('html').style.backgroundColor = hexToRgbA(e.target.value, opacitySlider.value);
             }
