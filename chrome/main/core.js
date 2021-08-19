@@ -2799,7 +2799,7 @@ function getUpdateToastBody() {
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Transparent Chat toggle button to the Multi-Chat top bar controls.</strong></span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added background opacity & color picker controls</strong> to the Multi-Chat top bar controls (when toggling transparent mode).</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Always On Top toggle to the Multi-Stream/Chat boxes</strong> to support the chat overlay better.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added font controls (B Bold font, +/- increase/decrease font size) to the Multi-Chat boxes</strong>to increase chat visibility when transparent. shows at the multi-chat box header to the left of \"STREAM CHAT\" text.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added font controls (C color picker, B Bold font, +/- increase/decrease font size) to the Multi-Chat boxes</strong>to increase chat visibility when transparent. shows at the multi-chat box header to the left of \"STREAM CHAT\" text.</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" >- Fixed an issue where Multi-Stream boxes would get stuck on the top bar of the screen if they were moved there.</span>"
         +  "        </div>"
        +  "    </br>"
