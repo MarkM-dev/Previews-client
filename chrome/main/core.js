@@ -2334,7 +2334,6 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         var colorPickerCustomBtn;
         var colorPicker;
         function add_ColorPickerAndOpacitySlider() {
-
             function hexToRgbA(hex, opacity){
                 var c;
                 if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
@@ -2401,6 +2400,49 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             }
         }
 
+        function addFontControls() {
+            var font_controls_container = document.createElement('div');
+            font_controls_container.style.display = "flex";
+            font_controls_container.style.position = "absolute";
+            font_controls_container.style.left = "3%";
+            font_controls_container.style.padding = "5px";
+            font_controls_container.style.color = "lightgrey";
+
+            var bold_btn = createMultiStreamTitleBtn("Toggle Bold Font", "B");
+            bold_btn.style.fontWeight = "bold";
+            bold_btn.onclick = function () {
+                if (bold_btn.attributes.tp_font_bold) {
+                    bold_btn.removeAttribute('tp_font_bold');
+                    bold_btn.style.color = "grey";
+                    iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "normal";
+                } else {
+                    bold_btn.setAttribute('tp_font_bold', 'true');
+                    bold_btn.style.color = "lightgrey";
+                    iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "bold";
+                }
+            }
+
+            var lastFontSize = "13";
+            var font_size_up_btn = createMultiStreamTitleBtn("Increase Font Size", "+");
+            font_size_up_btn.style.fontWeight = "bold";
+            font_size_up_btn.onclick = function () {
+                lastFontSize++;
+                iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
+            }
+
+            var font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
+            font_size_down_btn.style.fontWeight = "bold";
+            font_size_down_btn.onclick = function () {
+                lastFontSize--;
+                iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
+            }
+
+            font_controls_container.appendChild(bold_btn);
+            font_controls_container.appendChild(font_size_up_btn);
+            font_controls_container.appendChild(font_size_down_btn);
+            iframe.contentDocument.querySelector('.stream-chat-header').prepend(font_controls_container);
+        }
+
         var makeTransparentBtn = createMultiStreamTitleBtn("Toggle Transparent Chat", "&#9681;");
         makeTransparentBtn.onclick = function () {
             if (iframe.contentDocument.querySelector('html').classList.contains('tp-multi-chat-transparent')) {
@@ -2461,11 +2503,11 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             if (iframe.contentDocument.querySelector('html')) {
                 iframe.contentDocument.querySelector('html').classList.add('tp-hide-channel-leaderboard');
             }
-        }
-
-        if (transparentChat) {
-            if (makeTransparentBtn) {
-                makeTransparentBtn.click();
+            addFontControls();
+            if (transparentChat) {
+                if (makeTransparentBtn) {
+                    makeTransparentBtn.click();
+                }
             }
         }
     }, 1000);

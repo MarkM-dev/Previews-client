@@ -780,7 +780,7 @@
     margin: 0;
     padding: 0;
 }
-.tp-multi-stream-box .tp-multi-stream-box-title-btn {
+.tp-multi-stream-box-title-btn {
     font-size: 15px;
     font-weight: bold;
     color: grey;
@@ -800,12 +800,12 @@
     margin: 0 -2px;
 }
 
-.tp-multi-stream-box .tp-multi-stream-box-title-btn:hover {
+.tp-multi-stream-box-title-btn:hover {
     background-color: rgba(255, 255, 255, 0.4);
     color: whitesmoke !important;
 }
 
-.tp-multi-stream-box .tp-multi-stream-box-title-btn:active {
+.tp-multi-stream-box-title-btn:active {
     background-color: rgba(255, 255, 255, 0.2);
     color: whitesmoke !important;
 }
