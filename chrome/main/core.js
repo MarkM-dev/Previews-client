@@ -3312,6 +3312,15 @@ function showSettings() {
 
 window.addEventListener('load', (event) => {
     if (window.location.href.indexOf('twitch.tv/embed/') > -1) {
+        setOptionsFromDB().then(
+            function (options){
+                if (options.isChannelPointsClickerEnabled) {
+                    setChannelPointsClickerListeners();
+                }
+            },
+            function (err){
+
+            });
         return;
     }
     setTimeout(function(){
