@@ -2333,19 +2333,21 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         var opacitySlider;
         var colorPickerCustomBtn;
         var colorPicker;
-        function add_ColorPickerAndOpacitySlider() {
-            function hexToRgbA(hex, opacity){
-                var c;
-                if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
-                    c= hex.substring(1).split('');
-                    if(c.length === 3){
-                        c= [c[0], c[0], c[1], c[1], c[2], c[2]];
-                    }
-                    c= '0x'+c.join('');
-                    return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + opacity + ')';
+        var font_colorPickerCustomBtn;
+        var font_colorPicker;
+        function hexToRgbA(hex, opacity){
+            var c;
+            if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+                c= hex.substring(1).split('');
+                if(c.length === 3){
+                    c= [c[0], c[0], c[1], c[1], c[2], c[2]];
                 }
+                c= '0x'+c.join('');
+                return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + opacity + ')';
             }
+        }
 
+        function add_ColorPickerAndOpacitySlider() {
             colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
             colorPickerCustomBtn.onclick = function () {
                 colorPicker.click();
@@ -2408,6 +2410,20 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
             font_controls_container.style.padding = "5px";
             font_controls_container.style.color = "lightgrey";
 
+            font_colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
+            font_colorPickerCustomBtn.onclick = function () {
+                font_colorPicker.click();
+            }
+
+            font_colorPicker = document.createElement('input');
+            font_colorPicker.type = 'color';
+            font_colorPicker.classList.add('tp-multi-stream-box-title-btn');
+            font_colorPicker.style.display = "none";
+            font_colorPicker.value = '#efeff1';
+            font_colorPicker.oninput = function (e) {
+                iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = hexToRgbA(e.target.value, 1);
+            }
+
             var bold_btn = createMultiStreamTitleBtn("Toggle Bold Font", "B");
             bold_btn.style.fontWeight = "bold";
             bold_btn.onclick = function () {
@@ -2437,6 +2453,8 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
                 iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
             }
 
+            font_controls_container.appendChild(font_colorPicker);
+            font_controls_container.appendChild(font_colorPickerCustomBtn);
             font_controls_container.appendChild(bold_btn);
             font_controls_container.appendChild(font_size_up_btn);
             font_controls_container.appendChild(font_size_down_btn);
@@ -2496,21 +2514,22 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
     multiStreamDiv.appendChild(iframe);
 
     initDragForMultiStream(multiStreamDiv);
+
     document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
 
     setTimeout(function (){
         if (isMultiStreamChat) {
-            if (iframe.contentDocument.querySelector('html')) {
+            if (iframe.contentDocument) {
                 iframe.contentDocument.querySelector('html').classList.add('tp-hide-channel-leaderboard');
-            }
-            addFontControls();
-            if (transparentChat) {
-                if (makeTransparentBtn) {
-                    makeTransparentBtn.click();
+                addFontControls();
+                if (transparentChat) {
+                    if (makeTransparentBtn) {
+                        makeTransparentBtn.click();
+                    }
                 }
             }
         }
-    }, 1000);
+    }, 2000);
 
 }
 
