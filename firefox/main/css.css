@@ -700,6 +700,22 @@
     scrollbar-width: thin;
 }
 
+.tp_update_toast::-webkit-scrollbar {
+    background-color: #9c60ff;
+    width: 12px;
+    border-radius: 5px;
+}
+
+.tp_update_toast::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+
+.tp_update_toast::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.7);
+}
+
 .tp_update_toast > div {
     font-size: 14px;
     color: white;

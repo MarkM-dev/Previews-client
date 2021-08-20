@@ -1,9 +1,22 @@
 
 
-var HEART_BEAT_INTERVAL_MS = 325000;
-var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 
-var options = {
+
+
+
+
+
+function send_ga_event(category, action, value) {
+
+}
+
+let _browser = typeof browser !== "undefined" ? browser : chrome;
+let isFirefox = typeof browser !== "undefined";
+
+let HEART_BEAT_INTERVAL_MS = 325000;
+let lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
+
+let options = {
     isSidebarPreviewsEnabled: true,
     isImagePreviewMode: true,
     PREVIEWDIV_WIDTH: 440,
@@ -28,40 +41,36 @@ var options = {
     aps_min_vote_margin_percent: 15
 };
 
-function send_ga_event(category, action, value) {
+_browser.browserAction.onClicked.addListener(function(tab) {
 
-}
+        let errString = "Could not establish connection. Receiving end does not exist.";
+        _browser.tabs.query({active: true, currentWindow: true}, function (tabs) {
+            _browser.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
+                let lastError = _browser.runtime.lastError;
+                if (lastError && lastError.message === errString) {
+                    _browser.storage.local.set({'shouldShowSettings': true}, function() {
 
-browser.browserAction.onClicked.addListener(function(tab) {
-
-    var errString = "Could not establish connection. Receiving end does not exist.";
-    browser.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        browser.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
-            var lastError = browser.runtime.lastError;
-            if (lastError && lastError.message === errString) {
-                browser.storage.local.set({'shouldShowSettings': true}, function() {
-
-                });
-                browser.tabs.create({url:'https://www.twitch.tv/'});
-            }
-        })
-    });
+                    });
+                    _browser.tabs.create({url:'https://www.twitch.tv/'});
+                }
+            })
+        });
 
 });
 
-browser.runtime.onInstalled.addListener(function(details) {
-    var manifestData = browser.runtime.getManifest();
-    var appVer = "v" + manifestData.version;
+_browser.runtime.onInstalled.addListener(function(details) {
+    let manifestData = _browser.runtime.getManifest();
+    let appVer = "v" + manifestData.version;
 
-     browser.storage.local.get('tp_options', function(result) {
+    _browser.storage.local.get('tp_options', function(result) {
         if (typeof result.tp_options == 'undefined') {
-            browser.storage.local.set({'tp_options': options}, function() {
+            _browser.storage.local.set({'tp_options': options}, function() {
 
             });
         } else {
             // upgrade db.
-            var loaded_options = result.tp_options;
-            var bSetToStorage = false;
+            let loaded_options = result.tp_options;
+            let bSetToStorage = false;
             Object.keys(options).forEach(function(key,index) {
                 if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
                     loaded_options[key] = options[key];
@@ -70,7 +79,7 @@ browser.runtime.onInstalled.addListener(function(details) {
             });
 
             if (bSetToStorage) {
-                browser.storage.local.set({'tp_options': loaded_options}, function() {
+                _browser.storage.local.set({'tp_options': loaded_options}, function() {
 
                 });
             }
@@ -79,23 +88,27 @@ browser.runtime.onInstalled.addListener(function(details) {
 
     if (details.reason === "install") {
         send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
-        browser.storage.local.set({'isFTE': true}, function() {});
-        browser.storage.local.set({'shouldShowSettings': true}, function() {});
+        _browser.storage.local.set({'isFTE': true}, function() {});
+        _browser.storage.local.set({'shouldShowSettings': true}, function() {});
     } else {
         if (details.reason === "update") {
 
-            browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            if (details.previousVersion !== "1.9.7.0") {
+                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            }
 
 
            /* if (details.previousVersion === "1.5.1.6") {
-                browser.tabs.create({url:"../popups/updatePopup.html"});
+                _browser.tabs.create({url:"../popups/updatePopup.html"});
+                ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
             }*/
+            send_ga_event( 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer);
         }
     }
 });
 
-browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+_browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_isSidebarPreviewsEnabled":
             send_ga_event('sidebarPreview_mode', 'change', msg.detail ? "sBarPreview_ON":"sBarPreview_OFF");
@@ -143,7 +156,7 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('pip_main_mode', 'change', msg.detail ? "pip_main_ON":"pip_main_OFF");
             break;
         case "bg_multiStream_btn_click":
-            browser.tabs.create({url:msg.detail});
+            _browser.tabs.create({url:msg.detail});
             send_ga_event('multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
             break;
         case "bg_searchBar_multiStream_started":
@@ -237,29 +250,37 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
             break;
         case "bg_translate_infoDiv":
-            browser.tabs.create({url:msg.detail});
+            _browser.tabs.create({url:msg.detail});
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_rate":
-            browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            if (isFirefox) {
+                _browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            } else {
+                _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
+            }
             break;
         case "bg_show_share":
-            browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            if (isFirefox) {
+                _browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            } else {
+                _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
+            }
             break;
         case "bg_show_github":
-            browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
+            _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
             break;
         case "bg_show_bugReport":
-            browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
+            _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
             break;
         case "appStart":
             send_ga_event('appStart', 'content.js', msg.detail);
             break;
         case "heartbeat":
-            /*if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
+            if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
                 send_ga_event('heartbeat', 'heartbeat', 'heartbeat');
                 lastHeartBeat = new Date().getTime();
-            }*/
+            }
             break;
         case "bg_donate_btn_click":
             send_ga_event('settings_donate_btn_click', 'settings_donate_btn_click', 'settings_donate_btn_click');

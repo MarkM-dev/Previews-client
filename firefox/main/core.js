@@ -1,35 +1,36 @@
 // (c) Twitch Previews.
-
-var isNavBarCollapsed;
-var previewDiv = null;
-var appendContainer;
-var IMAGE_CACHE_TTL_MS = 20000;
-var channelPointsClickerInterval = null;
-//var predictionsNotificationsInterval = null;
-var twitchIframe;
-var isHovering = false;
-var lastHoveredCardEl = null;
-var TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
-var TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
-var navCardPipBtn = null;
-var vidPreviewVolBtn = null;
-var clearOverlaysInterval = null;
-var clearVidPlayInterval = null;
-var isLayoutHorizontallyInverted = null;
-var isMainPlayerError = false;
-var timesExtendedSidebar = 0;
-var bLastChatOpenState = null;
-var hasEnteredFScreenWithChat = false;
-var isMultiStreamMode = false;
-var multiStream_curr_zIndex = 5000;
-var startMultiStream_name = false;
-var last_prediction_streamer = "";
-var last_prediction_button_text = "";
-var predictionSniperTimeout = null;
-var APS_awaiting_to_place_bet_streamName = false;
-var APS_didnt_vote_reason_margin_percent = null;
-var predictionsNotificationsWorker;
-var predict_langs = {
+let isFirefox = typeof browser !== "undefined";
+let _browser = isFirefox ? browser : chrome;
+let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
+let isNavBarCollapsed;
+let previewDiv = null;
+let appendContainer;
+let IMAGE_CACHE_TTL_MS = 20000;
+let channelPointsClickerInterval = null;
+let twitchIframe;
+let isHovering = false;
+let lastHoveredCardEl = null;
+let TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
+let TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
+let navCardPipBtn = null;
+let vidPreviewVolBtn = null;
+let clearOverlaysInterval = null;
+let clearVidPlayInterval = null;
+let isLayoutHorizontallyInverted = null;
+let isMainPlayerError = false;
+let timesExtendedSidebar = 0;
+let bLastChatOpenState = null;
+let hasEnteredFScreenWithChat = false;
+let isMultiStreamMode = false;
+let multiStream_curr_zIndex = 5000;
+let startMultiStream_name = false;
+let last_prediction_streamer = "";
+let last_prediction_button_text = "";
+let predictionSniperTimeout = null;
+let APS_awaiting_to_place_bet_streamName = false;
+let APS_didnt_vote_reason_margin_percent = null;
+let predictionsNotificationsWorker;
+const predict_langs = {
     'Predict':'English'
     ,'Forudsig':'Dansk'
     ,'Vorhersagen':'Deutch'
@@ -58,7 +59,7 @@ var predict_langs = {
     ,'予想':'日本語'
     ,'예측':'한국어'
 };
-var see_details_langs = {
+const see_details_langs = {
     'See Details':'English'
     ,'Se detaljer':'Dansk'
     ,'Details ansehen':'Deutch'
@@ -87,10 +88,20 @@ var see_details_langs = {
     ,'자세히 보기':'한국어'
 };
 
-var options = {};
+let options = {};
 
-var sideNavMutationObserver = new MutationObserver(function(mutations) {
-    var shouldRefresh = false;
+function sendMessageToBG(obj) {
+    _browser.runtime.sendMessage(obj, function(response) {
+
+    });
+}
+
+function getRuntimeUrl(path) {
+    return _browser.runtime.getURL(path);
+}
+
+let sideNavMutationObserver = new MutationObserver(function(mutations) {
+    let shouldRefresh = false;
     mutations.forEach(function(mutation) {
         if (mutation.type === "childList") {
             shouldRefresh = true;
@@ -102,20 +113,7 @@ var sideNavMutationObserver = new MutationObserver(function(mutations) {
     }
 });
 
-/*var directoryMutationObserver = new MutationObserver(function(mutations) {
-    var shouldRefresh = false;
-    mutations.forEach(function(mutation) {
-        if (mutation.type === "childList") {
-            shouldRefresh = true;
-        }
-    });
-    if (shouldRefresh){
-        refreshDirectoryNavCardsListAndListeners();
-        shouldRefresh = false;
-    }
-});*/
-
-var titleMutationObserver = new MutationObserver(function(mutations) {
+let titleMutationObserver = new MutationObserver(function(mutations) {
     if (window.location.pathname.indexOf('directory') > -1) {
         setTimeout(function (){
             setDirectoryCardsListeners();
@@ -142,18 +140,11 @@ function setSideNavMutationObserver() {
     });
 }
 
-/*function setDirectoryMutationObserver() {
-    directoryMutationObserver.observe(document.querySelector('div[data-target="directory-container"]'), {
-        childList: true,
-        subtree: true
-    });
-}*/
-
 function adjustVidPreviewVolClick(e) {
     e.preventDefault();
     e.cancelBubble = true;
     try {
-        var video = twitchIframe.contentDocument.querySelector('video');
+        let video = twitchIframe.contentDocument.querySelector('video');
         if (video.muted) {
             video.muted = false;
             setTimeout(function (){
@@ -171,7 +162,7 @@ function adjustVidPreviewVolScroll(e) {
     e.preventDefault();
     e.cancelBubble = true;
     try {
-        var video = twitchIframe.contentDocument.querySelector('video');
+        let video = twitchIframe.contentDocument.querySelector('video');
 
         if (e.deltaY < 0) {
             if (video.muted) {
@@ -186,12 +177,11 @@ function adjustVidPreviewVolScroll(e) {
             video.volume -= 0.05;
         }
     } catch (e) {
-
     }
 }
 
 function removeVidPreviewVolBtn() {
-    var volBtn = document.getElementById("tp_navCard_vpv_btn");
+    let volBtn = document.getElementById("tp_navCard_vpv_btn");
     if (volBtn) {
         volBtn.parentElement.removeChild(volBtn);
     }
@@ -210,7 +200,7 @@ function createVidPreviewVolBtn() {
     vidPreviewVolBtn.style.right = "0.5rem";
     vidPreviewVolBtn.style.backgroundSize = "contain";
     vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
-    vidPreviewVolBtn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/vidPreviewVolBtn.png') + "')";
+    vidPreviewVolBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/vidPreviewVolBtn.png') + "')";
     vidPreviewVolBtn.title = "Click / Scroll for preview volume";
     vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
     vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
@@ -228,13 +218,13 @@ function createPipBtn() {
     navCardPipBtn.style.right = "2.7rem";
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
-    navCardPipBtn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/multistream_sidebar.png') + "')";
+    navCardPipBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/multistream_sidebar.png') + "')";
     navCardPipBtn.title = "Picture In Picture";
     navCardPipBtn.onclick = startCustomPip;
 }
 
 function removePipBtn() {
-    var pipBtn = document.getElementById("tp_navCard_pip_btn");
+    let pipBtn = document.getElementById("tp_navCard_pip_btn");
     if (pipBtn) {
         pipBtn.parentElement.removeChild(pipBtn);
     }
@@ -248,21 +238,19 @@ function startCustomPip(e) {
     createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false);
     removePipBtn();
     removeVidPreviewVolBtn();
-    browser.runtime.sendMessage({action: "bg_pip_started", detail: ""}, function(response) {
-
-    });
+    sendMessageToBG({action: "bg_pip_started", detail: ""});
 }
 
 function getElementOffset(el) {
-    var rect = el.getBoundingClientRect(),
+    let rect = el.getBoundingClientRect(),
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
 }
 
 function calculatePreviewDivPosition(navCardEl) {
-    var elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
-    //var elOffset = getElementOffset(navCardEl).top + (30);
+    let elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
+    //let elOffset = getElementOffset(navCardEl).top + (30);
     if (window.innerHeight - elOffset < options.PREVIEWDIV_HEIGHT) { // if cuts off bottom
         if (elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) < 0) { // if cuts off top too
             return "5rem";
@@ -280,7 +268,7 @@ function isStreamerOnline(navCardEl) {
 }
 
 function getPreviewOfflineImageUrl() {
-    return "url('" + browser.runtime.getURL('../images/tp_offline.jpg') + "')";
+    return "url('" + getRuntimeUrl('../images/tp_offline.jpg') + "')";
 }
 
 function getPreviewImageUrl(navCardEl) {
@@ -292,7 +280,7 @@ function getPreviewStreamUrl(navCardEl) {
 }
 
 function createIframeElement() {
-    var iframe = document.createElement("Iframe");
+    let iframe = document.createElement("Iframe");
     iframe.borderColor = "#232323";
     iframe.style.borderRadius = "5px";
     iframe.classList.add('animated');
@@ -300,7 +288,7 @@ function createIframeElement() {
 }
 
 function createPreviewDiv(cssClass) {
-    var previewDiv = document.createElement("div");
+    let previewDiv = document.createElement("div");
     previewDiv.classList.add(cssClass);
     previewDiv.classList.add("animated");
     previewDiv.style.position = "fixed";
@@ -332,14 +320,14 @@ function createAndShowDirectoryPreview() {
     previewDiv.style.position = "absolute";
     previewDiv.style.left = "0px";
     previewDiv.style.top = "0px";
-    var calculatedSize = lastHoveredCardEl.getBoundingClientRect();//getCalculatedPreviewSizeByWidth(document.querySelector(".root-scrollable").getBoundingClientRect().width * 0.35);
+    let calculatedSize = lastHoveredCardEl.getBoundingClientRect();//getCalculatedPreviewSizeByWidth(document.querySelector(".root-scrollable").getBoundingClientRect().width * 0.35);
     previewDiv.style.width = calculatedSize.width + "px";
     previewDiv.style.height = calculatedSize.height + "px";
     previewDiv.style.display = "block";
 
     if(isStreamerOnline(lastHoveredCardEl)) {
         if (!lastHoveredCardEl.querySelector('.sk-chase')) {
-            var loader_container = document.createElement("div");
+            let loader_container = document.createElement("div");
             loader_container.innerHTML = "<div class=\"sk-chase\">\n" +
                 "  <div class=\"sk-chase-dot\"></div>\n" +
                 "  <div class=\"sk-chase-dot\"></div>\n" +
@@ -348,12 +336,12 @@ function createAndShowDirectoryPreview() {
                 "  <div class=\"sk-chase-dot\"></div>\n" +
                 "  <div class=\"sk-chase-dot\"></div>\n" +
                 "</div>".trim();
-            var loader = loader_container.firstChild;
+            let loader = loader_container.firstChild;
 
             lastHoveredCardEl.querySelector('img').parentNode.appendChild(loader);
         }
 
-       /* var cur_card = lastHoveredCardEl;
+       /* let cur_card = lastHoveredCardEl;
         setTimeout(function () {
             if (cur_card.querySelector('.sk-chase')) {
                 cur_card.querySelector('img').parentNode.removeChild(cur_card.querySelector('.sk-chase'));
@@ -367,7 +355,7 @@ function createAndShowDirectoryPreview() {
         previewDiv.style.visibility = "hidden";
         previewDiv.appendChild(twitchIframe);
 
-        var anch = document.createElement("a");
+        let anch = document.createElement("a");
         anch.style.width = calculatedSize.width + "px";
         anch.style.height = calculatedSize.height + "px";
         anch.style.position = "absolute";
@@ -399,7 +387,7 @@ function createAndShowDirectoryPreview() {
 
 function createAndShowLoadingSpinnerForSideNav() {
     if (!previewDiv.querySelector('.tp-loading')) {
-        var loader = document.createElement("span");
+        let loader = document.createElement("span");
         loader.classList.add('tp-loading');
         loader.innerText = "loading stream..."
         if(isLayoutHorizontallyInverted) {
@@ -421,7 +409,7 @@ function createAndShowLoadingSpinnerForSideNav() {
 
 function setSelfThumbnailPreviewListeners() {
     try {
-        var twitchLogo = document.querySelector('a[data-a-target="home-link"]');
+        let twitchLogo = document.querySelector('a[data-a-target="home-link"]');
         if (twitchLogo.attributes.tp_mouseover_listener) {
             return;
         }
@@ -430,7 +418,7 @@ function setSelfThumbnailPreviewListeners() {
             if (document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME)) {
                 return;
             }
-            var selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
+            let selfPreviewDiv = createPreviewDiv(TP_SELF_PREVIEW_DIV_CLASSNAME);
             selfPreviewDiv.style.width = "440px";
             selfPreviewDiv.style.height = "248px";
             selfPreviewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
@@ -446,7 +434,7 @@ function setSelfThumbnailPreviewListeners() {
         });
 
         twitchLogo.addEventListener("mouseleave", function() {
-            var preview_el = document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME);
+            let preview_el = document.querySelector('.' + TP_SELF_PREVIEW_DIV_CLASSNAME);
             if (preview_el) {
                 preview_el.classList.remove('slideInDown');
                 preview_el.classList.add('slideOutUp');
@@ -474,16 +462,12 @@ function createAndShowPreview() {
         previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
         lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
 
-        if (options.isImagePreviewMode) {
-         //   previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-           // lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-        } else {
+        if (!options.isImagePreviewMode) {
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
-            //twitchIframe.allow = "autoplay;";
-           // twitchIframe.autoplay = "true";
+            twitchIframe.allow = iframeAllowAutoplayStr;
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
@@ -496,8 +480,7 @@ function createAndShowPreview() {
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
-           // twitchIframe.allow = "autoplay;";
-            //twitchIframe.autoplay = "true";
+            twitchIframe.allow = iframeAllowAutoplayStr;
             twitchIframe.style.display = "none";
             previewDiv.appendChild(twitchIframe);
         }
@@ -575,7 +558,7 @@ function hidePreview() {
 }
 
 function clearLoadingRoller(navCardEl) {
-    var tproller = navCardEl.querySelector('.sk-chase');
+    let tproller = navCardEl.querySelector('.sk-chase');
     if (tproller) {
         tproller.parentNode.removeChild(tproller);
     }
@@ -583,7 +566,7 @@ function clearLoadingRoller(navCardEl) {
 
 function clearLoadingSpinnerFromSideNav() {
     if (previewDiv) {
-        var tploading = previewDiv.querySelector('.tp-loading');
+        let tploading = previewDiv.querySelector('.tp-loading');
         if (tploading) {
             tploading.parentNode.removeChild(tploading);
         }
@@ -593,7 +576,7 @@ function clearLoadingSpinnerFromSideNav() {
 function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
 
     try {
-        var intervalCount = 0;
+        let intervalCount = 0;
         if (clearVidPlayInterval) {
             clearInterval(clearVidPlayInterval);
             clearVidPlayInterval = null;
@@ -656,7 +639,7 @@ function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
 function clearOverlays(navCardEl, isFromDirectory) {
     try {
         if (twitchIframe) {
-            var intervalCount = 0;
+            let intervalCount = 0;
              clearOverlaysInterval = setInterval(function (){
                 if (!isHovering) {
                     clearInterval(clearOverlaysInterval);
@@ -667,7 +650,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                     if (twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]')) {
                         twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]').click();
                         setTimeout(function (){
-                            var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                            let vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
                             vpo.parentNode.removeChild(vpo);
                             waitForVidPlayAndShow(navCardEl, isFromDirectory);
                         },100);
@@ -675,7 +658,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                         clearOverlaysInterval = null;
                     } else {
                         if (twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0]) {
-                            var vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                            let vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
                             vpo.parentNode.removeChild(vpo);
                             waitForVidPlayAndShow(navCardEl, isFromDirectory);
                             clearInterval(clearOverlaysInterval);
@@ -690,7 +673,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                             }
                         }
                         if (isHovering && !isNavBarCollapsed) {
-                            var container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
+                            let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                             if (container) {
                                 container.appendChild(navCardPipBtn);
                                 container.appendChild(vidPreviewVolBtn);
@@ -698,11 +681,10 @@ function clearOverlays(navCardEl, isFromDirectory) {
                         }
                     }
                 }
-
             }, 100);
         } else {
             if (isMultiStreamMode && !isNavBarCollapsed && isHovering) {
-                var container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
+                let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                 if (container) {
                     container.appendChild(navCardPipBtn);
                 }
@@ -763,14 +745,9 @@ function setMouseOverListeners(navCardEl) {
         isHovering = false;
 
         setTimeout(function () {
-            var shouldSlideOut;
-            if (isHovering) {
-                shouldSlideOut = false;
-            } else {
-                shouldSlideOut = true;
-            }
             try {
-                if (shouldSlideOut) {
+                if (!isHovering) {
+                    // shouldSlideOut
                     previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
                     setTimeout(function () {
                         isHovering = false;
@@ -841,16 +818,16 @@ function setDirectoryMouseOverListeners(navCardEl) {
 }
 
 function refreshDirectoryNavCardsListAndListeners() {
-    var directoryNavCards = document.querySelectorAll('a[data-a-target="preview-card-image-link"]');
-    for (var i = 0; i < directoryNavCards.length; i++) {
+    let directoryNavCards = document.querySelectorAll('a[data-a-target="preview-card-image-link"]');
+    for (let i = 0; i < directoryNavCards.length; i++) {
         setDirectoryMouseOverListeners(directoryNavCards[i]);
     }
 }
 
 function getSidebarNavCards(ancestor) {
     isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
-    var parentSearchContainer = ancestor || document;
-    var navCards;
+    let parentSearchContainer = ancestor || document;
+    let navCards;
     if (isNavBarCollapsed) {
         if (parentSearchContainer.querySelectorAll('a.side-nav-card')[0] && parentSearchContainer.querySelectorAll('a.side-nav-card')[0].href){
             navCards = parentSearchContainer.querySelectorAll('a.side-nav-card');
@@ -866,9 +843,9 @@ function getSidebarNavCards(ancestor) {
 
 function refreshNavCardsListAndListeners() {
     if (document.getElementById('sideNav')) {
-        var navCards = getSidebarNavCards();
-        //var navCards = document.getElementsByClassName('side-nav-card__link');
-        for (var i = 0; i < navCards.length; i++) {
+        let navCards = getSidebarNavCards();
+        //let navCards = document.getElementsByClassName('side-nav-card__link');
+        for (let i = 0; i < navCards.length; i++) {
             navCards[i].lastImageLoadTimeStamp = new Date().getTime();
             setMouseOverListeners(navCards[i]);
         }
@@ -876,9 +853,7 @@ function refreshNavCardsListAndListeners() {
 }
 
 function ga_heartbeat() {
-    browser.runtime.sendMessage({action: "heartbeat", detail: ""}, function(response) {
-
-    });
+    sendMessageToBG({action: "heartbeat", detail: ""});
     setTimeout(ga_heartbeat, 325000);
 }
 
@@ -888,16 +863,14 @@ function getCalculatedPreviewSizeByWidth (width) {
 
 function setDirectoryCardsListeners() {
     if (options.isDirpEnabled) {
-        //if (document.querySelector('div[data-target="directory-container"]')) {
         if (document.querySelector('.common-centered-column')) {
-            //setDirectoryMutationObserver();
             refreshDirectoryNavCardsListAndListeners();
         }
     }
 }
 
 function clickChannelPointsBtn() {
-    var btn = document.querySelector('.claimable-bonus__icon');
+    let btn = document.querySelector('.claimable-bonus__icon');
     if (btn) {
         btn.click();
     }
@@ -913,8 +886,8 @@ function setChannelPointsClickerListeners() {
 }
 
 function clearExistingPreviewDivs(className, isFromPip) {
-    var previewDivs = document.querySelectorAll('.' + className);
-    for (var i = 0; i < previewDivs.length; i++) {
+    let previewDivs = document.querySelectorAll('.' + className);
+    for (let i = 0; i < previewDivs.length; i++) {
         if (previewDivs[i]) {
             previewDivs[i].parentNode.removeChild(previewDivs[i]);
         }
@@ -926,41 +899,36 @@ function clearExistingPreviewDivs(className, isFromPip) {
 }
 
 function ga_report_appStart() {
-    var sidebar_previews = options.isSidebarPreviewsEnabled ? "sBarP_ON":"sBarP_OFF";
-    var size = options.PREVIEWDIV_WIDTH + "px";
-    var mode = options.isImagePreviewMode ? "Image":"Video";
-    var dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
-    var errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
-    var channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
-    var sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
-    var sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
-    var pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
-    var isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
-    var isTransparentChatEnabled = options.isTransparentChatEnabled ? "tChat_ON" : "tChat_OFF";
-    var predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
-    var predictionsSniper = options.isPredictionsSniperEnabled ? "APS_ON" : "APS_OFF";
-    var selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
-    var multiStream = options.isMultiStreamEnabled ? "multiStream_ON" : "multiStream_OFF";
-    var pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
+    let sidebar_previews = options.isSidebarPreviewsEnabled ? "sBarP_ON":"sBarP_OFF";
+    let size = options.PREVIEWDIV_WIDTH + "px";
+    let mode = options.isImagePreviewMode ? "Image":"Video";
+    let dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
+    let errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
+    let channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
+    let sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
+    let sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
+    let pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
+    let isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
+    let isTransparentChatEnabled = options.isTransparentChatEnabled ? "tChat_ON" : "tChat_OFF";
+    let predictionsNotifications = options.isPredictionsNotificationsEnabled ? "PN_ON" : "PN_OFF";
+    let predictionsSniper = options.isPredictionsSniperEnabled ? "APS_ON" : "APS_OFF";
+    let selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
+    let multiStream = options.isMultiStreamEnabled ? "multiStream_ON" : "multiStream_OFF";
+    let pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
 
-    browser.runtime.sendMessage({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
+    sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + isTransparentChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main},
-        function(response) {
-
-    });
+            + " : " + pip_main});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
-    browser.runtime.sendMessage({action: "bg_errRefresh_exec", detail: ""}, function(response) {
-
-    });
+    sendMessageToBG({action: "bg_errRefresh_exec", detail: ""});
 
     if (fullRefresh) {
         location.replace(window.location);
     } else {
-        var btn = document.querySelector('.content-overlay-gate__allow-pointers button');
+        let btn = document.querySelector('.content-overlay-gate__allow-pointers button');
         if(btn) {
             btn.click();
             isMainPlayerError = false;
@@ -974,9 +942,9 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
 }
 
 function checkForAutoRefresh() {
-    var el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
+    let el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
     if (el) {
-        if (['1000', '2000'].some(x => el.innerText.indexOf(x) >= 0)) {
+        if (['1000', '2000', '4000'].some(x => el.innerText.indexOf(x) >= 0)) {
             if (!document.hidden) {
                 refreshPageOnMainTwitchPlayerError();
             } else {
@@ -990,7 +958,7 @@ function checkForAutoRefresh() {
 
 function listenForPlayerError() {
     try{
-        var t_player = document.querySelector(".video-player").querySelector('video');
+        let t_player = document.querySelector(".video-player").querySelector('video');
         if (t_player.attributes.tp_abort_listener) {
             return;
         }
@@ -1018,9 +986,9 @@ function extendSidebarSection(sideNavSection) {
 
 function extendSidebar() {
     if (!isNavBarCollapsed) {
-        var sideNavSections = document.getElementsByClassName('side-nav-section');
+        let sideNavSections = document.getElementsByClassName('side-nav-section');
         if(sideNavSections[0]) {
-            var navCards = getSidebarNavCards(sideNavSections[0]);
+            let navCards = getSidebarNavCards(sideNavSections[0]);
             if (isStreamerOnline(navCards[navCards.length - 1])) {
                 extendSidebarSection(sideNavSections[0]);
                 if (timesExtendedSidebar < 15) {
@@ -1043,10 +1011,10 @@ function extendSidebar() {
 }
 
 function searchStreamer(e) {
-    filter = e.target.value.toUpperCase()
-    var navCards = getSidebarNavCards();
+    let filter = e.target.value.toUpperCase()
+    let navCards = getSidebarNavCards();
 
-    for (var i = 0; i < navCards.length; i++) {
+    for (let i = 0; i < navCards.length; i++) {
         if (navCards[i].getElementsByTagName('p')[0].innerText.toUpperCase().indexOf(filter) > -1) {
             navCards[i].parentElement.classList.remove("tp_display_none");
         } else {
@@ -1056,7 +1024,7 @@ function searchStreamer(e) {
 }
 
 function createSidebarSearchInput() {
-    var search_input_container = document.createElement("div");
+    let search_input_container = document.createElement("div");
     search_input_container.id = "tp_sidebar_search_input_container";
 
     isLayoutHorizontallyInverted ? search_input_container.style.right = "1rem" : search_input_container.style.left = "1rem";
@@ -1064,15 +1032,15 @@ function createSidebarSearchInput() {
     search_input_container.classList.add('animated');
     search_input_container.classList.add('fadeIn');
 
-    var search_input = document.createElement("input");
+    let search_input = document.createElement("input");
     search_input.id = "tp_sidebar_search_input";
     search_input.placeholder = "Search Streamer";
     search_input.classList.add('tp_search_input');
     search_input.addEventListener('input', searchStreamer);
 
-    var search_close_btn = document.createElement("div");
+    let search_close_btn = document.createElement("div");
     search_close_btn.classList.add('tp_search_close_btn');
-    search_close_btn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/tp_sidebar_search_close.png') + "')";
+    search_close_btn.style.backgroundImage = "url('" + getRuntimeUrl('../images/tp_sidebar_search_close.png') + "')";
     search_close_btn.onclick = function () {
         searchStreamer({target: {value: ""}});
         document.getElementById('tp_sidebar_search_input_container').parentElement.removeChild(document.getElementById('tp_sidebar_search_input_container'));
@@ -1092,16 +1060,14 @@ function sidebarSearchBtnClick() {
     showSidebarSearchInput();
     document.getElementById('tp_sidebar_search_input').focus();
     extendSidebar();
-    browser.runtime.sendMessage({action: "bg_sBarS_btn_click", detail: true}, function(response) {
-
-    });
+    sendMessageToBG({action: "bg_sBarS_btn_click", detail: true});
 }
 
 function createSideBarSearchBtn() {
-    var search_btn = document.createElement("div");
+    let search_btn = document.createElement("div");
     search_btn.id = "tp_sidebar_search_btn";
     search_btn.classList.add('tp-sidebar-search-btn');
-    search_btn.style.backgroundImage = "url('" + browser.runtime.getURL('../images/tp_sidebar_search.png') + "')";
+    search_btn.style.backgroundImage = "url('" + getRuntimeUrl('../images/tp_sidebar_search.png') + "')";
     isLayoutHorizontallyInverted ? search_btn.style.left = "4rem" : search_btn.style.right = "4rem";
     search_btn.title = "Twitch Previews - Search Streamers";
     search_btn.onclick = sidebarSearchBtnClick;
@@ -1115,36 +1081,34 @@ function showSidebarSearchBtn() {
     }
 
     if (!isNavBarCollapsed) {
-        var sidenav_header = document.getElementsByClassName('side-nav-header')[0];
+        let sidenav_header = document.getElementsByClassName('side-nav-header')[0];
         if (sidenav_header) {
             sidenav_header.appendChild(createSideBarSearchBtn());
         }
     }
 }
 
-function checkForTwitchNotificationsPermissions(featureName, value) {
+function checkForTwitchNotificationsPermissions(featureName) {
     if (Notification.permission !== "granted") {
         Notification.requestPermission().then(function (res){
             if (res === "denied") {
-                alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.");
+                if(isFirefox) {
+                    alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.");
+                }
                 settings_predictionsNotifications_cb_off();
                 return;
             }
-            browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
-
-            });
+            sendMessageToBG({action: "bg_update_" + featureName, detail: true});
             onSettingChange(featureName, true);
-            showNotification("Twitch Previews", "Predictions Notifications Enabled!", browser.runtime.getURL('../images/TP96.png'));
+            showNotification("Twitch Previews", "Predictions Notifications Enabled!", getRuntimeUrl('../images/TP96.png'), true);
         },function (err) {
             settings_predictionsNotifications_cb_off();
             onSettingChange(featureName, false);
         });
     } else {
-        browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: true}, function(response) {
-
-        });
+        sendMessageToBG({action: "bg_update_" + featureName, detail: true});
         onSettingChange(featureName, true);
-        showNotification("Twitch Previews", "Predictions Notifications Enabled!", browser.runtime.getURL('../images/TP96.png'));
+        showNotification("Twitch Previews", "Predictions Notifications Enabled!", getRuntimeUrl('../images/TP96.png'), true);
     }
 }
 
@@ -1154,7 +1118,7 @@ function showNotification(title, body, icon, dont_send_PN_SHOW_event) {
         settings_predictionsNotifications_cb_off();
         return;
     }
-    var notification = new Notification(title, {
+    let notification = new Notification(title, {
         icon: icon,
         body: body,
         silent: true
@@ -1166,18 +1130,16 @@ function showNotification(title, body, icon, dont_send_PN_SHOW_event) {
         this.close();
     };
     if (!dont_send_PN_SHOW_event) {
-        browser.runtime.sendMessage({action: "bg_PN_show", detail: "PN_show"}, function(response) {
-
-        });
+        sendMessageToBG({action: "bg_PN_show", detail: "PN_show"});
     }
 }
 
 function checkForPredictions(should_bet_now) {
-    var btn_arr = document.querySelectorAll('button[data-test-selector="community-prediction-highlight-header__action-button"]');
-    var btn;
-    var details_btn;
+    let btn_arr = document.querySelectorAll('button[data-test-selector="community-prediction-highlight-header__action-button"]');
+    let btn;
+    let details_btn;
     if(btn_arr.length > 0) {
-        for (var i = 0; i < btn_arr.length; i++) {
+        for (let i = 0; i < btn_arr.length; i++) {
             if (predict_langs[btn_arr[i].innerText]) {
                 btn = btn_arr[i];
                 break;
@@ -1205,11 +1167,11 @@ function checkForPredictions(should_bet_now) {
             }
         }*/
 
-        var curr_streamer = getCurrentStreamerName();
+        let curr_streamer = getCurrentStreamerName();
         if (last_prediction_streamer === curr_streamer && btn.innerText === last_prediction_button_text) {
             return;
         }
-        var curr_streamer_img_url = '';
+        let curr_streamer_img_url = '';
 
         try {
             curr_streamer_img_url = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('img')[0].src;
@@ -1218,7 +1180,7 @@ function checkForPredictions(should_bet_now) {
         }
         last_prediction_streamer = curr_streamer;
         last_prediction_button_text = btn.innerText;
-        var prediction_text = "";
+        let prediction_text = "";
 
         try {
             var elements = btn.parentNode.parentNode.querySelectorAll('p');
@@ -1239,8 +1201,8 @@ function checkForPredictions(should_bet_now) {
 
             if(options.isPredictionsSniperEnabled) {
 
-                browser.storage.local.get('aps_streams_settings_obj', function(res) {
-                    var curr_stream_aps_settings = null;
+                _browser.storage.local.get('aps_streams_settings_obj', function(res) {
+                    let curr_stream_aps_settings = null;
                     if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_streamer]) {
                         curr_stream_aps_settings = res.aps_streams_settings_obj[curr_streamer];
                     }
@@ -1285,7 +1247,7 @@ function checkForPredictions(should_bet_now) {
                 getPredictionsSniperResults().then(function (res){
                     if (options.isPredictionsNotificationsEnabled) {
 
-                        var extraText = '';
+                        let extraText = '';
                         if (APS_awaiting_to_place_bet_streamName === curr_streamer) {
                             extraText = '\nPrediction closed before the sniper could vote';
                             APS_awaiting_to_place_bet_streamName = null;
@@ -1342,11 +1304,11 @@ function getChannelPointsNum() {
         simulateHoverForPoints('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
         // get points from tooltip
         setTimeout(function (){
-            var tooltip = document.getElementsByClassName('tw-tooltip-wrapper')[0];
+            let tooltip = document.getElementsByClassName('tw-tooltip-wrapper')[0];
             if (tooltip) {
-                var points_str_extract_arr = tooltip.innerText.match(/\d+/g);
-                var points = '';
-                for (var i = 0; i < points_str_extract_arr.length; i++) {
+                let points_str_extract_arr = tooltip.innerText.match(/\d+/g);
+                let points = '';
+                for (let i = 0; i < points_str_extract_arr.length; i++) {
                     points += points_str_extract_arr[i];
                 }
                 simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
@@ -1356,9 +1318,9 @@ function getChannelPointsNum() {
                 setTimeout(function (){
                     tooltip = document.getElementsByClassName('tw-tooltip-wrapper')[0];
                     if (tooltip) {
-                        var points_str_extract_arr = tooltip.innerText.match(/\d+/g);
-                        var points = '';
-                        for (var i = 0; i < points_str_extract_arr.length; i++) {
+                        let points_str_extract_arr = tooltip.innerText.match(/\d+/g);
+                        let points = '';
+                        for (let i = 0; i < points_str_extract_arr.length; i++) {
                             points += points_str_extract_arr[i];
                         }
                         simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
@@ -1373,13 +1335,13 @@ function getChannelPointsNum() {
 }
 
 function setTextAreaValue(element, value) {
-    var prototypeValueSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;
+    let prototypeValueSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;
     prototypeValueSetter.call(element, value);
     element.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 function closePopoutMenu() {
-    var closePopoutBtn = document.getElementsByClassName('tw-popover-header__icon-slot--right')[0];
+    let closePopoutBtn = document.getElementsByClassName('tw-popover-header__icon-slot--right')[0];
     if (closePopoutBtn && closePopoutBtn.firstChild) {
         closePopoutBtn.firstChild.click();
     }
@@ -1399,17 +1361,17 @@ function getVotePercentageMargin(a, b) {
 }
 
 function extractVotersNumberFromString(str) {
-    var numOfStrChars = 0;
-    var num = '';
-    var isContainingStringChar = false;
-    for(var i = 0; i < str.length; i++) {
+    let numOfStrChars = 0;
+    let num = '';
+    let isContainingStringChar = false;
+    for(let i = 0; i < str.length; i++) {
         if (isNaN(str[i])) {
             numOfStrChars++;
             isContainingStringChar = true;
         }
     }
     if (isContainingStringChar) {
-        for(var j = 0; j < str.length; j++) {
+        for(let j = 0; j < str.length; j++) {
             if (!isNaN(str[j])) {
                 num += str[j];
             }
@@ -1421,9 +1383,7 @@ function extractVotersNumberFromString(str) {
 }
 
 function sendPredictionCompletionEvent() {
-        browser.runtime.sendMessage({action: "bg_APS_res", detail: document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') ? 'W' : document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]') ? 'L': 'N/A'}, function(response) {
-
-        });
+    sendMessageToBG({action: "bg_APS_res", detail: document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') ? 'W' : document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]') ? 'L': 'N/A'});
 }
 
 function getPredictionsSniperResults() {
@@ -1433,7 +1393,7 @@ function getPredictionsSniperResults() {
         // closed
         // ended
 
-        var return_obj = {
+        let return_obj = {
             prediction_status: 'unknown',
             text1: ''//,
             //prediction_question_answer_str: ''
@@ -1448,7 +1408,7 @@ function getPredictionsSniperResults() {
                 setTimeout(function (){
 
                     // click predictions title body button at the top of channel points view to open predictions view
-                    var predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
+                    let predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
                     if (!predictions_list_item_body) {
                         return_obj.prediction_status = 'unknown';
                         closePopoutMenu();
@@ -1463,7 +1423,7 @@ function getPredictionsSniperResults() {
                         //return_obj.prediction_subTitle = document.getElementsByClassName('prediction-checkout-details-header')[0].getElementsByTagName('p')[1].innerText;
 
                         // prediction end screen results
-                        var results_str = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
+                        let results_str = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
 
                         if(results_str && results_str.innerText) {
                             return_obj.prediction_status = 'ended';
@@ -1474,7 +1434,7 @@ function getPredictionsSniperResults() {
                         }
 
                         try {
-                            var predictions_bottom_text = document.querySelector('span[data-test-selector="user-prediction-string__outcome-title"]').parentElement.innerText
+                            let predictions_bottom_text = document.querySelector('span[data-test-selector="user-prediction-string__outcome-title"]').parentElement.innerText
                             if (predictions_bottom_text) {
                                 return_obj.prediction_status = 'closed';
                                 return_obj.prediction_title_and_options_str =
@@ -1528,14 +1488,14 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
                     try {
                         // get time remaining
                         // channel points view time left
-                        var time_remaining_str_extract_arr = document.querySelector('p[data-test-selector="predictions-list-item__subtitle"]').innerText.match(/\d+/g)
+                        let time_remaining_str_extract_arr = document.querySelector('p[data-test-selector="predictions-list-item__subtitle"]').innerText.match(/\d+/g)
                         if (time_remaining_str_extract_arr == null) {
                             clearPredictionStatus();
                             reject('prediction_closed_or_ended');
                             return;
                         }
 
-                        var ms_UntilPrediction;
+                        let ms_UntilPrediction;
                         if (should_bet_now) {
                             ms_UntilPrediction = 0;
                         } else {
@@ -1543,7 +1503,7 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
                             ms_UntilPrediction -= ((curr_stream_aps_settings ? curr_stream_aps_settings.aps_secondsBefore : options.aps_secondsBefore) * 1000) + 2000; //decrease by seconds set in options (seconds * 1000)
                         }
 
-                        //var prediction_question = document.querySelector('p[data-test-selector="predictions-list-item__title"]').innerText
+                        //let prediction_question = document.querySelector('p[data-test-selector="predictions-list-item__title"]').innerText
 
                         if (ms_UntilPrediction > 1000) {
                             // close channel points view
@@ -1560,9 +1520,9 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
                         predictionSniperTimeout = setTimeout(function () {
                             // execute prediction sniper
 
-                            browser.storage.local.get('aps_streams_settings_obj', function(res) {
-                                var curr_stream_aps_settings = null;
-                                var curr_stream_name = getCurrentStreamerName();
+                            _browser.storage.local.get('aps_streams_settings_obj', function(res) {
+                                let curr_stream_aps_settings = null;
+                                let curr_stream_name = getCurrentStreamerName();
                                 if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
                                     curr_stream_aps_settings = res.aps_streams_settings_obj[curr_stream_name];
                                 } else {
@@ -1594,7 +1554,7 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
 
                                         setTimeout(function () {
                                             // click predictions title body button at the top of channel points view to open predictions view
-                                            var predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
+                                            let predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
                                             if (!predictions_list_item_body) {
                                                 closePopoutMenu();
                                                 clearPredictionStatus();
@@ -1617,7 +1577,7 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
                                                 }
 
                                                 // click the "predict with custom points" button.
-                                                var predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
+                                                let predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
                                                 if (!predict_with_custom_points_btn) {
                                                     closePopoutMenu();
                                                     clearPredictionStatus();
@@ -1627,12 +1587,12 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
 
                                                 // get votes
                                                 // twitch has a bug with switched classnames in the options elements, get numbers by render order.
-                                                var stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
-                                                var left_vote_count = extractVotersNumberFromString(stat_fields[2].children[1].innerText);
-                                                var right_vote_count = extractVotersNumberFromString(stat_fields[6].children[1].innerText);
+                                                let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
+                                                let left_vote_count = extractVotersNumberFromString(stat_fields[2].children[1].innerText);
+                                                let right_vote_count = extractVotersNumberFromString(stat_fields[6].children[1].innerText);
 
                                                 // vote margin
-                                                var vote_margin_percent = getVotePercentageMargin(left_vote_count, right_vote_count);
+                                                let vote_margin_percent = getVotePercentageMargin(left_vote_count, right_vote_count);
                                                 if (vote_margin_percent < 0) {
                                                     vote_margin_percent *= -1;
                                                 }
@@ -1644,10 +1604,10 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
                                                     return;
                                                 }
 
-                                                var selectedOption = left_vote_count > right_vote_count ? 0 : 1;
+                                                let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
 
                                                 // input number to predict with % of total points
-                                                var prediction_bet_amount = Math.floor((curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+                                                let prediction_bet_amount = Math.floor((curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
 
                                                 if (prediction_bet_amount === 0) {
                                                     prediction_bet_amount = 1;
@@ -1666,18 +1626,21 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
                                                     "\nvote_margin_percent: " + vote_margin_percent + "%"
                                                 );
 
-                                                window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
+                                                if (isFirefox) {
+                                                    window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
+                                                } else {
+                                                    setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
+                                                    // click vote
+                                                    document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
+                                                }
 
                                                 setTimeout(function (){
-                                                    // click vote
-                                                    //document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
-
                                                     if(options.isPredictionsNotificationsEnabled) {
-                                                        var curr_streamer = '';
-                                                        var curr_streamer_img_url = '';
-                                                        var prediction_question = '';
-                                                        var sniper_selection_str = '';
-                                                        var prediction_options_str = '';
+                                                        let curr_streamer = '';
+                                                        let curr_streamer_img_url = '';
+                                                        let prediction_question = '';
+                                                        let sniper_selection_str = '';
+                                                        let prediction_options_str = '';
 
                                                         try {
                                                             curr_streamer = getCurrentStreamerName();
@@ -1694,14 +1657,9 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
 
                                                     closePopoutMenu();
 
-                                                    browser.runtime.sendMessage({action: "bg_APS_exec", detail: "bg_APS_exec"}, function(response) {
-
-                                                    });
+                                                    sendMessageToBG({action: "bg_APS_exec", detail: "bg_APS_exec"});
                                                     clearPredictionStatus();
                                                 }, 250);
-                                                //setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
-
-
                                             }, 120);
                                         }, 150);
                                     },400);
@@ -1728,25 +1686,27 @@ function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
 function setPredictionsNotifications() {
     if (!predictionsNotificationsWorker) {
 
-        var s = document.createElement("script");
-        s.innerHTML = "window.addEventListener(\"message\", (event) => {\n" +
-            "            if (event.origin !== \"https://www.twitch.tv\"){return;}\n" +
-            "            if (!event.data.prediction_bet_amount){return;}\n" +
-            "        try {\n" +
-            "            var element = document.getElementsByClassName('custom-prediction-button')[event.data.selectedOption].getElementsByTagName('input')[0];\n" +
-            "            var prototypeValueSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;\n" +
-            "            prototypeValueSetter.call(element, event.data.prediction_bet_amount);\n" +
-            "            element.dispatchEvent(new Event('input', { bubbles: true }));\n" +
-            "            document.getElementsByClassName('custom-prediction-button__interactive')[event.data.selectedOption].click();\n" +
-            "        } catch (e) {\n" +
-            "            console.log(e);\n" +
-            "        }\n" +
-            "        }, false);";
+        if (isFirefox) {
+            let s = document.createElement("script");
+            s.innerHTML = "window.addEventListener(\"message\", (event) => {\n" +
+                "            if (event.origin !== \"https://www.twitch.tv\"){return;}\n" +
+                "            if (!event.data.prediction_bet_amount){return;}\n" +
+                "        try {\n" +
+                "            let element = document.getElementsByClassName('custom-prediction-button')[event.data.selectedOption].getElementsByTagName('input')[0];\n" +
+                "            let prototypeValueSetter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;\n" +
+                "            prototypeValueSetter.call(element, event.data.prediction_bet_amount);\n" +
+                "            element.dispatchEvent(new Event('input', { bubbles: true }));\n" +
+                "            document.getElementsByClassName('custom-prediction-button__interactive')[event.data.selectedOption].click();\n" +
+                "        } catch (e) {\n" +
+                "            console.log(e);\n" +
+                "        }\n" +
+                "        }, false);";
 
-        document.body.appendChild(s);
+            document.body.appendChild(s);
+        }
 
         function worker_function() {
-            var timer;
+            let timer;
             self.onmessage = function(event) {
                 if (event.data === "start_predictions_timer") {
                     timer = setInterval(function() {
@@ -1770,14 +1730,6 @@ function setPredictionsNotifications() {
         };
         predictionsNotificationsWorker.postMessage("start_predictions_timer");
     }
-
-
-    /*if (!predictionsNotificationsInterval) {
-        checkForPredictions();
-        predictionsNotificationsInterval = setInterval(function() {
-            checkForPredictions();
-        }, 15100);
-    }*/
 }
 
 function toggleBrowserFullScreen(elem) {
@@ -1817,7 +1769,7 @@ function setChatOpenMode(bool) {
 }
 
 function fScreenWithChatESC_callback(evt) {
-    var isEscape;
+    let isEscape;
     if ("key" in evt) {
         isEscape = (evt.key === "Escape" || evt.key === "Esc");
     } else {
@@ -1834,9 +1786,7 @@ function enter_fScrnWithChat() {
     setTheatreMode(true);
     document.addEventListener("keydown", fScreenWithChatESC_callback);
     hasEnteredFScreenWithChat = true;
-    browser.runtime.sendMessage({action: "bg_fScrnWithChat_click", detail: true}, function(response) {
-
-    });
+    sendMessageToBG({action: "bg_fScrnWithChat_click", detail: true});
 }
 
 function exit_fScrnWithChat() {
@@ -1847,13 +1797,22 @@ function exit_fScrnWithChat() {
 }
 
 function toggle_fScrnWithChat() {
-    if (hasEnteredFScreenWithChat) {
-        toggleBrowserFullScreen(document.body);
-        setTimeout(function (){
-            exit_fScrnWithChat();
-        }, 500);
+    if(isFirefox) {
+        if (hasEnteredFScreenWithChat) {
+            toggleBrowserFullScreen(document.body);
+            setTimeout(function (){
+                exit_fScrnWithChat();
+            }, 500);
+        } else {
+            enter_fScrnWithChat();
+            toggleBrowserFullScreen(document.body);
+        }
     } else {
-        enter_fScrnWithChat();
+        if (hasEnteredFScreenWithChat) {
+            exit_fScrnWithChat();
+        } else {
+            enter_fScrnWithChat();
+        }
         toggleBrowserFullScreen(document.body);
     }
 }
@@ -1863,29 +1822,27 @@ function setTransparentChatBtn() {
         return;
     }
     try {
-        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
         if (ttv_theater_mode_btn) {
-            var btn_container = document.createElement('div');
+            let btn_container = document.createElement('div');
             btn_container.id = "tp_transparentChat_btn";
             btn_container.classList.add('tp-player-control');
             btn_container.title = "Transparent Chat Overlay";
 
-            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
             btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
             btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
             btn_container.style.zIndex = "1";
 
-            var img = document.createElement('img');
-            img.src = browser.runtime.getURL('../images/tp_transparentChat.png');
+            let img = document.createElement('img');
+            img.src = getRuntimeUrl('../images/tp_transparentChat.png');
             img.width = (ttv_theater_mode_btn_size.width || "30") * 0.6;
             img.height = (ttv_theater_mode_btn_size.height || "30") * 0.6;
             img.style.margin = "auto";
 
             btn_container.onclick = function (){
                 createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
-                browser.runtime.sendMessage({action: "bg_transparentChat_click", detail: true}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_transparentChat_click", detail: true});
             }
             btn_container.appendChild(img);
             ttv_theater_mode_btn.parentNode.before(btn_container);
@@ -1900,20 +1857,20 @@ function setfScrnWithChatBtn() {
         return;
     }
     try {
-        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
         if (ttv_theater_mode_btn) {
-            var btn_container = document.createElement('div');
+            let btn_container = document.createElement('div');
             btn_container.id = "tp_fScrnWithChat_btn";
             btn_container.classList.add('tp-player-control');
             btn_container.title = "Toggle Full Screen With Chat";
 
-            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
             btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
             btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
             btn_container.style.zIndex = "1";
 
-            var img = document.createElement('img');
-            img.src = browser.runtime.getURL('../images/tp_fScrnWithChat.png');
+            let img = document.createElement('img');
+            img.src = getRuntimeUrl('../images/tp_fScrnWithChat.png');
             img.width = (ttv_theater_mode_btn_size.width || "30") * 0.8;
             img.height = (ttv_theater_mode_btn_size.height || "30") * 0.8;
             img.style.margin = "auto";
@@ -1929,35 +1886,33 @@ function setfScrnWithChatBtn() {
     }
 }
 
-/*function setPIPBtn() {
+function setPIPBtn() {
     if (document.getElementById('tp_pip_btn')) {
         return;
     }
     try {
-        var ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
         if (ttv_theater_mode_btn) {
-            var btn_container = document.createElement('div');
+            let btn_container = document.createElement('div');
             btn_container.id = "tp_pip_btn";
             btn_container.classList.add('tp-player-control');
             btn_container.title = "Start Picture In Picture";
 
-            var ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
             btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
             btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
             btn_container.style.zIndex = "1";
 
-            var img = document.createElement('img');
-            img.src = browser.runtime.getURL('../images/pip.png');
+            let img = document.createElement('img');
+            img.src = getRuntimeUrl('../images/pip.png');
             img.width = (ttv_theater_mode_btn_size.width || "18") * 0.7;
             img.height = (ttv_theater_mode_btn_size.height || "18") * 0.7;
             img.style.margin = "auto";
 
             btn_container.onclick = function (){
-                var video = document.querySelector(".video-player").querySelector('video');
+                let video = document.querySelector(".video-player").querySelector('video');
                 video.requestPictureInPicture();
-                browser.runtime.sendMessage({action: "bg_pip_main_started", detail: true}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_pip_main_started", detail: true});
             }
             btn_container.appendChild(img);
             ttv_theater_mode_btn.parentNode.before(btn_container);
@@ -1965,23 +1920,23 @@ function setfScrnWithChatBtn() {
     } catch (e) {
 
     }
-}*/
+}
 
 function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stream_settings, featureName, inputID, minimum) {
 
-    var input = settingsContainer.querySelector('#' + inputID);
+    let input = settingsContainer.querySelector('#' + inputID);
     input.value = curr_stream_settings ? curr_stream_settings[featureName] : options[featureName];
 
     input.addEventListener('change', (event) => {
-        var newVal = parseFloat(event.target.value);
+        let newVal = parseFloat(event.target.value);
         if (newVal < minimum) {
             newVal = minimum;
             input.value = minimum;
         }
 
-        browser.storage.local.get('aps_streams_settings_obj', function(res) {
+        _browser.storage.local.get('aps_streams_settings_obj', function(res) {
             if (!res.aps_streams_settings_obj) {
-                var aps_streams_settings_obj = {
+                let aps_streams_settings_obj = {
                     [streamName] : {
                         aps_percent: options.aps_percent,
                         aps_max_points: options.aps_max_points,
@@ -1990,13 +1945,13 @@ function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stre
                     }
                 };
                 aps_streams_settings_obj[streamName][featureName] = newVal;
-                browser.storage.local.set({'aps_streams_settings_obj': aps_streams_settings_obj}, function() {
+                _browser.storage.local.set({'aps_streams_settings_obj': aps_streams_settings_obj}, function() {
 
                 });
             } else {
                 if (res.aps_streams_settings_obj[streamName]) {
                     res.aps_streams_settings_obj[streamName][featureName] = newVal;
-                    browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
+                    _browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
 
                     });
                 } else {
@@ -2007,24 +1962,22 @@ function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stre
                         aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
                     }
                     res.aps_streams_settings_obj[streamName][featureName] = newVal;
-                    browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
+                    _browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
 
                     });
                 }
             }
         });
-        browser.runtime.sendMessage({action: "bg_APS_settings_menu_update_" + featureName, detail: newVal}, function(response) {
-
-        });
+        sendMessageToBG({action: "bg_APS_settings_menu_update_" + featureName, detail: newVal});
     })
 }
 
 function refresh_aps_settings_menu_ui(status) {
-    var aps_settings_menu = document.getElementById('tp_APS_settings_menu');
+    let aps_settings_menu = document.getElementById('tp_APS_settings_menu');
     if (aps_settings_menu) {
-        var menu_shadow_el = aps_settings_menu.querySelector('#tp_APS_title_shadow_el');
-        var bet_now_btn = aps_settings_menu.querySelector('#tp_APS_bet_now_btn');
-        var cancel_current_bet_btn = aps_settings_menu.querySelector('#tp_APS_cancel_current_bet');
+        let menu_shadow_el = aps_settings_menu.querySelector('#tp_APS_title_shadow_el');
+        let bet_now_btn = aps_settings_menu.querySelector('#tp_APS_bet_now_btn');
+        let cancel_current_bet_btn = aps_settings_menu.querySelector('#tp_APS_cancel_current_bet');
 
         if (status === 'active') {
             menu_shadow_el.classList.remove('tp-shadow-idle');
@@ -2049,17 +2002,17 @@ function refresh_aps_settings_menu_ui(status) {
 }
 
 function create_and_show_APS_settings_menu() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', browser.runtime.getURL('main/APS_settings.html'), true);
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', getRuntimeUrl('main/APS_settings.html'), true);
     xhr.onreadystatechange = function() {
         if (this.readyState !== 4) return;
         if (this.status !== 200) return;
 
-        var settingsContainer = document.createElement('div');
+        let settingsContainer = document.createElement('div');
         settingsContainer.classList.add('tp-APS-settings-container');
         settingsContainer.innerHTML = this.responseText;
 
-        var close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
+        let close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
         close_settings_btn.addEventListener('click', (event) => {
             toggle_APS_settings_menu();
         });
@@ -2067,27 +2020,23 @@ function create_and_show_APS_settings_menu() {
         settingsContainer.style.width = document.getElementsByClassName('chat-input__buttons-container')[0].getBoundingClientRect().width + "px";
         settingsContainer.firstChild.style.width = settingsContainer.style.width;
 
-        var menu_shadow_el = settingsContainer.querySelector('#tp_APS_title_shadow_el');
+        let menu_shadow_el = settingsContainer.querySelector('#tp_APS_title_shadow_el');
 
-        var bet_now_btn = settingsContainer.querySelector('#tp_APS_bet_now_btn');
+        let bet_now_btn = settingsContainer.querySelector('#tp_APS_bet_now_btn');
         bet_now_btn.addEventListener('click', (event) => {
             if (predictionSniperTimeout) {
                 last_prediction_streamer = "";
                 toggle_APS_settings_menu();
                 checkForPredictions(true);
-                browser.runtime.sendMessage({action: "bg_APS_settings_menu_vote_now_btn_click", detail: ""}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_APS_settings_menu_vote_now_btn_click", detail: ""});
             }
         });
 
-        var cancel_current_bet_btn = settingsContainer.querySelector('#tp_APS_cancel_current_bet');
+        let cancel_current_bet_btn = settingsContainer.querySelector('#tp_APS_cancel_current_bet');
         cancel_current_bet_btn.addEventListener('click', (event) => {
             if (predictionSniperTimeout) {
                 clearPredictionStatus();
-                browser.runtime.sendMessage({action: "bg_APS_settings_menu_cancel_upcoming_vote_btn_click", detail: ""}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_APS_settings_menu_cancel_upcoming_vote_btn_click", detail: ""});
             } else {
                 last_prediction_streamer = "";
                 checkForPredictions();
@@ -2099,9 +2048,7 @@ function create_and_show_APS_settings_menu() {
                         set_APS_settings_btn_icon_and_title('idle');
                     }
                 }, 1500);
-                browser.runtime.sendMessage({action: "bg_APS_settings_menu_check_prediction_btn_click", detail: ""}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_APS_settings_menu_check_prediction_btn_click", detail: ""});
             }
         });
 
@@ -2120,11 +2067,11 @@ function create_and_show_APS_settings_menu() {
             cancel_current_bet_btn.innerText = 'Check Prediction Now';
         }
 
-        var curr_stream_name = getCurrentStreamerName();
+        let curr_stream_name = getCurrentStreamerName();
         settingsContainer.querySelector('#tp_aps_settings_menu_stream_name').innerText = curr_stream_name;
 
-        var aps_curr_stream_settings = null;
-        browser.storage.local.get('aps_streams_settings_obj', function(res) {
+        let aps_curr_stream_settings = null;
+        _browser.storage.local.get('aps_streams_settings_obj', function(res) {
             if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
                 aps_curr_stream_settings = res.aps_streams_settings_obj[curr_stream_name];
             }
@@ -2139,17 +2086,15 @@ function create_and_show_APS_settings_menu() {
         settingsContainer.querySelector('#tp_APS_settings_menu').classList.add('animated');
         settingsContainer.querySelector('#tp_APS_settings_menu').classList.add('slideInUp');
         document.getElementsByClassName('chat-input__buttons-container')[0].appendChild(settingsContainer);
-        browser.runtime.sendMessage({action: "bg_APS_settings_menu_opened", detail: "APS_settings.html"}, function(response) {
-
-        });
+        sendMessageToBG({action: "bg_APS_settings_menu_opened", detail: "APS_settings.html"});
     };
     xhr.send();
 }
 
 function toggle_APS_settings_menu() {
-    var aps_settings_menu = document.getElementsByClassName('tp-APS-settings-container')[0];
+    let aps_settings_menu = document.getElementsByClassName('tp-APS-settings-container')[0];
     if (aps_settings_menu) {
-        var aps_settings_menu_el = aps_settings_menu.querySelector('#tp_APS_settings_menu');
+        let aps_settings_menu_el = aps_settings_menu.querySelector('#tp_APS_settings_menu');
         aps_settings_menu_el.classList.remove('slideInUp');
         aps_settings_menu_el.classList.add('fadeOutDown');
         setTimeout(function () {
@@ -2164,8 +2109,8 @@ function set_APS_settings_btn_icon_and_title(status) {
     // idle
     // active
     try {
-        var settings_btn = document.getElementById('tp_APS_settings_btn');
-        settings_btn.firstChild.src = browser.runtime.getURL('../images/gamepad_' + status + '.png');
+        let settings_btn = document.getElementById('tp_APS_settings_btn');
+        settings_btn.firstChild.src = getRuntimeUrl('../images/gamepad_' + status + '.png');
         settings_btn.title = "Predictions Sniper - " + status;
         refresh_aps_settings_menu_ui(status);
     } catch (e) {
@@ -2177,19 +2122,19 @@ function append_APS_settings_btn() {
     if (document.getElementById('tp_APS_settings_btn')) {
         return;
     }
-    var chat_settings_btn = document.querySelector('button[data-a-target="chat-settings"]');
+    let chat_settings_btn = document.querySelector('button[data-a-target="chat-settings"]');
     if (chat_settings_btn) {
-        var btn_container = document.createElement('div');
+        let btn_container = document.createElement('div');
         btn_container.id = "tp_APS_settings_btn";
         btn_container.title = "Predictions Sniper - idle";
 
-        var chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
+        let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
         btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
         btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
         btn_container.style.zIndex = "1";
 
-        var img = document.createElement('img');
-        img.src = browser.runtime.getURL('../images/gamepad_idle.png');
+        let img = document.createElement('img');
+        img.src = getRuntimeUrl('../images/gamepad_idle.png');
         img.width = (chat_settings_btn_size.width || "30") * 0.6;
         img.height = (chat_settings_btn_size.height || "30") * 0.6;
         img.style.margin = "auto";
@@ -2213,7 +2158,7 @@ function setPvqc() {
         return;
     }
 
-    var pvqc = document.createElement("script");
+    let pvqc = document.createElement("script");
     pvqc.id = "tp_pvqc"
     pvqc.innerHTML = "Object.defineProperty(document, \"visibilityState\", {value: \"visible\", writable: false});\n" +
         "    Object.defineProperty(document, \"webkitVisibilityState\", {value: \"visible\", writable: false});\n" +
@@ -2231,7 +2176,7 @@ function initDragForMultiStream(container) {
     dragElement(container);
 
     function dragElement(elmnt) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
         elmnt.querySelector('.tp_multistream_box_title').onmousedown = dragMouseDown;
 
@@ -2275,7 +2220,7 @@ function initDragForMultiStream(container) {
 }
 
 function createMultiStreamTitleBtn(title, innerHTML) {
-    var btn = document.createElement('div');
+    let btn = document.createElement('div');
     btn.classList.add('tp-multi-stream-box-title-btn');
     btn.innerHTML = innerHTML
     btn.title = title;
@@ -2284,9 +2229,9 @@ function createMultiStreamTitleBtn(title, innerHTML) {
 }
 
 function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentChat) {
-    var titleBtnContainer;
-    var extraMultiBoxBtn;
-    var multiStreamDiv = document.createElement("div");
+    let titleBtnContainer;
+    let extraMultiBoxBtn;
+    let multiStreamDiv = document.createElement("div");
     multiStreamDiv.classList.add('tp-multi-stream-box');
 
     if(isOTF) {
@@ -2295,7 +2240,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
 
     multiStreamDiv.style.zIndex = (multiStream_curr_zIndex++) + "";
 
-    var title = document.createElement('div');
+    let title = document.createElement('div');
     title.classList.add('tp_multistream_box_title');
     title.style.width = "100%";
     title.style.height = "25px";
@@ -2308,15 +2253,15 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
     title.style.cursor = "default";
     title.style.backgroundColor = "#232323";
 
-    var iframe = document.createElement("Iframe");
+    let iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
 
-    var closeBtn = createMultiStreamTitleBtn("Close", "X");
+    let closeBtn = createMultiStreamTitleBtn("Close", "X");
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
     }
 
-    var fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6");
+    let fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6");
     fullScreenBtn.onclick = function () {
         if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
             multiStreamDiv.classList.remove('tp-multistream-box-fullscreen');
@@ -2328,8 +2273,8 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         }
     }
 
-    var minimizeBtn = createMultiStreamTitleBtn("Minimize", "__");
-    var streamBox_last_height = multiStreamDiv.getBoundingClientRect();
+    let minimizeBtn = createMultiStreamTitleBtn("Minimize", "__");
+    let streamBox_last_height = multiStreamDiv.getBoundingClientRect();
     minimizeBtn.onclick = function () {
         if (multiStreamDiv.getBoundingClientRect().height === 27) {
             multiStreamDiv.style.height = streamBox_last_height + "px";
@@ -2343,7 +2288,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         }
     };
 
-    var alwaysOnTopBtn = createMultiStreamTitleBtn("Always On Top", "A");
+    let alwaysOnTopBtn = createMultiStreamTitleBtn("Always On Top", "A");
     alwaysOnTopBtn.onclick = function () {
         if (multiStreamDiv.attributes.tp_alwaysOnTop) {
             multiStreamDiv.removeAttribute('tp_alwaysOnTop');
@@ -2357,13 +2302,13 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
     }
 
     if (isMultiStreamChat) {
-        var opacitySlider;
-        var colorPickerCustomBtn;
-        var colorPicker;
-        var font_colorPickerCustomBtn;
-        var font_colorPicker;
+        let opacitySlider;
+        let colorPickerCustomBtn;
+        let colorPicker;
+        let font_colorPickerCustomBtn;
+        let font_colorPicker;
         function hexToRgbA(hex, opacity){
-            var c;
+            let c;
             if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
                 c= hex.substring(1).split('');
                 if(c.length === 3){
@@ -2430,7 +2375,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         }
 
         function addFontControls() {
-            var font_controls_container = document.createElement('div');
+            let font_controls_container = document.createElement('div');
             font_controls_container.style.display = "flex";
             font_controls_container.style.position = "absolute";
             font_controls_container.style.left = "3%";
@@ -2451,7 +2396,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
                 iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = hexToRgbA(e.target.value, 1);
             }
 
-            var bold_btn = createMultiStreamTitleBtn("Toggle Bold Font", "B");
+            let bold_btn = createMultiStreamTitleBtn("Toggle Bold Font", "B");
             bold_btn.style.fontWeight = "bold";
             bold_btn.onclick = function () {
                 if (bold_btn.attributes.tp_font_bold) {
@@ -2465,15 +2410,15 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
                 }
             }
 
-            var lastFontSize = "13";
-            var font_size_up_btn = createMultiStreamTitleBtn("Increase Font Size", "+");
+            let lastFontSize = "13";
+            let font_size_up_btn = createMultiStreamTitleBtn("Increase Font Size", "+");
             font_size_up_btn.style.fontWeight = "bold";
             font_size_up_btn.onclick = function () {
                 lastFontSize++;
                 iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
             }
 
-            var font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
+            let font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
             font_size_down_btn.style.fontWeight = "bold";
             font_size_down_btn.onclick = function () {
                 lastFontSize--;
@@ -2502,9 +2447,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
         extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, false);
-            browser.runtime.sendMessage({action: "bg_multiStream_box_stream_started", detail: ""}, function(response) {
-
-            });
+            sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
         }
 
         title.innerHTML = "&#9703; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
@@ -2515,9 +2458,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, true);
-            browser.runtime.sendMessage({action: "bg_multiStream_box_chat_started", detail: ""}, function(response) {
-
-            });
+            sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
         }
         title.innerHTML = "&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
         iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
@@ -2562,13 +2503,13 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, transparentC
 
 function setSearchResultsClickListeners(input) {
     try {
-        var elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
+        let elements = document.querySelector('div[data-a-target="nav-search-tray"]').children;
         for (let i = 0; i < elements.length; i++) {
             if (elements[i].querySelector('.tp-player-control')) {
                 return;
             }
 
-            var btn_container = document.createElement('div');
+            let btn_container = document.createElement('div');
             btn_container.title = "Add Multi-Stream";
             btn_container.classList.add('tp-player-control');
 
@@ -2577,8 +2518,8 @@ function setSearchResultsClickListeners(input) {
             btn_container.style.marginBottom = "2px";
             btn_container.style.marginLeft = "5px";
 
-            var img = document.createElement('img');
-            img.src = browser.runtime.getURL('../images/multistream.png');
+            let img = document.createElement('img');
+            img.src = getRuntimeUrl('../images/multistream.png');
             img.width = 18;
             img.height = 18;
             img.style.margin = "auto";
@@ -2588,15 +2529,13 @@ function setSearchResultsClickListeners(input) {
                 setTextAreaValue(input, "");
                 e.preventDefault();
                 e.cancelBubble = true;
-                var href = e.target.closest('a').href
+                let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
                 createMultiStreamBox(href, true, false);
-                browser.runtime.sendMessage({action: "bg_searchBar_multiStream_started", detail: ""}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_searchBar_multiStream_started", detail: ""});
             })
 
-            var btn_containerChat = document.createElement('div');
+            let btn_containerChat = document.createElement('div');
             btn_containerChat.title = "Add Multi-Chat";
             btn_containerChat.classList.add('tp-player-control');
 
@@ -2605,8 +2544,8 @@ function setSearchResultsClickListeners(input) {
             btn_containerChat.style.marginBottom = "2px";
             btn_containerChat.style.marginLeft = "5px";
 
-            var imgChat = document.createElement('img');
-            imgChat.src = browser.runtime.getURL('../images/multistream_chat.png');
+            let imgChat = document.createElement('img');
+            imgChat.src = getRuntimeUrl('../images/multistream_chat.png');
             imgChat.width = 18;
             imgChat.height = 18;
             imgChat.style.margin = "auto";
@@ -2616,12 +2555,10 @@ function setSearchResultsClickListeners(input) {
                 setTextAreaValue(input, "");
                 e.preventDefault();
                 e.cancelBubble = true;
-                var href = e.target.closest('a').href
+                let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
                 createMultiStreamBox(href, true, true);
-                browser.runtime.sendMessage({action: "bg_searchBar_multiStream_chat_started", detail: ""}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_searchBar_multiStream_chat_started", detail: ""});
             })
 
             btn_container.appendChild(img);
@@ -2653,9 +2590,9 @@ function setTwitchSearchBarListener() {
 }
 
 function appendMultiStreamSearchInfoText() {
-    var div = document.createElement('div');
+    let div = document.createElement('div');
     div.classList.add('tp-multi-stream-info-div');
-    div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' class='tp-theme-support' src='" + browser.runtime.getURL('../images/multistream.png') + "' /> to add"
+    div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' class='tp-theme-support' src='" + getRuntimeUrl('../images/multistream.png') + "' /> to add"
 
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
@@ -2675,31 +2612,29 @@ function append_MultiStream_btn() {
         return;
     }
     try {
-        var more_btn = document.querySelector('button[data-a-target="report-button-more-button"]').parentNode.parentNode;
+        let more_btn = document.querySelector('button[data-a-target="report-button-more-button"]').parentNode.parentNode;
         if (more_btn) {
-            var btn_container = document.createElement('div');
+            let btn_container = document.createElement('div');
             btn_container.id = "tp_multi_stream_btn";
             btn_container.title = "Start Multi Stream";
 
-            var more_btn_size = more_btn.getBoundingClientRect();
+            let more_btn_size = more_btn.getBoundingClientRect();
             btn_container.style.width = (more_btn_size.width || "30") + "px";
             btn_container.style.height = (more_btn_size.height || "30") + "px";
             btn_container.style.zIndex = "1";
 
-            var img = document.createElement('img');
-            img.src = browser.runtime.getURL('../images/multistream.png');
+            let img = document.createElement('img');
+            img.src = getRuntimeUrl('../images/multistream.png');
             img.width = (more_btn_size.width || "30") * 0.6;
             img.height = (more_btn_size.height || "30") * 0.6;
             img.style.margin = "auto";
             img.classList.add('tp-theme-support');
 
             btn_container.onclick = function (){
-                browser.storage.local.set({'startMultiStream_name': window.location.pathname.substring(1)}, function() {
+                _browser.storage.local.set({'startMultiStream_name': window.location.pathname.substring(1)}, function() {
 
                 });
-                browser.runtime.sendMessage({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/directory/game/' + new Date().getTime()}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/directory/game/' + new Date().getTime()});
             }
             btn_container.appendChild(img);
             more_btn.before(btn_container);
@@ -2710,16 +2645,16 @@ function append_MultiStream_btn() {
 }
 
 function check_multistream_start() {
-    browser.storage.local.get('startMultiStream_name', function(result) {
+    _browser.storage.local.get('startMultiStream_name', function(result) {
         if (result.startMultiStream_name) {
             startMultiStream_name = result.startMultiStream_name;
 
-            var overlay = document.createElement('div');
+            let overlay = document.createElement('div');
             overlay.id = "multistream_loading_overlay";
             overlay.innerText = "Starting\nMulti-Stream..."
             document.body.appendChild(overlay);
 
-            browser.storage.local.set({'startMultiStream_name': false}, function() {
+            _browser.storage.local.set({'startMultiStream_name': false}, function() {
 
             });
         }
@@ -2727,14 +2662,12 @@ function check_multistream_start() {
 }
 
 function setConfirmedToastFlag(clickName, storageFlagName) {
-    var storageFlagObj = {};
+    let storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
-    browser.storage.local.set(storageFlagObj, function() {
+    _browser.storage.local.set(storageFlagObj, function() {
 
     });
-    browser.runtime.sendMessage({action: "updateToast", detail: clickName}, function(response) {
-
-    });
+    sendMessageToBG({action: "updateToast", detail: clickName});
 }
 
 function isOverflown(element) {
@@ -2747,7 +2680,7 @@ function showToast(toast_body, storageFlagName) {
         document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
     }
 
-    var updateToast = document.createElement("div");
+    let updateToast = document.createElement("div");
     updateToast.id = "tp_updateToast";
     updateToast.classList.add("tp_update_toast");
     updateToast.classList.add("animated");
@@ -2756,7 +2689,7 @@ function showToast(toast_body, storageFlagName) {
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>\n" +
                         toast_body +
-        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the firefox addon webstore :)</div>\n" +
+        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the browser's extensions webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -2765,7 +2698,7 @@ function showToast(toast_body, storageFlagName) {
         "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
         "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
         "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
-        "                        <input id=\"tp_updateToast_donate_btn\" style=\"width: 80%;box-shadow: 0px 3px 10px -5px rgb(23 23 23 / 75%);\" type=\"image\" src=\"" + browser.runtime.getURL('../images/coffee.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
+        "                        <input id=\"tp_updateToast_donate_btn\" style=\"width: 80%;box-shadow: 0px 3px 10px -5px rgb(23 23 23 / 75%);\" type=\"image\" src=\"" + getRuntimeUrl('../images/coffee.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
         "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
         "                    </form>\n" +
         "            </div>\n" +
@@ -2775,22 +2708,16 @@ function showToast(toast_body, storageFlagName) {
     updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
         setConfirmedToastFlag('rate_btn', storageFlagName);
         remove_toast();
-        browser.runtime.sendMessage({action: "bg_show_rate", detail: ""}, function(response) {
-
-        });
+        sendMessageToBG({action: "bg_show_rate", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_share_btn').onclick = function () {
         setConfirmedToastFlag('share_btn', storageFlagName);
         remove_toast();
-        browser.runtime.sendMessage({action: "bg_show_share", detail: ""}, function(response) {
-
-        });
+        sendMessageToBG({action: "bg_show_share", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_settings_btn').onclick = function () {
         showSettings();
-        browser.runtime.sendMessage({action: "updateToast_settings_btn_click", detail: ""}, function(response) {
-
-        });
+        sendMessageToBG({action: "updateToast_settings_btn_click", detail: ""});
     };
 
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
@@ -2834,7 +2761,7 @@ function getUpdateToastBody() {
 }
 
 function showUpdateToast() {
-    browser.storage.local.get('shouldShowUpdatePopup', function(result) {
+    _browser.storage.local.get('shouldShowUpdatePopup', function(result) {
         if (result.shouldShowUpdatePopup) {
             showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
         }
@@ -2842,10 +2769,10 @@ function showUpdateToast() {
 }
 
 function check_showSettings() {
-    browser.storage.local.get('shouldShowSettings', function(result) {
+    _browser.storage.local.get('shouldShowSettings', function(result) {
         if (result.shouldShowSettings) {
             showSettings();
-            browser.storage.local.set({'shouldShowSettings': false}, function() {
+            _browser.storage.local.set({'shouldShowSettings': false}, function() {
 
             });
         }
@@ -2853,17 +2780,17 @@ function check_showSettings() {
 }
 
 function show_FTE() {
-    var container = document.createElement('div');
+    let container = document.createElement('div');
     container.classList.add('tp-fte-toast-container');
     container.classList.add('animated');
     container.classList.add('slideInDown');
 
-    var content = document.createElement('div');
+    let content = document.createElement('div');
     content.classList.add('tp-fte-toast-content');
     content.innerText = "Yay! you just got Twitch Previews! your life is about to get so much easier :)\n" +
         "Check out the features in the settings menu below";
 
-    var closeBtn = document.createElement('div');
+    let closeBtn = document.createElement('div');
     closeBtn.classList.add('tp-fte-toast-close-btn');
     closeBtn.innerText = "Close";
 
@@ -2877,10 +2804,10 @@ function show_FTE() {
 }
 
 function check_FTE() {
-    browser.storage.local.get('isFTE', function(result) {
+    _browser.storage.local.get('isFTE', function(result) {
         if (result.isFTE) {
             show_FTE();
-            browser.storage.local.set({'isFTE': false}, function() {
+            _browser.storage.local.set({'isFTE': false}, function() {
 
             });
         }
@@ -2889,7 +2816,7 @@ function check_FTE() {
 
 function setOptionsFromDB() {
     return new Promise((resolve, reject) => {
-        browser.storage.local.get('tp_options', function(result) {
+        _browser.storage.local.get('tp_options', function(result) {
             options = result.tp_options;
             resolve(options);
         });
@@ -2902,7 +2829,7 @@ function onSettingChange(key, value) {
     if (key === 'PREVIEWDIV_WIDTH') {
         options['PREVIEWDIV_HEIGHT'] = getCalculatedPreviewSizeByWidth(value).height;
     }
-    browser.storage.local.set({'tp_options': options}, function() {
+    _browser.storage.local.set({'tp_options': options}, function() {
         toggleFeatures();
     });
 }
@@ -2952,19 +2879,24 @@ function toggleFeatures(isFromTitleObserver) {
         }
     }
 
-    if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
-        setTimeout(function () {
+    if(isFirefox) {
+        if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
+            setTimeout(function () {
+                setPredictionsNotifications();
+            }, 2500)
+        }
+    } else {
+        if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
             setPredictionsNotifications();
-        }, 2500)
+        }
+        if (options.isPipEnabled) {
+            setPIPBtn();
+        }
     }
 
     if (options.isPredictionsSniperEnabled) {
         append_APS_settings_btn();
     }
-
-   /* if (options.isPipEnabled) {
-        setPIPBtn();
-    }*/
 
     if (options.isTransparentChatEnabled) {
         setTransparentChatBtn();
@@ -2997,7 +2929,7 @@ function toggleFeatures(isFromTitleObserver) {
     }
 }
 
-browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+_browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     if (msg.action === "tp_open_settings") {
         sendResponse({action: 'content-available'});
@@ -3009,7 +2941,7 @@ browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 ///////////////////////////////////////// SETTINGS /////////////////////////////////////////
 
 function settings_predictionsNotifications_cb_off() {
-    var settingsContainer = document.getElementById('TPBodyEl');
+    let settingsContainer = document.getElementById('TPBodyEl');
     if (settingsContainer) {
         settingsContainer.querySelector('#TP_popup_predictions_notifications_checkbox').checked = false;
     }
@@ -3017,17 +2949,15 @@ function settings_predictionsNotifications_cb_off() {
 
 function changeFeatureMode(featureName, value) {
     onSettingChange(featureName, value);
-    browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: value}, function(response) {
-
-    });
+    sendMessageToBG({action: "bg_update_" + featureName, detail: value});
 }
 
 function initSettingsInfoBtn(settingsContainer, checkboxID) {
     try {
-        var infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
-        infoBtn.src = browser.runtime.getURL('images/expand.png');
+        let infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
+        infoBtn.src = getRuntimeUrl('images/expand.png');
         infoBtn.addEventListener('click', (event) => {
-            var infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
+            let infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
             if (infoDiv.style.maxHeight === "415px") {
                 infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
                 infoBtn.style.transform = "rotate(0deg)";
@@ -3037,13 +2967,11 @@ function initSettingsInfoBtn(settingsContainer, checkboxID) {
             }
         });
     } catch (e) {
-
     }
-
 }
 
 function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
-    var checkbox = settingsContainer.querySelector('#' + checkboxID);
+    let checkbox = settingsContainer.querySelector('#' + checkboxID);
     checkbox.checked = invertBool ? !options[featureName] : options[featureName];
     checkbox.addEventListener('change', (event) => {
         if (event.target.checked) {
@@ -3054,9 +2982,7 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
             }
         } else {
             if (featureName === "isPredictionsNotificationsEnabled") {
-                browser.runtime.sendMessage({action: "bg_update_" + featureName, detail: false}, function(response) {
-
-                });
+                sendMessageToBG({action: "bg_update_" + featureName, detail: false});
             }
             changeFeatureMode(featureName,invertBool ? true : false);
             if (featureName !== "isImagePreviewMode") {
@@ -3073,7 +2999,7 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
 }
 
 function initTextInputValue(settingsContainer, featureName, inputID) {
-    var input = settingsContainer.querySelector('#' + inputID);
+    let input = settingsContainer.querySelector('#' + inputID);
     input.value = options[featureName];
 
     input.addEventListener('change', (event) => {
@@ -3082,11 +3008,11 @@ function initTextInputValue(settingsContainer, featureName, inputID) {
 }
 
 function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
-    var input = settingsContainer.querySelector('#' + inputID);
+    let input = settingsContainer.querySelector('#' + inputID);
     input.value = options[featureName];
 
     input.addEventListener('change', (event) => {
-        var newVal = parseFloat(event.target.value);
+        let newVal = parseFloat(event.target.value);
         if (newVal < minimum) {
             newVal = minimum;
             input.value = minimum;
@@ -3097,8 +3023,8 @@ function initNumInputValue(settingsContainer, featureName, inputID, minimum) {
 }
 
 function initPreviewSizeSlider(settingsContainer) {
-    slider = settingsContainer.querySelector("#TP_popup_preview_size_input_slider");
-    output = settingsContainer.querySelector("#TP_popup_preview_size_display");
+    let slider = settingsContainer.querySelector("#TP_popup_preview_size_input_slider");
+    let output = settingsContainer.querySelector("#TP_popup_preview_size_display");
     slider.min = 300;
     slider.max = 1000;
 
@@ -3115,16 +3041,12 @@ function initPreviewSizeSlider(settingsContainer) {
 }
 
 function initSocialBtn(settingsContainer, name, url) {
-    var btn = settingsContainer.querySelector('#tp_popup_' + name +'_btn');
+    let btn = settingsContainer.querySelector('#tp_popup_' + name +'_btn');
     btn.addEventListener('click', (event) => {
         if (url) {
-            browser.runtime.sendMessage({action: "bg_show_" + name, detail: ""}, function(response) {
-
-            });
+            sendMessageToBG({action: "bg_show_" + name, detail: ""});
         }
-        browser.runtime.sendMessage({action: 'bg_' + name +'_btn_click', detail: ""}, function(response) {
-
-        });
+        sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: ""});
         if (name === "changelog") {
             if (!document.getElementById('tp_updateToast')) {
                 showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
@@ -3136,14 +3058,14 @@ function initSocialBtn(settingsContainer, name, url) {
 }
 
 function setAppVer(settingsContainer) {
-    settingsContainer.querySelector('#tp_version').innerText = " - v" + browser.runtime.getManifest().version;
+    settingsContainer.querySelector('#tp_version').innerText = " - v" + _browser.runtime.getManifest().version;
 }
 
 function initDragForAPSSettings(settingsContainer) {
     dragElement(settingsContainer.querySelector('#tp_APS_settings_menu'));
 
     function dragElement(elmnt) {
-        var pos2 = 0, pos4 = 0;
+        let pos2 = 0, pos4 = 0;
         if (settingsContainer.querySelector('#tp_settings_title_container')) {
             settingsContainer.querySelector('#tp_settings_title_container').onmousedown = dragMouseDown;
         } else {
@@ -3177,7 +3099,7 @@ function initDragForSettings(settingsContainer) {
     dragElement(settingsContainer.querySelector('#TPBodyEl'));
 
     function dragElement(elmnt) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (settingsContainer.querySelector('#tp_settings_title_container')) {
             settingsContainer.querySelector('#tp_settings_title_container').onmousedown = dragMouseDown;
         } else {
@@ -3213,12 +3135,10 @@ function initDragForSettings(settingsContainer) {
 
 function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
     try {
-        var translateInfoBtn = settingsContainer.querySelector('#' + checkboxID).parentNode.parentNode.nextElementSibling.querySelector('.translate_div_btn');
-        translateInfoBtn.src = browser.runtime.getURL('images/translate.png');
+        let translateInfoBtn = settingsContainer.querySelector('#' + checkboxID).parentNode.parentNode.nextElementSibling.querySelector('.translate_div_btn');
+        translateInfoBtn.src = getRuntimeUrl('images/translate.png');
         translateInfoBtn.addEventListener('click', (event) => {
-            browser.runtime.sendMessage({action: "bg_translate_infoDiv", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(translateInfoBtn.parentNode.innerText) + '&op=translate'}, function(response) {
-
-            });
+            sendMessageToBG({action: "bg_translate_infoDiv", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(translateInfoBtn.parentNode.innerText) + '&op=translate'});
         });
     } catch (e) {
 
@@ -3226,19 +3146,19 @@ function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
 }
 
 function showSettingsMenu() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', browser.runtime.getURL('main/settings.html'), true);
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', getRuntimeUrl('main/settings.html'), true);
     xhr.onreadystatechange = function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return;
 
-        var settingsContainer = document.createElement('div');
+        let settingsContainer = document.createElement('div');
         settingsContainer.classList.add('tp-settings-container');
         settingsContainer.classList.add('animated');
         settingsContainer.classList.add('bounceIn');
         settingsContainer.innerHTML = this.responseText;
 
-        var close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
+        let close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
         close_settings_btn.addEventListener('click', (event) => {
             settingsContainer.style.width = '800px';
             settingsContainer.style.height = '600px';
@@ -3249,14 +3169,13 @@ function showSettingsMenu() {
             }, 700);
         });
 
-        settingsContainer.querySelector('#TP_popup_title_logo').src = browser.runtime.getURL('images/TP96.png');
-        settingsContainer.querySelector('#TP_popup_logo').src = browser.runtime.getURL('images/TP96.png');
-        settingsContainer.querySelector('#tp_popup_donate_btn').src = browser.runtime.getURL('images/coffee.png');
-        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = browser.runtime.getURL('images/tp_fScrnWithChat.png');
-        settingsContainer.querySelector('#tp_transparentChat_img').src = browser.runtime.getURL('images/tp_transparentChat.png');
-        settingsContainer.querySelector('#tp_multiStream_img').src = browser.runtime.getURL('images/multistream.png');
-        settingsContainer.querySelector('#tp_multiStream_chat_img').src = browser.runtime.getURL('images/multistream_chat.png');
-       // settingsContainer.querySelector('#tp_pip_img').src = browser.runtime.getURL('images/pip.png');
+        settingsContainer.querySelector('#TP_popup_title_logo').src = getRuntimeUrl('images/TP96.png');
+        settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');
+        settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/coffee.png');
+        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/tp_fScrnWithChat.png');
+        settingsContainer.querySelector('#tp_transparentChat_img').src = getRuntimeUrl('images/tp_transparentChat.png');
+        settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
+        settingsContainer.querySelector('#tp_multiStream_chat_img').src = getRuntimeUrl('images/multistream_chat.png');
 
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
@@ -3270,7 +3189,6 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isTransparentChatEnabled', 'TP_popup_transparentChat_checkbox', false);
-        //initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
@@ -3278,6 +3196,11 @@ function showSettingsMenu() {
         initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
         initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
         initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+
+        if (!isFirefox) {
+            settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
+            initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
+        }
 
         initPreviewSizeSlider(settingsContainer);
 
@@ -3291,13 +3214,13 @@ function showSettingsMenu() {
         initSocialBtn(settingsContainer, 'contact', false);
 
 
-        browser.storage.local.get('shouldShowNewFeatureSettingsSpan', function(result) {
+        _browser.storage.local.get('shouldShowNewFeatureSettingsSpan', function(result) {
             if (result.shouldShowNewFeatureSettingsSpan) {
                 let spans = settingsContainer.querySelectorAll('.tp-settings-new-feature-span');
                 for (let i = 0; i < spans.length; i++) {
                     spans[i].style.display = "inline-block";
                 }
-                browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': false}, function() {});
+                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': false}, function() {});
             }
         });
 
@@ -3313,9 +3236,7 @@ function showSettingsMenu() {
             settingsContainer.style.height = '1px';
         }, 700);
 
-        browser.runtime.sendMessage({action: "bg_settings_opened", detail: "settings.html"}, function(response) {
-
-        });
+        sendMessageToBG({action: "bg_settings_opened", detail: "settings.html"});
     };
     xhr.send();
 }
