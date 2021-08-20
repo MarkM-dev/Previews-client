@@ -8,12 +8,13 @@ ga('create', 'UA-134155755-2', 'auto');
 ga('set', 'checkProtocolTask', null);
 ga('send', 'pageview', 'main');
 
-var _browser = typeof browser !== "undefined" ? browser : chrome;
+let _browser = typeof browser !== "undefined" ? browser : chrome;
+let isFirefox = typeof browser !== "undefined";
 
-var HEART_BEAT_INTERVAL_MS = 325000;
-var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
+let HEART_BEAT_INTERVAL_MS = 325000;
+let lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 
-var options = {
+let options = {
     isSidebarPreviewsEnabled: true,
     isImagePreviewMode: true,
     PREVIEWDIV_WIDTH: 440,
@@ -44,10 +45,10 @@ function send_ga_event(category, action, value) {
 
 _browser.browserAction.onClicked.addListener(function(tab) {
 
-        var errString = "Could not establish connection. Receiving end does not exist.";
+        let errString = "Could not establish connection. Receiving end does not exist.";
         _browser.tabs.query({active: true, currentWindow: true}, function (tabs) {
             _browser.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
-                var lastError = _browser.runtime.lastError;
+                let lastError = _browser.runtime.lastError;
                 if (lastError && lastError.message === errString) {
                     _browser.storage.local.set({'shouldShowSettings': true}, function() {
 
@@ -60,8 +61,8 @@ _browser.browserAction.onClicked.addListener(function(tab) {
 });
 
 _browser.runtime.onInstalled.addListener(function(details) {
-    var manifestData = _browser.runtime.getManifest();
-    var appVer = "v" + manifestData.version;
+    let manifestData = _browser.runtime.getManifest();
+    let appVer = "v" + manifestData.version;
 
     _browser.storage.local.get('tp_options', function(result) {
         if (typeof result.tp_options == 'undefined') {
@@ -70,8 +71,8 @@ _browser.runtime.onInstalled.addListener(function(details) {
             });
         } else {
             // upgrade db.
-            var loaded_options = result.tp_options;
-            var bSetToStorage = false;
+            let loaded_options = result.tp_options;
+            let bSetToStorage = false;
             Object.keys(options).forEach(function(key,index) {
                 if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
                     loaded_options[key] = options[key];
@@ -255,10 +256,18 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_rate":
-            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
+            if (isFirefox) {
+                _browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            } else {
+                _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
+            }
             break;
         case "bg_show_share":
-            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
+            if (isFirefox) {
+                _browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
+            } else {
+                _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
+            }
             break;
         case "bg_show_github":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
