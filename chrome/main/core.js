@@ -1,6 +1,7 @@
 // (c) Twitch Previews.
-let _browser = typeof browser !== "undefined" ? browser : chrome;
 let isFirefox = typeof browser !== "undefined";
+let _browser = isFirefox ? browser : chrome;
+let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
 let isNavBarCollapsed;
 let previewDiv = null;
 let appendContainer;
@@ -176,7 +177,6 @@ function adjustVidPreviewVolScroll(e) {
             video.volume -= 0.05;
         }
     } catch (e) {
-        
     }
 }
 
@@ -462,15 +462,12 @@ function createAndShowPreview() {
         previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
         lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
 
-        if (options.isImagePreviewMode) {
-         //   previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
-           // lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
-        } else {
+        if (!options.isImagePreviewMode) {
             createAndShowLoadingSpinnerForSideNav();
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
-            twitchIframe.allow = "autoplay;";
+            twitchIframe.allow = iframeAllowAutoplayStr;
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
@@ -483,7 +480,7 @@ function createAndShowPreview() {
             twitchIframe = createIframeElement();
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
-            twitchIframe.allow = "autoplay;";
+            twitchIframe.allow = iframeAllowAutoplayStr;
             twitchIframe.style.display = "none";
             previewDiv.appendChild(twitchIframe);
         }
@@ -1095,6 +1092,9 @@ function checkForTwitchNotificationsPermissions(featureName) {
     if (Notification.permission !== "granted") {
         Notification.requestPermission().then(function (res){
             if (res === "denied") {
+                if(isFirefox) {
+                    alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.");
+                }
                 settings_predictionsNotifications_cb_off();
                 return;
             }
@@ -1772,12 +1772,24 @@ function exit_fScrnWithChat() {
 }
 
 function toggle_fScrnWithChat() {
-    if (hasEnteredFScreenWithChat) {
-        exit_fScrnWithChat();
+    if(isFirefox) {
+        if (hasEnteredFScreenWithChat) {
+            toggleBrowserFullScreen(document.body);
+            setTimeout(function (){
+                exit_fScrnWithChat();
+            }, 500);
+        } else {
+            enter_fScrnWithChat();
+            toggleBrowserFullScreen(document.body);
+        }
     } else {
-        enter_fScrnWithChat();
+        if (hasEnteredFScreenWithChat) {
+            exit_fScrnWithChat();
+        } else {
+            enter_fScrnWithChat();
+        }
+        toggleBrowserFullScreen(document.body);
     }
-    toggleBrowserFullScreen(document.body);
 }
 
 function setTransparentChatBtn() {
@@ -2842,16 +2854,23 @@ function toggleFeatures(isFromTitleObserver) {
         }
     }
 
-    if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
-        setPredictionsNotifications();
+    if(isFirefox) {
+        if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
+            setTimeout(function () {
+                setPredictionsNotifications();
+            }, 2500)
+        }
+    } else {
+        if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
+            setPredictionsNotifications();
+        }
+        if (options.isPipEnabled) {
+            setPIPBtn();
+        }
     }
 
     if (options.isPredictionsSniperEnabled) {
         append_APS_settings_btn();
-    }
-
-    if (!isFirefox && options.isPipEnabled) {
-        setPIPBtn();
     }
 
     if (options.isTransparentChatEnabled) {
@@ -2923,9 +2942,7 @@ function initSettingsInfoBtn(settingsContainer, checkboxID) {
             }
         });
     } catch (e) {
-        
     }
-   
 }
 
 function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
