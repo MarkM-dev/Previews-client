@@ -696,6 +696,8 @@
     top: 10rem;
     z-index: 9999;
     border-radius: 5px;
+    scrollbar-color: rgba(255,255,255,0.5) #9c60ff;
+    scrollbar-width: thin;
 }
 
 .tp_update_toast::-webkit-scrollbar {

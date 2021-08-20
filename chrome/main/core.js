@@ -94,7 +94,7 @@ function sendMessageToBG(obj) {
     });
 }
 
-function getImgRuntimeUrl(path) {
+function getRuntimeUrl(path) {
     return _browser.runtime.getURL(path);
 }
 
@@ -199,7 +199,7 @@ function createVidPreviewVolBtn() {
     vidPreviewVolBtn.style.right = "0.5rem";
     vidPreviewVolBtn.style.backgroundSize = "contain";
     vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
-    vidPreviewVolBtn.style.backgroundImage = "url('" + getImgRuntimeUrl('../images/vidPreviewVolBtn.png') + "')";
+    vidPreviewVolBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/vidPreviewVolBtn.png') + "')";
     vidPreviewVolBtn.title = "Click / Scroll for preview volume";
     vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
     vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
@@ -217,7 +217,7 @@ function createPipBtn() {
     navCardPipBtn.style.right = "2.7rem";
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
-    navCardPipBtn.style.backgroundImage = "url('" + getImgRuntimeUrl('../images/multistream_sidebar.png') + "')";
+    navCardPipBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/multistream_sidebar.png') + "')";
     navCardPipBtn.title = "Picture In Picture";
     navCardPipBtn.onclick = startCustomPip;
 }
@@ -267,7 +267,7 @@ function isStreamerOnline(navCardEl) {
 }
 
 function getPreviewOfflineImageUrl() {
-    return "url('" + getImgRuntimeUrl('../images/tp_offline.jpg') + "')";
+    return "url('" + getRuntimeUrl('../images/tp_offline.jpg') + "')";
 }
 
 function getPreviewImageUrl(navCardEl) {
@@ -1044,7 +1044,7 @@ function createSidebarSearchInput() {
 
     let search_close_btn = document.createElement("div");
     search_close_btn.classList.add('tp_search_close_btn');
-    search_close_btn.style.backgroundImage = "url('" + getImgRuntimeUrl('../images/tp_sidebar_search_close.png') + "')";
+    search_close_btn.style.backgroundImage = "url('" + getRuntimeUrl('../images/tp_sidebar_search_close.png') + "')";
     search_close_btn.onclick = function () {
         searchStreamer({target: {value: ""}});
         document.getElementById('tp_sidebar_search_input_container').parentElement.removeChild(document.getElementById('tp_sidebar_search_input_container'));
@@ -1071,7 +1071,7 @@ function createSideBarSearchBtn() {
     let search_btn = document.createElement("div");
     search_btn.id = "tp_sidebar_search_btn";
     search_btn.classList.add('tp-sidebar-search-btn');
-    search_btn.style.backgroundImage = "url('" + getImgRuntimeUrl('../images/tp_sidebar_search.png') + "')";
+    search_btn.style.backgroundImage = "url('" + getRuntimeUrl('../images/tp_sidebar_search.png') + "')";
     isLayoutHorizontallyInverted ? search_btn.style.left = "4rem" : search_btn.style.right = "4rem";
     search_btn.title = "Twitch Previews - Search Streamers";
     search_btn.onclick = sidebarSearchBtnClick;
@@ -1101,7 +1101,7 @@ function checkForTwitchNotificationsPermissions(featureName) {
             }
             sendMessageToBG({action: "bg_update_" + featureName, detail: true});
             onSettingChange(featureName, true);
-            showNotification("Twitch Previews", "Predictions Notifications Enabled!", getImgRuntimeUrl('../images/TP96.png'), true);
+            showNotification("Twitch Previews", "Predictions Notifications Enabled!", getRuntimeUrl('../images/TP96.png'), true);
         },function (err) {
             settings_predictionsNotifications_cb_off();
             onSettingChange(featureName, false);
@@ -1109,7 +1109,7 @@ function checkForTwitchNotificationsPermissions(featureName) {
     } else {
         sendMessageToBG({action: "bg_update_" + featureName, detail: true});
         onSettingChange(featureName, true);
-        showNotification("Twitch Previews", "Predictions Notifications Enabled!", getImgRuntimeUrl('../images/TP96.png'), true);
+        showNotification("Twitch Previews", "Predictions Notifications Enabled!", getRuntimeUrl('../images/TP96.png'), true);
     }
 }
 
@@ -1799,7 +1799,7 @@ function setTransparentChatBtn() {
             btn_container.style.zIndex = "1";
 
             let img = document.createElement('img');
-            img.src = getImgRuntimeUrl('../images/tp_transparentChat.png');
+            img.src = getRuntimeUrl('../images/tp_transparentChat.png');
             img.width = (ttv_theater_mode_btn_size.width || "30") * 0.6;
             img.height = (ttv_theater_mode_btn_size.height || "30") * 0.6;
             img.style.margin = "auto";
@@ -1834,7 +1834,7 @@ function setfScrnWithChatBtn() {
             btn_container.style.zIndex = "1";
 
             let img = document.createElement('img');
-            img.src = getImgRuntimeUrl('../images/tp_fScrnWithChat.png');
+            img.src = getRuntimeUrl('../images/tp_fScrnWithChat.png');
             img.width = (ttv_theater_mode_btn_size.width || "30") * 0.8;
             img.height = (ttv_theater_mode_btn_size.height || "30") * 0.8;
             img.style.margin = "auto";
@@ -1868,7 +1868,7 @@ function setPIPBtn() {
             btn_container.style.zIndex = "1";
 
             let img = document.createElement('img');
-            img.src = getImgRuntimeUrl('../images/pip.png');
+            img.src = getRuntimeUrl('../images/pip.png');
             img.width = (ttv_theater_mode_btn_size.width || "18") * 0.7;
             img.height = (ttv_theater_mode_btn_size.height || "18") * 0.7;
             img.style.margin = "auto";
@@ -1967,7 +1967,7 @@ function refresh_aps_settings_menu_ui(status) {
 
 function create_and_show_APS_settings_menu() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', getImgRuntimeUrl('main/APS_settings.html'), true);
+    xhr.open('GET', getRuntimeUrl('main/APS_settings.html'), true);
     xhr.onreadystatechange = function() {
         if (this.readyState !== 4) return;
         if (this.status !== 200) return;
@@ -2074,7 +2074,7 @@ function set_APS_settings_btn_icon_and_title(status) {
     // active
     try {
         let settings_btn = document.getElementById('tp_APS_settings_btn');
-        settings_btn.firstChild.src = getImgRuntimeUrl('../images/gamepad_' + status + '.png');
+        settings_btn.firstChild.src = getRuntimeUrl('../images/gamepad_' + status + '.png');
         settings_btn.title = "Predictions Sniper - " + status;
         refresh_aps_settings_menu_ui(status);
     } catch (e) {
@@ -2098,7 +2098,7 @@ function append_APS_settings_btn() {
         btn_container.style.zIndex = "1";
 
         let img = document.createElement('img');
-        img.src = getImgRuntimeUrl('../images/gamepad_idle.png');
+        img.src = getRuntimeUrl('../images/gamepad_idle.png');
         img.width = (chat_settings_btn_size.width || "30") * 0.6;
         img.height = (chat_settings_btn_size.height || "30") * 0.6;
         img.style.margin = "auto";
@@ -2483,7 +2483,7 @@ function setSearchResultsClickListeners(input) {
             btn_container.style.marginLeft = "5px";
 
             let img = document.createElement('img');
-            img.src = getImgRuntimeUrl('../images/multistream.png');
+            img.src = getRuntimeUrl('../images/multistream.png');
             img.width = 18;
             img.height = 18;
             img.style.margin = "auto";
@@ -2509,7 +2509,7 @@ function setSearchResultsClickListeners(input) {
             btn_containerChat.style.marginLeft = "5px";
 
             let imgChat = document.createElement('img');
-            imgChat.src = getImgRuntimeUrl('../images/multistream_chat.png');
+            imgChat.src = getRuntimeUrl('../images/multistream_chat.png');
             imgChat.width = 18;
             imgChat.height = 18;
             imgChat.style.margin = "auto";
@@ -2556,7 +2556,7 @@ function setTwitchSearchBarListener() {
 function appendMultiStreamSearchInfoText() {
     let div = document.createElement('div');
     div.classList.add('tp-multi-stream-info-div');
-    div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' class='tp-theme-support' src='" + getImgRuntimeUrl('../images/multistream.png') + "' /> to add"
+    div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' class='tp-theme-support' src='" + getRuntimeUrl('../images/multistream.png') + "' /> to add"
 
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
@@ -2588,7 +2588,7 @@ function append_MultiStream_btn() {
             btn_container.style.zIndex = "1";
 
             let img = document.createElement('img');
-            img.src = getImgRuntimeUrl('../images/multistream.png');
+            img.src = getRuntimeUrl('../images/multistream.png');
             img.width = (more_btn_size.width || "30") * 0.6;
             img.height = (more_btn_size.height || "30") * 0.6;
             img.style.margin = "auto";
@@ -2662,7 +2662,7 @@ function showToast(toast_body, storageFlagName) {
         "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
         "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
         "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
-        "                        <input id=\"tp_updateToast_donate_btn\" style=\"width: 80%;box-shadow: 0 3px 10px -5px rgb(23 23 23 / 75%);\" type=\"image\" src=\"" + getImgRuntimeUrl('../images/coffee.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
+        "                        <input id=\"tp_updateToast_donate_btn\" style=\"width: 80%;box-shadow: 0px 3px 10px -5px rgb(23 23 23 / 75%);\" type=\"image\" src=\"" + getRuntimeUrl('../images/coffee.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
         "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
         "                    </form>\n" +
         "            </div>\n" +
@@ -2912,7 +2912,7 @@ function changeFeatureMode(featureName, value) {
 function initSettingsInfoBtn(settingsContainer, checkboxID) {
     try {
         let infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
-        infoBtn.src = getImgRuntimeUrl('images/expand.png');
+        infoBtn.src = getRuntimeUrl('images/expand.png');
         infoBtn.addEventListener('click', (event) => {
             let infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
             if (infoDiv.style.maxHeight === "415px") {
@@ -3095,7 +3095,7 @@ function initDragForSettings(settingsContainer) {
 function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
     try {
         let translateInfoBtn = settingsContainer.querySelector('#' + checkboxID).parentNode.parentNode.nextElementSibling.querySelector('.translate_div_btn');
-        translateInfoBtn.src = getImgRuntimeUrl('images/translate.png');
+        translateInfoBtn.src = getRuntimeUrl('images/translate.png');
         translateInfoBtn.addEventListener('click', (event) => {
             sendMessageToBG({action: "bg_translate_infoDiv", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(translateInfoBtn.parentNode.innerText) + '&op=translate'});
         });
@@ -3106,7 +3106,7 @@ function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
 
 function showSettingsMenu() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', getImgRuntimeUrl('main/settings.html'), true);
+    xhr.open('GET', getRuntimeUrl('main/settings.html'), true);
     xhr.onreadystatechange = function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return;
@@ -3128,14 +3128,14 @@ function showSettingsMenu() {
             }, 700);
         });
 
-        settingsContainer.querySelector('#TP_popup_title_logo').src = getImgRuntimeUrl('images/TP96.png');
-        settingsContainer.querySelector('#TP_popup_logo').src = getImgRuntimeUrl('images/TP96.png');
-        settingsContainer.querySelector('#tp_popup_donate_btn').src = getImgRuntimeUrl('images/coffee.png');
-        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getImgRuntimeUrl('images/tp_fScrnWithChat.png');
-        settingsContainer.querySelector('#tp_transparentChat_img').src = getImgRuntimeUrl('images/tp_transparentChat.png');
-        settingsContainer.querySelector('#tp_multiStream_img').src = getImgRuntimeUrl('images/multistream.png');
-        settingsContainer.querySelector('#tp_multiStream_chat_img').src = getImgRuntimeUrl('images/multistream_chat.png');
-        settingsContainer.querySelector('#tp_pip_img').src = getImgRuntimeUrl('images/pip.png');
+        settingsContainer.querySelector('#TP_popup_title_logo').src = getRuntimeUrl('images/TP96.png');
+        settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');
+        settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/coffee.png');
+        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/tp_fScrnWithChat.png');
+        settingsContainer.querySelector('#tp_transparentChat_img').src = getRuntimeUrl('images/tp_transparentChat.png');
+        settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
+        settingsContainer.querySelector('#tp_multiStream_chat_img').src = getRuntimeUrl('images/multistream_chat.png');
+        settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
 
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
