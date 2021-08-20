@@ -8,6 +8,8 @@ ga('create', 'UA-134155755-2', 'auto');
 ga('set', 'checkProtocolTask', null);
 ga('send', 'pageview', 'main');
 
+var _browser = typeof browser !== "undefined" ? browser : chrome;
+
 var HEART_BEAT_INTERVAL_MS = 325000;
 var lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
 
@@ -40,87 +42,74 @@ function send_ga_event(category, action, value) {
     ga('send', 'event', category, action, value);
 }
 
-chrome.browserAction.onClicked.addListener(function(tab) {
+_browser.browserAction.onClicked.addListener(function(tab) {
 
         var errString = "Could not establish connection. Receiving end does not exist.";
-        chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
-                var lastError = chrome.runtime.lastError;
+        _browser.tabs.query({active: true, currentWindow: true}, function (tabs) {
+            _browser.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
+                var lastError = _browser.runtime.lastError;
                 if (lastError && lastError.message === errString) {
-                    chrome.storage.local.set({'shouldShowSettings': true}, function() {
+                    _browser.storage.local.set({'shouldShowSettings': true}, function() {
 
                     });
-                    chrome.tabs.create({url:'https://www.twitch.tv/'});
+                    _browser.tabs.create({url:'https://www.twitch.tv/'});
                 }
             })
         });
 
 });
 
-
-function upgradeDB(optionsFromStorage, bSaveToStorage_default) {
-    var loaded_options = optionsFromStorage;
-    var bSetToStorage = bSaveToStorage_default;
-    Object.keys(options).forEach(function(key,index) {
-        if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
-            loaded_options[key] = options[key];
-            bSetToStorage = true;
-        }
-    });
-
-    if (bSetToStorage) {
-        chrome.storage.local.set({'tp_options': loaded_options}, function() {
-
-        });
-    }
-}
-
-chrome.runtime.onInstalled.addListener(function(details) {
-    var manifestData = chrome.runtime.getManifest();
+_browser.runtime.onInstalled.addListener(function(details) {
+    var manifestData = _browser.runtime.getManifest();
     var appVer = "v" + manifestData.version;
 
-     chrome.storage.local.get('tp_options', function(result) {
+    _browser.storage.local.get('tp_options', function(result) {
         if (typeof result.tp_options == 'undefined') {
-            chrome.storage.sync.get('tp_options', function(syncResult) {
-                if (typeof syncResult.tp_options == 'undefined') {
-                    chrome.storage.local.set({'tp_options': options}, function() {
+            _browser.storage.local.set({'tp_options': options}, function() {
 
-                    });
-                } else {
-                    upgradeDB(syncResult.tp_options, true);
-                    chrome.storage.sync.remove('tp_options', function () {
-
-                    });
-                }
             });
         } else {
-            upgradeDB(result.tp_options, false);
+            // upgrade db.
+            var loaded_options = result.tp_options;
+            var bSetToStorage = false;
+            Object.keys(options).forEach(function(key,index) {
+                if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
+                    loaded_options[key] = options[key];
+                    bSetToStorage = true;
+                }
+            });
+
+            if (bSetToStorage) {
+                _browser.storage.local.set({'tp_options': loaded_options}, function() {
+
+                });
+            }
         }
     });
 
     if (details.reason === "install") {
         send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
-        chrome.storage.local.set({'isFTE': true}, function() {});
-        chrome.storage.local.set({'shouldShowSettings': true}, function() {});
+        _browser.storage.local.set({'isFTE': true}, function() {});
+        _browser.storage.local.set({'shouldShowSettings': true}, function() {});
     } else {
         if (details.reason === "update") {
 
             if (details.previousVersion !== "1.9.7.0") {
-                chrome.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-                chrome.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
             }
 
 
            /* if (details.previousVersion === "1.5.1.6") {
-                chrome.tabs.create({url:"../popups/updatePopup.html"});
+                _browser.tabs.create({url:"../popups/updatePopup.html"});
                 ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
             }*/
-            ga('send', 'event', 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer);
+            send_ga_event( 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer);
         }
     }
 });
 
-chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+_browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_isSidebarPreviewsEnabled":
             send_ga_event('sidebarPreview_mode', 'change', msg.detail ? "sBarPreview_ON":"sBarPreview_OFF");
@@ -168,7 +157,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('pip_main_mode', 'change', msg.detail ? "pip_main_ON":"pip_main_OFF");
             break;
         case "bg_multiStream_btn_click":
-            chrome.tabs.create({url:msg.detail});
+            _browser.tabs.create({url:msg.detail});
             send_ga_event('multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
             break;
         case "bg_searchBar_multiStream_started":
@@ -262,20 +251,20 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
             break;
         case "bg_translate_infoDiv":
-            chrome.tabs.create({url:msg.detail});
+            _browser.tabs.create({url:msg.detail});
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_rate":
-            chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
+            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
         case "bg_show_share":
-            chrome.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
+            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
             break;
         case "bg_show_github":
-            chrome.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
+            _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
             break;
         case "bg_show_bugReport":
-            chrome.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
+            _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
             break;
         case "appStart":
             send_ga_event('appStart', 'content.js', msg.detail);
