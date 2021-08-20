@@ -2,11 +2,13 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
 ga('create', 'UA-134155755-2', 'auto');
-
 ga('set', 'checkProtocolTask', null);
 ga('send', 'pageview', 'main');
+
+function send_ga_event(category, action, value) {
+    ga('send', 'event', category, action, value);
+}
 
 let _browser = typeof browser !== "undefined" ? browser : chrome;
 let isFirefox = typeof browser !== "undefined";
@@ -38,10 +40,6 @@ let options = {
     aps_secondsBefore: 10,
     aps_min_vote_margin_percent: 15
 };
-
-function send_ga_event(category, action, value) {
-    ga('send', 'event', category, action, value);
-}
 
 _browser.browserAction.onClicked.addListener(function(tab) {
 
