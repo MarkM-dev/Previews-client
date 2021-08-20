@@ -1,5 +1,6 @@
 // (c) Twitch Previews.
 let _browser = typeof browser !== "undefined" ? browser : chrome;
+let isFirefox = typeof browser !== "undefined";
 let isNavBarCollapsed;
 let previewDiv = null;
 let appendContainer;
@@ -470,7 +471,6 @@ function createAndShowPreview() {
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
             twitchIframe.allow = "autoplay;";
-           // twitchIframe.autoplay = "true";
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
@@ -484,7 +484,6 @@ function createAndShowPreview() {
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
             twitchIframe.allow = "autoplay;";
-            //twitchIframe.autoplay = "true";
             twitchIframe.style.display = "none";
             previewDiv.appendChild(twitchIframe);
         }
@@ -2851,7 +2850,7 @@ function toggleFeatures(isFromTitleObserver) {
         append_APS_settings_btn();
     }
 
-    if (options.isPipEnabled) {
+    if (!isFirefox && options.isPipEnabled) {
         setPIPBtn();
     }
 
@@ -3135,7 +3134,6 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#tp_transparentChat_img').src = getRuntimeUrl('images/tp_transparentChat.png');
         settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
         settingsContainer.querySelector('#tp_multiStream_chat_img').src = getRuntimeUrl('images/multistream_chat.png');
-        settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
 
         initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
         initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
@@ -3149,7 +3147,6 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isTransparentChatEnabled', 'TP_popup_transparentChat_checkbox', false);
-        initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
@@ -3157,6 +3154,11 @@ function showSettingsMenu() {
         initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
         initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
         initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+
+        if (!isFirefox) {
+            settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
+            initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
+        }
 
         initPreviewSizeSlider(settingsContainer);
 
