@@ -574,7 +574,13 @@ function clearLoadingSpinnerFromSideNav() {
 }
 
 function waitForVidPlayAndShow(navCardEl, isFromDirectory) {
-
+    if (isHovering && !isNavBarCollapsed) {
+        let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
+        if (container) {
+            container.appendChild(navCardPipBtn);
+            container.appendChild(vidPreviewVolBtn);
+        }
+    }
     try {
         let intervalCount = 0;
         if (clearVidPlayInterval) {
@@ -670,13 +676,6 @@ function clearOverlays(navCardEl, isFromDirectory) {
                                 clearOverlaysInterval = null;
                             } else {
                                 intervalCount++;
-                            }
-                        }
-                        if (isHovering && !isNavBarCollapsed) {
-                            let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
-                            if (container) {
-                                container.appendChild(navCardPipBtn);
-                                container.appendChild(vidPreviewVolBtn);
                             }
                         }
                     }
