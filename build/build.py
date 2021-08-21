@@ -4,6 +4,8 @@ from distutils.dir_util import copy_tree
 import shutil
 import json
 
+firefox_dev_proj_dir_name = 'firefox_dev'
+
 def get_version():
     manifest_path = 'temp/manifest.json'
 
@@ -24,13 +26,13 @@ def replace_strings_for_opera():
         f.write(data)
 
 
-def replace_strings_for_firefox():
-    manifest_path = 'temp/manifest.json'
-    background_path = 'temp/main/background.js'
+def replace_strings_for_firefox(f_dir):
+    manifest_path = f_dir + '/manifest.json'
+    background_path = f_dir + '/main/background.js'
 
     with open(manifest_path, 'r') as f:
         data = f.read()
-        data = data.replace(',"content_security_policy": "script-src \'self\' https://www.google-analytics.com; object-src \'self\'"', '')
+        data = data.replace(''',"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"''', '')
 
     with open(manifest_path, 'w') as f:
         f.write(data)
@@ -48,9 +50,20 @@ def replace_strings_for_firefox():
                             '''ga('send', 'pageview', 'main');''', '') \
 
         data = data.replace('''ga('send', 'event', category, action, value);''', '')
+        data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
+        data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
+
 
     with open(background_path, 'w') as f:
         f.write(data)
+
+
+def make_firefox_dev_proj():
+    if os.path.isdir(firefox_dev_proj_dir_name):
+        shutil.rmtree(firefox_dev_proj_dir_name)
+    os.mkdir(firefox_dev_proj_dir_name)
+    copy_tree('../Twitch-Previews', firefox_dev_proj_dir_name)
+    replace_strings_for_firefox(firefox_dev_proj_dir_name)
 
 
 def build(browser):
@@ -60,7 +73,9 @@ def build(browser):
     if browser == 'chrome':
         pass
     elif browser == 'firefox':
-        replace_strings_for_firefox()
+        if os.path.isdir(firefox_dev_proj_dir_name):
+            shutil.rmtree(firefox_dev_proj_dir_name)
+        replace_strings_for_firefox('temp')
     elif browser == 'opera':
         replace_strings_for_opera()
 
@@ -70,4 +85,7 @@ def build(browser):
 
 
 if len(sys.argv) > 1:
-    build(sys.argv[1])
+    if sys.argv[1] == firefox_dev_proj_dir_name:
+        make_firefox_dev_proj()
+    else:
+        build(sys.argv[1])
