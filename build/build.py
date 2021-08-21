@@ -15,7 +15,7 @@ def get_version():
 def replace_strings_for_opera():
     background_path = 'temp/main/background.js'
 
-    with open(os.path.join(os.path.dirname(__file__), background_path), 'r') as f:
+    with open(background_path, 'r') as f:
         data = f.read()
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
