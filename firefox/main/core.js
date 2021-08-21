@@ -3172,6 +3172,7 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');
         settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/coffee.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/tp_fScrnWithChat.png');
+        settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
         settingsContainer.querySelector('#tp_transparentChat_img').src = getRuntimeUrl('images/tp_transparentChat.png');
         settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
         settingsContainer.querySelector('#tp_multiStream_chat_img').src = getRuntimeUrl('images/multistream_chat.png');
@@ -3187,6 +3188,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
+        initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isTransparentChatEnabled', 'TP_popup_transparentChat_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
@@ -3196,9 +3198,11 @@ function showSettingsMenu() {
         initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
         initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
 
-        if (!isFirefox) {
-            settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
-            initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
+        if (isFirefox) {
+            let els = settingsContainer.querySelectorAll('.tp-firefox-hide');
+            for (let i = 0; i < els.length; i++) {
+                els[i].style.display = "none";
+            }
         }
 
         initPreviewSizeSlider(settingsContainer);
