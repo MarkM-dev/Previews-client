@@ -10,8 +10,8 @@ function send_ga_event(category, action, value) {
     ga('send', 'event', category, action, value);
 }
 
-let _browser = typeof browser !== "undefined" ? browser : chrome;
 let isFirefox = typeof browser !== "undefined";
+let _browser = isFirefox ? browser : chrome;
 
 let HEART_BEAT_INTERVAL_MS = 325000;
 let lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
@@ -254,18 +254,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_rate":
-            if (isFirefox) {
-                _browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
-            } else {
-                _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
-            }
+            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
         case "bg_show_share":
-            if (isFirefox) {
-                _browser.tabs.create({url:"https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/"});
-            } else {
-                _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
-            }
+            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
             break;
         case "bg_show_github":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
