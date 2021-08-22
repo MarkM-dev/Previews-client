@@ -39,8 +39,6 @@ def replace_strings_for_firefox(f_dir):
 
     with open(background_path, 'r') as f:
         data = f.read()
-
-
         data = data.replace('''(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n''' \
                             '''    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n''' \
                             '''    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n''' \
@@ -52,7 +50,6 @@ def replace_strings_for_firefox(f_dir):
         data = data.replace('''ga('send', 'event', category, action, value);''', '')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
-
 
     with open(background_path, 'w') as f:
         f.write(data)
