@@ -28,7 +28,6 @@ let options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
-    isTransparentChatEnabled: false,
     isPipEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
@@ -142,9 +141,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_fScrnWithChat_click":
             send_ga_event('fScrnWithChat_btn_click', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click');
-            break;
-        case "bg_update_isTransparentChatEnabled":
-            send_ga_event('tChat_mode', 'change', msg.detail ? "tChat_ON":"tChat_OFF");
             break;
         case "bg_transparentChat_click":
             send_ga_event('tChat_btn_click', 'tChat_btn_click', 'tChat_btn_click');
