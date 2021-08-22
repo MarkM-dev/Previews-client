@@ -2309,9 +2309,11 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             bold_btn.onclick = function () {
                 if (bold_btn.attributes.tp_font_bold) {
                     bold_btn.removeAttribute('tp_font_bold');
+                    //iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
                     iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "normal";
                 } else {
                     bold_btn.setAttribute('tp_font_bold', 'true');
+                    //iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
                     iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "bold";
                 }
             }
@@ -2322,7 +2324,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_size_up_btn.style.color = "#efeff1";
             font_size_up_btn.onclick = function () {
                 lastFontSize++;
-                iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
+                iframe.contentDocument.querySelector('.scrollable-area').parentNode.parentNode.style.fontSize = lastFontSize + "px";
             }
 
             let font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
@@ -2330,7 +2332,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_size_down_btn.style.color = "#efeff1";
             font_size_down_btn.onclick = function () {
                 lastFontSize--;
-                iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
+                iframe.contentDocument.querySelector('.scrollable-area').parentNode.parentNode.style.fontSize = lastFontSize + "px";
             }
 
             font_controls_container.appendChild(font_colorPicker);
@@ -2646,17 +2648,14 @@ function showToast(toast_body, storageFlagName) {
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 12px;color: white;margin-top: 20px;\" ><strong style='font-size: 14px;' >- Added Transparent Chat Overlay</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' button in the player controls.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will add a transparent chat overlay to the page.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can change its background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Works well with the \"Full Screen With Chat\" feature.</strong></span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Transparent Chat toggle button to the Multi-Chat top bar controls.</strong></span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added background opacity & color picker controls</strong> to the Multi-Chat top bar controls (when toggling transparent mode).</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Always On Top toggle to the Multi-Stream/Chat boxes</strong> to support the chat overlay better.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added font controls (C color picker, B Bold font, +/- increase/decrease font size) to the Multi-Chat boxes</strong> to increase chat visibility when transparent. shows at the multi-chat box header to the left of \"STREAM CHAT\" text.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Added Auto Channel Points Clicker feature support to the Multi-Chat boxes (if auto channel points clicker feature is enabled)</strong> to fulfill it's purpose :)</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" >- Fixed an issue where Multi-Stream boxes would get stuck on the top bar of the screen if they were moved there.</span>"
+        +  "       <div style=\"font-size: 12px;color: white;margin-top: 20px;\" ><strong style='font-size: 14px;' >- Revamped 'Full Screen + Chat' Feature</strong>"
+        +  "             <br><span style=\"font-size: 12px;\" ><strong>- The feature works smoother now and the dynamic chat is automatically positioned to the right side.</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Changed the button's icon to what was shown on the Transparent Chat button in the previous version.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will toggle fullscreen and add a dynamic transparent chat overlay that you can play with and move around.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can exit the mode by clicking the button again or just by exiting fullscreen.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Removed now redundant transparent chat button from player controls.</strong></span>"
+        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Multistream chat box - </strong> transparency slider and color picker are now visible by default instead of having to click a button to enable them.</span>"
         +  "        </div>"
        +  "    </br>"
 }
