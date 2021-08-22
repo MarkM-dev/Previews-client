@@ -725,6 +725,23 @@
     box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
 }
 
+.tp_update_toast #tp_updateToast_translate_btn {
+    position: absolute;
+    left: 26rem;
+    top: 42px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.tp_update_toast #tp_updateToast_translate_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.tp_update_toast #tp_updateToast_translate_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 #tp_APS_settings_btn {
     display: inline-flex !important;
     vertical-align: top;

@@ -245,6 +245,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast_settings_btn_click":
             send_ga_event('updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
             break;
+        case "updateToast_translate_btn_click":
+            _browser.tabs.create({url:msg.detail});
+            send_ga_event('updateToast_translate_btn_click', 'updateToast_translate_btn_click', 'updateToast_translate_btn_click');
+            break;
         case "bg_translate_infoDiv":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');

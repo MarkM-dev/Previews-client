@@ -2590,9 +2590,10 @@ function showToast(toast_body, storageFlagName) {
     updateToast.classList.add("slideInRight");
 
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
-        "            <div>\n" +
-                        toast_body +
-        "                <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the browser's extensions webstore :)</div>\n" +
+        "            <div>" +
+        "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"translate\" />\n" +
+        "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
+        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the browser's extensions webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -2632,6 +2633,10 @@ function showToast(toast_body, storageFlagName) {
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
         setConfirmedToastFlag('okay_btn', storageFlagName);
         remove_toast();
+    };
+
+    updateToast.querySelector('#tp_updateToast_translate_btn').onclick = function () {
+        sendMessageToBG({action: "updateToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
     document.body.appendChild(updateToast);
