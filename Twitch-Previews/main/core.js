@@ -2191,7 +2191,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     }
 
     let minimizeBtn = createMultiStreamTitleBtn("Minimize", "__");
-    let streamBox_last_height = multiStreamDiv.getBoundingClientRect();
+    let streamBox_last_height = 0;
     minimizeBtn.onclick = function () {
         if (multiStreamDiv.getBoundingClientRect().height === 27) {
             multiStreamDiv.style.height = streamBox_last_height + "px";
