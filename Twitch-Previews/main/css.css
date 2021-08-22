@@ -991,6 +991,14 @@
     position: fixed !important;
 }
 
+.tp-multi-stream-box.tp-multistream-box-fullscreen-fScrnWithChat {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: calc(100% - 40px) !important;
+    position: fixed !important;
+}
+
 .tp-theme-support {
     -webkit-filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
     filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);

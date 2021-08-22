@@ -2179,13 +2179,14 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
     let fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6");
     fullScreenBtn.onclick = function () {
-        if (multiStreamDiv.classList.contains('tp-multistream-box-fullscreen')) {
-            multiStreamDiv.classList.remove('tp-multistream-box-fullscreen');
+        let fScrnClassStr = 'tp-multistream-box-fullscreen' + (isFScrnWithChat ? '-fScrnWithChat':'');
+        if (multiStreamDiv.classList.contains(fScrnClassStr)) {
+            multiStreamDiv.classList.remove(fScrnClassStr);
         } else {
             if (!document.querySelector('div[data-a-target="side-nav-bar-collapsed"]')) {
                 document.querySelector('button[data-a-target="side-nav-arrow"]').click();
             }
-            multiStreamDiv.classList.add('tp-multistream-box-fullscreen');
+            multiStreamDiv.classList.add(fScrnClassStr);
         }
     }
 
