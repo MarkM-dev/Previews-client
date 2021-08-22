@@ -2260,7 +2260,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             opacitySlider.min = '0';
             opacitySlider.max = '1';
             opacitySlider.step = '0.05';
-            opacitySlider.value = isFScrnWithChat ? '0.2':'1';
+            opacitySlider.value = isFScrnWithChat ? '0':'1';
             opacitySlider.title = 'Opacity';
 
             opacitySlider.oninput = function (e) {
