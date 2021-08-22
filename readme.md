@@ -70,7 +70,7 @@
 
 * **Full Screen With Chat**
     - The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.
-    - Clicking it will toggle fullscreen and add a dynamic transparent chat overlay.
+    - Clicking it will toggle fullscreen and add a dynamic transparent chat overlay that you can play with and move around.
     - You can exit the mode by clicking the button again or just by exiting fullscreen.
       <br/><br/>
 
