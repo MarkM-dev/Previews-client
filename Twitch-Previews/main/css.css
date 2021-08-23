@@ -1098,3 +1098,13 @@
 .tp-fte-toast-close-btn:active {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+#tp_updateToast_donate_btn {
+    width: 80%;
+    box-shadow: 0px 3px 10px -5px rgba(23, 23, 23, 0.75);
+    transition: all 0.1s;
+}
+
+#tp_updateToast_donate_btn:hover {
+    transform: scale(1.05);
+}
