@@ -1759,8 +1759,10 @@ function toggle_fScrnWithChat() {
         clickFullscreen();
         exit_fScrnWithChat();
     } else {
-        clickFullscreen();
         enter_fScrnWithChat();
+        if (!document.fullscreenElement) {
+            clickFullscreen();
+        }
     }
 }
 
