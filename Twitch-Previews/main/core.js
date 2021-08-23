@@ -2295,7 +2295,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
                 multiStreamDiv.style.left = "0";
             }
 
-            let align_default_Btn = createMultiStreamTitleBtn('Align Chat To Default', "D");
+            let align_default_Btn = createMultiStreamTitleBtn('Align Chat To Default', "o");
             align_default_Btn.onclick = function () {
                 multiStreamDiv.style.width = "350px";
                 multiStreamDiv.style.height = "600px";
@@ -2687,7 +2687,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can exit the mode by clicking the button again or just by exiting fullscreen.</span>"
         +  "             <br><br><span style=\"font-size: 14px;\" ><strong>- Multistream chat box</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- transparency slider and color picker are now visible by default</strong> instead of having to click a button to enable them.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Added chat box position control buttons</strong> (align chat to left (<) / right (>) / default (D)) to the header next to \"STREAM CHAT\" text at the top of the chat box for ease of use, so you don't have to do common chat streching and positioning manually.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Added chat box position control buttons</strong> (align chat to left (<) / right (>) / default (o)) to the header next to \"STREAM CHAT\" text at the top of the chat box for ease of use, so you don't have to do common chat streching and positioning manually.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Fixed an issue</strong> where the chat box font size controls didn't change the chat font size.</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Removed now redundant transparent chat button from player controls.</strong></span>"
         +  "        </div>"
