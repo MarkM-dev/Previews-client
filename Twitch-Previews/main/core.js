@@ -2395,8 +2395,10 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     titleBtnContainer = document.createElement('div');
     titleBtnContainer.classList.add('tp-multi-stream-box-title-btn-container');
 
-    titleBtnContainer.appendChild(extraMultiBoxBtn);
-    titleBtnContainer.appendChild(alwaysOnTopBtn);
+    if(!isFScrnWithChat) {
+        titleBtnContainer.appendChild(extraMultiBoxBtn);
+        titleBtnContainer.appendChild(alwaysOnTopBtn);
+    }
     titleBtnContainer.appendChild(minimizeBtn);
     titleBtnContainer.appendChild(fullScreenBtn);
     titleBtnContainer.appendChild(closeBtn);
