@@ -2158,16 +2158,6 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
     let title = document.createElement('div');
     title.classList.add('tp_multistream_box_title');
-    title.style.width = "100%";
-    title.style.height = "25px";
-    title.style.top = "0px";
-    title.style.paddingLeft = "5px";
-    title.style.color = "darkgrey";
-    title.style.display = "flex";
-    title.style.justifyContent = "left";
-    title.style.alignItems = "center";
-    title.style.cursor = "default";
-    title.style.backgroundColor = "#232323";
 
     let iframe = document.createElement("Iframe");
     iframe.classList.add('tp-multistream-iframe');
