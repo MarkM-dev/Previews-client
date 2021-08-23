@@ -2681,7 +2681,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 12px;color: white;margin-top: 20px;\" ><strong style='font-size: 14px;' >- Revamped 'Full Screen + Chat' Feature</strong>"
         +  "             <br><span style=\"font-size: 12px;\" ><strong>- The feature works smoother now and the dynamic chat is automatically positioned to the right side.</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Changed the button's icon to what was shown on the Transparent Chat button in the previous version.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Changed the button's icon to what was shown on the Transparent Chat button in the previous version (<img width='17' height='17' src='" + getRuntimeUrl('images/tp_fScrnWithChat.png') + "'/>).</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will toggle fullscreen and add a dynamic transparent chat overlay that you can play with and move around.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can exit the mode by clicking the button again or just by exiting fullscreen.</span>"
