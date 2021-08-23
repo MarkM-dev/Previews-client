@@ -2281,6 +2281,43 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             iframe.contentDocument.querySelector('html').style.backgroundColor = hexToRgbA(colorPicker.value, opacitySlider.value);
         }
 
+        function addChatPositionControls() {
+            let position_controls_container = document.createElement('div');
+            position_controls_container.classList.add('tp-multi-stream-box-font-controls-container');
+            position_controls_container.style.left = "auto";
+            position_controls_container.style.right = "12%";
+
+            let align_left_Btn = createMultiStreamTitleBtn('Align Chat To Left', "<");
+            align_left_Btn.onclick = function () {
+                multiStreamDiv.style.height = "calc(100vh - " + (isFScrnWithChat ? '40':'50') + "px)";
+                multiStreamDiv.style.width = "350px";
+                multiStreamDiv.style.top = "0";
+                multiStreamDiv.style.left = "0";
+            }
+
+            let align_default_Btn = createMultiStreamTitleBtn('Align Chat To Default', "D");
+            align_default_Btn.onclick = function () {
+                multiStreamDiv.style.width = "350px";
+                multiStreamDiv.style.height = "600px";
+                multiStreamDiv.style.top = "20px";
+                multiStreamDiv.style.left = "20px";
+            }
+
+            let align_right_Btn = createMultiStreamTitleBtn('Align Chat To Right', ">");
+            align_right_Btn.onclick = function () {
+                multiStreamDiv.style.height = "calc(100vh - " + (isFScrnWithChat ? '40':'50') + "px)";
+                multiStreamDiv.style.width = "350px";
+                multiStreamDiv.style.top = "0";
+                multiStreamDiv.style.left = "calc(100% - 350px)";
+            }
+
+            position_controls_container.appendChild(align_left_Btn);
+            position_controls_container.appendChild(align_default_Btn);
+            position_controls_container.appendChild(align_right_Btn);
+
+            iframe.contentDocument.querySelector('.stream-chat-header').prepend(position_controls_container);
+        }
+
         function addFontControls() {
             let font_controls_container = document.createElement('div');
             font_controls_container.classList.add('tp-multi-stream-box-font-controls-container');
@@ -2387,6 +2424,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
                 iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
                 add_ColorPickerAndOpacitySlider();
                 addFontControls();
+                addChatPositionControls();
             }
         }
     }, 2000);
