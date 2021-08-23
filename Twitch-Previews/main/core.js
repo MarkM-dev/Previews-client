@@ -2310,11 +2310,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             bold_btn.onclick = function () {
                 if (bold_btn.attributes.tp_font_bold) {
                     bold_btn.removeAttribute('tp_font_bold');
-                    //iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
                     iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "normal";
                 } else {
                     bold_btn.setAttribute('tp_font_bold', 'true');
-                    //iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontSize = lastFontSize + "px";
                     iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "bold";
                 }
             }
@@ -2325,7 +2323,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_size_up_btn.style.color = "#efeff1";
             font_size_up_btn.onclick = function () {
                 lastFontSize++;
-                iframe.contentDocument.querySelector('.scrollable-area').parentNode.parentNode.style.fontSize = lastFontSize + "px";
+                iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + "px";
             }
 
             let font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
@@ -2333,7 +2331,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_size_down_btn.style.color = "#efeff1";
             font_size_down_btn.onclick = function () {
                 lastFontSize--;
-                iframe.contentDocument.querySelector('.scrollable-area').parentNode.parentNode.style.fontSize = lastFontSize + "px";
+                iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + "px";
             }
 
             font_controls_container.appendChild(font_colorPicker);
