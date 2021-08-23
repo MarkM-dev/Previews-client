@@ -999,6 +999,23 @@
     position: fixed !important;
 }
 
+.tp-multi-stream-box-font-controls-container {
+    display: flex;
+    position: absolute;
+    left: 3%;
+    padding: 5px;
+}
+
+.tp-multi-stream-box-font-controls-container div {
+    color: #efeff1;
+    font-weight: bold;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+    -o-user-select:none;
+}
+
 .tp-theme-support {
     -webkit-filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
     filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);

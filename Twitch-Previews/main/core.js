@@ -2261,7 +2261,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             opacitySlider.min = '0';
             opacitySlider.max = '1';
             opacitySlider.step = '0.05';
-            opacitySlider.value = isFScrnWithChat ? '0.15':'1';
+            opacitySlider.value = isFScrnWithChat ? '0':'1';
             opacitySlider.title = 'Opacity';
 
             opacitySlider.oninput = function (e) {
@@ -2283,14 +2283,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         function addFontControls() {
             let font_controls_container = document.createElement('div');
-            font_controls_container.style.display = "flex";
-            font_controls_container.style.position = "absolute";
-            font_controls_container.style.left = "3%";
-            font_controls_container.style.padding = "5px";
-            font_controls_container.style.color = "lightgrey";
+            font_controls_container.classList.add('tp-multi-stream-box-font-controls-container');
 
             font_colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
-            font_colorPickerCustomBtn.style.color = "#efeff1";
             font_colorPickerCustomBtn.onclick = function () {
                 font_colorPicker.click();
             }
@@ -2305,8 +2300,6 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             }
 
             let bold_btn = createMultiStreamTitleBtn("Toggle Bold Font", "B");
-            bold_btn.style.fontWeight = "bold";
-            bold_btn.style.color = "#efeff1";
             bold_btn.onclick = function () {
                 if (bold_btn.attributes.tp_font_bold) {
                     bold_btn.removeAttribute('tp_font_bold');
@@ -2319,16 +2312,12 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
             let lastFontSize = "13";
             let font_size_up_btn = createMultiStreamTitleBtn("Increase Font Size", "+");
-            font_size_up_btn.style.fontWeight = "bold";
-            font_size_up_btn.style.color = "#efeff1";
             font_size_up_btn.onclick = function () {
                 lastFontSize++;
                 iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + "px";
             }
 
             let font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
-            font_size_down_btn.style.fontWeight = "bold";
-            font_size_down_btn.style.color = "#efeff1";
             font_size_down_btn.onclick = function () {
                 lastFontSize--;
                 iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + "px";
