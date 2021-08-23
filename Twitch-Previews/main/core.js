@@ -983,7 +983,7 @@ function extendSidebarSection(sideNavSection) {
 
 function extendSidebar() {
     if (!isNavBarCollapsed) {
-        let sideNavSections = document.getElementsByClassName('side-nav-section');
+        let sideNavSections = document.querySelectorAll('.side-nav-section');
         if(sideNavSections[0]) {
             let navCards = getSidebarNavCards(sideNavSections[0]);
             if (isStreamerOnline(navCards[navCards.length - 1])) {
