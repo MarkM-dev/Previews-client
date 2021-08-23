@@ -2687,6 +2687,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can exit the mode by clicking the button again or just by exiting fullscreen.</span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Removed now redundant transparent chat button from player controls.</strong></span>"
         +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Multistream chat box - </strong> transparency slider and color picker are now visible by default instead of having to click a button to enable them.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Multistream chat box - Added chat box position control buttons</strong> (align chat to left (<) / right (>) / default (D)) to the header next to \"STREAM CHAT\" text at the top of the chat box for ease of use, so you don't have to do common chat streching and positioning manually.</span>"
         +  "        </div>"
        +  "    </br>"
 }
