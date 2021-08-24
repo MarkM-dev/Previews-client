@@ -2297,6 +2297,7 @@ function createMultiStreamTitleBtn(title, innerHTML) {
 
 let fScrnWithChat_savedState = {
     bg_color: null,
+    slider: null,
     rect: {},
     fonts: {
         font_size: null,
@@ -2380,19 +2381,8 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         var colorPicker;
         let font_colorPickerCustomBtn;
         let font_colorPicker;
-        function hexToRgbA(hex, opacity){
-            let c;
-            if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
-                c= hex.substring(1).split('');
-                if(c.length === 3){
-                    c= [c[0], c[0], c[1], c[1], c[2], c[2]];
-                }
-                c= '0x'+c.join('');
-                return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + opacity + ')';
-            }
-        }
 
-        function add_ColorPickerAndOpacitySlider(bg_color) {
+        function add_ColorPickerAndOpacitySlider(bg_color, slider_val) {
             colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
             colorPickerCustomBtn.onclick = function () {
                 colorPicker.click();
@@ -2407,9 +2397,8 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             colorPicker.style.pointerEvents = 'none';
             colorPicker.value = "#18181b";
             colorPicker.oninput = function (e) {
-                let color = hexToRgbA(e.target.value, opacitySlider.value);
-                iframe.contentDocument.querySelector('html').style.backgroundColor = color;
-                fScrnWithChat_savedState.bg_color = color;
+                iframe.contentDocument.querySelector('html').style.backgroundColor = e.target.value + parseInt(opacitySlider.value * 255).toString(16);
+                fScrnWithChat_savedState.bg_color = e.target.value;
             }
 
             opacitySlider = document.createElement('input');
@@ -2420,20 +2409,16 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             opacitySlider.max = '1';
             opacitySlider.step = '0.05';
             if (isFScrnWithChat) {
-                if (fScrnWithChat_savedState.bg_color) {
-                    let val = fScrnWithChat_savedState.bg_color.split(',')[3];
-                    val = val.substring(0, val.length - 1);
-                    opacitySlider.value = val;
-                } else {
-                    opacitySlider.value = '0';
-                }
+                opacitySlider.value = slider_val ? slider_val + "" : "0";
             } else {
                 opacitySlider.value = '1';
             }
             opacitySlider.title = 'Opacity';
 
             opacitySlider.oninput = function (e) {
-                iframe.contentDocument.querySelector('html').style.backgroundColor = hexToRgbA(colorPicker.value, e.target.value);
+                let slider_hex_val = parseInt(e.target.value * 255).toString(16);
+                iframe.contentDocument.querySelector('html').style.backgroundColor = fScrnWithChat_savedState.bg_color ? fScrnWithChat_savedState.bg_color + slider_hex_val : "#18181b" + slider_hex_val;
+                fScrnWithChat_savedState.slider = e.target.value;
             }
 
             opacitySlider.onmousedown = function (e) {
@@ -2446,7 +2431,18 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             titleBtnContainer.prepend(opacitySlider);
             titleBtnContainer.prepend(colorPickerCustomBtn);
             titleBtnContainer.prepend(colorPicker);
-            iframe.contentDocument.querySelector('html').style.backgroundColor = bg_color ? bg_color : hexToRgbA(colorPicker.value, opacitySlider.value);
+
+            let new_val;
+            if (bg_color) {
+                if (slider_val) {
+                    new_val = bg_color + parseInt(slider_val * 255).toString(16);
+                } else {
+                    new_val = bg_color + parseInt(opacitySlider.value * 255).toString(16);
+                }
+            } else {
+                new_val = colorPicker.value + parseInt(opacitySlider.value * 255).toString(16);
+            }
+            iframe.contentDocument.querySelector('html').style.backgroundColor = new_val;
         }
 
         function addChatPositionControls() {
@@ -2504,7 +2500,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_colorPicker.style.display = "none";
             font_colorPicker.value = '#efeff1';
             font_colorPicker.oninput = function (e) {
-                let color = hexToRgbA(e.target.value, 1);
+                let color = e.target.value;
                 iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = color;
                 fScrnWithChat_savedState.fonts.font_color = color;
             }
@@ -2544,7 +2540,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_controls_container.appendChild(font_size_down_btn);
             iframe.contentDocument.querySelector('.stream-chat-header').prepend(font_controls_container);
 
-            iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = font_color ? font_color : hexToRgbA('#ffffff', 1);
+            iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = font_color ? font_color : '#ffffff';
         }
 
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
@@ -2591,7 +2587,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         multiStreamDiv.onmouseup = function () {
             fScrnWithChat_savedState.rect = multiStreamDiv.getBoundingClientRect();
-            fScrnWithChat_savedState.bg_color = hexToRgbA(colorPicker.value, opacitySlider.value);
+            fScrnWithChat_savedState.bg_color = fScrnWithChat_savedState.bg_color ? fScrnWithChat_savedState.bg_color : colorPicker.value;
         }
 
         multiStreamDiv.style.height = typeof fScrnWithChat_savedState.rect.height !== "undefined" ? fScrnWithChat_savedState.rect.height + "px" : "calc(100% - 40px)";
@@ -2609,7 +2605,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             if (iframe.contentDocument) {
                 iframe.contentDocument.querySelector('html').classList.add('tp-hide-channel-leaderboard');
                 iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
-                add_ColorPickerAndOpacitySlider(isFScrnWithChat ? fScrnWithChat_savedState.bg_color : null);
+                add_ColorPickerAndOpacitySlider(isFScrnWithChat ? fScrnWithChat_savedState.bg_color : null, isFScrnWithChat ? fScrnWithChat_savedState.slider : null);
                 addFontControls(isFScrnWithChat ? fScrnWithChat_savedState.fonts.font_color : null);
                 addChatPositionControls();
                 if (isFScrnWithChat) {
