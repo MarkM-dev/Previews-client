@@ -2875,7 +2875,7 @@ function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Revamped 'Full Screen + Chat' Feature</strong>"
-        +  "             <br><span style=\"font-size: 12px;\" ><strong>- The feature works smoother and is now split into two: Full Screen with Custom or Default chat.</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;\" ><strong>- The feature works smoother and is now split into two: Full Screen with Custom chat overlay or Default chat.</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When you hover over the new icon (<img width='17' height='17' src='" + getRuntimeUrl('images/fScrnWithChat_main.png') + "'/>), a small selection menu will appear with the two options to select.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Hovering over it will show two options: Full Screen with Custom or Default Chat.</span>"
