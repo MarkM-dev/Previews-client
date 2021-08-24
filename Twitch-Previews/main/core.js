@@ -1877,9 +1877,9 @@ function setfScrnWithChatBtn() {
             btn_container.style.zIndex = "1";
 
             let img = document.createElement('img');
-            img.src = getRuntimeUrl('../images/tp_fScrnWithChat.png');
-            img.width = (ttv_theater_mode_btn_size.width || "30") * 0.6;
-            img.height = (ttv_theater_mode_btn_size.height || "30") * 0.6;
+            img.src = getRuntimeUrl('../images/fScrnWithChat_main.png');
+            img.width = (ttv_theater_mode_btn_size.width || "30") * 0.7;
+            img.height = (ttv_theater_mode_btn_size.height || "30") * 0.7;
             img.style.margin = "auto";
 
 
@@ -2828,7 +2828,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Revamped 'Full Screen + Chat' Feature</strong>"
         +  "             <br><span style=\"font-size: 12px;\" ><strong>- The feature works smoother now and the dynamic chat is automatically positioned to the right side.</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Changed the button's icon to what was shown on the Transparent Chat button in the previous version (<img width='17' height='17' src='" + getRuntimeUrl('images/tp_fScrnWithChat.png') + "'/>).</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Changed the button's icon to what was shown on the Transparent Chat button in the previous version (<img width='17' height='17' src='" + getRuntimeUrl('images/fScrnWithChat_main.png') + "'/>).</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Clicking it will toggle fullscreen and add a dynamic transparent chat overlay that you can play with and move around.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can exit the mode by clicking the button again or just by exiting fullscreen.</span>"
@@ -3249,7 +3249,7 @@ function showSettingsMenu() {
         settingsContainer.querySelector('#TP_popup_title_logo').src = getRuntimeUrl('images/TP96.png');
         settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');
         settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/coffee.png');
-        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/tp_fScrnWithChat.png');
+        settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/fScrnWithChat_main.png');
         settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
         settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
         settingsContainer.querySelector('#tp_multiStream_chat_img').src = getRuntimeUrl('images/multistream_chat.png');
