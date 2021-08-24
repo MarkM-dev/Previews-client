@@ -3283,6 +3283,11 @@ function showSettingsMenu() {
             for (let i = 0; i < els.length; i++) {
                 els[i].style.display = "none";
             }
+        } else {
+            let els = settingsContainer.querySelectorAll('.tp-chrome-hide');
+            for (let i = 0; i < els.length; i++) {
+                els[i].style.display = "none";
+            }
         }
 
         initPreviewSizeSlider(settingsContainer);
