@@ -140,7 +140,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('fScrnWithChat_mode', 'change', msg.detail ? "fScrnWithChat_ON":"fScrnWithChat_OFF");
             break;
         case "bg_fScrnWithChat_started":
-            send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started-' + msg.detail);
+            send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
             break;
         case "bg_transparentChat_click":
             send_ga_event('tChat_btn_click', 'tChat_btn_click', 'tChat_btn_click');
