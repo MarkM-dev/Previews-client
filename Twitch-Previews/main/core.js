@@ -2295,6 +2295,17 @@ function createMultiStreamTitleBtn(title, innerHTML) {
     return btn;
 }
 
+let fScrnWithChat_savedState = {
+    bg_color: null,
+    rect: {},
+    fonts: {
+        font_size: null,
+        font_color: null,
+        font_weight: null
+    }
+}
+
+
 function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat) {
     let titleBtnContainer;
     let extraMultiBoxBtn;
@@ -2364,9 +2375,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     }
 
     if (isMultiStreamChat) {
-        let opacitySlider;
+        var opacitySlider;
         let colorPickerCustomBtn;
-        let colorPicker;
+        var colorPicker;
         let font_colorPickerCustomBtn;
         let font_colorPicker;
         function hexToRgbA(hex, opacity){
@@ -2381,7 +2392,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             }
         }
 
-        function add_ColorPickerAndOpacitySlider() {
+        function add_ColorPickerAndOpacitySlider(bg_color) {
             colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
             colorPickerCustomBtn.onclick = function () {
                 colorPicker.click();
@@ -2396,7 +2407,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             colorPicker.style.pointerEvents = 'none';
             colorPicker.value = "#18181b";
             colorPicker.oninput = function (e) {
-                iframe.contentDocument.querySelector('html').style.backgroundColor = hexToRgbA(e.target.value, opacitySlider.value);
+                let color = hexToRgbA(e.target.value, opacitySlider.value);
+                iframe.contentDocument.querySelector('html').style.backgroundColor = color;
+                fScrnWithChat_savedState.bg_color = color;
             }
 
             opacitySlider = document.createElement('input');
@@ -2406,7 +2419,17 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             opacitySlider.min = '0';
             opacitySlider.max = '1';
             opacitySlider.step = '0.05';
-            opacitySlider.value = isFScrnWithChat ? '0':'1';
+            if (isFScrnWithChat) {
+                if (fScrnWithChat_savedState.bg_color) {
+                    let val = fScrnWithChat_savedState.bg_color.split(',')[3];
+                    val = val.substring(0, val.length - 1);
+                    opacitySlider.value = val;
+                } else {
+                    opacitySlider.value = '0';
+                }
+            } else {
+                opacitySlider.value = '1';
+            }
             opacitySlider.title = 'Opacity';
 
             opacitySlider.oninput = function (e) {
@@ -2423,7 +2446,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             titleBtnContainer.prepend(opacitySlider);
             titleBtnContainer.prepend(colorPickerCustomBtn);
             titleBtnContainer.prepend(colorPicker);
-            iframe.contentDocument.querySelector('html').style.backgroundColor = hexToRgbA(colorPicker.value, opacitySlider.value);
+            iframe.contentDocument.querySelector('html').style.backgroundColor = bg_color ? bg_color : hexToRgbA(colorPicker.value, opacitySlider.value);
         }
 
         function addChatPositionControls() {
@@ -2438,6 +2461,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
                 multiStreamDiv.style.width = "350px";
                 multiStreamDiv.style.top = "0";
                 multiStreamDiv.style.left = "0";
+                fScrnWithChat_savedState.rect = multiStreamDiv.getBoundingClientRect();
             }
 
             let align_default_Btn = createMultiStreamTitleBtn('Align Chat To Default', "o");
@@ -2446,6 +2470,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
                 multiStreamDiv.style.height = "600px";
                 multiStreamDiv.style.top = "20px";
                 multiStreamDiv.style.left = "20px";
+                fScrnWithChat_savedState.rect = multiStreamDiv.getBoundingClientRect();
             }
 
             let align_right_Btn = createMultiStreamTitleBtn('Align Chat To Right', ">");
@@ -2454,6 +2479,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
                 multiStreamDiv.style.width = "350px";
                 multiStreamDiv.style.top = "0";
                 multiStreamDiv.style.left = "calc(100% - 350px)";
+                fScrnWithChat_savedState.rect = multiStreamDiv.getBoundingClientRect();
             }
 
             position_controls_container.appendChild(align_left_Btn);
@@ -2463,7 +2489,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             iframe.contentDocument.querySelector('.stream-chat-header').prepend(position_controls_container);
         }
 
-        function addFontControls() {
+        function addFontControls(font_color) {
             let font_controls_container = document.createElement('div');
             font_controls_container.classList.add('tp-multi-stream-box-font-controls-container');
 
@@ -2478,31 +2504,37 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_colorPicker.style.display = "none";
             font_colorPicker.value = '#efeff1';
             font_colorPicker.oninput = function (e) {
-                iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = hexToRgbA(e.target.value, 1);
+                let color = hexToRgbA(e.target.value, 1);
+                iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = color;
+                fScrnWithChat_savedState.fonts.font_color = color;
             }
 
             let bold_btn = createMultiStreamTitleBtn("Toggle Bold Font", "B");
             bold_btn.onclick = function () {
                 if (bold_btn.attributes.tp_font_bold) {
                     bold_btn.removeAttribute('tp_font_bold');
-                    iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "normal";
+                    iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = 'normal';
+                    fScrnWithChat_savedState.fonts.font_weight = 'normal';
                 } else {
                     bold_btn.setAttribute('tp_font_bold', 'true');
-                    iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = "bold";
+                    iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = 'bold';
+                    fScrnWithChat_savedState.fonts.font_weight = 'bold';
                 }
             }
 
-            let lastFontSize = "13";
+            let lastFontSize = '13';
             let font_size_up_btn = createMultiStreamTitleBtn("Increase Font Size", "+");
             font_size_up_btn.onclick = function () {
                 lastFontSize++;
-                iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + "px";
+                iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + 'px';
+                fScrnWithChat_savedState.fonts.font_size = lastFontSize;
             }
 
             let font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
             font_size_down_btn.onclick = function () {
                 lastFontSize--;
-                iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + "px";
+                iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + 'px';
+                fScrnWithChat_savedState.fonts.font_size = lastFontSize;
             }
 
             font_controls_container.appendChild(font_colorPicker);
@@ -2512,7 +2544,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_controls_container.appendChild(font_size_down_btn);
             iframe.contentDocument.querySelector('.stream-chat-header').prepend(font_controls_container);
 
-            iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = hexToRgbA('#ffffff', 1);
+            iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = font_color ? font_color : hexToRgbA('#ffffff', 1);
         }
 
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
@@ -2556,9 +2588,17 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     initDragForMultiStream(multiStreamDiv);
 
     if (isFScrnWithChat) {
-        multiStreamDiv.style.height = "calc(100% - 40px)";
-        multiStreamDiv.style.top = "0";
-        multiStreamDiv.style.left = "calc(100% - 350px)";
+
+        multiStreamDiv.onmouseup = function () {
+            fScrnWithChat_savedState.rect = multiStreamDiv.getBoundingClientRect();
+            fScrnWithChat_savedState.bg_color = hexToRgbA(colorPicker.value, opacitySlider.value);
+        }
+
+        multiStreamDiv.style.height = typeof fScrnWithChat_savedState.rect.height !== "undefined" ? fScrnWithChat_savedState.rect.height + "px" : "calc(100% - 40px)";
+        multiStreamDiv.style.width = typeof fScrnWithChat_savedState.rect.width !== "undefined" ? fScrnWithChat_savedState.rect.width + "px" : "350px";
+        multiStreamDiv.style.top = typeof fScrnWithChat_savedState.rect.top !== "undefined" ? fScrnWithChat_savedState.rect.top + "px" : "0";
+        multiStreamDiv.style.left = typeof fScrnWithChat_savedState.rect.left !== "undefined" ? fScrnWithChat_savedState.rect.left + "px" : "calc(100% - 350px)";
+
         document.querySelector('.video-player__container').appendChild(multiStreamDiv);
     } else {
         document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
@@ -2569,9 +2609,17 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             if (iframe.contentDocument) {
                 iframe.contentDocument.querySelector('html').classList.add('tp-hide-channel-leaderboard');
                 iframe.contentDocument.querySelector('html').classList.add('tp-multi-chat-transparent');
-                add_ColorPickerAndOpacitySlider();
-                addFontControls();
+                add_ColorPickerAndOpacitySlider(isFScrnWithChat ? fScrnWithChat_savedState.bg_color : null);
+                addFontControls(isFScrnWithChat ? fScrnWithChat_savedState.fonts.font_color : null);
                 addChatPositionControls();
+                if (isFScrnWithChat) {
+                    if (fScrnWithChat_savedState.fonts.font_size) {
+                        iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = fScrnWithChat_savedState.fonts.font_size + 'px';
+                    }
+                    if (fScrnWithChat_savedState.fonts.font_weight) {
+                        iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.fontWeight = fScrnWithChat_savedState.fonts.font_weight;
+                    }
+                }
             }
         }
     }, 2000);
