@@ -2881,6 +2881,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Hovering over it will show two options: Full Screen with Custom or Default Chat.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The Custom chat will automatically position itself over the video to the right and stretch to screen height.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The Custom chat's settings (position, size, colors, etc..) will be saved for the current page session, so you can exit fullscreen and return to it without having to set the chat again.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Exit the mode by clicking the button again or just by exiting fullscreen.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Firefox users - exit the 'Default-Chat' mode by double tapping ESC.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Fixed an issue</strong> where trying to enter fullscreen while in 'fullscreen with chat' would break the feature.</span>"
