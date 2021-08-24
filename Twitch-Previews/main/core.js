@@ -2476,7 +2476,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_colorPicker.type = 'color';
             font_colorPicker.classList.add('tp-multi-stream-box-title-btn');
             font_colorPicker.style.display = "none";
-            font_colorPicker.value = '#ffffff';
+            font_colorPicker.value = '#efeff1';
             font_colorPicker.oninput = function (e) {
                 iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = hexToRgbA(e.target.value, 1);
             }
@@ -2512,7 +2512,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             font_controls_container.appendChild(font_size_down_btn);
             iframe.contentDocument.querySelector('.stream-chat-header').prepend(font_controls_container);
 
-            iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = hexToRgbA(font_colorPicker.value, 1);
+            iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = hexToRgbA('#ffffff', 1);
         }
 
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
