@@ -497,3 +497,14 @@
     color: limegreen;
     font-size: 10px;
 }
+
+#TPBodyEl #tp_popup_donate_btn {
+    width: 80%;
+    border-radius: 5px;
+    transition: all 0.1s;
+}
+
+#TPBodyEl #tp_popup_donate_btn:hover {
+    box-shadow: 0 0 15px 0px rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}

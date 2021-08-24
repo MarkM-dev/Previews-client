@@ -725,6 +725,23 @@
     box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
 }
 
+.tp_update_toast #tp_updateToast_translate_btn {
+    position: absolute;
+    left: 26rem;
+    top: 42px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.tp_update_toast #tp_updateToast_translate_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.tp_update_toast #tp_updateToast_translate_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 #tp_APS_settings_btn {
     display: inline-flex !important;
     vertical-align: top;
@@ -782,6 +799,20 @@
     margin: 0;
     padding: 0;
 }
+
+.tp_multistream_box_title {
+    width: 100%;
+    height: 25px;
+    top: 0px;
+    padding-left: 5px;
+    color: darkgrey;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    cursor: default;
+    background-color: #232323;
+}
+
 .tp-multi-stream-box-title-btn {
     font-size: 15px;
     font-weight: bold;
@@ -974,6 +1005,31 @@
     position: fixed !important;
 }
 
+.tp-multi-stream-box.tp-multistream-box-fullscreen-fScrnWithChat {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: calc(100% - 40px) !important;
+    position: fixed !important;
+}
+
+.tp-multi-stream-box-font-controls-container {
+    display: flex;
+    position: absolute;
+    left: 3%;
+    padding: 5px;
+}
+
+.tp-multi-stream-box-font-controls-container div {
+    color: #efeff1;
+    font-weight: bold;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+    -o-user-select:none;
+}
+
 .tp-theme-support {
     -webkit-filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
     filter: drop-shadow(1px 1px 0 #232323) drop-shadow(-1px -1px 0 #232323);
@@ -1003,6 +1059,7 @@
 , .tp-multi-chat-transparent .stream-chat>section .channel-leaderboard-header-rotating
 , .tp-multi-chat-transparent .stream-chat>section .chat-input-tray__open--persistent
 , .tp-multi-chat-transparent .stream-chat>section .chat-input-container__open--persistent
+, .tp-multi-chat-transparent .stream-chat>section .simplebar-scrollbar
 , .tp-multi-chat-transparent .stream-chat>section textarea
 , .tp-multi-chat-transparent .stream-chat>section button[data-a-target="chat-send-button"] {
     background: transparent !important;
@@ -1054,4 +1111,41 @@
 
 .tp-fte-toast-close-btn:active {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+#tp_updateToast_donate_btn {
+    width: 80%;
+    box-shadow: 0px 3px 10px -5px rgba(23, 23, 23, 0.75);
+    transition: all 0.1s;
+}
+
+#tp_updateToast_donate_btn:hover {
+    transform: scale(1.05);
+}
+
+.tp-fScrnWithChat-menu-div {
+    display: none;
+    position: absolute;
+    top: -50px;
+    right: 25px;
+    width: 100px;
+    height: 50px;
+    padding: 5px;
+    background-color: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 5px;
+}
+
+.tp-fScrnWithChat-menu-div > div{
+    display: flex;
+    flex: 1;
+    height: 100%;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}
+
+.tp-fScrnWithChat-menu-div > div:hover{
+    background-color: rgba(255,255,255,0.4);
 }

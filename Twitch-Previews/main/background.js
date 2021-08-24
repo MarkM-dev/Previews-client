@@ -10,6 +10,8 @@ function send_ga_event(category, action, value) {
     ga('send', 'event', category, action, value);
 }
 
+let tpga_browser = 'chrome';
+
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
 
@@ -28,7 +30,6 @@ let options = {
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
-    isTransparentChatEnabled: false,
     isPipEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
@@ -87,23 +88,21 @@ _browser.runtime.onInstalled.addListener(function(details) {
     });
 
     if (details.reason === "install") {
-        send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
+        send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer + ' - ' + tpga_browser);
         _browser.storage.local.set({'isFTE': true}, function() {});
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.9.7.0") {
-                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-            }
+            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
 
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
                 ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
             }*/
-            send_ga_event( 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer);
+            send_ga_event( 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer + ' - ' + tpga_browser);
         }
     }
 });
@@ -140,11 +139,8 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isfScrnWithChatEnabled":
             send_ga_event('fScrnWithChat_mode', 'change', msg.detail ? "fScrnWithChat_ON":"fScrnWithChat_OFF");
             break;
-        case "bg_fScrnWithChat_click":
-            send_ga_event('fScrnWithChat_btn_click', 'fScrnWithChat_btn_click', 'fScrnWithChat_btn_click');
-            break;
-        case "bg_update_isTransparentChatEnabled":
-            send_ga_event('tChat_mode', 'change', msg.detail ? "tChat_ON":"tChat_OFF");
+        case "bg_fScrnWithChat_started":
+            send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
             break;
         case "bg_transparentChat_click":
             send_ga_event('tChat_btn_click', 'tChat_btn_click', 'tChat_btn_click');
@@ -249,6 +245,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast_settings_btn_click":
             send_ga_event('updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
             break;
+        case "updateToast_translate_btn_click":
+            _browser.tabs.create({url:msg.detail});
+            send_ga_event('updateToast_translate_btn_click', 'updateToast_translate_btn_click', 'updateToast_translate_btn_click');
+            break;
         case "bg_translate_infoDiv":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
@@ -270,7 +270,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "heartbeat":
             if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
-                send_ga_event('heartbeat', 'heartbeat', 'heartbeat');
+                send_ga_event('heartbeat', 'heartbeat', 'heartbeat - ' + tpga_browser);
                 lastHeartBeat = new Date().getTime();
             }
             break;
