@@ -1888,12 +1888,13 @@ function setfScrnWithChatBtn() {
             menu_div.classList.add('fadeIn');
 
             let custom_chat_btn = document.createElement('div');
-            custom_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/tp_fScrnWithChat.png') + ")"
+            custom_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/fScrnWithChat_custom.png') + ")";
             custom_chat_btn.style.marginRight = "2px";
             custom_chat_btn.title = "Full Screen + Custom Chat";
 
             let default_chat_btn = document.createElement('div');
-            default_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/tp_fScrnWithChat.png') + ")"
+            default_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/fScrnWithChat_default.png') + ")";
+            default_chat_btn.style.backgroundSize = "60%"
             default_chat_btn.title = "Full Screen + Default Chat";
 
             let selected_mode = '';
