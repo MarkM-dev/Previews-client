@@ -10,12 +10,12 @@
 <br/>
 
 ## Download
-**Extension is available for Chrome, Firefox, Brave, Edge and Opera:<br/>**
+**Twitch Previews is available for all browsers:<br/>**
 
 **[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/)
- | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/) | [Opera Extension](https://addons.opera.com/en/extensions/details/twitch-previews/)**
+ | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
 <br/>
-* Brave & Edge users can install extensions from the chrome webstore. 
+* Chromium based browsers can install extensions from the chrome webstore. 
 <br/>
 
 ## Features:
@@ -24,12 +24,12 @@
 - Streaming: See your own live stream thumbnail as seen by viewers on twitch.
 - Multi Stream & Multi Chat.
 - Transparent / Dynamic Chat Overlay.
+- Full Screen With Chat Mode.
 - Auto Channel Points Clicker.
 - Auto Refresh on player errors (#1000, #2000, #4000).
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Predictions Sniper (will participate in predictions for you).
 - Prevent Automatic Video Quality Change.
-- Full Screen With Chat Mode.
 - Native Picture In Picture in current stream (Browser's PIP feature).
 - Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
@@ -68,12 +68,14 @@
       <br/><br/>
 
 
-* **Transparent / Dynamic Chat Overlay**
-    - The button will show next to the 'theater mode' button in the player controls.
-    - Clicking it will add a transparent chat overlay to the page.
-    - You can change its background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
-    - Works well with the "Full Screen With Chat" feature.
-    - If the Auto Channel Points feature is enabled, it will collect points in the chat box.
+* **Full Screen With Chat**
+    - The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.
+    - Hovering over it will show two options: Full Screen with Custom chat overlay or Default Chat.
+    - The Custom chat will automatically position itself over the video to the right and stretch to screen height.
+    - You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.
+    - The Custom chat's settings (position, size, colors, etc..) will be saved for the current page session.
+    - Exit the mode by clicking the button again or just by exiting fullscreen.
+    - Firefox users - exit the 'Default-Chat' mode by double tapping ESC.
       <br/><br/>
 
 
@@ -83,7 +85,7 @@
       <br/><br/>
 
 
-* **Sidebar Streamer Search**
+* **Sidebar Stream Search**
     - A purple search button on the top of the sidebar to find live streamers easily.
     - Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
       <br/><br/>
@@ -91,14 +93,6 @@
 
 * **Sidebar Extend**
     - Auto extends the sidebar to show all live streamers (when sidebar is open).
-      <br/><br/>
-
-
-* **Full Screen With Chat**
-    - The button will show next to the 'theater mode' button in the player controls.
-    - Clicking it will toggle browser fullscreen (like F11), theater mode and chat.
-    - You can exit the mode by clicking the button again or double-tapping ESC.
-    - When exiting the mode, your chat will go back to what it was before you entered 'fullscreen with chat' (unless you closed chat while in mode - then it will remain closed).
       <br/><br/>
 
 
