@@ -1869,7 +1869,7 @@ function setfScrnWithChatBtn() {
             let btn_container = document.createElement('div');
             btn_container.id = "tp_fScrnWithChat_btn";
             btn_container.classList.add('tp-player-control');
-            btn_container.title = "Toggle Full Screen With Chat";
+            btn_container.title = "Full Screen With Chat";
 
             let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
             btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
