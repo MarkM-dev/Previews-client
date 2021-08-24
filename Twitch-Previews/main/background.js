@@ -10,6 +10,8 @@ function send_ga_event(category, action, value) {
     ga('send', 'event', category, action, value);
 }
 
+let tpga_browser = 'chrome';
+
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
 
@@ -86,7 +88,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
     });
 
     if (details.reason === "install") {
-        send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer);
+        send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer + ' - ' + tpga_browser);
         _browser.storage.local.set({'isFTE': true}, function() {});
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
     } else {
@@ -102,7 +104,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
                 ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
             }*/
-            send_ga_event( 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer);
+            send_ga_event( 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer + ' - ' + tpga_browser);
         }
     }
 });
@@ -270,7 +272,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "heartbeat":
             if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
-                send_ga_event('heartbeat', 'heartbeat', 'heartbeat');
+                send_ga_event('heartbeat', 'heartbeat', 'heartbeat - ' + tpga_browser);
                 lastHeartBeat = new Date().getTime();
             }
             break;
