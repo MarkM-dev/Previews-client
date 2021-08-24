@@ -1806,6 +1806,7 @@ function fScreenWithChatESC_callback(evt) {
 function fScrnFuncBlock(e) {
     e.preventDefault();
     e.cancelBubble = true;
+    exit_fScrnWithChat_default();
 }
 
 function set_FScreenFuncBlock() {
