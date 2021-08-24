@@ -20,6 +20,7 @@ let isLayoutHorizontallyInverted = null;
 let isMainPlayerError = false;
 let timesExtendedSidebar = 0;
 let hasEnteredFScreenWithChat = false;
+let bLastChatOpenState;
 let isMultiStreamMode = false;
 let multiStream_curr_zIndex = 5000;
 let startMultiStream_name = false;
@@ -1729,6 +1730,30 @@ function setPredictionsNotifications() {
     }
 }
 
+function toggleBrowserFullScreen(elem) {
+    if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+        if (elem.requestFullScreen) {
+            elem.requestFullScreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    } else {
+        if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
 function clickFullscreen() {
     if (document.querySelector('button[data-a-target="player-fullscreen-button"]')) {
         document.querySelector('button[data-a-target="player-fullscreen-button"]').click();
@@ -1754,14 +1779,63 @@ function exit_fScrnWithChat() {
     hasEnteredFScreenWithChat = false;
 }
 
-function toggle_fScrnWithChat() {
-    if (hasEnteredFScreenWithChat) {
-        clickFullscreen();
-        exit_fScrnWithChat();
+function setTheatreMode(bool) {
+    if (document.getElementsByClassName('video-player__container--theatre').length > 0 !== bool) {
+        document.querySelector('button[data-a-target="player-theatre-mode-button"]').click();
+    }
+}
+
+function setChatOpenMode(bool) {
+    if (document.getElementsByClassName('toggle-visibility__right-column--expanded').length > 0 !== bool) {
+        document.querySelector('button[data-a-target="right-column__toggle-collapse-btn"]').click();
+    }
+}
+
+function fScreenWithChatESC_callback(evt) {
+    var isEscape;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
     } else {
-        enter_fScrnWithChat();
-        if (!document.fullscreenElement) {
+        isEscape = (evt.keyCode === 27);
+    }
+    if (isEscape) {
+        exit_fScrnWithChat();
+    }
+}
+
+function enter_fScrnWithChat_default() {
+    bLastChatOpenState = document.getElementsByClassName('toggle-visibility__right-column--expanded').length > 0;
+    setChatOpenMode(true);
+    setTheatreMode(true);
+    document.addEventListener("keydown", fScreenWithChatESC_callback);
+    hasEnteredFScreenWithChat = true;
+    toggleBrowserFullScreen(document.body);
+}
+
+function exit_fScrnWithChat_default() {
+    hasEnteredFScreenWithChat = false;
+    setTheatreMode(false);
+    setChatOpenMode(bLastChatOpenState);
+    document.removeEventListener("keydown", fScreenWithChatESC_callback);
+    toggleBrowserFullScreen();
+}
+
+function toggle_fScrnWithChat(mode) {
+    if (mode === "default") {
+        if (hasEnteredFScreenWithChat) {
+            exit_fScrnWithChat_default();
+        } else {
+            enter_fScrnWithChat_default();
+        }
+    } else {
+        if (hasEnteredFScreenWithChat) {
             clickFullscreen();
+            exit_fScrnWithChat();
+        } else {
+            enter_fScrnWithChat();
+            if (!document.fullscreenElement) {
+                clickFullscreen();
+            }
         }
     }
 }
@@ -1789,10 +1863,69 @@ function setfScrnWithChatBtn() {
             img.height = (ttv_theater_mode_btn_size.height || "30") * 0.6;
             img.style.margin = "auto";
 
-            btn_container.onclick = function (){
-                toggle_fScrnWithChat();
+
+            let menu_div = document.createElement('div');
+            menu_div.classList.add('tp-fScrnWithChat-menu-div');
+            menu_div.classList.add('animated');
+            menu_div.classList.add('fadeIn');
+
+            let custom_chat_btn = document.createElement('div');
+            custom_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/tp_fScrnWithChat.png') + ")"
+            custom_chat_btn.style.marginRight = "2px";
+            custom_chat_btn.title = "Full Screen + Custom Chat";
+
+            let default_chat_btn = document.createElement('div');
+            default_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/tp_fScrnWithChat.png') + ")"
+            default_chat_btn.title = "Full Screen + Default Chat";
+
+            let selected_mode = '';
+
+            custom_chat_btn.onclick = function (e){
+                e.preventDefault();
+                e.cancelBubble = true;
+                selected_mode = 'custom';
+                toggle_fScrnWithChat(selected_mode);
             }
+            default_chat_btn.onclick = function (e){
+                e.preventDefault();
+                e.cancelBubble = true;
+                selected_mode = 'default';
+                toggle_fScrnWithChat(selected_mode);
+            }
+
+            menu_div.appendChild(custom_chat_btn);
+            menu_div.appendChild(default_chat_btn);
+
+            btn_container.onclick = function (e){
+                e.preventDefault();
+                e.cancelBubble = true;
+
+                if (hasEnteredFScreenWithChat) {
+                    toggle_fScrnWithChat(selected_mode);
+                    return;
+                }
+                if (menu_div.style.display === "none") {
+                    menu_div.style.display = "flex";
+                } else {
+                    menu_div.style.display = "none";
+                }
+            }
+
+            btn_container.onmouseenter = function (){
+                if (!hasEnteredFScreenWithChat) {
+                    menu_div.style.display = "flex";
+                }
+            }
+
+            btn_container.onmouseleave = function (){
+                menu_div.style.display = "none";
+            }
+
+
+
+
             btn_container.appendChild(img);
+            btn_container.appendChild(menu_div);
             ttv_theater_mode_btn.parentNode.before(btn_container);
         }
     } catch (e) {
