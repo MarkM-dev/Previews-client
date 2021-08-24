@@ -1770,7 +1770,7 @@ function enter_fScrnWithChat() {
     document.querySelector('.video-player__container').addEventListener("fullscreenchange", fScrnWithChat_exitFullScreen_callback);
     createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
     hasEnteredFScreenWithChat = true;
-    sendMessageToBG({action: "bg_fScrnWithChat_click", detail: true});
+    sendMessageToBG({action: "bg_fScrnWithChat_started", detail: 'custom'});
 }
 
 function exit_fScrnWithChat() {
@@ -1827,6 +1827,7 @@ function enter_fScrnWithChat_default() {
     hasEnteredFScreenWithChat = true;
     toggleBrowserFullScreen(document.body);
     set_FScreenFuncBlock();
+    sendMessageToBG({action: "bg_fScrnWithChat_started", detail: 'default'});
 }
 
 function exit_fScrnWithChat_default() {
@@ -1894,7 +1895,7 @@ function setfScrnWithChatBtn() {
 
             let default_chat_btn = document.createElement('div');
             default_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/fScrnWithChat_default.png') + ")";
-            default_chat_btn.style.backgroundSize = "60%"
+            default_chat_btn.style.backgroundSize = "60%";
             default_chat_btn.title = "Full Screen + Default Chat";
 
             let selected_mode = '';
