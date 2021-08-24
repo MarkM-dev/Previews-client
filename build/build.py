@@ -19,6 +19,7 @@ def replace_strings_for_opera():
 
     with open(background_path, 'r') as f:
         data = f.read()
+        data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'opera';''')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
 
@@ -48,6 +49,7 @@ def replace_strings_for_firefox(f_dir):
                             '''ga('send', 'pageview', 'main');''', '') \
 
         data = data.replace('''ga('send', 'event', category, action, value);''', '')
+        data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'firefox';''')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
 
