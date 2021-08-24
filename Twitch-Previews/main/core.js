@@ -20,7 +20,7 @@ let isLayoutHorizontallyInverted = null;
 let isMainPlayerError = false;
 let timesExtendedSidebar = 0;
 let hasEnteredFScreenWithChat = false;
-let bLastChatOpenState;
+let bLastChatOpenState = null;
 let isMultiStreamMode = false;
 let multiStream_curr_zIndex = 5000;
 let startMultiStream_name = false;
@@ -1799,8 +1799,23 @@ function fScreenWithChatESC_callback(evt) {
         isEscape = (evt.keyCode === 27);
     }
     if (isEscape) {
-        exit_fScrnWithChat();
+        exit_fScrnWithChat_default();
     }
+}
+
+function fScrnFuncBlock(e) {
+    e.preventDefault();
+    e.cancelBubble = true;
+}
+
+function set_FScreenFuncBlock() {
+    document.querySelector('div[data-a-target="player-overlay-click-handler"]').addEventListener("dblclick", fScrnFuncBlock);
+    document.querySelector('button[data-a-target="player-fullscreen-button"]').addEventListener("click", fScrnFuncBlock);
+}
+
+function remove_FScreenFuncBlock() {
+    document.querySelector('div[data-a-target="player-overlay-click-handler"]').removeEventListener("dblclick", fScrnFuncBlock);
+    document.querySelector('button[data-a-target="player-fullscreen-button"]').removeEventListener("click", fScrnFuncBlock);
 }
 
 function enter_fScrnWithChat_default() {
@@ -1810,6 +1825,7 @@ function enter_fScrnWithChat_default() {
     document.addEventListener("keydown", fScreenWithChatESC_callback);
     hasEnteredFScreenWithChat = true;
     toggleBrowserFullScreen(document.body);
+    set_FScreenFuncBlock();
 }
 
 function exit_fScrnWithChat_default() {
@@ -1817,7 +1833,8 @@ function exit_fScrnWithChat_default() {
     setTheatreMode(false);
     setChatOpenMode(bLastChatOpenState);
     document.removeEventListener("keydown", fScreenWithChatESC_callback);
-    toggleBrowserFullScreen();
+    toggleBrowserFullScreen(document.body);
+    remove_FScreenFuncBlock();
 }
 
 function toggle_fScrnWithChat(mode) {
