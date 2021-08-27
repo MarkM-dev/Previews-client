@@ -1766,10 +1766,25 @@ function fScrnWithChat_exitFullScreen_callback(e) {
     }
 }
 
+function fScrnWithChat_backToFullscreen_callback(e) {
+    if (document.fullscreenElement) {
+        enter_fScrnWithChat();
+    }
+}
+
+function add_fScrnWithChat_backToFullscreen_callback() {
+    document.querySelector('.video-player__container').addEventListener("fullscreenchange", fScrnWithChat_backToFullscreen_callback);
+}
+
+function remove_fScrnWithChat_backToFullscreen_callback() {
+    document.querySelector('.video-player__container').removeEventListener("fullscreenchange", fScrnWithChat_backToFullscreen_callback);
+}
+
 function enter_fScrnWithChat() {
     document.querySelector('.video-player__container').addEventListener("fullscreenchange", fScrnWithChat_exitFullScreen_callback);
     createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
     hasEnteredFScreenWithChat = true;
+    add_fScrnWithChat_backToFullscreen_callback();
     sendMessageToBG({action: "bg_fScrnWithChat_started", detail: 'custom'});
 }
 
@@ -2332,6 +2347,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     let closeBtn = createMultiStreamTitleBtn("Close", "X");
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
+        if (isFScrnWithChat) {
+            remove_fScrnWithChat_backToFullscreen_callback();
+        }
     }
 
     let fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6");
