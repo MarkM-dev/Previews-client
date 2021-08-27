@@ -963,9 +963,9 @@
     color: #a66bff;
 }
 
-.tp-multi-stream-grid-controls {
+.tp-multi-stream-layout-controls {
     position: absolute;
-    display: flex;
+    display: inline-block;
     justify-content: center;
     align-items: center;
     width: 200px;
