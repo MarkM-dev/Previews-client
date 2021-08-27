@@ -2394,6 +2394,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     }
 
     if (isMultiStreamChat) {
+        multiStreamDiv.classList.add('tp-multi-stream-chat');
         var opacitySlider;
         let colorPickerCustomBtn;
         var colorPicker;
@@ -2574,6 +2575,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
     } else {
+        multiStreamDiv.classList.add('tp-multi-stream-video');
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, true);
@@ -2735,11 +2737,90 @@ function appendMultiStreamSearchInfoText() {
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
 
+let multiStream_layout_presets = [
+    /*{
+        name: "1", // find way to show grid layout?
+        streams: [
+
+        ],
+        chats: [
+            {left:0, top: 0},
+            {left:0, top: 0},
+        ]
+    }*/
+]
+
+function save_curr_multiStream_layout_preset() {
+    let streams = document.querySelectorAll('.tp-multi-stream-video');
+    let chats = document.querySelectorAll('.tp-multi-stream-chat');
+    if (streams.length === 0 && chats.length === 0) {
+        return;
+    }
+
+    let preset = {};
+    preset.name = multiStream_layout_presets.length + 1;
+    preset.streams = [];
+    preset.chats = [];
+
+    streams.forEach((stream_box) => {
+        preset.streams.push(stream_box.getBoundingClientRect());
+    })
+
+    chats.forEach((chat_box) => {
+        preset.chats.push(chat_box.getBoundingClientRect());
+    })
+
+    multiStream_layout_presets.push(preset);
+}
+
+function load_multiStream_layout_preset() {
+    let streams = document.querySelectorAll('.tp-multi-stream-video');
+    let chats = document.querySelectorAll('.tp-multi-stream-chat');
+
+    let num = multiStream_layout_presets.length -1;
+    streams.forEach((stream_box, i) => {
+        stream_box.style.top = 'calc(' + multiStream_layout_presets[num].streams[i].top + 'px' + ' - 5rem)';
+        stream_box.style.left = 'calc(' + multiStream_layout_presets[num].streams[i].left + 'px' + ' - 5rem)';
+        stream_box.style.width = multiStream_layout_presets[num].streams[i].width + 'px';
+        stream_box.style.height = multiStream_layout_presets[num].streams[i].height + 'px';
+    })
+
+    chats.forEach((stream_box, i) => {
+        stream_box.style.top = 'calc(' + multiStream_layout_presets[num].chats[i].top + 'px' + ' - 5rem)';
+        stream_box.style.left = 'calc(' + multiStream_layout_presets[num].chats[i].left + 'px' + ' - 5rem)';
+        stream_box.style.width = multiStream_layout_presets[num].chats[i].width + 'px';
+        stream_box.style.height = multiStream_layout_presets[num].chats[i].height + 'px';
+    })
+}
+
+function appendMultiStreamGridControls() {
+    let container = document.createElement('div');
+    container.classList.add('tp-multi-stream-grid-controls');
+
+    let save_btn = document.createElement('div');
+    save_btn.innerText = "save";
+    save_btn.onclick = function () {
+        save_curr_multiStream_layout_preset();
+    }
+
+    let load_btn = document.createElement('div');
+    load_btn.innerText = "load";
+    load_btn.onclick = function () {
+        load_multiStream_layout_preset();
+    }
+
+    container.appendChild(load_btn);
+    container.appendChild(save_btn);
+
+    document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(container);
+}
+
 function initMultiStream(firstStreamName) {
     document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
     document.querySelector('.root-scrollable__wrapper').classList.add('tp_multistream_container');
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
+    appendMultiStreamGridControls();
     createMultiStreamBox(firstStreamName, false, false);
     isMultiStreamMode = true;
     document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));

@@ -963,6 +963,17 @@
     color: #a66bff;
 }
 
+.tp-multi-stream-grid-controls {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 100%;
+    font-size: 15px;
+    left: -42%;
+}
+
 .tp-player-control {
     display: inline-flex;
     cursor: pointer;
