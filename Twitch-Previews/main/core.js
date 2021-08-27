@@ -2752,9 +2752,7 @@ let multiStream_layout_presets = [
 
 function createLayoutPresetBtn(label, layout_preset_index) {
     let preset = document.createElement('div');
-    preset.style.height = '40px';
-    preset.style.width = '40px';
-    preset.style.backgroundColor = 'orange';
+    preset.classList.add('tp-multistream-layout-preset-btn');
     preset.innerText = label;
     preset.onclick = function () {
         load_multiStream_layout_preset(layout_preset_index);
@@ -2815,6 +2813,7 @@ function appendMultiStreamLayoutControls() {
     settings_container.style.position = 'absolute';
     settings_container.style.height = '100%';
     settings_container.style.width = '300px';
+    settings_container.style.marginTop = '5rem';
 
     for (let i = 0; i < multiStream_layout_presets.length; i++) {
         let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
@@ -2823,10 +2822,38 @@ function appendMultiStreamLayoutControls() {
 
     let save_btn = document.createElement('div');
     save_btn.id = "tp_multi_stream_layout_controls_save_btn";
-    save_btn.innerText = "save";
-    save_btn.onclick = function () {
+    save_btn.style.marginTop = "10px";
+
+    let icon_btn = document.createElement('span');
+    icon_btn.classList.add('tp-multistream-layout-preset-btn');
+    icon_btn.style.display = 'inline-flex';
+    icon_btn.style.marginTop = 'auto';
+    icon_btn.style.fontWeight = 'bold';
+    icon_btn.style.color = 'white';
+    icon_btn.innerHTML = '&#128427;';
+
+    let text_span = document.createElement('span');
+    text_span.innerText = 'Save current layout as preset';
+    text_span.style.opacity = '0';
+    text_span.style.transition = 'opacity 0.25s';
+    text_span.style.marginLeft = '10px';
+    text_span.style.fontSize = '12px';
+    text_span.style.color = 'white';
+
+    icon_btn.onclick = function () {
         save_curr_multiStream_layout_preset();
     }
+
+    save_btn.onmouseenter = function () {
+        text_span.style.opacity = "1";
+    }
+
+    save_btn.onmouseleave = function () {
+        text_span.style.opacity = "0";
+    }
+
+    save_btn.appendChild(icon_btn);
+    save_btn.appendChild(text_span);
 
     settings_container.appendChild(save_btn);
     layout_settings_btn.appendChild(settings_container);

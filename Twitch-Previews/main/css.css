@@ -971,7 +971,24 @@
     width: 200px;
     height: 100%;
     font-size: 15px;
-    left: -42%;
+    left: -15%;
+}
+
+.tp-multistream-layout-preset-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 2px white;
+}
+
+.tp-multistream-layout-preset-btn:hover {
+    background-color: rgba(255,255,255, 0.7);
 }
 
 .tp-player-control {
