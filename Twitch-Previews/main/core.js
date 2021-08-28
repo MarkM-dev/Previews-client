@@ -2741,15 +2741,42 @@ function appendMultiStreamSearchInfoText() {
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
 
-function createLayoutPresetBtn(layout_preset_index) {
-    let preset = document.createElement('div');
-    preset.classList.add('tp-multistream-layout-preset-btn');
-    preset.innerText = layout_preset_index + 1;
-    preset.onclick = function () {
+function createLayoutPresetBtn(label, layout_preset_index) {
+    let container = document.createElement('div');
+    container.style.marginTop = "10px";
+
+    let icon_btn = document.createElement('span');
+    icon_btn.classList.add('tp-multistream-layout-preset-btn');
+    icon_btn.style.display = 'inline-flex';
+    icon_btn.style.marginTop = 'auto';
+    icon_btn.style.fontWeight = 'bold';
+    icon_btn.style.color = 'white';
+    icon_btn.innerHTML = layout_preset_index + 1;
+
+    let text_span = document.createElement('span');
+    text_span.innerText = label;
+    text_span.style.opacity = '0';
+    text_span.style.transition = 'opacity 0.25s';
+    text_span.style.marginLeft = '10px';
+    text_span.style.fontSize = '12px';
+    text_span.style.color = 'white';
+
+    icon_btn.onclick = function () {
         load_multiStream_layout_preset(layout_preset_index);
     }
 
-    return preset;
+    container.onmouseenter = function () {
+        text_span.style.opacity = "1";
+    }
+
+    container.onmouseleave = function () {
+        text_span.style.opacity = "0";
+    }
+
+    container.appendChild(icon_btn);
+    container.appendChild(text_span);
+
+    return container;
 }
 
 function save_curr_multiStream_layout_preset() {
@@ -2760,7 +2787,15 @@ function save_curr_multiStream_layout_preset() {
     }
 
     let preset = {};
-    preset.name = prompt("Enter Preset Name", "") || 'Preset ' + multiStream_layout_presets.length + 1;
+    let prompt_res = prompt('Enter Preset Name:', 'Preset ' + (multiStream_layout_presets.length + 1));
+    if (prompt_res === null) {
+        return;
+    }
+    if (prompt_res === "") {
+        save_curr_multiStream_layout_preset();
+        return;
+    }
+    preset.name = prompt_res;
     preset.streams = [];
     preset.chats = [];
 
@@ -2780,7 +2815,7 @@ function save_curr_multiStream_layout_preset() {
 
     });
 
-    document.querySelector('#tp_multi_stream_layout_controls_save_btn').before(createLayoutPresetBtn(multiStream_layout_presets.length -1));
+    document.querySelector('#tp_multi_stream_layout_controls_save_btn').before(createLayoutPresetBtn(preset.name,multiStream_layout_presets.length -1));
 }
 
 function load_multiStream_layout_preset(preset_index) {
@@ -2881,7 +2916,7 @@ function appendMultiStreamLayoutControls() {
         }
 
         for (let i = 0; i < multiStream_layout_presets.length; i++) {
-            let preset = createLayoutPresetBtn(i);
+            let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
             settings_container.appendChild(preset);
         }
         settings_container.appendChild(save_btn);
