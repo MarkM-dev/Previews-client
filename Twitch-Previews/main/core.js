@@ -1780,11 +1780,12 @@ function remove_fScrnWithChat_backToFullscreen_callback() {
     document.querySelector('.video-player__container').removeEventListener("fullscreenchange", fScrnWithChat_backToFullscreen_callback);
 }
 
-function enter_fScrnWithChat() {
+function enter_fScrnWithChat(dontCreateBox) {
     document.querySelector('.video-player__container').addEventListener("fullscreenchange", fScrnWithChat_exitFullScreen_callback);
-    createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
+    if (!dontCreateBox) {
+        createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
+    }
     hasEnteredFScreenWithChat = true;
-    add_fScrnWithChat_backToFullscreen_callback();
     sendMessageToBG({action: "bg_fScrnWithChat_started", detail: 'custom'});
 }
 
@@ -1866,7 +1867,7 @@ function toggle_fScrnWithChat(mode) {
             clickFullscreen();
             exit_fScrnWithChat();
         } else {
-            enter_fScrnWithChat();
+            enter_fScrnWithChat(true);
             if (!document.fullscreenElement) {
                 clickFullscreen();
             }
@@ -1919,6 +1920,7 @@ function setfScrnWithChatBtn() {
                 e.preventDefault();
                 e.cancelBubble = true;
                 selected_mode = 'custom';
+                add_fScrnWithChat_backToFullscreen_callback();
                 toggle_fScrnWithChat(selected_mode);
             }
             default_chat_btn.onclick = function (e){
