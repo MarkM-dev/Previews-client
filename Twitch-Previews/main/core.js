@@ -2753,10 +2753,30 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     icon_btn.style.color = 'white';
     icon_btn.innerHTML = isSaveBtn ? '&#128427;' : layout_preset_index + 1;
 
+    if (!isSaveBtn) {
+        let delete_btn = document.createElement('span');
+        delete_btn.style.position = 'absolute';
+        delete_btn.style.width = '5px';
+        delete_btn.style.height = '5px';
+        delete_btn.style.marginTop = '-40px';
+        delete_btn.style.marginRight = '-18px';
+        delete_btn.style.color = 'darkgrey';
+        delete_btn.innerText = 'x';
+
+        delete_btn.onclick = function () {
+            if (confirm('Delete Preset "' + label + '"?')) {
+                delete_multiStream_layout_preset(layout_preset_index);
+                document.querySelector('.tp-multi-stream-layout-controls').remove();
+                appendMultiStreamLayoutControls();
+            }
+        }
+
+        icon_btn.appendChild(delete_btn);
+    }
+
     let text_span = document.createElement('span');
     text_span.innerText = label;
     text_span.style.opacity = '0';
-    text_span.style.transition = 'opacity 0.25s';
     text_span.style.marginLeft = '10px';
     text_span.style.fontSize = '12px';
     text_span.style.color = 'white';
@@ -2783,6 +2803,14 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     return container;
 }
 
+function delete_multiStream_layout_preset(preset_index) {
+    multiStream_layout_presets.splice(preset_index,1);
+
+    _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
+
+    });
+}
+
 function save_curr_multiStream_layout_preset() {
     let streams = document.querySelectorAll('.tp-multi-stream-video');
     let chats = document.querySelectorAll('.tp-multi-stream-chat');
@@ -2791,7 +2819,7 @@ function save_curr_multiStream_layout_preset() {
     }
 
     let preset = {};
-    let prompt_res = prompt('Enter Preset Name:', 'Preset ' + (multiStream_layout_presets.length + 1));
+    let prompt_res = prompt('Enter Preset Name:', 'Preset Name');
     if (prompt_res === null) {
         return;
     }
