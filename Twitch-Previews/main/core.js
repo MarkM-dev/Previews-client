@@ -2741,7 +2741,7 @@ function appendMultiStreamSearchInfoText() {
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
 
-function createLayoutPresetBtn(label, layout_preset_index) {
+function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     let container = document.createElement('div');
     container.style.marginTop = "10px";
 
@@ -2751,7 +2751,7 @@ function createLayoutPresetBtn(label, layout_preset_index) {
     icon_btn.style.marginTop = 'auto';
     icon_btn.style.fontWeight = 'bold';
     icon_btn.style.color = 'white';
-    icon_btn.innerHTML = layout_preset_index + 1;
+    icon_btn.innerHTML = isSaveBtn ? '&#128427;' : layout_preset_index + 1;
 
     let text_span = document.createElement('span');
     text_span.innerText = label;
@@ -2762,7 +2762,11 @@ function createLayoutPresetBtn(label, layout_preset_index) {
     text_span.style.color = 'white';
 
     icon_btn.onclick = function () {
-        load_multiStream_layout_preset(layout_preset_index);
+        if (isSaveBtn) {
+            save_curr_multiStream_layout_preset();
+        } else {
+            load_multiStream_layout_preset(layout_preset_index);
+        }
     }
 
     container.onmouseenter = function () {
@@ -2858,42 +2862,6 @@ function appendMultiStreamLayoutControls() {
     settings_container.style.display = 'none';
 
 
-    let save_btn = document.createElement('div');
-    save_btn.id = "tp_multi_stream_layout_controls_save_btn";
-    save_btn.style.marginTop = "10px";
-
-    let icon_btn = document.createElement('span');
-    icon_btn.classList.add('tp-multistream-layout-preset-btn');
-    icon_btn.style.display = 'inline-flex';
-    icon_btn.style.marginTop = 'auto';
-    icon_btn.style.fontWeight = 'bold';
-    icon_btn.style.color = 'white';
-    icon_btn.innerHTML = '&#128427;';
-
-    let text_span = document.createElement('span');
-    text_span.innerText = 'Save current layout as preset';
-    text_span.style.opacity = '0';
-    text_span.style.transition = 'opacity 0.25s';
-    text_span.style.marginLeft = '10px';
-    text_span.style.fontSize = '12px';
-    text_span.style.color = 'white';
-
-    icon_btn.onclick = function () {
-        save_curr_multiStream_layout_preset();
-    }
-
-    save_btn.onmouseenter = function () {
-        text_span.style.opacity = "1";
-    }
-
-    save_btn.onmouseleave = function () {
-        text_span.style.opacity = "0";
-    }
-
-    save_btn.appendChild(icon_btn);
-    save_btn.appendChild(text_span);
-
-
     layout_settings_btn.onmouseenter = function () {
         settings_container.style.display = 'inline-block';
     }
@@ -2916,6 +2884,9 @@ function appendMultiStreamLayoutControls() {
             let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
             settings_container.appendChild(preset);
         }
+
+        let save_btn = createLayoutPresetBtn('Save current layout as preset', multiStream_layout_presets.length, true);
+        save_btn.id = "tp_multi_stream_layout_controls_save_btn";
         settings_container.appendChild(save_btn);
     });
 
