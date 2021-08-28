@@ -964,22 +964,32 @@
 }
 
 .tp-multi-stream-layout-controls {
-    position: absolute;
-    display: inline-block;
+    display: flex;
+    vertical-align: middle;
     justify-content: center;
-    align-items: center;
-    width: 200px;
+    position: absolute;
     height: 100%;
     font-size: 15px;
     left: -15%;
+    width: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tp-multi-stream-layout-controls:hover{
+    background-color: rgba(255,255,255,0.4);
+}
+
+.tp-multi-stream-layout-controls:active{
+    background-color: rgba(255,255,255,0.3);
 }
 
 .tp-multistream-layout-preset-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     margin-top: 10px;
     border-radius: 50%;
     background-color: transparent;

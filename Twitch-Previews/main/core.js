@@ -2812,11 +2812,24 @@ function appendMultiStreamLayoutControls() {
     let layout_settings_btn = document.createElement('div');
     layout_settings_btn.classList.add('tp-multi-stream-layout-controls');
 
+    let img = document.createElement('img');
+    img.style.width = '70%';
+    img.style.height = '70%';
+    img.src = getRuntimeUrl('../images/multistream_layout.png');
+    img.style.margin = "auto 5px";
+    img.classList.add('tp-theme-support');
+
+    layout_settings_btn.appendChild(img);
+
     let settings_container = document.createElement('div');
+    settings_container.style.display = 'none';
+    settings_container.classList.add('animated');
+    settings_container.classList.add('fadeIn');
     settings_container.style.position = 'absolute';
-    settings_container.style.height = '100%';
     settings_container.style.width = '300px';
-    settings_container.style.marginTop = '5rem';
+    settings_container.style.top = '3rem';
+    settings_container.style.left = '0';
+    settings_container.style.padding = '10px';
 
     for (let i = 0; i < multiStream_layout_presets.length; i++) {
         let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
@@ -2857,6 +2870,19 @@ function appendMultiStreamLayoutControls() {
 
     save_btn.appendChild(icon_btn);
     save_btn.appendChild(text_span);
+
+
+    layout_settings_btn.onmouseenter = function () {
+        settings_container.style.display = 'inline-block';
+    }
+
+    layout_settings_btn.onmouseleave = function () {
+        settings_container.style.display = 'none';
+    }
+
+    layout_settings_btn.onclick = function () {
+        settings_container.style.display = 'inline-block';
+    }
 
     settings_container.appendChild(save_btn);
     layout_settings_btn.appendChild(settings_container);
