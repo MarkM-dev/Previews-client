@@ -980,10 +980,6 @@
     background-color: rgba(255,255,255,0.4);
 }
 
-.tp-multi-stream-layout-controls:active{
-    background-color: rgba(255,255,255,0.3);
-}
-
 .tp-multistream-layout-preset-btn {
     display: flex;
     justify-content: center;

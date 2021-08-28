@@ -2880,10 +2880,6 @@ function appendMultiStreamLayoutControls() {
         settings_container.style.display = 'none';
     }
 
-    layout_settings_btn.onclick = function () {
-        settings_container.style.display = 'inline-block';
-    }
-
     settings_container.appendChild(save_btn);
     layout_settings_btn.appendChild(settings_container);
 
