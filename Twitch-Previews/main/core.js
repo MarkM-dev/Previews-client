@@ -2851,14 +2851,10 @@ function appendMultiStreamLayoutControls() {
     layout_settings_btn.appendChild(img);
 
     let settings_container = document.createElement('div');
-    settings_container.style.display = 'none';
+    settings_container.classList.add('tp-multi-stream-layout-controls-container');
     settings_container.classList.add('animated');
     settings_container.classList.add('fadeIn');
-    settings_container.style.position = 'absolute';
-    settings_container.style.width = '300px';
-    settings_container.style.top = '3rem';
-    settings_container.style.left = '0';
-    settings_container.style.padding = '10px';
+    settings_container.style.display = 'none';
 
 
     let save_btn = document.createElement('div');
