@@ -1937,6 +1937,7 @@ function setfScrnWithChatBtn() {
 
                 if (hasEnteredFScreenWithChat) {
                     toggle_fScrnWithChat(selected_mode);
+                    remove_fScrnWithChat_backToFullscreen_callback();
                     return;
                 }
                 if (menu_div.style.display === "none") {
