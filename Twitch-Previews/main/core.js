@@ -2759,11 +2759,13 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
         delete_btn.style.width = '5px';
         delete_btn.style.height = '5px';
         delete_btn.style.marginTop = '-40px';
-        delete_btn.style.marginRight = '-18px';
+        delete_btn.style.marginLeft = '-30px';
         delete_btn.style.color = 'darkgrey';
         delete_btn.innerText = 'x';
 
-        delete_btn.onclick = function () {
+        delete_btn.onclick = function (e) {
+            e.preventDefault();
+            e.cancelBubble = true;
             if (confirm('Delete Preset "' + label + '"?')) {
                 delete_multiStream_layout_preset(layout_preset_index);
                 document.querySelector('.tp-multi-stream-layout-controls').remove();
