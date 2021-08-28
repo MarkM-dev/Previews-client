@@ -2852,6 +2852,7 @@ function appendMultiStreamLayoutControls() {
 
     let settings_container = document.createElement('div');
     settings_container.classList.add('tp-multi-stream-layout-controls-container');
+    settings_container.classList.add('tp-theme-support');
     settings_container.classList.add('animated');
     settings_container.classList.add('fadeIn');
     settings_container.style.display = 'none';
