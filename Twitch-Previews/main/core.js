@@ -24,6 +24,7 @@ let bLastChatOpenState = null;
 let isMultiStreamMode = false;
 let multiStream_curr_zIndex = 5000;
 let startMultiStream_name = false;
+let multiStream_layout_presets = [];
 let last_prediction_streamer = "";
 let last_prediction_button_text = "";
 let predictionSniperTimeout = null;
@@ -2740,19 +2741,6 @@ function appendMultiStreamSearchInfoText() {
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
 
-let multiStream_layout_presets = [
-    /*{
-        name: "1", // find way to show grid layout?
-        streams: [
-
-        ],
-        chats: [
-            {left:0, top: 0},
-            {left:0, top: 0},
-        ]
-    }*/
-]
-
 function createLayoutPresetBtn(label, layout_preset_index) {
     let preset = document.createElement('div');
     preset.classList.add('tp-multistream-layout-preset-btn');
@@ -2777,14 +2765,20 @@ function save_curr_multiStream_layout_preset() {
     preset.chats = [];
 
     streams.forEach((stream_box) => {
-        preset.streams.push(stream_box.getBoundingClientRect());
+        let rect = stream_box.getBoundingClientRect();
+        preset.streams.push({top: rect.top, left: rect.left, width: rect.width, height: rect.height});
     })
 
     chats.forEach((chat_box) => {
-        preset.chats.push(chat_box.getBoundingClientRect());
+        let rect = chat_box.getBoundingClientRect();
+        preset.chats.push({top: rect.top, left: rect.left, width: rect.width, height: rect.height});
     })
 
     multiStream_layout_presets.push(preset);
+
+    _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
+
+    });
 
     document.querySelector('#tp_multi_stream_layout_controls_save_btn').before(createLayoutPresetBtn(preset.name, multiStream_layout_presets.length -1));
 }
@@ -2831,10 +2825,6 @@ function appendMultiStreamLayoutControls() {
     settings_container.style.left = '0';
     settings_container.style.padding = '10px';
 
-    for (let i = 0; i < multiStream_layout_presets.length; i++) {
-        let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
-        settings_container.appendChild(preset);
-    }
 
     let save_btn = document.createElement('div');
     save_btn.id = "tp_multi_stream_layout_controls_save_btn";
@@ -2880,7 +2870,23 @@ function appendMultiStreamLayoutControls() {
         settings_container.style.display = 'none';
     }
 
-    settings_container.appendChild(save_btn);
+    _browser.storage.local.get('multiStream_layout_presets', function(result) {
+        if (result.multiStream_layout_presets && result.multiStream_layout_presets.length > 0) {
+            multiStream_layout_presets = result.multiStream_layout_presets;
+        } else {
+            multiStream_layout_presets = [];
+            _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
+
+            });
+        }
+
+        for (let i = 0; i < multiStream_layout_presets.length; i++) {
+            let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
+            settings_container.appendChild(preset);
+        }
+        settings_container.appendChild(save_btn);
+    });
+
     layout_settings_btn.appendChild(settings_container);
 
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(layout_settings_btn);
