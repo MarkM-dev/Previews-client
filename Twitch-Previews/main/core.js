@@ -2440,6 +2440,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
             opacitySlider.oninput = function (e) {
                 let slider_hex_val = parseInt(e.target.value * 255).toString(16);
+                if (slider_hex_val === '0') {
+                    slider_hex_val = '00';
+                }
                 iframe.contentDocument.querySelector('html').style.backgroundColor = fScrnWithChat_savedState.bg_color ? fScrnWithChat_savedState.bg_color + slider_hex_val : "#18181b" + slider_hex_val;
                 fScrnWithChat_savedState.slider = e.target.value;
             }
