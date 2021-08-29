@@ -2908,14 +2908,17 @@ function appendMultiStreamLayoutControls() {
             preset1.streams = [];
             preset1.chats = [];
 
+            let width = window.innerWidth / 2 - rem5_px / 2;
+            let height = window.innerHeight / 2 - rem5_px / 2;
+            let rightHalf_leftMargin = width + rem5_px;
+            let bottomHalf_topMargin = height + rem5_px;
+
             preset1.streams.push(
-                {top: rem5_px, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px},
-                {top: window.innerHeight / 2 + rem5_px, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px}
+                {top: rem5_px, left: rem5_px, width: width, height: height},
+                {top: rem5_px, left: rightHalf_leftMargin, width: width, height: height},
+                {top: bottomHalf_topMargin, left: rem5_px, width: width, height: height},
+                {top: bottomHalf_topMargin, left: rightHalf_leftMargin, width: width, height: height},
             );
-            preset1.chats.push(
-                {top: rem5_px, left: window.innerWidth - 350, width: 350, height: window.innerHeight - rem5_px}
-            );
-            multiStream_layout_presets.push(preset1);
 
             let preset2 = {};
             preset2.name = 'Preset 2';
@@ -2923,14 +2926,30 @@ function appendMultiStreamLayoutControls() {
             preset2.chats = [];
 
             preset2.streams.push(
-                {top: rem5_px, left: rem5_px + 350, width: window.innerWidth - 350 - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px},
-                {top: window.innerHeight / 2 + rem5_px, left: rem5_px + 350, width: window.innerWidth - 350 - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px}
+                {top: rem5_px, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2},
+                {top: window.innerHeight / 2 + rem5_px / 2, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2}
             );
             preset2.chats.push(
+                {top: rem5_px, left: window.innerWidth - 350, width: 350, height: window.innerHeight - rem5_px}
+            );
+
+            let preset3 = {};
+            preset3.name = 'Preset 3';
+            preset3.streams = [];
+            preset3.chats = [];
+
+            preset3.streams.push(
+                {top: rem5_px, left: rem5_px + 350, width: window.innerWidth - 350 - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2},
+                {top: window.innerHeight / 2 + rem5_px / 2, left: rem5_px + 350, width: window.innerWidth - 350 - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2}
+            );
+            preset3.chats.push(
                 {top: rem5_px, left: rem5_px, width: 350, height: window.innerHeight - rem5_px},
                 {top: rem5_px, left: window.innerWidth - 350, width: 350, height: window.innerHeight - rem5_px}
             );
+
+            multiStream_layout_presets.push(preset1);
             multiStream_layout_presets.push(preset2);
+            multiStream_layout_presets.push(preset3);
 
 
 
