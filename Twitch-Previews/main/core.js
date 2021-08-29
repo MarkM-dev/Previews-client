@@ -2785,39 +2785,41 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
         }
     }
 
-    let rem5_px = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
-
-    container.onmouseenter = function () {
-        let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
-        if(layout_preview_container) {
-            layout_preview_container.innerHTML = '';
-        }
-
-        layout_preview_container = document.createElement('div');
-        layout_preview_container.id = 'tp_multiStream_layout_preview_container';
-
-        multiStream_layout_presets[layout_preset_index].streams.forEach((preset) => {
-            layout_preview_container.appendChild(create_layout_preview_square('Stream', preset, rem5_px));
-        })
-
-        multiStream_layout_presets[layout_preset_index].chats.forEach((preset) => {
-            layout_preview_container.appendChild(create_layout_preview_square('Chat', preset, rem5_px));
-        })
-
-        document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(layout_preview_container);
-    }
-
-    container.onmouseleave = function () {
-        let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
-        if(layout_preview_container) {
-            layout_preview_container.remove();
-        }
-    }
 
     container.appendChild(icon_btn);
     container.appendChild(text_span);
 
     if (!isSaveBtn) {
+        let rem5_px = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+        container.onmouseenter = function () {
+            let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+            if(layout_preview_container) {
+                layout_preview_container.innerHTML = '';
+            }
+
+            layout_preview_container = document.createElement('div');
+            layout_preview_container.id = 'tp_multiStream_layout_preview_container';
+
+            multiStream_layout_presets[layout_preset_index].streams.forEach((preset) => {
+                layout_preview_container.appendChild(create_layout_preview_square('Stream', preset, rem5_px));
+            })
+
+            multiStream_layout_presets[layout_preset_index].chats.forEach((preset) => {
+                layout_preview_container.appendChild(create_layout_preview_square('Chat', preset, rem5_px));
+            })
+
+            document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(layout_preview_container);
+        }
+
+        container.onmouseleave = function () {
+            let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+            if(layout_preview_container) {
+                layout_preview_container.remove();
+            }
+        }
+
+
         let delete_btn = document.createElement('span');
         delete_btn.classList.add('tp-multistream-layout-delete-preset-btn');
         delete_btn.innerText = 'X';
