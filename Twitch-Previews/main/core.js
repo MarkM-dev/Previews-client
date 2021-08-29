@@ -3211,6 +3211,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- You can now align the multi stream boxes to a layout preset.</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Open the layout presets menu by clicking <img width='17' height='17' src='" + getRuntimeUrl('images/multistream_layout.png') + "'/> to the left of the top search bar in the Multi-Stream page.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can add your own custom presets too! just add boxes to the page, open the presets menu and click \"Save current layout as preset\".</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Remember that you can also scroll the page and add more boxes.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added 3 default starter presets to the menu.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed Multi-Stream top page controls issues caused by the new long search bar.</span>"
         +  "             <br><br><span style=\"font-size: 14px;\" ><strong>- Full Screen + Custom Chat Improvement</strong></span>"
