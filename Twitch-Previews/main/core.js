@@ -2897,12 +2897,9 @@ function appendMultiStreamLayoutControls() {
         if (result.multiStream_layout_presets && result.multiStream_layout_presets.length > 0) {
             multiStream_layout_presets = result.multiStream_layout_presets;
         } else {
-            function convertRemToPixels(rem) {
-                return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-            }
             multiStream_layout_presets = [];
 
-            let rem5_px = convertRemToPixels(5);
+            let rem5_px = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
 
             let preset1 = {};
             preset1.name = '4 Streams';
