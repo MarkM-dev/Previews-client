@@ -2890,17 +2890,25 @@ function load_multiStream_layout_preset(preset_index) {
     let chats = document.querySelectorAll('.tp-multi-stream-chat');
 
     streams.forEach((stream_box, i) => {
-        stream_box.style.top = 'calc(' + multiStream_layout_presets[preset_index].streams[i].top + 'px' + ' - 5rem)';
-        stream_box.style.left = 'calc(' + multiStream_layout_presets[preset_index].streams[i].left + 'px' + ' - 5rem)';
-        stream_box.style.width = multiStream_layout_presets[preset_index].streams[i].width + 'px';
-        stream_box.style.height = multiStream_layout_presets[preset_index].streams[i].height + 'px';
+        if (!multiStream_layout_presets[preset_index].streams[i]) {
+            stream_box.style.zIndex = stream_box.attributes.tp_alwaysOnTop ? (1000 + multiStream_curr_zIndex++) + '' : (multiStream_curr_zIndex++) + '';
+        } else {
+            stream_box.style.top = 'calc(' + multiStream_layout_presets[preset_index].streams[i].top + 'px' + ' - 5rem)';
+            stream_box.style.left = 'calc(' + multiStream_layout_presets[preset_index].streams[i].left + 'px' + ' - 5rem)';
+            stream_box.style.width = multiStream_layout_presets[preset_index].streams[i].width + 'px';
+            stream_box.style.height = multiStream_layout_presets[preset_index].streams[i].height + 'px';
+        }
     })
 
     chats.forEach((stream_box, i) => {
-        stream_box.style.top = 'calc(' + multiStream_layout_presets[preset_index].chats[i].top + 'px' + ' - 5rem)';
-        stream_box.style.left = 'calc(' + multiStream_layout_presets[preset_index].chats[i].left + 'px' + ' - 5rem)';
-        stream_box.style.width = multiStream_layout_presets[preset_index].chats[i].width + 'px';
-        stream_box.style.height = multiStream_layout_presets[preset_index].chats[i].height + 'px';
+        if (!multiStream_layout_presets[preset_index].streams[i]) {
+            stream_box.style.zIndex = stream_box.attributes.tp_alwaysOnTop ? (1000 + multiStream_curr_zIndex++) + '' : (multiStream_curr_zIndex++) + '';
+        } else {
+            stream_box.style.top = 'calc(' + multiStream_layout_presets[preset_index].chats[i].top + 'px' + ' - 5rem)';
+            stream_box.style.left = 'calc(' + multiStream_layout_presets[preset_index].chats[i].left + 'px' + ' - 5rem)';
+            stream_box.style.width = multiStream_layout_presets[preset_index].chats[i].width + 'px';
+            stream_box.style.height = multiStream_layout_presets[preset_index].chats[i].height + 'px';
+        }
     })
 }
 
