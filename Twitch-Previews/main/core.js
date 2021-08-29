@@ -2743,25 +2743,33 @@ function appendMultiStreamSearchInfoText() {
 
 function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     let container = document.createElement('div');
-    container.style.marginTop = "10px";
+    container.classList.add('tp-multistream-layout-preset-container')
 
     let icon_btn = document.createElement('span');
     icon_btn.classList.add('tp-multistream-layout-preset-btn');
-    icon_btn.style.display = 'inline-flex';
-    icon_btn.style.marginTop = 'auto';
-    icon_btn.style.fontWeight = 'bold';
-    icon_btn.style.color = 'white';
     icon_btn.innerHTML = isSaveBtn ? '&#128427;' : layout_preset_index + 1;
+
+    let text_span = document.createElement('span');
+    text_span.innerText = label;
+    text_span.style.marginLeft = '10px';
+    text_span.style.fontSize = '13px';
+    text_span.style.color = 'white';
+
+    container.onclick = function () {
+        if (isSaveBtn) {
+            save_curr_multiStream_layout_preset();
+        } else {
+            load_multiStream_layout_preset(layout_preset_index);
+        }
+    }
+
+    container.appendChild(icon_btn);
+    container.appendChild(text_span);
 
     if (!isSaveBtn) {
         let delete_btn = document.createElement('span');
-        delete_btn.style.position = 'absolute';
-        delete_btn.style.width = '5px';
-        delete_btn.style.height = '5px';
-        delete_btn.style.marginTop = '-40px';
-        delete_btn.style.marginLeft = '-30px';
-        delete_btn.style.color = 'darkgrey';
-        delete_btn.innerText = 'x';
+        delete_btn.classList.add('tp-multistream-layout-delete-preset-btn');
+        delete_btn.innerText = 'X';
 
         delete_btn.onclick = function (e) {
             e.preventDefault();
@@ -2773,34 +2781,8 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
             }
         }
 
-        icon_btn.appendChild(delete_btn);
+        container.appendChild(delete_btn);
     }
-
-    let text_span = document.createElement('span');
-    text_span.innerText = label;
-    text_span.style.opacity = '0';
-    text_span.style.marginLeft = '10px';
-    text_span.style.fontSize = '12px';
-    text_span.style.color = 'white';
-
-    icon_btn.onclick = function () {
-        if (isSaveBtn) {
-            save_curr_multiStream_layout_preset();
-        } else {
-            load_multiStream_layout_preset(layout_preset_index);
-        }
-    }
-
-    container.onmouseenter = function () {
-        text_span.style.opacity = "1";
-    }
-
-    container.onmouseleave = function () {
-        text_span.style.opacity = "0";
-    }
-
-    container.appendChild(icon_btn);
-    container.appendChild(text_span);
 
     return container;
 }
@@ -2874,6 +2856,7 @@ function load_multiStream_layout_preset(preset_index) {
 function appendMultiStreamLayoutControls() {
     let layout_settings_btn = document.createElement('div');
     layout_settings_btn.classList.add('tp-multi-stream-layout-controls');
+    layout_settings_btn.tabIndex = 1;
 
     let img = document.createElement('img');
     img.style.width = '70%';
@@ -2886,17 +2869,23 @@ function appendMultiStreamLayoutControls() {
 
     let settings_container = document.createElement('div');
     settings_container.classList.add('tp-multi-stream-layout-controls-container');
-    settings_container.classList.add('tp-theme-support');
     settings_container.classList.add('animated');
     settings_container.classList.add('fadeIn');
     settings_container.style.display = 'none';
 
+    let settings_content = document.createElement('div');
+    settings_content.classList.add('tp-multi-stream-layout-controls-content');
 
-    layout_settings_btn.onmouseenter = function () {
-        settings_container.style.display = 'inline-block';
+
+    layout_settings_btn.onclick = function () {
+        if (settings_container.style.display === 'none') {
+            settings_container.style.display = 'inline-block';
+        } else {
+            settings_container.style.display = 'none'
+        }
     }
 
-    layout_settings_btn.onmouseleave = function () {
+    layout_settings_btn.onblur = function () {
         settings_container.style.display = 'none';
     }
 
@@ -2912,14 +2901,15 @@ function appendMultiStreamLayoutControls() {
 
         for (let i = 0; i < multiStream_layout_presets.length; i++) {
             let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
-            settings_container.appendChild(preset);
+            settings_content.appendChild(preset);
         }
 
         let save_btn = createLayoutPresetBtn('Save current layout as preset', multiStream_layout_presets.length, true);
         save_btn.id = "tp_multi_stream_layout_controls_save_btn";
-        settings_container.appendChild(save_btn);
+        settings_content.appendChild(save_btn);
     });
 
+    settings_container.appendChild(settings_content);
     layout_settings_btn.appendChild(settings_container);
 
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(layout_settings_btn);

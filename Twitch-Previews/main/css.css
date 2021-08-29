@@ -980,30 +980,74 @@
     background-color: rgba(255,255,255,0.4);
 }
 
+.tp-multi-stream-layout-controls:active{
+    background-color: rgba(255,255,255,0.2);
+}
+
 .tp-multi-stream-layout-controls-container {
     position: absolute;
-    width: 445px;
+    width: 32vw;
     top: 3rem;
-    left: 0;
-    padding: 10px 10px 10px 8px;
+    left: -40px;
+    padding: 15px 10px 10px 0;
+}
+
+.tp-multi-stream-layout-controls-content {
+    background-color: rgb(24, 24, 27);
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 6px 16px 0px, rgba(0, 0, 0, 0.4) 0px 0px 4px 0px;
+}
+
+.tp-multistream-layout-preset-container {
+    padding: 10px 7px;
+    border-radius: 5px;
+}
+
+.tp-multistream-layout-preset-container:hover {
+    background-color: rgba(58,58,61,1);
+}
+
+.tp-multistream-layout-preset-container:active {
+    background-color: rgba(58,58,61,0.5);
 }
 
 .tp-multistream-layout-preset-btn {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     width: 20px;
     height: 20px;
-    margin-top: 10px;
+    margin-top: auto;
     border-radius: 50%;
     background-color: transparent;
     cursor: pointer;
     box-shadow: 0px 0px 8px -1px rgb(255 255 255);
     padding: 13px;
+    font-weight: bold;
+    color: white;
 }
 
-.tp-multistream-layout-preset-btn:hover {
-    background-color: rgba(255,255,255, 0.7);
+.tp-multistream-layout-delete-preset-btn {
+    width: 27px;
+    height: 27px;
+    color: darkgrey;
+    float: right;
+    background-color: rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.tp-multistream-layout-delete-preset-btn:hover {
+    background-color: rgba(255,255,255,0.3);
+    color: whitesmoke;
+}
+
+.tp-multistream-layout-delete-preset-btn:active {
+    background-color: rgba(255,255,255,0.2);
+    color: whitesmoke;
 }
 
 .tp-player-control {
