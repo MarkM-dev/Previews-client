@@ -2762,6 +2762,8 @@ function create_layout_preview_square(label, preset, rem5_px) {
     return div;
 }
 
+let multiStream_curr_selected_preset_index = false;
+
 function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     let container = document.createElement('div');
     container.classList.add('tp-multistream-layout-preset-container')
@@ -2776,11 +2778,18 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     text_span.style.color = 'white';
 
     container.onclick = function (e) {
-        e.preventDefault();
-        e.cancelBubble = true;
         if (isSaveBtn) {
             save_curr_multiStream_layout_preset();
         } else {
+            if (multiStream_curr_selected_preset_index === layout_preset_index) {
+                multiStream_curr_selected_preset_index = false;
+                icon_btn.innerHTML = layout_preset_index + 1;
+                icon_btn.style.color = 'white';
+                return;
+            }
+            icon_btn.innerHTML = '&#10687;';
+            icon_btn.style.color = 'limegreen';
+            multiStream_curr_selected_preset_index = layout_preset_index;
             load_multiStream_layout_preset(layout_preset_index);
         }
     }
