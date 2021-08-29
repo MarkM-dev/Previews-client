@@ -2625,6 +2625,11 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         document.querySelector('.video-player__container').appendChild(multiStreamDiv);
     } else {
         document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
+        if (isMultiStreamMode) {
+            if (multiStream_curr_selected_preset_index) {
+                load_multiStream_layout_preset(multiStream_curr_selected_preset_index);
+            }
+        }
     }
 
     setTimeout(function (){
@@ -2912,7 +2917,7 @@ function load_multiStream_layout_preset(preset_index) {
     })
 
     chats.forEach((stream_box, i) => {
-        if (!multiStream_layout_presets[preset_index].streams[i]) {
+        if (!multiStream_layout_presets[preset_index].chats[i]) {
             stream_box.style.zIndex = stream_box.attributes.tp_alwaysOnTop ? (1000 + multiStream_curr_zIndex++) + '' : (multiStream_curr_zIndex++) + '';
         } else {
             stream_box.style.top = 'calc(' + multiStream_layout_presets[preset_index].chats[i].top + 'px' + ' - 5rem)';
