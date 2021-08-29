@@ -2941,6 +2941,7 @@ function appendMultiStreamLayoutControls() {
     let layout_settings_btn = document.createElement('div');
     layout_settings_btn.classList.add('tp-multi-stream-layout-controls');
     layout_settings_btn.tabIndex = 1;
+    layout_settings_btn.title = 'Layout Presets';
 
     let img = document.createElement('img');
     img.style.width = '70%';
