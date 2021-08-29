@@ -2905,7 +2905,7 @@ function appendMultiStreamLayoutControls() {
             let rem5_px = convertRemToPixels(5);
 
             let preset1 = {};
-            preset1.name = 'Preset 1';
+            preset1.name = '4 Streams';
             preset1.streams = [];
             preset1.chats = [];
 
@@ -2922,7 +2922,7 @@ function appendMultiStreamLayoutControls() {
             );
 
             let preset2 = {};
-            preset2.name = 'Preset 2';
+            preset2.name = '2 Streams, 1 Chat';
             preset2.streams = [];
             preset2.chats = [];
 
@@ -2935,7 +2935,7 @@ function appendMultiStreamLayoutControls() {
             );
 
             let preset3 = {};
-            preset3.name = 'Preset 3';
+            preset3.name = '2 Streams, 2 Chats';
             preset3.streams = [];
             preset3.chats = [];
 
