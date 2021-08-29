@@ -75,7 +75,7 @@
     - You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.
     - The Custom chat's settings (position, size, colors, etc..) will be saved for the current page session.
     - The Custom Chat will spawn back when you return to fullscreen after exiting fullscreen while in mode.
-    - Exit the mode by clicking the button again or click the close(x) button on the Custom Chat and exit fullscreen.
+    - Exit the mode by clicking the button in the player controls again or click the close(x) button on the Custom Chat and exit fullscreen.
     - Firefox users - exit the 'Default-Chat' mode by double tapping ESC.
       <br/><br/>
 
