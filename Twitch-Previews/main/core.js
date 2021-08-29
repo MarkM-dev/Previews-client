@@ -2896,7 +2896,27 @@ function appendMultiStreamLayoutControls() {
         if (result.multiStream_layout_presets && result.multiStream_layout_presets.length > 0) {
             multiStream_layout_presets = result.multiStream_layout_presets;
         } else {
+            function convertRemToPixels(rem) {
+                return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+            }
             multiStream_layout_presets = [];
+
+            let rem5_px = convertRemToPixels(5);
+
+            let preset = {};
+            preset.name = 'Preset 1';
+            preset.streams = [];
+            preset.chats = [];
+
+            preset.streams.push(
+                {top: rem5_px, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px},
+                {top: window.innerHeight / 2 + rem5_px, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px}
+            );
+            preset.chats.push(
+                {top: rem5_px, left: window.innerWidth - 350, width: 350, height: window.innerHeight - rem5_px}
+            );
+            multiStream_layout_presets.push(preset);
+
             _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
 
             });
