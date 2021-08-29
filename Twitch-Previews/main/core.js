@@ -2734,7 +2734,7 @@ function setTwitchSearchBarListener() {
         if (event.target.value.length > 0) {
             setTimeout(function (){
                 setSearchResultsClickListeners(input);
-            }, 500);
+            }, 1000);
         }
     })
 
