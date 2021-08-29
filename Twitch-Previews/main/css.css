@@ -1049,6 +1049,18 @@
     color: whitesmoke;
 }
 
+#tp_multiStream_layout_preview_container div {
+    position: absolute;
+    border: 1px dashed white;
+    z-index: 9000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+}
+
 .tp-player-control {
     display: inline-flex;
     cursor: pointer;

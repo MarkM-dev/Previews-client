@@ -2744,6 +2744,24 @@ function appendMultiStreamSearchInfoText() {
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
 
+function create_layout_preview_square(label, preset, rem5_px) {
+
+    let div = document.createElement('div');
+    div.style.top = (preset.top - rem5_px) + 'px';
+    div.style.left = (preset.left - rem5_px) + 'px';
+    div.style.width = preset.width + 'px';
+    div.style.height = preset.height + 'px';
+    div.innerText = label;
+
+    if (label === 'Stream') {
+        div.style.backgroundColor = 'rgba(161,96,254,0.4)';
+    } else {
+        div.style.backgroundColor = 'rgba(64,255,64,0.4)';
+    }
+
+    return div;
+}
+
 function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     let container = document.createElement('div');
     container.classList.add('tp-multistream-layout-preset-container')
@@ -2764,6 +2782,35 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
             save_curr_multiStream_layout_preset();
         } else {
             load_multiStream_layout_preset(layout_preset_index);
+        }
+    }
+
+    let rem5_px = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+    container.onmouseenter = function () {
+        let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+        if(layout_preview_container) {
+            layout_preview_container.innerHTML = '';
+        }
+
+        layout_preview_container = document.createElement('div');
+        layout_preview_container.id = 'tp_multiStream_layout_preview_container';
+
+        multiStream_layout_presets[layout_preset_index].streams.forEach((preset) => {
+            layout_preview_container.appendChild(create_layout_preview_square('Stream', preset, rem5_px));
+        })
+
+        multiStream_layout_presets[layout_preset_index].chats.forEach((preset) => {
+            layout_preview_container.appendChild(create_layout_preview_square('Chat', preset, rem5_px));
+        })
+
+        document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(layout_preview_container);
+    }
+
+    container.onmouseleave = function () {
+        let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+        if(layout_preview_container) {
+            layout_preview_container.remove();
         }
     }
 
