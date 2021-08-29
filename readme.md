@@ -74,7 +74,8 @@
     - The Custom chat will automatically position itself over the video to the right and stretch to screen height.
     - You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.
     - The Custom chat's settings (position, size, colors, etc..) will be saved for the current page session.
-    - Exit the mode by clicking the button again or just by exiting fullscreen.
+    - If you exit fullscreen while in fullscreen + Custom Chat mode, the chat will spawn back when you return to fullscreen for convenience.
+    - Exit the mode by clicking the button again or click the close(x) button on the Custom Chat and exit fullscreen.
     - Firefox users - exit the 'Default-Chat' mode by double tapping ESC.
       <br/><br/>
 
