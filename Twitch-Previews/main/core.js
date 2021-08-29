@@ -2753,8 +2753,7 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     icon_btn.innerHTML = isSaveBtn ? '&#128427;' : layout_preset_index + 1;
 
     let text_span = document.createElement('span');
-    text_span.innerText = label;
-    text_span.style.marginLeft = '10px';
+    text_span.innerHTML = '<span style="color:white;font-weight: bold;" >| </span><span style="margin-left: 5px;" >' + label + '</span>';
     text_span.style.fontSize = '13px';
     text_span.style.color = 'white';
 
