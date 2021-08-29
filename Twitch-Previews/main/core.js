@@ -2783,6 +2783,8 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     text_span.style.color = 'white';
 
     container.onclick = function (e) {
+        e.preventDefault();
+        e.cancelBubble = true;
         if (isSaveBtn) {
             save_curr_multiStream_layout_preset();
         } else {
@@ -2792,6 +2794,13 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
                 icon_btn.style.color = 'white';
                 return;
             }
+
+            let icons = document.querySelectorAll('.tp-multistream-layout-preset-btn');
+            icons.forEach((icon, i) => {
+                icon.innerHTML = (i + 1) + '';
+                icon.style.color = 'white';
+            })
+
             icon_btn.innerHTML = '&#10687;';
             icon_btn.style.color = 'limegreen';
             multiStream_curr_selected_preset_index = layout_preset_index;
