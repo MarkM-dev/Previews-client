@@ -2758,7 +2758,9 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
     text_span.style.fontSize = '13px';
     text_span.style.color = 'white';
 
-    container.onclick = function () {
+    container.onclick = function (e) {
+        e.preventDefault();
+        e.cancelBubble = true;
         if (isSaveBtn) {
             save_curr_multiStream_layout_preset();
         } else {
