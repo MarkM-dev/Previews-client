@@ -24,6 +24,7 @@ let bLastChatOpenState = null;
 let isMultiStreamMode = false;
 let multiStream_curr_zIndex = 5000;
 let startMultiStream_name = false;
+let multiStream_layout_presets = [];
 let last_prediction_streamer = "";
 let last_prediction_button_text = "";
 let predictionSniperTimeout = null;
@@ -1766,9 +1767,25 @@ function fScrnWithChat_exitFullScreen_callback(e) {
     }
 }
 
-function enter_fScrnWithChat() {
+function fScrnWithChat_backToFullscreen_callback(e) {
+    if (document.fullscreenElement) {
+        enter_fScrnWithChat();
+    }
+}
+
+function add_fScrnWithChat_backToFullscreen_callback() {
+    document.querySelector('.video-player__container').addEventListener("fullscreenchange", fScrnWithChat_backToFullscreen_callback);
+}
+
+function remove_fScrnWithChat_backToFullscreen_callback() {
+    document.querySelector('.video-player__container').removeEventListener("fullscreenchange", fScrnWithChat_backToFullscreen_callback);
+}
+
+function enter_fScrnWithChat(dontCreateBox) {
     document.querySelector('.video-player__container').addEventListener("fullscreenchange", fScrnWithChat_exitFullScreen_callback);
-    createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
+    if (!dontCreateBox) {
+        createMultiStreamBox(window.location.pathname.substring(1), true, true, true);
+    }
     hasEnteredFScreenWithChat = true;
     sendMessageToBG({action: "bg_fScrnWithChat_started", detail: 'custom'});
 }
@@ -1851,7 +1868,7 @@ function toggle_fScrnWithChat(mode) {
             clickFullscreen();
             exit_fScrnWithChat();
         } else {
-            enter_fScrnWithChat();
+            enter_fScrnWithChat(true);
             if (!document.fullscreenElement) {
                 clickFullscreen();
             }
@@ -1904,6 +1921,7 @@ function setfScrnWithChatBtn() {
                 e.preventDefault();
                 e.cancelBubble = true;
                 selected_mode = 'custom';
+                add_fScrnWithChat_backToFullscreen_callback();
                 toggle_fScrnWithChat(selected_mode);
             }
             default_chat_btn.onclick = function (e){
@@ -1922,6 +1940,7 @@ function setfScrnWithChatBtn() {
 
                 if (hasEnteredFScreenWithChat) {
                     toggle_fScrnWithChat(selected_mode);
+                    remove_fScrnWithChat_backToFullscreen_callback();
                     return;
                 }
                 if (menu_div.style.display === "none") {
@@ -2332,6 +2351,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     let closeBtn = createMultiStreamTitleBtn("Close", "X");
     closeBtn.onclick = function () {
         multiStreamDiv.parentNode.removeChild(multiStreamDiv);
+        if (isFScrnWithChat) {
+            remove_fScrnWithChat_backToFullscreen_callback();
+        }
     }
 
     let fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6");
@@ -2376,6 +2398,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     }
 
     if (isMultiStreamChat) {
+        multiStreamDiv.classList.add('tp-multi-stream-chat');
         var opacitySlider;
         let colorPickerCustomBtn;
         var colorPicker;
@@ -2417,6 +2440,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
             opacitySlider.oninput = function (e) {
                 let slider_hex_val = parseInt(e.target.value * 255).toString(16);
+                if (slider_hex_val === '0') {
+                    slider_hex_val = '00';
+                }
                 iframe.contentDocument.querySelector('html').style.backgroundColor = fScrnWithChat_savedState.bg_color ? fScrnWithChat_savedState.bg_color + slider_hex_val : "#18181b" + slider_hex_val;
                 fScrnWithChat_savedState.slider = e.target.value;
             }
@@ -2556,6 +2582,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
     } else {
+        multiStreamDiv.classList.add('tp-multi-stream-video');
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, true);
@@ -2598,6 +2625,11 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         document.querySelector('.video-player__container').appendChild(multiStreamDiv);
     } else {
         document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
+        if (isMultiStreamMode) {
+            if (multiStream_curr_selected_preset_index) {
+                load_multiStream_layout_preset(multiStream_curr_selected_preset_index);
+            }
+        }
     }
 
     setTimeout(function (){
@@ -2702,7 +2734,7 @@ function setTwitchSearchBarListener() {
         if (event.target.value.length > 0) {
             setTimeout(function (){
                 setSearchResultsClickListeners(input);
-            }, 500);
+            }, 750);
         }
     })
 
@@ -2717,11 +2749,318 @@ function appendMultiStreamSearchInfoText() {
     document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
 }
 
+function create_layout_preview_square(label, preset, rem5_px) {
+
+    let div = document.createElement('div');
+    div.style.top = (preset.top - rem5_px) + 'px';
+    div.style.left = (preset.left - rem5_px) + 'px';
+    div.style.width = preset.width + 'px';
+    div.style.height = preset.height + 'px';
+    div.innerText = label;
+
+    if (label === 'Stream') {
+        div.style.backgroundColor = 'rgba(161,96,254,0.4)';
+    } else {
+        div.style.backgroundColor = 'rgba(64,255,64,0.4)';
+    }
+
+    return div;
+}
+
+let multiStream_curr_selected_preset_index = false;
+
+function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
+    let container = document.createElement('div');
+    container.classList.add('tp-multistream-layout-preset-container')
+
+    let icon_btn = document.createElement('span');
+    icon_btn.classList.add('tp-multistream-layout-preset-btn');
+    icon_btn.innerHTML = isSaveBtn ? '&#128427;' : layout_preset_index + 1;
+
+    let text_span = document.createElement('span');
+    text_span.innerHTML = '<span style="color:white;font-weight: bold;" >| </span><span style="margin-left: 5px;" >' + label + '</span>';
+    text_span.style.fontSize = '13px';
+    text_span.style.color = 'white';
+
+    container.onclick = function (e) {
+        e.preventDefault();
+        e.cancelBubble = true;
+        if (isSaveBtn) {
+            save_curr_multiStream_layout_preset();
+        } else {
+            if (multiStream_curr_selected_preset_index === layout_preset_index) {
+                multiStream_curr_selected_preset_index = false;
+                icon_btn.innerHTML = layout_preset_index + 1;
+                icon_btn.style.color = 'white';
+                return;
+            }
+
+            let icons = document.querySelectorAll('.tp-multistream-layout-preset-btn');
+            for (let i = 0; i < icons.length-1; i++) {
+                icons[i].innerHTML = (i + 1) + '';
+                icons[i].style.color = 'white';
+            }
+
+            icon_btn.innerHTML = '&#10687;';
+            icon_btn.style.color = 'limegreen';
+            multiStream_curr_selected_preset_index = layout_preset_index;
+            load_multiStream_layout_preset(layout_preset_index);
+        }
+    }
+
+
+    container.appendChild(icon_btn);
+    container.appendChild(text_span);
+
+    if (!isSaveBtn) {
+        let rem5_px = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+        container.onmouseenter = function () {
+            let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+            if(layout_preview_container) {
+                layout_preview_container.innerHTML = '';
+            }
+
+            layout_preview_container = document.createElement('div');
+            layout_preview_container.id = 'tp_multiStream_layout_preview_container';
+
+            multiStream_layout_presets[layout_preset_index].streams.forEach((preset) => {
+                layout_preview_container.appendChild(create_layout_preview_square('Stream', preset, rem5_px));
+            })
+
+            multiStream_layout_presets[layout_preset_index].chats.forEach((preset) => {
+                layout_preview_container.appendChild(create_layout_preview_square('Chat', preset, rem5_px));
+            })
+
+            document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(layout_preview_container);
+        }
+
+        container.onmouseleave = function () {
+            let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+            if(layout_preview_container) {
+                layout_preview_container.remove();
+            }
+        }
+
+
+        let delete_btn = document.createElement('span');
+        delete_btn.classList.add('tp-multistream-layout-delete-preset-btn');
+        delete_btn.innerText = 'X';
+
+        delete_btn.onclick = function (e) {
+            e.preventDefault();
+            e.cancelBubble = true;
+            if (confirm('Delete Preset "' + label + '"?')) {
+                delete_multiStream_layout_preset(layout_preset_index);
+                let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+                if(layout_preview_container) {
+                    layout_preview_container.remove();
+                }
+                document.querySelector('.tp-multi-stream-layout-controls').remove();
+                appendMultiStreamLayoutControls();
+            }
+        }
+
+        container.appendChild(delete_btn);
+    }
+
+    return container;
+}
+
+function delete_multiStream_layout_preset(preset_index) {
+    multiStream_layout_presets.splice(preset_index,1);
+
+    _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
+
+    });
+}
+
+function save_curr_multiStream_layout_preset() {
+    let streams = document.querySelectorAll('.tp-multi-stream-video');
+    let chats = document.querySelectorAll('.tp-multi-stream-chat');
+    if (streams.length === 0 && chats.length === 0) {
+        return;
+    }
+
+    let preset = {};
+    let prompt_res = prompt('Enter Preset Name:', 'Preset Name');
+    if (prompt_res === null) {
+        return;
+    }
+    if (prompt_res === "") {
+        save_curr_multiStream_layout_preset();
+        return;
+    }
+    preset.name = prompt_res;
+    preset.streams = [];
+    preset.chats = [];
+
+    streams.forEach((stream_box) => {
+        let rect = stream_box.getBoundingClientRect();
+        preset.streams.push({top: rect.top, left: rect.left, width: rect.width, height: rect.height});
+    })
+
+    chats.forEach((chat_box) => {
+        let rect = chat_box.getBoundingClientRect();
+        preset.chats.push({top: rect.top, left: rect.left, width: rect.width, height: rect.height});
+    })
+
+    multiStream_layout_presets.push(preset);
+
+    _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
+
+    });
+
+    document.querySelector('#tp_multi_stream_layout_controls_save_btn').before(createLayoutPresetBtn(preset.name,multiStream_layout_presets.length -1));
+}
+
+function load_multiStream_layout_preset(preset_index) {
+    let streams = document.querySelectorAll('.tp-multi-stream-video');
+    let chats = document.querySelectorAll('.tp-multi-stream-chat');
+
+    streams.forEach((stream_box, i) => {
+        if (!multiStream_layout_presets[preset_index].streams[i]) {
+            stream_box.style.zIndex = stream_box.attributes.tp_alwaysOnTop ? (1000 + multiStream_curr_zIndex++) + '' : (multiStream_curr_zIndex++) + '';
+        } else {
+            stream_box.style.top = 'calc(' + multiStream_layout_presets[preset_index].streams[i].top + 'px' + ' - 5rem)';
+            stream_box.style.left = 'calc(' + multiStream_layout_presets[preset_index].streams[i].left + 'px' + ' - 5rem)';
+            stream_box.style.width = multiStream_layout_presets[preset_index].streams[i].width + 'px';
+            stream_box.style.height = multiStream_layout_presets[preset_index].streams[i].height + 'px';
+        }
+    })
+
+    chats.forEach((stream_box, i) => {
+        if (!multiStream_layout_presets[preset_index].chats[i]) {
+            stream_box.style.zIndex = stream_box.attributes.tp_alwaysOnTop ? (1000 + multiStream_curr_zIndex++) + '' : (multiStream_curr_zIndex++) + '';
+        } else {
+            stream_box.style.top = 'calc(' + multiStream_layout_presets[preset_index].chats[i].top + 'px' + ' - 5rem)';
+            stream_box.style.left = 'calc(' + multiStream_layout_presets[preset_index].chats[i].left + 'px' + ' - 5rem)';
+            stream_box.style.width = multiStream_layout_presets[preset_index].chats[i].width + 'px';
+            stream_box.style.height = multiStream_layout_presets[preset_index].chats[i].height + 'px';
+        }
+    })
+}
+
+function appendMultiStreamLayoutControls() {
+    let layout_settings_btn = document.createElement('div');
+    layout_settings_btn.classList.add('tp-multi-stream-layout-controls');
+    layout_settings_btn.tabIndex = 1;
+    layout_settings_btn.title = 'Layout Presets';
+
+    let img = document.createElement('img');
+    img.style.width = '70%';
+    img.style.height = '70%';
+    img.src = getRuntimeUrl('../images/multistream_layout.png');
+    img.style.margin = "auto 5px";
+    img.classList.add('tp-theme-support');
+
+    layout_settings_btn.appendChild(img);
+
+    let settings_container = document.createElement('div');
+    settings_container.classList.add('tp-multi-stream-layout-controls-container');
+    settings_container.classList.add('animated');
+    settings_container.classList.add('fadeIn');
+    settings_container.style.display = 'none';
+
+    let settings_content = document.createElement('div');
+    settings_content.classList.add('tp-multi-stream-layout-controls-content');
+
+
+    layout_settings_btn.onclick = function () {
+        if (settings_container.style.display === 'none') {
+            settings_container.style.display = 'inline-block';
+        } else {
+            settings_container.style.display = 'none'
+        }
+    }
+
+    layout_settings_btn.onblur = function () {
+        settings_container.style.display = 'none';
+    }
+
+    _browser.storage.local.get('multiStream_layout_presets', function(result) {
+        if (result.multiStream_layout_presets && result.multiStream_layout_presets.length > 0) {
+            multiStream_layout_presets = result.multiStream_layout_presets;
+        } else {
+            multiStream_layout_presets = [];
+
+            let rem5_px = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+            let preset1 = {};
+            preset1.name = '4 Streams';
+            preset1.streams = [];
+            preset1.chats = [];
+
+            let width = window.innerWidth / 2 - rem5_px / 2;
+            let height = window.innerHeight / 2 - rem5_px / 2;
+            let rightHalf_leftMargin = width + rem5_px;
+            let bottomHalf_topMargin = height + rem5_px;
+
+            preset1.streams.push(
+                {top: rem5_px, left: rem5_px, width: width, height: height},
+                {top: rem5_px, left: rightHalf_leftMargin, width: width, height: height},
+                {top: bottomHalf_topMargin, left: rem5_px, width: width, height: height},
+                {top: bottomHalf_topMargin, left: rightHalf_leftMargin, width: width, height: height},
+            );
+
+            let preset2 = {};
+            preset2.name = '2 Streams, 1 Chat';
+            preset2.streams = [];
+            preset2.chats = [];
+
+            preset2.streams.push(
+                {top: rem5_px, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2},
+                {top: window.innerHeight / 2 + rem5_px / 2, left: rem5_px, width: window.innerWidth - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2}
+            );
+            preset2.chats.push(
+                {top: rem5_px, left: window.innerWidth - 350, width: 350, height: window.innerHeight - rem5_px}
+            );
+
+            let preset3 = {};
+            preset3.name = '2 Streams, 2 Chats';
+            preset3.streams = [];
+            preset3.chats = [];
+
+            preset3.streams.push(
+                {top: rem5_px, left: rem5_px + 350, width: window.innerWidth - 350 - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2},
+                {top: window.innerHeight / 2 + rem5_px / 2, left: rem5_px + 350, width: window.innerWidth - 350 - 350 - rem5_px, height: window.innerHeight / 2 - rem5_px / 2}
+            );
+            preset3.chats.push(
+                {top: rem5_px, left: rem5_px, width: 350, height: window.innerHeight - rem5_px},
+                {top: rem5_px, left: window.innerWidth - 350, width: 350, height: window.innerHeight - rem5_px}
+            );
+
+            multiStream_layout_presets.push(preset1);
+            multiStream_layout_presets.push(preset2);
+            multiStream_layout_presets.push(preset3);
+
+            _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
+
+            });
+        }
+
+        for (let i = 0; i < multiStream_layout_presets.length; i++) {
+            let preset = createLayoutPresetBtn(multiStream_layout_presets[i].name, i);
+            settings_content.appendChild(preset);
+        }
+
+        let save_btn = createLayoutPresetBtn('Save current layout as preset', multiStream_layout_presets.length, true);
+        save_btn.id = "tp_multi_stream_layout_controls_save_btn";
+        settings_content.appendChild(save_btn);
+    });
+
+    settings_container.appendChild(settings_content);
+    layout_settings_btn.appendChild(settings_container);
+
+    document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(layout_settings_btn);
+}
+
 function initMultiStream(firstStreamName) {
     document.querySelector('.root-scrollable__wrapper').firstChild.innerHTML = "";
     document.querySelector('.root-scrollable__wrapper').classList.add('tp_multistream_container');
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
+    appendMultiStreamLayoutControls();
     createMultiStreamBox(firstStreamName, false, false);
     isMultiStreamMode = true;
     document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
@@ -2870,24 +3209,19 @@ function showToast(toast_body, storageFlagName) {
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Revamped 'Full Screen + Chat' Feature</strong>"
-        +  "             <br><span style=\"font-size: 12px;\" ><strong>- The feature works smoother and is now split into two: Full Screen with Custom chat overlay or Default chat.</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When you hover over the new icon (<img width='17' height='17' src='" + getRuntimeUrl('images/fScrnWithChat_main.png') + "'/>), a small selection menu will appear with the two options to select.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Hovering over it will show two options: Full Screen with Custom or Default Chat.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The Custom chat will automatically position itself over the video to the right and stretch to screen height.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The Custom chat's settings (position, size, colors, etc..) will be saved for the current page session, so you can exit fullscreen and return to it without having to set the chat again.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Exit the mode by clicking the button again or just by exiting fullscreen.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Firefox users - exit the 'Default-Chat' mode by double tapping ESC.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Fixed an issue</strong> where trying to enter fullscreen while in 'fullscreen with chat' would break the feature.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;\" ><strong>- Multistream chat box</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- transparency slider and color picker are now visible by default</strong> instead of having to click a button to enable them.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Added chat box position control buttons</strong> (align chat to left (<) / right (>) / default (o)) to the header next to \"STREAM CHAT\" text at the top of the chat box for ease of use, so you don't have to do common chat streching and positioning manually.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Fixed an issue</strong> where the chat box font size controls didn't change the chat font size.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- Removed now redundant transparent chat feature from settings.</strong></span>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Multi-Stream Custom Layouts</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- You can now align the multi stream boxes to a layout preset.</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Open the layout presets menu by clicking <img width='17' height='17' src='" + getRuntimeUrl('images/multistream_layout.png') + "'/> to the left of the top search bar in the Multi-Stream page.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can add your own custom presets too! just add boxes to the page, open the presets menu and click \"Save current layout as preset\".</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Remember that you can also scroll the page and add more boxes.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added 3 default starter presets to the menu.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed Multi-Stream top page controls issues caused by the new long search bar.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;\" ><strong>- Full Screen + Custom Chat Improvement</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The Custom Chat will spawn back when you return to fullscreen after exiting fullscreen while in mode, so you can leave and return to fullscreen without the hassle of clicking the mode button again (much better).</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Exit the mode by clicking the button in the player controls again or click the close(x) button on the Custom Chat and exit fullscreen.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- These improvements should make these features MUCH more convenient to use.</strong></span>"
         +  "        </div>"
-       +  "    </br>"
+        +  "    </br>"
 }
 
 function showUpdateToast() {
