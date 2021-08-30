@@ -23,7 +23,7 @@ def replace_strings_for_opera():
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
         data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
 
-    with open(os.path.join(os.path.dirname(__file__), background_path), 'w') as f:
+    with open(background_path, 'w') as f:
         f.write(data)
 
 
