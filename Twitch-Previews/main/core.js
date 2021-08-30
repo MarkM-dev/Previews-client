@@ -2796,10 +2796,10 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
             }
 
             let icons = document.querySelectorAll('.tp-multistream-layout-preset-btn');
-            icons.forEach((icon, i) => {
-                icon.innerHTML = (i + 1) + '';
-                icon.style.color = 'white';
-            })
+            for (let i = 0; i < icons.length-1; i++) {
+                icons[i].innerHTML = (i + 1) + '';
+                icons[i].style.color = 'white';
+            }
 
             icon_btn.innerHTML = '&#10687;';
             icon_btn.style.color = 'limegreen';
@@ -2852,6 +2852,10 @@ function createLayoutPresetBtn(label, layout_preset_index, isSaveBtn) {
             e.cancelBubble = true;
             if (confirm('Delete Preset "' + label + '"?')) {
                 delete_multiStream_layout_preset(layout_preset_index);
+                let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
+                if(layout_preview_container) {
+                    layout_preview_container.remove();
+                }
                 document.querySelector('.tp-multi-stream-layout-controls').remove();
                 appendMultiStreamLayoutControls();
             }
@@ -3029,8 +3033,6 @@ function appendMultiStreamLayoutControls() {
             multiStream_layout_presets.push(preset1);
             multiStream_layout_presets.push(preset2);
             multiStream_layout_presets.push(preset3);
-
-
 
             _browser.storage.local.set({'multiStream_layout_presets': multiStream_layout_presets}, function() {
 
