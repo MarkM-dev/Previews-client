@@ -94,9 +94,10 @@ _browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-
+            if (details.previousVersion !== "1.9.7.3") {
+                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            }
 
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
