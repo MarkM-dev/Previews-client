@@ -3679,6 +3679,7 @@ function showSettingsMenu() {
         initSocialBtn(settingsContainer, 'bugReport', true);
         initSocialBtn(settingsContainer, 'changelog', false);
         initSocialBtn(settingsContainer, 'contact', false);
+        initSocialBtn(settingsContainer, 'twitter', true);
 
 
         _browser.storage.local.get('shouldShowNewFeatureSettingsSpan', function(result) {
