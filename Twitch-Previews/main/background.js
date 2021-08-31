@@ -263,6 +263,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_show_github":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
             break;
+        case "bg_show_twitter":
+            _browser.tabs.create({url:"https://twitter.com/twitchPreviews"});
+            break;
         case "bg_show_bugReport":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
             break;
@@ -286,6 +289,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_github_btn_click":
             send_ga_event('settings_github_btn_click', 'settings_github_btn_click', 'settings_github_btn_click');
+            break;
+        case "bg_twitter_btn_click":
+            send_ga_event('settings_twitter_btn_click', 'settings_twitter_btn_click', 'settings_twitter_btn_click');
             break;
         case "bg_bugReport_btn_click":
             send_ga_event('settings_bug_report_btn_click', 'settings_bug_report_btn_click', 'settings_bug_report_btn_click');
