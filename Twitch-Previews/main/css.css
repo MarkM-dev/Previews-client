@@ -780,10 +780,53 @@
     resize: both;
     overflow: hidden;
     width: 440px;
-    height: 273px;
+    height: 248px;
     top: 10px;
     left: 10px;
+    transition: opacity 0.2s;
 }
+
+
+
+
+.tp-multi-stream-box.tp-multi-stream-not-minimized {
+    border-top: none;
+}
+
+.tp-multi-stream-box.tp-multi-stream-not-minimized .tp_multistream_box_title {
+    color: whitesmoke;
+}
+
+.tp-multi-stream-box.tp-multi-stream-not-minimized .tp-multi-stream-box-title-btn {
+    font-weight: normal;
+    color: whitesmoke;
+}
+
+.tp-multi-stream-box.tp-multi-stream-not-minimized .tp_multistream_box_title {
+    opacity: 0;
+    position: absolute;
+    height: 75%;
+}
+
+.tp-multi-stream-box.tp-multi-stream-not-minimized .tp_multistream_box_title:hover {
+    opacity: 1;
+    background-image: linear-gradient(180deg,rgba(23,23,23,0.6), rgba(23,23,23,0));
+    background-color: transparent;
+}
+
+.tp-multi-stream-box.tp-multi-stream-not-minimized .tp-multistream-iframe {
+    height: 100%;
+}
+
+.tp-multi-stream-box.tp-multi-stream-minimized .tp_multistream_box_title {
+    opacity: 1;
+    position: absolute;
+    height: 100%;
+}
+
+
+
+
 
 .tp-multi-stream-box.tp-multi-stream-otf {
     top: 20px;
@@ -793,6 +836,7 @@
 .tp-multi-stream-box .tp-multi-stream-box-title-btn-container {
     position: absolute;
     right: 0;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;

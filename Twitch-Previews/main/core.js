@@ -2376,11 +2376,19 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             multiStreamDiv.style.height = streamBox_last_height + "px";
             minimizeBtn.innerHTML = "__";
             multiStreamDiv.style.border = "none";
+            if (!isMultiStreamChat) {
+                multiStreamDiv.classList.remove('tp-multi-stream-minimized');
+                multiStreamDiv.classList.add('tp-multi-stream-not-minimized');
+            }
         } else {
             streamBox_last_height = multiStreamDiv.getBoundingClientRect().height;
             multiStreamDiv.style.height = "27px";
             minimizeBtn.innerHTML = "&#8212;";
             multiStreamDiv.style.border = "1px solid grey";
+            if (!isMultiStreamChat) {
+                multiStreamDiv.classList.remove('tp-multi-stream-not-minimized');
+                multiStreamDiv.classList.add('tp-multi-stream-minimized');
+            }
         }
     };
 
@@ -2583,12 +2591,13 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
     } else {
         multiStreamDiv.classList.add('tp-multi-stream-video');
+        multiStreamDiv.classList.add('tp-multi-stream-not-minimized');
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, true);
             sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
         }
-        title.innerHTML = "&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
+        title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
         iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
     }
 
