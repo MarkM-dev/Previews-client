@@ -2592,6 +2592,9 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     } else {
         multiStreamDiv.classList.add('tp-multi-stream-video');
         multiStreamDiv.classList.add('tp-multi-stream-not-minimized');
+        if (!isMultiStreamMode) {
+            multiStreamDiv.style.boxShadow = 'rgb(23, 23, 23, 0.75) 12px 12px 10px -10px';
+        }
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
             createMultiStreamBox(streamName, true, true);
