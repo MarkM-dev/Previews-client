@@ -975,6 +975,29 @@ function listenForPlayerError() {
     }
 }
 
+function initSidebarFavorites() {
+    return;
+    if (document.getElementById('tp_favorites_section')) {
+        return;
+    }
+
+    let followed_channels_section = document.querySelector('.side-nav-section');
+    if (followed_channels_section) {
+        let favorites_section = followed_channels_section.cloneNode(true);
+        favorites_section.id = 'tp_favorites_section';
+
+        let sideNavStream_base_element = favorites_section.children[1].firstChild.cloneNode(true);
+
+
+        favorites_section.children[1].innerHTML = '';
+        favorites_section.querySelector('.side-nav-show-more-toggle__button').remove();
+        favorites_section.querySelector('.side-nav-header').firstChild.innerText = 'FAVORITE CHANNELS';
+
+
+        followed_channels_section.parentNode.prepend(favorites_section);
+    }
+}
+
 function extendSidebarSection(sideNavSection) {
     if(sideNavSection) {
         if (sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]')) {
@@ -3399,6 +3422,8 @@ function toggleFeatures(isFromTitleObserver) {
             }, 1500);
         }
     }
+
+    initSidebarFavorites();
 }
 
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
