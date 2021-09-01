@@ -805,7 +805,7 @@
 .tp-multi-stream-box.tp-multi-stream-not-minimized .tp_multistream_box_title {
     opacity: 0;
     position: absolute;
-    height: 75%;
+    height: 30%;
 }
 
 .tp-multi-stream-box.tp-multi-stream-not-minimized .tp_multistream_box_title:hover {
