@@ -975,27 +975,122 @@ function listenForPlayerError() {
     }
 }
 
-function initSidebarFavorites() {
-    return;
-    if (document.getElementById('tp_favorites_section')) {
+function getStreamIndexInFavorites(stream_name, arr) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === stream_name) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function setFavoritesBtnIcon(btn, isFavorite) {
+    if (isFavorite) {
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"></path></svg>';
+    } else {
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
+    }
+}
+
+function appendFavoritesBtn() {
+    if (document.getElementById('tp_favorites_btn')) {
         return;
     }
 
-    let followed_channels_section = document.querySelector('.side-nav-section');
-    if (followed_channels_section) {
-        let favorites_section = followed_channels_section.cloneNode(true);
-        favorites_section.id = 'tp_favorites_section';
+    try {
+        let bell_btn = document.querySelector('.live-notifications__btn');
+        if(bell_btn) {
+            let favorites_btn = bell_btn.cloneNode(true);
+            favorites_btn.id = 'tp_favorites_btn';
+            favorites_btn.style.marginRight = '-5px';
+            favorites_btn.style.zIndex = '999';
+            favorites_btn.title = 'Toggle Favorite';
 
-        let sideNavStream_base_element = favorites_section.children[1].firstChild.cloneNode(true);
+            _browser.storage.local.get('favorites_arr', function (res) {
+                let curr_stream_name = window.location.pathname.substring(1);
+                let isFavorite = false;
+                if (res.favorites_arr) {
+                    if (getStreamIndexInFavorites(curr_stream_name, res.favorites_arr) !== -1) {
+                        isFavorite = true;
+                    }
+                }
+                setFavoritesBtnIcon(favorites_btn, isFavorite);
+            });
 
+            favorites_btn.onclick = function (e) {
+                _browser.storage.local.get('favorites_arr', function (res) {
+                    let curr_stream_name = window.location.pathname.substring(1);
+                    if (res.favorites_arr) {
+                        let item_index = getStreamIndexInFavorites(curr_stream_name, res.favorites_arr)
+                        if (item_index !== -1) {
+                            res.favorites_arr.splice(item_index, 1);
+                            _browser.storage.local.set({'favorites_arr': res.favorites_arr}, function() {
 
-        favorites_section.children[1].innerHTML = '';
-        favorites_section.querySelector('.side-nav-show-more-toggle__button').remove();
-        favorites_section.querySelector('.side-nav-header').firstChild.innerText = 'FAVORITE CHANNELS';
+                            });
+                            setFavoritesBtnIcon(favorites_btn, false);
+                        } else {
+                            res.favorites_arr.push(curr_stream_name);
+                            _browser.storage.local.set({'favorites_arr': res.favorites_arr}, function() {
 
+                            });
+                            setFavoritesBtnIcon(favorites_btn, true);
+                        }
+                    } else {
+                        _browser.storage.local.set({'favorites_arr': [curr_stream_name]}, function() {
 
-        followed_channels_section.parentNode.prepend(favorites_section);
+                        });
+                        setFavoritesBtnIcon(favorites_btn, true);
+                    }
+                    setSidebarFavorites();
+                })
+            }
+
+            document.querySelector('div[data-target="channel-header-right"]').parentNode.prepend(favorites_btn);
+        }
+    } catch (e) {
+
     }
+}
+
+function setSidebarFavorites() {
+    _browser.storage.local.get('favorites_arr',function (res) {
+        if(!res.favorites_arr || res.favorites_arr.length === 0) {
+            return;
+        }
+
+        let followed_channels_section = document.querySelector('.side-nav-section');
+        if (followed_channels_section) {
+            let favorites_section = followed_channels_section.cloneNode(true);
+            favorites_section.id = 'tp_favorites_section';
+            favorites_section.classList.remove('side-nav-section');
+            favorites_section.children[1].innerHTML = '';
+
+            if (favorites_section.querySelector('.side-nav-header')) {
+                favorites_section.querySelector('.side-nav-header').firstChild.innerText = 'FAVORITE CHANNELS';
+                if (favorites_section.querySelector('.side-nav-show-more-toggle__button')) {
+                    favorites_section.querySelector('.side-nav-show-more-toggle__button').remove();
+                }
+            }
+
+            extendSidebar().then(function (promise_result) {
+                let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
+                for (let i = 0; i < shown_followed_channels.length; i++) {
+                    for (let j = 0; j < res.favorites_arr.length; j++) {
+                        if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
+                            favorites_section.children[1].appendChild(shown_followed_channels[i].cloneNode(true));
+                            break;
+                        }
+                    }
+                }
+
+                let old_favorites_section = document.getElementById('tp_favorites_section');
+                if (old_favorites_section) {
+                    old_favorites_section.remove();
+                }
+                followed_channels_section.parentNode.prepend(favorites_section);
+            });
+        }
+    })
 }
 
 function extendSidebarSection(sideNavSection) {
@@ -1007,29 +1102,39 @@ function extendSidebarSection(sideNavSection) {
 }
 
 function extendSidebar() {
-    if (!isNavBarCollapsed) {
-        let sideNavSections = document.querySelectorAll('.side-nav-section');
-        if(sideNavSections[0]) {
-            let navCards = getSidebarNavCards(sideNavSections[0]);
-            if (isStreamerOnline(navCards[navCards.length - 1])) {
-                extendSidebarSection(sideNavSections[0]);
-                if (timesExtendedSidebar < 15) {
-                    timesExtendedSidebar++;
-                    setTimeout(function (){
-                        extendSidebarSection(sideNavSections[0]);
-                    },300);
+    console.log('extendSideBar called');
+    return new Promise((resolve, reject) => {
+        if (!isNavBarCollapsed) {
+            let sideNavSections = document.querySelectorAll('.side-nav-section');
+            if(sideNavSections[0]) {
+                let navCards = getSidebarNavCards(sideNavSections[0]);
+                if (isStreamerOnline(navCards[navCards.length - 1])) {
+                    extendSidebarSection(sideNavSections[0]);
+                    if (timesExtendedSidebar < 15) {
+                        timesExtendedSidebar++;
+                        setTimeout(function (){
+                            extendSidebar().then(function (res) {});
+                        },300);
+                    } else {
+                        timesExtendedSidebar = 0;
+                        extendSidebarSection(sideNavSections[1]);
+                        extendSidebarSection(sideNavSections[2]);
+                        resolve('done');
+                    }
                 } else {
                     timesExtendedSidebar = 0;
                     extendSidebarSection(sideNavSections[1]);
                     extendSidebarSection(sideNavSections[2]);
+                    resolve('done');
                 }
             } else {
-                timesExtendedSidebar = 0;
-                extendSidebarSection(sideNavSections[1]);
-                extendSidebarSection(sideNavSections[2]);
+                resolve('done');
             }
+        } else {
+            resolve('done');
         }
-    }
+    })
+
 }
 
 function searchStreamer(e) {
@@ -1081,7 +1186,7 @@ function showSidebarSearchInput() {
 function sidebarSearchBtnClick() {
     showSidebarSearchInput();
     document.getElementById('tp_sidebar_search_input').focus();
-    extendSidebar();
+    extendSidebar().then(function (res) {});
     sendMessageToBG({action: "bg_sBarS_btn_click", detail: true});
 }
 
@@ -3362,7 +3467,7 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSidebarExtendEnabled) {
         try {
             document.getElementsByClassName('side-nav-section')[0].parentNode.addEventListener("mouseenter", extendSidebar);
-            extendSidebar();
+            extendSidebar().then(function (res) {});
         } catch (e) {
 
         }
@@ -3423,7 +3528,11 @@ function toggleFeatures(isFromTitleObserver) {
         }
     }
 
-    initSidebarFavorites();
+    setTimeout(function () {
+        appendFavoritesBtn();
+        setSidebarFavorites();
+    }, 1500)
+
 }
 
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
