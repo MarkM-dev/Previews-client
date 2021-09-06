@@ -1124,6 +1124,9 @@ function setSidebarFavorites() {
                 if(options.isSidebarPreviewsEnabled) {
                     refreshNavCardsListAndListeners();
                 }
+                if(options.isSidebarSearchEnabled) {
+                    showSidebarSearchBtn();
+                }
             });
         }
     })
@@ -1243,7 +1246,7 @@ function showSidebarSearchBtn() {
     }
 
     if (!isNavBarCollapsed) {
-        let sidenav_content = document.querySelector('.side-bar-contents');
+        let sidenav_content = document.querySelector('.side-nav-header');
         if (sidenav_content) {
             sidenav_content.appendChild(createSideBarSearchBtn());
         }
@@ -3512,7 +3515,10 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSidebarSearchEnabled) {
         try {
             document.querySelector('.side-bar-contents').addEventListener("mouseenter", showSidebarSearchBtn);
-            showSidebarSearchBtn();
+            if (!options.isSidebarFavoritesEnabled) {
+                showSidebarSearchBtn();
+            }
+
         } catch (e) {
 
         }
