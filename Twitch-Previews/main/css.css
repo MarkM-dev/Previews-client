@@ -647,6 +647,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
+    z-index: 999;
 }
 
 .tp_search_input_container {

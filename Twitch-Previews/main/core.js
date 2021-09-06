@@ -1066,7 +1066,6 @@ function appendFavoritesBtn() {
 }
 
 function setSidebarFavorites() {
-    console.log('setSidebarFavorites called');
     _browser.storage.local.get('favorites_arr',function (res) {
 
         let followed_channels_section = document.querySelector('.side-nav-section');
@@ -3510,7 +3509,7 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isSidebarSearchEnabled) {
         try {
-            document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", showSidebarSearchBtn);
+            document.querySelector('.side-bar-contents').addEventListener("mouseenter", showSidebarSearchBtn);
             showSidebarSearchBtn();
         } catch (e) {
 
