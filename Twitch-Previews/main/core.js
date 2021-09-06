@@ -3594,7 +3594,7 @@ function toggleFeatures(isFromTitleObserver) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
                 }
             }
-        }, 1500)
+        }, 2000)
     }
 }
 
