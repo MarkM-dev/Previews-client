@@ -1068,12 +1068,6 @@ function appendFavoritesBtn() {
 function setSidebarFavorites() {
     console.log('setSidebarFavorites called');
     _browser.storage.local.get('favorites_arr',function (res) {
-        if(!res.favorites_arr || res.favorites_arr.length === 0) {
-            if (document.getElementById('tp_favorites_section')) {
-                document.getElementById('tp_favorites_section').remove();
-            }
-            return;
-        }
 
         let followed_channels_section = document.querySelector('.side-nav-section');
         if (followed_channels_section) {
@@ -1098,14 +1092,16 @@ function setSidebarFavorites() {
             }
 
             extendSidebar().then(function (promise_result) {
-                let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
-                for (let i = 0; i < shown_followed_channels.length; i++) {
-                    for (let j = 0; j < res.favorites_arr.length; j++) {
-                        if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
-                            if (isStreamerOnline(shown_followed_channels[i])) {
-                                favorites_section.children[1].appendChild(shown_followed_channels[i].cloneNode(true));
+                if (res.favorites_arr) {
+                    let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
+                    for (let i = 0; i < shown_followed_channels.length; i++) {
+                        for (let j = 0; j < res.favorites_arr.length; j++) {
+                            if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
+                                if (isStreamerOnline(shown_followed_channels[i])) {
+                                    favorites_section.children[1].appendChild(shown_followed_channels[i].cloneNode(true));
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
