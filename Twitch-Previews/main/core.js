@@ -1121,7 +1121,9 @@ function setSidebarFavorites() {
                 }
 
                 followed_channels_section.parentNode.prepend(favorites_section);
-                refreshNavCardsListAndListeners();
+                if(options.isSidebarPreviewsEnabled) {
+                    refreshNavCardsListAndListeners();
+                }
             });
         }
     })
