@@ -1016,8 +1016,7 @@ function appendFavoritesBtn() {
         if(bell_btn) {
             let favorites_btn = bell_btn.cloneNode(true);
             favorites_btn.id = 'tp_favorites_btn';
-            favorites_btn.style.marginRight = '-5px';
-            favorites_btn.style.zIndex = '999';
+            favorites_btn.style.margin = '0 0px 0 10px';
             favorites_btn.title = 'Toggle Favorite';
 
             _browser.storage.local.get('favorites_arr', function (res) {
@@ -1059,7 +1058,7 @@ function appendFavoritesBtn() {
                 })
             }
 
-            document.querySelector('div[data-target="channel-header-right"]').parentNode.prepend(favorites_btn);
+            bell_btn.parentNode.parentNode.parentNode.append(favorites_btn);
         }
     } catch (e) {
 
