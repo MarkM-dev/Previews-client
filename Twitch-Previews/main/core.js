@@ -1107,7 +1107,8 @@ function setSidebarFavorites() {
                     }
                 }
 
-                if (!favorites_section.children[1].firstChild) {
+
+                if (!favorites_section.children[1].firstChild && !isNavBarCollapsed) {
                     let div = document.createElement('div');
                     div.innerText = 'No live favorites';
                     div.style.padding = '0px 10px 5px 10px';
