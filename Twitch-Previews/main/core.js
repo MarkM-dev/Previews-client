@@ -1041,18 +1041,21 @@ function appendFavoritesBtn() {
 
                             });
                             setFavoritesBtnIcon(favorites_btn, false);
+                            sendMessageToBG({action: "bg_favorite_btn_click", detail: false});
                         } else {
                             res.favorites_arr.push(curr_stream_name);
                             _browser.storage.local.set({'favorites_arr': res.favorites_arr}, function() {
 
                             });
                             setFavoritesBtnIcon(favorites_btn, true);
+                            sendMessageToBG({action: "bg_favorite_btn_click", detail: true});
                         }
                     } else {
                         _browser.storage.local.set({'favorites_arr': [curr_stream_name]}, function() {
 
                         });
                         setFavoritesBtnIcon(favorites_btn, true);
+                        sendMessageToBG({action: "bg_favorite_btn_click", detail: true});
                     }
                     setSidebarFavorites();
                 })

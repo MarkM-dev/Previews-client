@@ -145,8 +145,8 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_fScrnWithChat_started":
             send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
             break;
-        case "bg_transparentChat_click":
-            send_ga_event('tChat_btn_click', 'tChat_btn_click', 'tChat_btn_click');
+        case "bg_favorite_btn_click":
+            send_ga_event('favorite_btn_click', 'favorite_btn_click', msg.detail ? 'favorite_add' : 'favorite_remove');
             break;
         case "bg_update_isMultiStreamEnabled":
             send_ga_event('multiStream_mode', 'change', msg.detail ? "multiStream_ON":"multiStream_OFF");
