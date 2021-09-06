@@ -837,18 +837,18 @@ function refreshDirectoryNavCardsListAndListeners() {
 }
 
 function getSidebarNavCards(ancestor) {
-    isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
+    isNavBarCollapsed = !!document.querySelector('.side-nav--collapsed');
     let parentSearchContainer = ancestor || document;
     let navCards;
     if (isNavBarCollapsed) {
-        if (parentSearchContainer.querySelectorAll('a.side-nav-card')[0] && parentSearchContainer.querySelectorAll('a.side-nav-card')[0].href){
+        if (parentSearchContainer.querySelector('a.side-nav-card') && parentSearchContainer.querySelector('a.side-nav-card').href){
             navCards = parentSearchContainer.querySelectorAll('a.side-nav-card');
         } else {
             isNavBarCollapsed = false;
-            navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+            navCards = parentSearchContainer.querySelectorAll('.side-nav-card__link');
         }
     } else {
-        navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+        navCards = parentSearchContainer.querySelectorAll('.side-nav-card__link');
     }
 
     return navCards;
