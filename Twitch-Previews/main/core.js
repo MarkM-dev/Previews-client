@@ -119,7 +119,7 @@ let sideNavMutationObserver = new MutationObserver(function(mutations) {
             refreshNavCardsListAndListeners();
         }
 
-        if (options.isFavoritesSidebarEnabled) {
+        if (options.isSidebarFavoritesEnabled) {
             setSidebarFavorites();
         }
         shouldRefresh = false;
@@ -918,6 +918,7 @@ function ga_report_appStart() {
     let dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
     let errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
     let channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
+    let sidebarFavorites = options.isSidebarFavoritesEnabled ? "sBarF_ON" : "sBarF_OFF";
     let sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
     let sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
     let pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
@@ -931,7 +932,7 @@ function ga_report_appStart() {
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main});
+            + " : " + pip_main + " : " + sidebarFavorites});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -3566,7 +3567,7 @@ function toggleFeatures(isFromTitleObserver) {
         document.querySelector('.collapse-toggle').removeEventListener('click', sidebarExpandBtnClick);
     }
 
-    if (options.isFavoritesSidebarEnabled) {
+    if (options.isSidebarFavoritesEnabled) {
         setTimeout(function () {
             appendFavoritesBtn();
             setSidebarFavorites();
@@ -3835,6 +3836,7 @@ function showSettingsMenu() {
         initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
         initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);

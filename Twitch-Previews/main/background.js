@@ -26,6 +26,7 @@ let options = {
     isDirpEnabled: true,
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
+    isSidebarFavoritesEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
@@ -94,10 +95,8 @@ _browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.9.7.3" && details.previousVersion !== "1.9.7.4" && details.previousVersion !== "1.9.7.5") {
-                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-            }
+            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
@@ -136,6 +135,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isSidebarExtendEnabled":
             send_ga_event('sidebarExtend_mode', 'change', msg.detail ? "sBarExtend_ON":"sBarExtend_OFF");
+            break;
+        case "bg_update_isSidebarFavoritesEnabled":
+            send_ga_event('sidebarFavorites_mode', 'change', msg.detail ? "sBarFavorites_ON":"sBarFavorites_OFF");
             break;
         case "bg_update_isfScrnWithChatEnabled":
             send_ga_event('fScrnWithChat_mode', 'change', msg.detail ? "fScrnWithChat_ON":"fScrnWithChat_OFF");
