@@ -1066,6 +1066,7 @@ function appendFavoritesBtn() {
 }
 
 function setSidebarFavorites() {
+    console.log('setSidebarFavorites called');
     _browser.storage.local.get('favorites_arr',function (res) {
 
         let followed_channels_section = document.querySelector('.side-nav-section');
@@ -1241,9 +1242,9 @@ function showSidebarSearchBtn() {
     }
 
     if (!isNavBarCollapsed) {
-        let sidenav_header = document.getElementsByClassName('side-nav-header')[0];
-        if (sidenav_header) {
-            sidenav_header.appendChild(createSideBarSearchBtn());
+        let sidenav_content = document.querySelector('.side-bar-contents');
+        if (sidenav_content) {
+            sidenav_content.appendChild(createSideBarSearchBtn());
         }
     }
 }
