@@ -1102,11 +1102,22 @@ function setSidebarFavorites() {
                 for (let i = 0; i < shown_followed_channels.length; i++) {
                     for (let j = 0; j < res.favorites_arr.length; j++) {
                         if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
-                            favorites_section.children[1].appendChild(shown_followed_channels[i].cloneNode(true));
+                            if (isStreamerOnline(shown_followed_channels[i])) {
+                                favorites_section.children[1].appendChild(shown_followed_channels[i].cloneNode(true));
+                            }
                             break;
                         }
                     }
                 }
+
+                if (!favorites_section.children[1].firstChild) {
+                    let div = document.createElement('div');
+                    div.innerText = 'No live favorites';
+                    div.style.padding = '0px 10px 5px 10px';
+                    div.style.color = 'grey';
+                    favorites_section.children[1].appendChild(div);
+                }
+
 
                 let old_favorites_section = document.getElementById('tp_favorites_section');
                 if (old_favorites_section) {
