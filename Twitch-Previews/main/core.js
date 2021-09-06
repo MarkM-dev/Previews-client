@@ -854,9 +854,9 @@ function getSidebarNavCards(ancestor) {
     return navCards;
 }
 
-function refreshNavCardsListAndListeners(ancestor) {
+function refreshNavCardsListAndListeners() {
     if (document.getElementById('sideNav')) {
-        let navCards = getSidebarNavCards(ancestor);
+        let navCards = getSidebarNavCards();
         //let navCards = document.getElementsByClassName('side-nav-card__link');
         for (let i = 0; i < navCards.length; i++) {
             navCards[i].lastImageLoadTimeStamp = new Date().getTime();
@@ -1121,8 +1121,8 @@ function setSidebarFavorites() {
                     old_favorites_section.remove();
                 }
 
-                refreshNavCardsListAndListeners(favorites_section);
                 followed_channels_section.parentNode.prepend(favorites_section);
+                refreshNavCardsListAndListeners();
             });
         }
     })
