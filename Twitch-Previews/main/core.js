@@ -1066,7 +1066,6 @@ function appendFavoritesBtn() {
 }
 
 function setSidebarFavorites() {
-    console.log('setSidebarFavorites called');
     _browser.storage.local.get('favorites_arr',function (res) {
 
         let followed_channels_section = document.querySelector('.side-nav-section');
