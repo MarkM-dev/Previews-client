@@ -1116,7 +1116,9 @@ function setSidebarFavorites() {
                         for (let j = 0; j < res.favorites_arr.length; j++) {
                             if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
                                 if (isStreamerOnline(shown_followed_channels[i])) {
-                                    favorites_section.children[1].appendChild(shown_followed_channels[i].cloneNode(true));
+                                    let el = shown_followed_channels[i].cloneNode(true);
+                                    el.title = el.href.split('/').pop();
+                                    favorites_section.children[1].appendChild(el);
                                 }
                                 break;
                             }
