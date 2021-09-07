@@ -1007,10 +1007,17 @@ function setFavoritesBtnIcon(btn, isFavorite) {
 }
 
 function appendFavoritesBtn() {
-    if (document.getElementById('tp_favorites_btn')) {
+    let tp_favorites_btn = document.getElementById('tp_favorites_btn');
+    if (tp_favorites_btn) {
+        if (!document.querySelector('.channel-info-content')) {
+            tp_favorites_btn.remove();
+        }
         return;
     }
 
+    if (!document.querySelector('.channel-info-content')) {
+        return;
+    }
     try {
         let bell_btn = document.querySelector('.live-notifications__btn');
         if(bell_btn) {
@@ -1020,7 +1027,7 @@ function appendFavoritesBtn() {
             favorites_btn.title = 'Toggle Favorite';
 
             _browser.storage.local.get('favorites_arr', function (res) {
-                let curr_stream_name = window.location.pathname.substring(1);
+                let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
                 let isFavorite = false;
                 if (res.favorites_arr) {
                     if (getStreamIndexInFavorites(curr_stream_name, res.favorites_arr) !== -1) {
@@ -1032,7 +1039,8 @@ function appendFavoritesBtn() {
 
             favorites_btn.onclick = function (e) {
                 _browser.storage.local.get('favorites_arr', function (res) {
-                    let curr_stream_name = window.location.pathname.substring(1);
+                    let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
+                    console.log(curr_stream_name);
                     if (res.favorites_arr) {
                         let item_index = getStreamIndexInFavorites(curr_stream_name, res.favorites_arr)
                         if (item_index !== -1) {
