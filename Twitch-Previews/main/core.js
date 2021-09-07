@@ -1040,7 +1040,6 @@ function appendFavoritesBtn() {
             favorites_btn.onclick = function (e) {
                 _browser.storage.local.get('favorites_arr', function (res) {
                     let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
-                    console.log(curr_stream_name);
                     if (res.favorites_arr) {
                         let item_index = getStreamIndexInFavorites(curr_stream_name, res.favorites_arr)
                         if (item_index !== -1) {
