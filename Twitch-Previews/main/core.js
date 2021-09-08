@@ -3409,7 +3409,7 @@ function showToast(toast_body, storageFlagName) {
             updateToast.style.width = "35rem";
             updateToast.firstChild.style.width = "30rem";
         }
-    }, 1000);
+    }, 100);
 }
 
 function getUpdateToastBody() {
