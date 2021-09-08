@@ -1025,6 +1025,7 @@ function appendFavoritesBtn() {
             favorites_btn.id = 'tp_favorites_btn';
             favorites_btn.style.margin = '0 0px 0 10px';
             favorites_btn.title = 'Toggle Favorite';
+            favorites_btn.querySelector('button').removeAttribute('disabled');
 
             _browser.storage.local.get('favorites_arr', function (res) {
                 let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
