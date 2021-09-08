@@ -1,4 +1,5 @@
 // (c) Twitch Previews.
+let isAppInit = true;
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
 let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
@@ -102,6 +103,11 @@ function getRuntimeUrl(path) {
 }
 
 let sideNavMutationObserver = new MutationObserver(function(mutations) {
+    if (isHovering || isAppInit) {
+        isAppInit = false;
+        return;
+    }
+
     let shouldRefresh = false;
     mutations.forEach(function(mutation) {
         if (mutation.type === "childList") {
@@ -109,7 +115,13 @@ let sideNavMutationObserver = new MutationObserver(function(mutations) {
         }
     });
     if (shouldRefresh){
-        refreshNavCardsListAndListeners();
+        if (options.isSidebarPreviewsEnabled) {
+            refreshNavCardsListAndListeners();
+        }
+
+        if (options.isSidebarFavoritesEnabled) {
+            setSidebarFavorites();
+        }
         shouldRefresh = false;
     }
 });
@@ -135,7 +147,7 @@ function setTitleMutationObserverForDirectoryCardsRefresh() {
 }
 
 function setSideNavMutationObserver() {
-    sideNavMutationObserver.observe(document.getElementsByClassName("side-bar-contents")[0], {
+    sideNavMutationObserver.observe(document.querySelector('.side-nav-section'), {
         childList: true,
         subtree: true
     });
@@ -825,19 +837,20 @@ function refreshDirectoryNavCardsListAndListeners() {
 }
 
 function getSidebarNavCards(ancestor) {
-    isNavBarCollapsed = document.getElementsByClassName('side-nav--collapsed').length > 0;
+    isNavBarCollapsed = !!document.querySelector('.side-nav--collapsed');
     let parentSearchContainer = ancestor || document;
     let navCards;
     if (isNavBarCollapsed) {
-        if (parentSearchContainer.querySelectorAll('a.side-nav-card')[0] && parentSearchContainer.querySelectorAll('a.side-nav-card')[0].href){
+        if (parentSearchContainer.querySelector('a.side-nav-card') && parentSearchContainer.querySelector('a.side-nav-card').href){
             navCards = parentSearchContainer.querySelectorAll('a.side-nav-card');
         } else {
             isNavBarCollapsed = false;
-            navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+            navCards = parentSearchContainer.querySelectorAll('.side-nav-card__link');
         }
     } else {
-        navCards = parentSearchContainer.getElementsByClassName('side-nav-card__link');
+        navCards = parentSearchContainer.querySelectorAll('.side-nav-card__link');
     }
+
     return navCards;
 }
 
@@ -905,6 +918,7 @@ function ga_report_appStart() {
     let dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
     let errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
     let channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
+    let sidebarFavorites = options.isSidebarFavoritesEnabled ? "sBarF_ON" : "sBarF_OFF";
     let sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
     let sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
     let pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
@@ -918,7 +932,7 @@ function ga_report_appStart() {
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main});
+            + " : " + pip_main + " : " + sidebarFavorites});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -975,6 +989,172 @@ function listenForPlayerError() {
     }
 }
 
+function getStreamIndexInFavorites(stream_name, arr) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === stream_name) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function setFavoritesBtnIcon(btn, isFavorite) {
+    if (isFavorite) {
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"></path></svg>';
+    } else {
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
+    }
+}
+
+function appendFavoritesBtn() {
+    let tp_favorites_btn = document.getElementById('tp_favorites_btn');
+    if (tp_favorites_btn) {
+        if (!document.querySelector('.channel-info-content')) {
+            tp_favorites_btn.remove();
+        }
+        return;
+    }
+
+    if (!document.querySelector('.channel-info-content')) {
+        return;
+    }
+    try {
+        let bell_btn = document.querySelector('.live-notifications__btn');
+        if(bell_btn) {
+            let favorites_btn = bell_btn.cloneNode(true);
+            favorites_btn.id = 'tp_favorites_btn';
+            favorites_btn.style.margin = '0 0px 0 10px';
+            favorites_btn.title = 'Toggle Favorite';
+            favorites_btn.querySelector('button').removeAttribute('disabled');
+
+            _browser.storage.local.get('favorites_arr', function (res) {
+                let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
+                let isFavorite = false;
+                if (res.favorites_arr) {
+                    if (getStreamIndexInFavorites(curr_stream_name, res.favorites_arr) !== -1) {
+                        isFavorite = true;
+                    }
+                }
+                setFavoritesBtnIcon(favorites_btn, isFavorite);
+            });
+
+            favorites_btn.onclick = function (e) {
+                _browser.storage.local.get('favorites_arr', function (res) {
+                    let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
+                    if (res.favorites_arr) {
+                        let item_index = getStreamIndexInFavorites(curr_stream_name, res.favorites_arr)
+                        if (item_index !== -1) {
+                            res.favorites_arr.splice(item_index, 1);
+                            _browser.storage.local.set({'favorites_arr': res.favorites_arr}, function() {
+
+                            });
+                            setFavoritesBtnIcon(favorites_btn, false);
+                            sendMessageToBG({action: "bg_favorite_btn_click", detail: false});
+                        } else {
+                            res.favorites_arr.push(curr_stream_name);
+                            _browser.storage.local.set({'favorites_arr': res.favorites_arr}, function() {
+
+                            });
+                            setFavoritesBtnIcon(favorites_btn, true);
+                            sendMessageToBG({action: "bg_favorite_btn_click", detail: true});
+                        }
+                    } else {
+                        _browser.storage.local.set({'favorites_arr': [curr_stream_name]}, function() {
+
+                        });
+                        setFavoritesBtnIcon(favorites_btn, true);
+                        sendMessageToBG({action: "bg_favorite_btn_click", detail: true});
+                    }
+                    setSidebarFavorites();
+                })
+            }
+
+            bell_btn.parentNode.parentNode.parentNode.append(favorites_btn);
+        }
+    } catch (e) {
+
+    }
+}
+
+function setSidebarFavorites() {
+    _browser.storage.local.get('favorites_arr',function (res) {
+
+        let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
+
+        let followed_channels_section = document.querySelector('.side-nav-section');
+        if (followed_channels_section) {
+            let favorites_section = followed_channels_section.cloneNode(true);
+            favorites_section.id = 'tp_favorites_section';
+            favorites_section.classList.remove('side-nav-section');
+            favorites_section.children[1].innerHTML = '';
+
+            let section_title = favorites_section.querySelector('.side-nav-header');
+            if (section_title) {
+                let title_figure = section_title.querySelector('figure');
+                if (title_figure) {
+                    if(isExperimentalSidebar) {
+                        title_figure.innerHTML = '';
+                        title_figure.style.width = '20px';
+                        title_figure.style.height = '20px';
+                        section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
+                    } else {
+                        title_figure.title = 'Favorite Channels';
+                        title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
+                    }
+                } else {
+                    section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
+                }
+
+                if (favorites_section.querySelector('.side-nav-show-more-toggle__button')) {
+                    favorites_section.querySelector('.side-nav-show-more-toggle__button').remove();
+                }
+            }
+
+            extendSidebar().then(function (promise_result) {
+                if (res.favorites_arr) {
+                    let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
+                    for (let i = 0; i < shown_followed_channels.length; i++) {
+                        for (let j = 0; j < res.favorites_arr.length; j++) {
+                            if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
+                                if (isStreamerOnline(shown_followed_channels[i])) {
+                                    let el = shown_followed_channels[i].cloneNode(true);
+                                    el.title = el.href.split('/').pop();
+                                    favorites_section.children[1].appendChild(el);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if(!isExperimentalSidebar) {
+                    if (!favorites_section.children[1].firstChild && !isNavBarCollapsed) {
+                        let div = document.createElement('div');
+                        div.innerText = 'No live favorites';
+                        div.style.padding = '0px 10px 5px 10px';
+                        div.style.color = 'grey';
+                        favorites_section.children[1].appendChild(div);
+                    }
+                }
+
+
+                let old_favorites_section = document.getElementById('tp_favorites_section');
+                if (old_favorites_section) {
+                    old_favorites_section.remove();
+                }
+
+                followed_channels_section.parentNode.prepend(favorites_section);
+                if(options.isSidebarPreviewsEnabled) {
+                    refreshNavCardsListAndListeners();
+                }
+                if(options.isSidebarSearchEnabled) {
+                    showSidebarSearchBtn();
+                }
+            });
+        }
+    })
+}
+
 function extendSidebarSection(sideNavSection) {
     if(sideNavSection) {
         if (sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]')) {
@@ -984,29 +1164,38 @@ function extendSidebarSection(sideNavSection) {
 }
 
 function extendSidebar() {
-    if (!isNavBarCollapsed) {
-        let sideNavSections = document.querySelectorAll('.side-nav-section');
-        if(sideNavSections[0]) {
-            let navCards = getSidebarNavCards(sideNavSections[0]);
-            if (isStreamerOnline(navCards[navCards.length - 1])) {
-                extendSidebarSection(sideNavSections[0]);
-                if (timesExtendedSidebar < 15) {
-                    timesExtendedSidebar++;
-                    setTimeout(function (){
-                        extendSidebarSection(sideNavSections[0]);
-                    },300);
+    return new Promise((resolve, reject) => {
+        if (!isNavBarCollapsed) {
+            let sideNavSections = document.querySelectorAll('.side-nav-section');
+            if(sideNavSections[0]) {
+                let navCards = getSidebarNavCards(sideNavSections[0]);
+                if (isStreamerOnline(navCards[navCards.length - 1])) {
+                    extendSidebarSection(sideNavSections[0]);
+                    if (timesExtendedSidebar < 15) {
+                        timesExtendedSidebar++;
+                        setTimeout(function (){
+                            extendSidebar().then(function (res) {});
+                        },300);
+                    } else {
+                        timesExtendedSidebar = 0;
+                        extendSidebarSection(sideNavSections[1]);
+                        extendSidebarSection(sideNavSections[2]);
+                        resolve('done');
+                    }
                 } else {
                     timesExtendedSidebar = 0;
                     extendSidebarSection(sideNavSections[1]);
                     extendSidebarSection(sideNavSections[2]);
+                    resolve('done');
                 }
             } else {
-                timesExtendedSidebar = 0;
-                extendSidebarSection(sideNavSections[1]);
-                extendSidebarSection(sideNavSections[2]);
+                resolve('done');
             }
+        } else {
+            resolve('done');
         }
-    }
+    })
+
 }
 
 function searchStreamer(e) {
@@ -1058,7 +1247,7 @@ function showSidebarSearchInput() {
 function sidebarSearchBtnClick() {
     showSidebarSearchInput();
     document.getElementById('tp_sidebar_search_input').focus();
-    extendSidebar();
+    extendSidebar().then(function (res) {});
     sendMessageToBG({action: "bg_sBarS_btn_click", detail: true});
 }
 
@@ -1080,9 +1269,9 @@ function showSidebarSearchBtn() {
     }
 
     if (!isNavBarCollapsed) {
-        let sidenav_header = document.getElementsByClassName('side-nav-header')[0];
-        if (sidenav_header) {
-            sidenav_header.appendChild(createSideBarSearchBtn());
+        let sidenav_content = document.querySelector('.side-nav-header');
+        if (sidenav_content) {
+            sidenav_content.appendChild(createSideBarSearchBtn());
         }
     }
 }
@@ -3161,7 +3350,7 @@ function showToast(toast_body, storageFlagName) {
         "            <div>" +
         "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"translate\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the browser's extensions webstore :)</div>\n" +
+        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -3207,6 +3396,11 @@ function showToast(toast_body, storageFlagName) {
         sendMessageToBG({action: "updateToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
+    updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
+        sendMessageToBG({action: "updateToast_twitter_btn_click", detail: true});
+        sendMessageToBG({action: "bg_show_twitter", detail: ""});
+    };
+
     document.body.appendChild(updateToast);
     setTimeout(function (){
         if (isOverflown(updateToast)) {
@@ -3215,24 +3409,26 @@ function showToast(toast_body, storageFlagName) {
             updateToast.style.width = "35rem";
             updateToast.firstChild.style.width = "30rem";
         }
-    }, 1000);
+    }, 100);
 }
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Multi-Stream Custom Layouts</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- You can now align the multi stream boxes to a layout preset.</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Open the layout presets menu by clicking <img width='17' height='17' src='" + getRuntimeUrl('images/multistream_layout.png') + "'/> to the left of the top search bar in the Multi-Stream page.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can add your own custom presets too! just add boxes to the page, open the presets menu and click \"Save current layout as preset\".</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Remember that you can also scroll the page and add more boxes.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added 3 default starter presets to the menu.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed Multi-Stream top page controls issues caused by the new long search bar.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;\" ><strong>- Full Screen + Custom Chat Improvement</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The Custom Chat will spawn back when you return to fullscreen after exiting fullscreen while in mode, so you can leave and return to fullscreen without the hassle of clicking the mode button again (much better).</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Exit the mode by clicking the button in the player controls again or click the close(x) button on the Custom Chat and exit fullscreen.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;\" ><strong>- These improvements should make these features MUCH more convenient to use.</strong></span>"
-        +  "        </div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- <svg style='vertical-align: sub;' stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z\"></path></svg> Sidebar Favorite Channels!</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- We follow a lot of streamers, but we only have a handful of favorites.</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature will create a new Favorites list at the top of the sidebar - for your most favorite streamers.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The list will show only the currently live streams in your favorites list.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Check the extension settings for more info on the feature and enable it there.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
+        "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
+        "    vertical-align: sub;\n" +
+        "\"><title></title><path d=\"M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 " +
+        "2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 " +
+        "4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 " +
+        "13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z\"></path></svg>TwitchPreviews</span></strong></span>"
+        +  "            </div>"
         +  "    </br>"
 }
 
@@ -3339,7 +3535,7 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSidebarExtendEnabled) {
         try {
             document.getElementsByClassName('side-nav-section')[0].parentNode.addEventListener("mouseenter", extendSidebar);
-            extendSidebar();
+            extendSidebar().then(function (res) {});
         } catch (e) {
 
         }
@@ -3348,8 +3544,11 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isSidebarSearchEnabled) {
         try {
-            document.getElementsByClassName('side-nav-section')[0].addEventListener("mouseenter", showSidebarSearchBtn);
-            showSidebarSearchBtn();
+            document.querySelector('.side-bar-contents').addEventListener("mouseenter", showSidebarSearchBtn);
+            if (!options.isSidebarFavoritesEnabled) {
+                showSidebarSearchBtn();
+            }
+
         } catch (e) {
 
         }
@@ -3398,6 +3597,24 @@ function toggleFeatures(isFromTitleObserver) {
                 setTwitchSearchBarListener();
             }, 1500);
         }
+    }
+
+    function sidebarExpandBtnClick(e) {
+        setSidebarFavorites();
+        document.querySelector('.collapse-toggle').removeEventListener('click', sidebarExpandBtnClick);
+    }
+
+    if (options.isSidebarFavoritesEnabled) {
+        setTimeout(function () {
+            appendFavoritesBtn();
+            setSidebarFavorites();
+            setSideNavMutationObserver();
+            if (!isFromTitleObserver) {
+                if (isNavBarCollapsed) {
+                    document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
+                }
+            }
+        }, 2000)
     }
 }
 
@@ -3656,6 +3873,7 @@ function showSettingsMenu() {
         initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
         initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);

@@ -26,6 +26,7 @@ let options = {
     isDirpEnabled: true,
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
+    isSidebarFavoritesEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
@@ -94,10 +95,8 @@ _browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            if (details.previousVersion !== "1.9.7.3" && details.previousVersion !== "1.9.7.4" && details.previousVersion !== "1.9.7.5") {
-                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-            }
+            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
@@ -137,14 +136,17 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isSidebarExtendEnabled":
             send_ga_event('sidebarExtend_mode', 'change', msg.detail ? "sBarExtend_ON":"sBarExtend_OFF");
             break;
+        case "bg_update_isSidebarFavoritesEnabled":
+            send_ga_event('sidebarFavorites_mode', 'change', msg.detail ? "sBarFavorites_ON":"sBarFavorites_OFF");
+            break;
         case "bg_update_isfScrnWithChatEnabled":
             send_ga_event('fScrnWithChat_mode', 'change', msg.detail ? "fScrnWithChat_ON":"fScrnWithChat_OFF");
             break;
         case "bg_fScrnWithChat_started":
             send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
             break;
-        case "bg_transparentChat_click":
-            send_ga_event('tChat_btn_click', 'tChat_btn_click', 'tChat_btn_click');
+        case "bg_favorite_btn_click":
+            send_ga_event('favorite_btn_click', 'favorite_btn_click', msg.detail ? 'favorite_add' : 'favorite_remove');
             break;
         case "bg_update_isMultiStreamEnabled":
             send_ga_event('multiStream_mode', 'change', msg.detail ? "multiStream_ON":"multiStream_OFF");
@@ -250,6 +252,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:msg.detail});
             send_ga_event('updateToast_translate_btn_click', 'updateToast_translate_btn_click', 'updateToast_translate_btn_click');
             break;
+        case "updateToast_twitter_btn_click":
+            send_ga_event('updateToast_twitter_btn_click', 'updateToast_twitter_btn_click', 'updateToast_twitter_btn_click');
+            break;
         case "bg_translate_infoDiv":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
@@ -264,7 +269,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
             break;
         case "bg_show_twitter":
-            _browser.tabs.create({url:"https://twitter.com/twitchPreviews"});
+            _browser.tabs.create({url:"https://twitter.com/TwitchPreviews"});
             break;
         case "bg_show_bugReport":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
