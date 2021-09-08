@@ -3350,7 +3350,7 @@ function showToast(toast_body, storageFlagName) {
         "            <div>" +
         "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"translate\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the browser's extensions webstore :)</div>\n" +
+        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
