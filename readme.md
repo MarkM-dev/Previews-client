@@ -25,6 +25,7 @@
 - Multi Stream & Multi Chat.
 - Transparent / Dynamic Chat Overlay.
 - Full Screen With Chat Mode.
+- Sidebar Favorite Channels List.
 - Auto Channel Points Clicker.
 - Auto Refresh on player errors (#1000, #2000, #4000).
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -77,6 +78,15 @@
     - The Custom Chat will spawn back when you return to fullscreen after exiting fullscreen while in mode.
     - Exit the mode by clicking the button in the player controls again or click the close(x) button on the Custom Chat and exit fullscreen.
     - Firefox users - exit the 'Default-Chat' mode by double tapping ESC.
+      <br/><br/>
+
+
+* **Sidebar Favorite Channels**
+    - A new Favorites list at the top of the sidebar (for your most favorite streamers).
+    - Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.
+    - The list will show only the currently live streams in your favorites list.
+    - Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it's closed, the list will still populate but will be partial.
+    - Note: it might take a few seconds for the list to show or update.
       <br/><br/>
 
 
