@@ -3422,6 +3422,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue in video preview mode where creating a video preview would create a history entry.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the favorites button under the stream where it wouldn't update when switching streams.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added hover animations to settings to improve usability.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
         "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
         "    vertical-align: sub;\n" +
