@@ -483,7 +483,8 @@ function createAndShowPreview() {
             twitchIframe.allow = iframeAllowAutoplayStr;
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
-                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                //twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             },250)
             previewDiv.appendChild(twitchIframe);
         }
@@ -516,26 +517,14 @@ function changeAndShowPreview() {
                 twitchIframe.style.display = 'none';
             }
         } else {
-            if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
-                if (previewDiv.style.display !== "block") {
-                    setTimeout(function () {
-                        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                      //  setTimeout(function () {
-                            twitchIframe.style.display = 'block';
-                            twitchIframe.style.visibility = 'hidden';
+            twitchIframe.style.display = 'block';
+            twitchIframe.style.visibility = 'hidden';
+            setTimeout(function () {
+                twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
+            }, 125);
 
-                      //  },300);
-                    }, 125);
-                } else {
-                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                    twitchIframe.style.display = 'block';
-                    twitchIframe.style.visibility = 'hidden';
-                }
-                createAndShowLoadingSpinnerForSideNav();
-            } else {
-                twitchIframe.style.display = 'block';
-                twitchIframe.style.visibility = 'visible';
-            }
+            createAndShowLoadingSpinnerForSideNav();
+
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
         }
@@ -560,7 +549,8 @@ function hidePreview() {
     }
     clearLoadingSpinnerFromSideNav();
     if (twitchIframe) {
-        twitchIframe.src = '';
+        twitchIframe.contentWindow.location.replace('about:blank')
+        //twitchIframe.src = '';
         twitchIframe.style.display = 'none';
     } else {
         if (previewDiv) {
