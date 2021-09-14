@@ -1119,6 +1119,17 @@ function setSidebarFavorites() {
                                 if (isStreamerOnline(shown_followed_channels[i])) {
                                     let el = shown_followed_channels[i].cloneNode(true);
                                     el.title = el.href.split('/').pop();
+                                    el.onclick = (e) => {
+                                        e.preventDefault();
+                                        window.history.replaceState({},'','/' + el.title);
+                                        window.location.href = '#';
+
+                                        // delete if above code works on firefox too
+                                       /* window.history.pushState({}, '', el.title);
+                                        window.history.back();
+                                        window.history.forward();
+                                        setTimeout(()=>window.history.forward(), 350);*/
+                                    }
                                     favorites_section.children[1].appendChild(el);
                                 }
                                 break;
