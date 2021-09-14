@@ -1113,12 +1113,6 @@ function setSidebarFavorites() {
                                         e.preventDefault();
                                         window.history.replaceState({},'','/' + el.title);
                                         window.location.href = '#';
-
-                                        // delete if above code works on firefox too
-                                       /* window.history.pushState({}, '', el.title);
-                                        window.history.back();
-                                        window.history.forward();
-                                        setTimeout(()=>window.history.forward(), 350);*/
                                     }
                                     favorites_section.children[1].appendChild(el);
                                 }
