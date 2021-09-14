@@ -63,10 +63,25 @@
     border-top: 1px solid whitesmoke;
     padding-bottom: 5px;
     padding-top: 25px;*/
-    margin-top: 10px;
+    /*margin-top: 10px;*/
+    padding-top: 5px;
+    padding-bottom: 5px;
     font-weight: bold;
     font-size: 12px;
     text-align: left;
+    transition: all 0.2s;
+}
+
+#TPBodyEl .TP_popup_dirp_feature_title:hover {
+    padding-left: 2.5rem;
+}
+
+#TPBodyEl .TP_popup_dirp_feature_title:hover > span {
+    transform: scale(1.1);
+}
+
+#TPBodyEl .TP_popup_dirp_feature_title:hover > span:nth-child(1) {
+    flex: 1;
 }
 
 #TPBodyEl input.apple-switch {
