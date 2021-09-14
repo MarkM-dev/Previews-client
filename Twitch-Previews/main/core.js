@@ -996,11 +996,26 @@ function setFavoritesBtnIcon(btn, isFavorite) {
     }
 }
 
+function updateFavoritesBtnIcon(favorites_btn) {
+    _browser.storage.local.get('favorites_arr', function (res) {
+        let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
+        let isFavorite = false;
+        if (res.favorites_arr) {
+            if (getStreamIndexInFavorites(curr_stream_name, res.favorites_arr) !== -1) {
+                isFavorite = true;
+            }
+        }
+        setFavoritesBtnIcon(favorites_btn, isFavorite);
+    });
+}
+
 function appendFavoritesBtn() {
     let tp_favorites_btn = document.getElementById('tp_favorites_btn');
     if (tp_favorites_btn) {
         if (!document.querySelector('.channel-info-content')) {
             tp_favorites_btn.remove();
+        } else {
+            updateFavoritesBtnIcon(tp_favorites_btn);
         }
         return;
     }
@@ -1017,16 +1032,7 @@ function appendFavoritesBtn() {
             favorites_btn.title = 'Toggle Favorite';
             favorites_btn.querySelector('button').removeAttribute('disabled');
 
-            _browser.storage.local.get('favorites_arr', function (res) {
-                let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
-                let isFavorite = false;
-                if (res.favorites_arr) {
-                    if (getStreamIndexInFavorites(curr_stream_name, res.favorites_arr) !== -1) {
-                        isFavorite = true;
-                    }
-                }
-                setFavoritesBtnIcon(favorites_btn, isFavorite);
-            });
+            updateFavoritesBtnIcon(favorites_btn);
 
             favorites_btn.onclick = function (e) {
                 _browser.storage.local.get('favorites_arr', function (res) {
@@ -3601,9 +3607,9 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isSidebarFavoritesEnabled) {
         setTimeout(function () {
-            appendFavoritesBtn();
             setSidebarFavorites();
             setSideNavMutationObserver();
+            appendFavoritesBtn();
             if (!isFromTitleObserver) {
                 if (isNavBarCollapsed) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
