@@ -483,8 +483,8 @@ function createAndShowPreview() {
             twitchIframe.allow = iframeAllowAutoplayStr;
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
-                //twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
+                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             },250)
             previewDiv.appendChild(twitchIframe);
         }
@@ -520,7 +520,8 @@ function changeAndShowPreview() {
             twitchIframe.style.display = 'block';
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
-                twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
+                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             }, 125);
 
             createAndShowLoadingSpinnerForSideNav();
@@ -549,8 +550,8 @@ function hidePreview() {
     }
     clearLoadingSpinnerFromSideNav();
     if (twitchIframe) {
-        twitchIframe.contentWindow.location.replace('about:blank')
-        //twitchIframe.src = '';
+        //twitchIframe.contentWindow.location.replace('about:blank')
+        twitchIframe.src = '';
         twitchIframe.style.display = 'none';
     } else {
         if (previewDiv) {
@@ -3419,8 +3420,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- NEW FEATURE NAME!</strong>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- NEW FEATURE DESC.</span>"
         +  "             <br><br><span style=\"font-size: 14px;color: whitesmoke;\" ><strong>- Fixes & Improvements:</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue in video preview mode where creating a video preview would create a history entry.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the favorites button under the stream where it wouldn't update when switching streams.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added hover animations to settings to improve usability.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
