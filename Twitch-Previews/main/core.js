@@ -3672,9 +3672,6 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
                 changeFeatureMode(featureName,invertBool ? false : true);
             }
         } else {
-            if (featureName === "isPredictionsNotificationsEnabled") {
-                sendMessageToBG({action: "bg_update_" + featureName, detail: false});
-            }
             changeFeatureMode(featureName,invertBool ? true : false);
             if (featureName !== "isImagePreviewMode") {
                 settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
