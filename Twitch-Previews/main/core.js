@@ -2792,6 +2792,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
         }
         title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
+        iframe.setAttribute('allowfullscreen', 'true');
         iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
     }
 
