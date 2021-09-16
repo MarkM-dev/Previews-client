@@ -919,11 +919,12 @@ function ga_report_appStart() {
     let selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
     let multiStream = options.isMultiStreamEnabled ? "multiStream_ON" : "multiStream_OFF";
     let pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
+    let screenshot = options.isScreenshotEnabled ? "s_ON" : "s_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
