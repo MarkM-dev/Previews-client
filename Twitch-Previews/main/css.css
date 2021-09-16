@@ -1326,10 +1326,14 @@
     transition: opacity 0.2s;
     opacity: 0;
     cursor: pointer;
+    color: white;
 }
 .tp-multi-stream-box-screenshot #tp_screenshot_click_overlay:hover {
     opacity: 1;
 }
 .tp-multi-stream-box-screenshot #tp_screenshot_click_overlay svg {
     font-size: 35px;
+}
+#tp_screenshot_btn {
+    justify-content: center;
 }
