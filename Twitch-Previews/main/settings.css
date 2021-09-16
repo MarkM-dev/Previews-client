@@ -44,6 +44,15 @@
     font-weight: normal;
 }
 
+#TPBodyEl .tp_settings_section_title {
+    text-align: left;
+    font-size: 30px;
+    color: silver;
+    box-shadow: rgb(255 255 255) 0px 10px 10px -14px;
+    margin: 5px 0 10px 0;
+    border-radius: 10px;
+}
+
 #TPBodyEl .TP_popup_sidebar_feature_title {
     display: flex;
     align-items: center;
