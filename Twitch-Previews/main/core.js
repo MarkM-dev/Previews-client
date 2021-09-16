@@ -3553,7 +3553,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to fast-forward the stream to the latest point in the buffer.</span>"
         +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fixes & Improvements:</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the multi-stream video where the native fullscreen button didn't work.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the favorites button under the stream where it wouldn't update when switching streams.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added hover animations to settings to improve usability.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
