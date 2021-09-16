@@ -2884,7 +2884,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         click_download_overlay.onclick = function () {
             let link = document.createElement("a");
-            link.download = 'screenshot';
+            link.download = streamName;
             link.target = "_blank";
             link.href = screenshot_imageDataUri;
             document.body.appendChild(link);
