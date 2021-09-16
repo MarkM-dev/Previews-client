@@ -1261,7 +1261,7 @@ function createSideBarSearchBtn() {
     search_btn.classList.add('tp-sidebar-search-btn');
     search_btn.style.backgroundImage = "url('" + getRuntimeUrl('../images/tp_sidebar_search.png') + "')";
     isLayoutHorizontallyInverted ? search_btn.style.left = "4rem" : search_btn.style.right = "4rem";
-    search_btn.title = "Twitch Previews - Search Streamers";
+    search_btn.title = "Search Streams";
     search_btn.onclick = sidebarSearchBtnClick;
 
     return search_btn;
