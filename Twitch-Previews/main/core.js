@@ -920,11 +920,12 @@ function ga_report_appStart() {
     let multiStream = options.isMultiStreamEnabled ? "multiStream_ON" : "multiStream_OFF";
     let pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
     let screenshot = options.isScreenshotEnabled ? "s_ON" : "s_OFF";
+    let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + fastForward});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -2158,6 +2159,42 @@ function setfScrnWithChatBtn() {
             btn_container.appendChild(img);
             btn_container.appendChild(menu_div);
             ttv_theater_mode_btn.parentNode.before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+function appendFastForwardBtn() {
+    if (document.getElementById('tp_fast_forward_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_fast_forward_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Fast Forward";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" style="padding: 5%;">' +
+                '<path d="M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 ' +
+                '14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z"></path>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+                let video = document.querySelector('video');
+                video.currentTime = video.buffered.end(video.buffered.length - 1);
+                sendMessageToBG({action: "bg_fast_forward_btn_click", detail: ""});
+            }
+
+            document.querySelector('.player-controls__left-control-group').children[0].after(btn_container);
+            //document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
         }
     } catch (e) {
 
@@ -3510,7 +3547,11 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can capture multiple screenshots and then save only the ones you like.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The screenshots are captured at the same resolution as the stream.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: whitesmoke;\" ><strong>- Fixes & Improvements:</strong></span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fast-Forward Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z\"></path></svg>)!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls next to the 'play/pause' button.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to fast-forward the stream to the latest point in the buffer.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fixes & Improvements:</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the favorites button under the stream where it wouldn't update when switching streams.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added hover animations to settings to improve usability.</span>"
@@ -3710,8 +3751,12 @@ function toggleFeatures(isFromTitleObserver) {
         }, 2000)
     }
 
-    if(options.isScreenshotEnabled) {
+    if (options.isScreenshotEnabled) {
         appendScreenShotBtn();
+    }
+
+    if (options.isFastForwardEnabled) {
+        appendFastForwardBtn();
     }
 }
 
@@ -3974,6 +4019,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
+        initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);

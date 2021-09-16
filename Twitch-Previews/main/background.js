@@ -33,6 +33,7 @@ let options = {
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
     isScreenshotEnabled: false,
+    isFastForwardEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -160,6 +161,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_screenshot_btn_click":
             send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
+            break;
+        case "bg_update_isFastForwardEnabled":
+            send_ga_event('fast_forward_mode', 'change', msg.detail ? "fast_forward_ON":"fast_forward_OFF");
+            break;
+        case "bg_fast_forward_btn_click":
+            send_ga_event('fast_forward_btn_click', 'fast_forward_btn_click', 'fast_forward_btn_click');
             break;
         case "bg_multiStream_btn_click":
             _browser.tabs.create({url:msg.detail});
