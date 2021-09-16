@@ -248,7 +248,7 @@ function startCustomPip(e) {
     e.cancelBubble = true;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME)
 
-    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false);
+    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false);
     removePipBtn();
     removeVidPreviewVolBtn();
     sendMessageToBG({action: "bg_pip_started", detail: ""});
@@ -484,6 +484,7 @@ function createAndShowPreview() {
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             },250)
             previewDiv.appendChild(twitchIframe);
         }
@@ -516,26 +517,15 @@ function changeAndShowPreview() {
                 twitchIframe.style.display = 'none';
             }
         } else {
-            if(twitchIframe.src !== getPreviewStreamUrl(lastHoveredCardEl)) {
-                if (previewDiv.style.display !== "block") {
-                    setTimeout(function () {
-                        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                      //  setTimeout(function () {
-                            twitchIframe.style.display = 'block';
-                            twitchIframe.style.visibility = 'hidden';
+            twitchIframe.style.display = 'block';
+            twitchIframe.style.visibility = 'hidden';
+            setTimeout(function () {
+                twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
+            }, 125);
 
-                      //  },300);
-                    }, 125);
-                } else {
-                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                    twitchIframe.style.display = 'block';
-                    twitchIframe.style.visibility = 'hidden';
-                }
-                createAndShowLoadingSpinnerForSideNav();
-            } else {
-                twitchIframe.style.display = 'block';
-                twitchIframe.style.visibility = 'visible';
-            }
+            createAndShowLoadingSpinnerForSideNav();
+
             twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
             twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
         }
@@ -560,6 +550,7 @@ function hidePreview() {
     }
     clearLoadingSpinnerFromSideNav();
     if (twitchIframe) {
+        //twitchIframe.contentWindow.location.replace('about:blank')
         twitchIframe.src = '';
         twitchIframe.style.display = 'none';
     } else {
@@ -928,11 +919,13 @@ function ga_report_appStart() {
     let selfPreview = options.isSelfPreviewEnabled ? "SP_ON" : "SP_OFF";
     let multiStream = options.isMultiStreamEnabled ? "multiStream_ON" : "multiStream_OFF";
     let pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
+    let screenshot = options.isScreenshotEnabled ? "s_ON" : "s_OFF";
+    let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + fastForward});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -1006,11 +999,26 @@ function setFavoritesBtnIcon(btn, isFavorite) {
     }
 }
 
+function updateFavoritesBtnIcon(favorites_btn) {
+    _browser.storage.local.get('favorites_arr', function (res) {
+        let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
+        let isFavorite = false;
+        if (res.favorites_arr) {
+            if (getStreamIndexInFavorites(curr_stream_name, res.favorites_arr) !== -1) {
+                isFavorite = true;
+            }
+        }
+        setFavoritesBtnIcon(favorites_btn, isFavorite);
+    });
+}
+
 function appendFavoritesBtn() {
     let tp_favorites_btn = document.getElementById('tp_favorites_btn');
     if (tp_favorites_btn) {
         if (!document.querySelector('.channel-info-content')) {
             tp_favorites_btn.remove();
+        } else {
+            updateFavoritesBtnIcon(tp_favorites_btn);
         }
         return;
     }
@@ -1027,16 +1035,7 @@ function appendFavoritesBtn() {
             favorites_btn.title = 'Toggle Favorite';
             favorites_btn.querySelector('button').removeAttribute('disabled');
 
-            _browser.storage.local.get('favorites_arr', function (res) {
-                let curr_stream_name = document.querySelector('.channel-info-content').querySelector('a').href.split('/').pop();
-                let isFavorite = false;
-                if (res.favorites_arr) {
-                    if (getStreamIndexInFavorites(curr_stream_name, res.favorites_arr) !== -1) {
-                        isFavorite = true;
-                    }
-                }
-                setFavoritesBtnIcon(favorites_btn, isFavorite);
-            });
+            updateFavoritesBtnIcon(favorites_btn);
 
             favorites_btn.onclick = function (e) {
                 _browser.storage.local.get('favorites_arr', function (res) {
@@ -1119,6 +1118,11 @@ function setSidebarFavorites() {
                                 if (isStreamerOnline(shown_followed_channels[i])) {
                                     let el = shown_followed_channels[i].cloneNode(true);
                                     el.title = el.href.split('/').pop();
+                                    el.onclick = (e) => {
+                                        e.preventDefault();
+                                        window.history.replaceState({},'','/' + el.title);
+                                        window.location.href = '#';
+                                    }
                                     favorites_section.children[1].appendChild(el);
                                 }
                                 break;
@@ -1257,7 +1261,7 @@ function createSideBarSearchBtn() {
     search_btn.classList.add('tp-sidebar-search-btn');
     search_btn.style.backgroundImage = "url('" + getRuntimeUrl('../images/tp_sidebar_search.png') + "')";
     isLayoutHorizontallyInverted ? search_btn.style.left = "4rem" : search_btn.style.right = "4rem";
-    search_btn.title = "Twitch Previews - Search Streamers";
+    search_btn.title = "Search Streams";
     search_btn.onclick = sidebarSearchBtnClick;
 
     return search_btn;
@@ -2161,6 +2165,89 @@ function setfScrnWithChatBtn() {
     }
 }
 
+function appendFastForwardBtn() {
+    if (document.getElementById('tp_fast_forward_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_fast_forward_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Fast Forward";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" style="padding: 5%;">' +
+                '<path d="M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 ' +
+                '14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z"></path>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+                let video = document.querySelector('video');
+                video.currentTime = video.buffered.end(video.buffered.length - 1);
+                sendMessageToBG({action: "bg_fast_forward_btn_click", detail: ""});
+            }
+
+            document.querySelector('.player-controls__left-control-group').children[0].after(btn_container);
+            //document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+function appendScreenShotBtn() {
+    if (document.getElementById('tp_screenshot_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_screenshot_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Screenshot Stream";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg"><g>' +
+                    '<path fill="none" d="M0 0h24v24H0z"></path>' +
+                    '<path d="M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 ' +
+                    '0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 ' +
+                    '11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z"></path></g>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+                let video = document.querySelector('video');
+                let canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                let ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                let dataURI = canvas.toDataURL('image/png');
+
+                fetch(dataURI).then(function (res) {
+                    res.blob().then(function (blob_res) {
+                        createMultiStreamBox(getCurrentStreamerName(), true, false, false, URL.createObjectURL(blob_res));
+                    })
+                });
+                sendMessageToBG({action: "bg_screenshot_btn_click", detail: ""});
+            }
+            document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
 function setPIPBtn() {
     if (document.getElementById('tp_pip_btn')) {
         return;
@@ -2515,7 +2602,7 @@ let fScrnWithChat_savedState = {
 }
 
 
-function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat) {
+function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat, screenshot_imageDataUri) {
     let titleBtnContainer;
     let extraMultiBoxBtn;
     let multiStreamDiv = document.createElement("div");
@@ -2768,7 +2855,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, false);
+            createMultiStreamBox(streamName, true, false, false);
             sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
         }
 
@@ -2786,11 +2873,14 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         }
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, true);
+            createMultiStreamBox(streamName, true, true, false);
             sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
         }
         title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
-        iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+        if (!screenshot_imageDataUri) {
+            iframe.setAttribute('allowfullscreen', 'true');
+            iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+        }
     }
 
     titleBtnContainer = document.createElement('div');
@@ -2807,7 +2897,45 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     title.appendChild(titleBtnContainer);
 
     multiStreamDiv.appendChild(title);
-    multiStreamDiv.appendChild(iframe);
+    if (screenshot_imageDataUri) {
+        multiStreamDiv.classList.add('tp-multi-stream-box-screenshot');
+        let img = document.createElement('img');
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.src = screenshot_imageDataUri;
+
+        let click_download_overlay = document.createElement('div');
+        click_download_overlay.id = 'tp_screenshot_click_overlay';
+        click_download_overlay.style.position = 'absolute';
+        click_download_overlay.style.top = '0';
+        click_download_overlay.style.left = '0';
+        click_download_overlay.style.width = '100%';
+        click_download_overlay.style.height = '100%';
+
+        click_download_overlay.innerHTML =
+            "<div>" +
+                "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\">" +
+                    "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
+                "</svg>" +
+            "</div>" +
+            "<div style='font-weight: bold;font-size: 15px;' >Download Screenshot</div>";
+
+        click_download_overlay.onclick = function () {
+            let link = document.createElement("a");
+            link.download = streamName;
+            link.target = "_blank";
+            link.href = screenshot_imageDataUri;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        multiStreamDiv.prepend(click_download_overlay);
+        multiStreamDiv.appendChild(img);
+    } else {
+        multiStreamDiv.appendChild(iframe);
+    }
+
 
     initDragForMultiStream(multiStreamDiv);
 
@@ -2884,7 +3012,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamBox(href, true, false);
+                createMultiStreamBox(href, true, false, false);
                 sendMessageToBG({action: "bg_searchBar_multiStream_started", detail: ""});
             })
 
@@ -2910,7 +3038,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamBox(href, true, true);
+                createMultiStreamBox(href, true, true, false);
                 sendMessageToBG({action: "bg_searchBar_multiStream_chat_started", detail: ""});
             })
 
@@ -3262,7 +3390,7 @@ function initMultiStream(firstStreamName) {
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
     appendMultiStreamLayoutControls();
-    createMultiStreamBox(firstStreamName, false, false);
+    createMultiStreamBox(firstStreamName, false, false, false);
     isMultiStreamMode = true;
     document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
 }
@@ -3414,13 +3542,20 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- <svg style='vertical-align: sub;' stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z\"></path></svg> Sidebar Favorite Channels!</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- We follow a lot of streamers, but we only have a handful of favorites.</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- This feature will create a new Favorites list at the top of the sidebar - for your most favorite streamers.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The list will show only the currently live streams in your favorites list.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Check the extension settings for more info on the feature and enable it there.</span>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features! (and fixes)</div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Screenshot Stream Button(<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z\"></path></g></svg>)!</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can capture multiple screenshots and then save only the ones you like.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The screenshots are captured at the same resolution as the stream.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fast-Forward Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z\"></path></svg>)!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls next to the 'play/pause' button.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to fast-forward the stream to the latest point in the buffer.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fixes & Improvements:</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the multi-stream video where the native fullscreen button didn't work.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the favorites button under the stream where it wouldn't update when switching streams.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Sectioned the settings and added hover animations to improve usability.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
         "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
         "    vertical-align: sub;\n" +
@@ -3606,15 +3741,23 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isSidebarFavoritesEnabled) {
         setTimeout(function () {
-            appendFavoritesBtn();
             setSidebarFavorites();
             setSideNavMutationObserver();
+            appendFavoritesBtn();
             if (!isFromTitleObserver) {
                 if (isNavBarCollapsed) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
                 }
             }
         }, 2000)
+    }
+
+    if (options.isScreenshotEnabled) {
+        appendScreenShotBtn();
+    }
+
+    if (options.isFastForwardEnabled) {
+        appendFastForwardBtn();
     }
 }
 
@@ -3670,9 +3813,6 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
                 changeFeatureMode(featureName,invertBool ? false : true);
             }
         } else {
-            if (featureName === "isPredictionsNotificationsEnabled") {
-                sendMessageToBG({action: "bg_update_" + featureName, detail: false});
-            }
             changeFeatureMode(featureName,invertBool ? true : false);
             if (featureName !== "isImagePreviewMode") {
                 settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
@@ -3879,6 +4019,8 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
+        initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
+        initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);

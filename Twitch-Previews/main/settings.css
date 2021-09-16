@@ -44,6 +44,15 @@
     font-weight: normal;
 }
 
+#TPBodyEl .tp_settings_section_title {
+    text-align: left;
+    font-size: 30px;
+    color: silver;
+    box-shadow: rgb(255 255 255) 0px 10px 10px -14px;
+    margin: 5px 0 10px 0;
+    border-radius: 10px;
+}
+
 #TPBodyEl .TP_popup_sidebar_feature_title {
     display: flex;
     align-items: center;
@@ -59,14 +68,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /*margin-top: 30px;
-    border-top: 1px solid whitesmoke;
+    padding-top: 5px;
     padding-bottom: 5px;
-    padding-top: 25px;*/
-    margin-top: 10px;
     font-weight: bold;
     font-size: 12px;
     text-align: left;
+    transition: all 0.2s ease;
+}
+
+#TPBodyEl .TP_popup_dirp_feature_title:hover {
+    padding-left: 35px;
+}
+
+#TPBodyEl .TP_popup_dirp_feature_title:hover > span:nth-child(2) {
+    transform: scale(1.1);
 }
 
 #TPBodyEl input.apple-switch {
@@ -336,6 +351,7 @@
     margin-left: 2px;
     font-size: 14px;
     font-weight: bold;
+    padding-bottom: 1px;
 }
 
 #TPBodyEl .tp_title_shadow_el {

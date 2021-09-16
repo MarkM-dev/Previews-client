@@ -32,6 +32,8 @@ let options = {
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
+    isScreenshotEnabled: false,
+    isFastForwardEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -92,6 +94,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
         send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer + ' - ' + tpga_browser);
         _browser.storage.local.set({'isFTE': true}, function() {});
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
+        _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
     } else {
         if (details.reason === "update") {
 
@@ -153,6 +156,18 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isPipEnabled":
             send_ga_event('pip_main_mode', 'change', msg.detail ? "pip_main_ON":"pip_main_OFF");
+            break;
+        case "bg_update_isScreenshotEnabled":
+            send_ga_event('screenshot_mode', 'change', msg.detail ? "screenshot_ON":"screenshot_OFF");
+            break;
+        case "bg_screenshot_btn_click":
+            send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
+            break;
+        case "bg_update_isFastForwardEnabled":
+            send_ga_event('fast_forward_mode', 'change', msg.detail ? "fast_forward_ON":"fast_forward_OFF");
+            break;
+        case "bg_fast_forward_btn_click":
+            send_ga_event('fast_forward_btn_click', 'fast_forward_btn_click', 'fast_forward_btn_click');
             break;
         case "bg_multiStream_btn_click":
             _browser.tabs.create({url:msg.detail});
