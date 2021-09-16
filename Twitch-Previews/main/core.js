@@ -2843,6 +2843,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         if (screenshot_imageDataUri) {
             iframe.src = screenshot_imageDataUri;
         } else {
+            iframe.setAttribute('allowfullscreen', 'true');
             iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
         }
     }
