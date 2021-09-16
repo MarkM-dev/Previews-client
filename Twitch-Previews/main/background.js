@@ -94,6 +94,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
         send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer + ' - ' + tpga_browser);
         _browser.storage.local.set({'isFTE': true}, function() {});
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
+        _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
     } else {
         if (details.reason === "update") {
 
