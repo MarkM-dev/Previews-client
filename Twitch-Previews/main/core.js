@@ -2168,23 +2168,21 @@ function appendScreenShotBtn() {
         return;
     }
     try {
-        let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
-        if (ttv_theater_mode_btn) {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
             let btn_container = document.createElement('div');
             btn_container.id = "tp_screenshot_btn";
             btn_container.classList.add('tp-player-control');
             btn_container.title = "Screenshot Stream";
 
-            let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
-            btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
-            btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
             btn_container.style.zIndex = "1";
 
-            let img = document.createElement('img');
-            img.src = getRuntimeUrl('../images/pip.png');
-            img.width = (ttv_theater_mode_btn_size.width || "18") * 0.7;
-            img.height = (ttv_theater_mode_btn_size.height || "18") * 0.7;
-            img.style.margin = "auto";
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="100%" width="70%" xmlns="http://www.w3.org/2000/svg">' +
+                '<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 ' +
+                '1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>';
 
             btn_container.onclick = function (){
                 let video = document.querySelector('video');
@@ -2202,8 +2200,7 @@ function appendScreenShotBtn() {
                 });
 
             }
-            btn_container.appendChild(img);
-            ttv_theater_mode_btn.parentNode.before(btn_container);
+            document.querySelector('.player-controls__right-control-group').firstChild.before(btn_container);
         }
     } catch (e) {
 
