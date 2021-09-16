@@ -2861,11 +2861,39 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
     multiStreamDiv.appendChild(title);
     if (screenshot_imageDataUri) {
+        multiStreamDiv.classList.add('tp-multi-stream-box-screenshot');
         let img = document.createElement('img');
         img.style.width = '100%';
         img.style.height = '100%';
         img.src = screenshot_imageDataUri;
 
+        let click_download_overlay = document.createElement('div');
+        click_download_overlay.id = 'tp_screenshot_click_overlay';
+        click_download_overlay.style.position = 'absolute';
+        click_download_overlay.style.top = '0';
+        click_download_overlay.style.left = '0';
+        click_download_overlay.style.width = '100%';
+        click_download_overlay.style.height = '100%';
+
+        click_download_overlay.innerHTML =
+            "<div>" +
+                "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\">" +
+                    "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
+                "</svg>" +
+            "</div>" +
+            "<div style='font-weight: bold;font-size: 15px;' >Download Screenshot</div>";
+
+        click_download_overlay.onclick = function () {
+            let link = document.createElement("a");
+            link.download = 'image';
+            link.target = "_blank";
+            link.href = screenshot_imageDataUri;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        multiStreamDiv.prepend(click_download_overlay);
         multiStreamDiv.appendChild(img);
     } else {
         multiStreamDiv.appendChild(iframe);
