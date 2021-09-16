@@ -2201,6 +2201,7 @@ function appendScreenShotBtn() {
                         createMultiStreamBox(getCurrentStreamerName(), true, false, false, URL.createObjectURL(blob_res));
                     })
                 });
+                sendMessageToBG({action: "bg_screenshot_btn_click", detail: ""});
             }
             document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
         }
@@ -3706,7 +3707,9 @@ function toggleFeatures(isFromTitleObserver) {
         }, 2000)
     }
 
-    appendScreenShotBtn();
+    if(options.isScreenshotEnabled) {
+        appendScreenShotBtn();
+    }
 }
 
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -3967,6 +3970,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
+        initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
