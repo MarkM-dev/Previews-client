@@ -248,7 +248,7 @@ function startCustomPip(e) {
     e.cancelBubble = true;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME)
 
-    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false);
+    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false);
     removePipBtn();
     removeVidPreviewVolBtn();
     sendMessageToBG({action: "bg_pip_started", detail: ""});
@@ -2163,6 +2163,53 @@ function setfScrnWithChatBtn() {
     }
 }
 
+function appendScreenShotBtn() {
+    if (document.getElementById('tp_screenshot_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_screenshot_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Screenshot Stream";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg"><g>' +
+                    '<path fill="none" d="M0 0h24v24H0z"></path>' +
+                    '<path d="M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 ' +
+                    '0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 ' +
+                    '11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z"></path></g>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+                let video = document.querySelector('video');
+                let canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                let ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                let dataURI = canvas.toDataURL('image/png');
+
+                fetch(dataURI).then(function (res) {
+                    res.blob().then(function (blob_res) {
+                        createMultiStreamBox(getCurrentStreamerName(), true, false, false, URL.createObjectURL(blob_res));
+                    })
+                });
+                sendMessageToBG({action: "bg_screenshot_btn_click", detail: ""});
+            }
+            document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
 function setPIPBtn() {
     if (document.getElementById('tp_pip_btn')) {
         return;
@@ -2517,7 +2564,7 @@ let fScrnWithChat_savedState = {
 }
 
 
-function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat) {
+function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat, screenshot_imageDataUri) {
     let titleBtnContainer;
     let extraMultiBoxBtn;
     let multiStreamDiv = document.createElement("div");
@@ -2770,7 +2817,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, false);
+            createMultiStreamBox(streamName, true, false, false);
             sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
         }
 
@@ -2788,12 +2835,14 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         }
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, true);
+            createMultiStreamBox(streamName, true, true, false);
             sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
         }
         title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
-        iframe.setAttribute('allowfullscreen', 'true');
-        iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+        if (!screenshot_imageDataUri) {
+            iframe.setAttribute('allowfullscreen', 'true');
+            iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+        }
     }
 
     titleBtnContainer = document.createElement('div');
@@ -2810,7 +2859,45 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     title.appendChild(titleBtnContainer);
 
     multiStreamDiv.appendChild(title);
-    multiStreamDiv.appendChild(iframe);
+    if (screenshot_imageDataUri) {
+        multiStreamDiv.classList.add('tp-multi-stream-box-screenshot');
+        let img = document.createElement('img');
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.src = screenshot_imageDataUri;
+
+        let click_download_overlay = document.createElement('div');
+        click_download_overlay.id = 'tp_screenshot_click_overlay';
+        click_download_overlay.style.position = 'absolute';
+        click_download_overlay.style.top = '0';
+        click_download_overlay.style.left = '0';
+        click_download_overlay.style.width = '100%';
+        click_download_overlay.style.height = '100%';
+
+        click_download_overlay.innerHTML =
+            "<div>" +
+                "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\">" +
+                    "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
+                "</svg>" +
+            "</div>" +
+            "<div style='font-weight: bold;font-size: 15px;' >Download Screenshot</div>";
+
+        click_download_overlay.onclick = function () {
+            let link = document.createElement("a");
+            link.download = 'screenshot';
+            link.target = "_blank";
+            link.href = screenshot_imageDataUri;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        multiStreamDiv.prepend(click_download_overlay);
+        multiStreamDiv.appendChild(img);
+    } else {
+        multiStreamDiv.appendChild(iframe);
+    }
+
 
     initDragForMultiStream(multiStreamDiv);
 
@@ -2887,7 +2974,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamBox(href, true, false);
+                createMultiStreamBox(href, true, false, false);
                 sendMessageToBG({action: "bg_searchBar_multiStream_started", detail: ""});
             })
 
@@ -2913,7 +3000,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamBox(href, true, true);
+                createMultiStreamBox(href, true, true, false);
                 sendMessageToBG({action: "bg_searchBar_multiStream_chat_started", detail: ""});
             })
 
@@ -3265,7 +3352,7 @@ function initMultiStream(firstStreamName) {
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
     appendMultiStreamLayoutControls();
-    createMultiStreamBox(firstStreamName, false, false);
+    createMultiStreamBox(firstStreamName, false, false, false);
     isMultiStreamMode = true;
     document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
 }
@@ -3418,8 +3505,10 @@ function showToast(toast_body, storageFlagName) {
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features! (and fixes)</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- NEW FEATURE NAME!</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- NEW FEATURE DESC.</span>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Screenshot Stream Button(<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z\"></path></g></svg>)!</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can capture multiple screenshots and then save only the ones you like.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The screenshots are captured at the same resolution as the stream.</span>"
         +  "             <br><br><span style=\"font-size: 14px;color: whitesmoke;\" ><strong>- Fixes & Improvements:</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
         +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the favorites button under the stream where it wouldn't update when switching streams.</span>"
@@ -3618,6 +3707,10 @@ function toggleFeatures(isFromTitleObserver) {
                 }
             }
         }, 2000)
+    }
+
+    if(options.isScreenshotEnabled) {
+        appendScreenShotBtn();
     }
 }
 
@@ -3879,6 +3972,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
+        initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);

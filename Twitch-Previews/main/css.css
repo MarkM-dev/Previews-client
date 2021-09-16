@@ -1306,3 +1306,34 @@
 #tp_updateToast_twitter_btn:hover {
     zoom: 1.05;
 }
+
+.tp-multi-stream-box-screenshot img {
+    width: 100%;
+    height: 100%;
+}
+
+.tp-multi-stream-box-screenshot #tp_screenshot_click_overlay {
+    justify-content: center;
+    display: flex;
+    vertical-align: middle;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(23,23,23,0.5);
+    transition: opacity 0.2s;
+    opacity: 0;
+    cursor: pointer;
+    color: white;
+}
+.tp-multi-stream-box-screenshot #tp_screenshot_click_overlay:hover {
+    opacity: 1;
+}
+.tp-multi-stream-box-screenshot #tp_screenshot_click_overlay svg {
+    font-size: 35px;
+}
+#tp_screenshot_btn {
+    justify-content: center;
+}

@@ -32,6 +32,7 @@ let options = {
     isPvqcEnabled: false,
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
+    isScreenshotEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -153,6 +154,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isPipEnabled":
             send_ga_event('pip_main_mode', 'change', msg.detail ? "pip_main_ON":"pip_main_OFF");
+            break;
+        case "bg_update_isScreenshotEnabled":
+            send_ga_event('screenshot_mode', 'change', msg.detail ? "screenshot_ON":"screenshot_OFF");
+            break;
+        case "bg_screenshot_btn_click":
+            send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
             break;
         case "bg_multiStream_btn_click":
             _browser.tabs.create({url:msg.detail});
