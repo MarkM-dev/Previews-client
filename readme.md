@@ -31,6 +31,8 @@
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Predictions Sniper (will participate in predictions for you).
 - Prevent Automatic Video Quality Change.
+- Fast-Forward Stream.
+- Screenshot Stream.
 - Native Picture In Picture in current stream (Browser's PIP feature).
 - Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
@@ -128,6 +130,20 @@
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
     - Prevents 99% of Twitch player errors (#1000, #2000).
     - Prevents that video hang when switching back to the Twitch tab after it was in the background for a while.
+      <br/><br/>
+      
+
+* **Fast-Forward Stream**
+    - Useful if your stream is delayed.
+    - The button will show in the player controls next to the 'play/pause' button.
+    - Click it to fast-forward the stream to the latest point in the buffer.
+      <br/><br/>
+      
+
+* **Screenshot Stream**
+    - The button will show in the player controls.
+    - You can capture multiple screenshots and then save only the ones you like.
+    - The screenshots are captured at the same resolution as the stream.
       <br/><br/>
       
 
