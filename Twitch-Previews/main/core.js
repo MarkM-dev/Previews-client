@@ -248,7 +248,7 @@ function startCustomPip(e) {
     e.cancelBubble = true;
     clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME)
 
-    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false);
+    createMultiStreamBox(lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false);
     removePipBtn();
     removeVidPreviewVolBtn();
     sendMessageToBG({action: "bg_pip_started", detail: ""});
@@ -2163,6 +2163,54 @@ function setfScrnWithChatBtn() {
     }
 }
 
+function appendScreenShotBtn() {
+    if (document.getElementById('tp_screenshot_btn')) {
+        return;
+    }
+    try {
+        let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_screenshot_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Screenshot Stream";
+
+            let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_theater_mode_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            let img = document.createElement('img');
+            img.src = getRuntimeUrl('../images/pip.png');
+            img.width = (ttv_theater_mode_btn_size.width || "18") * 0.7;
+            img.height = (ttv_theater_mode_btn_size.height || "18") * 0.7;
+            img.style.margin = "auto";
+
+            btn_container.onclick = function (){
+                let video = document.querySelector('video');
+                let canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                let ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                let dataURI = canvas.toDataURL('image/png');
+
+                fetch(dataURI).then(function (res) {
+                    res.blob().then(function (blob_res) {
+                        console.log(URL.createObjectURL(blob_res));
+                        createMultiStreamBox(getCurrentStreamerName(), true, false, false, URL.createObjectURL(blob_res));
+                    })
+                });
+
+            }
+            btn_container.appendChild(img);
+            ttv_theater_mode_btn.parentNode.before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
 function setPIPBtn() {
     if (document.getElementById('tp_pip_btn')) {
         return;
@@ -2517,7 +2565,7 @@ let fScrnWithChat_savedState = {
 }
 
 
-function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat) {
+function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat, screenshot_imageDataUri) {
     let titleBtnContainer;
     let extraMultiBoxBtn;
     let multiStreamDiv = document.createElement("div");
@@ -2770,7 +2818,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, false);
+            createMultiStreamBox(streamName, true, false, false);
             sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
         }
 
@@ -2788,11 +2836,15 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         }
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, true);
+            createMultiStreamBox(streamName, true, true, false);
             sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
         }
         title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
-        iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+        if (screenshot_imageDataUri) {
+            iframe.src = screenshot_imageDataUri;
+        } else {
+            iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+        }
     }
 
     titleBtnContainer = document.createElement('div');
@@ -2809,7 +2861,17 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
     title.appendChild(titleBtnContainer);
 
     multiStreamDiv.appendChild(title);
-    multiStreamDiv.appendChild(iframe);
+    if (screenshot_imageDataUri) {
+        let img = document.createElement('img');
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.src = screenshot_imageDataUri;
+
+        multiStreamDiv.appendChild(img);
+    } else {
+        multiStreamDiv.appendChild(iframe);
+    }
+
 
     initDragForMultiStream(multiStreamDiv);
 
@@ -2886,7 +2948,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamBox(href, true, false);
+                createMultiStreamBox(href, true, false, false);
                 sendMessageToBG({action: "bg_searchBar_multiStream_started", detail: ""});
             })
 
@@ -2912,7 +2974,7 @@ function setSearchResultsClickListeners(input) {
                 e.cancelBubble = true;
                 let href = e.target.closest('a').href
                 href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                createMultiStreamBox(href, true, true);
+                createMultiStreamBox(href, true, true, false);
                 sendMessageToBG({action: "bg_searchBar_multiStream_chat_started", detail: ""});
             })
 
@@ -3264,7 +3326,7 @@ function initMultiStream(firstStreamName) {
     setTwitchSearchBarListener();
     appendMultiStreamSearchInfoText();
     appendMultiStreamLayoutControls();
-    createMultiStreamBox(firstStreamName, false, false);
+    createMultiStreamBox(firstStreamName, false, false, false);
     isMultiStreamMode = true;
     document.getElementById('multistream_loading_overlay').parentNode.removeChild(document.getElementById('multistream_loading_overlay'));
 }
@@ -3618,6 +3680,8 @@ function toggleFeatures(isFromTitleObserver) {
             }
         }, 2000)
     }
+
+    appendScreenShotBtn();
 }
 
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
