@@ -2197,7 +2197,6 @@ function appendScreenShotBtn() {
 
                 fetch(dataURI).then(function (res) {
                     res.blob().then(function (blob_res) {
-                        console.log(URL.createObjectURL(blob_res));
                         createMultiStreamBox(getCurrentStreamerName(), true, false, false, URL.createObjectURL(blob_res));
                     })
                 });
@@ -2885,7 +2884,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         click_download_overlay.onclick = function () {
             let link = document.createElement("a");
-            link.download = 'image';
+            link.download = 'screenshot';
             link.target = "_blank";
             link.href = screenshot_imageDataUri;
             document.body.appendChild(link);
