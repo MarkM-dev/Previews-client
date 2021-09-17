@@ -3602,11 +3602,13 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features! (and fixes)</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Screenshot Stream Button(<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z\"></path></g></svg>)!</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can capture multiple screenshots and then save only the ones you like.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The screenshots are captured at the same resolution as the stream.</span>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Live Stream Playback Using Arrow Keys (like in Youtube)!</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward when using the keyboard left/right arrow keys.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Have focus on the video (click on the video) and use the arrow keys.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature moves the playback point in the player buffer, which is constantly cleared by Twitch.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: max buffer size is one or two minutes.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the settings.</span>"
         +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fast-Forward Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z\"></path></svg>)!</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls next to the 'play/pause' button.</span>"
