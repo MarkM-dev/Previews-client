@@ -2208,6 +2208,9 @@ function setSeekListeners() {
                 if (!video_el) {
                     return;
                 }
+                if (video_el.buffered.length === 0) {
+                    return;
+                }
                 addSeekOverlay(true);
                 if (video_el.currentTime - 5 < video_el.buffered.start(0)) {
                     video_el.currentTime = video_el.buffered.start(0) + 1.2;
@@ -2218,6 +2221,9 @@ function setSeekListeners() {
             case "ArrowRight":
                 let video = document.querySelector('video');
                 if (!video) {
+                    return;
+                }
+                if (video.buffered.length === 0) {
                     return;
                 }
                 addSeekOverlay(false);
