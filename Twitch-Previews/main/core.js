@@ -2166,6 +2166,35 @@ function setfScrnWithChatBtn() {
     }
 }
 
+function setSeekListeners() {
+    let videoContainer = document.querySelector('.video-player__container');
+    if (!videoContainer) {
+        return;
+    }
+    if (videoContainer.attributes.tp_listener) {
+        return;
+    }
+
+    videoContainer.setAttribute("tabindex", '0');
+    videoContainer.setAttribute("tp_listener", 'true');
+    videoContainer.addEventListener('keydown', function(event) {
+        switch (event.key) {
+            case "ArrowLeft":
+                document.querySelector('video').currentTime-= 5;
+                break;
+            case "ArrowRight":
+                let video = document.querySelector('video');
+                if (video.currentTime + 5 > video.buffered.end(video.buffered.length - 1)) {
+                    video.currentTime = video.buffered.end(video.buffered.length - 1);
+                } else {
+                    video.currentTime+= 5;
+                }
+                break;
+
+        }
+    });
+}
+
 function appendFastForwardBtn() {
     if (document.getElementById('tp_fast_forward_btn')) {
         return;
@@ -3759,6 +3788,10 @@ function toggleFeatures(isFromTitleObserver) {
 
     if (options.isFastForwardEnabled) {
         appendFastForwardBtn();
+    }
+
+    if (options.isSeekEnabled) {
+        setSeekListeners();
     }
 }
 
