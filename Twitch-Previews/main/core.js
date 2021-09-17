@@ -2188,24 +2188,27 @@ function addSeekOverlay(left) {
 }
 
 function setSeekListeners() {
-    let videoContainer = document.querySelector('.video-player__container');
-    if (!videoContainer) {
-        return;
-    }
-    if (videoContainer.attributes.tp_listener) {
+    if (document.body.attributes.tp_seek_listener) {
         return;
     }
 
-    videoContainer.setAttribute("tabindex", '0');
-    videoContainer.setAttribute("tp_listener", 'true');
-    videoContainer.addEventListener('keydown', function(event) {
-        if (window.location.pathname.startsWith('/videos/') || window.location.pathname.indexOf('/clip/') > -1) {
+    document.body.setAttribute("tp_seek_listener", 'true');
+    document.body.addEventListener('keydown', function(event) {
+        if (event.target.tagName.toUpperCase() === 'INPUT' || event.target.tagName.toUpperCase() === 'TEXTAREA') {
             return;
         }
+
+        if (window.location.pathname.indexOf('/videos/') > -1 || window.location.pathname.indexOf('/clip/') > -1) {
+            return;
+        }
+
         switch (event.key) {
             case "ArrowLeft":
-                addSeekOverlay(true);
                 let video_el = document.querySelector('video');
+                if (!video_el) {
+                    return;
+                }
+                addSeekOverlay(true);
                 if (video_el.currentTime - 5 < video_el.buffered.start(0)) {
                     video_el.currentTime = video_el.buffered.start(0);
                 } else {
@@ -2215,6 +2218,9 @@ function setSeekListeners() {
             case "ArrowRight":
                 addSeekOverlay(false);
                 let video = document.querySelector('video');
+                if (!video) {
+                    return;
+                }
                 if (video.currentTime + 5 > video.buffered.end(video.buffered.length - 1)) {
                     video.currentTime = video.buffered.end(video.buffered.length - 1);
                 } else {
