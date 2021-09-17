@@ -3616,7 +3616,7 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Live Stream Playback Using Keyboard Arrow Keys (like in Youtube)!</strong>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: max buffer size is one or two minutes.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: the buffer size varies between 0 seconds to two minutes.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the settings.</span>"
         +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fast-Forward Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z\"></path></svg>)!</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
