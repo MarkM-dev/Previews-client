@@ -2180,7 +2180,12 @@ function setSeekListeners() {
     videoContainer.addEventListener('keydown', function(event) {
         switch (event.key) {
             case "ArrowLeft":
-                document.querySelector('video').currentTime-= 5;
+                let video_el = document.querySelector('video');
+                if (video_el.currentTime - 5 < video_el.buffered.start(0)) {
+                    video_el.currentTime = video_el.buffered.start(0);
+                } else {
+                    video_el.currentTime-= 5;
+                }
                 break;
             case "ArrowRight":
                 let video = document.querySelector('video');
@@ -2190,7 +2195,6 @@ function setSeekListeners() {
                     video.currentTime+= 5;
                 }
                 break;
-
         }
     });
 }
