@@ -170,9 +170,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isSeekEnabled":
             send_ga_event('seek_mode', 'change', msg.detail ? "seek_ON":"seek_OFF");
             break;
-        case "bg_fast_forward_btn_click":
-            send_ga_event('fast_forward_btn_click', 'fast_forward_btn_click', 'fast_forward_btn_click');
-            break;
         case "bg_multiStream_btn_click":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');

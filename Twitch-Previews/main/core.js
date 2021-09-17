@@ -2250,11 +2250,9 @@ function appendFastForwardBtn() {
             btn_container.onclick = function (){
                 let video = document.querySelector('video');
                 video.currentTime = video.buffered.end(video.buffered.length - 1);
-                sendMessageToBG({action: "bg_fast_forward_btn_click", detail: ""});
             }
 
             document.querySelector('.player-controls__left-control-group').children[0].after(btn_container);
-            //document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
         }
     } catch (e) {
 
