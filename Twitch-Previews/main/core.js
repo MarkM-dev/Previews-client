@@ -2210,7 +2210,7 @@ function setSeekListeners() {
                 }
                 addSeekOverlay(true);
                 if (video_el.currentTime - 5 < video_el.buffered.start(0)) {
-                    video_el.currentTime = video_el.buffered.start(0);
+                    video_el.currentTime = video_el.buffered.start(0) + 1.2;
                 } else {
                     video_el.currentTime-= 5;
                 }
