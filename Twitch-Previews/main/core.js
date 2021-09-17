@@ -2199,6 +2199,9 @@ function setSeekListeners() {
     videoContainer.setAttribute("tabindex", '0');
     videoContainer.setAttribute("tp_listener", 'true');
     videoContainer.addEventListener('keydown', function(event) {
+        if (window.location.pathname.startsWith('/videos/') || window.location.pathname.indexOf('/clip/') > -1) {
+            return;
+        }
         switch (event.key) {
             case "ArrowLeft":
                 addSeekOverlay(true);
