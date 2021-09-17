@@ -2216,11 +2216,11 @@ function setSeekListeners() {
                 }
                 break;
             case "ArrowRight":
-                addSeekOverlay(false);
                 let video = document.querySelector('video');
                 if (!video) {
                     return;
                 }
+                addSeekOverlay(false);
                 if (video.currentTime + 5 >= video.buffered.end(video.buffered.length - 1)) {
                     video.currentTime = video.buffered.end(video.buffered.length - 1) - 1.2;
                 } else {
