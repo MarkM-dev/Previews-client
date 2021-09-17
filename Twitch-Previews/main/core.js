@@ -921,11 +921,12 @@ function ga_report_appStart() {
     let pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
     let screenshot = options.isScreenshotEnabled ? "s_ON" : "s_OFF";
     let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
+    let seek = options.isFastForwardEnabled ? "seek_ON" : "seek_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + fastForward});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + fastForward + " : " + seek});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -4021,6 +4022,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
         initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
+        initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);

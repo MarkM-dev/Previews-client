@@ -34,6 +34,7 @@ let options = {
     isPipEnabled: false,
     isScreenshotEnabled: false,
     isFastForwardEnabled: false,
+    isSeekEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -165,6 +166,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isFastForwardEnabled":
             send_ga_event('fast_forward_mode', 'change', msg.detail ? "fast_forward_ON":"fast_forward_OFF");
+            break;
+        case "bg_update_isSeekEnabled":
+            send_ga_event('seek_mode', 'change', msg.detail ? "seek_ON":"seek_OFF");
             break;
         case "bg_fast_forward_btn_click":
             send_ga_event('fast_forward_btn_click', 'fast_forward_btn_click', 'fast_forward_btn_click');
