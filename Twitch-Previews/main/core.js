@@ -3609,7 +3609,6 @@ function getUpdateToastBody() {
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Live Stream Playback Using Arrow Keys (like in Youtube)!</strong>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward when using the keyboard left/right arrow keys.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Have focus on the video (click on the video) and use the arrow keys.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature moves the playback point in the player buffer, which is constantly cleared by Twitch.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: max buffer size is one or two minutes.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the settings.</span>"
