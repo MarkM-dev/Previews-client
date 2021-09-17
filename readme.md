@@ -137,7 +137,7 @@
 * **Seek Playback Using Keyboard Arrow Keys**
     - Seeks 5 seconds back or forward using the keyboard left/right arrow keys.
     - Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.
-    - Note: max buffer size is one or two minutes.
+    - Note: the buffer size varies between 0 seconds to two minutes.
       <br/><br/>
       
 
