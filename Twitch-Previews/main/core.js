@@ -3607,7 +3607,7 @@ function showToast(toast_body, storageFlagName) {
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Live Stream Playback Using Arrow Keys (like in Youtube)!</strong>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Live Stream Playback Using Keyboard Arrow Keys (like in Youtube)!</strong>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: max buffer size is one or two minutes.</span>"
