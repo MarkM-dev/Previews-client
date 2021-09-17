@@ -1338,3 +1338,23 @@
 #tp_screenshot_btn {
     justify-content: center;
 }
+
+.tp_seek_indication {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 999;
+}
+
+.tp_seek_indication > div {
+    margin: auto;
+    text-align: center;
+    padding: 24px;
+    border-radius: 15px;
+    background-color: rgba(23, 23, 23, 0.7);
+    color: rgba(255,255,255,0.85);
+    position: relative;
+    box-shadow: 0 0 5px 1px rgba(23,23,23,0.7);
+}
