@@ -31,6 +31,7 @@
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Predictions Sniper (will participate in predictions for you).
 - Prevent Automatic Video Quality Change.
+- Seek Playback Using Arrow Keys.
 - Fast-Forward Stream.
 - Screenshot Stream.
 - Native Picture In Picture in current stream (Browser's PIP feature).
@@ -130,6 +131,14 @@
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
     - Prevents 99% of Twitch player errors (#1000, #2000).
     - Prevents that video hang when switching back to the Twitch tab after it was in the background for a while.
+      <br/><br/>
+      
+
+* **Seek Playback Using Arrow Keys**
+    - Seeks 5 seconds back or forward when using the keyboard left/right arrow keys.
+    - Have focus on the video (click on the video) and use the arrow keys.
+    - Note: this feature moves the playback point in the player buffer, which is constantly cleared by Twitch.
+    - Note: max buffer size is one or two minutes.
       <br/><br/>
       
 
