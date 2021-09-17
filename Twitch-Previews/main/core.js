@@ -2187,6 +2187,30 @@ function addSeekOverlay(left) {
     }, 500);
 }
 
+function seekVideo(left) {
+    let video = document.querySelector('video');
+    if (!video) {
+        return;
+    }
+    if (video.buffered.length === 0) {
+        return;
+    }
+    addSeekOverlay(left);
+    if (left) {
+        if (video.currentTime - 5 < video.buffered.start(0)) {
+            video.currentTime = video.buffered.start(0) + 1.2;
+        } else {
+            video.currentTime-= 5;
+        }
+    } else {
+        if (video.currentTime + 5 >= video.buffered.end(video.buffered.length - 1)) {
+            video.currentTime = video.buffered.end(video.buffered.length - 1) - 1.2;
+        } else {
+            video.currentTime+= 5;
+        }
+    }
+}
+
 function setSeekListeners() {
     if (document.body.attributes.tp_seek_listener) {
         return;
@@ -2204,34 +2228,10 @@ function setSeekListeners() {
 
         switch (event.key) {
             case "ArrowLeft":
-                let video_el = document.querySelector('video');
-                if (!video_el) {
-                    return;
-                }
-                if (video_el.buffered.length === 0) {
-                    return;
-                }
-                addSeekOverlay(true);
-                if (video_el.currentTime - 5 < video_el.buffered.start(0)) {
-                    video_el.currentTime = video_el.buffered.start(0) + 1.2;
-                } else {
-                    video_el.currentTime-= 5;
-                }
+                seekVideo(true);
                 break;
             case "ArrowRight":
-                let video = document.querySelector('video');
-                if (!video) {
-                    return;
-                }
-                if (video.buffered.length === 0) {
-                    return;
-                }
-                addSeekOverlay(false);
-                if (video.currentTime + 5 >= video.buffered.end(video.buffered.length - 1)) {
-                    video.currentTime = video.buffered.end(video.buffered.length - 1) - 1.2;
-                } else {
-                    video.currentTime+= 5;
-                }
+                seekVideo(false);
                 break;
         }
     });
