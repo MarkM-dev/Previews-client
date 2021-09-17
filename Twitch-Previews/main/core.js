@@ -2181,7 +2181,6 @@ function addSeekOverlay(left, isEnd) {
                 "<div>5 seconds</div>" +
                 "</div>"
         }
-
     } else {
         if(isEnd) {
             container.innerHTML = "<div style='margin-right: 10%;' >" +
