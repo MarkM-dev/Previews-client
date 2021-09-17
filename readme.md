@@ -136,7 +136,6 @@
 
 * **Seek Playback Using Arrow Keys**
     - Seeks 5 seconds back or forward when using the keyboard left/right arrow keys.
-    - Have focus on the video (click on the video) and use the arrow keys.
     - Note: this feature moves the playback point in the player buffer, which is constantly cleared by Twitch.
     - Note: max buffer size is one or two minutes.
       <br/><br/>
