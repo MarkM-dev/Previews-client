@@ -3587,8 +3587,8 @@ function appendCastWorker() {
     window.onmessage = function(event) {
         if (event.data === "tp_cast_close") {
             document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';
-            for (let i = 0; i < 100000; i++) {
-                if (i === 30000) {
+            for (let i = 0; i < 135000; i++) {
+                if (i === 45000) {
                     parent.close();
                     window.close();
                     this.close();
