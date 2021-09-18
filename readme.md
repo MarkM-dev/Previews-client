@@ -153,6 +153,7 @@
     - The button will show in the player controls.
     - Click it to start casting on a new tab and then close the new tab without stopping the Chrome-Cast.
     - Everything is done automatically, you just need to select your casting device when prompted.
+    - Note: experimental feature, try again if it fails.
       <br/><br/>
       
 
