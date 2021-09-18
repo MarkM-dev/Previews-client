@@ -1107,6 +1107,7 @@
 
 .tp-player-control {
     display: inline-flex;
+    justify-content: center;
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: contain;
@@ -1334,9 +1335,6 @@
 }
 .tp-multi-stream-box-screenshot #tp_screenshot_click_overlay svg {
     font-size: 35px;
-}
-#tp_screenshot_btn {
-    justify-content: center;
 }
 
 .tp_seek_indication {
