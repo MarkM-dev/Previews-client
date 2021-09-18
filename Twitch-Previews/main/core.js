@@ -3563,7 +3563,9 @@ function appendCastWorker() {
     s.innerHTML = "let context = window.cast.framework.CastContext.getInstance();\n" +
         "                    let CAST_STATE_CHANGED_EVENT_STR = window.cast.framework.CastContextEventType.CAST_STATE_CHANGED;\n" +
         "                    context.addEventListener(CAST_STATE_CHANGED_EVENT_STR , function(e) {\n" +
-        "                        if (e.castState === \"CONNECTED\") {\n" +
+        "                        window.postMessage('tp_cast_close');" +
+        "                       if (e.castState === \"CONNECTED\") {\n" +
+        "                            //setTimeout(()=>{window.postMessage('tp_cast_close')}, 400);\n" +
         "                            window.onpagehide = function(e) {\n" +
         "                                e.preventDefault();\n" +
         "                                e.stopPropagation();\n" +
@@ -3579,17 +3581,21 @@ function appendCastWorker() {
         "                                e.stopPropagation();\n" +
         "                                e.stopImmediatePropagation();\n" +
         "                            }\n" +
-        "                            document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';\n" +
-        "                            setTimeout(()=>{window.postMessage('tp_cast_close')}, 400);\n" +
         "                        }\n" +
         "                    })";
     document.body.appendChild(s);
 
     window.onmessage = function(event) {
         if (event.data === "tp_cast_close") {
-            parent.close();
-            window.close();
-            this.close();
+            document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';
+            for (let i = 0; i < 100000; i++) {
+                if (i === 30000) {
+                    parent.close();
+                    window.close();
+                    this.close();
+                }
+                console.log('jam it');
+            }
         }
     }
 }
