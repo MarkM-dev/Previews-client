@@ -3746,6 +3746,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to start casting on a new tab and then automatically close the new tab without stopping the Chrome-Cast.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature is available for Chrome-Cast supported browsers.</span>"
         +  "             <br><br><span style=\"display:none;font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
         "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
         "    vertical-align: sub;\n" +
