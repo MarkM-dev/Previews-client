@@ -2299,7 +2299,7 @@ function appendCastBtn() {
             let btn_container = document.createElement('div');
             btn_container.id = "tp_cast_btn";
             btn_container.classList.add('tp-player-control');
-            btn_container.title = "Cast";
+            btn_container.title = "Chrome Cast -> Close Tab";
 
             let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
             btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -3746,7 +3746,7 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to start casting on a new tab and then automatically close the new tab without stopping the Chrome-Cast.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
+        +  "             <br><br><span style=\"display:none;font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
         "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
         "    vertical-align: sub;\n" +
         "\"><title></title><path d=\"M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 " +
