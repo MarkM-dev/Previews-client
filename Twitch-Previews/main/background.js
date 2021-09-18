@@ -169,6 +169,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('cast_mode', 'change', msg.detail ? "cast_ON":"cast_OFF");
             break;
         case "bg_cast_btn_click":
+            _browser.tabs.create({url:msg.detail});
             send_ga_event('cast_btn_click', 'cast_btn_click', 'cast_btn_click');
             break;
         case "bg_update_isFastForwardEnabled":

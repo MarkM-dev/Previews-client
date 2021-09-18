@@ -2315,7 +2315,9 @@ function appendCastBtn() {
 
             btn_container.onclick = function (){
 
-                sendMessageToBG({action: "bg_cast_btn_click", detail: ""});
+                _browser.storage.local.set({'tp_cast': true}, function() {
+                    sendMessageToBG({action: "bg_cast_btn_click", detail: window.location.href});
+                });
             }
             document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
         }
@@ -3555,6 +3557,74 @@ function append_MultiStream_btn() {
     }
 }
 
+function appendCastWorker() {
+     let s = document.createElement("script");
+    s.innerHTML = "let context = window.cast.framework.CastContext.getInstance();\n" +
+        "                    let CAST_STATE_CHANGED_EVENT_STR = window.cast.framework.CastContextEventType.CAST_STATE_CHANGED;\n" +
+        "                    context.addEventListener(CAST_STATE_CHANGED_EVENT_STR , function(e) {\n" +
+        "                        if (e.castState === \"CONNECTED\") {\n" +
+        "                            window.onpagehide = function(e) {\n" +
+        "                                e.preventDefault();\n" +
+        "                                e.stopPropagation();\n" +
+        "                            }\n" +
+        "                            window.onbeforeunload = function(e) {\n" +
+        "                                e.preventDefault();\n" +
+        "                                e.stopPropagation();\n" +
+        "                            }\n" +
+        "                            window.onunload = function(e) {\n" +
+        "                                e.preventDefault();\n" +
+        "                                e.stopPropagation();\n" +
+        "                            }\n" +
+        "                            document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';\n" +
+        "                            setTimeout(()=>{window.postMessage('tp_cast_close')}, 400);\n" +
+        "                        }\n" +
+        "                    })";
+    document.body.appendChild(s);
+
+    window.onmessage = function(event) {
+        if (event.data === "tp_cast_close") {
+            parent.close();
+            window.close();
+            this.close();
+        }
+    }
+}
+
+function check_cast_start() {
+    _browser.storage.local.get('tp_cast', function(result) {
+        if (result.tp_cast) {
+
+            _browser.storage.local.set({'tp_cast': false}, function() {
+
+            });
+
+            let overlay = document.createElement('div');
+            overlay.id = "cast_loading_overlay";
+            overlay.innerText = "Waiting For\nCast Availability..."
+            document.body.appendChild(overlay);
+
+
+            let times_interval_ran = 0;
+            let interval = setInterval(function () {
+                console.log("running interval");
+                if (document.querySelector('.tw-chromecast-button__icon')) {
+                    appendCastWorker();
+                    overlay.innerText = 'Select Your\nCast Device';
+                    document.querySelector('.tw-chromecast-button__icon').closest('button').click();
+                    clearInterval(interval);
+                } else {
+                    times_interval_ran++;
+                    if (times_interval_ran > 30) {
+                        alert("Twitch Previews:\nError: didn't find ChromeCast Button");
+                        clearInterval(interval);
+                    }
+                }
+            }, 1000);
+        }
+    });
+}
+
+
 function check_multistream_start() {
     _browser.storage.local.get('startMultiStream_name', function(result) {
         if (result.startMultiStream_name) {
@@ -4286,3 +4356,4 @@ function pageAwakened() {
 check_showSettings();
 check_FTE();
 check_multistream_start();
+check_cast_start();
