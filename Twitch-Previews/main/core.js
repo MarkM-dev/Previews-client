@@ -3738,14 +3738,14 @@ function showToast(toast_body, storageFlagName) {
 function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Live Stream Playback Using Keyboard Arrow Keys (like in Youtube)!</strong>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Streams Using Keyboard Arrow Keys (like in Youtube)!</strong>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: the buffer size varies between 0 seconds to two minutes.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the settings.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fast-Forward Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z\"></path></svg>)!</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
-       +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Check the Settings to enable and more info.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Chrome-Cast -> Close Tab (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z\"></path></svg>)!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to start casting on a new tab and then automatically close the new tab without stopping the Chrome-Cast.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
+        +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
         "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
         "    vertical-align: sub;\n" +
         "\"><title></title><path d=\"M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 " +
