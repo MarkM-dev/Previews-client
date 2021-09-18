@@ -33,6 +33,7 @@
 - Prevent Automatic Video Quality Change.
 - Seek Playback Using Keyboard Arrow Keys.
 - Fast-Forward Stream.
+- Chrome-Cast -> Close Tab.
 - Screenshot Stream.
 - Native Picture In Picture in current stream (Browser's PIP feature).
 - Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
@@ -145,6 +146,13 @@
     - Useful if your stream is delayed.
     - The button will show in the player controls next to the 'play/pause' button.
     - Click it to fast-forward the stream to the latest point in the buffer.
+      <br/><br/>
+      
+
+* **Chrome-Cast -> Close Tab**
+    - The button will show in the player controls.
+    - Click it to start casting on a new tab and then close the new tab without stopping the Chrome-Cast.
+    - Everything is done automatically, you just need to select your casting device when prompted.
       <br/><br/>
       
 
