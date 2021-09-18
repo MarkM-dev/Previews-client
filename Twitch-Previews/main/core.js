@@ -3567,14 +3567,17 @@ function appendCastWorker() {
         "                            window.onpagehide = function(e) {\n" +
         "                                e.preventDefault();\n" +
         "                                e.stopPropagation();\n" +
+        "                                e.stopImmediatePropagation();\n" +
         "                            }\n" +
         "                            window.onbeforeunload = function(e) {\n" +
         "                                e.preventDefault();\n" +
         "                                e.stopPropagation();\n" +
+        "                                e.stopImmediatePropagation();\n" +
         "                            }\n" +
         "                            window.onunload = function(e) {\n" +
         "                                e.preventDefault();\n" +
         "                                e.stopPropagation();\n" +
+        "                                e.stopImmediatePropagation();\n" +
         "                            }\n" +
         "                            document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';\n" +
         "                            setTimeout(()=>{window.postMessage('tp_cast_close')}, 400);\n" +
