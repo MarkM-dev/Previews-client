@@ -3565,7 +3565,6 @@ function appendCastWorker() {
         "                    context.addEventListener(CAST_STATE_CHANGED_EVENT_STR , function(e) {\n" +
         "                        window.postMessage('tp_cast_close');" +
         "                       if (e.castState === \"CONNECTED\") {\n" +
-        "                            //setTimeout(()=>{window.postMessage('tp_cast_close')}, 400);\n" +
         "                            window.onpagehide = function(e) {\n" +
         "                                e.preventDefault();\n" +
         "                                e.stopPropagation();\n" +
