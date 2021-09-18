@@ -3587,14 +3587,28 @@ function appendCastWorker() {
     window.onmessage = function(event) {
         if (event.data === "tp_cast_close") {
             document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';
-            for (let i = 0; i < 100000; i++) {
+
+            ////// option 1
+            let d = Date.now() + 3000;
+            let i = 0;
+            while (Date.now() < d) {
+                i++;
+                if (i === 1500) {
+                    parent.close();
+                    window.close();
+                    this.close();
+                }
+            }
+
+            ////// option 2
+            /*for (let i = 0; i < 100000; i++) {
                 if (i === 30000) {
                     parent.close();
                     window.close();
                     this.close();
                 }
                 console.log('jam it');
-            }
+            }*/
         }
     }
 }
