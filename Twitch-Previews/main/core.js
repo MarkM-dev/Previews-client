@@ -2289,6 +2289,41 @@ function appendFastForwardBtn() {
     }
 }
 
+function appendCastBtn() {
+    if (document.getElementById('tp_cast_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_cast_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Cast";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg"><g>' +
+                '<path fill="none" d="M0 0h24v24H0z"></path>' +
+                '<path d="M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 ' +
+                '0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 ' +
+                '11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z"></path></g>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+
+                sendMessageToBG({action: "bg_cast_btn_click", detail: ""});
+            }
+            document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
 function appendScreenShotBtn() {
     if (document.getElementById('tp_screenshot_btn')) {
         return;
@@ -3834,6 +3869,10 @@ function toggleFeatures(isFromTitleObserver) {
         }, 2000)
     }
 
+    if (options.isCastEnabled) {
+        appendCastBtn();
+    }
+
     if (options.isScreenshotEnabled) {
         appendScreenShotBtn();
     }
@@ -4108,6 +4147,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
         initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
         initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);
+        initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);

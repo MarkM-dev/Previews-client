@@ -35,6 +35,7 @@ let options = {
     isScreenshotEnabled: false,
     isFastForwardEnabled: false,
     isSeekEnabled: false,
+    isCastEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -163,6 +164,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_screenshot_btn_click":
             send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
+            break;
+        case "bg_update_isCastEnabled":
+            send_ga_event('cast_mode', 'change', msg.detail ? "cast_ON":"cast_OFF");
+            break;
+        case "bg_cast_btn_click":
+            send_ga_event('cast_btn_click', 'cast_btn_click', 'cast_btn_click');
             break;
         case "bg_update_isFastForwardEnabled":
             send_ga_event('fast_forward_mode', 'change', msg.detail ? "fast_forward_ON":"fast_forward_OFF");
