@@ -31,7 +31,7 @@
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Predictions Sniper (will participate in predictions for you).
 - Prevent Automatic Video Quality Change.
-- Seek Playback Using Keyboard Arrow Keys.
+- Seek Streams Using Keyboard Arrow Keys.
 - Fast-Forward Stream.
 - Chrome-Cast -> Close Tab.
 - Screenshot Stream.
@@ -135,7 +135,7 @@
       <br/><br/>
       
 
-* **Seek Playback Using Keyboard Arrow Keys**
+* **Seek Streams Using Keyboard Arrow Keys**
     - Seeks 5 seconds back or forward using the keyboard left/right arrow keys.
     - Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.
     - Note: the buffer size varies between 0 seconds to two minutes.
