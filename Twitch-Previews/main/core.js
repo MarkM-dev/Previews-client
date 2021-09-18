@@ -3609,6 +3609,7 @@ function check_cast_start() {
             let interval = setInterval(function () {
                 console.log("running interval");
                 if (document.querySelector('.tw-chromecast-button__icon')) {
+                    setPvqc();
                     appendCastWorker();
                     setTimeout(()=>{
                         overlay.innerText = 'Select Your\nCast Device';
