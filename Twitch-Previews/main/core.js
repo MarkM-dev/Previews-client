@@ -3615,7 +3615,6 @@ function check_cast_start() {
 
             let times_interval_ran = 0;
             let interval = setInterval(function () {
-                console.log("running interval");
                 if (document.querySelector('.tw-chromecast-button__icon')) {
                     setPvqc();
                     appendCastWorker();
