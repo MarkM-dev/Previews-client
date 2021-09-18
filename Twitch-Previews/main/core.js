@@ -3593,7 +3593,7 @@ function appendCastWorker() {
             let i = 0;
             while (Date.now() < d) {
                 i++;
-                if (i === 1500) {
+                if (i === 500) {
                     parent.close();
                     window.close();
                     this.close();
