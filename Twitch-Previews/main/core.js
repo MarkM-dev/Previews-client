@@ -3577,7 +3577,7 @@ function appendCastWorker() {
         "                                e.stopPropagation();\n" +
         "                            }\n" +
         "                            document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';\n" +
-        "                            setTimeout(()=>{window.postMessage('tp_cast_close')}, 400);\n" +
+        "                            setTimeout(()=>{window.postMessage('tp_cast_close')}, 200);\n" +
         "                        }\n" +
         "                    })";
     document.body.appendChild(s);
