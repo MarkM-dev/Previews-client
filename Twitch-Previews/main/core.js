@@ -3576,7 +3576,7 @@ function appendCastWorker() {
         "                                e.stopPropagation();\n" +
         "                            }\n" +
         "                            document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';\n" +
-        "                            setTimeout(()=>{window.postMessage('tp_cast_close')}, 500);\n" +
+        "                            setTimeout(()=>{window.postMessage('tp_cast_close')}, 400);\n" +
         "                        }\n" +
         "                    })";
     document.body.appendChild(s);
@@ -3609,8 +3609,10 @@ function check_cast_start() {
                 console.log("running interval");
                 if (document.querySelector('.tw-chromecast-button__icon')) {
                     appendCastWorker();
-                    overlay.innerText = 'Select Your\nCast Device';
-                    document.querySelector('.tw-chromecast-button__icon').closest('button').click();
+                    setTimeout(()=>{
+                        overlay.innerText = 'Select Your\nCast Device';
+                        document.querySelector('.tw-chromecast-button__icon').closest('button').click();
+                    }, 1000);
                     clearInterval(interval);
                 } else {
                     times_interval_ran++;
