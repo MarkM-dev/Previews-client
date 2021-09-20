@@ -166,7 +166,7 @@
       
 
 * **FlashBang Defender**
-    - When it's the middle of the night and the streamer opens a white screen.
+    - For when it's late night and the streamer opens a white screen.
     - Toggles a semi-transparent overlay on top of the stream.
     - The button will show in the player controls.
       <br/><br/>
