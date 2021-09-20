@@ -2257,8 +2257,12 @@ function setSeekListeners() {
 }
 
 function appendFastForwardBtn() {
-    if (document.getElementById('tp_fast_forward_btn')) {
-        return;
+    let btn = document.getElementById('tp_fast_forward_btn');
+    if (btn) {
+        if (btn.previousSibling) {
+            return;
+        }
+        btn.remove();
     }
     try {
         let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
