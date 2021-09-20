@@ -35,6 +35,7 @@
 - Fast-Forward Stream.
 - Chrome-Cast -> Close Tab.
 - Screenshot Stream.
+- FlashBang Defender.
 - Native Picture In Picture in current stream (Browser's PIP feature).
 - Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
@@ -161,6 +162,13 @@
     - The button will show in the player controls.
     - You can capture multiple screenshots and then save only the ones you like.
     - The screenshots are captured at the same resolution as the stream.
+      <br/><br/>
+      
+
+* **FlashBang Defender**
+    - When it's the middle of the night and the streamer opens a white screen.
+    - Toggles a semi-transparent overlay on top of the stream.
+    - The button will show in the player controls.
       <br/><br/>
       
 
