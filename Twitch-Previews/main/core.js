@@ -2338,7 +2338,7 @@ function appendFlashBangDefenderBtn() {
             let btn_container = document.createElement('div');
             btn_container.id = "tp_flashBangDefender_btn";
             btn_container.classList.add('tp-player-control');
-            btn_container.title = "FlashBang Defender";
+            btn_container.title = "Toggle FlashBang Defender";
 
             let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
             btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -3828,6 +3828,10 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: experimental feature, try again if it fails.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature is available for Chrome-Cast supported browsers.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- FlashBang Defender Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" version=\"1.2\" baseProfile=\"tiny\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z\"></path></svg>)!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When it's the middle of the night and your favorite streamer opens a white screen.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Toggles a semi-transparent overlay on top of the stream.</span>"
         +  "             <br><br><span style=\"display:none;font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
         "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
         "    vertical-align: sub;\n" +
