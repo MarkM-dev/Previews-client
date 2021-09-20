@@ -922,11 +922,12 @@ function ga_report_appStart() {
     let screenshot = options.isScreenshotEnabled ? "s_ON" : "s_OFF";
     let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
     let seek = options.isFastForwardEnabled ? "seek_ON" : "seek_OFF";
+    let flashBangDefender = options.isFlashBangDefenderEnabled ? "fbd_ON" : "fbd_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + fastForward + " : " + seek});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : " + seek});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -2319,6 +2320,63 @@ function appendCastBtn() {
                 _browser.storage.local.set({'tp_cast': true}, function() {
                     sendMessageToBG({action: "bg_cast_btn_click", detail: window.location.href});
                 });
+            }
+            document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+function appendFlashBangDefenderBtn() {
+    if (document.getElementById('tp_flashBangDefender_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_flashBangDefender_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "FlashBang Defender";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M382.1 442.7L154.5 55c-4-6.7-12.7-9-19.5-5.1-6.8 3.9-9.1 12.6-5.1 19.3L357.5 457c2.6 4.5 7.4 7 12.3 7 2.4 0 4.9-.6 7.2-1.9 6.7-4 9-12.6 5.1-19.4zM324.6 313.3l57.9-75.8c3.8-5.6.2-13.4-6.3-13.4h-104l52.4 ' +
+                    '89.2zM320.4 37.1c.9-4.5-4.6-7.1-7.2-3.4L227 146.9l42.4 72.3 51-182.1zM187.4 198.7l-57.9 75.8c-3.8 5.6-.2 13.4 6.3 13.4h103.9l-52.3-89.2zM191.6 474.9c-.9 4.5 4.6 7.1 7.2 3.4L285 365.1l-42.4-72.3-51 182.1z"></path>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+                let video = document.querySelector('video');
+                if (!video) return;
+
+                let existing_overlay = document.getElementById('tp_flashBangDefender_overlay');
+                if (existing_overlay) {
+                    existing_overlay.remove();
+                    btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
+                            '<path d="M382.1 442.7L154.5 55c-4-6.7-12.7-9-19.5-5.1-6.8 3.9-9.1 12.6-5.1 19.3L357.5 457c2.6 4.5 7.4 7 12.3 7 2.4 0 4.9-.6 7.2-1.9 6.7-4 9-12.6 5.1-19.4zM324.6 313.3l57.9-75.8c3.8-5.6.2-13.4-6.3-13.4h-104l52.4 ' +
+                            '89.2zM320.4 37.1c.9-4.5-4.6-7.1-7.2-3.4L227 146.9l42.4 72.3 51-182.1zM187.4 198.7l-57.9 75.8c-3.8 5.6-.2 13.4 6.3 13.4h103.9l-52.3-89.2zM191.6 474.9c-.9 4.5 4.6 7.1 7.2 3.4L285 365.1l-42.4-72.3-51 182.1z"></path>' +
+                        '</svg>';
+                    return;
+                }
+
+                let overlay = document.createElement('div');
+                overlay.id = 'tp_flashBangDefender_overlay';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+
+                document.querySelector('.video-player__overlay').appendChild(overlay);
+
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path d="M376.2 224H268l52.4-186.9c.9-4.5-4.6-7.1-7.2-3.4L129.5 274.6c-3.8 5.6-.2 13.4 6.3 13.4H244l-52.4 186.9c-.9 4.5 4.6 7.1 7.2 3.4l183.7-240.8c3.7-5.7.2-13.5-6.3-13.5z"></path>' +
+                    '</svg>';
+
+                sendMessageToBG({action: "bg_flashBangDefender_btn_click", detail: ""});
             }
             document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
         }
@@ -3969,6 +4027,10 @@ function toggleFeatures(isFromTitleObserver) {
         appendCastBtn();
     }
 
+    if (options.isFlashBangDefenderEnabled) {
+        appendFlashBangDefenderBtn();
+    }
+
     if (options.isScreenshotEnabled) {
         appendScreenShotBtn();
     }
@@ -4241,6 +4303,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
+        initCheckbox(settingsContainer, 'isFlashBangDefenderEnabled', 'TP_popup_flashBangDefender_checkbox', false);
         initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
         initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);
         initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox', false);

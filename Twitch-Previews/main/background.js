@@ -33,6 +33,7 @@ let options = {
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
     isScreenshotEnabled: false,
+    isFlashBangDefenderEnabled: false,
     isFastForwardEnabled: false,
     isSeekEnabled: false,
     isCastEnabled: false,
@@ -164,6 +165,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_screenshot_btn_click":
             send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
+            break;
+        case "bg_update_isFlashBangDefenderEnabled":
+            send_ga_event('fbd_mode', 'change', msg.detail ? "fbd_ON":"fbd_OFF");
+            break;
+        case "bg_flashBangDefender_btn_click":
+            send_ga_event('fbd_btn_click', 'fbd_btn_click', 'fbd_btn_click');
             break;
         case "bg_update_isCastEnabled":
             send_ga_event('cast_mode', 'change', msg.detail ? "cast_ON":"cast_OFF");
