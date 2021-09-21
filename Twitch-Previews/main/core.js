@@ -2281,8 +2281,8 @@ function append_clearChat_btn() {
             '</svg>';
 
         btn_container.onclick = function (){
-            let chats = document.querySelector('div[data-a-target="chat-scroller"]').querySelectorAll('.chat-line__message');
-            for (let i = 0; i < chats.length; i++) {
+            let chats = document.querySelector('.chat-scrollable-area__message-container').children;
+            for (let i = 1; i < chats.length; i++) {
                 chats[i].style.display = "none";
             }
         }
@@ -4462,6 +4462,9 @@ window.addEventListener('load', (event) => {
             function (options){
                 if (options.isChannelPointsClickerEnabled) {
                     setChannelPointsClickerListeners();
+                }
+                if (options.isClearChatEnabled) {
+                    append_clearChat_btn();
                 }
             },
             function (err){
