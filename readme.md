@@ -36,6 +36,7 @@
 - Chrome-Cast -> Close Tab.
 - Screenshot Stream.
 - FlashBang Defender.
+- Clear Chat Button.
 - Native Picture In Picture in current stream (Browser's PIP feature).
 - Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
@@ -169,6 +170,12 @@
     - For when it's late night and the streamer opens a white screen.
     - Toggles a semi-transparent overlay on top of the stream.
     - The button will show in the player controls.
+      <br/><br/>
+      
+
+* **Clear Chat Button**
+    - The button will show under the chat.
+    - Clears all the messages in chat.
       <br/><br/>
       
 
