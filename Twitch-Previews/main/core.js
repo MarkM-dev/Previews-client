@@ -2256,6 +2256,45 @@ function setSeekListeners() {
     });
 }
 
+function append_clearChat_btn() {
+    if (document.getElementById('tp_clearChat_btn')) {
+        return;
+    }
+    let chat_settings_btn = document.querySelector('button[data-a-target="chat-settings"]');
+    if (chat_settings_btn) {
+        let btn_container = document.createElement('div');
+        btn_container.id = "tp_clearChat_btn";
+        btn_container.classList.add('tp-under-chat-btn');
+        btn_container.title = "Clear Chat";
+
+        let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
+        btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
+        btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
+        btn_container.style.zIndex = "1";
+        btn_container.style.padding =  "2% 2% 0 2%";
+
+        btn_container.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" >' +
+                '<path d="M15.9644 4.63379H3.96442V6.63379H15.9644V4.63379Z" fill="currentColor"></path>' +
+                '<path d="M15.9644 8.63379H3.96442V10.6338H15.9644V8.63379Z" fill="currentColor"></path>' +
+                '<path d="M3.96442 12.6338H11.9644V14.6338H3.96442V12.6338Z" fill="currentColor"></path>' +
+                '<path d="M12.9645 13.7093L14.3787 12.295L16.5 14.4163L18.6213 12.2951L20.0355 13.7093L17.9142 15.8305L20.0356 17.9519L18.6214 19.3661L16.5 17.2447L14.3786 19.3661L12.9644 17.9519L15.0858 15.8305L12.9645 13.7093Z" fill="currentColor"></path>' +
+            '</svg>';
+
+        btn_container.onclick = function (){
+            let chats = document.querySelector('div[data-a-target="chat-scroller"]').querySelectorAll('.chat-line__message');
+            for (let i = 0; i < chats.length; i++) {
+                chats[i].style.display = "none";
+            }
+        }
+
+        try {
+            chat_settings_btn.parentNode.parentNode.before(btn_container);
+        } catch (e) {
+
+        }
+    }
+}
+
 function appendFastForwardBtn() {
     let btn = document.getElementById('tp_fast_forward_btn');
     if (btn) {
@@ -2677,6 +2716,7 @@ function append_APS_settings_btn() {
     if (chat_settings_btn) {
         let btn_container = document.createElement('div');
         btn_container.id = "tp_APS_settings_btn";
+        btn_container.classList.add('tp-under-chat-btn');
         btn_container.title = "Predictions Sniper - idle";
 
         let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
@@ -4063,6 +4103,10 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isSeekEnabled) {
         setSeekListeners();
     }
+
+    if (options.isClearChatEnabled) {
+        append_clearChat_btn();
+    }
 }
 
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -4324,6 +4368,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
+        initCheckbox(settingsContainer, 'isClearChatEnabled', 'TP_popup_clearChat_checkbox', false);
         initCheckbox(settingsContainer, 'isFlashBangDefenderEnabled', 'TP_popup_flashBangDefender_checkbox', false);
         initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
         initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);

@@ -760,18 +760,18 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#tp_APS_settings_btn {
+.tp-under-chat-btn {
     display: inline-flex !important;
     vertical-align: top;
     border-radius: 5px;
     cursor: pointer;
 }
 
-#tp_APS_settings_btn:hover{
+.tp-under-chat-btn:hover{
     background-color: #464649;
 }
 
-#tp_APS_settings_btn:active{
+.tp-under-chat-btn:active{
     background-color: #323234FF;
 }
 

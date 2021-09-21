@@ -37,6 +37,7 @@ let options = {
     isFastForwardEnabled: false,
     isSeekEnabled: false,
     isCastEnabled: false,
+    isClearChatEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -178,6 +179,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_cast_btn_click":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('cast_btn_click', 'cast_btn_click', 'cast_btn_click');
+            break;
+        case "bg_update_isClearChatEnabled":
+            send_ga_event('clearChat_mode', 'change', msg.detail ? "clearChat_ON":"clearChat_OFF");
             break;
         case "bg_update_isFastForwardEnabled":
             send_ga_event('fast_forward_mode', 'change', msg.detail ? "fast_forward_ON":"fast_forward_OFF");
