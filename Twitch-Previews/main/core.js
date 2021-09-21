@@ -3810,10 +3810,10 @@ function showToast(toast_body, storageFlagName) {
         sendMessageToBG({action: "updateToast_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
-    updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
+    /*updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
         sendMessageToBG({action: "updateToast_twitter_btn_click", detail: true});
         sendMessageToBG({action: "bg_show_twitter", detail: ""});
-    };
+    };*/
 
     document.body.appendChild(updateToast);
     setTimeout(function (){
@@ -3831,7 +3831,18 @@ function getUpdateToastBody() {
 
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Streams Using Keyboard Arrow Keys! (like on Youtube)</strong>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Seek Streams Using Keyboard Arrow Keys! " +
+                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
+                            "<path d=\"M11.9481 14.8285L10.5339 16.2427L6.29126 12L10.5339 7.7574L11.9481 9.17161L10.1197 11H17.6568V13H10.1197L11.9481 14.8285Z\" fill=\"currentColor\"></path>" +
+                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23 19C23 21.2091 21.2091 23 19 23H5C2.79086 23 1 21.2091 1 19V5C1 2.79086 2.79086 1 5 1H19C21.2091 1 23 2.79086 " +
+                            "23 5V19ZM19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21Z\" fill=\"currentColor\"></path>" +
+                        "</svg> " +
+                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
+                            "<path d=\"M12.0519 14.8285L13.4661 16.2427L17.7087 12L13.4661 7.7574L12.0519 9.17161L13.8803 11H6.34318V13H13.8803L12.0519 14.8285Z\" fill=\"currentColor\"></path>" +
+                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1 19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5C2.79086 1 1 2.79086 1 " +
+                            "5V19ZM5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21Z\" fill=\"currentColor\"></path>" +
+                        "</svg>" +
+                        " (like on Youtube)</strong>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
         +  "             <span " + ffclass + " ><br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Chrome-Cast -> Close Tab (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z\"></path></g></svg>)!</strong></span>"
@@ -3844,13 +3855,6 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Toggles a semi-transparent overlay on top of the stream.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the settings.</span>"
-        +  "             <span style=\"display:none;font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
-        "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
-        "    vertical-align: sub;\n" +
-        "\"><title></title><path d=\"M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 " +
-        "2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 " +
-        "4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 " +
-        "13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z\"></path></svg>TwitchPreviews</span></strong></span>"
         +  "            </div>"
         +  "    </br>"
 }
