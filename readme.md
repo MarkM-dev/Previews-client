@@ -31,8 +31,12 @@
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Predictions Sniper (will participate in predictions for you).
 - Prevent Automatic Video Quality Change.
+- Seek Streams Using Keyboard Arrow Keys.
 - Fast-Forward Stream.
+- Chrome-Cast -> Close Tab.
 - Screenshot Stream.
+- FlashBang Defender.
+- Clear Chat Button.
 - Native Picture In Picture in current stream (Browser's PIP feature).
 - Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
@@ -133,6 +137,13 @@
       <br/><br/>
       
 
+* **Seek Streams Using Keyboard Arrow Keys**
+    - Seeks 5 seconds back or forward using the keyboard left/right arrow keys.
+    - Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.
+    - Note: the buffer size varies between 0 seconds to two minutes.
+      <br/><br/>
+      
+
 * **Fast-Forward Stream**
     - Useful if your stream is delayed.
     - The button will show in the player controls next to the 'play/pause' button.
@@ -140,10 +151,31 @@
       <br/><br/>
       
 
+* **Chrome-Cast -> Close Tab**
+    - The button will show in the player controls.
+    - Click it to start casting on a new tab and then close the new tab without stopping the Chrome-Cast.
+    - Everything is done automatically, you just need to select your casting device when prompted.
+    - Note: experimental feature, try again if it fails.
+      <br/><br/>
+      
+
 * **Screenshot Stream**
     - The button will show in the player controls.
     - You can capture multiple screenshots and then save only the ones you like.
     - The screenshots are captured at the same resolution as the stream.
+      <br/><br/>
+      
+
+* **FlashBang Defender**
+    - For when it's late night and the streamer opens a white screen.
+    - Toggles a semi-transparent overlay on top of the stream.
+    - The button will show in the player controls.
+      <br/><br/>
+      
+
+* **Clear Chat Button**
+    - The button will show under the chat.
+    - Clears all the messages in chat.
       <br/><br/>
       
 
