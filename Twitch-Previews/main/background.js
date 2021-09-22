@@ -33,7 +33,11 @@ let options = {
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
     isScreenshotEnabled: false,
+    isFlashBangDefenderEnabled: false,
     isFastForwardEnabled: false,
+    isSeekEnabled: false,
+    isCastEnabled: false,
+    isClearChatEnabled: false,
     isMultiStreamEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
@@ -163,11 +167,27 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_screenshot_btn_click":
             send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
             break;
+        case "bg_update_isFlashBangDefenderEnabled":
+            send_ga_event('fbd_mode', 'change', msg.detail ? "fbd_ON":"fbd_OFF");
+            break;
+        case "bg_flashBangDefender_btn_click":
+            send_ga_event('fbd_btn_click', 'fbd_btn_click', 'fbd_btn_click');
+            break;
+        case "bg_update_isCastEnabled":
+            send_ga_event('cast_mode', 'change', msg.detail ? "cast_ON":"cast_OFF");
+            break;
+        case "bg_cast_btn_click":
+            _browser.tabs.create({url:msg.detail});
+            send_ga_event('cast_btn_click', 'cast_btn_click', 'cast_btn_click');
+            break;
+        case "bg_update_isClearChatEnabled":
+            send_ga_event('clearChat_mode', 'change', msg.detail ? "clearChat_ON":"clearChat_OFF");
+            break;
         case "bg_update_isFastForwardEnabled":
             send_ga_event('fast_forward_mode', 'change', msg.detail ? "fast_forward_ON":"fast_forward_OFF");
             break;
-        case "bg_fast_forward_btn_click":
-            send_ga_event('fast_forward_btn_click', 'fast_forward_btn_click', 'fast_forward_btn_click');
+        case "bg_update_isSeekEnabled":
+            send_ga_event('seek_mode', 'change', msg.detail ? "seek_ON":"seek_OFF");
             break;
         case "bg_multiStream_btn_click":
             _browser.tabs.create({url:msg.detail});
@@ -266,6 +286,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast_translate_btn_click":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('updateToast_translate_btn_click', 'updateToast_translate_btn_click', 'updateToast_translate_btn_click');
+            break;
+        case "updateToast_settings_top_btn_click":
+            send_ga_event('updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click');
             break;
         case "updateToast_twitter_btn_click":
             send_ga_event('updateToast_twitter_btn_click', 'updateToast_twitter_btn_click', 'updateToast_twitter_btn_click');

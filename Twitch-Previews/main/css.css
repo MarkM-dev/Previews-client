@@ -728,7 +728,7 @@
 
 .tp_update_toast #tp_updateToast_translate_btn {
     position: absolute;
-    left: 26rem;
+    left: 24rem;
     top: 42px;
     padding: 3px;
     border-radius: 5px;
@@ -743,18 +743,35 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#tp_APS_settings_btn {
+.tp_update_toast #tp_updateToast_settings_top_btn {
+    position: absolute;
+    left: calc(24rem + 20px);
+    top: 42px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.tp_update_toast #tp_updateToast_settings_top_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.tp_update_toast #tp_updateToast_settings_top_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tp-under-chat-btn {
     display: inline-flex !important;
     vertical-align: top;
     border-radius: 5px;
     cursor: pointer;
 }
 
-#tp_APS_settings_btn:hover{
+.tp-under-chat-btn:hover{
     background-color: #464649;
 }
 
-#tp_APS_settings_btn:active{
+.tp-under-chat-btn:active{
     background-color: #323234FF;
 }
 
@@ -1107,6 +1124,7 @@
 
 .tp-player-control {
     display: inline-flex;
+    justify-content: center;
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: contain;
@@ -1122,6 +1140,20 @@
 }
 
 #multistream_loading_overlay {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 50px;
+    z-index: 999999999;
+}
+
+#cast_loading_overlay {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -1335,6 +1367,23 @@
 .tp-multi-stream-box-screenshot #tp_screenshot_click_overlay svg {
     font-size: 35px;
 }
-#tp_screenshot_btn {
+
+.tp_seek_indication {
+    height: 100%;
+    width: 100%;
+    display: flex;
     justify-content: center;
+    flex-direction: column;
+    z-index: 999;
+}
+
+.tp_seek_indication > div {
+    margin: auto;
+    text-align: center;
+    padding: 24px;
+    border-radius: 15px;
+    background-color: rgba(23, 23, 23, 0.7);
+    color: rgba(255,255,255,0.85);
+    position: relative;
+    box-shadow: 0 0 5px 1px rgba(23,23,23,0.7);
 }

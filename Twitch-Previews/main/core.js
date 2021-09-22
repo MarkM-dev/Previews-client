@@ -921,11 +921,13 @@ function ga_report_appStart() {
     let pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
     let screenshot = options.isScreenshotEnabled ? "s_ON" : "s_OFF";
     let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
+    let seek = options.isFastForwardEnabled ? "seek_ON" : "seek_OFF";
+    let flashBangDefender = options.isFlashBangDefenderEnabled ? "fbd_ON" : "fbd_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + fastForward});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : " + seek});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -2165,9 +2167,141 @@ function setfScrnWithChatBtn() {
     }
 }
 
-function appendFastForwardBtn() {
-    if (document.getElementById('tp_fast_forward_btn')) {
+function addSeekOverlay(left, isEnd) {
+    let container = document.createElement('div');
+    container.classList.add('tp_seek_indication');
+    if (left) {
+        if(isEnd) {
+            container.innerHTML = "<div style='margin-left: 10%;' >" +
+                "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M2 7H5V17H2V7Z\" fill=\"currentColor\"></path><path d=\"M6 12L13.0023 7.00003V17L6 12Z\" fill=\"currentColor\"></path><path d=\"M21.0023 7.00003L14 12L21.0023 17V7.00003Z\" fill=\"currentColor\"></path></svg>" +
+                "<div>End</div>" +
+                "</div>"
+        } else {
+            container.innerHTML = "<div style='margin-left: 10%;' >" +
+                "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10c5.514,0,10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8 s3.589-8,8-8s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M11 16L11 8 6 12zM17 16L17 8 12 12z\"></path></svg>" +
+                "<div>5 seconds</div>" +
+                "</div>"
+        }
+    } else {
+        if(isEnd) {
+            container.innerHTML = "<div style='margin-right: 10%;' >" +
+                "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M21.0023 17H18.0023V7H21.0023V17Z\" fill=\"currentColor\"></path><path d=\"M17.0023 12L10 17V7L17.0023 12Z\" fill=\"currentColor\"></path><path d=\"M2 17L9.00232 12L2 7V17Z\" fill=\"currentColor\"></path></svg>" +
+                "<div>End</div>" +
+                "</div>"
+        } else {
+            container.innerHTML = "<div style='margin-right: 10%;' >" +
+                "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8s3.589-8,8-8 s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M13 16L18 12 13 8zM7 16L12 12 7 8z\"></path></svg>" +
+                "<div>5 seconds</div>" +
+                "</div>"
+        }
+    }
+
+    document.querySelector('.video-player__container').appendChild(container);
+    setTimeout(()=>{
+        container.remove();
+    }, 500);
+}
+
+function seekVideo(left) {
+    let video = document.querySelector('video');
+    if (!video) {
         return;
+    }
+    if (video.buffered.length === 0) {
+        return;
+    }
+
+    if (left) {
+        if (video.currentTime - 5 < video.buffered.start(0)) {
+            video.currentTime = video.buffered.start(0) + 1.2;
+            addSeekOverlay(left, true);
+        } else {
+            video.currentTime-= 5;
+            addSeekOverlay(left, false);
+        }
+    } else {
+        if (video.currentTime + 5 >= video.buffered.end(video.buffered.length - 1)) {
+            video.currentTime = video.buffered.end(video.buffered.length - 1) - 1.2;
+            addSeekOverlay(left, true);
+        } else {
+            video.currentTime+= 5;
+            addSeekOverlay(left, false);
+        }
+    }
+}
+
+function setSeekListeners() {
+    if (document.body.attributes.tp_seek_listener) {
+        return;
+    }
+
+    document.body.setAttribute("tp_seek_listener", 'true');
+    document.body.addEventListener('keydown', function(event) {
+        if (event.target.tagName.toUpperCase() === 'INPUT' || event.target.tagName.toUpperCase() === 'TEXTAREA') {
+            return;
+        }
+
+        if (window.location.pathname.indexOf('/videos/') > -1 || window.location.pathname.indexOf('/clip/') > -1) {
+            return;
+        }
+
+        switch (event.key) {
+            case "ArrowLeft":
+                seekVideo(true);
+                break;
+            case "ArrowRight":
+                seekVideo(false);
+                break;
+        }
+    });
+}
+
+function append_clearChat_btn() {
+    if (document.getElementById('tp_clearChat_btn')) {
+        return;
+    }
+    let chat_settings_btn = document.querySelector('button[data-a-target="chat-settings"]');
+    if (chat_settings_btn) {
+        let btn_container = document.createElement('div');
+        btn_container.id = "tp_clearChat_btn";
+        btn_container.classList.add('tp-under-chat-btn');
+        btn_container.title = "Clear Chat";
+
+        let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
+        btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
+        btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
+        btn_container.style.zIndex = "1";
+        btn_container.style.padding =  "2% 2% 0 2%";
+
+        btn_container.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" >' +
+                '<path d="M15.9644 4.63379H3.96442V6.63379H15.9644V4.63379Z" fill="currentColor"></path>' +
+                '<path d="M15.9644 8.63379H3.96442V10.6338H15.9644V8.63379Z" fill="currentColor"></path>' +
+                '<path d="M3.96442 12.6338H11.9644V14.6338H3.96442V12.6338Z" fill="currentColor"></path>' +
+                '<path d="M12.9645 13.7093L14.3787 12.295L16.5 14.4163L18.6213 12.2951L20.0355 13.7093L17.9142 15.8305L20.0356 17.9519L18.6214 19.3661L16.5 17.2447L14.3786 19.3661L12.9644 17.9519L15.0858 15.8305L12.9645 13.7093Z" fill="currentColor"></path>' +
+            '</svg>';
+
+        btn_container.onclick = function (){
+            let chats = document.querySelector('.chat-scrollable-area__message-container').children;
+            for (let i = 1; i < chats.length; i++) {
+                chats[i].style.display = "none";
+            }
+        }
+
+        try {
+            chat_settings_btn.parentNode.parentNode.before(btn_container);
+        } catch (e) {
+
+        }
+    }
+}
+
+function appendFastForwardBtn() {
+    let btn = document.getElementById('tp_fast_forward_btn');
+    if (btn) {
+        if (btn.previousSibling) {
+            return;
+        }
+        btn.remove();
     }
     try {
         let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
@@ -2190,11 +2324,105 @@ function appendFastForwardBtn() {
             btn_container.onclick = function (){
                 let video = document.querySelector('video');
                 video.currentTime = video.buffered.end(video.buffered.length - 1);
-                sendMessageToBG({action: "bg_fast_forward_btn_click", detail: ""});
             }
 
             document.querySelector('.player-controls__left-control-group').children[0].after(btn_container);
-            //document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+function appendCastBtn() {
+    if (document.getElementById('tp_cast_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_cast_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Chrome Cast -> Close Tab";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg"><g>' +
+                    '<path fill="none" d="M0 0h24v24H0z"></path>' +
+                    '<path d="M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 ' +
+                    '1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 ' +
+                    '1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 ' +
+                    '3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z"></path></g>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+
+                _browser.storage.local.set({'tp_cast': true}, function() {
+                    sendMessageToBG({action: "bg_cast_btn_click", detail: window.location.href});
+                });
+            }
+            document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+        }
+    } catch (e) {
+
+    }
+}
+
+function appendFlashBangDefenderBtn() {
+    if (document.getElementById('tp_flashBangDefender_btn')) {
+        return;
+    }
+    try {
+        let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+        if (ttv_fullscreen_btn) {
+            let btn_container = document.createElement('div');
+            btn_container.id = "tp_flashBangDefender_btn";
+            btn_container.classList.add('tp-player-control');
+            btn_container.title = "Toggle FlashBang Defender";
+
+            let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+            btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+            btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+            btn_container.style.zIndex = "1";
+
+            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="100%" width="73%" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 ' +
+                    '5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z"></path>' +
+                '</svg>';
+
+            btn_container.onclick = function (){
+                let video = document.querySelector('video');
+                if (!video) return;
+
+                let existing_overlay = document.getElementById('tp_flashBangDefender_overlay');
+                if (existing_overlay) {
+                    existing_overlay.remove();
+                    btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="100%" width="73%" xmlns="http://www.w3.org/2000/svg">' +
+                            '<path d="M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 ' +
+                            '5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z"></path>' +
+                        '</svg>';
+                    return;
+                }
+
+                let overlay = document.createElement('div');
+                overlay.id = 'tp_flashBangDefender_overlay';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+
+                document.querySelector('.video-player__overlay').appendChild(overlay);
+
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path d="M14.5 4h.005m-.005 0l-2.5 6 5 2.898-7.5 7.102 2.5-6-5-2.9 7.5-7.1m0-2c-.562.012-1.029.219-1.379.551l-7.497 7.095c-.458.435-.685 1.059-.61 1.686.072.626.437 1.182.982 1.498l3.482 2.021-1.826 4.381c-.362.871-.066 ' +
+                        '1.879.712 2.416.344.236.739.354 1.135.354.498 0 .993-.186 1.375-.548l7.5-7.103c.458-.434.685-1.058.61-1.685-.073-.627-.438-1.183-.982-1.498l-3.482-2.018 1.789-4.293c.123-.26.192-.551.192-.857 0-1.102-.89-1.996-2.001-2z"></path>' +
+                    '</svg>';
+
+                sendMessageToBG({action: "bg_flashBangDefender_btn_click", detail: ""});
+            }
+            document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
         }
     } catch (e) {
 
@@ -2488,6 +2716,7 @@ function append_APS_settings_btn() {
     if (chat_settings_btn) {
         let btn_container = document.createElement('div');
         btn_container.id = "tp_APS_settings_btn";
+        btn_container.classList.add('tp-under-chat-btn');
         btn_container.title = "Predictions Sniper - idle";
 
         let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
@@ -3432,6 +3661,97 @@ function append_MultiStream_btn() {
     }
 }
 
+function appendCastWorker() {
+     let s = document.createElement("script");
+    s.innerHTML = "let context = window.cast.framework.CastContext.getInstance();\n" +
+        "                    let CAST_STATE_CHANGED_EVENT_STR = window.cast.framework.CastContextEventType.CAST_STATE_CHANGED;\n" +
+        "                    context.addEventListener(CAST_STATE_CHANGED_EVENT_STR , function(e) {\n" +
+        "                        window.postMessage('tp_cast_close');" +
+        "                       if (e.castState === \"CONNECTED\") {\n" +
+        "                            window.onpagehide = function(e) {\n" +
+        "                                e.preventDefault();\n" +
+        "                                e.stopPropagation();\n" +
+        "                                e.stopImmediatePropagation();\n" +
+        "                            }\n" +
+        "                            window.onbeforeunload = function(e) {\n" +
+        "                                e.preventDefault();\n" +
+        "                                e.stopPropagation();\n" +
+        "                                e.stopImmediatePropagation();\n" +
+        "                            }\n" +
+        "                            window.onunload = function(e) {\n" +
+        "                                e.preventDefault();\n" +
+        "                                e.stopPropagation();\n" +
+        "                                e.stopImmediatePropagation();\n" +
+        "                            }\n" +
+        "                        }\n" +
+        "                    })";
+    document.body.appendChild(s);
+
+    window.onmessage = function(event) {
+        if (event.data === "tp_cast_close") {
+            document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';
+
+            ////// option 1
+            let d = Date.now() + 3000;
+            let i = 0;
+            while (Date.now() < d) {
+                i++;
+                if (i === 1000) {
+                    parent.close();
+                    window.close();
+                    this.close();
+                }
+            }
+
+            ////// option 2
+            /*for (let i = 0; i < 100000; i++) {
+                if (i === 30000) {
+                    parent.close();
+                    window.close();
+                    this.close();
+                }
+                console.log('jam it');
+            }*/
+        }
+    }
+}
+
+function check_cast_start() {
+    _browser.storage.local.get('tp_cast', function(result) {
+        if (result.tp_cast) {
+
+            _browser.storage.local.set({'tp_cast': false}, function() {
+
+            });
+
+            let overlay = document.createElement('div');
+            overlay.id = "cast_loading_overlay";
+            overlay.innerText = "Waiting For\nCast Availability..."
+            document.body.appendChild(overlay);
+
+
+            let times_interval_ran = 0;
+            let interval = setInterval(function () {
+                if (document.querySelector('.tw-chromecast-button__icon')) {
+                    setPvqc();
+                    appendCastWorker();
+                    setTimeout(()=>{
+                        overlay.innerText = 'Select Your\nCast Device';
+                        document.querySelector('.tw-chromecast-button__icon').closest('button').click();
+                    }, 1000);
+                    clearInterval(interval);
+                } else {
+                    times_interval_ran++;
+                    if (times_interval_ran > 30) {
+                        alert("Twitch Previews:\nError: didn't find ChromeCast Button");
+                        clearInterval(interval);
+                    }
+                }
+            }, 1000);
+        }
+    });
+}
+
 function check_multistream_start() {
     _browser.storage.local.get('startMultiStream_name', function(result) {
         if (result.startMultiStream_name) {
@@ -3476,7 +3796,8 @@ function showToast(toast_body, storageFlagName) {
 
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>" +
-        "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"translate\" />\n" +
+        "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"Translate\" />\n" +
+        "               <img id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
         "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
         "            </div>\n" +
@@ -3524,10 +3845,15 @@ function showToast(toast_body, storageFlagName) {
         sendMessageToBG({action: "updateToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
-    updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
+    updateToast.querySelector('#tp_updateToast_settings_top_btn').onclick = function () {
+        showSettings();
+        sendMessageToBG({action: "updateToast_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
+    };
+
+    /*updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
         sendMessageToBG({action: "updateToast_twitter_btn_click", detail: true});
         sendMessageToBG({action: "bg_show_twitter", detail: ""});
-    };
+    };*/
 
     document.body.appendChild(updateToast);
     setTimeout(function (){
@@ -3541,28 +3867,38 @@ function showToast(toast_body, storageFlagName) {
 }
 
 function getUpdateToastBody() {
+    let ffclass = isFirefox ? 'class="tp_display_none"':'';
+
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
-        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features! (and fixes)</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong >- Screenshot Stream Button(<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z\"></path></g></svg>)!</strong>"
+        +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Seek Streams Using Keyboard Arrow Keys! " +
+                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
+                            "<path d=\"M11.9481 14.8285L10.5339 16.2427L6.29126 12L10.5339 7.7574L11.9481 9.17161L10.1197 11H17.6568V13H10.1197L11.9481 14.8285Z\" fill=\"currentColor\"></path>" +
+                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23 19C23 21.2091 21.2091 23 19 23H5C2.79086 23 1 21.2091 1 19V5C1 2.79086 2.79086 1 5 1H19C21.2091 1 23 2.79086 " +
+                            "23 5V19ZM19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21Z\" fill=\"currentColor\"></path>" +
+                        "</svg> " +
+                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
+                            "<path d=\"M12.0519 14.8285L13.4661 16.2427L17.7087 12L13.4661 7.7574L12.0519 9.17161L13.8803 11H6.34318V13H13.8803L12.0519 14.8285Z\" fill=\"currentColor\"></path>" +
+                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1 19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5C2.79086 1 1 2.79086 1 " +
+                            "5V19ZM5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21Z\" fill=\"currentColor\"></path>" +
+                        "</svg>" +
+                        " (like on Youtube)</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
+        +  "             <span " + ffclass + " ><br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Chrome-Cast -> Close Tab (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z\"></path></g></svg>)!</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can capture multiple screenshots and then save only the ones you like.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The screenshots are captured at the same resolution as the stream.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fast-Forward Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z\"></path></svg>)!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to start casting on a new tab and then automatically close the new tab without stopping the Chrome-Cast.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: experimental feature, try again if it fails.</span></span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- FlashBang Defender Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" version=\"1.2\" baseProfile=\"tiny\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z\"></path></svg>)!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- For when it's late night and the streamer opens a white screen.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Toggles a semi-transparent overlay on top of the stream.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Clear Chat Button (<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M15.9644 4.63379H3.96442V6.63379H15.9644V4.63379Z\" fill=\"currentColor\"></path><path d=\"M15.9644 8.63379H3.96442V10.6338H15.9644V8.63379Z\" fill=\"currentColor\"></path><path d=\"M3.96442 12.6338H11.9644V14.6338H3.96442V12.6338Z\" fill=\"currentColor\"></path><path d=\"M12.9645 13.7093L14.3787 12.295L16.5 14.4163L18.6213 12.2951L20.0355 13.7093L17.9142 15.8305L20.0356 17.9519L18.6214 19.3661L16.5 17.2447L14.3786 19.3661L12.9644 17.9519L15.0858 15.8305L12.9645 13.7093Z\" fill=\"currentColor\"></path></svg>)!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show under the chat.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Previous Update Features:</strong></span>"
+        +  "             <br><span style=\"font-size: 13px;font-weight: bold;color: #2cff95;\" >- Fast-Forward Button.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls next to the 'play/pause' button.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to fast-forward the stream to the latest point in the buffer.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Fixes & Improvements:</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the multi-stream video where the native fullscreen button didn't work.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed the bahavior of clicking a stream in the favorites list - it will now transition to the stream without reloading the page.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the favorites button under the stream where it wouldn't update when switching streams.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Sectioned the settings and added hover animations to improve usability.</span>"
-        +  "             <br><br><span style=\"font-size: 12px;color: white;margin-top: 20px;\"><strong>- We have a Twitter account, follow for updates :) <br><span id='tp_updateToast_twitter_btn' title='https://twitter.com/TwitchPreviews' >" +
-        "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"15px\" width=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" style=\"\n" +
-        "    vertical-align: sub;\n" +
-        "\"><title></title><path d=\"M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 " +
-        "2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 " +
-        "4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 " +
-        "13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z\"></path></svg>TwitchPreviews</span></strong></span>"
+        +  "             <br><span style=\"font-size: 13px;font-weight: bold;color: #2cff95;\" >- Screenshot Stream Button.</span>"
         +  "            </div>"
         +  "    </br>"
 }
@@ -3752,12 +4088,28 @@ function toggleFeatures(isFromTitleObserver) {
         }, 2000)
     }
 
+    if (options.isCastEnabled) {
+        appendCastBtn();
+    }
+
+    if (options.isFlashBangDefenderEnabled) {
+        appendFlashBangDefenderBtn();
+    }
+
     if (options.isScreenshotEnabled) {
         appendScreenShotBtn();
     }
 
     if (options.isFastForwardEnabled) {
         appendFastForwardBtn();
+    }
+
+    if (options.isSeekEnabled) {
+        setSeekListeners();
+    }
+
+    if (options.isClearChatEnabled) {
+        append_clearChat_btn();
     }
 }
 
@@ -4020,7 +4372,11 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
         initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
+        initCheckbox(settingsContainer, 'isClearChatEnabled', 'TP_popup_clearChat_checkbox', false);
+        initCheckbox(settingsContainer, 'isFlashBangDefenderEnabled', 'TP_popup_flashBangDefender_checkbox', false);
         initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
+        initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);
+        initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
@@ -4108,6 +4464,9 @@ window.addEventListener('load', (event) => {
                 if (options.isChannelPointsClickerEnabled) {
                     setChannelPointsClickerListeners();
                 }
+                if (options.isClearChatEnabled) {
+                    append_clearChat_btn();
+                }
             },
             function (err){
 
@@ -4159,3 +4518,4 @@ function pageAwakened() {
 check_showSettings();
 check_FTE();
 check_multistream_start();
+check_cast_start();
