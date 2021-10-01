@@ -4004,7 +4004,7 @@ function show_FTE() {
 
     let content = document.createElement('div');
     content.classList.add('tp-fte-toast-content');
-    content.innerText = "Yay! you just got Twitch Previews! your life is about to get so much easier :)\n" +
+    content.innerText = "Yay! you just got Twitch Previews! your Twitch experience is about to get so much easier :)\n" +
         "Check out the features in the settings menu below";
 
     let closeBtn = document.createElement('div');
