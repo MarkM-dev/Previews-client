@@ -30,6 +30,7 @@ let options = {
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
     isPvqcEnabled: false,
+    isClipDownloaderEnabled: false,
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
     isScreenshotEnabled: false,
@@ -48,6 +49,35 @@ let options = {
     aps_secondsBefore: 10,
     aps_min_vote_margin_percent: 15
 };
+
+function handleTabUpdateForClipDownloader(tabId, changeInfo, tabInfo) {
+    if (changeInfo.status && changeInfo.status === 'complete') {
+        if (tabInfo.url && tabInfo.url.indexOf('https://clips.twitch.tv') > -1) {
+            _browser.tabs.executeScript(tabId, {
+                file: 'main/cd.js'
+            });
+            _browser.tabs.insertCSS(tabId, {
+                file: 'main/cd.css'
+            });
+        }
+    }
+}
+
+function removeListenersForClipDownloader() {
+    _browser.tabs.onUpdated.removeListener(handleTabUpdateForClipDownloader);
+}
+
+function setListenersForClipDownloader() {
+    _browser.tabs.onUpdated.addListener(handleTabUpdateForClipDownloader);
+}
+
+function checkShouldStartCdListeners() {
+    _browser.storage.local.get('tp_options', function(result) {
+        if (result.tp_options && result.tp_options.isClipDownloaderEnabled) {
+            setListenersForClipDownloader();
+        }
+    });
+}
 
 _browser.browserAction.onClicked.addListener(function(tab) {
 
@@ -149,11 +179,17 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isfScrnWithChatEnabled":
             send_ga_event('fScrnWithChat_mode', 'change', msg.detail ? "fScrnWithChat_ON":"fScrnWithChat_OFF");
             break;
+        case "bg_update_isClipDownloaderEnabled":
+            send_ga_event('clipDownloader_mode', 'change', msg.detail ? "CDL_ON":"CDL_OFF");
+            break;
         case "bg_fScrnWithChat_started":
             send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
             break;
         case "bg_favorite_btn_click":
             send_ga_event('favorite_btn_click', 'favorite_btn_click', msg.detail ? 'favorite_add' : 'favorite_remove');
+            break;
+        case "bg_clip_download_btn_click":
+            send_ga_event('clip_download_btn_click', 'clip_download_btn_click', 'clip_download_btn_click');
             break;
         case "bg_update_isMultiStreamEnabled":
             send_ga_event('multiStream_mode', 'change', msg.detail ? "multiStream_ON":"multiStream_OFF");
@@ -345,8 +381,36 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_contact_btn_click":
             send_ga_event('settings_contact_btn_click', 'settings_contact_btn_click', 'settings_contact_btn_click');
             break;
+        case "setListenersForCd":
+            setListenersForClipDownloader();
+            break;
+        case "removeListenersForCd":
+            removeListenersForClipDownloader();
+            break;
+        case "check_permission_clip.twitch.tv":
+            _browser.permissions.contains({
+                origins: ['https://clips.twitch.tv/*']
+            }, (result) => {
+                if (result) {
+                    sendResponse({ result: "granted" });
+                } else {
+                    _browser.permissions.request({
+                        origins: ['https://clips.twitch.tv/*']
+                    }, (granted) => {
+                        if (granted) {
+                            sendResponse({ result: "granted" });
+                        } else {
+                            sendResponse({ result: "denied" });
+                        }
+                    });
+                }
+            });
+            break;
         default:
     }
-    sendResponse({ result: "any response from background" });
+    if (msg.action !== 'check_permission_clip.twitch.tv') {
+        sendResponse({ result: "any response from background" });
+    }
     return true;
 });
+checkShouldStartCdListeners();

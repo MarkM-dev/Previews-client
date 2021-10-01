@@ -139,7 +139,7 @@ let titleMutationObserver = new MutationObserver(function(mutations) {
 
 });
 
-function setTitleMutationObserverForDirectoryCardsRefresh() {
+function setTitleMutationObserver() {
     titleMutationObserver.observe(document.getElementsByTagName('title')[0], {
         childList: true,
         subtree: true
@@ -923,11 +923,12 @@ function ga_report_appStart() {
     let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
     let seek = options.isFastForwardEnabled ? "seek_ON" : "seek_OFF";
     let flashBangDefender = options.isFlashBangDefenderEnabled ? "fbd_ON" : "fbd_OFF";
+    let clip_downloader = options.isClipDownloaderEnabled ? "CDL_ON" : "CDL_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : " + seek});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : " + seek + " : " + clip_downloader});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -995,9 +996,15 @@ function getStreamIndexInFavorites(stream_name, arr) {
 
 function setFavoritesBtnIcon(btn, isFavorite) {
     if (isFavorite) {
-        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"></path></svg>';
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 ' +
+                '252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"></path>' +
+            '</svg>';
     } else {
-        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+            '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 ' +
+            '252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 ' +
+            '210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
     }
 }
 
@@ -1100,7 +1107,11 @@ function setSidebarFavorites() {
                         section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
                     } else {
                         title_figure.title = 'Favorite Channels';
-                        title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
+                        title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+                                '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 ' +
+                                '179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 ' +
+                                '561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path>' +
+                            '</svg>';
                     }
                 } else {
                     section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
@@ -1280,6 +1291,18 @@ function showSidebarSearchBtn() {
             sidenav_content.appendChild(createSideBarSearchBtn());
         }
     }
+}
+
+function checkForTwitchClipsPermissions(featureName) {
+    _browser.runtime.sendMessage({action: "check_permission_clip.twitch.tv", detail: true}, function(response) {
+        if (response.result === 'granted') {
+            sendMessageToBG({action: 'setListenersForCd', detail: true})
+            onSettingChange(featureName, true);
+        } else {
+            onSettingChange(featureName, false);
+            sendMessageToBG({action: 'removeListenersForCd', detail: true})
+        }
+    });
 }
 
 function checkForTwitchNotificationsPermissions(featureName) {
@@ -2509,6 +2532,57 @@ function setPIPBtn() {
         }
     } catch (e) {
 
+    }
+}
+
+function appendClipDownloaderBtn() {
+    if (document.getElementById('tp_clip_download_btn')) {
+        return;
+    }
+    let video = document.querySelector('video');
+    if (video && video.src.indexOf('.mp4?') > -1) {
+        try {
+            let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+            if (ttv_fullscreen_btn) {
+                let btn_container = document.createElement('div');
+                btn_container.id = "tp_clip_download_btn";
+                btn_container.classList.add('tp-player-control');
+                btn_container.title = "Download Clip";
+
+                let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+                btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+                btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+                btn_container.style.zIndex = "1";
+
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="100%" width="70%" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 ' +
+                        '1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>' +
+                    '</svg>';
+
+                btn_container.onclick = function (){
+                    let video_el = document.querySelector('video');
+                    if (video_el && video_el.src.indexOf('.mp4?') > -1) {
+                        let element = document.createElement('a');
+                        element.setAttribute('href', 'data:video/mp4;mp4,' + encodeURIComponent(video_el.src));
+                        element.setAttribute('download', document.title);
+                        element.style.display = 'none';
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+
+                        sendMessageToBG({action: "bg_clip_download_btn_click", detail: true});
+                    } else {
+                        document.getElementById('tp_clip_download_btn').remove();
+                        alert('no clip found');
+                    }
+                }
+                //btn_container.appendChild(img);
+                document.querySelector('.player-controls__right-control-group').firstChild.before(btn_container);
+               // ttv_fullscreen_btn.parentNode.before(btn_container);
+            }
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 
@@ -4048,6 +4122,10 @@ function toggleFeatures(isFromTitleObserver) {
         setfScrnWithChatBtn();
     }
 
+    if (options.isClipDownloaderEnabled) {
+        appendClipDownloaderBtn();
+    }
+
     if (options.isPvqcEnabled) {
         setPvqc();
     }
@@ -4162,13 +4240,20 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
             if (featureName === "isPredictionsNotificationsEnabled") {
                 checkForTwitchNotificationsPermissions(featureName);
             } else {
-                changeFeatureMode(featureName,invertBool ? false : true);
+                if (featureName === "isClipDownloaderEnabled") {
+                    checkForTwitchClipsPermissions(featureName);
+                } else {
+                    changeFeatureMode(featureName,invertBool ? false : true);
+                }
             }
         } else {
             changeFeatureMode(featureName,invertBool ? true : false);
             if (featureName !== "isImagePreviewMode") {
                 settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
                 settingsContainer.querySelector('.tp_settings_switch_container').style.height = "532px";
+            }
+            if (featureName === "isClipDownloaderEnabled") {
+                sendMessageToBG({action: 'removeListenersForCd', detail: true});
             }
         }
     });
@@ -4368,6 +4453,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
+        initCheckbox(settingsContainer, 'isClipDownloaderEnabled', 'TP_popup_clip_downloader_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
@@ -4482,7 +4568,7 @@ window.addEventListener('load', (event) => {
                 ga_report_appStart();
                 toggleFeatures();
                 setTimeout(function (){
-                    setTitleMutationObserverForDirectoryCardsRefresh();
+                    setTitleMutationObserver();
                 }, 1000);
                 showUpdateToast();
             },
