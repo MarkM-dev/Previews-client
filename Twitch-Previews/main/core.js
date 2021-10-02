@@ -1317,9 +1317,10 @@ function checkForTwitchClipsPermissions(featureName) {
     _browser.runtime.sendMessage({action: "check_permission_clip.twitch.tv", detail: true}, function(response) {
         if (response.result === 'granted') {
             sendMessageToBG({action: 'setListenersForCd', detail: true})
-            onSettingChange(featureName, true);
+            changeFeatureMode(featureName, true);
         } else {
-            onSettingChange(featureName, false);
+            changeFeatureMode(featureName, false);
+            settings_clipDownloader_cb_off();
             sendMessageToBG({action: 'removeListenersForCd', detail: true})
         }
     });
@@ -4224,6 +4225,13 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 });
 
 ///////////////////////////////////////// SETTINGS /////////////////////////////////////////
+
+function settings_clipDownloader_cb_off() {
+    let settingsContainer = document.getElementById('TPBodyEl');
+    if (settingsContainer) {
+        settingsContainer.querySelector('#TP_popup_clip_downloader_checkbox').checked = false;
+    }
+}
 
 function settings_predictionsNotifications_cb_off() {
     let settingsContainer = document.getElementById('TPBodyEl');
