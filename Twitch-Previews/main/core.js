@@ -267,13 +267,11 @@ function getElementOffset(el) {
 
 function calculatePreviewDivPosition(navCardEl) {
     let elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
-    //let elOffset = getElementOffset(navCardEl).top + (30);
     if (window.innerHeight - elOffset < options.PREVIEWDIV_HEIGHT) { // if cuts off bottom
         if (elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) < 0) { // if cuts off top too
             return "5rem";
         } else {
             return elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) + "px";
-            //return elOffset - options.PREVIEWDIV_HEIGHT - (20);
         }
     } else {
         return elOffset + "px";
@@ -328,8 +326,6 @@ function setPreviewDivPosition() {
         previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
         previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
     }
-    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
-    //previewDiv.style.marginLeft = "25rem";
 }
 
 function createAndShowDirectoryPreview() {
@@ -337,7 +333,7 @@ function createAndShowDirectoryPreview() {
     previewDiv.style.position = "absolute";
     previewDiv.style.left = "0px";
     previewDiv.style.top = "0px";
-    let calculatedSize = lastHoveredCardEl.getBoundingClientRect();//getCalculatedPreviewSizeByWidth(document.querySelector(".root-scrollable").getBoundingClientRect().width * 0.35);
+    let calculatedSize = lastHoveredCardEl.getBoundingClientRect();
     previewDiv.style.width = calculatedSize.width + "px";
     previewDiv.style.height = calculatedSize.height + "px";
     previewDiv.style.display = "block";
@@ -358,12 +354,6 @@ function createAndShowDirectoryPreview() {
             lastHoveredCardEl.querySelector('img').parentNode.appendChild(loader);
         }
 
-       /* let cur_card = lastHoveredCardEl;
-        setTimeout(function () {
-            if (cur_card.querySelector('.sk-chase')) {
-                cur_card.querySelector('img').parentNode.removeChild(cur_card.querySelector('.sk-chase'));
-            }
-        }, 2000);*/
         twitchIframe = createIframeElement();
         twitchIframe.width = calculatedSize.width + "px";
         twitchIframe.height = calculatedSize.height + "px";
@@ -394,11 +384,6 @@ function createAndShowDirectoryPreview() {
         previewDiv.appendChild(twitchIframe);
     }
 
-    /*twitchIframe.onmouseleave = function () {
-        isHovering = false;
-        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-    }*/
-
     lastHoveredCardEl.parentNode.appendChild(previewDiv);
 }
 
@@ -417,7 +402,6 @@ function createAndShowLoadingSpinnerForSideNav() {
             loader.style.borderLeft = "1px solid #8f8f8f";
         }
 
-       // isLayoutHorizontallyInverted ? loader.style.left = "0": loader.style.right = "0";
         previewDiv.appendChild(loader);
     } else {
         previewDiv.querySelector('.tp-loading').innerText = "loading stream..."
@@ -488,7 +472,6 @@ function createAndShowPreview() {
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             },250)
             previewDiv.appendChild(twitchIframe);
         }
@@ -509,8 +492,6 @@ function createAndShowPreview() {
 
 function changeAndShowPreview() {
     if(isStreamerOnline(lastHoveredCardEl)) {
-        //previewDiv.style.backgroundImage = "none";
-
         if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
             lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         }
@@ -525,7 +506,6 @@ function changeAndShowPreview() {
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             }, 125);
 
             createAndShowLoadingSpinnerForSideNav();
@@ -554,7 +534,6 @@ function hidePreview() {
     }
     clearLoadingSpinnerFromSideNav();
     if (twitchIframe) {
-        //twitchIframe.contentWindow.location.replace('about:blank')
         twitchIframe.src = '';
         twitchIframe.style.display = 'none';
     } else {
@@ -717,7 +696,6 @@ function setMouseOverListeners(navCardEl) {
                 if (previewDiv.classList.contains("tp-anim-duration-1s")) {
                     previewDiv.classList.remove("tp-anim-duration-1s");
                 }
-                //previewDiv.classList.remove("slideOutRight");
                 if (previewDiv.style.display === "none") {
                     previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
                 }
@@ -852,7 +830,6 @@ function getSidebarNavCards(ancestor) {
 function refreshNavCardsListAndListeners() {
     if (document.getElementById('sideNav')) {
         let navCards = getSidebarNavCards();
-        //let navCards = document.getElementsByClassName('side-nav-card__link');
         for (let i = 0; i < navCards.length; i++) {
             navCards[i].lastImageLoadTimeStamp = new Date().getTime();
             setMouseOverListeners(navCards[i]);
@@ -2607,9 +2584,7 @@ function appendClipDownloaderBtn() {
                         alert('no clip found');
                     }
                 }
-                //btn_container.appendChild(img);
                 document.querySelector('.player-controls__right-control-group').firstChild.before(btn_container);
-               // ttv_fullscreen_btn.parentNode.before(btn_container);
             }
         } catch (e) {
             console.log(e)
@@ -3795,8 +3770,6 @@ function appendCastWorker() {
     window.onmessage = function(event) {
         if (event.data === "tp_cast_close") {
             document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';
-
-            ////// option 1
             let d = Date.now() + 3000;
             let i = 0;
             while (Date.now() < d) {
@@ -3807,16 +3780,6 @@ function appendCastWorker() {
                     this.close();
                 }
             }
-
-            ////// option 2
-            /*for (let i = 0; i < 100000; i++) {
-                if (i === 30000) {
-                    parent.close();
-                    window.close();
-                    this.close();
-                }
-                console.log('jam it');
-            }*/
         }
     }
 }
