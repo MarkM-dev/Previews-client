@@ -29,6 +29,7 @@ let options = {
     isSidebarFavoritesEnabled: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
+    isSidebarHideSectionsEnabled: false,
     isPvqcEnabled: false,
     isClipDownloaderEnabled: false,
     isfScrnWithChatEnabled: false,
@@ -166,6 +167,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isSidebarSearchEnabled":
             send_ga_event('sidebarSearch_mode', 'change', msg.detail ? "sBarSearch_ON":"sBarSearch_OFF");
+            break;
+        case "bg_update_isSidebarHideSectionsEnabled":
+            send_ga_event('sidebarHideSections_mode', 'change', msg.detail ? "sBarHS_ON":"sBarHS_OFF");
             break;
         case "bg_update_isPvqcEnabled":
             send_ga_event('pvqc_mode', 'change', msg.detail ? "pvqc_ON":"pvqc_OFF");

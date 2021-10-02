@@ -119,6 +119,10 @@ let sideNavMutationObserver = new MutationObserver(function(mutations) {
             refreshNavCardsListAndListeners();
         }
 
+        if (options.isSidebarHideSectionsEnabled) {
+            hideSidebarSections();
+        }
+
         if (options.isSidebarFavoritesEnabled) {
             setSidebarFavorites();
         }
@@ -889,6 +893,19 @@ function setChannelPointsClickerListeners() {
     }
 }
 
+function hideSidebarSections() {
+    let sidebarContent = document.querySelector('.side-bar-contents');
+    if (sidebarContent) {
+        let elements = sidebarContent.querySelectorAll('.side-nav-section');
+        if (elements.length > 1) {
+            for (let i = 1; i < elements.length; i++) {
+                elements[i].className = '';
+                elements[i].style.display = 'none';
+            }
+        }
+    }
+}
+
 function clearExistingPreviewDivs(className, isFromPip) {
     let previewDivs = document.querySelectorAll('.' + className);
     for (let i = 0; i < previewDivs.length; i++) {
@@ -924,11 +941,13 @@ function ga_report_appStart() {
     let seek = options.isFastForwardEnabled ? "seek_ON" : "seek_OFF";
     let flashBangDefender = options.isFlashBangDefenderEnabled ? "fbd_ON" : "fbd_OFF";
     let clip_downloader = options.isClipDownloaderEnabled ? "CDL_ON" : "CDL_OFF";
+    let sidebarHideSections = options.isSidebarHideSectionsEnabled ? "sBarHS_ON" : "sBarHS_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : " + seek + " : " + clip_downloader});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
+            + seek + " : " + clip_downloader + " : " + sidebarHideSections});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -4153,6 +4172,12 @@ function toggleFeatures(isFromTitleObserver) {
         document.querySelector('.collapse-toggle').removeEventListener('click', sidebarExpandBtnClick);
     }
 
+    if (options.isSidebarHideSectionsEnabled) {
+        setTimeout(function () {
+            hideSidebarSections();
+        }, 1700);
+    }
+
     if (options.isSidebarFavoritesEnabled) {
         setTimeout(function () {
             setSidebarFavorites();
@@ -4452,6 +4477,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarHideSectionsEnabled', 'TP_popup_sidebar_hide_sections_checkbox', false);
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isClipDownloaderEnabled', 'TP_popup_clip_downloader_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
