@@ -3975,34 +3975,17 @@ function getUpdateToastBody() {
 
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Seek Streams Using Keyboard Arrow Keys! " +
-                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
-                            "<path d=\"M11.9481 14.8285L10.5339 16.2427L6.29126 12L10.5339 7.7574L11.9481 9.17161L10.1197 11H17.6568V13H10.1197L11.9481 14.8285Z\" fill=\"currentColor\"></path>" +
-                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23 19C23 21.2091 21.2091 23 19 23H5C2.79086 23 1 21.2091 1 19V5C1 2.79086 2.79086 1 5 1H19C21.2091 1 23 2.79086 " +
-                            "23 5V19ZM19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21Z\" fill=\"currentColor\"></path>" +
-                        "</svg> " +
-                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
-                            "<path d=\"M12.0519 14.8285L13.4661 16.2427L17.7087 12L13.4661 7.7574L12.0519 9.17161L13.8803 11H6.34318V13H13.8803L12.0519 14.8285Z\" fill=\"currentColor\"></path>" +
-                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1 19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5C2.79086 1 1 2.79086 1 " +
-                            "5V19ZM5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21Z\" fill=\"currentColor\"></path>" +
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Clip Downloader! <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"17px\" width=\"17px\" style=\"margin-bottom: -3px;\" xmlns=\"http://www.w3.org/2000/svg\">" +
+                        "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
                         "</svg>" +
-                        " (like on Youtube)</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
-        +  "             <span " + ffclass + " ><br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Chrome-Cast -> Close Tab (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z\"></path></g></svg>)!</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to start casting on a new tab and then automatically close the new tab without stopping the Chrome-Cast.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: experimental feature, try again if it fails.</span></span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- FlashBang Defender Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" version=\"1.2\" baseProfile=\"tiny\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z\"></path></svg>)!</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- For when it's late night and the streamer opens a white screen.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Toggles a semi-transparent overlay on top of the stream.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Clear Chat Button (<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M15.9644 4.63379H3.96442V6.63379H15.9644V4.63379Z\" fill=\"currentColor\"></path><path d=\"M15.9644 8.63379H3.96442V10.6338H15.9644V8.63379Z\" fill=\"currentColor\"></path><path d=\"M3.96442 12.6338H11.9644V14.6338H3.96442V12.6338Z\" fill=\"currentColor\"></path><path d=\"M12.9645 13.7093L14.3787 12.295L16.5 14.4163L18.6213 12.2951L20.0355 13.7093L17.9142 15.8305L20.0356 17.9519L18.6214 19.3661L16.5 17.2447L14.3786 19.3661L12.9644 17.9519L15.0858 15.8305L12.9645 13.7093Z\" fill=\"currentColor\"></path></svg>)!</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show under the chat.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Previous Update Features:</strong></span>"
-        +  "             <br><span style=\"font-size: 13px;font-weight: bold;color: #2cff95;\" >- Fast-Forward Button.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
-        +  "             <br><span style=\"font-size: 13px;font-weight: bold;color: #2cff95;\" >- Screenshot Stream Button.</span>"
+                    "</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls of clips.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When enabling this feature, you will need to allow the extensions to run on \"clips.twitch.tv\" (a prompt will show when enabling).</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Mute Auto-Playing Videos In Various Pages!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Mutes the auto-playing video players in various pages like in the homepage and offline stream pages.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Hide All Sidebar Sections Except The Followed Channels!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Hides all the other sections in the sidebar except the followed channels.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature does not affect the 'sidebar favorites' feature, you will still see your favorites list.</span>"
         +  "            </div>"
         +  "    </br>"
 }
