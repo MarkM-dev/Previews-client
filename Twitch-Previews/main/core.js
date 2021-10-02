@@ -3975,13 +3975,13 @@ function getUpdateToastBody() {
 
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Clip Downloader! <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"17px\" width=\"17px\" style=\"margin-bottom: -3px;\" xmlns=\"http://www.w3.org/2000/svg\">" +
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong " + ffclass + " style='color: #2cff95;' >- Clip Downloader! <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"17px\" width=\"17px\" style=\"margin-bottom: -3px;\" xmlns=\"http://www.w3.org/2000/svg\">" +
                         "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
                         "</svg>" +
                     "</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls of clips.</span>"
+        +  "             <span " + ffclass + " ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls of clips.</span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When enabling this feature, you will need to allow the extensions to run on \"clips.twitch.tv\" (a prompt will show when enabling).</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Mute Auto-Playing Videos In Various Pages!</strong></span>"
+        +  "             <br><br></span><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Mute Auto-Playing Videos In Various Pages!</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Mutes the auto-playing video players in various pages like in the homepage and offline stream pages.</span>"
         +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Hide All Sidebar Sections Except The Followed Channels!</strong></span>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Hides all the other sections in the sidebar except the followed channels.</span>"
@@ -4501,6 +4501,7 @@ function showSettingsMenu() {
             for (let i = 0; i < els.length; i++) {
                 els[i].style.display = "none";
             }
+            settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '13px';
         } else {
             let els = settingsContainer.querySelectorAll('.tp-chrome-hide');
             for (let i = 0; i < els.length; i++) {
