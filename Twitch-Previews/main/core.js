@@ -942,12 +942,13 @@ function ga_report_appStart() {
     let flashBangDefender = options.isFlashBangDefenderEnabled ? "fbd_ON" : "fbd_OFF";
     let clip_downloader = options.isClipDownloaderEnabled ? "CDL_ON" : "CDL_OFF";
     let sidebarHideSections = options.isSidebarHideSectionsEnabled ? "sBarHS_ON" : "sBarHS_OFF";
+    let muteAutoPlayers = options.isMuteAutoPlayersEnabled ? "mautop_ON" : "mautop_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
             + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
-            + seek + " : " + clip_downloader + " : " + sidebarHideSections});
+            + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -2333,6 +2334,16 @@ function append_clearChat_btn() {
             chat_settings_btn.parentNode.parentNode.before(btn_container);
         } catch (e) {
 
+        }
+    }
+}
+
+function muteAutoplayingVideoElements() {
+    let videoContainer = document.querySelector('div[data-a-target="video-player"]');
+    if (videoContainer) {
+        let attr = videoContainer.getAttribute('data-a-player-type');
+        if (attr && (attr === 'frontpage' || attr === 'channel_home_carousel')) {
+            videoContainer.querySelector('video').muted = true;
         }
     }
 }
@@ -4214,6 +4225,10 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isClearChatEnabled) {
         append_clearChat_btn();
     }
+
+    if (options.isMuteAutoPlayersEnabled) {
+        muteAutoplayingVideoElements();
+    }
 }
 
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -4480,6 +4495,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSidebarHideSectionsEnabled', 'TP_popup_sidebar_hide_sections_checkbox', false);
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
         initCheckbox(settingsContainer, 'isClipDownloaderEnabled', 'TP_popup_clip_downloader_checkbox', false);
+        initCheckbox(settingsContainer, 'isMuteAutoPlayersEnabled', 'TP_popup_muteAutoPlayers_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
