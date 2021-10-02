@@ -27,6 +27,7 @@
 - Full Screen With Chat Mode.
 - Sidebar Favorite Channels List.
 - Auto Channel Points Clicker.
+- Clip Downloader.
 - Auto Refresh on player errors (#1000, #2000, #4000).
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Predictions Sniper (will participate in predictions for you).
@@ -41,6 +42,8 @@
 - Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
 - Sidebar Stream Search: A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
+- Hide All Sidebar Sections Except The Followed Channels.
+- Mute Auto-Playing Videos In Various Pages.
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
 
@@ -102,6 +105,12 @@
       <br/><br/>
 
 
+* **Clip Downloader**
+    - The button will show in the player controls of clips.
+    - When enabling this feature, you will need to allow the extensions to run on "clips.twitch.tv" (a prompt will show when enabling).
+      <br/><br/>
+
+
 * **Sidebar Stream Search**
     - A purple search button on the top of the sidebar to find live streamers easily.
     - Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
@@ -110,6 +119,17 @@
 
 * **Sidebar Extend**
     - Auto extends the sidebar to show all live streamers (when sidebar is open).
+      <br/><br/>
+
+
+* **Hide All Sidebar Sections Except The Followed Channels**
+    - Hides all the other sections in the sidebar except the followed channels.
+    - Note: this feature does not affect the 'sidebar favorites' feature, you will still see your favorites list.
+      <br/><br/>
+
+
+* **Mute Auto-Playing Videos In Various Pages**
+    - Mutes the auto-playing video players in various pages.
       <br/><br/>
 
 
