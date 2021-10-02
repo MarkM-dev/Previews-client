@@ -119,6 +119,10 @@ let sideNavMutationObserver = new MutationObserver(function(mutations) {
             refreshNavCardsListAndListeners();
         }
 
+        if (options.isSidebarHideSectionsEnabled) {
+            hideSidebarSections();
+        }
+
         if (options.isSidebarFavoritesEnabled) {
             setSidebarFavorites();
         }
@@ -139,7 +143,7 @@ let titleMutationObserver = new MutationObserver(function(mutations) {
 
 });
 
-function setTitleMutationObserverForDirectoryCardsRefresh() {
+function setTitleMutationObserver() {
     titleMutationObserver.observe(document.getElementsByTagName('title')[0], {
         childList: true,
         subtree: true
@@ -263,13 +267,11 @@ function getElementOffset(el) {
 
 function calculatePreviewDivPosition(navCardEl) {
     let elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
-    //let elOffset = getElementOffset(navCardEl).top + (30);
     if (window.innerHeight - elOffset < options.PREVIEWDIV_HEIGHT) { // if cuts off bottom
         if (elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) < 0) { // if cuts off top too
             return "5rem";
         } else {
             return elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) + "px";
-            //return elOffset - options.PREVIEWDIV_HEIGHT - (20);
         }
     } else {
         return elOffset + "px";
@@ -324,8 +326,6 @@ function setPreviewDivPosition() {
         previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
         previewDiv.style.boxShadow = "10px 15px 10px -5px rgba(23,23,23,0.75)";
     }
-    //previewDiv.style.marginLeft = isNavBarCollapsed? "6rem":"25rem";
-    //previewDiv.style.marginLeft = "25rem";
 }
 
 function createAndShowDirectoryPreview() {
@@ -333,7 +333,7 @@ function createAndShowDirectoryPreview() {
     previewDiv.style.position = "absolute";
     previewDiv.style.left = "0px";
     previewDiv.style.top = "0px";
-    let calculatedSize = lastHoveredCardEl.getBoundingClientRect();//getCalculatedPreviewSizeByWidth(document.querySelector(".root-scrollable").getBoundingClientRect().width * 0.35);
+    let calculatedSize = lastHoveredCardEl.getBoundingClientRect();
     previewDiv.style.width = calculatedSize.width + "px";
     previewDiv.style.height = calculatedSize.height + "px";
     previewDiv.style.display = "block";
@@ -354,12 +354,6 @@ function createAndShowDirectoryPreview() {
             lastHoveredCardEl.querySelector('img').parentNode.appendChild(loader);
         }
 
-       /* let cur_card = lastHoveredCardEl;
-        setTimeout(function () {
-            if (cur_card.querySelector('.sk-chase')) {
-                cur_card.querySelector('img').parentNode.removeChild(cur_card.querySelector('.sk-chase'));
-            }
-        }, 2000);*/
         twitchIframe = createIframeElement();
         twitchIframe.width = calculatedSize.width + "px";
         twitchIframe.height = calculatedSize.height + "px";
@@ -390,11 +384,6 @@ function createAndShowDirectoryPreview() {
         previewDiv.appendChild(twitchIframe);
     }
 
-    /*twitchIframe.onmouseleave = function () {
-        isHovering = false;
-        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-    }*/
-
     lastHoveredCardEl.parentNode.appendChild(previewDiv);
 }
 
@@ -413,7 +402,6 @@ function createAndShowLoadingSpinnerForSideNav() {
             loader.style.borderLeft = "1px solid #8f8f8f";
         }
 
-       // isLayoutHorizontallyInverted ? loader.style.left = "0": loader.style.right = "0";
         previewDiv.appendChild(loader);
     } else {
         previewDiv.querySelector('.tp-loading').innerText = "loading stream..."
@@ -484,7 +472,6 @@ function createAndShowPreview() {
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             },250)
             previewDiv.appendChild(twitchIframe);
         }
@@ -505,8 +492,6 @@ function createAndShowPreview() {
 
 function changeAndShowPreview() {
     if(isStreamerOnline(lastHoveredCardEl)) {
-        //previewDiv.style.backgroundImage = "none";
-
         if (new Date().getTime() - lastHoveredCardEl.lastImageLoadTimeStamp > IMAGE_CACHE_TTL_MS) {
             lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
         }
@@ -521,7 +506,6 @@ function changeAndShowPreview() {
             twitchIframe.style.visibility = 'hidden';
             setTimeout(function () {
                 twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
-                //twitchIframe.contentWindow.location.replace(getPreviewStreamUrl(lastHoveredCardEl))
             }, 125);
 
             createAndShowLoadingSpinnerForSideNav();
@@ -550,7 +534,6 @@ function hidePreview() {
     }
     clearLoadingSpinnerFromSideNav();
     if (twitchIframe) {
-        //twitchIframe.contentWindow.location.replace('about:blank')
         twitchIframe.src = '';
         twitchIframe.style.display = 'none';
     } else {
@@ -713,7 +696,6 @@ function setMouseOverListeners(navCardEl) {
                 if (previewDiv.classList.contains("tp-anim-duration-1s")) {
                     previewDiv.classList.remove("tp-anim-duration-1s");
                 }
-                //previewDiv.classList.remove("slideOutRight");
                 if (previewDiv.style.display === "none") {
                     previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
                 }
@@ -848,7 +830,6 @@ function getSidebarNavCards(ancestor) {
 function refreshNavCardsListAndListeners() {
     if (document.getElementById('sideNav')) {
         let navCards = getSidebarNavCards();
-        //let navCards = document.getElementsByClassName('side-nav-card__link');
         for (let i = 0; i < navCards.length; i++) {
             navCards[i].lastImageLoadTimeStamp = new Date().getTime();
             setMouseOverListeners(navCards[i]);
@@ -889,6 +870,19 @@ function setChannelPointsClickerListeners() {
     }
 }
 
+function hideSidebarSections() {
+    let sidebarContent = document.querySelector('.side-bar-contents');
+    if (sidebarContent) {
+        let elements = sidebarContent.querySelectorAll('.side-nav-section');
+        if (elements.length > 1) {
+            for (let i = 1; i < elements.length; i++) {
+                elements[i].className = '';
+                elements[i].style.display = 'none';
+            }
+        }
+    }
+}
+
 function clearExistingPreviewDivs(className, isFromPip) {
     let previewDivs = document.querySelectorAll('.' + className);
     for (let i = 0; i < previewDivs.length; i++) {
@@ -923,11 +917,15 @@ function ga_report_appStart() {
     let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
     let seek = options.isFastForwardEnabled ? "seek_ON" : "seek_OFF";
     let flashBangDefender = options.isFlashBangDefenderEnabled ? "fbd_ON" : "fbd_OFF";
+    let clip_downloader = options.isClipDownloaderEnabled ? "CDL_ON" : "CDL_OFF";
+    let sidebarHideSections = options.isSidebarHideSectionsEnabled ? "sBarHS_ON" : "sBarHS_OFF";
+    let muteAutoPlayers = options.isMuteAutoPlayersEnabled ? "mautop_ON" : "mautop_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : " + seek});
+            + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
+            + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -995,9 +993,15 @@ function getStreamIndexInFavorites(stream_name, arr) {
 
 function setFavoritesBtnIcon(btn, isFavorite) {
     if (isFavorite) {
-        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"></path></svg>';
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 ' +
+                '252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"></path>' +
+            '</svg>';
     } else {
-        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
+        btn.querySelector('figure').innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+            '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 ' +
+            '252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 ' +
+            '210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
     }
 }
 
@@ -1100,7 +1104,11 @@ function setSidebarFavorites() {
                         section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
                     } else {
                         title_figure.title = 'Favorite Channels';
-                        title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>';
+                        title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+                                '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 ' +
+                                '179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 ' +
+                                '561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path>' +
+                            '</svg>';
                     }
                 } else {
                     section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
@@ -1280,6 +1288,19 @@ function showSidebarSearchBtn() {
             sidenav_content.appendChild(createSideBarSearchBtn());
         }
     }
+}
+
+function checkForTwitchClipsPermissions(featureName) {
+    _browser.runtime.sendMessage({action: "check_permission_clip.twitch.tv", detail: true}, function(response) {
+        if (response.result === 'granted') {
+            sendMessageToBG({action: 'setListenersForCd', detail: true})
+            changeFeatureMode(featureName, true);
+        } else {
+            changeFeatureMode(featureName, false);
+            settings_clipDownloader_cb_off();
+            sendMessageToBG({action: 'removeListenersForCd', detail: true})
+        }
+    });
 }
 
 function checkForTwitchNotificationsPermissions(featureName) {
@@ -2295,6 +2316,16 @@ function append_clearChat_btn() {
     }
 }
 
+function muteAutoplayingVideoElements() {
+    let videoContainer = document.querySelector('div[data-a-target="video-player"]');
+    if (videoContainer) {
+        let attr = videoContainer.getAttribute('data-a-player-type');
+        if (attr && (attr === 'frontpage' || attr === 'channel_home_carousel')) {
+            videoContainer.querySelector('video').muted = true;
+        }
+    }
+}
+
 function appendFastForwardBtn() {
     let btn = document.getElementById('tp_fast_forward_btn');
     if (btn) {
@@ -2509,6 +2540,55 @@ function setPIPBtn() {
         }
     } catch (e) {
 
+    }
+}
+
+function appendClipDownloaderBtn() {
+    if (document.getElementById('tp_clip_download_btn')) {
+        return;
+    }
+    let video = document.querySelector('video');
+    if (video && video.src.indexOf('.mp4?') > -1) {
+        try {
+            let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+            if (ttv_fullscreen_btn) {
+                let btn_container = document.createElement('div');
+                btn_container.id = "tp_clip_download_btn";
+                btn_container.classList.add('tp-player-control');
+                btn_container.title = "Download Clip";
+
+                let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+                btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+                btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+                btn_container.style.zIndex = "1";
+
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="100%" width="70%" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 ' +
+                        '1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>' +
+                    '</svg>';
+
+                btn_container.onclick = function (){
+                    let video_el = document.querySelector('video');
+                    if (video_el && video_el.src.indexOf('.mp4?') > -1) {
+                        let element = document.createElement('a');
+                        element.setAttribute('href', 'data:video/mp4;mp4,' + encodeURIComponent(video_el.src));
+                        element.setAttribute('download', document.title);
+                        element.style.display = 'none';
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+
+                        sendMessageToBG({action: "bg_clip_download_btn_click", detail: true});
+                    } else {
+                        document.getElementById('tp_clip_download_btn').remove();
+                        alert('no clip found');
+                    }
+                }
+                document.querySelector('.player-controls__right-control-group').firstChild.before(btn_container);
+            }
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 
@@ -3690,8 +3770,6 @@ function appendCastWorker() {
     window.onmessage = function(event) {
         if (event.data === "tp_cast_close") {
             document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';
-
-            ////// option 1
             let d = Date.now() + 3000;
             let i = 0;
             while (Date.now() < d) {
@@ -3702,16 +3780,6 @@ function appendCastWorker() {
                     this.close();
                 }
             }
-
-            ////// option 2
-            /*for (let i = 0; i < 100000; i++) {
-                if (i === 30000) {
-                    parent.close();
-                    window.close();
-                    this.close();
-                }
-                console.log('jam it');
-            }*/
         }
     }
 }
@@ -3871,34 +3939,17 @@ function getUpdateToastBody() {
 
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Seek Streams Using Keyboard Arrow Keys! " +
-                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
-                            "<path d=\"M11.9481 14.8285L10.5339 16.2427L6.29126 12L10.5339 7.7574L11.9481 9.17161L10.1197 11H17.6568V13H10.1197L11.9481 14.8285Z\" fill=\"currentColor\"></path>" +
-                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23 19C23 21.2091 21.2091 23 19 23H5C2.79086 23 1 21.2091 1 19V5C1 2.79086 2.79086 1 5 1H19C21.2091 1 23 2.79086 " +
-                            "23 5V19ZM19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21Z\" fill=\"currentColor\"></path>" +
-                        "</svg> " +
-                        "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\">" +
-                            "<path d=\"M12.0519 14.8285L13.4661 16.2427L17.7087 12L13.4661 7.7574L12.0519 9.17161L13.8803 11H6.34318V13H13.8803L12.0519 14.8285Z\" fill=\"currentColor\"></path>" +
-                            "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1 19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5C2.79086 1 1 2.79086 1 " +
-                            "5V19ZM5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21Z\" fill=\"currentColor\"></path>" +
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong " + ffclass + " style='color: #2cff95;' >- Clip Downloader! <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"17px\" width=\"17px\" style=\"margin-bottom: -3px;\" xmlns=\"http://www.w3.org/2000/svg\">" +
+                        "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
                         "</svg>" +
-                        " (like on Youtube)</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Enable in the Settings.</span>"
-        +  "             <span " + ffclass + " ><br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Chrome-Cast -> Close Tab (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><g><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z\"></path></g></svg>)!</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click it to start casting on a new tab and then automatically close the new tab without stopping the Chrome-Cast.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: experimental feature, try again if it fails.</span></span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- FlashBang Defender Button (<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" version=\"1.2\" baseProfile=\"tiny\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z\"></path></svg>)!</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- For when it's late night and the streamer opens a white screen.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Toggles a semi-transparent overlay on top of the stream.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Clear Chat Button (<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;\" xmlns=\"http://www.w3.org/2000/svg\" ><path d=\"M15.9644 4.63379H3.96442V6.63379H15.9644V4.63379Z\" fill=\"currentColor\"></path><path d=\"M15.9644 8.63379H3.96442V10.6338H15.9644V8.63379Z\" fill=\"currentColor\"></path><path d=\"M3.96442 12.6338H11.9644V14.6338H3.96442V12.6338Z\" fill=\"currentColor\"></path><path d=\"M12.9645 13.7093L14.3787 12.295L16.5 14.4163L18.6213 12.2951L20.0355 13.7093L17.9142 15.8305L20.0356 17.9519L18.6214 19.3661L16.5 17.2447L14.3786 19.3661L12.9644 17.9519L15.0858 15.8305L12.9645 13.7093Z\" fill=\"currentColor\"></path></svg>)!</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show under the chat.</span>"
-        +  "             <br><br><span style=\"font-size: 14px;color: white;\" ><strong>- Previous Update Features:</strong></span>"
-        +  "             <br><span style=\"font-size: 13px;font-weight: bold;color: #2cff95;\" >- Fast-Forward Button.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Useful if your stream is delayed.</span>"
-        +  "             <br><span style=\"font-size: 13px;font-weight: bold;color: #2cff95;\" >- Screenshot Stream Button.</span>"
+                    "</strong>"
+        +  "             <span " + ffclass + " ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls of clips.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When enabling this feature, you will need to allow the extensions to run on \"clips.twitch.tv\" (a prompt will show when enabling).</span>"
+        +  "             <br><br></span><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Mute Auto-Playing Videos In Various Pages!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Mutes the auto-playing video players in various pages like in the homepage and offline stream pages.</span>"
+        +  "             <br><br><span style=\"font-size: 14px;color: #2cff95;\" ><strong>- Hide All Sidebar Sections Except The Followed Channels!</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Hides all the other sections in the sidebar except the followed channels.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: this feature does not affect the 'sidebar favorites' feature, you will still see your favorites list.</span>"
         +  "            </div>"
         +  "    </br>"
 }
@@ -3930,7 +3981,7 @@ function show_FTE() {
 
     let content = document.createElement('div');
     content.classList.add('tp-fte-toast-content');
-    content.innerText = "Yay! you just got Twitch Previews! your life is about to get so much easier :)\n" +
+    content.innerText = "Yay! you just got Twitch Previews! your Twitch experience is about to get so much easier :)\n" +
         "Check out the features in the settings menu below";
 
     let closeBtn = document.createElement('div');
@@ -4048,6 +4099,10 @@ function toggleFeatures(isFromTitleObserver) {
         setfScrnWithChatBtn();
     }
 
+    if (options.isClipDownloaderEnabled) {
+        appendClipDownloaderBtn();
+    }
+
     if (options.isPvqcEnabled) {
         setPvqc();
     }
@@ -4073,6 +4128,12 @@ function toggleFeatures(isFromTitleObserver) {
     function sidebarExpandBtnClick(e) {
         setSidebarFavorites();
         document.querySelector('.collapse-toggle').removeEventListener('click', sidebarExpandBtnClick);
+    }
+
+    if (options.isSidebarHideSectionsEnabled) {
+        setTimeout(function () {
+            hideSidebarSections();
+        }, 1700);
     }
 
     if (options.isSidebarFavoritesEnabled) {
@@ -4111,6 +4172,10 @@ function toggleFeatures(isFromTitleObserver) {
     if (options.isClearChatEnabled) {
         append_clearChat_btn();
     }
+
+    if (options.isMuteAutoPlayersEnabled) {
+        muteAutoplayingVideoElements();
+    }
 }
 
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -4123,6 +4188,13 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 });
 
 ///////////////////////////////////////// SETTINGS /////////////////////////////////////////
+
+function settings_clipDownloader_cb_off() {
+    let settingsContainer = document.getElementById('TPBodyEl');
+    if (settingsContainer) {
+        settingsContainer.querySelector('#TP_popup_clip_downloader_checkbox').checked = false;
+    }
+}
 
 function settings_predictionsNotifications_cb_off() {
     let settingsContainer = document.getElementById('TPBodyEl');
@@ -4162,13 +4234,20 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
             if (featureName === "isPredictionsNotificationsEnabled") {
                 checkForTwitchNotificationsPermissions(featureName);
             } else {
-                changeFeatureMode(featureName,invertBool ? false : true);
+                if (featureName === "isClipDownloaderEnabled") {
+                    checkForTwitchClipsPermissions(featureName);
+                } else {
+                    changeFeatureMode(featureName,invertBool ? false : true);
+                }
             }
         } else {
             changeFeatureMode(featureName,invertBool ? true : false);
             if (featureName !== "isImagePreviewMode") {
                 settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
                 settingsContainer.querySelector('.tp_settings_switch_container').style.height = "532px";
+            }
+            if (featureName === "isClipDownloaderEnabled") {
+                sendMessageToBG({action: 'removeListenersForCd', detail: true});
             }
         }
     });
@@ -4367,7 +4446,10 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
         initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
+        initCheckbox(settingsContainer, 'isSidebarHideSectionsEnabled', 'TP_popup_sidebar_hide_sections_checkbox', false);
         initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
+        initCheckbox(settingsContainer, 'isClipDownloaderEnabled', 'TP_popup_clip_downloader_checkbox', false);
+        initCheckbox(settingsContainer, 'isMuteAutoPlayersEnabled', 'TP_popup_muteAutoPlayers_checkbox', false);
         initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
         initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
         initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
@@ -4390,6 +4472,7 @@ function showSettingsMenu() {
             for (let i = 0; i < els.length; i++) {
                 els[i].style.display = "none";
             }
+            settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '13px';
         } else {
             let els = settingsContainer.querySelectorAll('.tp-chrome-hide');
             for (let i = 0; i < els.length; i++) {
@@ -4482,7 +4565,7 @@ window.addEventListener('load', (event) => {
                 ga_report_appStart();
                 toggleFeatures();
                 setTimeout(function (){
-                    setTitleMutationObserverForDirectoryCardsRefresh();
+                    setTitleMutationObserver();
                 }, 1000);
                 showUpdateToast();
             },
