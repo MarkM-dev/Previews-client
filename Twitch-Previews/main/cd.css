@@ -1,0 +1,17 @@
+.tp-player-control {
+    display: inline-flex;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 4px;
+}
+
+.tp-player-control:hover {
+    background-color: #ffffff33;
+}
+.tp-player-control:active {
+    background-color: rgb(38, 38, 38);
+}
+#tp_clip_download_btn {
+    justify-content: center;
+}
