@@ -1048,6 +1048,7 @@ function setYTsidebar() {
                         navCard.querySelector('img.tw-image-avatar').src = res.result[i].profile_pic_url;
                         navCard.title = res.result[i].stream_name + ' - ' + res.result[i].title;
 
+                        navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
                         /*el.onclick = (e) => {
                             e.preventDefault();
                             window.history.replaceState({},'','/' + el.title);

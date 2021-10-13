@@ -431,6 +431,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                                     if (items[j].gridVideoRenderer.badges && items[j].gridVideoRenderer.badges[0].metadataBadgeRenderer.style === 'BADGE_STYLE_TYPE_LIVE_NOW') {
                                         let obj = {};
                                         console.log(items[j]);
+                                        obj.videoId = items[j].gridVideoRenderer.videoId;
                                         obj.profile_pic_url = items[j].gridVideoRenderer.channelThumbnail.thumbnails[0].url;
                                         obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
                                         obj.title = items[j].gridVideoRenderer.title.runs[0].text;
