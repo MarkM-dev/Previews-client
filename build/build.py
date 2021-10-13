@@ -13,6 +13,17 @@ def get_version():
         data = json.load(f)
         return data['version'].replace('.', '')
 
+def replace_strings_for_edge():
+    background_path = 'temp/main/background.js'
+
+    with open(background_path, 'r') as f:
+        data = f.read()
+        data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'edge';''')
+        data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://microsoftedge.microsoft.com/addons/detail/twitch-previews/nmekhdckniaiegiekejhmcmddplmliel')
+        data = data.replace('https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://microsoftedge.microsoft.com/addons/detail/twitch-previews/nmekhdckniaiegiekejhmcmddplmliel')
+
+    with open(background_path, 'w') as f:
+        f.write(data)
 
 def replace_strings_for_opera():
     background_path = 'temp/main/background.js'
@@ -77,6 +88,8 @@ def build(browser):
         replace_strings_for_firefox('temp')
     elif browser == 'opera':
         replace_strings_for_opera()
+    elif browser == 'edge':
+        replace_strings_for_edge()
 
     output_filename = 'TwitchPreviewsV' + get_version() + '-' + browser
     shutil.make_archive(output_filename, 'zip', 'temp')
