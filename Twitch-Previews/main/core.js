@@ -300,7 +300,7 @@ function getPreviewImageUrl(navCardEl) {
 
 function getPreviewStreamUrl(navCardEl) {
     if (navCardEl.tp_yt) {
-        return "https://www.youtube.com/embed/" + navCardEl.ytvideoId + "?autoplay=1&origin=twitch.tv";
+        return "https://www.youtube.com/embed/" + navCardEl.ytvideoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
     } else {
         return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
 
@@ -652,30 +652,53 @@ function clearOverlays(navCardEl, isFromDirectory) {
                     clearOverlaysInterval = null;
                     return;
                 }
-                if (twitchIframe && twitchIframe.contentDocument) {
-                    if (twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]')) {
-                        twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]').click();
-                        setTimeout(function (){
-                            let vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
-                            vpo.parentNode.removeChild(vpo);
-                            waitForVidPlayAndShow(navCardEl, isFromDirectory);
-                        },100);
-                        clearInterval(clearOverlaysInterval);
-                        clearOverlaysInterval = null;
-                    } else {
-                        if (twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0]) {
-                            let vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
-                            vpo.parentNode.removeChild(vpo);
-                            waitForVidPlayAndShow(navCardEl, isFromDirectory);
+                if (navCardEl.tp_yt && twitchIframe) {
+                    previewDiv.style.visibility = "visible";
+
+                    if (!isFromDirectory) {
+                        clearLoadingSpinnerFromSideNav();
+                        twitchIframe.classList.add('tp-anim-duration-100ms');
+                        twitchIframe.classList.add('fadeIn');
+                        setTimeout(function () {
+                            if (twitchIframe) {
+                                twitchIframe.classList.remove('fadeIn');
+                            }
+                        },200)
+                    }
+                    twitchIframe.style.visibility = "visible";
+                    let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
+                    if (container) {
+                        container.appendChild(navCardPipBtn);
+                        container.appendChild(vidPreviewVolBtn);
+                    }
+                    clearInterval(clearOverlaysInterval);
+                    clearOverlaysInterval = null;
+                } else {
+                    if (twitchIframe && twitchIframe.contentDocument) {
+                        if (twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]')) {
+                            twitchIframe.contentDocument.querySelector('button[data-a-target="player-overlay-mature-accept"]').click();
+                            setTimeout(function (){
+                                let vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                                vpo.parentNode.removeChild(vpo);
+                                waitForVidPlayAndShow(navCardEl, isFromDirectory);
+                            },100);
                             clearInterval(clearOverlaysInterval);
                             clearOverlaysInterval = null;
                         } else {
-                            if (intervalCount > 5) {
+                            if (twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0]) {
+                                let vpo = twitchIframe.contentDocument.getElementsByClassName('video-player__overlay')[0];
+                                vpo.parentNode.removeChild(vpo);
                                 waitForVidPlayAndShow(navCardEl, isFromDirectory);
                                 clearInterval(clearOverlaysInterval);
                                 clearOverlaysInterval = null;
                             } else {
-                                intervalCount++;
+                                if (intervalCount > 5) {
+                                    waitForVidPlayAndShow(navCardEl, isFromDirectory);
+                                    clearInterval(clearOverlaysInterval);
+                                    clearOverlaysInterval = null;
+                                } else {
+                                    intervalCount++;
+                                }
                             }
                         }
                     }
