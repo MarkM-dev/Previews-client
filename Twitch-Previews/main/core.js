@@ -669,7 +669,6 @@ function clearOverlays(navCardEl, isFromDirectory) {
                     let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                     if (container) {
                         container.appendChild(navCardPipBtn);
-                        container.appendChild(vidPreviewVolBtn);
                     }
                     clearInterval(clearOverlaysInterval);
                     clearOverlaysInterval = null;
