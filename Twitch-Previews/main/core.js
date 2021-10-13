@@ -4242,7 +4242,12 @@ function toggleFeatures(isFromTitleObserver) {
     }
 
     function sidebarExpandBtnClick(e) {
-        setSidebarFavorites();
+        if (options.isSidebarFavoritesEnabled) {
+            setSidebarFavorites();
+        }
+        if (options.isYTsidebarEnabled) {
+            setYTsidebar();
+        }
         document.querySelector('.collapse-toggle').removeEventListener('click', sidebarExpandBtnClick);
     }
 
@@ -4269,11 +4274,11 @@ function toggleFeatures(isFromTitleObserver) {
         setTimeout(function () {
             setYTsidebar();
             setSideNavMutationObserver();
-            /*if (!isFromTitleObserver) {
+            if (!isFromTitleObserver) {
                 if (isNavBarCollapsed) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
                 }
-            }*/
+            }
         }, 2500)
     }
 
