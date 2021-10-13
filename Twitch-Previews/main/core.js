@@ -299,7 +299,12 @@ function getPreviewImageUrl(navCardEl) {
 }
 
 function getPreviewStreamUrl(navCardEl) {
-    return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
+    if (navCardEl.tp_yt) {
+        return "https://www.youtube.com/embed/" + navCardEl.ytvideoId + "?autoplay=1&origin=twitch.tv";
+    } else {
+        return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
+
+    }
 }
 
 function createIframeElement() {
@@ -1054,6 +1059,7 @@ function setYTsidebar() {
 
                         navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
                         navCard.tp_yt = true;
+                        navCard.ytvideoId = res.result[i].videoId;
                         navCard.thumbnail_url = res.result[i].thumbnail_url;
                         /*el.onclick = (e) => {
                             e.preventDefault();
