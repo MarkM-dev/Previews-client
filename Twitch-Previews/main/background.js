@@ -418,9 +418,28 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 }
             });
             break;
+        case "check_permission_YT":
+            _browser.permissions.contains({
+                origins: ['https://www.youtube.com/*']
+            }, (result) => {
+                if (result) {
+                    sendResponse({ result: "granted" });
+                } else {
+                    _browser.permissions.request({
+                        origins: ['https://www.youtube.com/*']
+                    }, (granted) => {
+                        if (granted) {
+                            sendResponse({ result: "granted" });
+                        } else {
+                            sendResponse({ result: "denied" });
+                        }
+                    });
+                }
+            });
+            break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT') {
         sendResponse({ result: "any response from background" });
     }
     return true;

@@ -1393,6 +1393,17 @@ function checkForTwitchClipsPermissions(featureName) {
     });
 }
 
+function checkForYTPermissions(featureName) {
+    _browser.runtime.sendMessage({action: "check_permission_YT", detail: true}, function(response) {
+        if (response.result === 'granted') {
+            changeFeatureMode(featureName, true);
+        } else {
+            changeFeatureMode(featureName, false);
+            settings_YTsidebar_cb_off();
+        }
+    });
+}
+
 function checkForTwitchNotificationsPermissions(featureName) {
     if (Notification.permission !== "granted") {
         Notification.requestPermission().then(function (res){
@@ -4298,6 +4309,13 @@ function settings_clipDownloader_cb_off() {
     }
 }
 
+function settings_YTsidebar_cb_off() {
+    let settingsContainer = document.getElementById('TPBodyEl');
+    if (settingsContainer) {
+        settingsContainer.querySelector('#TP_popup_YTsidebar_checkbox').checked = false;
+    }
+}
+
 function settings_predictionsNotifications_cb_off() {
     let settingsContainer = document.getElementById('TPBodyEl');
     if (settingsContainer) {
@@ -4339,7 +4357,11 @@ function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
                 if (featureName === "isClipDownloaderEnabled") {
                     checkForTwitchClipsPermissions(featureName);
                 } else {
-                    changeFeatureMode(featureName,invertBool ? false : true);
+                    if (featureName === "isYTsidebarEnabled") {
+                        checkForYTPermissions(featureName);
+                    } else {
+                        changeFeatureMode(featureName,invertBool ? false : true);
+                    }
                 }
             }
         } else {
