@@ -1081,11 +1081,11 @@ function setYTsidebar() {
                         navCard.tp_yt = true;
                         navCard.ytvideoId = res.result[i].videoId;
                         navCard.thumbnail_url = res.result[i].thumbnail_url;
-                        /*el.onclick = (e) => {
+                        navCard.onclick = (e) => {
                             e.preventDefault();
-                            window.history.replaceState({},'','/' + el.title);
-                            window.location.href = '#';
-                        }*/
+                            e.cancelBubble = true;
+                            sendMessageToBG({action: "bg_open_YT_stream", detail: "https://www.youtube.com/watch?v=" + res.result[i].videoId});
+                        }
 
                         yt_section.children[1].appendChild(navCard);
                     }

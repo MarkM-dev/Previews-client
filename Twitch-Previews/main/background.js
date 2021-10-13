@@ -197,6 +197,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isYTsidebarEnabled":
             send_ga_event('YTsidebar_mode', 'change', msg.detail ? "YTSB_ON":"YTSB_OFF");
             break;
+        case "bg_open_YT_stream":
+            _browser.tabs.create({url:msg.detail});
+            break;
         case "bg_fScrnWithChat_started":
             send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
             break;
