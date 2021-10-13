@@ -991,7 +991,8 @@ function setYTsidebar() {
     console.log("setYTsidebar()");
 
     _browser.runtime.sendMessage({action: "get_YT_live_streams", detail: true}, function(res) {
-
+        console.log(res.result);
+        return;
         let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
 
         let followed_channels_section = document.querySelector('.side-nav-section');

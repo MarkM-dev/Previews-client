@@ -409,7 +409,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 fetch('https://www.youtube.com/feed/subscriptions?flow=1').then(function (response) {
                     return response.text();
                 }).then(function (data) {
-                    console.log(data);
                     try {
                         let parser = new DOMParser();
                         let doc = parser.parseFromString(data, 'text/html');
@@ -418,7 +417,17 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                             sendResponse({ result: cached_yt_live_streams_arr });
                             return;
                         }
-
+                        let scripts = doc.querySelectorAll('script');
+                        for (let i = 0; i < scripts.length; i++) {
+                            let script = scripts[i].innerText;
+                            if (script.startsWith('var ytInitialData = ')) {
+                                script = script.replace('var ytInitialData = ', '');
+                                script = script.slice(0, -1);
+                                let scriptJson = JSON.parse(script);
+                                console.log(scriptJson);
+                                break;
+                            }
+                        }
                         let live_yt_streams = doc.querySelectorAll('.badge-style-type-live-now');
                         if (live_yt_streams) {
                             cached_yt_live_streams_arr = [];
@@ -445,6 +454,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
                         sendResponse({ result: cached_yt_live_streams_arr });
                     } catch (e) {
+                        console.log(e);
                         sendResponse({ result: cached_yt_live_streams_arr });
                     }
                 }).catch(function (err) {
