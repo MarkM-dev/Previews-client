@@ -291,7 +291,11 @@ function getPreviewOfflineImageUrl() {
 }
 
 function getPreviewImageUrl(navCardEl) {
+    if (navCardEl.tp_yt) {
+        return "url('" + navCardEl.thumbnail_url + "')";
+    } else {
         return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + options.PREVIEWDIV_WIDTH + "x" + Math.round(options.PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+    }
 }
 
 function getPreviewStreamUrl(navCardEl) {
@@ -1049,6 +1053,8 @@ function setYTsidebar() {
                         navCard.title = res.result[i].stream_name + ' - ' + res.result[i].title;
 
                         navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
+                        navCard.tp_yt = true;
+                        navCard.thumbnail_url = res.result[i].thumbnail_url;
                         /*el.onclick = (e) => {
                             e.preventDefault();
                             window.history.replaceState({},'','/' + el.title);
