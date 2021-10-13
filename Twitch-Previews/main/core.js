@@ -1019,8 +1019,6 @@ function listenForPlayerError() {
 }
 
 function setYTsidebar() {
-    //console.log("setYTsidebar()");
-
     _browser.runtime.sendMessage({action: "get_YT_live_streams", detail: true}, function(res) {
 
         let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
