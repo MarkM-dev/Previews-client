@@ -17,6 +17,9 @@ let _browser = isFirefox ? browser : chrome;
 
 let HEART_BEAT_INTERVAL_MS = 325000;
 let lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
+let YT_FETCH_INTERVAL_MS = 300000;
+let lastYTFetch = new Date().getTime() - YT_FETCH_INTERVAL_MS;
+let cached_yt_live_streams_arr = null;
 
 let options = {
     isSidebarPreviewsEnabled: true,
@@ -399,6 +402,58 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "removeListenersForCd":
             removeListenersForClipDownloader();
             break;
+        case "get_YT_live_streams":
+            if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
+                lastYTFetch = new Date().getTime();
+
+                fetch('https://www.youtube.com/feed/subscriptions?flow=1').then(function (response) {
+                    return response.text();
+                }).then(function (data) {
+                    console.log(data);
+                    try {
+                        let parser = new DOMParser();
+                        let doc = parser.parseFromString(data, 'text/html');
+
+                        if (!doc) {
+                            sendResponse({ result: cached_yt_live_streams_arr });
+                            return;
+                        }
+
+                        let live_yt_streams = doc.querySelectorAll('.badge-style-type-live-now');
+                        if (live_yt_streams) {
+                            cached_yt_live_streams_arr = [];
+                            for (let i = 0; i < live_yt_streams.length; i++) {
+                                let obj = {};
+                                let container_el = live_yt_streams[i].closest('ytd-grid-video-renderer');
+                                obj.thumbnail_url = container_el.querySelector('img').src;
+                                obj.title = container_el.querySelector('h3').innerText;
+
+                                let view_count_temp = container_el.querySelector('#metadata-line').querySelector('span').innerText;
+                                view_count_temp = view_count_temp.split(' ');
+                                for (let j = 0; j < view_count_temp.length; j++) {
+                                    let firstChar = view_count_temp[j].charAt(0);
+                                    if (firstChar <='9' && firstChar >='0') {
+                                        obj.view_count = view_count_temp[j];
+                                        break;
+                                    }
+                                }
+                                cached_yt_live_streams_arr.push(obj);
+                            }
+                        } else {
+                            cached_yt_live_streams_arr = null;
+                        }
+
+                        sendResponse({ result: cached_yt_live_streams_arr });
+                    } catch (e) {
+                        sendResponse({ result: cached_yt_live_streams_arr });
+                    }
+                }).catch(function (err) {
+                    console.warn('Something went wrong.', err);
+                });
+            } else {
+                sendResponse({ result: cached_yt_live_streams_arr });
+            }
+            break;
         case "check_permission_clip.twitch.tv":
             _browser.permissions.contains({
                 origins: ['https://clips.twitch.tv/*']
@@ -439,7 +494,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'get_YT_live_streams') {
         sendResponse({ result: "any response from background" });
     }
     return true;

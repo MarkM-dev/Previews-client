@@ -126,6 +126,10 @@ let sideNavMutationObserver = new MutationObserver(function(mutations) {
         if (options.isSidebarFavoritesEnabled) {
             setSidebarFavorites();
         }
+
+        if (options.isYTsidebarEnabled) {
+            setYTsidebar();
+        }
         shouldRefresh = false;
     }
 });
@@ -985,14 +989,15 @@ function listenForPlayerError() {
 
 function setYTsidebar() {
     console.log("setYTsidebar()");
-    _browser.storage.local.get('favorites_arr',function (res) {
+
+    _browser.runtime.sendMessage({action: "get_YT_live_streams", detail: true}, function(res) {
 
         let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
 
         let followed_channels_section = document.querySelector('.side-nav-section');
         if (followed_channels_section) {
             let favorites_section = followed_channels_section.cloneNode(true);
-            favorites_section.id = 'tp_favorites_section';
+            favorites_section.id = 'tp_YTsidebar_section';
             favorites_section.classList.remove('side-nav-section');
             favorites_section.children[1].innerHTML = '';
 
@@ -1022,52 +1027,52 @@ function setYTsidebar() {
                 }
             }
 
-            extendSidebar().then(function (promise_result) {
-                if (res.favorites_arr) {
-                    let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
-                    for (let i = 0; i < shown_followed_channels.length; i++) {
-                        for (let j = 0; j < res.favorites_arr.length; j++) {
-                            if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
-                                if (isStreamerOnline(shown_followed_channels[i])) {
-                                    let el = shown_followed_channels[i].cloneNode(true);
-                                    el.title = el.href.split('/').pop();
-                                    el.onclick = (e) => {
-                                        e.preventDefault();
-                                        window.history.replaceState({},'','/' + el.title);
-                                        window.location.href = '#';
-                                    }
-                                    favorites_section.children[1].appendChild(el);
+
+            if (res.favorites_arr) {
+                let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
+                for (let i = 0; i < shown_followed_channels.length; i++) {
+                    for (let j = 0; j < res.favorites_arr.length; j++) {
+                        if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
+                            if (isStreamerOnline(shown_followed_channels[i])) {
+                                let el = shown_followed_channels[i].cloneNode(true);
+                                el.title = el.href.split('/').pop();
+                                el.onclick = (e) => {
+                                    e.preventDefault();
+                                    window.history.replaceState({},'','/' + el.title);
+                                    window.location.href = '#';
                                 }
-                                break;
+                                favorites_section.children[1].appendChild(el);
                             }
+                            break;
                         }
                     }
                 }
+            }
 
-                if(!isExperimentalSidebar) {
-                    if (!favorites_section.children[1].firstChild && !isNavBarCollapsed) {
-                        let div = document.createElement('div');
-                        div.innerText = 'No live favorites';
-                        div.style.padding = '0px 10px 5px 10px';
-                        div.style.color = 'grey';
-                        favorites_section.children[1].appendChild(div);
-                    }
+            if(!isExperimentalSidebar) {
+                if (!favorites_section.children[1].firstChild && !isNavBarCollapsed) {
+                    let div = document.createElement('div');
+                    div.innerText = 'No live favorites';
+                    div.style.padding = '0px 10px 5px 10px';
+                    div.style.color = 'grey';
+                    favorites_section.children[1].appendChild(div);
                 }
+            }
 
 
-                let old_favorites_section = document.getElementById('tp_favorites_section');
-                if (old_favorites_section) {
-                    old_favorites_section.remove();
-                }
+            let old_favorites_section = document.getElementById('tp_YTsidebar_section');
+            if (old_favorites_section) {
+                old_favorites_section.remove();
+            }
 
-                followed_channels_section.parentNode.prepend(favorites_section);
-                if(options.isSidebarPreviewsEnabled) {
-                    refreshNavCardsListAndListeners();
-                }
-                if(options.isSidebarSearchEnabled) {
-                    showSidebarSearchBtn();
-                }
-            });
+            followed_channels_section.parentNode.prepend(favorites_section);
+            if(options.isSidebarPreviewsEnabled) {
+                refreshNavCardsListAndListeners();
+            }
+            if(options.isSidebarSearchEnabled) {
+                showSidebarSearchBtn();
+            }
+
         }
     })
 }
