@@ -405,6 +405,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "get_YT_live_streams":
             if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
                 lastYTFetch = new Date().getTime();
+                cached_yt_live_streams_arr = [];
 
                 fetch('https://www.youtube.com/feed/subscriptions?flow=1').then(function (response) {
                     return response.text();
@@ -424,32 +425,22 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                                 script = script.replace('var ytInitialData = ', '');
                                 script = script.slice(0, -1);
                                 let scriptJson = JSON.parse(script);
-                                console.log(scriptJson);
-                                break;
-                            }
-                        }
-                        let live_yt_streams = doc.querySelectorAll('.badge-style-type-live-now');
-                        if (live_yt_streams) {
-                            cached_yt_live_streams_arr = [];
-                            for (let i = 0; i < live_yt_streams.length; i++) {
-                                let obj = {};
-                                let container_el = live_yt_streams[i].closest('ytd-grid-video-renderer');
-                                obj.thumbnail_url = container_el.querySelector('img').src;
-                                obj.title = container_el.querySelector('h3').innerText;
+                                let items = scriptJson.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].shelfRenderer.content.gridRenderer.items;
 
-                                let view_count_temp = container_el.querySelector('#metadata-line').querySelector('span').innerText;
-                                view_count_temp = view_count_temp.split(' ');
-                                for (let j = 0; j < view_count_temp.length; j++) {
-                                    let firstChar = view_count_temp[j].charAt(0);
-                                    if (firstChar <='9' && firstChar >='0') {
-                                        obj.view_count = view_count_temp[j];
-                                        break;
+                                for (let j = 0; j < items.length; j++) {
+                                    if (items[j].gridVideoRenderer.badges && items[j].gridVideoRenderer.badges[0].metadataBadgeRenderer.style === 'BADGE_STYLE_TYPE_LIVE_NOW') {
+                                        let obj = {};
+                                        obj.profile_pic_url = items[j].gridVideoRenderer.channelThumbnail.thumbnails[0].url;
+                                        obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
+                                        obj.title = items[j].gridVideoRenderer.title.runs[0].text;
+                                        obj.view_count = items[j].gridVideoRenderer.shortViewCountText.runs[0].text;
+                                        //iframe url obj.video_url = view_count_temp[j];
+                                        cached_yt_live_streams_arr.push(obj);
                                     }
                                 }
-                                cached_yt_live_streams_arr.push(obj);
+
+                                break;
                             }
-                        } else {
-                            cached_yt_live_streams_arr = null;
                         }
 
                         sendResponse({ result: cached_yt_live_streams_arr });
