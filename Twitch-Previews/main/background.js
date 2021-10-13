@@ -33,6 +33,7 @@ let options = {
     isMuteAutoPlayersEnabled: false,
     isPvqcEnabled: false,
     isClipDownloaderEnabled: false,
+    isYTsidebarEnabled: false,
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
     isScreenshotEnabled: false,
@@ -189,6 +190,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isClipDownloaderEnabled":
             send_ga_event('clipDownloader_mode', 'change', msg.detail ? "CDL_ON":"CDL_OFF");
+            break;
+        case "bg_update_isYTsidebarEnabled":
+            send_ga_event('YTsidebar_mode', 'change', msg.detail ? "YTSB_ON":"YTSB_OFF");
             break;
         case "bg_fScrnWithChat_started":
             send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
