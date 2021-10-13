@@ -1019,7 +1019,7 @@ function listenForPlayerError() {
 }
 
 function setYTsidebar() {
-    console.log("setYTsidebar()");
+    //console.log("setYTsidebar()");
 
     _browser.runtime.sendMessage({action: "get_YT_live_streams", detail: true}, function(res) {
 
