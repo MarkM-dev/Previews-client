@@ -430,16 +430,27 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                                 for (let j = 0; j < items.length; j++) {
                                     if (items[j].gridVideoRenderer.badges && items[j].gridVideoRenderer.badges[0].metadataBadgeRenderer.style === 'BADGE_STYLE_TYPE_LIVE_NOW') {
                                         let obj = {};
+                                        console.log(items[j]);
                                         obj.profile_pic_url = items[j].gridVideoRenderer.channelThumbnail.thumbnails[0].url;
                                         obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
                                         obj.title = items[j].gridVideoRenderer.title.runs[0].text;
                                         obj.stream_name = items[j].gridVideoRenderer.shortBylineText.runs[0].text;
                                         obj.view_count = items[j].gridVideoRenderer.shortViewCountText.runs[0].text;
+
+                                        let num_str = items[j].gridVideoRenderer.viewCountText.runs[0].text.match(/\d+/g);
+                                        let num_count = '';
+                                        for (let i = 0; i < num_str.length; i++) {
+                                            num_count += num_str[i];
+                                        }
+
+                                        obj.view_count_num = num_count;
                                         //iframe url obj.video_url = view_count_temp[j];
                                         cached_yt_live_streams_arr.push(obj);
                                     }
                                 }
-
+                                cached_yt_live_streams_arr.sort(function(a, b) {
+                                    return b.view_count_num - a.view_count_num;
+                                })
                                 break;
                             }
                         }
