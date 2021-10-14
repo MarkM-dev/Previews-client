@@ -4306,11 +4306,10 @@ function toggleFeatures(isFromTitleObserver) {
         }, 1700);
     }
 
-    if (options.isSidebarFavoritesEnabled) {
+    if (options.isYTsidebarEnabled) {
         setTimeout(function () {
-            setSidebarFavorites();
+            setYTsidebar();
             setSideNavMutationObserver();
-            appendFavoritesBtn();
             if (!isFromTitleObserver) {
                 if (isNavBarCollapsed) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
@@ -4319,10 +4318,11 @@ function toggleFeatures(isFromTitleObserver) {
         }, 2000)
     }
 
-    if (options.isYTsidebarEnabled) {
+    if (options.isSidebarFavoritesEnabled) {
         setTimeout(function () {
-            setYTsidebar();
+            setSidebarFavorites();
             setSideNavMutationObserver();
+            appendFavoritesBtn();
             if (!isFromTitleObserver) {
                 if (isNavBarCollapsed) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
