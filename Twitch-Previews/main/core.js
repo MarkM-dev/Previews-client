@@ -3322,7 +3322,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, false, false, false, false);
+            createMultiStreamBox(streamName, true, false, false, false, yt_videoId);
             sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
         }
 
