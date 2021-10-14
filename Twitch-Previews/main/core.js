@@ -1105,10 +1105,11 @@ function setYTsidebar() {
 
             let old_yt_section = document.getElementById('tp_YTsidebar_section');
             if (old_yt_section) {
-                old_yt_section.remove();
+                old_yt_section.parentNode.replaceChild(yt_section, old_yt_section);
+            } else {
+                followed_channels_section.parentNode.prepend(yt_section);
             }
 
-            followed_channels_section.parentNode.prepend(yt_section);
             if(options.isSidebarPreviewsEnabled) {
                 refreshNavCardsListAndListeners();
             }
@@ -1292,10 +1293,11 @@ function setSidebarFavorites() {
 
                 let old_favorites_section = document.getElementById('tp_favorites_section');
                 if (old_favorites_section) {
-                    old_favorites_section.remove();
+                    old_favorites_section.parentNode.replaceChild(favorites_section, old_favorites_section);
+                } else {
+                    followed_channels_section.parentNode.prepend(favorites_section);
                 }
 
-                followed_channels_section.parentNode.prepend(favorites_section);
                 if(options.isSidebarPreviewsEnabled) {
                     refreshNavCardsListAndListeners();
                 }
