@@ -1093,8 +1093,9 @@ function setYTsidebar() {
                             e.cancelBubble = true;
                             sendMessageToBG({action: "bg_open_YT_stream", detail: "https://www.youtube.com/watch?v=" + res.result[i].videoId});
                         }
-
-                        yt_section.children[1].appendChild(navCard);
+                        let container_div = document.createElement('div');
+                        container_div.appendChild(navCard);
+                        yt_section.children[1].appendChild(container_div);
                     }
                 }
             }
@@ -1284,7 +1285,9 @@ function setSidebarFavorites() {
                                         window.history.replaceState({},'','/' + el.title);
                                         window.location.href = '#';
                                     }
-                                    favorites_section.children[1].appendChild(el);
+                                    let container_div = document.createElement('div');
+                                    container_div.appendChild(el);
+                                    favorites_section.children[1].appendChild(container_div);
                                 }
                                 break;
                             }
