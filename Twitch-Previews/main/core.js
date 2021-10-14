@@ -1095,7 +1095,7 @@ function setYTsidebar() {
             if(!isExperimentalSidebar) {
                 if (!yt_section.children[1].firstChild && !isNavBarCollapsed) {
                     let div = document.createElement('div');
-                    div.innerText = 'No live youtube streamers';
+                    div.innerText = 'No live youtubers';
                     div.style.padding = '0px 10px 5px 10px';
                     div.style.color = 'grey';
                     yt_section.children[1].appendChild(div);
