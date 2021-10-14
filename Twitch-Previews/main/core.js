@@ -3330,8 +3330,11 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         multiStreamDiv.style.width = "350px";
         multiStreamDiv.style.height = "600px";
-
-        iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
+        if (yt_videoId) {
+            iframe.src = "https://www.youtube.com/live_chat?v=" + yt_videoId + "&embed_domain=www.twitch.tv";
+        } else {
+            iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
+        }
     } else {
         multiStreamDiv.classList.add('tp-multi-stream-video');
         multiStreamDiv.classList.add('tp-multi-stream-not-minimized');
@@ -3340,7 +3343,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         }
         extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
         extraMultiBoxBtn.onclick = function () {
-            createMultiStreamBox(streamName, true, true, false, false, false);
+            createMultiStreamBox(streamName, true, true, false, false, yt_videoId);
             sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
         }
         title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
