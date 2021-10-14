@@ -655,7 +655,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                 if (navCardEl.tp_yt && twitchIframe) {
                     previewDiv.style.visibility = "visible";
 
-                    if (!isFromDirectory) {
+                    setTimeout(function () {
                         clearLoadingSpinnerFromSideNav();
                         twitchIframe.classList.add('tp-anim-duration-100ms');
                         twitchIframe.classList.add('fadeIn');
@@ -664,8 +664,10 @@ function clearOverlays(navCardEl, isFromDirectory) {
                                 twitchIframe.classList.remove('fadeIn');
                             }
                         },200)
-                    }
-                    twitchIframe.style.visibility = "visible";
+
+                        twitchIframe.style.visibility = "visible";
+                    }, 250);
+
                     let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                     if (container) {
                         container.appendChild(navCardPipBtn);
