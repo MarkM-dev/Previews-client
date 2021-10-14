@@ -1114,7 +1114,12 @@ function setYTsidebar() {
             if (old_yt_section) {
                 old_yt_section.parentNode.replaceChild(yt_section, old_yt_section);
             } else {
-                followed_channels_section.parentNode.prepend(yt_section);
+                let favorites_section = document.getElementById('tp_favorites_section');
+                if (favorites_section) {
+                    favorites_section.after(yt_section);
+                } else {
+                    followed_channels_section.parentNode.prepend(yt_section);
+                }
             }
 
             if(options.isSidebarPreviewsEnabled) {
@@ -4306,10 +4311,11 @@ function toggleFeatures(isFromTitleObserver) {
         }, 1700);
     }
 
-    if (options.isYTsidebarEnabled) {
+    if (options.isSidebarFavoritesEnabled) {
         setTimeout(function () {
-            setYTsidebar();
+            setSidebarFavorites();
             setSideNavMutationObserver();
+            appendFavoritesBtn();
             if (!isFromTitleObserver) {
                 if (isNavBarCollapsed) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
@@ -4318,11 +4324,10 @@ function toggleFeatures(isFromTitleObserver) {
         }, 2000)
     }
 
-    if (options.isSidebarFavoritesEnabled) {
+    if (options.isYTsidebarEnabled) {
         setTimeout(function () {
-            setSidebarFavorites();
+            setYTsidebar();
             setSideNavMutationObserver();
-            appendFavoritesBtn();
             if (!isFromTitleObserver) {
                 if (isNavBarCollapsed) {
                     document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
