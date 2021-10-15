@@ -136,7 +136,7 @@
 
 * **Hide All Sidebar Sections Except The Followed Channels**
     - Hides all the other sections in the sidebar except the followed channels.
-    - Note: this feature does not affect the 'sidebar favorites' feature, you will still see your favorites list.
+    - Note: this feature does not affect the 'sidebar favorites' feature, you will still see your favorites and YouTube channels lists.
       <br/><br/>
 
 
