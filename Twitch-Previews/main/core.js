@@ -4040,7 +4040,7 @@ function showToast(toast_body, storageFlagName) {
         "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"Translate\" />\n" +
         "               <img id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
+       // "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -4119,6 +4119,7 @@ function getUpdateToastBody() {
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- When enabling this feature, you will need to allow the extension to run on \"youtube.com\" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.</div>"
+        +  "             <div style=\"font-size: 16px;color: whitesmoke;margin-top: 40px;font-weight: bold;text-align: center;\" >Twitch Previews is built with great care and is provided free. If you enjoy it and use it every day and would like to support me and my work on this project, consider contributing & rating :)</div>"
         +  "            </div>"
         +  "    </br>"
 }
