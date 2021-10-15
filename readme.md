@@ -64,7 +64,7 @@
 
 
 * **Streaming - See Your Own Live Stream Thumbnail**
-    - Shows your own stream's live thumbnail preview when hovering over the Twitch logo at the top left.
+    - Shows your own stream's live thumbnail preview, as seen by viewers on Twitch, when hovering over the Twitch logo at the top left.
     - This feature is only active on 'twitch.tv' pages, it's not active in the clips directory or in the dashboard (like clips.twitch.tv).
       <br/><br/>
 
