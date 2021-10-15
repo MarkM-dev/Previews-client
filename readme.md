@@ -26,6 +26,7 @@
 - Transparent / Dynamic Chat Overlay.
 - Full Screen With Chat Mode.
 - Sidebar Favorite Channels List.
+- Sidebar YouTube Channels List.
 - Auto Channel Points Clicker.
 - Clip Downloader.
 - Auto Refresh on player errors (#1000, #2000, #4000).
@@ -75,6 +76,7 @@
     - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
     - You can scroll the page, change background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
     - If the Auto Channel Points feature is enabled, it will collect points in the chat box.
+    - If you enable the 'Sidebar YouTube Channels' feature, you can add your subscribed YouTube channels to the Multi-Stream and use it cross-platform (also supports YouTube chat).
       <br/><br/>
 
 
@@ -96,6 +98,16 @@
     - The list will show only the currently live streams in your favorites list.
     - Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it's closed, the list will still populate but will be partial.
     - Note: it might take a few seconds for the list to show or update.
+      <br/><br/>
+
+
+* **Sidebar YouTube Channels**
+    - A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.
+    - The list data will update every 5 minutes.
+    - The list will show only the currently live streams in your favorites list.
+    - Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.
+    - You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).
+    - When enabling this feature, you will need to allow the extension to run on "youtube.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.
       <br/><br/>
 
 
