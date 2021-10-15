@@ -4109,7 +4109,6 @@ function showToast(toast_body, storageFlagName) {
 
 function getUpdateToastBody() {
     let ffclass = isFirefox ? 'class="tp_display_none"':'';
-
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong " + ffclass + " style='color: #2cff95;' >- Sidebar YouTube Channels! "
