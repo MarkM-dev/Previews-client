@@ -17,6 +17,9 @@ let _browser = isFirefox ? browser : chrome;
 
 let HEART_BEAT_INTERVAL_MS = 325000;
 let lastHeartBeat = new Date().getTime() - HEART_BEAT_INTERVAL_MS;
+let YT_FETCH_INTERVAL_MS = 300000;
+let lastYTFetch = new Date().getTime() - YT_FETCH_INTERVAL_MS;
+let cached_yt_live_streams_arr = null;
 
 let options = {
     isSidebarPreviewsEnabled: true,
@@ -33,6 +36,7 @@ let options = {
     isMuteAutoPlayersEnabled: false,
     isPvqcEnabled: false,
     isClipDownloaderEnabled: false,
+    isYTsidebarEnabled: false,
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
     isScreenshotEnabled: false,
@@ -189,6 +193,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isClipDownloaderEnabled":
             send_ga_event('clipDownloader_mode', 'change', msg.detail ? "CDL_ON":"CDL_OFF");
+            break;
+        case "bg_update_isYTsidebarEnabled":
+            send_ga_event('YTsidebar_mode', 'change', msg.detail ? "YTSB_ON":"YTSB_OFF");
+            break;
+        case "bg_open_YT_stream":
+            _browser.tabs.create({url:msg.detail});
             break;
         case "bg_fScrnWithChat_started":
             send_ga_event('fScrnWithChat_started', 'fScrnWithChat_started', 'fScrnWithChat_started_' + msg.detail);
@@ -395,6 +405,70 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "removeListenersForCd":
             removeListenersForClipDownloader();
             break;
+        case "get_YT_live_streams":
+            if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
+                lastYTFetch = new Date().getTime();
+                cached_yt_live_streams_arr = [];
+
+                fetch('https://www.youtube.com/feed/subscriptions?flow=1').then(function (response) {
+                    return response.text();
+                }).then(function (data) {
+                    try {
+                        let parser = new DOMParser();
+                        let doc = parser.parseFromString(data, 'text/html');
+
+                        if (!doc) {
+                            sendResponse({ result: cached_yt_live_streams_arr });
+                            return;
+                        }
+                        let scripts = doc.querySelectorAll('script');
+                        for (let i = 0; i < scripts.length; i++) {
+                            let script = scripts[i].innerText;
+                            if (script.startsWith('var ytInitialData = ')) {
+                                script = script.replace('var ytInitialData = ', '');
+                                script = script.slice(0, -1);
+                                let scriptJson = JSON.parse(script);
+                                let items = scriptJson.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].shelfRenderer.content.gridRenderer.items;
+
+                                for (let j = 0; j < items.length; j++) {
+                                    if (items[j].gridVideoRenderer.badges && items[j].gridVideoRenderer.badges[0].metadataBadgeRenderer.style === 'BADGE_STYLE_TYPE_LIVE_NOW') {
+                                        let obj = {};
+                                        obj.videoId = items[j].gridVideoRenderer.videoId;
+                                        obj.profile_pic_url = items[j].gridVideoRenderer.channelThumbnail.thumbnails[0].url;
+                                        obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
+                                        obj.title = items[j].gridVideoRenderer.title.runs[0].text;
+                                        obj.stream_name = items[j].gridVideoRenderer.shortBylineText.runs[0].text;
+                                        obj.view_count = items[j].gridVideoRenderer.shortViewCountText.runs[0].text;
+
+                                        let num_str = items[j].gridVideoRenderer.viewCountText.runs[0].text.match(/\d+/g);
+                                        let num_count = '';
+                                        for (let i = 0; i < num_str.length; i++) {
+                                            num_count += num_str[i];
+                                        }
+
+                                        obj.view_count_num = num_count;
+                                        cached_yt_live_streams_arr.push(obj);
+                                    }
+                                }
+                                cached_yt_live_streams_arr.sort(function(a, b) {
+                                    return b.view_count_num - a.view_count_num;
+                                })
+                                break;
+                            }
+                        }
+
+                        sendResponse({ result: cached_yt_live_streams_arr });
+                    } catch (e) {
+                        console.log(e);
+                        sendResponse({ result: cached_yt_live_streams_arr });
+                    }
+                }).catch(function (err) {
+                    console.warn('Something went wrong.', err);
+                });
+            } else {
+                sendResponse({ result: cached_yt_live_streams_arr });
+            }
+            break;
         case "check_permission_clip.twitch.tv":
             _browser.permissions.contains({
                 origins: ['https://clips.twitch.tv/*']
@@ -414,9 +488,28 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 }
             });
             break;
+        case "check_permission_YT":
+            _browser.permissions.contains({
+                origins: ['https://www.youtube.com/*']
+            }, (result) => {
+                if (result) {
+                    sendResponse({ result: "granted" });
+                } else {
+                    _browser.permissions.request({
+                        origins: ['https://www.youtube.com/*']
+                    }, (granted) => {
+                        if (granted) {
+                            sendResponse({ result: "granted" });
+                        } else {
+                            sendResponse({ result: "denied" });
+                        }
+                    });
+                }
+            });
+            break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'get_YT_live_streams') {
         sendResponse({ result: "any response from background" });
     }
     return true;
