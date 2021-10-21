@@ -476,15 +476,20 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 if (result) {
                     sendResponse({ result: "granted" });
                 } else {
-                    _browser.permissions.request({
-                        origins: ['https://clips.twitch.tv/*']
-                    }, (granted) => {
-                        if (granted) {
-                            sendResponse({ result: "granted" });
-                        } else {
-                            sendResponse({ result: "denied" });
-                        }
-                    });
+                    if (isFirefox) {
+                        _browser.tabs.create({url: _browser.runtime.getURL("main/opd.html")});
+                        sendResponse({ result: "denied" });
+                    } else {
+                        _browser.permissions.request({
+                            origins: ['https://clips.twitch.tv/*']
+                        }, (granted) => {
+                            if (granted) {
+                                sendResponse({ result: "granted" });
+                            } else {
+                                sendResponse({ result: "denied" });
+                            }
+                        });
+                    }
                 }
             });
             break;

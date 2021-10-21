@@ -4370,6 +4370,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.action === "tp_open_settings") {
         sendResponse({action: 'content-available'});
         showSettings();
+    } else {
+        if (msg.action === "enable_clip_downloader") {
+            sendResponse({action: 'response'});
+            settings_clipDownloader_cb_on();
+            checkForTwitchClipsPermissions('isClipDownloaderEnabled');
+        }
     }
 
 });
@@ -4380,6 +4386,13 @@ function settings_clipDownloader_cb_off() {
     let settingsContainer = document.getElementById('TPBodyEl');
     if (settingsContainer) {
         settingsContainer.querySelector('#TP_popup_clip_downloader_checkbox').checked = false;
+    }
+}
+
+function settings_clipDownloader_cb_on() {
+    let settingsContainer = document.getElementById('TPBodyEl');
+    if (settingsContainer) {
+        settingsContainer.querySelector('#TP_popup_clip_downloader_checkbox').checked = true;
     }
 }
 
