@@ -4371,7 +4371,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         sendResponse({action: 'content-available'});
         showSettings();
     } else {
-        if (msg.action === "enable_clip_downloader") {
+        if (msg.action === "tp_enable_clip_downloader") {
             sendResponse({action: 'response'});
             settings_clipDownloader_cb_on();
             checkForTwitchClipsPermissions('isClipDownloaderEnabled');
