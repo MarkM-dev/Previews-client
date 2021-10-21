@@ -4378,6 +4378,15 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             if (settingsContainer) {
                 checkForTwitchClipsPermissions('isClipDownloaderEnabled');
             }
+        } else {
+            if (msg.action === "tp_enable_YTsidebar") {
+                sendResponse({action: 'response'});
+                settings_YTsidebar_cb_on();
+                let settingsContainer = document.getElementById('TPBodyEl');
+                if (settingsContainer) {
+                    checkForYTPermissions('isYTsidebarEnabled');
+                }
+            }
         }
     }
 
@@ -4403,6 +4412,13 @@ function settings_YTsidebar_cb_off() {
     let settingsContainer = document.getElementById('TPBodyEl');
     if (settingsContainer) {
         settingsContainer.querySelector('#TP_popup_YTsidebar_checkbox').checked = false;
+    }
+}
+
+function settings_YTsidebar_cb_on() {
+    let settingsContainer = document.getElementById('TPBodyEl');
+    if (settingsContainer) {
+        settingsContainer.querySelector('#TP_popup_YTsidebar_checkbox').checked = true;
     }
 }
 

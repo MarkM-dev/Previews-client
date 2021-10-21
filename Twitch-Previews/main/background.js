@@ -477,7 +477,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                     sendResponse({ result: "granted" });
                 } else {
                     if (isFirefox) {
-                        _browser.tabs.create({url: _browser.runtime.getURL("main/opd.html")});
+                        _browser.tabs.create({url: _browser.runtime.getURL("opd/opd_clips.html")});
                         sendResponse({ result: "denied" });
                     } else {
                         _browser.permissions.request({
@@ -500,15 +500,20 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 if (result) {
                     sendResponse({ result: "granted" });
                 } else {
-                    _browser.permissions.request({
-                        origins: ['https://www.youtube.com/*']
-                    }, (granted) => {
-                        if (granted) {
-                            sendResponse({ result: "granted" });
-                        } else {
-                            sendResponse({ result: "denied" });
-                        }
-                    });
+                    if (isFirefox) {
+                        _browser.tabs.create({url: _browser.runtime.getURL("opd/opd_yt.html")});
+                        sendResponse({ result: "denied" });
+                    } else {
+                        _browser.permissions.request({
+                            origins: ['https://www.youtube.com/*']
+                        }, (granted) => {
+                            if (granted) {
+                                sendResponse({ result: "granted" });
+                            } else {
+                                sendResponse({ result: "denied" });
+                            }
+                        });
+                    }
                 }
             });
             break;
