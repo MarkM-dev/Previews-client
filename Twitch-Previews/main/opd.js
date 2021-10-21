@@ -13,7 +13,7 @@ document.getElementById('tp_allow_permissions_btn').addEventListener('click', fu
             try {
                 browser.tabs.query({currentWindow: true}, function(tabs){
                     for (let i = 0; i < tabs.length; i++) {
-                        browser.tabs.sendMessage(tabs[i].id, {action: "enable_clip_downloader"}, function(response) {});
+                        browser.tabs.sendMessage(tabs[i].id, {action: "tp_enable_clip_downloader"}, function(response) {});
                     }
                 });
             } catch (e) {
