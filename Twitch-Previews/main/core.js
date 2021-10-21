@@ -4374,7 +4374,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         if (msg.action === "tp_enable_clip_downloader") {
             sendResponse({action: 'response'});
             settings_clipDownloader_cb_on();
-            checkForTwitchClipsPermissions('isClipDownloaderEnabled');
+            let settingsContainer = document.getElementById('TPBodyEl');
+            if (settingsContainer) {
+                checkForTwitchClipsPermissions('isClipDownloaderEnabled');
+            }
         }
     }
 
