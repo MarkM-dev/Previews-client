@@ -4040,7 +4040,7 @@ function showToast(toast_body, storageFlagName) {
         "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"Translate\" />\n" +
         "               <img id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-       // "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
+        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -4111,16 +4111,22 @@ function getUpdateToastBody() {
     let ffclass = isFirefox ? 'class="tp_display_none"':'';
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong " + ffclass + " style='color: #2cff95;' >- Sidebar YouTube Channels! "
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Sidebar YouTube Channels! "
         +  "        <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 2.2 0 4.7.1 7.6.1 8.1.3 17.2.5 26.9.8 27.9 2.2 55.7 4.4 81.9 3 36.1 7.4 66.2 13.4 88.8 12.8 47.9 50.4 85.7 98.3 98.5 28.2 7.6 83.7 12.3 161.7 15.2 37.1 1.4 76.8 2.3 116.5 2.8 13.9.2 26.8.3 38.4.4h29.4c11.6-.1 24.5-.2 38.4-.4 39.7-.5 79.4-1.4 116.5-2.8 78-3 133.5-7.7 161.7-15.2 47.9-12.8 85.5-50.5 98.3-98.5 6.1-22.6 10.4-52.7 13.4-88.8 2.2-26.2 3.6-54 4.4-81.9.3-9.7.4-18.8.5-26.9 0-2.9.1-5.4.1-7.6v-5.6zm-72 5.2c0 2.1 0 4.4-.1 7.1-.1 7.8-.3 16.4-.5 25.7-.7 26.6-2.1 53.2-4.2 77.9-2.7 32.2-6.5 58.6-11.2 76.3-6.2 23.1-24.4 41.4-47.4 47.5-21 5.6-73.9 10.1-145.8 12.8-36.4 1.4-75.6 2.3-114.7 2.8-13.7.2-26.4.3-37.8.3h-28.6l-37.8-.3c-39.1-.5-78.2-1.4-114.7-2.8-71.9-2.8-124.9-7.2-145.8-12.8-23-6.2-41.2-24.4-47.4-47.5-4.7-17.7-8.5-44.1-11.2-76.3-2.1-24.7-3.4-51.3-4.2-77.9-.3-9.3-.4-18-.5-25.7 0-2.7-.1-5.1-.1-7.1v-4.8c0-2.1 0-4.4.1-7.1.1-7.8.3-16.4.5-25.7.7-26.6 2.1-53.2 4.2-77.9 2.7-32.2 6.5-58.6 11.2-76.3 6.2-23.1 24.4-41.4 47.4-47.5 21-5.6 73.9-10.1 145.8-12.8 36.4-1.4 75.6-2.3 114.7-2.8 13.7-.2 26.4-.3 37.8-.3h28.6l37.8.3c39.1.5 78.2 1.4 114.7 2.8 71.9 2.8 124.9 7.2 145.8 12.8 23 6.2 41.2 24.4 47.4 47.5 4.7 17.7 8.5 44.1 11.2 76.3 2.1 24.7 3.4 51.3 4.2 77.9.3 9.3.4 18 .5 25.7 0 2.7.1 5.1.1 7.1v4.8zM423 646l232-135-232-133z\"></path></svg>"
         +  "        </strong>"
-        +  "             <span " + ffclass + " ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.</span>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.</span>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- The list data will update every 5 minutes.</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- When enabling this feature, you will need to allow the extension to run on \"youtube.com\" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.</div>"
-        +  "             <div style=\"font-size: 16px;color: whitesmoke;margin-top: 40px;font-weight: bold;text-align: center;\" >Twitch Previews is built with great care and is provided free. If you enjoy it and use it every day and would like to support me and my work on this project, consider contributing & rating :)</div>"
         +  "            </div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Clip Downloader! <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"17px\" width=\"17px\" style=\"margin-bottom: -3px;\" xmlns=\"http://www.w3.org/2000/svg\">" +
+        "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
+        "</svg>" +
+        "</strong>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls of clips.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When enabling this feature, you will need to allow the extensions to run on \"clips.twitch.tv\" (a prompt will show when enabling).</span>"
+        +  "             </div>"
         +  "    </br>"
 }
 
