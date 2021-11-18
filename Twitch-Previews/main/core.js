@@ -4029,6 +4029,7 @@ function isOverflown(element) {
 }
 
 function showToast(toast_body, storageFlagName) {
+    let toast_show_time;
 
     function remove_toast() {
         document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
@@ -4081,7 +4082,7 @@ function showToast(toast_body, storageFlagName) {
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
         setConfirmedToastFlag(storageFlagName);
-        sendMessageToBG({action: "updateToast", detail: 'okay_btn'});
+        sendMessageToBG({action: "updateToast", detail: 'okay_btn - ' + parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
         remove_toast();
     };
 
@@ -4094,11 +4095,6 @@ function showToast(toast_body, storageFlagName) {
         sendMessageToBG({action: "updateToast_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
-    /*updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
-        sendMessageToBG({action: "updateToast_twitter_btn_click", detail: true});
-        sendMessageToBG({action: "bg_show_twitter", detail: ""});
-    };*/
-
     document.body.appendChild(updateToast);
     setTimeout(function (){
         if (isOverflown(updateToast)) {
@@ -4108,6 +4104,7 @@ function showToast(toast_body, storageFlagName) {
             updateToast.firstChild.style.width = "30rem";
         }
     }, 100);
+    toast_show_time = new Date().getTime();
 }
 
 function getUpdateToastBody() {
