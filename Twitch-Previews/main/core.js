@@ -4032,7 +4032,7 @@ function showToast(toast_body, storageFlagName) {
     let toast_show_time;
 
     function remove_toast() {
-        document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+        document.getElementById('tp_updateToast').remove();
     }
 
     let updateToast = document.createElement("div");
@@ -4040,6 +4040,8 @@ function showToast(toast_body, storageFlagName) {
     updateToast.classList.add("tp_update_toast");
     updateToast.classList.add("animated");
     updateToast.classList.add("slideInRight");
+
+    let selectedDonateButton = 'coffee' + Math.round(Math.random());
 
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>" +
@@ -4055,7 +4057,7 @@ function showToast(toast_body, storageFlagName) {
         "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
         "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
         "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
-        "                        <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/coffee.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
+        "                        <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
         "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
         "                    </form>\n" +
         "            </div>\n" +
@@ -4077,7 +4079,7 @@ function showToast(toast_body, storageFlagName) {
 
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
-            sendMessageToBG({action: "updateToast_donate_btn_click", detail: ""});
+            sendMessageToBG({action: "updateToast_donate_btn_click", detail: selectedDonateButton});
         },200);
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
@@ -4536,13 +4538,13 @@ function initPreviewSizeSlider(settingsContainer) {
     }
 }
 
-function initSocialBtn(settingsContainer, name, url) {
+function initSocialBtn(settingsContainer, name, url, donateBtn) {
     let btn = settingsContainer.querySelector('#tp_popup_' + name +'_btn');
     btn.addEventListener('click', (event) => {
         if (url) {
             sendMessageToBG({action: "bg_show_" + name, detail: ""});
         }
-        sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: ""});
+        sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: donateBtn ? donateBtn : ""});
         if (name === "changelog") {
             if (!document.getElementById('tp_updateToast')) {
                 showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
@@ -4665,9 +4667,11 @@ function showSettingsMenu() {
             }, 700);
         });
 
+        let selectedDonateButton = 'coffee' + Math.round(Math.random());
+
         settingsContainer.querySelector('#TP_popup_title_logo').src = getRuntimeUrl('images/TP96.png');
         settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');
-        settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/coffee.png');
+        settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/' + selectedDonateButton + '.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/fScrnWithChat_main.png');
         settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
         settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
@@ -4719,7 +4723,7 @@ function showSettingsMenu() {
 
         initPreviewSizeSlider(settingsContainer);
 
-        initSocialBtn(settingsContainer, 'donate', null);
+        initSocialBtn(settingsContainer, 'donate', null, selectedDonateButton);
         initSocialBtn(settingsContainer, 'rate', true);
         initSocialBtn(settingsContainer, 'share', true);
 

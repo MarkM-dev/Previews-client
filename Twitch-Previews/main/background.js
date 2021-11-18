@@ -338,7 +338,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('updateToast_rate_btn_click', 'updateToast_rate_btn_click', 'updateToast_rate_btn_click');
             break;
         case "updateToast_donate_btn_click":
-            send_ga_event('updateToast_donate_btn_click', 'updateToast_donate_btn_click', 'updateToast_donate_btn_click');
+            send_ga_event('updateToast_donate_btn_click', 'updateToast_donate_btn_click', msg.detail);
             break;
         case "updateToast_share_btn_click":
             send_ga_event('updateToast_share_btn_click', 'updateToast_share_btn_click', 'updateToast_share_btn_click');
@@ -385,7 +385,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             }
             break;
         case "bg_donate_btn_click":
-            send_ga_event('settings_donate_btn_click', 'settings_donate_btn_click', 'settings_donate_btn_click');
+            send_ga_event('settings_donate_btn_click', 'settings_donate_btn_click', msg.detail);
             break;
         case "bg_rate_btn_click":
             send_ga_event('settings_rate_btn_click', 'settings_rate_btn_click', 'settings_rate_btn_click');
