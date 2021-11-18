@@ -2389,7 +2389,7 @@ function addSeekOverlay(left, isEnd) {
         }
     }
 
-    document.querySelector('.video-player__container').appendChild(container);
+    document.querySelector('.video-player__container').querySelector('video').parentNode.appendChild(container);
     setTimeout(()=>{
         container.remove();
     }, 500);
