@@ -4016,13 +4016,12 @@ function check_multistream_start() {
     });
 }
 
-function setConfirmedToastFlag(clickName, storageFlagName) {
+function setConfirmedToastFlag(storageFlagName) {
     let storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
     _browser.storage.local.set(storageFlagObj, function() {
 
     });
-    sendMessageToBG({action: "updateToast", detail: clickName});
 }
 
 function isOverflown(element) {
@@ -4063,13 +4062,11 @@ function showToast(toast_body, storageFlagName) {
         "        </div>";
 
     updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
-        setConfirmedToastFlag('rate_btn', storageFlagName);
-        remove_toast();
+        sendMessageToBG({action: "updateToast_rate_btn_click", detail: ""});
         sendMessageToBG({action: "bg_show_rate", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_share_btn').onclick = function () {
-        setConfirmedToastFlag('share_btn', storageFlagName);
-        remove_toast();
+        sendMessageToBG({action: "updateToast_share_btn_click", detail: ""});
         sendMessageToBG({action: "bg_show_share", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_settings_btn').onclick = function () {
@@ -4079,12 +4076,12 @@ function showToast(toast_body, storageFlagName) {
 
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
-            setConfirmedToastFlag('donate_btn', storageFlagName);
-            remove_toast();
+            sendMessageToBG({action: "updateToast_donate_btn_click", detail: ""});
         },200);
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
-        setConfirmedToastFlag('okay_btn', storageFlagName);
+        setConfirmedToastFlag(storageFlagName);
+        sendMessageToBG({action: "updateToast", detail: 'okay_btn'});
         remove_toast();
     };
 

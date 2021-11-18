@@ -334,6 +334,15 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast":
             send_ga_event('updateToast', 'dismiss', msg.detail);
             break;
+        case "updateToast_rate_btn_click":
+            send_ga_event('updateToast_rate_btn_click', 'updateToast_rate_btn_click', 'updateToast_rate_btn_click');
+            break;
+        case "updateToast_donate_btn_click":
+            send_ga_event('updateToast_donate_btn_click', 'updateToast_donate_btn_click', 'updateToast_donate_btn_click');
+            break;
+        case "updateToast_share_btn_click":
+            send_ga_event('updateToast_share_btn_click', 'updateToast_share_btn_click', 'updateToast_share_btn_click');
+            break;
         case "updateToast_settings_btn_click":
             send_ga_event('updateToast_settings_btn_click', 'updateToast_settings_btn_click', 'updateToast_settings_btn_click');
             break;
