@@ -4130,15 +4130,11 @@ function getUpdateToastBody() {
         +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.</span>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- The list data will update every 5 minutes.</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- When enabling this feature, you will need to allow the extension to run on \"youtube.com\" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.</div>"
         +  "            </div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Clip Downloader! <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"17px\" width=\"17px\" style=\"margin-bottom: -3px;\" xmlns=\"http://www.w3.org/2000/svg\">" +
-        "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
-        "</svg>" +
-        "</strong>"
-        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls of clips.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When enabling this feature, you will need to allow the extensions to run on \"clips.twitch.tv\" (a prompt will show when enabling).</span>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes & Improvements</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Seek: fixed the seek indications not showing.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Auto-Refresh: added error #3000 to the roster.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Auto-Refresh: the auto refresh feature will now try to recover the player and continue playing when it crashes in the background (for errors #1000,#2000,#3000) instead of having to come back to the tab for a refresh.</span>"
         +  "             </div>"
         +  "    </br>"
 }
