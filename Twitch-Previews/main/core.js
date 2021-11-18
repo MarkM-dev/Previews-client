@@ -977,14 +977,24 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
         location.replace(window.location);
     } else {
         let btn = document.querySelector('.content-overlay-gate__allow-pointers button');
-        if(btn) {
+        if (btn) {
             btn.click();
             isMainPlayerError = false;
+            setTimeout(function (){
+                let t_player = document.querySelector(".video-player").querySelector('video');
+                if (t_player) {
+                    t_player.play();
+                }
+            }, 2000);
             setTimeout(function (){
                 checkForAutoRefresh();
             }, 10000);
         } else {
-            location.replace(window.location);
+            if (!document.hidden) {
+                location.replace(window.location);
+            } else {
+                isMainPlayerError = true;
+            }
         }
     }
 }
@@ -992,12 +1002,8 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
 function checkForAutoRefresh() {
     let el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
     if (el) {
-        if (['1000', '2000', '4000'].some(x => el.innerText.indexOf(x) >= 0)) {
-            if (!document.hidden) {
-                refreshPageOnMainTwitchPlayerError();
-            } else {
-                isMainPlayerError = true;
-            }
+        if (['1000','2000','3000','4000'].some(x => el.innerText.indexOf(x) >= 0)) {
+            refreshPageOnMainTwitchPlayerError();
         }
     } else {
         listenForPlayerError();
