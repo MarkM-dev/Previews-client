@@ -4090,7 +4090,7 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
         setConfirmedToastFlag(storageFlagName);
-        sendMessageToBG({action: toastType, detail: 'okay_btn - ' + parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
+        sendMessageToBG({action: toastType, detail: parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
         remove_toast(updateToast);
     };
 
