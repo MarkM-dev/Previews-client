@@ -4028,16 +4028,22 @@ function isOverflown(element) {
     return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
 
-function showToast(toast_body, storageFlagName) {
+function showToast(toast_body, storageFlagName, isDelayedRateToast) {
     let toast_show_time;
+    let hideClass = '';
+    let toastType = isDelayedRateToast ? 'delayedRateToast':'updateToast';
 
-    function remove_toast() {
-        document.getElementById('tp_updateToast').remove();
+    function remove_toast(updateToast) {
+        updateToast.remove();
     }
 
     let updateToast = document.createElement("div");
     updateToast.id = "tp_updateToast";
     updateToast.classList.add("tp_update_toast");
+    if (isDelayedRateToast) {
+        hideClass = 'class="tp_display_none"';
+        updateToast.classList.add("tp_update_toast_delayedRate");
+    }
     updateToast.classList.add("animated");
     updateToast.classList.add("slideInRight");
 
@@ -4046,9 +4052,9 @@ function showToast(toast_body, storageFlagName) {
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>" +
         "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"Translate\" />\n" +
-        "               <img id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
+        "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
+        "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -4061,40 +4067,40 @@ function showToast(toast_body, storageFlagName) {
         "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
         "                    </form>\n" +
         "            </div>\n" +
-        "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Close</div>\n" +
+        "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? 'Close & Don\'t show again':'close') + "</div>\n" +
         "        </div>";
 
     updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
-        sendMessageToBG({action: "updateToast_rate_btn_click", detail: ""});
+        sendMessageToBG({action: toastType + "_rate_btn_click", detail: ""});
         sendMessageToBG({action: "bg_show_rate", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_share_btn').onclick = function () {
-        sendMessageToBG({action: "updateToast_share_btn_click", detail: ""});
+        sendMessageToBG({action: toastType + "_share_btn_click", detail: ""});
         sendMessageToBG({action: "bg_show_share", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_settings_btn').onclick = function () {
         showSettings();
-        sendMessageToBG({action: "updateToast_settings_btn_click", detail: ""});
+        sendMessageToBG({action: toastType + "_settings_btn_click", detail: ""});
     };
 
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
-            sendMessageToBG({action: "updateToast_donate_btn_click", detail: selectedDonateButton});
+            sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
         },200);
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
         setConfirmedToastFlag(storageFlagName);
-        sendMessageToBG({action: "updateToast", detail: 'okay_btn - ' + parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
-        remove_toast();
+        sendMessageToBG({action: toastType, detail: 'okay_btn - ' + parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
+        remove_toast(updateToast);
     };
 
     updateToast.querySelector('#tp_updateToast_translate_btn').onclick = function () {
-        sendMessageToBG({action: "updateToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
+        sendMessageToBG({action: toastType + "_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
     updateToast.querySelector('#tp_updateToast_settings_top_btn').onclick = function () {
         showSettings();
-        sendMessageToBG({action: "updateToast_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
+        sendMessageToBG({action: toastType + "_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
     document.body.appendChild(updateToast);
@@ -4107,6 +4113,11 @@ function showToast(toast_body, storageFlagName) {
         }
     }, 100);
     toast_show_time = new Date().getTime();
+}
+
+function getDelayedRateToastBody() {
+    return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Enjoying Twitch Previews?</div>"
+        +  "       <div style=\"font-size: 13px;margin-top: 10px;color: white;\" >We would love it if you rated the extension on the webstore :)</div>";
 }
 
 function getUpdateToastBody() {
@@ -4136,6 +4147,25 @@ function showUpdateToast() {
     _browser.storage.local.get('shouldShowUpdatePopup', function(result) {
         if (result.shouldShowUpdatePopup) {
             showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
+        }
+    });
+}
+
+function check_shouldShowDelayedRateToast() {
+    _browser.storage.local.get('shouldShowDelayedRateToast', function(result) {
+        if (result.shouldShowDelayedRateToast) {
+            _browser.storage.local.get('tpInstallTime', function(result) {
+                if (result.tpInstallTime) {
+                    if ((new Date().getTime() - result.tpInstallTime) / 1000 > 604800) {
+                        _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {
+
+                        });
+                        setTimeout(function () {
+                            showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', true);
+                        }, 30000)
+                    }
+                }
+            })
         }
     });
 }
@@ -4843,3 +4873,4 @@ check_showSettings();
 check_FTE();
 check_multistream_start();
 check_cast_start();
+check_shouldShowDelayedRateToast();

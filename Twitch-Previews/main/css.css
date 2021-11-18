@@ -760,6 +760,15 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.tp_update_toast_delayedRate {
+    top: 25rem;
+
+}
+.tp_update_toast_delayedRate #tp_updateToast_translate_btn {
+    left: 26rem;
+    top: 12px;
+}
+
 .tp-under-chat-btn {
     display: inline-flex !important;
     vertical-align: top;

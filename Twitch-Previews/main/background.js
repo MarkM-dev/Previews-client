@@ -135,9 +135,10 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'isFTE': true}, function() {});
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
         _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+        _browser.storage.local.set({'shouldShowDelayedRateToast': true}, function() {});
+        _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
     } else {
         if (details.reason === "update") {
-
             _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
             _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
@@ -355,6 +356,25 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "updateToast_twitter_btn_click":
             send_ga_event('updateToast_twitter_btn_click', 'updateToast_twitter_btn_click', 'updateToast_twitter_btn_click');
+            break;
+        case "delayedRateToast":
+            send_ga_event('delayedRateToast', 'dismiss', msg.detail);
+            break;
+        case "delayedRateToast_rate_btn_click":
+            send_ga_event('delayedRateToast_rate_btn_click', 'delayedRateToast_rate_btn_click', 'delayedRateToast_rate_btn_click');
+            break;
+        case "delayedRateToast_donate_btn_click":
+            send_ga_event('delayedRateToast_donate_btn_click', 'delayedRateToast_donate_btn_click', msg.detail);
+            break;
+        case "delayedRateToast_share_btn_click":
+            send_ga_event('delayedRateToast_share_btn_click', 'delayedRateToast_share_btn_click', 'delayedRateToast_share_btn_click');
+            break;
+        case "delayedRateToast_settings_btn_click":
+            send_ga_event('delayedRateToast_settings_btn_click', 'delayedRateToast_settings_btn_click', 'delayedRateToast_settings_btn_click');
+            break;
+        case "delayedRateToast_translate_btn_click":
+            _browser.tabs.create({url:msg.detail});
+            send_ga_event('delayedRateToast_translate_btn_click', 'delayedRateToast_translate_btn_click', 'delayedRateToast_translate_btn_click');
             break;
         case "bg_translate_infoDiv":
             _browser.tabs.create({url:msg.detail});
