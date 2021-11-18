@@ -29,7 +29,7 @@
 - Sidebar YouTube Channels List.
 - Auto Channel Points Clicker.
 - Clip Downloader.
-- Auto Refresh on player errors (#1000, #2000, #4000).
+- Auto Refresh on player errors (#1000, #2000, #3000, #4000).
 - Predictions Notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
 - Predictions Sniper (will participate in predictions for you).
 - Prevent Automatic Video Quality Change.
@@ -156,9 +156,8 @@
       <br/><br/>
 
 
-* **Auto Refresh When The Main Twitch Player Gets An Error (#1000, #2000, #4000)**
-    - This feature works when the tab with the player that got an error is currently active.
-    - If the player got an error while the tab was not active (in the background or the browser wasn't the active window) the page will automatically refresh when you come back to it.
+* **Auto Refresh When The Main Twitch Player Gets An Error (#1000, #2000, #3000, #4000)**
+    - Refreshes the player if an error occurs.
       <br/><br/>
 
 
