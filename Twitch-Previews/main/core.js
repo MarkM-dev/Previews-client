@@ -1861,7 +1861,12 @@ function clearPredictionStatus() {
 }
 
 function getCurrentStreamerName() {
-    return document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+    // consider multilang - display name might be different than url.
+    try {
+        return document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+    } catch (e) {
+        return window.location.pathname.substring(1);
+    }
 }
 
 function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
@@ -3451,6 +3456,13 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         multiStreamDiv.prepend(click_download_overlay);
         multiStreamDiv.appendChild(img);
+
+        if (window.top !== window.self) {
+            multiStreamDiv.style.height = '112px';
+            multiStreamDiv.style.width = '200px';
+            multiStreamDiv.style.top = '45%';
+            multiStreamDiv.style.left = '0px';
+        }
     } else {
         multiStreamDiv.appendChild(iframe);
     }
@@ -3472,7 +3484,13 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         document.querySelector('.video-player__container').appendChild(multiStreamDiv);
     } else {
-        document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
+        let container_scrollable_wrapper = document.querySelector('.root-scrollable__wrapper');
+        if (container_scrollable_wrapper) {
+            container_scrollable_wrapper.firstChild.appendChild(multiStreamDiv);
+        } else {
+            document.querySelector('.video-player__container').appendChild(multiStreamDiv);
+        }
+
         if (isMultiStreamMode) {
             if (multiStream_curr_selected_preset_index) {
                 load_multiStream_layout_preset(multiStream_curr_selected_preset_index);
