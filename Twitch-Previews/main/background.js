@@ -103,6 +103,18 @@ _browser.browserAction.onClicked.addListener(function(tab) {
 
 });
 
+function upgradeDB(loaded_options) {
+    let bSetToStorage = false;
+    Object.keys(options).forEach(function(key,index) {
+        if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
+            loaded_options[key] = options[key];
+            bSetToStorage = true;
+        }
+    });
+
+    return {bSetToStorage: bSetToStorage, new_options: loaded_options}
+}
+
 _browser.runtime.onInstalled.addListener(function(details) {
     let manifestData = _browser.runtime.getManifest();
     let appVer = "v" + manifestData.version;
@@ -114,17 +126,10 @@ _browser.runtime.onInstalled.addListener(function(details) {
             });
         } else {
             // upgrade db.
-            let loaded_options = result.tp_options;
-            let bSetToStorage = false;
-            Object.keys(options).forEach(function(key,index) {
-                if (!Object.prototype.hasOwnProperty.call(loaded_options, key)) {
-                    loaded_options[key] = options[key];
-                    bSetToStorage = true;
-                }
-            });
 
-            if (bSetToStorage) {
-                _browser.storage.local.set({'tp_options': loaded_options}, function() {
+            let new_db_container_obj = upgradeDB(result.tp_options);
+            if (new_db_container_obj.bSetToStorage) {
+                _browser.storage.local.set({'tp_options': new_db_container_obj.new_options}, function() {
 
                 });
             }
@@ -432,6 +437,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_contact_btn_click":
             send_ga_event('settings_contact_btn_click', 'settings_contact_btn_click', 'settings_contact_btn_click');
             break;
+        case "tp_settings_upgrade_db":
+            sendResponse({result: upgradeDB(msg.detail)});
+            break;
         case "setListenersForCd":
             setListenersForClipDownloader();
             break;
@@ -552,7 +560,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'get_YT_live_streams') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'get_YT_live_streams' && msg.action !== 'tp_settings_upgrade_db') {
         sendResponse({ result: "any response from background" });
     }
     return true;

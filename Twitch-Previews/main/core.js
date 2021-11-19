@@ -4864,7 +4864,17 @@ function initSettingsImportExportFuncs(settingsContainer) {
                 '\nImporting & overriding:' + selectedSettingsForImportObj.selectedSettingsString;
 
             if (confirm(str)) {
+                if (selectedSettingsForImportObj.selectedSettings.includes("tp_options")) {
+                    _browser.runtime.sendMessage({action: "tp_settings_upgrade_db", detail: loaded_settings.tp_options}, function(response) {
+                        console.log(response.result);
+                        _browser.storage.local.set({'tp_options': response.result.new_options}, function() {
+                            delete loaded_settings.tp_options;
+                            selectedSettingsForImportObj.selectedSettings = selectedSettingsForImportObj.selectedSettings.filter(e => e !== 'tp_options');
+                        });
+                    });
+                } else {
 
+                }
 
                 //console.log(e1.target.result);
             }
