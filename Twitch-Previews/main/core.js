@@ -3366,7 +3366,30 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             if (yt_videoId) {
                 iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=1";
             } else {
-                iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+                //iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+                iframe.style.visibility = "hidden";
+                multiStreamDiv.style.backgroundColor = '#000000';
+                multiStreamDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + streamName + "-600x338.jpg?" + new Date().getTime() + "')";
+
+                let loader = document.createElement("span");
+                loader.classList.add('tp-loading');
+                loader.innerText = "loading stream...";
+                loader.style.right = "0";
+                loader.style.borderTopLeftRadius = "10px";
+                loader.style.borderLeft = "1px solid #8f8f8f";
+                multiStreamDiv.appendChild(loader);
+
+                iframe.contentDocument
+                iframe.onload = function (e) {
+                    setTimeout(function () {
+                        iframe.style.visibility = "visible";
+                        loader.remove();
+                        multiStreamDiv.style.backgroundImage = "";
+                    }, 2000);
+                }
+                _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': streamName}, function() {
+                    iframe.src = "https://www.twitch.tv/" + streamName;
+                });
             }
         }
     }
@@ -4233,6 +4256,63 @@ function onSettingChange(key, value) {
 }
 
 function toggleFeatures(isFromTitleObserver) {
+    if(window.top !== window.self) {
+
+        _browser.storage.local.get('tp_multiStream_box_iframe_channel_name', function(result) {
+            if (result.tp_multiStream_box_iframe_channel_name && result.tp_multiStream_box_iframe_channel_name === window.location.pathname.substring(1)) {
+                _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': false}, function() {});
+                if (options.isErrRefreshEnabled) {
+                    listenForPlayerError();
+                }
+
+                if (isFirefox) {
+
+                } else {
+                    if (options.isPipEnabled) {
+                        setPIPBtn();
+                    }
+                }
+
+                if (options.isfScrnWithChatEnabled) {
+                    setfScrnWithChatBtn();
+                }
+
+                if (options.isCastEnabled) {
+                    appendCastBtn();
+                }
+
+                if (options.isFlashBangDefenderEnabled) {
+                    appendFlashBangDefenderBtn();
+                }
+
+                if (options.isScreenshotEnabled) {
+                    appendScreenShotBtn();
+                }
+
+                if (options.isFastForwardEnabled) {
+                    appendFastForwardBtn();
+                }
+
+                if (options.isSeekEnabled) {
+                    setSeekListeners();
+                }
+
+                let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+                if (ttv_theater_mode_btn) {
+                    ttv_theater_mode_btn.remove();
+                }
+
+                document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
+                document.querySelector('#root').remove();
+                document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
+            }
+        });
+
+
+        return;
+    }
+
+
     if (!isFromTitleObserver) {
         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     }
@@ -4824,9 +4904,24 @@ window.addEventListener('load', (event) => {
         return;
     }
     setTimeout(function(){
+
+        if (window.top !== window.self) {
+            setOptionsFromDB().then(
+                function (options){
+                    toggleFeatures();
+                },
+                function (err){
+
+                });
+            return;
+        }
+
         ga_heartbeat();
         appendContainer = document.body;
-        document.getElementById('sideNav').style.zIndex = '10';
+        let sidenav = document.getElementById('sideNav');
+        if (sidenav) {
+            sidenav.style.zIndex = '10';
+        }
         setOptionsFromDB().then(
             function (options){
                 ga_report_appStart();
@@ -4853,7 +4948,9 @@ function pageAwakened() {
         return;
     }
     if (isMainPlayerError) {
-        refreshPageOnMainTwitchPlayerError(true);
+        if (window.top === window.self) {
+            refreshPageOnMainTwitchPlayerError(true);
+        }
     }
     setOptionsFromDB().then(
         function (options){
@@ -4865,8 +4962,10 @@ function pageAwakened() {
 }
 
 ///////////// END OF TAB RESUME /////////////
-check_showSettings();
-check_FTE();
-check_multistream_start();
-check_cast_start();
-check_shouldShowDelayedRateToast();
+if (window.top === window.self) {
+    check_showSettings();
+    check_FTE();
+    check_multistream_start();
+    check_cast_start();
+    check_shouldShowDelayedRateToast();
+}

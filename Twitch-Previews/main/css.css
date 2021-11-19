@@ -806,8 +806,10 @@
     border-radius: 5px;
     resize: both;
     overflow: hidden;
-    width: 440px;
-    height: 248px;
+    /*width: 440px;
+    height: 248px;*/
+    width: 600px;
+    height: 338px;
     top: 10px;
     left: 10px;
     transition: opacity 0.2s;
