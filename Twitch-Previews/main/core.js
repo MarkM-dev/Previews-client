@@ -4787,6 +4787,33 @@ function initSettingsImportExportFuncs(settingsContainer) {
     initSettingsInfoBtn(settingsContainer, 'TP_popup_settings_save_checkbox');
     initTranslateInfoDivBtn(settingsContainer, 'TP_popup_settings_save_checkbox');
 
+    let settingsNameDictionary = {
+        'tp_options': 'Settings',
+        'favorites_arr': 'Favorites',
+        'aps_streams_settings_obj': 'Predictions Sniper custom per stream settings',
+        'multiStream_layout_presets': 'Multi-Stream Layout Presets',
+    };
+
+    function getSettingsFromStorage(storageName) {
+        return new Promise((resolve, reject) => {
+            _browser.storage.local.get(storageName, function(result) {
+                let settings = result[storageName];
+                resolve(settings);
+            });
+        })
+    }
+
+    function exportSettings(content, fileName, contentType) {
+        let element = document.createElement('a');
+        let file = new Blob([content], {type: contentType});
+        element.setAttribute('href', URL.createObjectURL(file));
+        element.setAttribute('download', fileName);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
     settingsContainer.querySelector('#TP_popup_settings_import_btn').onclick = function (e) {
         settingsContainer.querySelector('#TP_popup_settings_import_btn_input').click();
     };
@@ -4807,10 +4834,12 @@ function initSettingsImportExportFuncs(settingsContainer) {
     };
     settingsContainer.querySelector('#TP_popup_settings_export_btn').onclick = function (e) {
         let selectedSettings = [];
+        let selectedSettingsString = '';
         let checkboxes = settingsContainer.querySelectorAll('.tp_settings_save_selection_cb');
         for (let checkbox of checkboxes) {
             if (checkbox.checked) {
                 selectedSettings.push(checkbox.name);
+                selectedSettingsString += '\n- ' + settingsNameDictionary[checkbox.name];
             }
         }
 
@@ -4819,37 +4848,18 @@ function initSettingsImportExportFuncs(settingsContainer) {
             return;
         }
 
-        function getSettingsFromStorage(storageName) {
-            return new Promise((resolve, reject) => {
-                _browser.storage.local.get(storageName, function(result) {
-                    let settings = result[storageName];
-                    resolve(settings);
-                });
-            })
-        }
+        if (confirm('Twitch Previews selected settings for export:' + selectedSettingsString + '\n\nExport?')) {
+            let export_obj = {};
 
-        function exportSettings(content, fileName, contentType) {
-            let element = document.createElement('a');
-            let file = new Blob([content], {type: contentType});
-            element.setAttribute('href', URL.createObjectURL(file));
-            element.setAttribute('download', fileName);
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-        }
-
-        let export_obj = {};
-
-        selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
-            .then(res => {
-                export_obj[x] = res;
-                return getSettingsFromStorage(x);
-            }), Promise.resolve()).then(lastResult => {
+            selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
+                .then(res => {
+                    export_obj[x] = res;
+                    return getSettingsFromStorage(x);
+                }), Promise.resolve()).then(lastResult => {
                 let dateStr = new Date().toISOString().split('.')[0].replace('T', '_').replace(':', '-').split(':')[0];
                 exportSettings(JSON.stringify(export_obj), 'twitch_previews_settings_' + dateStr + '.json', 'application/json');
             });
-
+        }
     };
 }
 
