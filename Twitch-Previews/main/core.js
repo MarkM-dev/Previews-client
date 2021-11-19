@@ -4794,15 +4794,6 @@ function initSettingsImportExportFuncs(settingsContainer) {
         'multiStream_layout_presets': 'Multi-Stream Layout Presets',
     };
 
-    function getSettingsFromStorage(storageName) {
-        return new Promise((resolve, reject) => {
-            _browser.storage.local.get(storageName, function(result) {
-                let settings = result[storageName];
-                resolve(settings);
-            });
-        })
-    }
-
     function exportSettings(content, fileName, contentType) {
         let element = document.createElement('a');
         let file = new Blob([content], {type: contentType});
@@ -4812,6 +4803,15 @@ function initSettingsImportExportFuncs(settingsContainer) {
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
+    }
+
+    function getSettingsFromStorage(storageName) {
+        return new Promise((resolve, reject) => {
+            _browser.storage.local.get(storageName, function(result) {
+                let settings = result[storageName];
+                resolve(settings);
+            });
+        })
     }
 
     function getSelectedSettings() {
@@ -4825,28 +4825,53 @@ function initSettingsImportExportFuncs(settingsContainer) {
             }
         }
         if (selectedSettings.length === 0) {
-            alert('no selected settings');
+            alert('no selected settings for import / export');
             return false;
         }
         return {selectedSettings: selectedSettings, selectedSettingsString: selectedSettingsString};
     }
 
+    function getSettingsNamesForImport(loaded_settings) {
+        let selectedSettings = [];
+        let selectedSettingsString = '';
+        let selectedSettingsObj = getSelectedSettings();
+
+        selectedSettingsObj.selectedSettings.forEach(function(key,index) {
+            if (Object.prototype.hasOwnProperty.call(loaded_settings, key)) {
+                selectedSettings.push(key);
+                selectedSettingsString += '\n- ' + settingsNameDictionary[key];
+            }
+        });
+
+        return {selectedSettings: selectedSettings, selectedSettingsString: selectedSettingsString};
+    }
+
     settingsContainer.querySelector('#TP_popup_settings_import_btn').onclick = function (e) {
+        let selectedSettingsObj = getSelectedSettings();
+        if (!selectedSettingsObj) {
+            return;
+        }
         settingsContainer.querySelector('#TP_popup_settings_import_btn_input').click();
     };
-    
+
     settingsContainer.querySelector('#TP_popup_settings_import_btn_input').onchange = function (e) {
-        console.log(e.target.files);
         let reader = new FileReader();
         reader.onload = function(e1) {
-            if (confirm('Import & Override settings with: ' + e.target.files[0].name + '?')) {
-                console.log(e1.target.result);
+
+            let loaded_settings = JSON.parse(e1.target.result);
+            let selectedSettingsForImportObj = getSettingsNamesForImport(loaded_settings);
+            let str = 'Twitch Previews Import & Override settings with: ' + e.target.files[0].name + '?' +
+                '\nImporting & overriding:' + selectedSettingsForImportObj.selectedSettingsString;
+
+            if (confirm(str)) {
+
+
+                //console.log(e1.target.result);
             }
             settingsContainer.querySelector('#TP_popup_settings_import_btn_input').value = null;
         }
         reader.onerror = function(e) {
-            console.log("error", e);
-            console.log (e.getMessage());
+            alert('An error occurred: ' + e.getMessage());
         }
         reader.readAsText(e.target.files[0]);
     };
@@ -4861,8 +4886,11 @@ function initSettingsImportExportFuncs(settingsContainer) {
 
             selectedSettingsObj.selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
                 .then(res => {
+                    let isResUndefined = typeof res === "undefined";
+                    if (isResUndefined) {
+                        res = false;
+                    }
                     export_obj[x] = res;
-                    return getSettingsFromStorage(x);
                 }), Promise.resolve()).then(lastResult => {
                 let dateStr = new Date().toISOString().split('.')[0].replace('T', '_').replace(':', '-').split(':')[0];
                 exportSettings(JSON.stringify(export_obj), 'twitch_previews_settings_' + dateStr + '.json', 'application/json');
