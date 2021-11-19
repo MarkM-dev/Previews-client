@@ -4814,9 +4814,27 @@ function initSettingsImportExportFuncs(settingsContainer) {
         document.body.removeChild(element);
     }
 
+    function getSelectedSettings() {
+        let selectedSettings = [];
+        let selectedSettingsString = '';
+        let checkboxes = settingsContainer.querySelectorAll('.tp_settings_save_selection_cb');
+        for (let checkbox of checkboxes) {
+            if (checkbox.checked) {
+                selectedSettings.push(checkbox.name);
+                selectedSettingsString += '\n- ' + settingsNameDictionary[checkbox.name];
+            }
+        }
+        if (selectedSettings.length === 0) {
+            alert('no selected settings');
+            return false;
+        }
+        return {selectedSettings: selectedSettings, selectedSettingsString: selectedSettingsString};
+    }
+
     settingsContainer.querySelector('#TP_popup_settings_import_btn').onclick = function (e) {
         settingsContainer.querySelector('#TP_popup_settings_import_btn_input').click();
     };
+    
     settingsContainer.querySelector('#TP_popup_settings_import_btn_input').onchange = function (e) {
         console.log(e.target.files);
         let reader = new FileReader();
@@ -4832,26 +4850,16 @@ function initSettingsImportExportFuncs(settingsContainer) {
         }
         reader.readAsText(e.target.files[0]);
     };
-    settingsContainer.querySelector('#TP_popup_settings_export_btn').onclick = function (e) {
-        let selectedSettings = [];
-        let selectedSettingsString = '';
-        let checkboxes = settingsContainer.querySelectorAll('.tp_settings_save_selection_cb');
-        for (let checkbox of checkboxes) {
-            if (checkbox.checked) {
-                selectedSettings.push(checkbox.name);
-                selectedSettingsString += '\n- ' + settingsNameDictionary[checkbox.name];
-            }
-        }
 
-        if (selectedSettings.length === 0) {
-            alert('no selected settings');
+    settingsContainer.querySelector('#TP_popup_settings_export_btn').onclick = function (e) {
+        let selectedSettingsObj = getSelectedSettings();
+        if (!selectedSettingsObj) {
             return;
         }
-
-        if (confirm('Twitch Previews selected settings for export:' + selectedSettingsString + '\n\nExport?')) {
+        if (confirm('Twitch Previews selected settings for export:' + selectedSettingsObj.selectedSettingsString + '\n\nExport?')) {
             let export_obj = {};
 
-            selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
+            selectedSettingsObj.selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
                 .then(res => {
                     export_obj[x] = res;
                     return getSettingsFromStorage(x);
