@@ -4828,16 +4828,28 @@ function initSettingsImportExportFuncs(settingsContainer) {
             })
         }
 
-        let export_obj = {};
-        let index = 0;
-        getSettingsFromStorage(selectedSettings[index]).then(
-            function (res){
-                export_obj[selectedSettings[index]] = res;
-                index++;
-            },
-            function (err){
+        function exportSettings(content, fileName, contentType) {
+            let element = document.createElement('a');
+            let file = new Blob([content], {type: contentType});
+            element.setAttribute('href', URL.createObjectURL(file));
+            element.setAttribute('download', fileName);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
 
+        let export_obj = {};
+
+        selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
+            .then(res => {
+                export_obj[x] = res;
+                return getSettingsFromStorage(x);
+            }), Promise.resolve()).then(lastResult => {
+                let dateStr = new Date().toISOString().split('.')[0].replace('T', '_').replace(':', '-').split(':')[0];
+                exportSettings(JSON.stringify(export_obj), 'twitch_previews_settings_' + dateStr + '.json', 'application/json');
             });
+
     };
 }
 
