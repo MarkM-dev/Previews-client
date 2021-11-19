@@ -4814,6 +4814,16 @@ function initSettingsImportExportFuncs(settingsContainer) {
         })
     }
 
+    function setSettingsToStorage(key, value) {
+        return new Promise((resolve, reject) => {
+            let obj = {};
+            obj[key] = value;
+            _browser.storage.local.set(obj, function(e) {
+                resolve('done');
+            });
+        })
+    }
+
     function getSelectedSettings() {
         let selectedSettings = [];
         let selectedSettingsString = '';
@@ -4866,17 +4876,28 @@ function initSettingsImportExportFuncs(settingsContainer) {
             if (confirm(str)) {
                 if (selectedSettingsForImportObj.selectedSettings.includes("tp_options")) {
                     _browser.runtime.sendMessage({action: "tp_settings_upgrade_db", detail: loaded_settings.tp_options}, function(response) {
-                        console.log(response.result);
-                        _browser.storage.local.set({'tp_options': response.result.new_options}, function() {
+                        setSettingsToStorage('tp_options', response.result.upgraded_options).then(function (res) {
                             delete loaded_settings.tp_options;
                             selectedSettingsForImportObj.selectedSettings = selectedSettingsForImportObj.selectedSettings.filter(e => e !== 'tp_options');
+
+                            selectedSettingsForImportObj.selectedSettings.reduce((p, x) => setSettingsToStorage(x, loaded_settings[x])
+                                .then(res => {}), Promise.resolve())
+                                .then(lastResult => {
+                                    _browser.storage.local.set({'shouldShowSettings': true}, function() {
+                                        location.replace(window.location);
+                                    });
+                                });
                         });
                     });
                 } else {
-
+                    selectedSettingsForImportObj.selectedSettings.reduce((p, x) => setSettingsToStorage(x, loaded_settings[x])
+                        .then(res => {}), Promise.resolve())
+                        .then(lastResult => {
+                            _browser.storage.local.set({'shouldShowSettings': true}, function() {
+                                location.replace(window.location);
+                            });
+                        });
                 }
-
-                //console.log(e1.target.result);
             }
             settingsContainer.querySelector('#TP_popup_settings_import_btn_input').value = null;
         }

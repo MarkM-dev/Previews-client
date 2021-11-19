@@ -112,7 +112,7 @@ function upgradeDB(loaded_options) {
         }
     });
 
-    return {bSetToStorage: bSetToStorage, new_options: loaded_options}
+    return {bSetToStorage: bSetToStorage, upgraded_options: loaded_options}
 }
 
 _browser.runtime.onInstalled.addListener(function(details) {
@@ -126,10 +126,9 @@ _browser.runtime.onInstalled.addListener(function(details) {
             });
         } else {
             // upgrade db.
-
             let new_db_container_obj = upgradeDB(result.tp_options);
             if (new_db_container_obj.bSetToStorage) {
-                _browser.storage.local.set({'tp_options': new_db_container_obj.new_options}, function() {
+                _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
 
                 });
             }
