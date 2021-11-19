@@ -3371,30 +3371,33 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             if (yt_videoId) {
                 iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=1";
             } else {
-                //iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
-                iframe.style.visibility = "hidden";
-                multiStreamDiv.style.backgroundColor = '#000000';
-                multiStreamDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + streamName + "-600x338.jpg?" + new Date().getTime() + "')";
+                if (options.isAdvancedVideoEmbedsEnabled) {
+                    iframe.style.visibility = "hidden";
+                    multiStreamDiv.style.backgroundColor = '#000000';
+                    multiStreamDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + streamName + "-600x338.jpg?" + new Date().getTime() + "')";
 
-                let loader = document.createElement("span");
-                loader.classList.add('tp-loading');
-                loader.innerText = "loading stream...";
-                loader.style.right = "0";
-                loader.style.borderTopLeftRadius = "10px";
-                loader.style.borderLeft = "1px solid #8f8f8f";
-                multiStreamDiv.appendChild(loader);
+                    let loader = document.createElement("span");
+                    loader.classList.add('tp-loading');
+                    loader.innerText = "loading stream...";
+                    loader.style.right = "0";
+                    loader.style.borderTopLeftRadius = "10px";
+                    loader.style.borderLeft = "1px solid #8f8f8f";
+                    multiStreamDiv.appendChild(loader);
 
-                iframe.contentDocument
-                iframe.onload = function (e) {
-                    setTimeout(function () {
-                        iframe.style.visibility = "visible";
-                        loader.remove();
-                        multiStreamDiv.style.backgroundImage = "";
-                    }, 2000);
+                    iframe.contentDocument
+                    iframe.onload = function (e) {
+                        setTimeout(function () {
+                            iframe.style.visibility = "visible";
+                            loader.remove();
+                            multiStreamDiv.style.backgroundImage = "";
+                        }, 2000);
+                    }
+                    _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': streamName}, function() {
+                        iframe.src = "https://www.twitch.tv/" + streamName;
+                    });
+                } else {
+                    iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
                 }
-                _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': streamName}, function() {
-                    iframe.src = "https://www.twitch.tv/" + streamName;
-                });
             }
         }
     }
