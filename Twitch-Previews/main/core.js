@@ -155,10 +155,12 @@ function setTitleMutationObserver() {
 }
 
 function setSideNavMutationObserver() {
-    sideNavMutationObserver.observe(document.querySelector('.side-nav-section'), {
-        childList: true,
-        subtree: true
-    });
+    if (document.querySelector('.side-nav-section')) {
+        sideNavMutationObserver.observe(document.querySelector('.side-nav-section'), {
+            childList: true,
+            subtree: true
+        });
+    }
 }
 
 function adjustVidPreviewVolClick(e) {
@@ -3590,7 +3592,12 @@ function setSearchResultsClickListeners(input) {
 }
 
 function setTwitchSearchBarListener() {
-    let input = document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input');
+    let inputContainer = document.querySelector('div[data-a-target="tray-search-input"]');
+    if (!inputContainer) {
+        return;
+    }
+
+    let input = inputContainer.querySelector('input');
 
     if (input.attributes.tp_listener) {
         return;
