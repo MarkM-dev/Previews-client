@@ -46,6 +46,7 @@ let options = {
     isCastEnabled: false,
     isClearChatEnabled: false,
     isMultiStreamEnabled: false,
+    isAdvancedVideoEmbedsEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
     isPredictionsNotificationsEnabled: false,
@@ -212,6 +213,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isMultiStreamEnabled":
             send_ga_event('multiStream_mode', 'change', msg.detail ? "multiStream_ON":"multiStream_OFF");
+            break;
+        case "bg_update_isAdvancedVideoEmbedsEnabled":
+            send_ga_event('advancedVideoEmbeds_mode', 'change', msg.detail ? "ave_ON":"ave_OFF");
             break;
         case "bg_update_isPipEnabled":
             send_ga_event('pip_main_mode', 'change', msg.detail ? "pip_main_ON":"pip_main_OFF");

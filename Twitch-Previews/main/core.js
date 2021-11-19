@@ -962,19 +962,22 @@ function ga_report_appStart() {
     let sidebarHideSections = options.isSidebarHideSectionsEnabled ? "sBarHS_ON" : "sBarHS_OFF";
     let muteAutoPlayers = options.isMuteAutoPlayersEnabled ? "mautop_ON" : "mautop_OFF";
     let YTsidebar = options.isYTsidebarEnabled ? "YTSB_ON" : "YTSB_OFF";
+    let ave = options.isAdvancedVideoEmbedsEnabled ? "ave_ON" : "ave_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
             + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
-            + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar});
+            + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : " + ave});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
     sendMessageToBG({action: "bg_errRefresh_exec", detail: ""});
 
     if (fullRefresh) {
-        location.replace(window.location);
+        if (window.top === window.self) {
+            location.replace(window.location);
+        }
     } else {
         let btn = document.querySelector('.content-overlay-gate__allow-pointers button');
         if (btn) {
@@ -991,7 +994,9 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
             }, 10000);
         } else {
             if (!document.hidden) {
-                location.replace(window.location);
+                if (window.top === window.self) {
+                    location.replace(window.location);
+                }
             } else {
                 isMainPlayerError = true;
             }
@@ -4807,6 +4812,7 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);
         initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
+        initCheckbox(settingsContainer, 'isAdvancedVideoEmbedsEnabled', 'TP_popup_AdvancedVideoEmbeds_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
         initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
