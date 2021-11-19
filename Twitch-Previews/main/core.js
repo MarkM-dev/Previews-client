@@ -4783,6 +4783,64 @@ function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
     }
 }
 
+function initSettingsImportExportFuncs(settingsContainer) {
+    initSettingsInfoBtn(settingsContainer, 'TP_popup_settings_save_checkbox');
+    initTranslateInfoDivBtn(settingsContainer, 'TP_popup_settings_save_checkbox');
+
+    settingsContainer.querySelector('#TP_popup_settings_import_btn').onclick = function (e) {
+        settingsContainer.querySelector('#TP_popup_settings_import_btn_input').click();
+    };
+    settingsContainer.querySelector('#TP_popup_settings_import_btn_input').onchange = function (e) {
+        console.log(e.target.files);
+        let reader = new FileReader();
+        reader.onload = function(e1) {
+            if (confirm('Import & Override settings with: ' + e.target.files[0].name + '?')) {
+                console.log(e1.target.result);
+            }
+            settingsContainer.querySelector('#TP_popup_settings_import_btn_input').value = null;
+        }
+        reader.onerror = function(e) {
+            console.log("error", e);
+            console.log (e.getMessage());
+        }
+        reader.readAsText(e.target.files[0]);
+    };
+    settingsContainer.querySelector('#TP_popup_settings_export_btn').onclick = function (e) {
+        let selectedSettings = [];
+        let checkboxes = settingsContainer.querySelectorAll('.tp_settings_save_selection_cb');
+        for (let checkbox of checkboxes) {
+            if (checkbox.checked) {
+                selectedSettings.push(checkbox.name);
+            }
+        }
+
+        if (selectedSettings.length === 0) {
+            alert('no selected settings');
+            return;
+        }
+
+        function getSettingsFromStorage(storageName) {
+            return new Promise((resolve, reject) => {
+                _browser.storage.local.get(storageName, function(result) {
+                    let settings = result[storageName];
+                    resolve(settings);
+                });
+            })
+        }
+
+        let export_obj = {};
+        let index = 0;
+        getSettingsFromStorage(selectedSettings[index]).then(
+            function (res){
+                export_obj[selectedSettings[index]] = res;
+                index++;
+            },
+            function (err){
+
+            });
+    };
+}
+
 function showSettingsMenu() {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', getRuntimeUrl('main/settings.html'), true);
@@ -4848,6 +4906,8 @@ function showSettingsMenu() {
         initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
         initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
         initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+
+        initSettingsImportExportFuncs(settingsContainer);
 
         if (isFirefox) {
             let els = settingsContainer.querySelectorAll('.tp-firefox-hide');

@@ -452,6 +452,14 @@
     align-items: center;
 }
 
+#TPBodyEl .tp_settings_save_cb_container {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: -5px;
+}
+
 #TPBodyEl .tp_settings_expand {
     margin-left: 5px;
     cursor: pointer;
