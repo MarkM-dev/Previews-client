@@ -4961,7 +4961,9 @@ function initSettingsImportExportFuncs(settingsContainer) {
                     export_obj[x] = res;
                 }), Promise.resolve()).then(lastResult => {
                 let dateStr = new Date().toISOString().split('.')[0].replace('T', '_').replace(':', '-').split(':')[0];
-                exportSettings(JSON.stringify(export_obj), 'twitch_previews_settings_' + dateStr + '.json', 'application/json');
+                let manifestData = _browser.runtime.getManifest();
+                let appVer = "v" + manifestData.version;
+                exportSettings(JSON.stringify(export_obj), 'twitch_previews_' + appVer + '_settings_' + dateStr + '.json', 'application/json');
             });
         }
     };
