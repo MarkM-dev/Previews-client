@@ -155,10 +155,12 @@ function setTitleMutationObserver() {
 }
 
 function setSideNavMutationObserver() {
-    sideNavMutationObserver.observe(document.querySelector('.side-nav-section'), {
-        childList: true,
-        subtree: true
-    });
+    if (document.querySelector('.side-nav-section')) {
+        sideNavMutationObserver.observe(document.querySelector('.side-nav-section'), {
+            childList: true,
+            subtree: true
+        });
+    }
 }
 
 function adjustVidPreviewVolClick(e) {
@@ -962,29 +964,44 @@ function ga_report_appStart() {
     let sidebarHideSections = options.isSidebarHideSectionsEnabled ? "sBarHS_ON" : "sBarHS_OFF";
     let muteAutoPlayers = options.isMuteAutoPlayersEnabled ? "mautop_ON" : "mautop_OFF";
     let YTsidebar = options.isYTsidebarEnabled ? "YTSB_ON" : "YTSB_OFF";
+    let ave = options.isAdvancedVideoEmbedsEnabled ? "ave_ON" : "ave_OFF";
 
     sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
             + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
             + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
             + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
-            + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar});
+            + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : " + ave});
 }
 
 function refreshPageOnMainTwitchPlayerError(fullRefresh) {
     sendMessageToBG({action: "bg_errRefresh_exec", detail: ""});
 
     if (fullRefresh) {
-        location.replace(window.location);
+        if (window.top === window.self) {
+            location.replace(window.location);
+        }
     } else {
         let btn = document.querySelector('.content-overlay-gate__allow-pointers button');
-        if(btn) {
+        if (btn) {
             btn.click();
             isMainPlayerError = false;
+            setTimeout(function (){
+                let t_player = document.querySelector(".video-player").querySelector('video');
+                if (t_player) {
+                    t_player.play();
+                }
+            }, 2000);
             setTimeout(function (){
                 checkForAutoRefresh();
             }, 10000);
         } else {
-            location.replace(window.location);
+            if (!document.hidden) {
+                if (window.top === window.self) {
+                    location.replace(window.location);
+                }
+            } else {
+                isMainPlayerError = true;
+            }
         }
     }
 }
@@ -992,12 +1009,8 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
 function checkForAutoRefresh() {
     let el = document.querySelector('p[data-test-selector="content-overlay-gate__text"]');
     if (el) {
-        if (['1000', '2000', '4000'].some(x => el.innerText.indexOf(x) >= 0)) {
-            if (!document.hidden) {
-                refreshPageOnMainTwitchPlayerError();
-            } else {
-                isMainPlayerError = true;
-            }
+        if (['1000','2000','3000','4000'].some(x => el.innerText.indexOf(x) >= 0)) {
+            refreshPageOnMainTwitchPlayerError();
         }
     } else {
         listenForPlayerError();
@@ -1850,7 +1863,12 @@ function clearPredictionStatus() {
 }
 
 function getCurrentStreamerName() {
-    return document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+    // consider multilang - display name might be different than url.
+    try {
+        return document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+    } catch (e) {
+        return window.location.pathname.substring(1);
+    }
 }
 
 function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
@@ -2383,7 +2401,7 @@ function addSeekOverlay(left, isEnd) {
         }
     }
 
-    document.querySelector('.video-player__container').appendChild(container);
+    document.querySelector('.video-player__container').querySelector('video').parentNode.appendChild(container);
     setTimeout(()=>{
         container.remove();
     }, 500);
@@ -3360,7 +3378,33 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
             if (yt_videoId) {
                 iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=1";
             } else {
-                iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+                if (options.isAdvancedVideoEmbedsEnabled) {
+                    iframe.style.visibility = "hidden";
+                    multiStreamDiv.style.backgroundColor = '#000000';
+                    multiStreamDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + streamName + "-600x338.jpg?" + new Date().getTime() + "')";
+
+                    let loader = document.createElement("span");
+                    loader.classList.add('tp-loading');
+                    loader.innerText = "loading stream...";
+                    loader.style.right = "0";
+                    loader.style.borderTopLeftRadius = "10px";
+                    loader.style.borderLeft = "1px solid #8f8f8f";
+                    multiStreamDiv.appendChild(loader);
+
+                    iframe.contentDocument
+                    iframe.onload = function (e) {
+                        setTimeout(function () {
+                            iframe.style.visibility = "visible";
+                            loader.remove();
+                            multiStreamDiv.style.backgroundImage = "";
+                        }, 2000);
+                    }
+                    _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': streamName}, function() {
+                        iframe.src = "https://www.twitch.tv/" + streamName;
+                    });
+                } else {
+                    iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+                }
             }
         }
     }
@@ -3414,6 +3458,13 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         multiStreamDiv.prepend(click_download_overlay);
         multiStreamDiv.appendChild(img);
+
+        if (window.top !== window.self) {
+            multiStreamDiv.style.height = '112px';
+            multiStreamDiv.style.width = '200px';
+            multiStreamDiv.style.top = '45%';
+            multiStreamDiv.style.left = '0px';
+        }
     } else {
         multiStreamDiv.appendChild(iframe);
     }
@@ -3435,7 +3486,13 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
 
         document.querySelector('.video-player__container').appendChild(multiStreamDiv);
     } else {
-        document.querySelector('.root-scrollable__wrapper').firstChild.appendChild(multiStreamDiv);
+        let container_scrollable_wrapper = document.querySelector('.root-scrollable__wrapper');
+        if (container_scrollable_wrapper) {
+            container_scrollable_wrapper.firstChild.appendChild(multiStreamDiv);
+        } else {
+            document.querySelector('.video-player__container').appendChild(multiStreamDiv);
+        }
+
         if (isMultiStreamMode) {
             if (multiStream_curr_selected_preset_index) {
                 load_multiStream_layout_preset(multiStream_curr_selected_preset_index);
@@ -3535,7 +3592,12 @@ function setSearchResultsClickListeners(input) {
 }
 
 function setTwitchSearchBarListener() {
-    let input = document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input');
+    let inputContainer = document.querySelector('div[data-a-target="tray-search-input"]');
+    if (!inputContainer) {
+        return;
+    }
+
+    let input = inputContainer.querySelector('input');
 
     if (input.attributes.tp_listener) {
         return;
@@ -4010,37 +4072,45 @@ function check_multistream_start() {
     });
 }
 
-function setConfirmedToastFlag(clickName, storageFlagName) {
+function setConfirmedToastFlag(storageFlagName) {
     let storageFlagObj = {};
     storageFlagObj[storageFlagName] = false;
     _browser.storage.local.set(storageFlagObj, function() {
 
     });
-    sendMessageToBG({action: "updateToast", detail: clickName});
 }
 
 function isOverflown(element) {
     return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
 
-function showToast(toast_body, storageFlagName) {
+function showToast(toast_body, storageFlagName, isDelayedRateToast) {
+    let toast_show_time;
+    let hideClass = '';
+    let toastType = isDelayedRateToast ? 'delayedRateToast':'updateToast';
 
-    function remove_toast() {
-        document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+    function remove_toast(updateToast) {
+        updateToast.remove();
     }
 
     let updateToast = document.createElement("div");
     updateToast.id = "tp_updateToast";
     updateToast.classList.add("tp_update_toast");
+    if (isDelayedRateToast) {
+        hideClass = 'class="tp_display_none"';
+        updateToast.classList.add("tp_update_toast_delayedRate");
+    }
     updateToast.classList.add("animated");
     updateToast.classList.add("slideInRight");
+
+    let selectedDonateButton = 'coffee' + Math.round(Math.random());
 
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>" +
         "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"Translate\" />\n" +
-        "               <img id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
+        "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-        "               <div style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
+        "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
         "            </div>\n" +
         "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
@@ -4049,52 +4119,45 @@ function showToast(toast_body, storageFlagName) {
         "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
         "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
         "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
-        "                        <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/coffee.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
+        "                        <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
         "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
         "                    </form>\n" +
         "            </div>\n" +
-        "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >Close</div>\n" +
+        "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? 'Close & Don\'t show again':'close') + "</div>\n" +
         "        </div>";
 
     updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
-        setConfirmedToastFlag('rate_btn', storageFlagName);
-        remove_toast();
+        sendMessageToBG({action: toastType + "_rate_btn_click", detail: ""});
         sendMessageToBG({action: "bg_show_rate", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_share_btn').onclick = function () {
-        setConfirmedToastFlag('share_btn', storageFlagName);
-        remove_toast();
+        sendMessageToBG({action: toastType + "_share_btn_click", detail: ""});
         sendMessageToBG({action: "bg_show_share", detail: ""});
     };
     updateToast.querySelector('#tp_updateToast_settings_btn').onclick = function () {
         showSettings();
-        sendMessageToBG({action: "updateToast_settings_btn_click", detail: ""});
+        sendMessageToBG({action: toastType + "_settings_btn_click", detail: ""});
     };
 
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
         setTimeout(function (){
-            setConfirmedToastFlag('donate_btn', storageFlagName);
-            remove_toast();
+            sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
         },200);
     };
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
-        setConfirmedToastFlag('okay_btn', storageFlagName);
-        remove_toast();
+        setConfirmedToastFlag(storageFlagName);
+        sendMessageToBG({action: toastType, detail: parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
+        remove_toast(updateToast);
     };
 
     updateToast.querySelector('#tp_updateToast_translate_btn').onclick = function () {
-        sendMessageToBG({action: "updateToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
+        sendMessageToBG({action: toastType + "_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
 
     updateToast.querySelector('#tp_updateToast_settings_top_btn').onclick = function () {
         showSettings();
-        sendMessageToBG({action: "updateToast_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
+        sendMessageToBG({action: toastType + "_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
     };
-
-    /*updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
-        sendMessageToBG({action: "updateToast_twitter_btn_click", detail: true});
-        sendMessageToBG({action: "bg_show_twitter", detail: ""});
-    };*/
 
     document.body.appendChild(updateToast);
     setTimeout(function (){
@@ -4105,27 +4168,35 @@ function showToast(toast_body, storageFlagName) {
             updateToast.firstChild.style.width = "30rem";
         }
     }, 100);
+    toast_show_time = new Date().getTime();
+}
+
+function getDelayedRateToastBody() {
+    return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Enjoying Twitch Previews?</div>"
+        +  "       <div style=\"font-size: 13px;margin-top: 10px;color: white;\" >We would love it if you rated the extension on the webstore :)</div>";
 }
 
 function getUpdateToastBody() {
     let ffclass = isFirefox ? 'class="tp_display_none"':'';
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Sidebar YouTube Channels! "
-        +  "        <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 1024 1024\" height=\"20px\" width=\"20px\" style='margin-bottom: -5px;' xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 2.2 0 4.7.1 7.6.1 8.1.3 17.2.5 26.9.8 27.9 2.2 55.7 4.4 81.9 3 36.1 7.4 66.2 13.4 88.8 12.8 47.9 50.4 85.7 98.3 98.5 28.2 7.6 83.7 12.3 161.7 15.2 37.1 1.4 76.8 2.3 116.5 2.8 13.9.2 26.8.3 38.4.4h29.4c11.6-.1 24.5-.2 38.4-.4 39.7-.5 79.4-1.4 116.5-2.8 78-3 133.5-7.7 161.7-15.2 47.9-12.8 85.5-50.5 98.3-98.5 6.1-22.6 10.4-52.7 13.4-88.8 2.2-26.2 3.6-54 4.4-81.9.3-9.7.4-18.8.5-26.9 0-2.9.1-5.4.1-7.6v-5.6zm-72 5.2c0 2.1 0 4.4-.1 7.1-.1 7.8-.3 16.4-.5 25.7-.7 26.6-2.1 53.2-4.2 77.9-2.7 32.2-6.5 58.6-11.2 76.3-6.2 23.1-24.4 41.4-47.4 47.5-21 5.6-73.9 10.1-145.8 12.8-36.4 1.4-75.6 2.3-114.7 2.8-13.7.2-26.4.3-37.8.3h-28.6l-37.8-.3c-39.1-.5-78.2-1.4-114.7-2.8-71.9-2.8-124.9-7.2-145.8-12.8-23-6.2-41.2-24.4-47.4-47.5-4.7-17.7-8.5-44.1-11.2-76.3-2.1-24.7-3.4-51.3-4.2-77.9-.3-9.3-.4-18-.5-25.7 0-2.7-.1-5.1-.1-7.1v-4.8c0-2.1 0-4.4.1-7.1.1-7.8.3-16.4.5-25.7.7-26.6 2.1-53.2 4.2-77.9 2.7-32.2 6.5-58.6 11.2-76.3 6.2-23.1 24.4-41.4 47.4-47.5 21-5.6 73.9-10.1 145.8-12.8 36.4-1.4 75.6-2.3 114.7-2.8 13.7-.2 26.4-.3 37.8-.3h28.6l37.8.3c39.1.5 78.2 1.4 114.7 2.8 71.9 2.8 124.9 7.2 145.8 12.8 23 6.2 41.2 24.4 47.4 47.5 4.7 17.7 8.5 44.1 11.2 76.3 2.1 24.7 3.4 51.3 4.2 77.9.3 9.3.4 18 .5 25.7 0 2.7.1 5.1.1 7.1v4.8zM423 646l232-135-232-133z\"></path></svg>"
-        +  "        </strong>"
-        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.</span>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- The list data will update every 5 minutes.</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 10px;\" >- When enabling this feature, you will need to allow the extension to run on \"youtube.com\" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.</div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Advanced Video Embeds!</strong>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >This applies to Multi-Stream and on-the-fly video embeds (not previews).</span>"
+        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Bypasses purple screen.</strong></div>"
+        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Adds enabled Twitch Previews features to embeds</strong> (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).</div>"
+        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Note:</strong> this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.</div>"
+        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" >- Off by default, enable in the settings.</div>"
         +  "            </div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Clip Downloader! <svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 20 20\" height=\"17px\" width=\"17px\" style=\"margin-bottom: -3px;\" xmlns=\"http://www.w3.org/2000/svg\">" +
-        "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
-        "</svg>" +
-        "</strong>"
-        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show in the player controls of clips.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- When enabling this feature, you will need to allow the extensions to run on \"clips.twitch.tv\" (a prompt will show when enabling).</span>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Settings Import/Export!</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- You can now save your settings to a file via the settings menu.</strong></span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can also select which settings you want to either import or export (settings, favorites, etc..).</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Check the settings for more details.</span>"
+        +  "             </div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes & Improvements</strong>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Seek:</strong> fixed seek indications.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Auto-Refresh:</strong> added error #3000 to the roster.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Auto-Refresh:</strong> the auto refresh feature will now try to recover the player and continue playing when it crashes in the background (for errors #1000,#2000,#3000) instead of having to come back to the tab for a refresh.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Mod View:</strong> fixed several issues that prevented the extension from working in mod view.</span>"
         +  "             </div>"
         +  "    </br>"
 }
@@ -4138,6 +4209,25 @@ function showUpdateToast() {
     });
 }
 
+function check_shouldShowDelayedRateToast() {
+    _browser.storage.local.get('shouldShowDelayedRateToast', function(result) {
+        if (result.shouldShowDelayedRateToast) {
+            _browser.storage.local.get('tpInstallTime', function(result) {
+                if (result.tpInstallTime) {
+                    if ((new Date().getTime() - result.tpInstallTime) / 1000 > 604800) {
+                        _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {
+
+                        });
+                        setTimeout(function () {
+                            showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', true);
+                        }, 30000)
+                    }
+                }
+            })
+        }
+    });
+}
+
 function check_showSettings() {
     _browser.storage.local.get('shouldShowSettings', function(result) {
         if (result.shouldShowSettings) {
@@ -4145,6 +4235,32 @@ function check_showSettings() {
             _browser.storage.local.set({'shouldShowSettings': false}, function() {
 
             });
+        }
+    });
+}
+
+function check_showSettingsAndAskNewPermissions() {
+    _browser.storage.local.get('shouldShowSettingsAndAskNewPermissions', function(result) {
+        if (result.shouldShowSettingsAndAskNewPermissions) {
+            _browser.storage.local.set({'shouldShowSettingsAndAskNewPermissions': false}, function() {
+
+            });
+            setOptionsFromDB().then(
+                function (options){
+                    showSettingsMenu();
+                    if (result.shouldShowSettingsAndAskNewPermissions.includes("isPredictionsNotificationsEnabled")) {
+                        checkForTwitchNotificationsPermissions('isPredictionsNotificationsEnabled');
+                    }
+                    if (result.shouldShowSettingsAndAskNewPermissions.includes('isClipDownloaderEnabled')) {
+                        checkForTwitchClipsPermissions('isClipDownloaderEnabled');
+                    }
+                    if (result.shouldShowSettingsAndAskNewPermissions.includes('isYTsidebarEnabled')) {
+                        checkForYTPermissions('isYTsidebarEnabled');
+                    }
+                },
+                function (err){
+
+                });
         }
     });
 }
@@ -4205,6 +4321,63 @@ function onSettingChange(key, value) {
 }
 
 function toggleFeatures(isFromTitleObserver) {
+    if(window.top !== window.self) {
+
+        _browser.storage.local.get('tp_multiStream_box_iframe_channel_name', function(result) {
+            if (result.tp_multiStream_box_iframe_channel_name && result.tp_multiStream_box_iframe_channel_name === window.location.pathname.substring(1)) {
+                _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': false}, function() {});
+                if (options.isErrRefreshEnabled) {
+                    listenForPlayerError();
+                }
+
+                if (isFirefox) {
+
+                } else {
+                    if (options.isPipEnabled) {
+                        setPIPBtn();
+                    }
+                }
+
+                if (options.isfScrnWithChatEnabled) {
+                    setfScrnWithChatBtn();
+                }
+
+                if (options.isCastEnabled) {
+                    appendCastBtn();
+                }
+
+                if (options.isFlashBangDefenderEnabled) {
+                    appendFlashBangDefenderBtn();
+                }
+
+                if (options.isScreenshotEnabled) {
+                    appendScreenShotBtn();
+                }
+
+                if (options.isFastForwardEnabled) {
+                    appendFastForwardBtn();
+                }
+
+                if (options.isSeekEnabled) {
+                    setSeekListeners();
+                }
+
+                let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+                if (ttv_theater_mode_btn) {
+                    ttv_theater_mode_btn.remove();
+                }
+
+                document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
+                document.querySelector('#root').remove();
+                document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
+            }
+        });
+
+
+        return;
+    }
+
+
     if (!isFromTitleObserver) {
         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
     }
@@ -4536,13 +4709,13 @@ function initPreviewSizeSlider(settingsContainer) {
     }
 }
 
-function initSocialBtn(settingsContainer, name, url) {
+function initSocialBtn(settingsContainer, name, url, donateBtn) {
     let btn = settingsContainer.querySelector('#tp_popup_' + name +'_btn');
     btn.addEventListener('click', (event) => {
         if (url) {
             sendMessageToBG({action: "bg_show_" + name, detail: ""});
         }
-        sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: ""});
+        sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: donateBtn ? donateBtn : ""});
         if (name === "changelog") {
             if (!document.getElementById('tp_updateToast')) {
                 showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
@@ -4641,6 +4814,166 @@ function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
     }
 }
 
+function initSettingsImportExportFuncs(settingsContainer) {
+    initSettingsInfoBtn(settingsContainer, 'TP_popup_settings_save_checkbox');
+    initTranslateInfoDivBtn(settingsContainer, 'TP_popup_settings_save_checkbox');
+
+    let settingsNameDictionary = {
+        'tp_options': 'Settings',
+        'favorites_arr': 'Favorites',
+        'aps_streams_settings_obj': 'Predictions Sniper custom per stream settings',
+        'multiStream_layout_presets': 'Multi-Stream Layout Presets',
+    };
+
+    function exportSettings(content, fileName, contentType) {
+        let element = document.createElement('a');
+        let file = new Blob([content], {type: contentType});
+        element.setAttribute('href', URL.createObjectURL(file));
+        element.setAttribute('download', fileName);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    function getSettingsFromStorage(storageName) {
+        return new Promise((resolve, reject) => {
+            _browser.storage.local.get(storageName, function(result) {
+                let settings = result[storageName];
+                resolve(settings);
+            });
+        })
+    }
+
+    function setSettingsToStorage(key, value) {
+        return new Promise((resolve, reject) => {
+            let obj = {};
+            obj[key] = value;
+            _browser.storage.local.set(obj, function(e) {
+                resolve('done');
+            });
+        })
+    }
+
+    function getSelectedSettings() {
+        let selectedSettings = [];
+        let selectedSettingsString = '';
+        let checkboxes = settingsContainer.querySelectorAll('.tp_settings_save_selection_cb');
+        for (let checkbox of checkboxes) {
+            if (checkbox.checked) {
+                selectedSettings.push(checkbox.name);
+                selectedSettingsString += '\n- ' + settingsNameDictionary[checkbox.name];
+            }
+        }
+        if (selectedSettings.length === 0) {
+            alert('no selected settings for import / export');
+            return false;
+        }
+        return {selectedSettings: selectedSettings, selectedSettingsString: selectedSettingsString};
+    }
+
+    function getSettingsNamesForImport(loaded_settings) {
+        let selectedSettings = [];
+        let selectedSettingsString = '';
+        let selectedSettingsObj = getSelectedSettings();
+
+        selectedSettingsObj.selectedSettings.forEach(function(key,index) {
+            if (Object.prototype.hasOwnProperty.call(loaded_settings, key)) {
+                selectedSettings.push(key);
+                selectedSettingsString += '\n- ' + settingsNameDictionary[key];
+            }
+        });
+
+        return {selectedSettings: selectedSettings, selectedSettingsString: selectedSettingsString};
+    }
+
+    settingsContainer.querySelector('#TP_popup_settings_import_btn').onclick = function (e) {
+        let selectedSettingsObj = getSelectedSettings();
+        if (!selectedSettingsObj) {
+            return;
+        }
+        settingsContainer.querySelector('#TP_popup_settings_import_btn_input').click();
+    };
+
+    settingsContainer.querySelector('#TP_popup_settings_import_btn_input').onchange = function (e) {
+        let reader = new FileReader();
+        reader.onload = function(e1) {
+
+            let loaded_settings = JSON.parse(e1.target.result);
+            let selectedSettingsForImportObj = getSettingsNamesForImport(loaded_settings);
+            let str = 'Twitch Previews Import & Override settings with: ' + e.target.files[0].name + '?' +
+                '\nImporting & overriding:' + selectedSettingsForImportObj.selectedSettingsString;
+
+            if (confirm(str)) {
+                if (selectedSettingsForImportObj.selectedSettings.includes("tp_options")) {
+                    _browser.runtime.sendMessage({action: "tp_settings_upgrade_db", detail: loaded_settings.tp_options}, function(response) {
+                        setSettingsToStorage('tp_options', response.result.upgraded_options).then(function (res) {
+                            let new_permissions_ask_arr = [];
+                            if (loaded_settings.tp_options.isPredictionsNotificationsEnabled) {
+                                new_permissions_ask_arr.push('isPredictionsNotificationsEnabled');
+                            }
+                            if (loaded_settings.tp_options.isClipDownloaderEnabled) {
+                                new_permissions_ask_arr.push('isClipDownloaderEnabled');
+                            }
+                            if (loaded_settings.tp_options.isYTsidebarEnabled) {
+                                new_permissions_ask_arr.push('isYTsidebarEnabled');
+                            }
+
+                            delete loaded_settings.tp_options;
+                            selectedSettingsForImportObj.selectedSettings = selectedSettingsForImportObj.selectedSettings.filter(e => e !== 'tp_options');
+
+                            selectedSettingsForImportObj.selectedSettings.reduce((p, x) => setSettingsToStorage(x, loaded_settings[x])
+                                .then(res => {}), Promise.resolve())
+                                .then(lastResult => {
+                                    _browser.storage.local.set({'shouldShowSettingsAndAskNewPermissions': new_permissions_ask_arr}, function() {
+                                        location.replace(window.location);
+                                    });
+                                });
+                        });
+                    });
+                } else {
+                    selectedSettingsForImportObj.selectedSettings.reduce((p, x) => setSettingsToStorage(x, loaded_settings[x])
+                        .then(res => {}), Promise.resolve())
+                        .then(lastResult => {
+                            _browser.storage.local.set({'shouldShowSettings': true}, function() {
+                                location.replace(window.location);
+                            });
+                        });
+                }
+            }
+            settingsContainer.querySelector('#TP_popup_settings_import_btn_input').value = null;
+        }
+        reader.onerror = function(e) {
+            alert('An error occurred: ' + e.getMessage());
+        }
+        reader.readAsText(e.target.files[0]);
+    };
+
+    settingsContainer.querySelector('#TP_popup_settings_export_btn').onclick = function (e) {
+        let selectedSettingsObj = getSelectedSettings();
+        if (!selectedSettingsObj) {
+            return;
+        }
+        if (confirm('Twitch Previews selected settings for export:' + selectedSettingsObj.selectedSettingsString + '\n\nExport?')) {
+            let export_obj = {};
+
+            selectedSettingsObj.selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
+                .then(res => {
+                    let isResUndefined = typeof res === "undefined";
+                    if (isResUndefined) {
+                        res = false;
+                    }
+                    export_obj[x] = res;
+                }), Promise.resolve()).then(lastResult => {
+                let dateStr = new Date().toISOString().split('.')[0].replace('T', '_').replace(':', '-').split(':')[0];
+                let manifestData = _browser.runtime.getManifest();
+                let appVer = "v" + manifestData.version;
+                exportSettings(JSON.stringify(export_obj), 'twitch_previews_' + appVer + '_settings_' + dateStr + '.json', 'application/json');
+            });
+        }
+    };
+}
+
 function showSettingsMenu() {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', getRuntimeUrl('main/settings.html'), true);
@@ -4665,9 +4998,11 @@ function showSettingsMenu() {
             }, 700);
         });
 
+        let selectedDonateButton = 'coffee' + Math.round(Math.random());
+
         settingsContainer.querySelector('#TP_popup_title_logo').src = getRuntimeUrl('images/TP96.png');
         settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');
-        settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/coffee.png');
+        settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/' + selectedDonateButton + '.png');
         settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/fScrnWithChat_main.png');
         settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
         settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
@@ -4697,12 +5032,15 @@ function showSettingsMenu() {
         initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);
         initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox', false);
         initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
+        initCheckbox(settingsContainer, 'isAdvancedVideoEmbedsEnabled', 'TP_popup_AdvancedVideoEmbeds_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
         initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
         initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
         initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
         initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
         initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+
+        initSettingsImportExportFuncs(settingsContainer);
 
         if (isFirefox) {
             let els = settingsContainer.querySelectorAll('.tp-firefox-hide');
@@ -4719,7 +5057,7 @@ function showSettingsMenu() {
 
         initPreviewSizeSlider(settingsContainer);
 
-        initSocialBtn(settingsContainer, 'donate', null);
+        initSocialBtn(settingsContainer, 'donate', null, selectedDonateButton);
         initSocialBtn(settingsContainer, 'rate', true);
         initSocialBtn(settingsContainer, 'share', true);
 
@@ -4794,9 +5132,24 @@ window.addEventListener('load', (event) => {
         return;
     }
     setTimeout(function(){
+
+        if (window.top !== window.self) {
+            setOptionsFromDB().then(
+                function (options){
+                    toggleFeatures();
+                },
+                function (err){
+
+                });
+            return;
+        }
+
         ga_heartbeat();
         appendContainer = document.body;
-        document.getElementById('sideNav').style.zIndex = '10';
+        let sidenav = document.getElementById('sideNav');
+        if (sidenav) {
+            sidenav.style.zIndex = '10';
+        }
         setOptionsFromDB().then(
             function (options){
                 ga_report_appStart();
@@ -4823,7 +5176,9 @@ function pageAwakened() {
         return;
     }
     if (isMainPlayerError) {
-        refreshPageOnMainTwitchPlayerError(true);
+        if (window.top === window.self) {
+            refreshPageOnMainTwitchPlayerError(true);
+        }
     }
     setOptionsFromDB().then(
         function (options){
@@ -4835,7 +5190,11 @@ function pageAwakened() {
 }
 
 ///////////// END OF TAB RESUME /////////////
-check_showSettings();
-check_FTE();
-check_multistream_start();
-check_cast_start();
+if (window.top === window.self) {
+    check_showSettings();
+    check_showSettingsAndAskNewPermissions();
+    check_FTE();
+    check_multistream_start();
+    check_cast_start();
+    check_shouldShowDelayedRateToast();
+}

@@ -11,7 +11,7 @@
     <div class="tp_title_shadow_el" ></div>
     <div style="display: flex;margin-top: 40px;" >
         <div style="width: 65%;padding: 10px;padding-bottom: 0;" >
-            <div id="refreshChangeDivInfo" >refresh your Twitch tabs for changes to take affect</div>
+            <div id="refreshChangeDivInfo" >refresh your Twitch tabs for changes to take effect</div>
             <div class="tp_settings_switch_container" style="padding: 10px 5px;height: 549px;overflow: auto;" >
 
                 <div id="tp_settings_first_section_title" class="tp_settings_section_title" style="margin-top: -1px;" >Previews</div>
@@ -56,6 +56,18 @@
                     <br>- If you enable the 'Sidebar YouTube Channels' feature, you can add your subscribed YouTube channels to the Multi-Stream and use it cross-platform (also supports YouTube chat).
                 </div>
 
+                <p id="tp_popup_feature_advancedVideoEmbeds" class="TP_popup_dirp_feature_title" ><span>Advanced Video Embeds<span class="tp-settings-new-feature-span" >&nbsp;New!</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_AdvancedVideoEmbeds_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <div class="tp_settings_feature_info_div" >
+                    <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
+                    <strong>* Advanced Video Embeds</strong>
+                    <br>- This applies to Multi-Stream and on-the-fly video embeds (not previews).
+                    <br>- Bypasses purple screen.
+                    <br>- Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).
+                    <br>- Note: this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.
+                    <br>- Note: if you're using a different extension that replaces the Twitch main player, you might still experience a purple screen.
+                    <br>- Experimental feature.
+                </div>
+
                 <p id="tp_popup_feature_clip_downloader" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Clip Download Button (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="17px" width="17px" style="margin-bottom: -3px;" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>)<span class="tp-settings-new-feature-span" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(shows in player controls of clips)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_clip_downloader_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
@@ -64,7 +76,7 @@
                     <br>- When enabling this feature, you will need to allow the extension to run on "clips.twitch.tv" (a prompt will show when enabling).
                 </div>
 
-                <p id="tp_popup_feature_muteAutoPlayers" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Mute Auto-Playing Videos In Various Pages<span class="tp-settings-new-feature-span" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(homepage, offline stream page, etc..)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_muteAutoPlayers_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <p id="tp_popup_feature_muteAutoPlayers" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Mute Auto-Playing Videos In Various Pages<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(homepage, offline stream page, etc..)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_muteAutoPlayers_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
                     <strong>* Mute Auto-Playing Videos In Various Pages</strong>
@@ -112,7 +124,7 @@
                     <br>- Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
                 </div>
 
-                <p id="tp_popup_feature_sBar_hideSections" class="TP_popup_dirp_feature_title" ><span>Hide All Sidebar Sections Except The Followed Channels<span class="tp-settings-new-feature-span" >&nbsp;New!</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_sidebar_hide_sections_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <p id="tp_popup_feature_sBar_hideSections" class="TP_popup_dirp_feature_title" ><span>Hide All Sidebar Sections Except The Followed Channels</span> <span class="tp_settings_cb_container" ><input id="TP_popup_sidebar_hide_sections_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
                     <strong>* Hide All Sidebar Sections Except The Followed Channels</strong>
@@ -122,12 +134,11 @@
 
                 <div class="tp_settings_section_title" >Player</div>
 
-                <p id="tp_popup_feature_errRefresh" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto Refresh On Twitch Player Error <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(#1000, #2000<span class="tp-firefox-hide" >, #4000</span>)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <p id="tp_popup_feature_errRefresh" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Auto Refresh On Twitch Player Error <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(#1000, #2000, #3000, #4000)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Auto Refresh On Errors (#1000, #2000<span class="tp-firefox-hide" >, #4000</span>)</strong>
-                    <br>- This feature works when the tab with the player that got an error is currently active.
-                    <br>- If the player got an error while the tab was not active (in the background or the browser wasn't the active window) the page will automatically refresh when you come back to it.
+                    <strong>* Auto Refresh On Errors (#1000, #2000, #3000, #4000)</strong>
+                    <br>- Refreshes the player if an error occurs.
                 </div>
 
                 <p id="tp_popup_feature_pvqc" class="TP_popup_dirp_feature_title" ><span>Prevent Auto Video Quality Change When In Background</span> <span class="tp_settings_cb_container" ><input id="TP_popup_pvqc_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
@@ -191,7 +202,7 @@
                     <br>- The screenshots are captured at the same resolution as the stream.
                 </div>
 
-                <p id="tp_popup_feature_flashBangDefender" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >FlashBang Defender Button (<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -5px" xmlns="http://www.w3.org/2000/svg"><path d="M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z"></path></svg>)<span class="tp-settings-new-feature-span" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_flashBangDefender_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <p id="tp_popup_feature_flashBangDefender" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >FlashBang Defender Button (<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -5px" xmlns="http://www.w3.org/2000/svg"><path d="M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z"></path></svg>)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_flashBangDefender_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
                     <strong>* FlashBang Defender Button</strong>
@@ -200,7 +211,7 @@
                     <br>- The button will show in the player controls.
                 </div>
 
-                <p id="tp_popup_feature_cast" class="TP_popup_dirp_feature_title tp-firefox-hide" ><span style="text-align: left;flex: 9;font-size: 12px;" >Chrome-Cast -> Close Tab Button (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z"></path></g></svg>)<span class="tp-settings-new-feature-span" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_cast_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <p id="tp_popup_feature_cast" class="TP_popup_dirp_feature_title tp-firefox-hide" ><span style="text-align: left;flex: 9;font-size: 12px;" >Chrome-Cast -> Close Tab Button (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z"></path></g></svg>)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_cast_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div tp-firefox-hide" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
                     <strong>* Chrome-Cast -> Close Tab</strong>
@@ -254,6 +265,20 @@
                     <br><strong>Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (minimum 2s).
                 </div>
 
+                <div class="tp_settings_section_title" >Settings</div>
+                <p id="tp_popup_feature_settings" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" >Import/Export Settings<span class="tp-settings-new-feature-span" >&nbsp;New!</span> <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" >(expand for settings selection)</span></span> <span class="tp_settings_cb_container" ><input type="file" accept=".json" id="TP_popup_settings_import_btn_input" style="display: none;" ><span id="TP_popup_settings_import_btn" class="TP_popup_settings_import_export_btn" >Import</span><span id="TP_popup_settings_export_btn" class="TP_popup_settings_import_export_btn" >Export</span><input id="TP_popup_settings_save_checkbox" class="apple-switch" type="checkbox" style="display: none;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
+                <div class="tp_settings_feature_info_div" >
+                    <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
+                    <strong>* Import/Export Settings</strong>
+                    <br><strong>- Only the selected settings below will be imported/exported.</strong>
+                    <br><br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="tp_options" checked="true" >&nbsp;Settings</span>
+                    <br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="favorites_arr" checked="true" >&nbsp;Favorites</span>
+                    <br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="aps_streams_settings_obj" checked="true" >&nbsp;Predictions Sniper custom per stream settings</span>
+                    <br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="multiStream_layout_presets" checked="true" >&nbsp;Multi-Stream Layout Presets</span>
+                    <br>- Multi-Stream layout presets are relevant to your browser resolution, using saved layout presets on a different browser resolution will look different in size.
+                    <br>- The page will refresh after importing settings and will ask for new permission if the imported settings have features enabled that require new permissions.
+                </div>
+
             </div>
         </div>
         <div style="width: 35%;height: 560px;" >
@@ -290,7 +315,7 @@
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                                 <input type="hidden" name="cmd" value="_s-xclick" />
                                 <input type="hidden" name="hosted_button_id" value="QM8HG45PYA4EU" />
-                                <input id="tp_popup_donate_btn" type="image" src="../images/coffee.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                                <input id="tp_popup_donate_btn" type="image" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
                                 <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
                             </form>
                         </div>
