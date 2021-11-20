@@ -532,3 +532,20 @@
     box-shadow: 0 0 15px 0px rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
+
+#TPBodyEl .TP_popup_settings_import_export_btn {
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 3px 5px;
+    font-size: 13px;
+    margin: 0 5px;
+    font-weight: normal;
+}
+#TPBodyEl .TP_popup_settings_import_export_btn:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+#TPBodyEl .TP_popup_settings_import_export_btn:active {
+    background-color: rgba(255,255,255,0.4);
+}
