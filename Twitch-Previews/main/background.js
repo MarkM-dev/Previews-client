@@ -21,6 +21,8 @@ let YT_FETCH_INTERVAL_MS = 300000;
 let lastYTFetch = new Date().getTime() - YT_FETCH_INTERVAL_MS;
 let cached_yt_live_streams_arr = null;
 
+let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled'];
+
 let options = {
     isSidebarPreviewsEnabled: true,
     isImagePreviewMode: true,
@@ -437,7 +439,17 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('settings_contact_btn_click', 'settings_contact_btn_click', 'settings_contact_btn_click');
             break;
         case "tp_settings_upgrade_db":
-            sendResponse({result: upgradeDB(msg.detail)});
+            if (isFirefox) {
+                let obj = upgradeDB(msg.detail);
+                for (let featureName in optionsDisabledForFirefox) {
+                    if (obj.upgraded_options[featureName]) {
+                        obj.upgraded_options[featureName] = false;
+                    }
+                }
+                sendResponse({result: obj});
+            } else {
+                sendResponse({result: upgradeDB(msg.detail)});
+            }
             break;
         case "setListenersForCd":
             setListenersForClipDownloader();
