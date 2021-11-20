@@ -4234,6 +4234,32 @@ function check_showSettings() {
     });
 }
 
+function check_showSettingsAndAskNewPermissions() {
+    _browser.storage.local.get('shouldShowSettingsAndAskNewPermissions', function(result) {
+        if (result.shouldShowSettingsAndAskNewPermissions) {
+            _browser.storage.local.set({'shouldShowSettingsAndAskNewPermissions': false}, function() {
+
+            });
+            setOptionsFromDB().then(
+                function (options){
+                    showSettingsMenu();
+                    if (result.shouldShowSettingsAndAskNewPermissions.includes("isPredictionsNotificationsEnabled")) {
+                        checkForTwitchNotificationsPermissions('isPredictionsNotificationsEnabled');
+                    }
+                    if (result.shouldShowSettingsAndAskNewPermissions.includes('isClipDownloaderEnabled')) {
+                        checkForTwitchClipsPermissions('isClipDownloaderEnabled');
+                    }
+                    if (result.shouldShowSettingsAndAskNewPermissions.includes('isYTsidebarEnabled')) {
+                        checkForYTPermissions('isYTsidebarEnabled');
+                    }
+                },
+                function (err){
+
+                });
+        }
+    });
+}
+
 function show_FTE() {
     let container = document.createElement('div');
     container.classList.add('tp-fte-toast-container');
@@ -4877,13 +4903,24 @@ function initSettingsImportExportFuncs(settingsContainer) {
                 if (selectedSettingsForImportObj.selectedSettings.includes("tp_options")) {
                     _browser.runtime.sendMessage({action: "tp_settings_upgrade_db", detail: loaded_settings.tp_options}, function(response) {
                         setSettingsToStorage('tp_options', response.result.upgraded_options).then(function (res) {
+                            let new_permissions_ask_arr = [];
+                            if (loaded_settings.tp_options.isPredictionsNotificationsEnabled) {
+                                new_permissions_ask_arr.push('isPredictionsNotificationsEnabled');
+                            }
+                            if (loaded_settings.tp_options.isClipDownloaderEnabled) {
+                                new_permissions_ask_arr.push('isClipDownloaderEnabled');
+                            }
+                            if (loaded_settings.tp_options.isYTsidebarEnabled) {
+                                new_permissions_ask_arr.push('isYTsidebarEnabled');
+                            }
+
                             delete loaded_settings.tp_options;
                             selectedSettingsForImportObj.selectedSettings = selectedSettingsForImportObj.selectedSettings.filter(e => e !== 'tp_options');
 
                             selectedSettingsForImportObj.selectedSettings.reduce((p, x) => setSettingsToStorage(x, loaded_settings[x])
                                 .then(res => {}), Promise.resolve())
                                 .then(lastResult => {
-                                    _browser.storage.local.set({'shouldShowSettings': true}, function() {
+                                    _browser.storage.local.set({'shouldShowSettingsAndAskNewPermissions': new_permissions_ask_arr}, function() {
                                         location.replace(window.location);
                                     });
                                 });
@@ -5148,6 +5185,7 @@ function pageAwakened() {
 ///////////// END OF TAB RESUME /////////////
 if (window.top === window.self) {
     check_showSettings();
+    check_showSettingsAndAskNewPermissions();
     check_FTE();
     check_multistream_start();
     check_cast_start();
