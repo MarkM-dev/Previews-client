@@ -102,6 +102,10 @@ function getRuntimeUrl(path) {
     return _browser.runtime.getURL(path);
 }
 
+function isInIframe() {
+    return window.top !== window.self && window.top.location.origin === 'https://www.twitch.tv';
+}
+
 let sideNavMutationObserver = new MutationObserver(function(mutations) {
     if (isHovering || isAppInit) {
         isAppInit = false;
@@ -977,7 +981,7 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
     sendMessageToBG({action: "bg_errRefresh_exec", detail: ""});
 
     if (fullRefresh) {
-        if (window.top === window.self) {
+        if (!isInIframe()) {
             location.replace(window.location);
         }
     } else {
@@ -989,6 +993,9 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
                 let t_player = document.querySelector(".video-player").querySelector('video');
                 if (t_player) {
                     t_player.play();
+                    setTimeout(function () {
+                        fastForwardFuncExec();
+                    }, 100);
                 }
             }, 2000);
             setTimeout(function (){
@@ -996,7 +1003,7 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
             }, 10000);
         } else {
             if (!document.hidden) {
-                if (window.top === window.self) {
+                if (!isInIframe()) {
                     location.replace(window.location);
                 }
             } else {
@@ -2373,6 +2380,7 @@ function setfScrnWithChatBtn() {
 }
 
 function addSeekOverlay(left, isEnd) {
+    let seekSeconds = isInIframe() ? 1.5 : 5;
     let container = document.createElement('div');
     container.classList.add('tp_seek_indication');
     if (left) {
@@ -2384,7 +2392,7 @@ function addSeekOverlay(left, isEnd) {
         } else {
             container.innerHTML = "<div style='margin-left: 10%;' >" +
                 "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10c5.514,0,10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8 s3.589-8,8-8s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M11 16L11 8 6 12zM17 16L17 8 12 12z\"></path></svg>" +
-                "<div>5 seconds</div>" +
+                "<div>" + seekSeconds + " seconds</div>" +
                 "</div>"
         }
     } else {
@@ -2396,7 +2404,7 @@ function addSeekOverlay(left, isEnd) {
         } else {
             container.innerHTML = "<div style='margin-right: 10%;' >" +
                 "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8s3.589-8,8-8 s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M13 16L18 12 13 8zM7 16L12 12 7 8z\"></path></svg>" +
-                "<div>5 seconds</div>" +
+                "<div>" + seekSeconds + " seconds</div>" +
                 "</div>"
         }
     }
@@ -2416,20 +2424,22 @@ function seekVideo(left) {
         return;
     }
 
+    let seekSeconds = isInIframe() ? 1.5 : 5;
+
     if (left) {
-        if (video.currentTime - 5 < video.buffered.start(0)) {
+        if (video.currentTime - seekSeconds < video.buffered.start(0)) {
             video.currentTime = video.buffered.start(0) + 1.2;
             addSeekOverlay(left, true);
         } else {
-            video.currentTime-= 5;
+            video.currentTime-= seekSeconds;
             addSeekOverlay(left, false);
         }
     } else {
-        if (video.currentTime + 5 >= video.buffered.end(video.buffered.length - 1)) {
+        if (video.currentTime + seekSeconds >= video.buffered.end(video.buffered.length - 1)) {
             video.currentTime = video.buffered.end(video.buffered.length - 1) - 1.2;
             addSeekOverlay(left, true);
         } else {
-            video.currentTime+= 5;
+            video.currentTime+= seekSeconds;
             addSeekOverlay(left, false);
         }
     }
@@ -2510,6 +2520,15 @@ function muteAutoplayingVideoElements() {
     }
 }
 
+function fastForwardFuncExec() {
+    try {
+        let video = document.querySelector('video');
+        video.currentTime = video.buffered.end(video.buffered.length - 1);
+    } catch (e) {
+
+    }
+}
+
 function appendFastForwardBtn() {
     let btn = document.getElementById('tp_fast_forward_btn');
     if (btn) {
@@ -2537,8 +2556,7 @@ function appendFastForwardBtn() {
                 '</svg>';
 
             btn_container.onclick = function (){
-                let video = document.querySelector('video');
-                video.currentTime = video.buffered.end(video.buffered.length - 1);
+                fastForwardFuncExec();
             }
 
             document.querySelector('.player-controls__left-control-group').children[0].after(btn_container);
@@ -3399,9 +3417,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
                             multiStreamDiv.style.backgroundImage = "";
                         }, 2000);
                     }
-                    _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': streamName}, function() {
-                        iframe.src = "https://www.twitch.tv/" + streamName;
-                    });
+                    iframe.src = "https://www.twitch.tv/" + streamName;
                 } else {
                     iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
                 }
@@ -3459,7 +3475,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         multiStreamDiv.prepend(click_download_overlay);
         multiStreamDiv.appendChild(img);
 
-        if (window.top !== window.self) {
+        if (isInIframe()) {
             multiStreamDiv.style.height = '112px';
             multiStreamDiv.style.width = '200px';
             multiStreamDiv.style.top = '45%';
@@ -4084,6 +4100,71 @@ function isOverflown(element) {
     return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
 
+function getSecondsRangeForToast(seconds) {
+    switch (true) {
+        case (seconds >= 0 && seconds < 3):
+            return '1-3';
+            break;
+        case (seconds >= 3 && seconds < 6):
+            return '3-6';
+            break;
+        case (seconds >= 6 && seconds < 10):
+            return '6-10';
+            break;
+        case (seconds >= 10 && seconds < 15):
+            return '10-15';
+            break;
+        case (seconds >= 15 && seconds < 20):
+            return '15-20';
+            break;
+        case (seconds >= 20 && seconds < 25):
+            return '20-25';
+            break;
+        case (seconds >= 25 && seconds < 30):
+            return '25-30';
+            break;
+        case (seconds >= 30 && seconds < 45):
+            return '30-45';
+            break;
+        case (seconds >= 45 && seconds < 60):
+            return '45-60';
+            break;
+        case (seconds >= 60 && seconds < 75):
+            return '60-75';
+            break;
+        case (seconds >= 75 && seconds < 90):
+            return '75-90';
+            break;
+        case (seconds >= 90 && seconds < 120):
+            return '90-120';
+            break;
+        case (seconds >= 120 && seconds < 150):
+            return '120-150';
+            break;
+        case (seconds >= 150 && seconds < 180):
+            return '150-180';
+            break;
+        case (seconds >= 180 && seconds < 210):
+            return '180-210';
+            break;
+        case (seconds >= 210 && seconds < 300):
+            return '210-300';
+            break;
+        case (seconds >= 300 && seconds < 600):
+            return '300-600';
+            break;
+        case (seconds >= 600 && seconds < 900):
+            return '600-900';
+            break;
+        case (seconds >= 900 && seconds < 1200):
+            return '900-1200';
+            break;
+        default:
+            return '>1200';
+            break;
+    }
+}
+
 function showToast(toast_body, storageFlagName, isDelayedRateToast) {
     let toast_show_time;
     let hideClass = '';
@@ -4144,9 +4225,10 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
             sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
         },200);
     };
+
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
         setConfirmedToastFlag(storageFlagName);
-        sendMessageToBG({action: toastType, detail: parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
+        sendMessageToBG({action: toastType, detail: getSecondsRangeForToast(parseInt((new Date().getTime() - toast_show_time) / 1000)) + 's'});
         remove_toast(updateToast);
     };
 
@@ -4321,57 +4403,53 @@ function onSettingChange(key, value) {
 }
 
 function toggleFeatures(isFromTitleObserver) {
-    if(window.top !== window.self) {
+    if(isInIframe()) {
 
-        _browser.storage.local.get('tp_multiStream_box_iframe_channel_name', function(result) {
-            if (result.tp_multiStream_box_iframe_channel_name && result.tp_multiStream_box_iframe_channel_name === window.location.pathname.substring(1)) {
-                _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': false}, function() {});
-                if (options.isErrRefreshEnabled) {
-                    listenForPlayerError();
-                }
+        if (options.isErrRefreshEnabled) {
+            listenForPlayerError();
+        }
 
-                if (isFirefox) {
+        if (isFirefox) {
 
-                } else {
-                    if (options.isPipEnabled) {
-                        setPIPBtn();
-                    }
-                }
-
-                if (options.isfScrnWithChatEnabled) {
-                    setfScrnWithChatBtn();
-                }
-
-                if (options.isCastEnabled) {
-                    appendCastBtn();
-                }
-
-                if (options.isFlashBangDefenderEnabled) {
-                    appendFlashBangDefenderBtn();
-                }
-
-                if (options.isScreenshotEnabled) {
-                    appendScreenShotBtn();
-                }
-
-                if (options.isFastForwardEnabled) {
-                    appendFastForwardBtn();
-                }
-
-                if (options.isSeekEnabled) {
-                    setSeekListeners();
-                }
-
-                let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
-                if (ttv_theater_mode_btn) {
-                    ttv_theater_mode_btn.remove();
-                }
-
-                document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
-                document.querySelector('#root').remove();
-                document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
+        } else {
+            if (options.isPipEnabled) {
+                setPIPBtn();
             }
-        });
+        }
+
+        if (options.isfScrnWithChatEnabled) {
+            setfScrnWithChatBtn();
+        }
+
+        if (options.isCastEnabled) {
+            appendCastBtn();
+        }
+
+        if (options.isFlashBangDefenderEnabled) {
+            appendFlashBangDefenderBtn();
+        }
+
+        if (options.isScreenshotEnabled) {
+            appendScreenShotBtn();
+        }
+
+        if (options.isFastForwardEnabled) {
+            appendFastForwardBtn();
+        }
+
+        if (options.isSeekEnabled) {
+            setSeekListeners();
+        }
+
+        let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            ttv_theater_mode_btn.remove();
+        }
+
+        document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
+        document.querySelector('#root').remove();
+        document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
+
 
 
         return;
@@ -5133,7 +5211,7 @@ window.addEventListener('load', (event) => {
     }
     setTimeout(function(){
 
-        if (window.top !== window.self) {
+        if (isInIframe()) {
             setOptionsFromDB().then(
                 function (options){
                     toggleFeatures();
@@ -5176,7 +5254,7 @@ function pageAwakened() {
         return;
     }
     if (isMainPlayerError) {
-        if (window.top === window.self) {
+        if (!isInIframe()) {
             refreshPageOnMainTwitchPlayerError(true);
         }
     }
@@ -5190,7 +5268,7 @@ function pageAwakened() {
 }
 
 ///////////// END OF TAB RESUME /////////////
-if (window.top === window.self) {
+if (!isInIframe()) {
     check_showSettings();
     check_showSettingsAndAskNewPermissions();
     check_FTE();
