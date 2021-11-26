@@ -2514,8 +2514,12 @@ function muteAutoplayingVideoElements() {
 }
 
 function fastForwardFuncExec() {
-    let video = document.querySelector('video');
-    video.currentTime = video.buffered.end(video.buffered.length - 1);
+    try {
+        let video = document.querySelector('video');
+        video.currentTime = video.buffered.end(video.buffered.length - 1);
+    } catch (e) {
+
+    }
 }
 
 function appendFastForwardBtn() {
