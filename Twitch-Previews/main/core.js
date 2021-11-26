@@ -989,6 +989,9 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
                 let t_player = document.querySelector(".video-player").querySelector('video');
                 if (t_player) {
                     t_player.play();
+                    setTimeout(function () {
+                        fastForwardFuncExec();
+                    }, 100);
                 }
             }, 2000);
             setTimeout(function (){
@@ -2510,6 +2513,11 @@ function muteAutoplayingVideoElements() {
     }
 }
 
+function fastForwardFuncExec() {
+    let video = document.querySelector('video');
+    video.currentTime = video.buffered.end(video.buffered.length - 1);
+}
+
 function appendFastForwardBtn() {
     let btn = document.getElementById('tp_fast_forward_btn');
     if (btn) {
@@ -2537,8 +2545,7 @@ function appendFastForwardBtn() {
                 '</svg>';
 
             btn_container.onclick = function (){
-                let video = document.querySelector('video');
-                video.currentTime = video.buffered.end(video.buffered.length - 1);
+                fastForwardFuncExec();
             }
 
             document.querySelector('.player-controls__left-control-group').children[0].after(btn_container);
