@@ -146,8 +146,17 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
     } else {
         if (details.reason === "update") {
-            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            if (details.previousVersion !== "2.5") {
+                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            }
+            _browser.storage.local.get('tpInstallTime', function(result) {
+                if (!result.tpInstallTime) {
+                    _browser.storage.local.set({'shouldShowDelayedRateToast': true}, function() {});
+                    _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
+                }
+            });
+
 
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
