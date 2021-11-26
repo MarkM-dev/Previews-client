@@ -4097,6 +4097,71 @@ function isOverflown(element) {
     return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
 
+function getSecondsRangeForToast(seconds) {
+    switch (true) {
+        case (seconds >= 0 && seconds < 3):
+            return '1-3';
+            break;
+        case (seconds >= 3 && seconds < 6):
+            return '3-6';
+            break;
+        case (seconds >= 6 && seconds < 10):
+            return '6-10';
+            break;
+        case (seconds >= 10 && seconds < 15):
+            return '10-15';
+            break;
+        case (seconds >= 15 && seconds < 20):
+            return '15-20';
+            break;
+        case (seconds >= 20 && seconds < 25):
+            return '20-25';
+            break;
+        case (seconds >= 25 && seconds < 30):
+            return '25-30';
+            break;
+        case (seconds >= 30 && seconds < 45):
+            return '30-45';
+            break;
+        case (seconds >= 45 && seconds < 60):
+            return '45-60';
+            break;
+        case (seconds >= 60 && seconds < 75):
+            return '60-75';
+            break;
+        case (seconds >= 75 && seconds < 90):
+            return '75-90';
+            break;
+        case (seconds >= 90 && seconds < 120):
+            return '90-120';
+            break;
+        case (seconds >= 120 && seconds < 150):
+            return '120-150';
+            break;
+        case (seconds >= 150 && seconds < 180):
+            return '150-180';
+            break;
+        case (seconds >= 180 && seconds < 210):
+            return '180-210';
+            break;
+        case (seconds >= 210 && seconds < 300):
+            return '210-300';
+            break;
+        case (seconds >= 300 && seconds < 600):
+            return '300-600';
+            break;
+        case (seconds >= 600 && seconds < 900):
+            return '600-900';
+            break;
+        case (seconds >= 900 && seconds < 1200):
+            return '900-1200';
+            break;
+        default:
+            return '>1200';
+            break;
+    }
+}
+
 function showToast(toast_body, storageFlagName, isDelayedRateToast) {
     let toast_show_time;
     let hideClass = '';
@@ -4157,9 +4222,10 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
             sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
         },200);
     };
+
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
         setConfirmedToastFlag(storageFlagName);
-        sendMessageToBG({action: toastType, detail: parseInt(((new Date().getTime() - toast_show_time) / 1000)) + 's'});
+        sendMessageToBG({action: toastType, detail: getSecondsRangeForToast(parseInt((new Date().getTime() - toast_show_time) / 1000)) + 's'});
         remove_toast(updateToast);
     };
 
