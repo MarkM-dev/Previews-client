@@ -2380,6 +2380,7 @@ function setfScrnWithChatBtn() {
 }
 
 function addSeekOverlay(left, isEnd) {
+    let seekSeconds = isInIframe() ? 1.5 : 5;
     let container = document.createElement('div');
     container.classList.add('tp_seek_indication');
     if (left) {
@@ -2391,7 +2392,7 @@ function addSeekOverlay(left, isEnd) {
         } else {
             container.innerHTML = "<div style='margin-left: 10%;' >" +
                 "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10c5.514,0,10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8 s3.589-8,8-8s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M11 16L11 8 6 12zM17 16L17 8 12 12z\"></path></svg>" +
-                "<div>5 seconds</div>" +
+                "<div>" + seekSeconds + " seconds</div>" +
                 "</div>"
         }
     } else {
@@ -2403,7 +2404,7 @@ function addSeekOverlay(left, isEnd) {
         } else {
             container.innerHTML = "<div style='margin-right: 10%;' >" +
                 "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8s3.589-8,8-8 s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M13 16L18 12 13 8zM7 16L12 12 7 8z\"></path></svg>" +
-                "<div>5 seconds</div>" +
+                "<div>" + seekSeconds + " seconds</div>" +
                 "</div>"
         }
     }
@@ -2423,20 +2424,22 @@ function seekVideo(left) {
         return;
     }
 
+    let seekSeconds = isInIframe() ? 1.5 : 5;
+
     if (left) {
-        if (video.currentTime - 5 < video.buffered.start(0)) {
+        if (video.currentTime - seekSeconds < video.buffered.start(0)) {
             video.currentTime = video.buffered.start(0) + 1.2;
             addSeekOverlay(left, true);
         } else {
-            video.currentTime-= 5;
+            video.currentTime-= seekSeconds;
             addSeekOverlay(left, false);
         }
     } else {
-        if (video.currentTime + 5 >= video.buffered.end(video.buffered.length - 1)) {
+        if (video.currentTime + seekSeconds >= video.buffered.end(video.buffered.length - 1)) {
             video.currentTime = video.buffered.end(video.buffered.length - 1) - 1.2;
             addSeekOverlay(left, true);
         } else {
-            video.currentTime+= 5;
+            video.currentTime+= seekSeconds;
             addSeekOverlay(left, false);
         }
     }
