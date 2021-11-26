@@ -45,6 +45,7 @@
 - Sidebar Stream Search: A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
 - Hide All Sidebar Sections Except The Followed Channels.
 - Mute Auto-Playing Videos In Various Pages.
+- Advanced Video Embeds.
 - Also supports inverted twitch layout (when chat is on the left and streamers on the right).
 <br/>
 
@@ -208,7 +209,7 @@
     - The button will show under the chat.
     - Clears all the messages in chat.
       <br/><br/>
-      
+
 
 * **Predictions Notifications**
     - Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
@@ -234,6 +235,17 @@
         - Seconds - the amount of seconds the sniper will make a prediction before the prediction closes (min 2s).
           <br/><br/>
     - Remember that this is a statistical tool and wins are not guaranteed.
+      <br/><br/>
+
+
+* **Advanced Video Embeds**
+    - This applies to Multi-Stream and on-the-fly video embeds (not previews).
+    - Bypasses purple screen.
+    - Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).
+    - Seeking using the keyboard arrow keys in these embeds will be in 1.5 seconds intervals instead of the normal 5 seconds to allow easier streams synchronization for Multi-Stream.
+    - Note: this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.
+    - Note: if you're using a different extension that replaces the Twitch main player, you might still experience a purple screen.
+    - Experimental feature.
       <br/><br/>
     
 <br/>
