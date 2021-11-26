@@ -102,6 +102,10 @@ function getRuntimeUrl(path) {
     return _browser.runtime.getURL(path);
 }
 
+function isInIframe() {
+    return window.top !== window.self && window.top.location.origin === 'https://www.twitch.tv';
+}
+
 let sideNavMutationObserver = new MutationObserver(function(mutations) {
     if (isHovering || isAppInit) {
         isAppInit = false;
@@ -977,7 +981,7 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
     sendMessageToBG({action: "bg_errRefresh_exec", detail: ""});
 
     if (fullRefresh) {
-        if (window.top === window.self) {
+        if (!isInIframe()) {
             location.replace(window.location);
         }
     } else {
@@ -999,7 +1003,7 @@ function refreshPageOnMainTwitchPlayerError(fullRefresh) {
             }, 10000);
         } else {
             if (!document.hidden) {
-                if (window.top === window.self) {
+                if (!isInIframe()) {
                     location.replace(window.location);
                 }
             } else {
@@ -3410,9 +3414,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
                             multiStreamDiv.style.backgroundImage = "";
                         }, 2000);
                     }
-                    _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': streamName}, function() {
-                        iframe.src = "https://www.twitch.tv/" + streamName;
-                    });
+                    iframe.src = "https://www.twitch.tv/" + streamName;
                 } else {
                     iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
                 }
@@ -3470,7 +3472,7 @@ function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithC
         multiStreamDiv.prepend(click_download_overlay);
         multiStreamDiv.appendChild(img);
 
-        if (window.top !== window.self) {
+        if (isInIframe()) {
             multiStreamDiv.style.height = '112px';
             multiStreamDiv.style.width = '200px';
             multiStreamDiv.style.top = '45%';
@@ -4332,57 +4334,53 @@ function onSettingChange(key, value) {
 }
 
 function toggleFeatures(isFromTitleObserver) {
-    if(window.top !== window.self) {
+    if(isInIframe()) {
 
-        _browser.storage.local.get('tp_multiStream_box_iframe_channel_name', function(result) {
-            if (result.tp_multiStream_box_iframe_channel_name && result.tp_multiStream_box_iframe_channel_name === window.location.pathname.substring(1)) {
-                _browser.storage.local.set({'tp_multiStream_box_iframe_channel_name': false}, function() {});
-                if (options.isErrRefreshEnabled) {
-                    listenForPlayerError();
-                }
+        if (options.isErrRefreshEnabled) {
+            listenForPlayerError();
+        }
 
-                if (isFirefox) {
+        if (isFirefox) {
 
-                } else {
-                    if (options.isPipEnabled) {
-                        setPIPBtn();
-                    }
-                }
-
-                if (options.isfScrnWithChatEnabled) {
-                    setfScrnWithChatBtn();
-                }
-
-                if (options.isCastEnabled) {
-                    appendCastBtn();
-                }
-
-                if (options.isFlashBangDefenderEnabled) {
-                    appendFlashBangDefenderBtn();
-                }
-
-                if (options.isScreenshotEnabled) {
-                    appendScreenShotBtn();
-                }
-
-                if (options.isFastForwardEnabled) {
-                    appendFastForwardBtn();
-                }
-
-                if (options.isSeekEnabled) {
-                    setSeekListeners();
-                }
-
-                let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
-                if (ttv_theater_mode_btn) {
-                    ttv_theater_mode_btn.remove();
-                }
-
-                document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
-                document.querySelector('#root').remove();
-                document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
+        } else {
+            if (options.isPipEnabled) {
+                setPIPBtn();
             }
-        });
+        }
+
+        if (options.isfScrnWithChatEnabled) {
+            setfScrnWithChatBtn();
+        }
+
+        if (options.isCastEnabled) {
+            appendCastBtn();
+        }
+
+        if (options.isFlashBangDefenderEnabled) {
+            appendFlashBangDefenderBtn();
+        }
+
+        if (options.isScreenshotEnabled) {
+            appendScreenShotBtn();
+        }
+
+        if (options.isFastForwardEnabled) {
+            appendFastForwardBtn();
+        }
+
+        if (options.isSeekEnabled) {
+            setSeekListeners();
+        }
+
+        let ttv_theater_mode_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+        if (ttv_theater_mode_btn) {
+            ttv_theater_mode_btn.remove();
+        }
+
+        document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
+        document.querySelector('#root').remove();
+        document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
+
 
 
         return;
@@ -5144,7 +5142,7 @@ window.addEventListener('load', (event) => {
     }
     setTimeout(function(){
 
-        if (window.top !== window.self) {
+        if (isInIframe()) {
             setOptionsFromDB().then(
                 function (options){
                     toggleFeatures();
@@ -5187,7 +5185,7 @@ function pageAwakened() {
         return;
     }
     if (isMainPlayerError) {
-        if (window.top === window.self) {
+        if (!isInIframe()) {
             refreshPageOnMainTwitchPlayerError(true);
         }
     }
@@ -5201,7 +5199,7 @@ function pageAwakened() {
 }
 
 ///////////// END OF TAB RESUME /////////////
-if (window.top === window.self) {
+if (!isInIframe()) {
     check_showSettings();
     check_showSettingsAndAskNewPermissions();
     check_FTE();
