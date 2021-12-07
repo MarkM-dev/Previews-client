@@ -134,10 +134,6 @@
     padding-top: 15px;
 }
 
-#TPBodyEl #TP_popup_donation_container > form {
-    margin-top: 15px;
-}
-
 #TPBodyEl .switch {
     margin: auto 10px;
     position: relative;
@@ -523,6 +519,7 @@
 }
 
 #TPBodyEl #tp_popup_donate_btn {
+    margin-top: 15px;
     width: 80%;
     border-radius: 5px;
     transition: all 0.1s;

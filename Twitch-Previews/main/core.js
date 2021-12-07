@@ -4102,66 +4102,46 @@ function isOverflown(element) {
 
 function getSecondsRangeForToast(seconds) {
     switch (true) {
-        case (seconds >= 0 && seconds < 3):
+        case (seconds < 3):
             return '1-3';
-            break;
-        case (seconds >= 3 && seconds < 6):
+        case (seconds < 6):
             return '3-6';
-            break;
-        case (seconds >= 6 && seconds < 10):
+        case (seconds < 10):
             return '6-10';
-            break;
-        case (seconds >= 10 && seconds < 15):
+        case (seconds < 15):
             return '10-15';
-            break;
-        case (seconds >= 15 && seconds < 20):
+        case (seconds < 20):
             return '15-20';
-            break;
-        case (seconds >= 20 && seconds < 25):
+        case (seconds < 25):
             return '20-25';
-            break;
-        case (seconds >= 25 && seconds < 30):
+        case (seconds < 30):
             return '25-30';
-            break;
-        case (seconds >= 30 && seconds < 45):
+        case (seconds < 45):
             return '30-45';
-            break;
-        case (seconds >= 45 && seconds < 60):
+        case (seconds < 60):
             return '45-60';
-            break;
-        case (seconds >= 60 && seconds < 75):
+        case (seconds < 75):
             return '60-75';
-            break;
-        case (seconds >= 75 && seconds < 90):
+        case (seconds < 90):
             return '75-90';
-            break;
-        case (seconds >= 90 && seconds < 120):
+        case (seconds < 120):
             return '90-120';
-            break;
-        case (seconds >= 120 && seconds < 150):
+        case (seconds < 150):
             return '120-150';
-            break;
-        case (seconds >= 150 && seconds < 180):
+        case (seconds < 180):
             return '150-180';
-            break;
-        case (seconds >= 180 && seconds < 210):
+        case (seconds < 210):
             return '180-210';
-            break;
-        case (seconds >= 210 && seconds < 300):
+        case (seconds < 300):
             return '210-300';
-            break;
-        case (seconds >= 300 && seconds < 600):
+        case (seconds < 600):
             return '300-600';
-            break;
-        case (seconds >= 600 && seconds < 900):
+        case (seconds < 900):
             return '600-900';
-            break;
-        case (seconds >= 900 && seconds < 1200):
+        case (seconds < 1200):
             return '900-1200';
-            break;
         default:
             return '>1200';
-            break;
     }
 }
 
@@ -4197,12 +4177,7 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >Settings</div>\n" +
-        "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
-        "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
-        "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
-        "                        <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
-        "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
-        "                    </form>\n" +
+        "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"Donate with PayPal\" alt=\"Donate with PayPal button\" />\n" +
         "            </div>\n" +
         "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? 'Close & Don\'t show again':'close') + "</div>\n" +
         "        </div>";
@@ -4221,9 +4196,8 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
     };
 
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
-        setTimeout(function (){
-            sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
-        },200);
+        sendMessageToBG({action: "bg_show_donate", detail: ""});
+        sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
     };
 
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
@@ -4506,12 +4480,16 @@ function toggleFeatures(isFromTitleObserver) {
     if(isFirefox) {
         if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
             setTimeout(function () {
-                setPredictionsNotifications();
+                if (window.location.pathname.indexOf('/moderator') === -1) {
+                    setPredictionsNotifications();
+                }
             }, 2500)
         }
     } else {
         if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
-            setPredictionsNotifications();
+            if (window.location.pathname.indexOf('/moderator') === -1) {
+                setPredictionsNotifications();
+            }
         }
         if (options.isPipEnabled) {
             setPIPBtn();
@@ -5135,7 +5113,7 @@ function showSettingsMenu() {
 
         initPreviewSizeSlider(settingsContainer);
 
-        initSocialBtn(settingsContainer, 'donate', null, selectedDonateButton);
+        initSocialBtn(settingsContainer, 'donate', true, selectedDonateButton);
         initSocialBtn(settingsContainer, 'rate', true);
         initSocialBtn(settingsContainer, 'share', true);
 
