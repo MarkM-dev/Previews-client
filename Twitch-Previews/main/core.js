@@ -4177,12 +4177,7 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >Settings</div>\n" +
-        "                <form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\">\n" +
-        "                        <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
-        "                        <input type=\"hidden\" name=\"hosted_button_id\" value=\"QM8HG45PYA4EU\" />\n" +
-        "                        <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
-        "                        <img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
-        "                    </form>\n" +
+        "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"Donate with PayPal\" alt=\"Donate with PayPal button\" />\n" +
         "            </div>\n" +
         "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? 'Close & Don\'t show again':'close') + "</div>\n" +
         "        </div>";
@@ -4201,9 +4196,8 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
     };
 
     updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
-        setTimeout(function (){
-            sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
-        },200);
+        sendMessageToBG({action: "bg_show_donate", detail: ""});
+        sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
     };
 
     updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
@@ -5119,7 +5113,7 @@ function showSettingsMenu() {
 
         initPreviewSizeSlider(settingsContainer);
 
-        initSocialBtn(settingsContainer, 'donate', null, selectedDonateButton);
+        initSocialBtn(settingsContainer, 'donate', true, selectedDonateButton);
         initSocialBtn(settingsContainer, 'rate', true);
         initSocialBtn(settingsContainer, 'share', true);
 
