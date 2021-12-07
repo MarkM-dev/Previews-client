@@ -4104,64 +4104,44 @@ function getSecondsRangeForToast(seconds) {
     switch (true) {
         case (seconds < 3):
             return '1-3';
-            break;
         case (seconds < 6):
             return '3-6';
-            break;
         case (seconds < 10):
             return '6-10';
-            break;
         case (seconds < 15):
             return '10-15';
-            break;
         case (seconds < 20):
             return '15-20';
-            break;
         case (seconds < 25):
             return '20-25';
-            break;
         case (seconds < 30):
             return '25-30';
-            break;
         case (seconds < 45):
             return '30-45';
-            break;
         case (seconds < 60):
             return '45-60';
-            break;
         case (seconds < 75):
             return '60-75';
-            break;
         case (seconds < 90):
             return '75-90';
-            break;
         case (seconds < 120):
             return '90-120';
-            break;
         case (seconds < 150):
             return '120-150';
-            break;
         case (seconds < 180):
             return '150-180';
-            break;
         case (seconds < 210):
             return '180-210';
-            break;
         case (seconds < 300):
             return '210-300';
-            break;
         case (seconds < 600):
             return '300-600';
-            break;
         case (seconds < 900):
             return '600-900';
-            break;
         case (seconds < 1200):
             return '900-1200';
-            break;
         default:
             return '>1200';
-            break;
     }
 }
 
