@@ -4506,12 +4506,16 @@ function toggleFeatures(isFromTitleObserver) {
     if(isFirefox) {
         if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
             setTimeout(function () {
-                setPredictionsNotifications();
+                if (window.location.pathname.indexOf('/moderator') === -1) {
+                    setPredictionsNotifications();
+                }
             }, 2500)
         }
     } else {
         if (options.isPredictionsNotificationsEnabled || options.isPredictionsSniperEnabled) {
-            setPredictionsNotifications();
+            if (window.location.pathname.indexOf('/moderator') === -1) {
+                setPredictionsNotifications();
+            }
         }
         if (options.isPipEnabled) {
             setPIPBtn();
