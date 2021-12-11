@@ -4236,9 +4236,9 @@ function getUpdateToastBody() {
     let ffclass = isFirefox ? 'class="tp_display_none"':'';
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Advanced Video Embeds!</strong>"
-        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >This applies to Multi-Stream and on-the-fly video embeds (not previews).</span>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Bypasses purple screen.</strong></div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Video Embeds in Image Preview mode!</strong>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Added the Video Embed button in the sidebar when using Image Preview mode (this was previously available only when using Video Preview mode).</span>"
+        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Pro Tip:</strong> to use your video embeds on top of a full-screen stream, add an embed from the sidebar (or top search bar if multi-stream feature is enabled) and then click on 'Full Screen + Default Chat' button (if you have the fullscreen + chat feature enabled).</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Adds enabled Twitch Previews features to embeds</strong> (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Note:</strong> this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.</div>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" >- Off by default, enable in the settings.</div>"
