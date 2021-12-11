@@ -146,10 +146,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
     } else {
         if (details.reason === "update") {
-            if (details.previousVersion !== "2.5" && details.previousVersion !== "2.6") {
-                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-            }
+            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+
+            _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (!result.tpInstallTime) {
                     _browser.storage.local.set({'shouldShowDelayedRateToast': true}, function() {});
@@ -400,7 +401,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_donate":
-            _browser.tabs.create({url:"https://www.paypal.com/paypalme/twitchpreviews"});
+            _browser.tabs.create({url:"https://ko-fi.com/twitchpreviews"});
             break;
         case "bg_show_rate":
             _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});

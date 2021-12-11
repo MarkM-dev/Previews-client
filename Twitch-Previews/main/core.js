@@ -246,7 +246,7 @@ function createPipBtn() {
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/multistream_sidebar.png') + "')";
-    navCardPipBtn.title = "Picture In Picture";
+    navCardPipBtn.title = "Picture In Picture (Video Embed)";
     navCardPipBtn.onclick = startCustomPip;
 }
 
@@ -715,7 +715,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                 }
             }, 100);
         } else {
-            if (isMultiStreamMode && !isNavBarCollapsed && isHovering) {
+            if (!isNavBarCollapsed && isHovering) {
                 let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                 if (container) {
                     container.appendChild(navCardPipBtn);
@@ -4177,7 +4177,7 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >Settings</div>\n" +
-        "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"Donate with PayPal\" alt=\"Donate with PayPal button\" />\n" +
+        "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" alt=\"Donate\" />\n" +
         "            </div>\n" +
         "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? 'Close & Don\'t show again':'close') + "</div>\n" +
         "        </div>";
@@ -4233,26 +4233,20 @@ function getDelayedRateToastBody() {
 }
 
 function getUpdateToastBody() {
-    let ffclass = isFirefox ? 'class="tp_display_none"':'';
+    //let ffclass = isFirefox ? 'class="tp_display_none"':'';
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Advanced Video Embeds!</strong>"
-        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >This applies to Multi-Stream and on-the-fly video embeds (not previews).</span>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Bypasses purple screen.</strong></div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Adds enabled Twitch Previews features to embeds</strong> (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Note:</strong> this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" >- Off by default, enable in the settings.</div>"
+        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Video Embeds in Image Preview mode!</strong>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Added the Video Embed button in the sidebar when using Image Preview mode.</strong></span>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- shows under the view count in the sidebar when hovering streams.</span>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- this was previously available only when using Video Preview mode.</span>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' src='" + getRuntimeUrl('images/sidebarembed.jpg') + "' ></span>"
+        +  "             <span ><br><br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Pro Tip:</strong> to watch a fullscreen stream with on-the-fly embeds (video streams and chats): enable the 'Full Screen + Chat' feature, add an embed, then click on the 'Full Screen + Default Chat' button.</span>"
         +  "            </div>"
-        +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Settings Import/Export!</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- You can now save your settings to a file via the settings menu.</strong></span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can also select which settings you want to either import or export (settings, favorites, etc..).</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Check the settings for more details.</span>"
-        +  "             </div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes & Improvements</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Seek:</strong> fixed seek indications.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Auto-Refresh:</strong> added error #3000 to the roster.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Auto-Refresh:</strong> the auto refresh feature will now try to recover the player and continue playing when it crashes in the background (for errors #1000,#2000,#3000) instead of having to come back to the tab for a refresh.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Mod View:</strong> fixed several issues that prevented the extension from working in mod view.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Settings:</strong> Fixed an issue where opening the settings menu while there are embeds on screen would cause the settings menu to open on all embeds.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Mod View:</strong> disabled Predictions Notifications and Sniper in the Moderator view since they are redundant there.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Donations:</strong> changed the extension's donations implementation to support all countries.</span>"
         +  "             </div>"
         +  "    </br>"
 }
@@ -4423,7 +4417,7 @@ function toggleFeatures(isFromTitleObserver) {
         document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
         document.querySelector('#root').remove();
         document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
-
+        document.querySelector('video').muted = true;
 
 
         return;
@@ -4603,8 +4597,10 @@ function toggleFeatures(isFromTitleObserver) {
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     if (msg.action === "tp_open_settings") {
-        sendResponse({action: 'content-available'});
-        showSettings();
+        if (!isInIframe()) {
+            sendResponse({action: 'content-available'});
+            showSettings();
+        }
     } else {
         if (msg.action === "tp_enable_clip_downloader") {
             sendResponse({action: 'response'});
@@ -5103,7 +5099,7 @@ function showSettingsMenu() {
             for (let i = 0; i < els.length; i++) {
                 els[i].style.display = "none";
             }
-            settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '13px';
+            settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '4px';
         } else {
             let els = settingsContainer.querySelectorAll('.tp-chrome-hide');
             for (let i = 0; i < els.length; i++) {
