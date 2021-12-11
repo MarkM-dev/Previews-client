@@ -22,11 +22,11 @@
 - Image or live video stream Previews in the sidebar & directories.
 - Preview resize & volume control.
 - Streaming: See your own live stream thumbnail as seen by viewers on twitch.
+- Sidebar Favorite Channels List.
+- Sidebar YouTube Channels List.
 - Multi Stream & Multi Chat.
 - Transparent / Dynamic Chat Overlay.
 - Full Screen With Chat Mode.
-- Sidebar Favorite Channels List.
-- Sidebar YouTube Channels List.
 - Auto Channel Points Clicker.
 - Clip Downloader.
 - Auto Refresh on player errors (#1000, #2000, #3000, #4000).
