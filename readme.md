@@ -40,7 +40,7 @@
 - FlashBang Defender.
 - Clear Chat Button.
 - Native Picture In Picture in current stream (Browser's PIP feature).
-- Custom Picture In Picture via the button under the view count in the sidebar (when in video mode).
+- Custom Picture In Picture via the button under the view count in the sidebar.
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
 - Sidebar Stream Search: A purple search button at the top of the sidebar to find live streamers easily in the sidebar.
 - Hide All Sidebar Sections Except The Followed Channels.
@@ -71,7 +71,7 @@
 
 
 * **Multi Stream & Multi Chat**
-    - You can add Multi-Stream and Multi-Chat on the fly to any page you're on directly from the sidebar (if in Video Preview mode) or via the top search bar (if the Multi-Stream feature is enabled).
+    - You can add Multi-Stream and Multi-Chat on the fly to any page you're on directly from the sidebar or via the top search bar (if the Multi-Stream feature is enabled).
     - There is also a button that is located next to the stream uptime under the stream.
     - Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
     - In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
@@ -153,7 +153,7 @@
 
 
 * **Custom Picture in picture**
-    - If you're in video preview mode, a small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (you can add as many as you like).
+    - A small button will appear under the view count when you hover a streamer - click it and a persistent preview window will appear (you can add as many as you like).
       <br/><br/>
 
 
@@ -165,7 +165,6 @@
 * **Prevent Automatic Video Quality Change**
     - Prevents automatic video quality change when twitch is in the background (when switching tabs / tasks).
     - Prevents 99% of Twitch player errors (#1000, #2000).
-    - Prevents that video hang when switching back to the Twitch tab after it was in the background for a while.
       <br/><br/>
       
 
@@ -239,7 +238,7 @@
 
 
 * **Advanced Video Embeds**
-    - This applies to Multi-Stream and on-the-fly video embeds (not previews).
+    - This applies to the Multi-Stream feature and on-the-fly video embeds (not previews).
     - Bypasses purple screen.
     - Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).
     - Seeking using the keyboard arrow keys in these embeds will be in 1.5 seconds intervals instead of the normal 5 seconds to allow easier streams synchronization for Multi-Stream.
