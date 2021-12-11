@@ -4417,7 +4417,7 @@ function toggleFeatures(isFromTitleObserver) {
         document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
         document.querySelector('#root').remove();
         document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
-
+        document.querySelector('video').muted = true;
 
 
         return;
