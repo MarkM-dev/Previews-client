@@ -5099,7 +5099,7 @@ function showSettingsMenu() {
             for (let i = 0; i < els.length; i++) {
                 els[i].style.display = "none";
             }
-            settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '13px';
+            settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '4px';
         } else {
             let els = settingsContainer.querySelectorAll('.tp-chrome-hide');
             for (let i = 0; i < els.length; i++) {
