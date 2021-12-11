@@ -246,7 +246,7 @@ function createPipBtn() {
     navCardPipBtn.style.backgroundSize = "contain";
     navCardPipBtn.style.backgroundRepeat = "no-repeat";
     navCardPipBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/multistream_sidebar.png') + "')";
-    navCardPipBtn.title = "Picture In Picture";
+    navCardPipBtn.title = "Picture In Picture (Video Embed)";
     navCardPipBtn.onclick = startCustomPip;
 }
 
@@ -715,7 +715,7 @@ function clearOverlays(navCardEl, isFromDirectory) {
                 }
             }, 100);
         } else {
-            if (isMultiStreamMode && !isNavBarCollapsed && isHovering) {
+            if (!isNavBarCollapsed && isHovering) {
                 let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                 if (container) {
                     container.appendChild(navCardPipBtn);
