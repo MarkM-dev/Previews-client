@@ -4177,7 +4177,7 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
         "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
         "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >Settings</div>\n" +
-        "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" title=\"Donate with PayPal\" alt=\"Donate with PayPal button\" />\n" +
+        "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" alt=\"Donate\" />\n" +
         "            </div>\n" +
         "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? 'Close & Don\'t show again':'close') + "</div>\n" +
         "        </div>";
@@ -4237,10 +4237,8 @@ function getUpdateToastBody() {
     return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
         +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Video Embeds in Image Preview mode!</strong>"
-        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Added the Video Embed button in the sidebar when using Image Preview mode (this was previously available only when using Video Preview mode).</span>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Adds enabled Twitch Previews features to embeds</strong> (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).</div>"
+        +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Added the Video Embed button in the sidebar when using Image Preview mode</strong> (this was previously available only when using Video Preview mode).</span>"
         +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" ><strong>- Note:</strong> this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.</div>"
-        +  "             <div style=\"font-size: 12px;color: whitesmoke;margin-top: 5px;\" >- Off by default, enable in the settings.</div>"
         +  "            </div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Settings Import/Export!</strong>"
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- You can now save your settings to a file via the settings menu.</strong></span>"
@@ -4248,10 +4246,9 @@ function getUpdateToastBody() {
         +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Check the settings for more details.</span>"
         +  "             </div>"
         +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes & Improvements</strong>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Seek:</strong> fixed seek indications.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Auto-Refresh:</strong> added error #3000 to the roster.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Auto-Refresh:</strong> the auto refresh feature will now try to recover the player and continue playing when it crashes in the background (for errors #1000,#2000,#3000) instead of having to come back to the tab for a refresh.</span>"
-        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Mod View:</strong> fixed several issues that prevented the extension from working in mod view.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Settings:</strong> Fixed an issue where opening the settings menu while there are video embeds on screen would cause the settings menu to open on all video embeds.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Mod View:</strong> disabled Predictions Notifications and Sniper in the Moderator view since they are redundant there.</span>"
+        +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Donations:</strong> changed the extension's donations implementation to support all countries.</span>"
         +  "             </div>"
         +  "    </br>"
 }
