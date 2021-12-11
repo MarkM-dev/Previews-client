@@ -400,7 +400,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_donate":
-            _browser.tabs.create({url:"https://www.paypal.com/paypalme/twitchpreviews"});
+            _browser.tabs.create({url:"https://ko-fi.com/twitchpreviews"});
             break;
         case "bg_show_rate":
             _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
