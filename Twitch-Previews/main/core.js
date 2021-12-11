@@ -4602,8 +4602,10 @@ function toggleFeatures(isFromTitleObserver) {
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     if (msg.action === "tp_open_settings") {
-        sendResponse({action: 'content-available'});
-        showSettings();
+        if (!isInIframe()) {
+            sendResponse({action: 'content-available'});
+            showSettings();
+        }
     } else {
         if (msg.action === "tp_enable_clip_downloader") {
             sendResponse({action: 'response'});
