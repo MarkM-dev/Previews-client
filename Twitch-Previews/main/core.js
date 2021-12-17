@@ -102,6 +102,10 @@ function getRuntimeUrl(path) {
     return _browser.runtime.getURL(path);
 }
 
+function geti18nMessage(msgName) {
+    return _browser.i18n.getMessage(msgName);
+}
+
 function isInIframe() {
     return window.top !== window.self && window.top.location.origin === 'https://www.twitch.tv';
 }
@@ -4168,7 +4172,7 @@ function showToast(toast_body, storageFlagName, isDelayedRateToast) {
 
     updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
         "            <div>" +
-        "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"Translate\" />\n" +
+        "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"" + geti18nMessage('translateStr') + "\" />\n" +
         "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
         "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
         "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
@@ -4858,6 +4862,7 @@ function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
     try {
         let translateInfoBtn = settingsContainer.querySelector('#' + checkboxID).parentNode.parentNode.nextElementSibling.querySelector('.translate_div_btn');
         translateInfoBtn.src = getRuntimeUrl('images/translate.png');
+        translateInfoBtn.title = geti18nMessage('translateStr');
         translateInfoBtn.addEventListener('click', (event) => {
             sendMessageToBG({action: "bg_translate_infoDiv", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(translateInfoBtn.parentNode.innerText) + '&op=translate'});
         });

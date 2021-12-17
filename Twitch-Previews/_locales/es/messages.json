@@ -6,5 +6,8 @@
   "appDesc": {
     "message": "Vistas previas de transmisiones en vivo al pasar el mouse | Un montón de funciones para mejorar la calidad de vida de Twitch.",
     "description": "Vistas previas de transmisiones en vivo al pasar el mouse | Un montón de funciones para mejorar la calidad de vida de Twitch."
+  },
+  "translateStr": {
+    "message": "Traducir"
   }
 }
