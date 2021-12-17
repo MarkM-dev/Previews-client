@@ -6,5 +6,8 @@
   "appDesc": {
     "message": "Live previews when hovering over streams on twitch | A bunch of quality of life improvement features to twitch.",
     "description": "Live previews when hovering over streams on twitch | A bunch of quality of life improvement features to twitch."
+  },
+  "translateStr": {
+    "message": "Translate"
   }
 }
