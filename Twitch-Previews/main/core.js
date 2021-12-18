@@ -5,7 +5,7 @@
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
 
-const _tp_langs = await import(_browser.runtime.getURL("main/tp_langs.js"));
+const _tp_i18n = await import(_browser.runtime.getURL("main/tp_i18n.js"));
 
 let isAppInit = true;
 let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
@@ -99,7 +99,7 @@ const see_details_langs = {
 let options = {};
 
 function _i18n(name, args) {
-    let translation = _tp_langs.i18n[name][options.selected_lang];
+    let translation = _tp_i18n.i18n[name][options.selected_lang];
     args.forEach((arg) => {
         translation = translation.replace('%s', arg);
     })

@@ -31,6 +31,6 @@
     "default_icon": "images/TP48.png",
     "default_title": "Twitch Previews"
   },
-  "web_accessible_resources": ["images/*", "main/settings.html", "main/APS_settings.html", "main/tp_langs.js"]
+  "web_accessible_resources": ["images/*", "main/settings.html", "main/APS_settings.html", "main/tp_i18n.js"]
   ,"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }
