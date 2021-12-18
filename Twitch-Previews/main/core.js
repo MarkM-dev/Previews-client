@@ -101,9 +101,11 @@ let options = {};
 
 function _i18n(name, args) {
     let translation = _tp_i18n.i18n[name][options.selected_lang];
-    args.forEach((arg) => {
-        translation = translation.replace('%s', arg);
-    })
+    if (args) {
+        args.forEach((arg) => {
+            translation = translation.replace('%s', arg);
+        })
+    }
     return translation;
 }
 
@@ -4818,6 +4820,13 @@ function setAppVer(settingsContainer) {
     settingsContainer.querySelector('#tp_version').innerText = " - v" + _browser.runtime.getManifest().version;
 }
 
+function set_settings_i18n(settingsContainer) {
+    let items = settingsContainer.querySelectorAll('[tp_i18n]');
+    items.forEach((item) => {
+        item.innerText = _i18n(item.attributes.tp_i18n.value);
+    })
+}
+
 function initDragForAPSSettings(settingsContainer) {
     dragElement(settingsContainer.querySelector('#tp_APS_settings_menu'));
 
@@ -5169,6 +5178,8 @@ function showSettingsMenu() {
 
 
         setAppVer(settingsContainer);
+
+        set_settings_i18n(settingsContainer);
 
         initDragForSettings(settingsContainer);
 
