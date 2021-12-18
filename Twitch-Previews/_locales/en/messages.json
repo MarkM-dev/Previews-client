@@ -1,13 +1,14 @@
 {
   "appName": {
     "message": "TEST Twitch Previews",
-    "description": "Live previews when hovering over streams on twitch | A bunch of quality of life improvement features to twitch."
+    "description": "Extension name."
   },
   "appDesc": {
     "message": "Live previews when hovering over streams on twitch | A bunch of quality of life improvement features to twitch.",
-    "description": "Live previews when hovering over streams on twitch | A bunch of quality of life improvement features to twitch."
+    "description": "Extension description."
   },
   "translateStr": {
-    "message": "Translate"
+    "message": "Translate",
+    "description": "Translate Button text."
   }
 }
