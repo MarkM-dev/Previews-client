@@ -24,6 +24,7 @@ let cached_yt_live_streams_arr = null;
 let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled'];
 
 let options = {
+    selected_lang: 'en',
     isSidebarPreviewsEnabled: true,
     isImagePreviewMode: true,
     PREVIEWDIV_WIDTH: 440,

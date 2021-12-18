@@ -1,7 +1,13 @@
 // (c) Twitch Previews.
-let isAppInit = true;
+
+(async () => {
+
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
+
+const _tp_langs = await import(_browser.runtime.getURL("main/tp_langs.js"));
+
+let isAppInit = true;
 let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
 let isNavBarCollapsed;
 let previewDiv = null;
@@ -91,6 +97,14 @@ const see_details_langs = {
 };
 
 let options = {};
+
+function _i18n(name, args) {
+    let translation = _tp_langs.i18n[name][options.selected_lang];
+    args.forEach((arg) => {
+        translation = translation.replace('%s', arg);
+    })
+    return translation;
+}
 
 function sendMessageToBG(obj) {
     _browser.runtime.sendMessage(obj, function(response) {
@@ -4046,31 +4060,32 @@ function check_cast_start() {
             _browser.storage.local.set({'tp_cast': false}, function() {
 
             });
+            check_import_tp_options_availability().then(function () {
+                let overlay = document.createElement('div');
+                overlay.id = "cast_loading_overlay";
+                overlay.innerText = "Waiting For\nCast Availability..."
+                document.body.appendChild(overlay);
 
-            let overlay = document.createElement('div');
-            overlay.id = "cast_loading_overlay";
-            overlay.innerText = "Waiting For\nCast Availability..."
-            document.body.appendChild(overlay);
 
-
-            let times_interval_ran = 0;
-            let interval = setInterval(function () {
-                if (document.querySelector('.tw-chromecast-button__icon')) {
-                    setPvqc();
-                    appendCastWorker();
-                    setTimeout(()=>{
-                        overlay.innerText = 'Select Your\nCast Device';
-                        document.querySelector('.tw-chromecast-button__icon').closest('button').click();
-                    }, 1000);
-                    clearInterval(interval);
-                } else {
-                    times_interval_ran++;
-                    if (times_interval_ran > 30) {
-                        alert("Twitch Previews:\nError: didn't find ChromeCast Button");
+                let times_interval_ran = 0;
+                let interval = setInterval(function () {
+                    if (document.querySelector('.tw-chromecast-button__icon')) {
+                        setPvqc();
+                        appendCastWorker();
+                        setTimeout(()=>{
+                            overlay.innerText = 'Select Your\nCast Device';
+                            document.querySelector('.tw-chromecast-button__icon').closest('button').click();
+                        }, 1000);
                         clearInterval(interval);
+                    } else {
+                        times_interval_ran++;
+                        if (times_interval_ran > 30) {
+                            alert("Twitch Previews:\nError: didn't find ChromeCast Button");
+                            clearInterval(interval);
+                        }
                     }
-                }
-            }, 1000);
+                }, 1000);
+            });
         }
     });
 }
@@ -4078,15 +4093,18 @@ function check_cast_start() {
 function check_multistream_start() {
     _browser.storage.local.get('startMultiStream_name', function(result) {
         if (result.startMultiStream_name) {
-            startMultiStream_name = result.startMultiStream_name;
 
-            let overlay = document.createElement('div');
-            overlay.id = "multistream_loading_overlay";
-            overlay.innerText = "Starting\nMulti-Stream..."
-            document.body.appendChild(overlay);
+            check_import_tp_options_availability().then(function () {
+                startMultiStream_name = result.startMultiStream_name;
 
-            _browser.storage.local.set({'startMultiStream_name': false}, function() {
+                let overlay = document.createElement('div');
+                overlay.id = "multistream_loading_overlay";
+                overlay.innerText = "Starting\nMulti-Stream..."
+                document.body.appendChild(overlay);
 
+                _browser.storage.local.set({'startMultiStream_name': false}, function() {
+
+                });
             });
         }
     });
@@ -4343,12 +4361,25 @@ function show_FTE() {
     document.body.appendChild(container);
 }
 
+function check_import_tp_options_availability() {
+    return new Promise((resolve, reject) => {
+        if (!options.PREVIEWDIV_WIDTH) {
+            return setOptionsFromDB().then(function (options) {
+                resolve(options);
+            });
+        } else {
+            resolve(options);
+        }
+    })
+}
+
 function check_FTE() {
     _browser.storage.local.get('isFTE', function(result) {
         if (result.isFTE) {
-            show_FTE();
-            _browser.storage.local.set({'isFTE': false}, function() {
 
+            _browser.storage.local.set({'isFTE': false}, function() {});
+            check_import_tp_options_availability().then(function () {
+                show_FTE();
             });
         }
     });
@@ -5157,17 +5188,9 @@ function showSettings() {
         return;
     }
 
-    if (!options.PREVIEWDIV_WIDTH) {
-        setOptionsFromDB().then(
-            function (options){
-                showSettingsMenu();
-            },
-            function (err){
-
-            });
-        return;
-    }
-    showSettingsMenu();
+    check_import_tp_options_availability().then(function () {
+        showSettingsMenu();
+    });
 }
 
 ///////////////////////////////////////// END OF SETTINGS /////////////////////////////////////////
@@ -5255,3 +5278,5 @@ if (!isInIframe()) {
     check_cast_start();
     check_shouldShowDelayedRateToast();
 }
+
+})();
