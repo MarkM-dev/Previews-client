@@ -1,11 +1,12 @@
 // (c) Twitch Previews.
 
-(async () => {
-
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
 
-const _tp_i18n = await import(_browser.runtime.getURL("main/tp_i18n.js"));
+let _tp_i18n;
+(async () => {
+    _tp_i18n = await import(_browser.runtime.getURL("main/tp_i18n.js"));
+})();
 
 let isAppInit = true;
 let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
@@ -5279,4 +5280,3 @@ if (!isInIframe()) {
     check_shouldShowDelayedRateToast();
 }
 
-})();
