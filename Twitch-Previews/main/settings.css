@@ -44,6 +44,12 @@
     font-weight: normal;
 }
 
+#TPBodyEl #tp_settings_lang_selector {
+    position: absolute;
+    top: 10px;
+    z-index: 999999;
+}
+
 #TPBodyEl .tp_settings_section_title {
     text-align: left;
     font-size: 30px;

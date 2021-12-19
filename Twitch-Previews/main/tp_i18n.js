@@ -7,13 +7,14 @@ export let i18n = {
         'pt_BR': 'Twitch Previews',
         'ru':'Twitch Previews'
     },
-    availableLangs: {
-        'en': 'English',
-        'es': 'español',
-        'de': 'Deutsch',
-        'fr': 'Français',
-        'pt_BR': 'português (Brasil)',
-        'ru':'русский'
+    availableLangs: {0:[
+            {code:'en', display_str: 'English'},
+            {code:'es', display_str: 'español'},
+            {code:'de', display_str: 'Deutsch'},
+            {code:'fr', display_str: 'Français'},
+            {code:'pt_BR', display_str: 'português (Brasil)'},
+            {code:'ru', display_str:'русский'}
+        ]
     },
     fte_message: {
         'en': 'Yay! you just got Twitch Previews! your Twitch experience is about to get so much easier :)\nCheck out the features in the settings menu below',

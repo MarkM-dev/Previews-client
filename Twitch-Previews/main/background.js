@@ -196,6 +196,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isSidebarPreviewsEnabled":
             send_ga_event('sidebarPreview_mode', 'change', msg.detail ? "sBarPreview_ON":"sBarPreview_OFF");
             break;
+        case "bg_update_selected_lang":
+            send_ga_event('selected_lang_mode', 'change', msg.detail);
+            break;
         case "bg_update_isImagePreviewMode":
             send_ga_event('preview_mode', 'change', msg.detail ? "image":"video");
             break;
