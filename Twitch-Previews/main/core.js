@@ -4199,15 +4199,15 @@
             "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"" + geti18nMessage('translateStr') + "\" />\n" +
             "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"20\" height=\"20\" title=\"Settings\" />\n" +
             "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-            "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >Also, if you haven't already, we would love it if you rated the extension on the webstore :)</div>\n" +
+            "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >" + _i18n('update_toast_rate_line_text') + "</div>\n" +
             "            </div>\n" +
             "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
-            "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >Rate</div>\n" +
-            "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >Share</div>\n" +
-            "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >Settings</div>\n" +
+            "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >" + _i18n('update_toast_rate') + "</div>\n" +
+            "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >" + _i18n('update_toast_share') + "</div>\n" +
+            "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >" + _i18n('update_toast_settings') + "</div>\n" +
             "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" alt=\"Donate\" />\n" +
             "            </div>\n" +
-            "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? 'Close & Don\'t show again':'close') + "</div>\n" +
+            "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? _i18n('delayed_rate_toast_close'):_i18n('update_toast_close')) + "</div>\n" +
             "        </div>";
 
         updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
@@ -4256,13 +4256,13 @@
     }
 
     function getDelayedRateToastBody() {
-        return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Enjoying Twitch Previews?</div>"
-            +  "       <div style=\"font-size: 13px;margin-top: 10px;color: white;\" >We would love it if you rated the extension on the webstore :)</div>";
+        return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >"+ _i18n('delayed_rate_toast_title') +"</div>"
+            +  "       <div style=\"font-size: 13px;margin-top: 10px;color: white;\" >" + _i18n('delayed_rate_toast_body') + "</div>";
     }
 
     function getUpdateToastBody() {
         //let ffclass = isFirefox ? 'class="tp_display_none"':'';
-        return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >Twitch Previews updated!</div>"
+        return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Video Embeds in Image Preview mode!</strong>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Added the Video Embed button in the sidebar when using Image Preview mode.</strong></span>"

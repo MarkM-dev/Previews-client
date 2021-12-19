@@ -543,6 +543,78 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    update_toast_updated_title: {
+        'en': 'Twitch Previews updated!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    update_toast_rate_line_text: {
+        'en': 'Also, if you haven\'t already, we would love it if you rated the extension on the webstore :)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    update_toast_rate: {
+        'en': 'Rate',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    update_toast_share: {
+        'en': 'Share',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    update_toast_settings: {
+        'en': 'Settings',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    update_toast_close: {
+        'en': 'close',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    delayed_rate_toast_title: {
+        'en': 'Enjoying Twitch Previews?',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    delayed_rate_toast_body: {
+        'en': 'We would love it if you rated the extension on the webstore :)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    delayed_rate_toast_close: {
+        'en': 'Close & Don\'t show again',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     vidPreviewVolBtn_title: {
         'en': 'Click / Scroll for preview volume',
         'es': '',
