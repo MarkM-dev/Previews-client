@@ -24,7 +24,7 @@ let cached_yt_live_streams_arr = null;
 let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled'];
 
 let options = {
-    selected_lang: getNavigatorLangSelection(),
+    selected_lang: 'en',
     isSidebarPreviewsEnabled: true,
     isImagePreviewMode: true,
     PREVIEWDIV_WIDTH: 440,
@@ -147,23 +147,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
     let manifestData = _browser.runtime.getManifest();
     let appVer = "v" + manifestData.version;
 
-    _browser.storage.local.get('tp_options', function(result) {
-        if (typeof result.tp_options == 'undefined') {
-            _browser.storage.local.set({'tp_options': options}, function() {
-
-            });
-        } else {
-            // upgrade db.
-            let new_db_container_obj = upgradeDB(result.tp_options);
-            if (new_db_container_obj.bSetToStorage) {
-                _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
-
-                });
-            }
-        }
-    });
 
     if (details.reason === "install") {
+        options.selected_lang = getNavigatorLangSelection();
+        _browser.storage.local.set({'tp_options': options}, function() {});
+
         send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer + ' - ' + tpga_browser);
         _browser.storage.local.set({'isFTE': true}, function() {});
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
@@ -172,6 +160,17 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
     } else {
         if (details.reason === "update") {
+
+            _browser.storage.local.get('tp_options', function(result) {
+                // upgrade db.
+                let new_db_container_obj = upgradeDB(result.tp_options);
+                if (new_db_container_obj.bSetToStorage) {
+                    _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
+
+                    });
+                }
+            });
+
             _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
             _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
