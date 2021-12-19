@@ -4916,10 +4916,10 @@
         initTranslateInfoDivBtn(settingsContainer, 'TP_popup_settings_save_checkbox');
 
         let settingsNameDictionary = {
-            'tp_options': 'Settings',
-            'favorites_arr': 'Favorites',
-            'aps_streams_settings_obj': 'Predictions Sniper custom per stream settings',
-            'multiStream_layout_presets': 'Multi-Stream Layout Presets',
+            'tp_options': _i18n('settings_feature_import_export_settings'),
+            'favorites_arr': _i18n('settings_feature_import_export_favorites'),
+            'aps_streams_settings_obj': _i18n('settings_feature_import_export_aps_settings'),
+            'multiStream_layout_presets': _i18n('settings_feature_import_export_multistream_layouts'),
         };
 
         function exportSettings(content, fileName, contentType) {
