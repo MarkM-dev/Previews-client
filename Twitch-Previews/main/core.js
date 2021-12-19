@@ -2916,6 +2916,7 @@
             let menu_shadow_el = settingsContainer.querySelector('#tp_APS_title_shadow_el');
 
             let bet_now_btn = settingsContainer.querySelector('#tp_APS_bet_now_btn');
+            bet_now_btn.innerText = _i18n('aps_vote_now_btn');
             bet_now_btn.addEventListener('click', (event) => {
                 if (predictionSniperTimeout) {
                     last_prediction_streamer = "";
