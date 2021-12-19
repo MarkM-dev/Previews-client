@@ -122,6 +122,10 @@ function getNavigatorLangSelection() {
             return 'de';
         case 'pt_BR':
             return 'pt_BR';
+        case 'ru':
+            return 'ru';
+        case 'ru_RU':
+            return 'ru';
         default:
             return 'en';
     }
