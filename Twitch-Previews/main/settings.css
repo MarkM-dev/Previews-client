@@ -48,6 +48,15 @@
     position: absolute;
     top: 10px;
     z-index: 999999;
+    background-color: transparent;
+    color: whitesmoke;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#TPBodyEl #tp_settings_lang_selector option {
+    background-color: #232323;
+    color: whitesmoke;
 }
 
 #TPBodyEl .tp_settings_section_title {
