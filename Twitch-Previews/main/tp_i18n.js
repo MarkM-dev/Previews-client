@@ -407,6 +407,22 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_import_btn_text: {
+        'en': 'Import',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_export_btn_text: {
+        'en': 'Export',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_subtext_import_export: {
         'en': '(expand for settings selection)',
         'es': '',
@@ -841,6 +857,70 @@ export let i18n = {
     },
     aps_btn_title_status_idle_text: {
         'en': 'Predictions Sniper - idle',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    APS_settings_menu_top_title: {
+        'en': 'Predictions Sniper',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    aps_settings_menu_title: {
+        'en': 'Predictions Sniper Settings For',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    APS_settings_menu_bottom_note: {
+        'en': '* If you change streams after clicking "Cancel Upcoming Vote" and then change back, you will need to click it again to cancel the upcoming vote.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    aps_settings_bet_percent_pt1: {
+        'en': 'Bet:',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    aps_settings_bet_percent_pt2: {
+        'en': '% of points (Max',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    aps_settings_bet_percent_pt3: {
+        'en': 'points)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    aps_settings_min_vote_margin: {
+        'en': 'Min vote margin:',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    aps_settings_seconds_before_closing: {
+        'en': 'seconds or less before voting closes',
         'es': '',
         'de': '',
         'fr': '',

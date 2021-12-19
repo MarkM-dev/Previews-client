@@ -2964,6 +2964,8 @@
             let curr_stream_name = getCurrentStreamerName();
             settingsContainer.querySelector('#tp_aps_settings_menu_stream_name').innerText = curr_stream_name;
 
+            set_settings_i18n(settingsContainer);
+
             let aps_curr_stream_settings = null;
             _browser.storage.local.get('aps_streams_settings_obj', function(res) {
                 if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
