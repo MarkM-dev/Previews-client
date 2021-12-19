@@ -13,6 +13,20 @@ export let i18n = {
         'fr': 'Français',
         'pt_BR': 'português (Brasil)'
     },
+    fte_message: {
+        'en': 'Yay! you just got Twitch Previews! your Twitch experience is about to get so much easier :)\nCheck out the features in the settings menu below',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    fte_close_btn_text: {
+        'en': 'Close',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
     settings_refresh_msg: {
         'en': 'Refresh your Twitch tabs for changes to take effect',
         'es': '',
@@ -321,8 +335,6 @@ export let i18n = {
         'fr': '',
         'pt_BR': ''
     },
-
-
     settings_feature_import_export_settings: {
         'en': 'Settings',
         'es': '',
@@ -351,11 +363,13 @@ export let i18n = {
         'fr': '',
         'pt_BR': ''
     },
-
-
-
-
-
+    settings_feature_import_export_no_selected_err_text: {
+        'en': 'no selected settings for import / export',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
     settings_feature_isSidebarPreviewsEnabled: {
         'en': 'Sidebar Previews',
         'es': '',
@@ -400,6 +414,468 @@ export let i18n = {
     },
     settings_share: {
         'en': 'Share',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    vidPreviewVolBtn_title: {
+        'en': 'Click / Scroll for preview volume',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    navCardPipBtn_title: {
+        'en': 'Picture In Picture (Video Embed)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    preview_loader_text: {
+        'en': 'loading stream...',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    preview_loader_offline_text: {
+        'en': 'stream might be offline...',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    sidebar_yt_channels_section_title: {
+        'en': 'YOUTUBE CHANNELS',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    sidebar_yt_channels_title: {
+        'en': 'YouTube Channels',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    favorites_btn_title: {
+        'en': 'Toggle Favorite',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    sidebar_favorite_channels_section_title: {
+        'en': 'FAVORITE CHANNELS',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    sidebar_favorite_channels_title: {
+        'en': 'Favorite Channels',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    sidebar_favorite_no_live_favorites: {
+        'en': 'No live favorites',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    sidebar_search_input_placeholder: {
+        'en': 'Search Streamer',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    sidebar_search_btn_title: {
+        'en': 'Search Streams',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    fScrnWithChat_btn_title: {
+        'en': 'Full Screen With Chat',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    fScrnWithChat_custom_chat_btn_title: {
+        'en': 'Full Screen + Custom Chat',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    fScrnWithChat_default_chat_btn_title: {
+        'en': 'Full Screen + Default Chat',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    seek_indication_seconds_text: {
+        'en': 'seconds',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    seek_indication_end_text: {
+        'en': 'End',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    clear_chat_btn_title: {
+        'en': 'Clear Chat',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    fast_forward_btn_title: {
+        'en': 'Fast Forward',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    cast_btn_title: {
+        'en': 'Chrome Cast -> Close Tab',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    flashbang_defender_btn_title: {
+        'en': 'Toggle FlashBang Defender',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    screenshot_btn_title: {
+        'en': 'Screenshot Stream',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    pip_main_btn_title: {
+        'en': 'Start Picture In Picture',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    clip_download_btn_title: {
+        'en': 'Download Clip',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    clip_download_no_clip_found_alert_text: {
+        'en': 'no clip found',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_notification_denied_alert_text: {
+        'en': 'Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_notification_enabled_notif_text: {
+        'en': 'Predictions Notifications Enabled!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_prediction_started_notif_text: {
+        'en': 'Prediction Started',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_prediction_closed_or_ended_notif_text: {
+        'en': 'Prediction Closed / Ended',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_prediction_ended_notif_text: {
+        'en': 'Prediction Ended',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_prediction_closed_notif_text: {
+        'en': 'Prediction Closed',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_prediction_closed_before_exec_notif_text: {
+        'en': 'Prediction closed before the sniper could vote',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_sniper_active_notif_text: {
+        'en': 'Predictions sniper active!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_sniper_didnt_vote_notif_text: {
+        'en': 'Sniper didn\'t vote: vote margin was too low: ',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_sniper_voted_title_notif_text: {
+        'en': 'Sniper voted!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_sniper_voted_body_notif_text: {
+        'en': '%s %s\nSniper voted "%s" with %s points!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_cancel_vote_btn: {
+        'en': 'Cancel Upcoming Vote',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_check_prediction_btn: {
+        'en': 'Check Prediction Now',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_check_prediction_checking_text: {
+        'en': 'Checking...',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_btn_title_status_prefix_text: {
+        'en': 'Predictions Sniper - ',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    aps_btn_title_status_idle_text: {
+        'en': 'Predictions Sniper - idle',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_title_close_btn_title: {
+        'en': 'Close',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_title_fullscreen_btn_title: {
+        'en': 'Fullscreen',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_title_minimize_btn_title: {
+        'en': 'Minimize',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_title_always_on_top_btn_title: {
+        'en': 'Always On Top',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_title_color_picker_btn_title: {
+        'en': 'Color Picker',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_title_add_stream_btn_title: {
+        'en': 'Add Multi-Stream',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_title_add_chat_btn_title: {
+        'en': 'Add Multi-Chat',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_align_chat_to_left_btn_title: {
+        'en': 'Align Chat To Left',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_align_chat_to_default_btn_title: {
+        'en': 'Align Chat To Default',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_align_chat_to_right_btn_title: {
+        'en': 'Align Chat To Right',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_font_bold_btn_title: {
+        'en': 'Toggle Bold Font',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_font_size_increase_btn_title: {
+        'en': 'Increase Font Size',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_font_size_decrease_btn_title: {
+        'en': 'Decrease Font Size',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_download_screenshot_btn_title: {
+        'en': 'Download Screenshot',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_info_title_pt1: {
+        'en': '<-- Search & Click',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_info_title_pt2: {
+        'en': 'to add',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_preset_delete_confirm_dialog_text: {
+        'en': 'Delete Preset ',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_preset_add_name_prompt_text: {
+        'en': 'Enter Preset Name:',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_preset_add_name_prompt_placeholder: {
+        'en': 'Preset Name',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_layout_presets_btn_title: {
+        'en': 'Layout Presets',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    multistream_starting_text: {
+        'en': 'Starting\nMulti-Stream...',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    cast_closing_tab_text: {
+        'en': 'Closing Tab',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    cast_waiting_text: {
+        'en': 'Waiting For\nCast Availability...',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    cast_select_device_text: {
+        'en': 'Select Your\nCast Device',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    cast_not_found_err_text: {
+        'en': 'Twitch Previews:\nError: didn\'t find ChromeCast Button',
         'es': '',
         'de': '',
         'fr': '',

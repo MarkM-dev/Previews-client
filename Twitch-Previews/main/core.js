@@ -248,7 +248,7 @@
         vidPreviewVolBtn.style.backgroundSize = "contain";
         vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
         vidPreviewVolBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/vidPreviewVolBtn.png') + "')";
-        vidPreviewVolBtn.title = "Click / Scroll for preview volume";
+        vidPreviewVolBtn.title = _i18n('vidPreviewVolBtn_title');
         vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
         vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
     }
@@ -266,7 +266,7 @@
         navCardPipBtn.style.backgroundSize = "contain";
         navCardPipBtn.style.backgroundRepeat = "no-repeat";
         navCardPipBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/multistream_sidebar.png') + "')";
-        navCardPipBtn.title = "Picture In Picture (Video Embed)";
+        navCardPipBtn.title = _i18n('navCardPipBtn_title');
         navCardPipBtn.onclick = startCustomPip;
     }
 
@@ -660,7 +660,7 @@
                     }
                 }
                 if (intervalCount === 24) {
-                    previewDiv.querySelector('.tp-loading').innerText = "stream might be offline..."
+                    previewDiv.querySelector('.tp-loading').innerText = _i18n('preview_loader_offline_text');
                 }
             }, 300);
 
@@ -1084,9 +1084,9 @@
                             title_figure.innerHTML = '';
                             title_figure.style.width = '20px';
                             title_figure.style.height = '20px';
-                            section_title.querySelector('h5').innerText = 'YOUTUBE CHANNELS';
+                            section_title.querySelector('h5').innerText = _i18n('sidebar_yt_channels_section_title');
                         } else {
-                            title_figure.title = 'YouTube Channels';
+                            title_figure.title = _i18n('sidebar_yt_channels_title');
                             title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="21px" width="21px" xmlns="http://www.w3.org/2000/svg">' +
                                     '<path d="M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 ' +
                                         '1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 ' +
@@ -1098,7 +1098,7 @@
                                 '</svg>';
                         }
                     } else {
-                        section_title.querySelector('h5').innerText = 'YOUTUBE CHANNELS';
+                        section_title.querySelector('h5').innerText = _i18n('sidebar_yt_channels_section_title');
                     }
 
                     if (yt_section.querySelector('.side-nav-show-more-toggle__button')) {
@@ -1230,7 +1230,7 @@
                 let favorites_btn = bell_btn.cloneNode(true);
                 favorites_btn.id = 'tp_favorites_btn';
                 favorites_btn.style.margin = '0 0px 0 10px';
-                favorites_btn.title = 'Toggle Favorite';
+                favorites_btn.title = _i18n('favorites_btn_title');
                 favorites_btn.querySelector('button').removeAttribute('disabled');
 
                 updateFavoritesBtnIcon(favorites_btn);
@@ -1293,9 +1293,9 @@
                             title_figure.innerHTML = '';
                             title_figure.style.width = '20px';
                             title_figure.style.height = '20px';
-                            section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
+                            section_title.querySelector('h5').innerText = _i18n('sidebar_favorite_channels_section_title');
                         } else {
-                            title_figure.title = 'Favorite Channels';
+                            title_figure.title = _i18n('sidebar_favorite_channels_title');
                             title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
                                     '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 ' +
                                     '179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 ' +
@@ -1303,7 +1303,7 @@
                                 '</svg>';
                         }
                     } else {
-                        section_title.querySelector('h5').innerText = 'FAVORITE CHANNELS';
+                        section_title.querySelector('h5').innerText = _i18n('sidebar_favorite_channels_section_title');
                     }
 
                     if (favorites_section.querySelector('.side-nav-show-more-toggle__button')) {
@@ -1338,7 +1338,7 @@
                     if(!isExperimentalSidebar) {
                         if (!favorites_section.children[1].firstChild && !isNavBarCollapsed) {
                             let div = document.createElement('div');
-                            div.innerText = 'No live favorites';
+                            div.innerText = _i18n('sidebar_favorite_no_live_favorites');
                             div.style.padding = '0px 10px 5px 10px';
                             div.style.color = 'grey';
                             favorites_section.children[1].appendChild(div);
@@ -1431,7 +1431,7 @@
 
         let search_input = document.createElement("input");
         search_input.id = "tp_sidebar_search_input";
-        search_input.placeholder = "Search Streamer";
+        search_input.placeholder = _i18n('sidebar_search_input_placeholder');
         search_input.classList.add('tp_search_input');
         search_input.addEventListener('input', searchStreamer);
 
@@ -1466,7 +1466,7 @@
         search_btn.classList.add('tp-sidebar-search-btn');
         search_btn.style.backgroundImage = "url('" + getRuntimeUrl('../images/tp_sidebar_search.png') + "')";
         isLayoutHorizontallyInverted ? search_btn.style.left = "4rem" : search_btn.style.right = "4rem";
-        search_btn.title = "Search Streams";
+        search_btn.title = _i18n('sidebar_search_btn_title');
         search_btn.onclick = sidebarSearchBtnClick;
 
         return search_btn;
@@ -1514,14 +1514,14 @@
             Notification.requestPermission().then(function (res){
                 if (res === "denied") {
                     if(isFirefox) {
-                        alert("Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.");
+                        alert(_i18n('aps_notification_denied_alert_text'));
                     }
                     settings_predictionsNotifications_cb_off();
                     return;
                 }
                 sendMessageToBG({action: "bg_update_" + featureName, detail: true});
                 onSettingChange(featureName, true);
-                showNotification("Twitch Previews", "Predictions Notifications Enabled!", getRuntimeUrl('../images/TP96.png'), true);
+                showNotification(_i18n('app_name'), _i18n('aps_notification_enabled_notif_text'), getRuntimeUrl('../images/TP96.png'), true);
             },function (err) {
                 settings_predictionsNotifications_cb_off();
                 onSettingChange(featureName, false);
@@ -1529,7 +1529,7 @@
         } else {
             sendMessageToBG({action: "bg_update_" + featureName, detail: true});
             onSettingChange(featureName, true);
-            showNotification("Twitch Previews", "Predictions Notifications Enabled!", getRuntimeUrl('../images/TP96.png'), true);
+            showNotification(_i18n('app_name'), _i18n('aps_notification_enabled_notif_text'), getRuntimeUrl('../images/TP96.png'), true);
         }
     }
 
@@ -1630,23 +1630,23 @@
                         initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res){
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (!should_bet_now) {
-                                    showNotification(curr_streamer + ": " + "Prediction Started\n",  prediction_text + "\nPredictions sniper active!", curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_started_notif_text') + "\n",  prediction_text + "\n" + _i18n('aps_sniper_active_notif_text'), curr_streamer_img_url);
                                 }
                             }
                         },function (res){
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (res === 'prediction_closed_or_ended') {
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                 } else {
                                     initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
                                         if (!should_bet_now) {
-                                            showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text + "\nPredictions sniper active!", curr_streamer_img_url);
+                                            showNotification(curr_streamer + ": " + _i18n('aps_prediction_started_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_sniper_active_notif_text'), curr_streamer_img_url);
                                         }
                                     }, function (res){
                                         if (res === 'prediction_closed_or_ended') {
-                                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", prediction_text + "\nPrediction closed before the sniper could vote", curr_streamer_img_url);
+                                            showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                         } else {
-                                            showNotification(curr_streamer + ": " + "Prediction Closed / Ended\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
+                                            showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
                                         }
                                     })
                                 }
@@ -1655,7 +1655,7 @@
                     });
                 } else {
                     if(options.isPredictionsNotificationsEnabled) {
-                        showNotification(curr_streamer + ": " + "Prediction Started\n", prediction_text, curr_streamer_img_url);
+                        showNotification(curr_streamer + ": " + _i18n('aps_prediction_started_notif_text') + "\n", prediction_text, curr_streamer_img_url);
                     }
                 }
             } else {
@@ -1670,36 +1670,36 @@
 
                             let extraText = '';
                             if (APS_awaiting_to_place_bet_streamName === curr_streamer) {
-                                extraText = '\nPrediction closed before the sniper could vote';
+                                extraText = '\n' + _i18n('aps_prediction_closed_before_exec_notif_text');
                                 APS_awaiting_to_place_bet_streamName = null;
                             }
 
                             if (APS_didnt_vote_reason_margin_percent) {
-                                extraText = "\nSniper didn't vote: vote margin was too low: " + APS_didnt_vote_reason_margin_percent;
+                                extraText = "\n" + _i18n('aps_sniper_didnt_vote_notif_text') + APS_didnt_vote_reason_margin_percent;
                                 APS_didnt_vote_reason_margin_percent = null;
                             }
 
 
                             switch(res.prediction_status) {
                                 case "ended":
-                                    showNotification(curr_streamer + ": " + "Prediction Ended", (res.prediction_question_answer_str ? res.prediction_question_answer_str : prediction_text) + "\n" + res.text1, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_ended_notif_text'), (res.prediction_question_answer_str ? res.prediction_question_answer_str : prediction_text) + "\n" + res.text1, curr_streamer_img_url);
                                    // showNotification(curr_streamer + ": " + "Prediction Ended", prediction_text + "\n" + res.text1, curr_streamer_img_url);
                                     break;
                                 case "closed":
-                                    showNotification(curr_streamer + ": " + "Prediction Closed", (res.prediction_title_and_options_str ? res.prediction_title_and_options_str : prediction_text) + "\n" + res.text1 + extraText, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_notif_text'), (res.prediction_title_and_options_str ? res.prediction_title_and_options_str : prediction_text) + "\n" + res.text1 + extraText, curr_streamer_img_url);
                                     break;
                                 case "unknown":
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text'), prediction_text + extraText, curr_streamer_img_url);
                                     break;
                                 default:
-                                    showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text + extraText, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text'), prediction_text + extraText, curr_streamer_img_url);
                                     break;
                             }
                         }
                     });
                 } else {
                     if (options.isPredictionsNotificationsEnabled) {
-                        showNotification(curr_streamer + ": " + "Prediction Closed / Ended", prediction_text, curr_streamer_img_url);
+                        showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text'), prediction_text, curr_streamer_img_url);
                     }
                 }
             }
@@ -2078,7 +2078,8 @@
 
                                                             }
 
-                                                            showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
+                                                            showNotification(curr_streamer + ": " + _i18n('aps_sniper_voted_title_notif_text') + "\n", _i18n('aps_sniper_voted_body_notif_text', [prediction_question, prediction_options_str, sniper_selection_str, prediction_bet_amount]), curr_streamer_img_url, true);
+                                                            //showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
                                                         }
 
                                                         closePopoutMenu();
@@ -2313,7 +2314,7 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_fScrnWithChat_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = "Full Screen With Chat";
+                btn_container.title = _i18n('fScrnWithChat_btn_title');
 
                 let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
@@ -2335,12 +2336,12 @@
                 let custom_chat_btn = document.createElement('div');
                 custom_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/fScrnWithChat_custom.png') + ")";
                 custom_chat_btn.style.marginRight = "2px";
-                custom_chat_btn.title = "Full Screen + Custom Chat";
+                custom_chat_btn.title = _i18n('fScrnWithChat_custom_chat_btn_title');
 
                 let default_chat_btn = document.createElement('div');
                 default_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/fScrnWithChat_default.png') + ")";
                 default_chat_btn.style.backgroundSize = "60%";
-                default_chat_btn.title = "Full Screen + Default Chat";
+                default_chat_btn.title = _i18n('fScrnWithChat_default_chat_btn_title');
 
                 let selected_mode = '';
 
@@ -2407,24 +2408,24 @@
             if(isEnd) {
                 container.innerHTML = "<div style='margin-left: 10%;' >" +
                     "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M2 7H5V17H2V7Z\" fill=\"currentColor\"></path><path d=\"M6 12L13.0023 7.00003V17L6 12Z\" fill=\"currentColor\"></path><path d=\"M21.0023 7.00003L14 12L21.0023 17V7.00003Z\" fill=\"currentColor\"></path></svg>" +
-                    "<div>End</div>" +
+                    "<div>" + _i18n('seek_indication_end_text') + "</div>" +
                     "</div>"
             } else {
                 container.innerHTML = "<div style='margin-left: 10%;' >" +
                     "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10c5.514,0,10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8 s3.589-8,8-8s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M11 16L11 8 6 12zM17 16L17 8 12 12z\"></path></svg>" +
-                    "<div>" + seekSeconds + " seconds</div>" +
+                    "<div>" + seekSeconds + " " + _i18n('seek_indication_seconds_text') + "</div>" +
                     "</div>"
             }
         } else {
             if(isEnd) {
                 container.innerHTML = "<div style='margin-right: 10%;' >" +
                     "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M21.0023 17H18.0023V7H21.0023V17Z\" fill=\"currentColor\"></path><path d=\"M17.0023 12L10 17V7L17.0023 12Z\" fill=\"currentColor\"></path><path d=\"M2 17L9.00232 12L2 7V17Z\" fill=\"currentColor\"></path></svg>" +
-                    "<div>End</div>" +
+                    "<div>" + _i18n('seek_indication_end_text') + "</div>" +
                     "</div>"
             } else {
                 container.innerHTML = "<div style='margin-right: 10%;' >" +
                     "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"50px\" width=\"50px\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8s3.589-8,8-8 s8,3.589,8,8S16.411,20,12,20z\"></path><path d=\"M13 16L18 12 13 8zM7 16L12 12 7 8z\"></path></svg>" +
-                    "<div>" + seekSeconds + " seconds</div>" +
+                    "<div>" + seekSeconds + " " + _i18n('seek_indication_seconds_text') + "</div>" +
                     "</div>"
             }
         }
@@ -2500,7 +2501,7 @@
             let btn_container = document.createElement('div');
             btn_container.id = "tp_clearChat_btn";
             btn_container.classList.add('tp-under-chat-btn');
-            btn_container.title = "Clear Chat";
+            btn_container.title = _i18n('clear_chat_btn_title');
 
             let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
             btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
@@ -2563,7 +2564,7 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_fast_forward_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = "Fast Forward";
+                btn_container.title = _i18n('fast_forward_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -2596,7 +2597,7 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_cast_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = "Chrome Cast -> Close Tab";
+                btn_container.title = _i18n('cast_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -2634,7 +2635,7 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_flashBangDefender_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = "Toggle FlashBang Defender";
+                btn_container.title = _i18n('flashbang_defender_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -2692,7 +2693,7 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_screenshot_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = "Screenshot Stream";
+                btn_container.title = _i18n('screenshot_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -2739,7 +2740,7 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_pip_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = "Start Picture In Picture";
+                btn_container.title = _i18n('pip_main_btn_title');
 
                 let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
@@ -2777,7 +2778,7 @@
                     let btn_container = document.createElement('div');
                     btn_container.id = "tp_clip_download_btn";
                     btn_container.classList.add('tp-player-control');
-                    btn_container.title = "Download Clip";
+                    btn_container.title = _i18n('clip_download_btn_title');
 
                     let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                     btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -2803,7 +2804,7 @@
                             sendMessageToBG({action: "bg_clip_download_btn_click", detail: true});
                         } else {
                             document.getElementById('tp_clip_download_btn').remove();
-                            alert('no clip found');
+                            alert(_i18n('clip_download_no_clip_found_alert_text'));
                         }
                     }
                     document.querySelector('.player-controls__right-control-group').firstChild.before(btn_container);
@@ -2877,7 +2878,7 @@
 
                 cancel_current_bet_btn.classList.remove('tp-aps-settings-check-bet-active-btn');
                 cancel_current_bet_btn.classList.add('tp-aps-settings-cancel-bet-active-btn');
-                cancel_current_bet_btn.innerText = 'Cancel Upcoming Vote';
+                cancel_current_bet_btn.innerText = _i18n('aps_cancel_vote_btn');
 
                 bet_now_btn.classList.add('tp-aps-settings-bet-now-active-btn');
             } else {
@@ -2886,7 +2887,7 @@
 
                 cancel_current_bet_btn.classList.remove('tp-aps-settings-cancel-bet-active-btn');
                 cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
-                cancel_current_bet_btn.innerText = 'Check Prediction Now';
+                cancel_current_bet_btn.innerText = _i18n('aps_check_prediction_btn');
 
                 bet_now_btn.classList.remove('tp-aps-settings-bet-now-active-btn');
             }
@@ -2932,7 +2933,7 @@
                 } else {
                     last_prediction_streamer = "";
                     checkForPredictions();
-                    cancel_current_bet_btn.innerText = "Checking...";
+                    cancel_current_bet_btn.innerText = _i18n('aps_check_prediction_checking_text');
                     setTimeout(function (){
                         if (predictionSniperTimeout) {
                             set_APS_settings_btn_icon_and_title('active');
@@ -2950,13 +2951,13 @@
                 bet_now_btn.classList.add('tp-aps-settings-bet-now-active-btn');
 
                 cancel_current_bet_btn.classList.add('tp-aps-settings-cancel-bet-active-btn');
-                cancel_current_bet_btn.innerText = 'Cancel Upcoming Vote';
+                cancel_current_bet_btn.innerText = _i18n('aps_cancel_vote_btn');
             } else {
                 set_APS_settings_btn_icon_and_title('idle');
                 menu_shadow_el.classList.add('tp-shadow-idle');
 
                 cancel_current_bet_btn.classList.add('tp-aps-settings-check-bet-active-btn');
-                cancel_current_bet_btn.innerText = 'Check Prediction Now';
+                cancel_current_bet_btn.innerText = _i18n('aps_check_prediction_btn');
             }
 
             let curr_stream_name = getCurrentStreamerName();
@@ -3003,7 +3004,7 @@
         try {
             let settings_btn = document.getElementById('tp_APS_settings_btn');
             settings_btn.firstChild.src = getRuntimeUrl('../images/gamepad_' + status + '.png');
-            settings_btn.title = "Predictions Sniper - " + status;
+            settings_btn.title = _i18n('aps_btn_title_status_prefix_text') + status;
             refresh_aps_settings_menu_ui(status);
         } catch (e) {
 
@@ -3019,7 +3020,7 @@
             let btn_container = document.createElement('div');
             btn_container.id = "tp_APS_settings_btn";
             btn_container.classList.add('tp-under-chat-btn');
-            btn_container.title = "Predictions Sniper - idle";
+            btn_container.title = _i18n('aps_btn_title_status_idle_text');
 
             let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
             btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
@@ -3155,7 +3156,7 @@
         let iframe = document.createElement("Iframe");
         iframe.classList.add('tp-multistream-iframe');
 
-        let closeBtn = createMultiStreamTitleBtn("Close", "X");
+        let closeBtn = createMultiStreamTitleBtn(_i18n('multistream_title_close_btn_title'), "X");
         closeBtn.onclick = function () {
             multiStreamDiv.parentNode.removeChild(multiStreamDiv);
             if (isFScrnWithChat) {
@@ -3163,7 +3164,7 @@
             }
         }
 
-        let fullScreenBtn = createMultiStreamTitleBtn("Fullscreen", "&#x26F6");
+        let fullScreenBtn = createMultiStreamTitleBtn(_i18n('multistream_title_fullscreen_btn_title'), "&#x26F6");
         fullScreenBtn.onclick = function () {
             let fScrnClassStr = 'tp-multistream-box-fullscreen' + (isFScrnWithChat ? '-fScrnWithChat':'');
             if (multiStreamDiv.classList.contains(fScrnClassStr)) {
@@ -3176,7 +3177,7 @@
             }
         }
 
-        let minimizeBtn = createMultiStreamTitleBtn("Minimize", "__");
+        let minimizeBtn = createMultiStreamTitleBtn(_i18n('multistream_title_minimize_btn_title'), "__");
         let streamBox_last_height = 0;
         minimizeBtn.onclick = function () {
             if (multiStreamDiv.getBoundingClientRect().height === 27) {
@@ -3199,7 +3200,7 @@
             }
         };
 
-        let alwaysOnTopBtn = createMultiStreamTitleBtn("Always On Top", "A");
+        let alwaysOnTopBtn = createMultiStreamTitleBtn(_i18n('multistream_title_always_on_top_btn_title'), "A");
         alwaysOnTopBtn.onclick = function () {
             if (multiStreamDiv.attributes.tp_alwaysOnTop) {
                 multiStreamDiv.removeAttribute('tp_alwaysOnTop');
@@ -3221,7 +3222,7 @@
             let font_colorPicker;
 
             function add_ColorPickerAndOpacitySlider(bg_color, slider_val) {
-                colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
+                colorPickerCustomBtn = createMultiStreamTitleBtn(_i18n('multistream_title_color_picker_btn_title'), "C");
                 colorPickerCustomBtn.onclick = function () {
                     colorPicker.click();
                 }
@@ -3292,7 +3293,7 @@
                 position_controls_container.style.left = "auto";
                 position_controls_container.style.right = "12%";
 
-                let align_left_Btn = createMultiStreamTitleBtn('Align Chat To Left', "<");
+                let align_left_Btn = createMultiStreamTitleBtn(_i18n('multistream_align_chat_to_left_btn_title'), "<");
                 align_left_Btn.onclick = function () {
                     multiStreamDiv.style.height = "calc(100vh - " + (isFScrnWithChat ? '40':'50') + "px)";
                     multiStreamDiv.style.width = "350px";
@@ -3301,7 +3302,7 @@
                     fScrnWithChat_savedState.rect = multiStreamDiv.getBoundingClientRect();
                 }
 
-                let align_default_Btn = createMultiStreamTitleBtn('Align Chat To Default', "o");
+                let align_default_Btn = createMultiStreamTitleBtn(_i18n('multistream_align_chat_to_default_btn_title'), "o");
                 align_default_Btn.onclick = function () {
                     multiStreamDiv.style.width = "350px";
                     multiStreamDiv.style.height = "600px";
@@ -3310,7 +3311,7 @@
                     fScrnWithChat_savedState.rect = multiStreamDiv.getBoundingClientRect();
                 }
 
-                let align_right_Btn = createMultiStreamTitleBtn('Align Chat To Right', ">");
+                let align_right_Btn = createMultiStreamTitleBtn(_i18n('multistream_align_chat_to_right_btn_title'), ">");
                 align_right_Btn.onclick = function () {
                     multiStreamDiv.style.height = "calc(100vh - " + (isFScrnWithChat ? '40':'50') + "px)";
                     multiStreamDiv.style.width = "350px";
@@ -3330,7 +3331,7 @@
                 let font_controls_container = document.createElement('div');
                 font_controls_container.classList.add('tp-multi-stream-box-font-controls-container');
 
-                font_colorPickerCustomBtn = createMultiStreamTitleBtn('Color Picker', "C");
+                font_colorPickerCustomBtn = createMultiStreamTitleBtn(_i18n('multistream_title_color_picker_btn_title'), "C");
                 font_colorPickerCustomBtn.onclick = function () {
                     font_colorPicker.click();
                 }
@@ -3346,7 +3347,7 @@
                     fScrnWithChat_savedState.fonts.font_color = color;
                 }
 
-                let bold_btn = createMultiStreamTitleBtn("Toggle Bold Font", "B");
+                let bold_btn = createMultiStreamTitleBtn(_i18n('multistream_font_bold_btn_title'), "B");
                 bold_btn.onclick = function () {
                     if (bold_btn.attributes.tp_font_bold) {
                         bold_btn.removeAttribute('tp_font_bold');
@@ -3360,14 +3361,14 @@
                 }
 
                 let lastFontSize = '13';
-                let font_size_up_btn = createMultiStreamTitleBtn("Increase Font Size", "+");
+                let font_size_up_btn = createMultiStreamTitleBtn(_i18n('multistream_font_size_increase_btn_title'), "+");
                 font_size_up_btn.onclick = function () {
                     lastFontSize++;
                     iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + 'px';
                     fScrnWithChat_savedState.fonts.font_size = lastFontSize;
                 }
 
-                let font_size_down_btn = createMultiStreamTitleBtn("Decrease Font Size", "-");
+                let font_size_down_btn = createMultiStreamTitleBtn(_i18n('multistream_font_size_decrease_btn_title'), "-");
                 font_size_down_btn.onclick = function () {
                     lastFontSize--;
                     iframe.contentDocument.querySelector('.chat-list--default').style.fontSize = lastFontSize + 'px';
@@ -3384,7 +3385,7 @@
                 iframe.contentDocument.querySelector('.chat-scrollable-area__message-container').style.color = font_color ? font_color : '#ffffff';
             }
 
-            extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Stream", "&#11208;");
+            extraMultiBoxBtn = createMultiStreamTitleBtn(_i18n('multistream_title_add_stream_btn_title'), "&#11208;");
             extraMultiBoxBtn.onclick = function () {
                 createMultiStreamBox(streamName, true, false, false, false, yt_videoId);
                 sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
@@ -3405,7 +3406,7 @@
             if (!isMultiStreamMode) {
                 multiStreamDiv.style.boxShadow = 'rgb(23, 23, 23, 0.75) 12px 12px 10px -10px';
             }
-            extraMultiBoxBtn = createMultiStreamTitleBtn("Add Multi-Chat", "&#9703;");
+            extraMultiBoxBtn = createMultiStreamTitleBtn(_i18n('multistream_title_add_chat_btn_title'), "&#9703;");
             extraMultiBoxBtn.onclick = function () {
                 createMultiStreamBox(streamName, true, true, false, false, yt_videoId);
                 sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
@@ -3423,7 +3424,7 @@
 
                         let loader = document.createElement("span");
                         loader.classList.add('tp-loading');
-                        loader.innerText = "loading stream...";
+                        loader.innerText = _i18n('preview_loader_text');
                         loader.style.right = "0";
                         loader.style.borderTopLeftRadius = "10px";
                         loader.style.borderLeft = "1px solid #8f8f8f";
@@ -3480,7 +3481,7 @@
                         "<path fill-rule=\"evenodd\" d=\"M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path>" +
                     "</svg>" +
                 "</div>" +
-                "<div style='font-weight: bold;font-size: 15px;' >Download Screenshot</div>";
+                "<div style='font-weight: bold;font-size: 15px;' >" + _i18n('multistream_download_screenshot_btn_title') + "</div>";
 
             click_download_overlay.onclick = function () {
                 let link = document.createElement("a");
@@ -3566,7 +3567,7 @@
                 }
 
                 let btn_container = document.createElement('div');
-                btn_container.title = "Add Multi-Stream";
+                btn_container.title = _i18n('multistream_title_add_stream_btn_title');
                 btn_container.classList.add('tp-player-control');
 
                 btn_container.style.width = "30px";
@@ -3592,7 +3593,7 @@
                 })
 
                 let btn_containerChat = document.createElement('div');
-                btn_containerChat.title = "Add Multi-Chat";
+                btn_containerChat.title = _i18n('multistream_title_add_chat_btn_title');
                 btn_containerChat.classList.add('tp-player-control');
 
                 btn_containerChat.style.width = "30px";
@@ -3653,7 +3654,7 @@
     function appendMultiStreamSearchInfoText() {
         let div = document.createElement('div');
         div.classList.add('tp-multi-stream-info-div');
-        div.innerHTML = "<-- Search & Click <img width='18' height='18' style='margin: auto 5px' class='tp-theme-support' src='" + getRuntimeUrl('../images/multistream.png') + "' /> to add"
+        div.innerHTML = _i18n('multistream_info_title_pt1') + " <img width='18' height='18' style='margin: auto 5px' class='tp-theme-support' src='" + getRuntimeUrl('../images/multistream.png') + "' /> " + _i18n('multistream_info_title_pt2');
 
         document.querySelector('div[data-a-target="tray-search-input"]').querySelector('input').before(div);
     }
@@ -3759,7 +3760,7 @@
             delete_btn.onclick = function (e) {
                 e.preventDefault();
                 e.cancelBubble = true;
-                if (confirm('Delete Preset "' + label + '"?')) {
+                if (confirm(_i18n('multistream_preset_delete_confirm_dialog_text') + '"' + label + '"?')) {
                     delete_multiStream_layout_preset(layout_preset_index);
                     let layout_preview_container = document.getElementById('tp_multiStream_layout_preview_container');
                     if(layout_preview_container) {
@@ -3792,7 +3793,7 @@
         }
 
         let preset = {};
-        let prompt_res = prompt('Enter Preset Name:', 'Preset Name');
+        let prompt_res = prompt(_i18n('multistream_preset_add_name_prompt_text'), _i18n('multistream_preset_add_name_prompt_placeholder'));
         if (prompt_res === null) {
             return;
         }
@@ -3854,7 +3855,7 @@
         let layout_settings_btn = document.createElement('div');
         layout_settings_btn.classList.add('tp-multi-stream-layout-controls');
         layout_settings_btn.tabIndex = 1;
-        layout_settings_btn.title = 'Layout Presets';
+        layout_settings_btn.title = _i18n('multistream_layout_presets_btn_title');
 
         let img = document.createElement('img');
         img.style.width = '70%';
@@ -4040,7 +4041,7 @@
 
         window.onmessage = function(event) {
             if (event.data === "tp_cast_close") {
-                document.getElementById('cast_loading_overlay').innerText = 'Closing Tab';
+                document.getElementById('cast_loading_overlay').innerText = _i18n('cast_closing_tab_text');
                 let d = Date.now() + 3000;
                 let i = 0;
                 while (Date.now() < d) {
@@ -4065,7 +4066,7 @@
                 check_import_tp_options_availability().then(function () {
                     let overlay = document.createElement('div');
                     overlay.id = "cast_loading_overlay";
-                    overlay.innerText = "Waiting For\nCast Availability..."
+                    overlay.innerText = _i18n('cast_waiting_text');
                     document.body.appendChild(overlay);
 
 
@@ -4075,14 +4076,14 @@
                             setPvqc();
                             appendCastWorker();
                             setTimeout(()=>{
-                                overlay.innerText = 'Select Your\nCast Device';
+                                overlay.innerText = _i18n('cast_select_device_text');
                                 document.querySelector('.tw-chromecast-button__icon').closest('button').click();
                             }, 1000);
                             clearInterval(interval);
                         } else {
                             times_interval_ran++;
                             if (times_interval_ran > 30) {
-                                alert("Twitch Previews:\nError: didn't find ChromeCast Button");
+                                alert(_i18n('cast_not_found_err_text'));
                                 clearInterval(interval);
                             }
                         }
@@ -4101,7 +4102,7 @@
 
                     let overlay = document.createElement('div');
                     overlay.id = "multistream_loading_overlay";
-                    overlay.innerText = "Starting\nMulti-Stream..."
+                    overlay.innerText = _i18n('multistream_starting_text');
                     document.body.appendChild(overlay);
 
                     _browser.storage.local.set({'startMultiStream_name': false}, function() {
@@ -4347,12 +4348,11 @@
 
         let content = document.createElement('div');
         content.classList.add('tp-fte-toast-content');
-        content.innerText = "Yay! you just got Twitch Previews! your Twitch experience is about to get so much easier :)\n" +
-            "Check out the features in the settings menu below";
+        content.innerText = _i18n('fte_message');
 
         let closeBtn = document.createElement('div');
         closeBtn.classList.add('tp-fte-toast-close-btn');
-        closeBtn.innerText = "Close";
+        closeBtn.innerText = _i18n('fte_close_btn_text');
 
         closeBtn.onclick = function () {
             document.body.removeChild(container);
@@ -4963,7 +4963,7 @@
                 }
             }
             if (selectedSettings.length === 0) {
-                alert('no selected settings for import / export');
+                alert(_i18n('settings_feature_import_export_no_selected_err_text'));
                 return false;
             }
             return {selectedSettings: selectedSettings, selectedSettingsString: selectedSettingsString};
