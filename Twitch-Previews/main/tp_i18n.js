@@ -5,7 +5,7 @@ export let i18n = {
         'de': 'Twitch Previews',
         'fr': 'Twitch Previews',
         'pt_BR': 'Twitch Previews',
-        'ru':''
+        'ru':'Twitch Previews'
     },
     availableLangs: {
         'en': 'English',
