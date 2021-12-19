@@ -321,6 +321,41 @@ export let i18n = {
         'fr': '',
         'pt_BR': ''
     },
+
+
+    settings_feature_import_export_settings: {
+        'en': 'Settings',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    settings_feature_import_export_favorites: {
+        'en': 'Favorites',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    settings_feature_import_export_aps_settings: {
+        'en': 'Predictions Sniper custom per stream settings',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+    settings_feature_import_export_multistream_layouts: {
+        'en': 'Multi-Stream Layout Presets',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': ''
+    },
+
+
+
+
+
     settings_feature_isSidebarPreviewsEnabled: {
         'en': 'Sidebar Previews',
         'es': '',
