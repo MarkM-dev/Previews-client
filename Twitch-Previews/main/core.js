@@ -5109,6 +5109,8 @@
             settingsContainer.querySelector('#tp_multiStream_chat_img').src = getRuntimeUrl('images/multistream_chat.png');
 
             initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
+            settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-on'].value = _i18n('settings_feature_preview_mode_data_on');
+            settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-off'].value = _i18n('settings_feature_preview_mode_data_off');
             initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
             initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
             initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox', false);

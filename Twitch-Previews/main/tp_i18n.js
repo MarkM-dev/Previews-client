@@ -479,6 +479,22 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_preview_mode_data_on: {
+        'en': 'video',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_preview_mode_data_off: {
+        'en': 'image',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_preview_image_preview: {
         'en': 'Image Preview',
         'es': '',
