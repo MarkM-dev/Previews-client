@@ -24,7 +24,7 @@ let cached_yt_live_streams_arr = null;
 let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled'];
 
 let options = {
-    selected_lang: 'en',
+    selected_lang: getNavigatorLangSelection(),
     isSidebarPreviewsEnabled: true,
     isImagePreviewMode: true,
     PREVIEWDIV_WIDTH: 440,
@@ -106,6 +106,27 @@ _browser.browserAction.onClicked.addListener(function(tab) {
 
 });
 
+function getNavigatorLangSelection() {
+    switch (navigator.language) {
+        case 'es':
+            return 'es';
+        case 'es-ES':
+            return 'es';
+        case 'fr':
+            return 'fr';
+        case 'fr_FR':
+            return 'fr';
+        case 'de':
+            return 'de';
+        case 'de-DE':
+            return 'de';
+        case 'pt_BR':
+            return 'pt_BR';
+        default:
+            return 'en';
+    }
+}
+
 function upgradeDB(loaded_options) {
     let bSetToStorage = false;
     Object.keys(options).forEach(function(key,index) {
@@ -149,8 +170,6 @@ _browser.runtime.onInstalled.addListener(function(details) {
         if (details.reason === "update") {
             _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
             _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-
-            _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
 
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (!result.tpInstallTime) {
