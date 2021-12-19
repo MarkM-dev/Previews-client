@@ -39,6 +39,14 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_new_indication_text: {
+        'en': ' New!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_subtext_shows_in_player_controls: {
         'en': '(shows in player controls)',
         'es': '',
@@ -71,6 +79,14 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_subtext_isSelfPreviewEnabled: {
+        'en': 'Stream name (english):',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_section_misc: {
         'en': 'Misc',
         'es': '',
@@ -95,6 +111,14 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_subtext_isMultiStreamEnabled: {
+        'en': '(shows next to stream uptime, sidebar & search results)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isAdvancedVideoEmbedsEnabled: {
         'en': 'Advanced Video Embeds',
         'es': '',
@@ -105,6 +129,14 @@ export let i18n = {
     },
     settings_feature_isClipDownloaderEnabled: {
         'en': 'Clip Download Button',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_subtext_isClipDownloaderEnabled: {
+        'en': '(shows in player controls of clips)',
         'es': '',
         'de': '',
         'fr': '',
@@ -761,6 +793,14 @@ export let i18n = {
     },
     aps_sniper_voted_body_notif_text: {
         'en': '%s %s\nSniper voted "%s" with %s points!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    aps_vote_now_btn: {
+        'en': 'Vote Now',
         'es': '',
         'de': '',
         'fr': '',
