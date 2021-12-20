@@ -16,6 +16,38 @@ export let i18n = {
             {code:'ru', display_str:'русский'}
         ]
     },
+    opd_clips_msg: {
+        'en': 'To enable the Clip Downloader, the extension needs permission to run on "clips.twitch.tv"',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    opd_yt_msg: {
+        'en': 'To enable Sidebar YouTube Channels, the extension needs permission to fetch the streams from YouTube',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    opd_allow_btn: {
+        'en': 'Allow',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    opd_cancel_btn: {
+        'en': 'Cancel',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     fte_message: {
         'en': 'Yay! you just got Twitch Previews! your Twitch experience is about to get so much easier :)\nCheck out the features in the settings menu below',
         'es': '',
@@ -41,7 +73,7 @@ export let i18n = {
         'ru':''
     },
     settings_new_indication_text: {
-        'en': ' New!',
+        'en': ' New!',
         'es': '',
         'de': '',
         'fr': '',

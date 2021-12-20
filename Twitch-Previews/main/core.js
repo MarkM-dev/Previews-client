@@ -5153,6 +5153,7 @@
                 if (lang.code === options.selected_lang) {
                     option_el.selected = true;
                 }
+
                 lang_selector.appendChild(option_el);
             })
 
