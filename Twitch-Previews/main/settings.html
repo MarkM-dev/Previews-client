@@ -20,8 +20,10 @@
                 <p id="tp_popup_feature_directory_previews" class="TP_popup_dirp_feature_title" style="margin-top: 0;padding-top: 0;" ><span tp_i18n="settings_feature_isDirpEnabled" >Directory Previews</span> <span class="tp_settings_cb_container" ><input id="TP_popup_directory_preview_mode_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Directory Previews</strong>
-                    <br>- Shows a video stream preview when hovering over streams in Twitch directories (channels in browsing directory, following, etc..).
+                    <span tp_i18n_html="settings_feature_isDirpEnabled_desc" >
+                        <strong>* Directory Previews</strong>
+                        <br>- Shows a video stream preview when hovering over streams in Twitch directories (channels in browsing directory, following, etc..).
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_selfPreviews" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;"><span tp_i18n="settings_feature_isSelfPreviewEnabled" >Streaming - See Your Own Live Stream Thumbnail</span>
@@ -29,9 +31,11 @@
                 </span> <span class="tp_settings_cb_container" style="align-self: center;" ><input id="TP_popup_self_previews_checkbox" class="apple-switch" type="checkbox" style="align-self: auto;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* See Your Own Live Stream Thumbnail</strong>
-                    <br>- Shows your own stream's live thumbnail preview, as seen by viewers on Twitch, when hovering over the Twitch logo at the top left.
-                    <br>- This feature is <strong>only active on 'twitch.tv' pages</strong>, it's <strong>not active in the clips directory or in the dashboard</strong> (like clips.twitch.tv).
+                    <span tp_i18n_html="settings_feature_isSelfPreviewEnabled_desc" >
+                        <strong>* See Your Own Live Stream Thumbnail</strong>
+                        <br>- Shows your own stream's live thumbnail preview, as seen by viewers on Twitch, when hovering over the Twitch logo at the top left.
+                        <br>- This feature is <strong>only active on 'twitch.tv' pages</strong>, it's <strong>not active in the clips directory or in the dashboard</strong> (like clips.twitch.tv).
+                    </span>
                 </div>
 
                 <div class="tp_settings_section_title" tp_i18n="settings_section_misc" >Misc</div>
@@ -39,50 +43,60 @@
                 <p id="tp_popup_feature_cpc" class="TP_popup_dirp_feature_title" ><span tp_i18n="settings_feature_isChannelPointsClickerEnabled" >Auto Channel Points Clicker</span> <span class="tp_settings_cb_container" ><input id="TP_popup_channel_points_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Auto Channel Points Clicker</strong>
-                    <br>- This feature automatically clicks the green channel points redeem button.
-                    <br>- It also works when chat is closed and when the tab or window is in the background.
+                    <span tp_i18n_html="settings_feature_isChannelPointsClickerEnabled_desc" >
+                        <strong>* Auto Channel Points Clicker</strong>
+                        <br>- This feature automatically clicks the green channel points redeem button.
+                        <br>- It also works when chat is closed and when the tab or window is in the background.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_multiStream" class="TP_popup_dirp_feature_title" ><span><span tp_i18n="settings_feature_isMultiStreamEnabled" >Multi-Stream & Multi-Chat</span> (<img id="tp_multiStream_img" src="" style="margin-bottom: -5px;" width="18" height="18"> & <img id="tp_multiStream_chat_img" src="" style="margin-bottom: -5px;" width="18" height="18">)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isMultiStreamEnabled" >(shows next to stream uptime, sidebar & search results)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_multiStream_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Multi-Stream & Multi-Chat</strong>
-                    <br>- You can add Multi-Stream and Multi-Chat on the fly to any page you're on directly from the sidebar or via the top search bar (if the Multi-Stream feature is enabled).
-                    <br>- There is also a button that is located next to the stream uptime under the stream.
-                    <br>- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
-                    <br>- In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
-                    <br>- You can scroll the page, change background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
-                    <br>- If the Auto Channel Points feature is enabled, it will collect points in the chat box.
-                    <br>- If you enable the 'Sidebar YouTube Channels' feature, you can add your subscribed YouTube channels to the Multi-Stream and use it cross-platform (also supports YouTube chat).
+                    <span tp_i18n_html="settings_feature_isMultiStreamEnabled_desc" >
+                        <strong>* Multi-Stream & Multi-Chat</strong>
+                        <br>- You can add Multi-Stream and Multi-Chat on the fly to any page you're on directly from the sidebar or via the top search bar (if the Multi-Stream feature is enabled).
+                        <br>- There is also a button that is located next to the stream uptime under the stream.
+                        <br>- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.
+                        <br>- In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.
+                        <br>- You can scroll the page, change background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).
+                        <br>- If the Auto Channel Points feature is enabled, it will collect points in the chat box.
+                        <br>- If you enable the 'Sidebar YouTube Channels' feature, you can add your subscribed YouTube channels to the Multi-Stream and use it cross-platform (also supports YouTube chat).
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_advancedVideoEmbeds" class="TP_popup_dirp_feature_title" ><span><span tp_i18n="settings_feature_isAdvancedVideoEmbedsEnabled" >Advanced Video Embeds</span><span class="tp-settings-new-feature-span" tp_i18n="settings_new_indication_text" >&nbsp;New!</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_AdvancedVideoEmbeds_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Advanced Video Embeds</strong>
-                    <br>- This applies to the Multi-Stream feature and on-the-fly video embeds (not previews).
-                    <br>- Bypasses purple screen.
-                    <br>- Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).
-                    <br>- Seeking using the keyboard arrow keys in these embeds will be in 1.5 seconds intervals instead of the normal 5 seconds to allow easier streams synchronization for Multi-Stream.
-                    <br>- Note: this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.
-                    <br>- Note: if you're using a different extension that replaces the Twitch main player, you might still experience a purple screen.
-                    <br>- Experimental feature.
+                    <span tp_i18n_html="settings_feature_isAdvancedVideoEmbedsEnabled_desc" >
+                        <strong>* Advanced Video Embeds</strong>
+                        <br>- This applies to the Multi-Stream feature and on-the-fly video embeds (not previews).
+                        <br>- Bypasses purple screen.
+                        <br>- Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).
+                        <br>- Seeking using the keyboard arrow keys in these embeds will be in 1.5 seconds intervals instead of the normal 5 seconds to allow easier streams synchronization for Multi-Stream.
+                        <br>- Note: this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.
+                        <br>- Note: if you're using a different extension that replaces the Twitch main player, you might still experience a purple screen.
+                        <br>- Experimental feature.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_clip_downloader" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isClipDownloaderEnabled" >Clip Download Button</span> (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="17px" width="17px" style="margin-bottom: -3px;" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>)<span class="tp-settings-new-feature-span" tp_i18n="settings_new_indication_text" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isClipDownloaderEnabled" >(shows in player controls of clips)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_clip_downloader_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Clip Download Button</strong>
-                    <br>- The button will show in the player controls of clips.
-                    <br>- When enabling this feature, you will need to allow the extension to run on "clips.twitch.tv" (a prompt will show when enabling).
+                    <span tp_i18n_html="settings_feature_isClipDownloaderEnabled_desc" >
+                        <strong>* Clip Download Button</strong>
+                        <br>- The button will show in the player controls of clips.
+                        <br>- When enabling this feature, you will need to allow the extension to run on "clips.twitch.tv" (a prompt will show when enabling).
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_muteAutoPlayers" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isMuteAutoPlayersEnabled" >Mute Auto-Playing Videos In Various Pages</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isMuteAutoPlayersEnabled" >(homepage, offline stream page, etc..)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_muteAutoPlayers_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Mute Auto-Playing Videos In Various Pages</strong>
-                    <br>- Mutes the auto-playing video players in various pages.
+                    <span tp_i18n_html="settings_feature_isMuteAutoPlayersEnabled_desc" >
+                        <strong>* Mute Auto-Playing Videos In Various Pages</strong>
+                        <br>- Mutes the auto-playing video players in various pages.
+                    </span>
                 </div>
 
                 <div class="tp_settings_section_title" tp_i18n="settings_section_sidebar" >Sidebar</div>
@@ -90,48 +104,58 @@
                 <p id="tp_popup_feature_sidebar_favorites" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isSidebarFavoritesEnabled" >Sidebar Favorite Channels</span> (<svg style="vertical-align: bottom;" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path></svg>)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isSidebarFavoritesEnabled" >(shows at the top of the sidebar)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_sidebar_favorites_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Sidebar Favorite Channels</strong>
-                    <br>- A new Favorites list at the top of the sidebar (for your most favorite streamers).
-                    <br>- Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.
-                    <br>- The list will show only the currently live streams in your favorites list.
-                    <br>- Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it's closed, the list will still populate but will be partial.
-                    <br>- Note: it might take a few seconds for the list to show or update.
+                    <span tp_i18n_html="settings_feature_isSidebarFavoritesEnabled_desc" >
+                        <strong>* Sidebar Favorite Channels</strong>
+                        <br>- A new Favorites list at the top of the sidebar (for your most favorite streamers).
+                        <br>- Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.
+                        <br>- The list will show only the currently live streams in your favorites list.
+                        <br>- Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it's closed, the list will still populate but will be partial.
+                        <br>- Note: it might take a few seconds for the list to show or update.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_YTsidebar" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isYTsidebarEnabled" >Sidebar YouTube Channels</span> (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" style="margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg"><path d="M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 2.2 0 4.7.1 7.6.1 8.1.3 17.2.5 26.9.8 27.9 2.2 55.7 4.4 81.9 3 36.1 7.4 66.2 13.4 88.8 12.8 47.9 50.4 85.7 98.3 98.5 28.2 7.6 83.7 12.3 161.7 15.2 37.1 1.4 76.8 2.3 116.5 2.8 13.9.2 26.8.3 38.4.4h29.4c11.6-.1 24.5-.2 38.4-.4 39.7-.5 79.4-1.4 116.5-2.8 78-3 133.5-7.7 161.7-15.2 47.9-12.8 85.5-50.5 98.3-98.5 6.1-22.6 10.4-52.7 13.4-88.8 2.2-26.2 3.6-54 4.4-81.9.3-9.7.4-18.8.5-26.9 0-2.9.1-5.4.1-7.6v-5.6zm-72 5.2c0 2.1 0 4.4-.1 7.1-.1 7.8-.3 16.4-.5 25.7-.7 26.6-2.1 53.2-4.2 77.9-2.7 32.2-6.5 58.6-11.2
                     76.3-6.2 23.1-24.4 41.4-47.4 47.5-21 5.6-73.9 10.1-145.8 12.8-36.4 1.4-75.6 2.3-114.7 2.8-13.7.2-26.4.3-37.8.3h-28.6l-37.8-.3c-39.1-.5-78.2-1.4-114.7-2.8-71.9-2.8-124.9-7.2-145.8-12.8-23-6.2-41.2-24.4-47.4-47.5-4.7-17.7-8.5-44.1-11.2-76.3-2.1-24.7-3.4-51.3-4.2-77.9-.3-9.3-.4-18-.5-25.7 0-2.7-.1-5.1-.1-7.1v-4.8c0-2.1 0-4.4.1-7.1.1-7.8.3-16.4.5-25.7.7-26.6 2.1-53.2 4.2-77.9 2.7-32.2 6.5-58.6 11.2-76.3 6.2-23.1 24.4-41.4 47.4-47.5 21-5.6 73.9-10.1 145.8-12.8 36.4-1.4 75.6-2.3 114.7-2.8 13.7-.2 26.4-.3 37.8-.3h28.6l37.8.3c39.1.5 78.2 1.4 114.7 2.8 71.9 2.8 124.9 7.2 145.8 12.8 23 6.2 41.2 24.4 47.4 47.5 4.7 17.7 8.5 44.1 11.2 76.3 2.1 24.7 3.4 51.3 4.2 77.9.3 9.3.4 18 .5 25.7 0 2.7.1 5.1.1 7.1v4.8zM423 646l232-135-232-133z"></path></svg>)<span class="tp-settings-new-feature-span" tp_i18n="settings_new_indication_text" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isYTsidebarEnabled" >(shows at the top of the sidebar)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_YTsidebar_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Sidebar YouTube Channels</strong>
-                    <br>- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.
-                    <br>- The list data will update every 5 minutes.
-                    <br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.
-                    <br>- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).
-                    <br>- When enabling this feature, you will need to allow the extension to run on "youtube.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.
+                    <span tp_i18n_html="settings_feature_isYTsidebarEnabled_desc" >
+                        <strong>* Sidebar YouTube Channels</strong>
+                        <br>- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.
+                        <br>- The list data will update every 5 minutes.
+                        <br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.
+                        <br>- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).
+                        <br>- When enabling this feature, you will need to allow the extension to run on "youtube.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_sBar_extend" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isSidebarExtendEnabled" >Auto Extend Sidebar (show more)</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isSidebarExtendEnabled" >(when sidebar is open)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_sidebar_extend_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Auto Extend Sidebar (show more)</strong>
-                    <br>- Auto extends the sidebar to show all live streamers in the sidebar (when sidebar is open).
-                    <br>- Note: you can leave this feature off if you have the Favorites list feature enabled.
+                    <span tp_i18n_html="settings_feature_isSidebarExtendEnabled_desc" >
+                        <strong>* Auto Extend Sidebar (show more)</strong>
+                        <br>- Auto extends the sidebar to show all live streamers in the sidebar (when sidebar is open).
+                        <br>- Note: you can leave this feature off if you have the Favorites list feature enabled.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_sBar_search" class="TP_popup_dirp_feature_title" ><span tp_i18n="settings_feature_isSidebarSearchEnabled" >Sidebar Search Button</span> <span class="tp_settings_cb_container" ><input id="TP_popup_sidebar_search_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Sidebar Streamer Search</strong>
-                    <br>- A purple search button at the top of the sidebar to find live streamers easily.
-                    <br>- Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
+                    <span tp_i18n_html="settings_feature_isSidebarSearchEnabled_desc" >
+                        <strong>* Sidebar Streamer Search</strong>
+                        <br>- A purple search button at the top of the sidebar to find live streamers easily.
+                        <br>- Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_sBar_hideSections" class="TP_popup_dirp_feature_title" ><span tp_i18n="settings_feature_isSidebarHideSectionsEnabled" >Hide All Sidebar Sections Except The Followed Channels</span> <span class="tp_settings_cb_container" ><input id="TP_popup_sidebar_hide_sections_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Hide All Sidebar Sections Except The Followed Channels</strong>
-                    <br>- Hides all the other sections in the sidebar except the followed channels.
-                    <br>- Note: this feature does not affect the 'sidebar favorites' and 'sidebar YouTube channels' features, you will still see your favorites and YouTube channels lists.
+                    <span tp_i18n_html="settings_feature_isSidebarHideSectionsEnabled_desc" >
+                        <strong>* Hide All Sidebar Sections Except The Followed Channels</strong>
+                        <br>- Hides all the other sections in the sidebar except the followed channels.
+                        <br>- Note: this feature does not affect the 'sidebar favorites' and 'sidebar YouTube channels' features, you will still see your favorites and YouTube channels lists.
+                    </span>
                 </div>
 
                 <div class="tp_settings_section_title" tp_i18n="settings_section_player" >Player</div>
@@ -139,47 +163,57 @@
                 <p id="tp_popup_feature_errRefresh" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isErrRefreshEnabled" >Auto Refresh On Twitch Player Error</span> <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isErrRefreshEnabled" >(#1000, #2000, #3000, #4000)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_err_refresh_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Auto Refresh On Errors (#1000, #2000, #3000, #4000)</strong>
-                    <br>- Refreshes the player if an error occurs.
+                    <span tp_i18n_html="settings_feature_isErrRefreshEnabled_desc" >
+                        <strong>* Auto Refresh On Errors (#1000, #2000, #3000, #4000)</strong>
+                        <br>- Refreshes the player if an error occurs.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_pvqc" class="TP_popup_dirp_feature_title" ><span tp_i18n="settings_feature_isPvqcEnabled" >Prevent Auto Video Quality Change When In Background</span> <span class="tp_settings_cb_container" ><input id="TP_popup_pvqc_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Prevent Automatic Video Quality Change</strong>
-                    <br>- Prevents automatic video quality change when Twitch is in the background (when switching tabs / tasks).
-                    <br>- Prevents 99% of Twitch player errors (#1000, #2000).
+                    <span tp_i18n_html="settings_feature_isPvqcEnabled_desc" >
+                        <strong>* Prevent Automatic Video Quality Change</strong>
+                        <br>- Prevents automatic video quality change when Twitch is in the background (when switching tabs / tasks).
+                        <br>- Prevents 99% of Twitch player errors (#1000, #2000).
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_fScrnWithChat" class="TP_popup_dirp_feature_title" ><span><span tp_i18n="settings_feature_isfScrnWithChatEnabled" >Full Screen + Chat Button</span> (<img id="tp_fScrnWithChat_img" src="../images/fScrnWithChat_main.png" style="margin-bottom: -5px;" width="18" height="18">)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_shows_in_player_controls" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_fScrnWithChat_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Full Screen With Chat</strong>
-                    <br>- The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.
-                    <br>- Hovering over it will show two options: Full Screen with Custom or Default Chat.
-                    <br>- The Custom chat will automatically position itself over the video to the right and stretch to screen height.
-                    <br>- You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.
-                    <br>- The Custom chat's settings (position, size, colors, etc..) will be saved for the current page session.
-                    <br>- The Custom Chat will spawn back when you return to fullscreen after exiting fullscreen while in mode.
-                    <br>- Exit the mode by clicking the button in the player controls again or click the close(x) button on the Custom Chat and exit fullscreen.
-                    <br><span class="tp-chrome-hide" >- Firefox users - exit the 'Default-Chat' mode by double tapping ESC.</span>
+                    <span tp_i18n_html="settings_feature_isfScrnWithChatEnabled_desc" >
+                        <strong>* Full Screen With Chat</strong>
+                        <br>- The button will show next to the 'theater mode' or 'fullscreen' button in the player controls.
+                        <br>- Hovering over it will show two options: Full Screen with Custom or Default Chat.
+                        <br>- The Custom chat will automatically position itself over the video to the right and stretch to screen height.
+                        <br>- You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.
+                        <br>- The Custom chat's settings (position, size, colors, etc..) will be saved for the current page session.
+                        <br>- The Custom Chat will spawn back when you return to fullscreen after exiting fullscreen while in mode.
+                        <br>- Exit the mode by clicking the button in the player controls again or click the close(x) button on the Custom Chat and exit fullscreen.
+                        <br><span class="tp-chrome-hide" >- Firefox users - exit the 'Default-Chat' mode by double tapping ESC.</span>
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_pip" class="TP_popup_dirp_feature_title tp-firefox-hide" ><span><span tp_i18n="settings_feature_isPipEnabled" >Picture In Picture Button</span> (<img id="tp_pip_img" src="../images/pip.png" style="margin-bottom: -5px;" width="18" height="18">)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_shows_in_player_controls" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_pip_checkbox" class="apple-switch" type="checkbox"><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div tp-firefox-hide" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Picture In Picture</strong>
-                    <br>- The button will show next to the 'theater mode' button in the player controls.
-                    <br>- Clicking it will start the browser's Picture In Picture for the current stream.
+                    <span tp_i18n_html="settings_feature_isPipEnabled_desc" >
+                        <strong>* Picture In Picture</strong>
+                        <br>- The button will show next to the 'theater mode' button in the player controls.
+                        <br>- Clicking it will start the browser's Picture In Picture for the current stream.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_fastForward" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isFastForwardEnabled" >Fast-Forward Button</span> (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" style="margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg" ><path d="M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z"></path></svg>)<span class="tp-settings-new-feature-span" tp_i18n="settings_new_indication_text" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isFastForwardEnabled" >(shows in player controls, useful if stream is delayed)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_fastForward_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Fast-Forward Button</strong>
-                    <br>- Useful if your stream is delayed.
-                    <br>- The button will show in the player controls next to the 'play/pause' button.
-                    <br>- Click it to fast-forward the stream to the latest point in the buffer.
+                    <span tp_i18n_html="settings_feature_isFastForwardEnabled_desc" >
+                        <strong>* Fast-Forward Button</strong>
+                        <br>- Useful if your stream is delayed.
+                        <br>- The button will show in the player controls next to the 'play/pause' button.
+                        <br>- Click it to fast-forward the stream to the latest point in the buffer.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_seek" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isSeekEnabled" >Seek Streams Using Keyboard Arrow Keys</span>
@@ -188,38 +222,46 @@
                     <span class="tp-settings-new-feature-span" tp_i18n="settings_new_indication_text" >&nbsp;New!</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_seek_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Seek Streams Using Keyboard Arrow Keys</strong>
-                    <br>- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.
-                    <br>- Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.
-                    <br>- Note: the buffer size varies between 0 seconds to two minutes.
+                    <span tp_i18n_html="settings_feature_isSeekEnabled_desc" >
+                        <strong>* Seek Streams Using Keyboard Arrow Keys</strong>
+                        <br>- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.
+                        <br>- Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.
+                        <br>- Note: the buffer size varies between 0 seconds to two minutes.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_screenshot" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isScreenshotEnabled" >Screenshot Stream Button</span> (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M9.827 21.763L14.31 14l3.532 6.117A9.955 9.955 0 0 1 12 22c-.746 0-1.473-.082-2.173-.237zM7.89 21.12A10.028 10.028 0 0 1 2.458 15h8.965L7.89 21.119zM2.05 13a9.964 9.964 0 0 1 2.583-7.761L9.112 13H2.05zm4.109-9.117A9.955 9.955 0 0 1 12 2c.746 0 1.473.082 2.173.237L9.69 10 6.159 3.883zM16.11 2.88A10.028 10.028 0 0 1 21.542 9h-8.965l3.533-6.119zM21.95 11a9.964 9.964 0 0 1-2.583 7.761L14.888 11h7.064z"></path></g></svg>)<span class="tp-settings-new-feature-span" tp_i18n="settings_new_indication_text" >&nbsp;New!</span><br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_shows_in_player_controls" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_screenshot_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Screenshot Stream Button</strong>
-                    <br>- The button will show in the player controls.
-                    <br>- You can capture multiple screenshots and then save only the ones you like.
-                    <br>- The screenshots are captured at the same resolution as the stream.
+                    <span tp_i18n_html="settings_feature_isScreenshotEnabled_desc" >
+                        <strong>* Screenshot Stream Button</strong>
+                        <br>- The button will show in the player controls.
+                        <br>- You can capture multiple screenshots and then save only the ones you like.
+                        <br>- The screenshots are captured at the same resolution as the stream.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_flashBangDefender" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isFlashBangDefenderEnabled" >FlashBang Defender Button</span> (<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -5px" xmlns="http://www.w3.org/2000/svg"><path d="M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z"></path></svg>)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_shows_in_player_controls" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_flashBangDefender_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* FlashBang Defender Button</strong>
-                    <br>- For when it's late night and the streamer opens a white screen.
-                    <br>- Toggles a semi-transparent overlay on top of the stream.
-                    <br>- The button will show in the player controls.
+                    <span tp_i18n_html="settings_feature_isFlashBangDefenderEnabled_desc" >
+                        <strong>* FlashBang Defender Button</strong>
+                        <br>- For when it's late night and the streamer opens a white screen.
+                        <br>- Toggles a semi-transparent overlay on top of the stream.
+                        <br>- The button will show in the player controls.
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_cast" class="TP_popup_dirp_feature_title tp-firefox-hide" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isCastEnabled" >Chrome-Cast -> Close Tab Button</span> (<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z"></path></g></svg>)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_shows_in_player_controls" >(shows in player controls)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_cast_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div tp-firefox-hide" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Chrome-Cast -> Close Tab</strong>
-                    <br>- The button will show in the player controls.
-                    <br>- Click it to start casting on a new tab and then close the new tab without stopping the Chrome-Cast.
-                    <br>- Everything is done automatically, you just need to select your casting device when prompted.
-                    <br>- Note: experimental feature, try again if it fails.
+                    <span tp_i18n_html="settings_feature_isCastEnabled_desc" >
+                        <strong>* Chrome-Cast -> Close Tab</strong>
+                        <br>- The button will show in the player controls.
+                        <br>- Click it to start casting on a new tab and then close the new tab without stopping the Chrome-Cast.
+                        <br>- Everything is done automatically, you just need to select your casting device when prompted.
+                        <br>- Note: experimental feature, try again if it fails.
+                    </span>
                 </div>
 
                 <div class="tp_settings_section_title" tp_i18n="settings_section_chat" >Chat</div>
@@ -227,9 +269,11 @@
                 <p id="tp_popup_feature_clearChat" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isClearChatEnabled" >Clear Chat Button</span> (<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="20px" width="20px" style="margin-bottom: -7px;" xmlns="http://www.w3.org/2000/svg" ><path d="M15.9644 4.63379H3.96442V6.63379H15.9644V4.63379Z" fill="currentColor"></path><path d="M15.9644 8.63379H3.96442V10.6338H15.9644V8.63379Z" fill="currentColor"></path><path d="M3.96442 12.6338H11.9644V14.6338H3.96442V12.6338Z" fill="currentColor"></path><path d="M12.9645 13.7093L14.3787 12.295L16.5 14.4163L18.6213 12.2951L20.0355 13.7093L17.9142 15.8305L20.0356 17.9519L18.6214 19.3661L16.5 17.2447L14.3786 19.3661L12.9644 17.9519L15.0858 15.8305L12.9645 13.7093Z" fill="currentColor"></path></svg>)<br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isClearChatEnabled" >(shows under the chat)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_clearChat_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Clear Chat Button</strong>
-                    <br>- The button will show under the chat.
-                    <br>- Clears all the messages in chat.
+                    <span tp_i18n_html="settings_feature_isClearChatEnabled_desc" >
+                        <strong>* Clear Chat Button</strong>
+                        <br>- The button will show under the chat.
+                        <br>- Clears all the messages in chat.
+                    </span>
                 </div>
 
                 <div class="tp_settings_section_title" tp_i18n="settings_section_predictions" >Predictions</div>
@@ -237,10 +281,12 @@
                 <p id="tp_popup_feature_predictions" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_isPredictionsNotificationsEnabled" >Predictions Notifications</span> <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isPredictionsNotificationsEnabled" >(works on twitch tabs in the browser)</span></span> <span class="tp_settings_cb_container" ><input id="TP_popup_predictions_notifications_checkbox" class="apple-switch" type="checkbox" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Predictions Notifications</strong>
-                    <br>- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
-                    <br>- Works on Twitch tabs in the browser.
-                    <br>- When enabling the feature, you will need to allow notification permissions for Twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
+                    <span tp_i18n_html="settings_feature_isPredictionsNotificationsEnabled_desc" >
+                        <strong>* Predictions Notifications</strong>
+                        <br>- Predictions started and Predictions results notifications when you don't know it's happening (for example if your chat is closed or you are not in the tab or browser).
+                        <br>- Works on Twitch tabs in the browser.
+                        <br>- When enabling the feature, you will need to allow notification permissions for Twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it's allowed there).
+                    </span>
                 </div>
 
                 <p id="tp_popup_feature_predictionsSniper" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;"><span tp_i18n="settings_feature_isPredictionsSniperEnabled" >Predictions Sniper</span>
@@ -251,34 +297,40 @@
                 </span> <span class="tp_settings_cb_container" style="align-self: flex-start;" ><input id="TP_popup_predictions_sniper_checkbox" class="apple-switch" type="checkbox" style="align-self: auto;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Predictions Sniper</strong>
-                    <br>- The predictions sniper will participate in predictions for you.
-                    <br>- Works on Twitch tabs in the browser.
-                    <br>- The sniper will choose the option with the most amount of votes at the time of entry (x seconds before prediction closes).
-                    <br>- If you have chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
-                    <br>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
-                    <br>- To change Sniper settings for individual streams, click the Sniper settings button under the chat.
-                    <br><strong>Default Settings:</strong>
-                    <br><strong>Bet % -</strong> the percentage of channel points you want the sniper to bet.
-                    <br><strong>Max num of points -</strong> the maximum amount of points the sniper is allowed to vote with.
-                    <br><strong>Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
-                    <br><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the Min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.
-                    <br><strong>Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (minimum 2s).
+                    <span tp_i18n_html="settings_feature_isPredictionsSniperEnabled_desc" >
+                        <strong>* Predictions Sniper</strong>
+                        <br>- The predictions sniper will participate in predictions for you.
+                        <br>- Works on Twitch tabs in the browser.
+                        <br>- The sniper will choose the option with the most amount of votes at the time of entry (x seconds before prediction closes).
+                        <br>- If you have chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.
+                        <br>- You can enable the 'Predictions notifications' feature if you want to know what's happening in real-time.
+                        <br>- To change Sniper settings for individual streams, click the Sniper settings button under the chat.
+                        <br><strong>Default Settings:</strong>
+                        <br><strong>Bet % -</strong> the percentage of channel points you want the sniper to bet.
+                        <br><strong>Max num of points -</strong> the maximum amount of points the sniper is allowed to vote with.
+                        <br><strong>Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.
+                        <br><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the Min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.
+                        <br><strong>Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (minimum 2s).
+                    </span>
                 </div>
 
                 <div class="tp_settings_section_title" tp_i18n="settings_section_settings" >Settings</div>
                 <p id="tp_popup_feature_settings" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;" ><span tp_i18n="settings_feature_import_export" >Import/Export Settings</span><span class="tp-settings-new-feature-span" tp_i18n="settings_new_indication_text" >&nbsp;New!</span> <br><span style="font-weight: normal;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_import_export" >(expand for settings selection)</span></span> <span class="tp_settings_cb_container" ><input type="file" accept=".json" id="TP_popup_settings_import_btn_input" style="display: none;" ><span id="TP_popup_settings_import_btn" class="TP_popup_settings_import_export_btn" tp_i18n="settings_feature_import_btn_text" >Import</span><span id="TP_popup_settings_export_btn" class="TP_popup_settings_import_export_btn" tp_i18n="settings_feature_export_btn_text" >Export</span><input id="TP_popup_settings_save_checkbox" class="apple-switch" type="checkbox" style="display: none;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
-                    <strong>* Import/Export Settings</strong>
-                    <br><strong>- Only the selected settings below will be imported/exported.</strong>
+                    <span tp_i18n_html="settings_feature_import_export_desc_pt1" >
+                        <strong>* Import/Export Settings</strong>
+                        <br><strong>- Only the selected settings below will be imported/exported.</strong>
+                    </span>
                     <br><br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="tp_options" checked="true" >&nbsp;<span tp_i18n="settings_feature_import_export_settings" >Settings</span></span>
                     <br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="favorites_arr" checked="true" >&nbsp;<span tp_i18n="settings_feature_import_export_favorites" >Favorites</span></span>
                     <br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="aps_streams_settings_obj" checked="true" >&nbsp;<span tp_i18n="settings_feature_import_export_aps_settings" >Predictions Sniper custom per stream settings</span></span>
                     <br><span class="tp_settings_save_cb_container" ><input type="checkbox" class="tp_settings_save_selection_cb apple-switch" name="multiStream_layout_presets" checked="true" >&nbsp;<span tp_i18n="settings_feature_import_export_multistream_layouts" >Multi-Stream Layout Presets</span></span>
-                    <br>- Multi-Stream layout presets are relevant to your browser resolution, using saved layout presets on a different browser resolution will look different in size.
-                    <br>- The page will refresh after importing settings and will ask for new permission if the imported settings have features enabled that require new permissions.
-                </div>
+                    <span tp_i18n_html="settings_feature_import_export_desc_pt2" >
+                        <br>- Multi-Stream layout presets are relevant to your browser resolution, using saved layout presets on a different browser resolution will look different in size.
+                        <br>- The page will refresh after importing settings and will ask for new permission if the imported settings have features enabled that require new permissions.
+                    </span>
+                  </div>
 
             </div>
         </div>

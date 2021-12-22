@@ -4827,6 +4827,11 @@
         items.forEach((item) => {
             item.innerText = _i18n(item.attributes.tp_i18n.value);
         })
+
+        let items_html = settingsContainer.querySelectorAll('[tp_i18n_html]');
+        items_html.forEach((item) => {
+            item.innerHTML = _i18n(item.attributes.tp_i18n_html.value);
+        })
     }
 
     function initDragForAPSSettings(settingsContainer) {
@@ -5074,6 +5079,28 @@
         };
     }
 
+    function initLangSelector(settingsContainer) {
+        let lang_selector = settingsContainer.querySelector('#tp_settings_lang_selector');
+
+        _tp_i18n.i18n.availableLangs[0].forEach((lang) => {
+            let option_el = document.createElement('option');
+            option_el.value = lang.code;
+            option_el.innerText = lang.display_str;
+            if (lang.code === options.selected_lang) {
+                option_el.selected = true;
+            }
+
+            lang_selector.appendChild(option_el);
+        })
+
+        lang_selector.addEventListener('change', (event) => {
+            changeFeatureMode('selected_lang', event.target.value);
+            _browser.storage.local.set({'shouldShowSettings': true}, function() {
+                location.replace(window.location);
+            });
+        });
+    }
+
     function showSettingsMenu() {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', getRuntimeUrl('main/settings.html'), true);
@@ -5144,25 +5171,8 @@
 
             initSettingsImportExportFuncs(settingsContainer);
 
-            let lang_selector = settingsContainer.querySelector('#tp_settings_lang_selector');
-
-            _tp_i18n.i18n.availableLangs[0].forEach((lang) => {
-                let option_el = document.createElement('option');
-                option_el.value = lang.code;
-                option_el.innerText = lang.display_str;
-                if (lang.code === options.selected_lang) {
-                    option_el.selected = true;
-                }
-
-                lang_selector.appendChild(option_el);
-            })
-
-            lang_selector.addEventListener('change', (event) => {
-                changeFeatureMode('selected_lang', event.target.value);
-                    _browser.storage.local.set({'shouldShowSettings': true}, function() {
-                        location.replace(window.location);
-                    });
-            });
+            initLangSelector(settingsContainer);
+            set_settings_i18n(settingsContainer);
 
             if (isFirefox) {
                 let els = settingsContainer.querySelectorAll('.tp-firefox-hide');
@@ -5202,8 +5212,6 @@
 
 
             setAppVer(settingsContainer);
-
-            set_settings_i18n(settingsContainer);
 
             initDragForSettings(settingsContainer);
 

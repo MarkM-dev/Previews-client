@@ -104,6 +104,15 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isDirpEnabled_desc: {
+        'en': '<strong>* Directory Previews</strong>' +
+            '<br>- Shows a video stream preview when hovering over streams in Twitch directories (channels in browsing directory, following, etc..).',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isSelfPreviewEnabled: {
         'en': 'Streaming - See Your Own Live Stream Thumbnail',
         'es': '',
@@ -114,6 +123,16 @@ export let i18n = {
     },
     settings_feature_subtext_isSelfPreviewEnabled: {
         'en': 'Stream name (english):',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isSelfPreviewEnabled_desc: {
+        'en': '<strong>* See Your Own Live Stream Thumbnail</strong>' +
+            '<br>- Shows your own stream\'s live thumbnail preview, as seen by viewers on Twitch, when hovering over the Twitch logo at the top left.' +
+            '<br>- This feature is <strong>only active on \'twitch.tv\' pages</strong>, it\'s <strong>not active in the clips directory or in the dashboard</strong> (like clips.twitch.tv).',
         'es': '',
         'de': '',
         'fr': '',
@@ -136,6 +155,16 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isChannelPointsClickerEnabled_desc: {
+        'en': '<strong>* Auto Channel Points Clicker</strong>' +
+            '<br>- This feature automatically clicks the green channel points redeem button.' +
+            '<br>- It also works when chat is closed and when the tab or window is in the background.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isMultiStreamEnabled: {
         'en': 'Multi-Stream & Multi-Chat',
         'es': '',
@@ -152,8 +181,38 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isMultiStreamEnabled_desc: {
+        'en': '<strong>* Multi-Stream & Multi-Chat</strong>' +
+            '<br>- You can add Multi-Stream and Multi-Chat on the fly to any page you\'re on directly from the sidebar or via the top search bar (if the Multi-Stream feature is enabled).' +
+            '<br>- There is also a button that is located next to the stream uptime under the stream.' +
+            '<br>- Clicking it will start Multi Stream on a new Twitch tab - so you can still enjoy the benefits of the sidebar and the search function at the top bar.' +
+            '<br>- In the new Multi-Stream tab, add a stream from the sidebar or search for a stream at the top Twitch search bar and click the Multi-Stream button in the results to add the stream.' +
+            '<br>- You can scroll the page, change background color & transparency, font color, weight, increase/decrease size, fullscreen, drag, resize and minimize the boxes (top bar and bottom right corner of the boxes).' +
+            '<br>- If the Auto Channel Points feature is enabled, it will collect points in the chat box.' +
+            '<br>- If you enable the \'Sidebar YouTube Channels\' feature, you can add your subscribed YouTube channels to the Multi-Stream and use it cross-platform (also supports YouTube chat).',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isAdvancedVideoEmbedsEnabled: {
         'en': 'Advanced Video Embeds',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isAdvancedVideoEmbedsEnabled_desc: {
+        'en': '<strong>* Advanced Video Embeds</strong>' +
+            '<br>- This applies to the Multi-Stream feature and on-the-fly video embeds (not previews).' +
+            '<br>- Bypasses purple screen.' +
+            '<br>- Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).' +
+            '<br>- Seeking using the keyboard arrow keys in these embeds will be in 1.5 seconds intervals instead of the normal 5 seconds to allow easier streams synchronization for Multi-Stream.' +
+            '<br>- Note: this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.' +
+            '<br>- Note: if you\'re using a different extension that replaces the Twitch main player, you might still experience a purple screen.' +
+            '<br>- Experimental feature.',
         'es': '',
         'de': '',
         'fr': '',
@@ -176,6 +235,16 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isClipDownloaderEnabled_desc: {
+        'en': '<strong>* Clip Download Button</strong>' +
+            '<br>- The button will show in the player controls of clips.' +
+            '<br>- When enabling this feature, you will need to allow the extension to run on "clips.twitch.tv" (a prompt will show when enabling).',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isMuteAutoPlayersEnabled: {
         'en': 'Mute Auto-Playing Videos In Various Pages',
         'es': '',
@@ -186,6 +255,15 @@ export let i18n = {
     },
     settings_feature_subtext_isMuteAutoPlayersEnabled: {
         'en': '(homepage, offline stream page, etc..)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isMuteAutoPlayersEnabled_desc: {
+        'en': '<strong>* Mute Auto-Playing Videos In Various Pages</strong>' +
+            '<br>- Mutes the auto-playing video players in various pages.',
         'es': '',
         'de': '',
         'fr': '',
@@ -216,6 +294,19 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isSidebarFavoritesEnabled_desc: {
+        'en': '<strong>* Sidebar Favorite Channels</strong>' +
+            '<br>- A new Favorites list at the top of the sidebar (for your most favorite streamers).' +
+            '<br>- Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.' +
+            '<br>- The list will show only the currently live streams in your favorites list.' +
+            '<br>- Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it\'s closed, the list will still populate but will be partial.' +
+            '<br>- Note: it might take a few seconds for the list to show or update.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isYTsidebarEnabled: {
         'en': 'Sidebar YouTube Channels',
         'es': '',
@@ -226,6 +317,19 @@ export let i18n = {
     },
     settings_feature_subtext_isYTsidebarEnabled: {
         'en': '(shows at the top of the sidebar)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isYTsidebarEnabled_desc: {
+        'en': '<strong>* Sidebar YouTube Channels</strong>' +
+            '<br>- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.' +
+            '<br>- The list data will update every 5 minutes.' +
+            '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.' +
+            '<br>- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren\'t already).' +
+            '<br>- When enabling this feature, you will need to allow the extension to run on "youtube.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.',
         'es': '',
         'de': '',
         'fr': '',
@@ -248,6 +352,16 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isSidebarExtendEnabled_desc: {
+        'en': '<strong>* Auto Extend Sidebar (show more)</strong>' +
+            '<br>- Auto extends the sidebar to show all live streamers in the sidebar (when sidebar is open).' +
+            '<br>- Note: you can leave this feature off if you have the Favorites list feature enabled.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isSidebarSearchEnabled: {
         'en': 'Sidebar Search Button',
         'es': '',
@@ -256,8 +370,28 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isSidebarSearchEnabled_desc: {
+        'en': '<strong>* Sidebar Streamer Search</strong>' +
+            '<br>- A purple search button at the top of the sidebar to find live streamers easily.' +
+            '<br>- Searches within the currently shown streamers so the sidebar will automatically extend to show all live streamers when you start searching.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isSidebarHideSectionsEnabled: {
         'en': 'Hide All Sidebar Sections Except The Followed Channels',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isSidebarHideSectionsEnabled_desc: {
+        'en': '<strong>* Hide All Sidebar Sections Except The Followed Channels</strong>' +
+            '<br>- Hides all the other sections in the sidebar except the followed channels.' +
+            '<br>- Note: this feature does not affect the \'sidebar favorites\' and \'sidebar YouTube channels\' features, you will still see your favorites and YouTube channels lists.',
         'es': '',
         'de': '',
         'fr': '',
@@ -288,8 +422,27 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isErrRefreshEnabled_desc: {
+        'en': '<strong>* Auto Refresh On Errors (#1000, #2000, #3000, #4000)</strong>' +
+            '<br>- Refreshes the player if an error occurs.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isPvqcEnabled: {
         'en': 'Prevent Auto Video Quality Change When In Background',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isPvqcEnabled_desc: {
+        'en': '<strong>* Prevent Automatic Video Quality Change</strong>' +
+            '<br>- Prevents automatic video quality change when Twitch is in the background (when switching tabs / tasks).' +
+            '<br>- Prevents 99% of Twitch player errors (#1000, #2000).',
         'es': '',
         'de': '',
         'fr': '',
@@ -304,8 +457,34 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isfScrnWithChatEnabled_desc: {
+        'en': '<strong>* Full Screen With Chat</strong>' +
+            '<br>- The button will show next to the \'theater mode\' or \'fullscreen\' button in the player controls.' +
+            '<br>- Hovering over it will show two options: Full Screen with Custom or Default Chat.' +
+            '<br>- The Custom chat will automatically position itself over the video to the right and stretch to screen height.' +
+            '<br>- You can resize, move it around, align to each side and change styles with the controls at the top of the chat box.' +
+            '<br>- The Custom chat\'s settings (position, size, colors, etc..) will be saved for the current page session.' +
+            '<br>- The Custom Chat will spawn back when you return to fullscreen after exiting fullscreen while in mode.' +
+            '<br>- Exit the mode by clicking the button in the player controls again or click the close(x) button on the Custom Chat and exit fullscreen.' +
+            '<br><span class="tp-chrome-hide" >- Firefox users - exit the \'Default-Chat\' mode by double tapping ESC.</span>',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isPipEnabled: {
         'en': 'Picture In Picture Button',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isPipEnabled_desc: {
+        'en': '<strong>* Picture In Picture</strong>' +
+            '<br>- The button will show next to the \'theater mode\' button in the player controls.' +
+            '<br>- Clicking it will start the browser\'s Picture In Picture for the current stream.',
         'es': '',
         'de': '',
         'fr': '',
@@ -328,8 +507,30 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isFastForwardEnabled_desc: {
+        'en': '<strong>* Fast-Forward Button</strong>' +
+            '<br>- Useful if your stream is delayed.' +
+            '<br>- The button will show in the player controls next to the \'play/pause\' button.' +
+            '<br>- Click it to fast-forward the stream to the latest point in the buffer.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isSeekEnabled: {
         'en': 'Seek Streams Using Keyboard Arrow Keys',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isSeekEnabled_desc: {
+        'en': '<strong>* Seek Streams Using Keyboard Arrow Keys</strong>' +
+            '<br>- Seeks 5 seconds back or forward using the keyboard left/right arrow keys.' +
+            '<br>- Note: this feature moves the playback point in the buffer, which is constantly cleared by Twitch, so seeking might sometimes be interrupted.' +
+            '<br>- Note: the buffer size varies between 0 seconds to two minutes.',
         'es': '',
         'de': '',
         'fr': '',
@@ -344,6 +545,17 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isScreenshotEnabled_desc: {
+        'en': '<strong>* Screenshot Stream Button</strong>' +
+            '<br>- The button will show in the player controls.' +
+            '<br>- You can capture multiple screenshots and then save only the ones you like.' +
+            '<br>- The screenshots are captured at the same resolution as the stream.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isFlashBangDefenderEnabled: {
         'en': 'FlashBang Defender Button',
         'es': '',
@@ -352,8 +564,31 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isFlashBangDefenderEnabled_desc: {
+        'en': '<strong>* FlashBang Defender Button</strong>' +
+            '<br>- For when it\'s late night and the streamer opens a white screen.' +
+            '<br>- Toggles a semi-transparent overlay on top of the stream.' +
+            '<br>- The button will show in the player controls.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isCastEnabled: {
         'en': 'Chrome-Cast -> Close Tab Button',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isCastEnabled_desc: {
+        'en': '<strong>* Chrome-Cast -> Close Tab</strong>' +
+            '<br>- The button will show in the player controls.\n' +
+            '<br>- Click it to start casting on a new tab and then close the new tab without stopping the Chrome-Cast.' +
+            '<br>- Everything is done automatically, you just need to select your casting device when prompted.' +
+            '<br>- Note: experimental feature, try again if it fails.',
         'es': '',
         'de': '',
         'fr': '',
@@ -384,6 +619,16 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isClearChatEnabled_desc: {
+        'en': '<strong>* Clear Chat Button</strong>' +
+            '<br>- The button will show under the chat.' +
+            '<br>- Clears all the messages in chat.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_section_predictions: {
         'en': 'Predictions',
         'es': '',
@@ -408,6 +653,17 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isPredictionsNotificationsEnabled_desc: {
+        'en': '<strong>* Predictions Notifications</strong>' +
+            '<br>- Predictions started and Predictions results notifications when you don\'t know it\'s happening (for example if your chat is closed or you are not in the tab or browser).' +
+            '<br>- Works on Twitch tabs in the browser.' +
+            '<br>- When enabling the feature, you will need to allow notification permissions for Twitch.tv (a prompt will show - if not, click on the lock icon on the left of the url and check if it\'s allowed there).',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_feature_isPredictionsSniperEnabled: {
         'en': 'Predictions Sniper',
         'es': '',
@@ -424,6 +680,26 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    settings_feature_isPredictionsSniperEnabled_desc: {
+        'en': '<strong>* Predictions Sniper</strong>' +
+            '<br>- The predictions sniper will participate in predictions for you.' +
+            '<br>- Works on Twitch tabs in the browser.' +
+            '<br>- The sniper will choose the option with the most amount of votes at the time of entry (x seconds before prediction closes).' +
+            '<br>- If you have chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.' +
+            '<br>- You can enable the \'Predictions notifications\' feature if you want to know what\'s happening in real-time.' +
+            '<br>- To change Sniper settings for individual streams, click the Sniper settings button under the chat.' +
+            '<br><strong>Default Settings:</strong>' +
+            '<br><strong>Bet % -</strong> the percentage of channel points you want the sniper to bet.' +
+            '<br><strong>Max num of points -</strong> the maximum amount of points the sniper is allowed to vote with.' +
+            '<br><strong>Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.' +
+            '<br><strong>For example:</strong> option A- 100 votes, option B- 115 votes, vote spread: A-46.51% B-53.49%, <strong>vote margin: 6.98%</strong> (53.49% - 46.51%). <strong>if the Min vote margin is lower than 6.98%</strong>, the sniper <strong>will</strong> participate.' +
+            '<br><strong>Seconds -</strong> the amount of seconds the sniper will make a prediction before the prediction closes (minimum 2s).',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_section_settings: {
         'en': 'Settings',
         'es': '',
@@ -434,6 +710,24 @@ export let i18n = {
     },
     settings_feature_import_export: {
         'en': 'Import/Export Settings',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_import_export_desc_pt1: {
+        'en': '<strong>* Import/Export Settings</strong>' +
+            '<br><strong>- Only the selected settings below will be imported/exported.</strong>',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_import_export_desc_pt2: {
+        'en': '<br>- Multi-Stream layout presets are relevant to your browser resolution, using saved layout presets on a different browser resolution will look different in size.' +
+            '<br>- The page will refresh after importing settings and will ask for new permission if the imported settings have features enabled that require new permissions.',
         'es': '',
         'de': '',
         'fr': '',
