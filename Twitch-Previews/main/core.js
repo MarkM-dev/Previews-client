@@ -4192,8 +4192,6 @@
         updateToast.classList.add("animated");
         updateToast.classList.add("slideInRight");
 
-        let selectedDonateButton = 'coffee' + Math.round(Math.random());
-
         updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
             "            <div>" +
             "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"20\" height=\"20\" title=\"" + geti18nMessage('translateStr') + "\" />\n" +
@@ -4205,7 +4203,11 @@
             "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >" + _i18n('update_toast_rate') + "</div>\n" +
             "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >" + _i18n('update_toast_share') + "</div>\n" +
             "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >" + _i18n('update_toast_settings') + "</div>\n" +
-            "                <input id=\"tp_updateToast_donate_btn\" type=\"image\" src=\"" + getRuntimeUrl('../images/' + selectedDonateButton + '.png') + "\" border=\"0\" name=\"submit\" alt=\"Donate\" />\n" +
+            "                <div id=\"tp_updateToast_donate_btn\" >\n" +
+            "                                <img id=\"tp_updateToast_donate_btn_img\" src=\"" + getRuntimeUrl('images/donate_heart.png') + "\" width=\"23\" height=\"22\" >\n" +
+            "                                <span id=\"tp_updateToast_donate_btn_buffer_span\" ></span>\n" +
+            "                                <span id=\"tp_updateToast_donate_btn_text_span\" >" + _i18n('donate_btn_text') + "</span>\n" +
+            "                            </div>\n" +
             "            </div>\n" +
             "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? _i18n('delayed_rate_toast_close'):_i18n('update_toast_close')) + "</div>\n" +
             "        </div>";
@@ -4225,7 +4227,7 @@
 
         updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
             sendMessageToBG({action: "bg_show_donate", detail: ""});
-            sendMessageToBG({action: toastType + "_donate_btn_click", detail: selectedDonateButton});
+            sendMessageToBG({action: toastType + "_donate_btn_click", detail: ""});
         };
 
         updateToast.querySelector('#tp_updateToast_dismiss_btn').onclick = function () {
@@ -4801,13 +4803,13 @@
         }
     }
 
-    function initSocialBtn(settingsContainer, name, url, donateBtn) {
+    function initSocialBtn(settingsContainer, name, url) {
         let btn = settingsContainer.querySelector('#tp_popup_' + name +'_btn');
         btn.addEventListener('click', (event) => {
             if (url) {
                 sendMessageToBG({action: "bg_show_" + name, detail: ""});
             }
-            sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: donateBtn ? donateBtn : ""});
+            sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: ""});
             if (name === "changelog") {
                 if (!document.getElementById('tp_updateToast')) {
                     showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
@@ -5125,11 +5127,11 @@
                 }, 700);
             });
 
-            let selectedDonateButton = 'coffee' + Math.round(Math.random());
+
 
             settingsContainer.querySelector('#TP_popup_title_logo').src = getRuntimeUrl('images/TP96.png');
             settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');
-            settingsContainer.querySelector('#tp_popup_donate_btn').src = getRuntimeUrl('images/' + selectedDonateButton + '.png');
+            settingsContainer.querySelector('#tp_popup_donate_btn_img').src = getRuntimeUrl('images/donate_heart.png');
             settingsContainer.querySelector('#tp_fScrnWithChat_img').src = getRuntimeUrl('images/fScrnWithChat_main.png');
             settingsContainer.querySelector('#tp_pip_img').src = getRuntimeUrl('images/pip.png');
             settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
@@ -5189,7 +5191,7 @@
 
             initPreviewSizeSlider(settingsContainer);
 
-            initSocialBtn(settingsContainer, 'donate', true, selectedDonateButton);
+            initSocialBtn(settingsContainer, 'donate', true);
             initSocialBtn(settingsContainer, 'rate', true);
             initSocialBtn(settingsContainer, 'share', true);
 

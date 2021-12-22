@@ -846,6 +846,14 @@ export let i18n = {
         'pt_BR': '',
         'ru':''
     },
+    donate_btn_text: {
+        'en': 'D o n a t e :)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     settings_donate_above_text: {
         'en': 'If you like this extension, consider\ncontributing :)',
         'es': '',

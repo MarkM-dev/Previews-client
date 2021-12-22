@@ -534,15 +534,34 @@
 }
 
 #TPBodyEl #tp_popup_donate_btn {
-    margin-top: 15px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto auto auto;
     width: 80%;
+    background-color: #9147ff;
     border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
     transition: all 0.1s;
 }
 
 #TPBodyEl #tp_popup_donate_btn:hover {
     box-shadow: 0 0 15px 0px rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
+}
+
+#TPBodyEl #tp_popup_donate_btn_img {
+    margin-left: 9px;
+    margin-bottom: 1px;
+}
+#TPBodyEl #tp_popup_donate_btn_text_span {
+    font-size: 18px;
+    font-family: monospace;
+}
+#TPBodyEl #tp_popup_donate_btn_buffer_span {
+    width: 15px;
 }
 
 #TPBodyEl .TP_popup_settings_import_export_btn {
