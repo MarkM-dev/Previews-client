@@ -87,7 +87,7 @@ export let i18n = {
         'ru':' Новый!'
     },
     settings_lang_info_text: {
-        'en': '',
+        'en': ' ',
         'es': '* las traducciones se realizaron con Google Translate, Comuníquese con nosotros si desea ayudar a que las traducciones en su idioma sean más precisas.',
         'de': '* Übersetzungen wurden mit Google Translate erstellt, Kontaktieren Sie uns, wenn Sie helfen möchten, die Übersetzungen in Ihrer Sprache genauer zu machen.',
         'fr': '* les traductions ont été faites à l\'aide de Google Translate, Contactez-nous si vous souhaitez aider à rendre les traductions plus précises dans votre langue.',
