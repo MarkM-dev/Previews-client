@@ -299,7 +299,7 @@
 
 #TPBodyEl .TP_popup_bottom_bar {
     display: flex;
-    margin-top: 9px;
+    margin-top: 10px;
 }
 
 #TPBodyEl .TP_popup_bottom_bar div {
@@ -319,7 +319,7 @@
 }
 
 #TPBodyEl .TP_popup_bottom_bar div:hover {
-    background-color: rgb(162, 96, 254);
+    background-color: rgb(145, 71, 255);
 }
 
 /* Chrome, Safari, Edge, Opera */

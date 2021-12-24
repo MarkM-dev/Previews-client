@@ -1296,7 +1296,7 @@ export let i18n = {
         'es': 'D o n a r :)',
         'de': 'Spenden :)',
         'fr': 'Faire un don :)',
-        'pt_BR': 'D o e :)',
+        'pt_BR': 'D o a r :)',
         'ru':'Пожертвовать :)'
     },
     settings_donate_above_text: {
