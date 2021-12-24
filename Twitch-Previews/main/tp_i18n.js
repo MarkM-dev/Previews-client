@@ -86,13 +86,13 @@ export let i18n = {
         'pt_BR': ' Nova!',
         'ru':' Новый!'
     },
-    settings_lang_selector_title: {
-        'en': '* translations were made using Google Translate',
-        'es': '* las traducciones se realizaron con Google Translate',
-        'de': '* Übersetzungen wurden mit Google Translate erstellt',
-        'fr': '* les traductions ont été faites à l\'aide de Google Translate',
-        'pt_BR': '* traduções foram feitas usando o Google Translate',
-        'ru':'* перевод выполнен с использованием Google Translate'
+    settings_lang_info_text: {
+        'en': '',
+        'es': '* las traducciones se realizaron con Google Translate, Comuníquese con nosotros si desea ayudar a que las traducciones en su idioma sean más precisas.',
+        'de': '* Übersetzungen wurden mit Google Translate erstellt, Kontaktieren Sie uns, wenn Sie helfen möchten, die Übersetzungen in Ihrer Sprache genauer zu machen.',
+        'fr': '* les traductions ont été faites à l\'aide de Google Translate, Contactez-nous si vous souhaitez aider à rendre les traductions plus précises dans votre langue.',
+        'pt_BR': '* traduções foram feitas usando o Google Translate, Contacte-nos se quiser ajudar a tornar as traduções mais precisas no seu idioma.',
+        'ru':'* перевод выполнен с использованием Google Translate, Свяжитесь с нами, если вы хотите помочь сделать переводы на вашем языке более точными.'
     },
     settings_feature_subtext_shows_in_player_controls: {
         'en': '(shows in player controls)',
