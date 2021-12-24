@@ -5092,15 +5092,12 @@
             let option_el = document.createElement('option');
             option_el.value = lang.code;
             option_el.innerText = lang.display_str;
-            option_el.title = _i18n('settings_lang_selector_title');
             if (lang.code === options.selected_lang) {
                 option_el.selected = true;
             }
 
             lang_selector.appendChild(option_el);
         })
-
-        lang_selector.title = _i18n('settings_lang_selector_title');
 
         lang_selector.addEventListener('change', (event) => {
             changeFeatureMode('selected_lang', event.target.value);

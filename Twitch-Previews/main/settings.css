@@ -99,6 +99,10 @@
     transform: scale(1.1);
 }
 
+#TPBodyEl .TP_popup_dirp_feature_title > span:first-of-type {
+    width: 85%;
+}
+
 #TPBodyEl input.apple-switch {
     cursor: pointer;
     transition: 300ms;
