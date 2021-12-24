@@ -86,6 +86,14 @@ export let i18n = {
         'pt_BR': ' Nova!',
         'ru':' Новый!'
     },
+    settings_lang_selector_title: {
+        'en': '* translations were made using Google Translate',
+        'es': '* las traducciones se realizaron con Google Translate',
+        'de': '* Übersetzungen wurden mit Google Translate erstellt',
+        'fr': '* les traductions ont été faites à l\'aide de Google Translate',
+        'pt_BR': '* traduções foram feitas usando o Google Translate',
+        'ru':'* перевод выполнен с использованием Google Translate'
+    },
     settings_feature_subtext_shows_in_player_controls: {
         'en': '(shows in player controls)',
         'es': '(se muestra en los controles del reproductor)',
