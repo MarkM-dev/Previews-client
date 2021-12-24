@@ -4265,12 +4265,12 @@
     function getUpdateToastBody() {
         //let ffclass = isFirefox ? 'class="tp_display_none"':'';
         return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
-            +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Video Embeds in Image Preview mode!</strong>"
+            +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Languages!</div>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Added several new languages!</strong>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Added the Video Embed button in the sidebar when using Image Preview mode.</strong></span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- shows under the view count in the sidebar when hovering streams.</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- this was previously available only when using Video Preview mode.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' src='" + getRuntimeUrl('images/sidebarembed.jpg') + "' ></span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "             <span ><br><br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Pro Tip:</strong> to watch a fullscreen stream with on-the-fly embeds (video streams and chats): enable the 'Full Screen + Chat' feature, add an embed, then click on the 'Full Screen + Default Chat' button.</span>"
             +  "            </div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes & Improvements</strong>"
@@ -5092,12 +5092,15 @@
             let option_el = document.createElement('option');
             option_el.value = lang.code;
             option_el.innerText = lang.display_str;
+            option_el.title = _i18n('settings_lang_selector_title');
             if (lang.code === options.selected_lang) {
                 option_el.selected = true;
             }
 
             lang_selector.appendChild(option_el);
         })
+
+        lang_selector.title = _i18n('settings_lang_selector_title');
 
         lang_selector.addEventListener('change', (event) => {
             changeFeatureMode('selected_lang', event.target.value);
