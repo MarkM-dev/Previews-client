@@ -4911,6 +4911,10 @@
     function initTranslateInfoDivBtn (settingsContainer, checkboxID) {
         try {
             let translateInfoBtn = settingsContainer.querySelector('#' + checkboxID).parentNode.parentNode.nextElementSibling.querySelector('.translate_div_btn');
+            if (options.selected_lang !== 'en') {
+                translateInfoBtn.style.display = 'none';
+                return;
+            }
             translateInfoBtn.src = getRuntimeUrl('images/translate.png');
             translateInfoBtn.title = geti18nMessage('translateStr');
             translateInfoBtn.addEventListener('click', (event) => {
