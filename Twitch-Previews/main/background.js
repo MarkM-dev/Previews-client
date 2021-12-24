@@ -24,6 +24,7 @@ let cached_yt_live_streams_arr = null;
 let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled'];
 
 let options = {
+    selected_lang: 'en',
     isSidebarPreviewsEnabled: true,
     isImagePreviewMode: true,
     PREVIEWDIV_WIDTH: 440,
@@ -105,6 +106,31 @@ _browser.browserAction.onClicked.addListener(function(tab) {
 
 });
 
+function getNavigatorLangSelection() {
+    switch (navigator.language) {
+        case 'es':
+            return 'es';
+        case 'es-ES':
+            return 'es';
+        case 'fr':
+            return 'fr';
+        case 'fr_FR':
+            return 'fr';
+        case 'de':
+            return 'de';
+        case 'de-DE':
+            return 'de';
+        case 'pt_BR':
+            return 'pt_BR';
+        case 'ru':
+            return 'ru';
+        case 'ru_RU':
+            return 'ru';
+        default:
+            return 'en';
+    }
+}
+
 function upgradeDB(loaded_options) {
     let bSetToStorage = false;
     Object.keys(options).forEach(function(key,index) {
@@ -121,23 +147,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
     let manifestData = _browser.runtime.getManifest();
     let appVer = "v" + manifestData.version;
 
-    _browser.storage.local.get('tp_options', function(result) {
-        if (typeof result.tp_options == 'undefined') {
-            _browser.storage.local.set({'tp_options': options}, function() {
-
-            });
-        } else {
-            // upgrade db.
-            let new_db_container_obj = upgradeDB(result.tp_options);
-            if (new_db_container_obj.bSetToStorage) {
-                _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
-
-                });
-            }
-        }
-    });
 
     if (details.reason === "install") {
+        options.selected_lang = getNavigatorLangSelection();
+        _browser.storage.local.set({'tp_options': options}, function() {});
+
         send_ga_event('tp_install', 'tp_install-' + appVer, 'tp_install-' + appVer + ' - ' + tpga_browser);
         _browser.storage.local.set({'isFTE': true}, function() {});
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
@@ -146,10 +160,19 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
     } else {
         if (details.reason === "update") {
+
+            _browser.storage.local.get('tp_options', function(result) {
+                // upgrade db.
+                let new_db_container_obj = upgradeDB(result.tp_options);
+                if (new_db_container_obj.bSetToStorage) {
+                    _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
+
+                    });
+                }
+            });
+
             _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
             _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-
-            _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
 
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (!result.tpInstallTime) {
@@ -172,6 +195,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_isSidebarPreviewsEnabled":
             send_ga_event('sidebarPreview_mode', 'change', msg.detail ? "sBarPreview_ON":"sBarPreview_OFF");
+            break;
+        case "bg_update_selected_lang":
+            send_ga_event('selected_lang_mode', 'change', msg.detail);
             break;
         case "bg_update_isImagePreviewMode":
             send_ga_event('preview_mode', 'change', msg.detail ? "image":"video");
@@ -359,7 +385,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('updateToast', 'updateToast_rate_btn_click', 'updateToast_rate_btn_click');
             break;
         case "updateToast_donate_btn_click":
-            send_ga_event('updateToast', 'updateToast_donate_btn_click', msg.detail);
+            send_ga_event('updateToast', 'updateToast_donate_btn_click', 'updateToast_donate_btn_click');
             break;
         case "updateToast_share_btn_click":
             send_ga_event('updateToast', 'updateToast_share_btn_click', 'updateToast_share_btn_click');
@@ -384,7 +410,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('delayedRateToast', 'delayedRateToast_rate_btn_click', 'delayedRateToast_rate_btn_click');
             break;
         case "delayedRateToast_donate_btn_click":
-            send_ga_event('delayedRateToast', 'delayedRateToast_donate_btn_click', msg.detail);
+            send_ga_event('delayedRateToast', 'delayedRateToast_donate_btn_click', 'delayedRateToast_donate_btn_click');
             break;
         case "delayedRateToast_share_btn_click":
             send_ga_event('delayedRateToast', 'delayedRateToast_share_btn_click', 'delayedRateToast_share_btn_click');
@@ -428,7 +454,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             }
             break;
         case "bg_donate_btn_click":
-            send_ga_event('settings_donate_btn_click', 'settings_donate_btn_click', msg.detail);
+            send_ga_event('settings_donate_btn_click', 'settings_donate_btn_click', 'settings_donate_btn_click');
             break;
         case "bg_rate_btn_click":
             send_ga_event('settings_rate_btn_click', 'settings_rate_btn_click', 'settings_rate_btn_click');

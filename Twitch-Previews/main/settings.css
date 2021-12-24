@@ -44,6 +44,21 @@
     font-weight: normal;
 }
 
+#TPBodyEl #tp_settings_lang_selector {
+    position: absolute;
+    top: 11px;
+    z-index: 999999;
+    background-color: transparent;
+    color: whitesmoke;
+    cursor: pointer;
+    border: none;
+}
+
+#TPBodyEl #tp_settings_lang_selector option {
+    background-color: #232323;
+    color: whitesmoke;
+}
+
 #TPBodyEl .tp_settings_section_title {
     text-align: left;
     font-size: 30px;
@@ -82,6 +97,10 @@
 
 #TPBodyEl .TP_popup_dirp_feature_title:hover > span:nth-child(2) {
     transform: scale(1.1);
+}
+
+#TPBodyEl .TP_popup_dirp_feature_title > span:first-of-type {
+    width: 85%;
 }
 
 #TPBodyEl input.apple-switch {
@@ -280,7 +299,7 @@
 
 #TPBodyEl .TP_popup_bottom_bar {
     display: flex;
-    margin-top: 9px;
+    margin-top: 10px;
 }
 
 #TPBodyEl .TP_popup_bottom_bar div {
@@ -300,7 +319,7 @@
 }
 
 #TPBodyEl .TP_popup_bottom_bar div:hover {
-    background-color: rgb(162, 96, 254);
+    background-color: rgb(145, 71, 255);
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -519,15 +538,34 @@
 }
 
 #TPBodyEl #tp_popup_donate_btn {
-    margin-top: 15px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto auto auto;
     width: 80%;
+    background-color: #9147ff;
     border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
     transition: all 0.1s;
 }
 
 #TPBodyEl #tp_popup_donate_btn:hover {
     box-shadow: 0 0 15px 0px rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
+}
+
+#TPBodyEl #tp_popup_donate_btn_img {
+    margin-left: 9px;
+    margin-bottom: 1px;
+}
+#TPBodyEl #tp_popup_donate_btn_text_span {
+    font-size: 18px;
+    font-family: monospace;
+}
+#TPBodyEl #tp_popup_donate_btn_buffer_span {
+    width: 15px;
 }
 
 #TPBodyEl .TP_popup_settings_import_export_btn {

@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "TEST Twitch Previews",
+    "description": "Extension name."
+  },
+  "appDesc": {
+    "message": "Live-Vorschauen, wenn Sie mit der Maus über Streams fahren|Eine Reihe von Funktionen zur Verbesserung der Lebensqualität von Twitch.",
+    "description": "Extension description."
+  },
+  "translateStr": {
+    "message": "Übersetzen",
+    "description": "Translate Button text."
+  }
+}
