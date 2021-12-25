@@ -154,7 +154,30 @@
             if (options.isYTsidebarEnabled) {
                 setYTsidebar();
             }
-            shouldRefresh = false;
+        }
+    });
+
+    let sideNavMutationObserver_for_bug = new MutationObserver(function(mutations_list) {
+        for (let i = 0; i < mutations_list.length; i++) {
+            for (let j = 0; j < mutations_list[i].addedNodes.length; j++) {
+                if(mutations_list[i].addedNodes[j].classList.contains('side-nav-section')) {
+                    console.log('sidebar added');
+
+                    if (options.isSidebarPreviewsEnabled) {
+                        refreshNavCardsListAndListeners();
+                    }
+
+                    if (options.isSidebarHideSectionsEnabled) {
+                        hideSidebarSections();
+                    }
+
+                    if (options.isSidebarFavoritesEnabled) {
+                        setSidebarFavorites();
+                    }
+
+                    return;
+                }
+            }
         }
     });
 
@@ -183,6 +206,15 @@
             sideNavMutationObserver.observe(document.querySelector('.side-nav-section'), {
                 childList: true,
                 subtree: true
+            });
+        }
+    }
+
+    function setSideNavMutationObserver_for_sidebar_disappearing_followed_bug() {
+        if (document.querySelector('.side-nav-section')) {
+            sideNavMutationObserver_for_bug.observe(document.querySelector('.side-nav-section').parentNode, {
+                childList: true,
+                subtree: false
             });
         }
     }
@@ -4474,6 +4506,7 @@
             createPipBtn();
             refreshNavCardsListAndListeners();
             setSideNavMutationObserver();
+            setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
         }
 
         if (options.isDirpEnabled) {
@@ -4583,6 +4616,7 @@
             setTimeout(function () {
                 setSidebarFavorites();
                 setSideNavMutationObserver();
+                setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
                 appendFavoritesBtn();
                 if (!isFromTitleObserver) {
                     if (isNavBarCollapsed) {
@@ -4596,6 +4630,7 @@
             setTimeout(function () {
                 setYTsidebar();
                 setSideNavMutationObserver();
+                setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
                 if (!isFromTitleObserver) {
                     if (isNavBarCollapsed) {
                         document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
