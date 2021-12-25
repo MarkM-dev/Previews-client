@@ -1003,6 +1003,7 @@
         let errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
         let channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
         let sidebarFavorites = options.isSidebarFavoritesEnabled ? "sBarF_ON" : "sBarF_OFF";
+        let sidebarFavorites_og = options.sidebarFavorites_hide_originals ? "sBarF_og_ON" : "sBarF_og_OFF";
         let sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
         let sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
         let pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
@@ -1025,7 +1026,7 @@
         sendMessageToBG({action: "appStart", detail: selected_land + " : " + sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
                 + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
                 + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-                + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
+                + " : " + pip_main + " : " + sidebarFavorites + " : " + sidebarFavorites_og + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
                 + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : " + ave});
     }
 
@@ -1360,6 +1361,9 @@
                                         let container_div = document.createElement('div');
                                         container_div.appendChild(el);
                                         favorites_section.children[1].appendChild(container_div);
+                                        if (options.sidebarFavorites_hide_originals) {
+                                            shown_followed_channels[i].parentNode.style.display = 'none';
+                                        }
                                     }
                                     break;
                                 }
@@ -5206,6 +5210,7 @@
             initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
             initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
             initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
+            initCheckbox(settingsContainer, 'sidebarFavorites_hide_originals', 'TP_popup_sidebar_favorites_hide_originals_checkbox', false);
             initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
             initCheckbox(settingsContainer, 'isSidebarHideSectionsEnabled', 'TP_popup_sidebar_hide_sections_checkbox', false);
             initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);

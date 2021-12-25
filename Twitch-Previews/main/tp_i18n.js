@@ -456,6 +456,14 @@ export let i18n = {
             '<br>- Примечание: функция полагается на список отслеживаемых каналов, поэтому он будет автоматически расширяться (показывать больше) при открытии боковой панели. если он закрыт, список все равно будет заполнен, но будет неполным.' +
             '<br>- Примечание: отображение или обновление списка может занять несколько секунд.'
     },
+    settings_feature_sidebarFavorites_hide_originals: {
+        'en': 'Hide favorite channels from followed list',
+        'es': 'Oculte los canales favoritos de la lista de canales seguidos',
+        'de': 'Blenden Sie Lieblingskanäle aus den Kanälen aus, denen Sie folgen',
+        'fr': 'Masquer les chaînes favorites de la liste des chaînes que vous suivez',
+        'pt_BR': 'Ocultar canais favoritos da lista de canais seguidos',
+        'ru':'Скрыть избранные каналы из списка каналов, за которыми вы следите'
+    },
     settings_feature_isYTsidebarEnabled: {
         'en': 'Sidebar YouTube Channels',
         'es': 'Barra lateral canales de YouTube',
