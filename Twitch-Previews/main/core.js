@@ -4327,9 +4327,8 @@
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "            </div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes & Improvements</strong>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Settings:</strong> Fixed an issue where opening the settings menu while there are embeds on screen would cause the settings menu to open on all embeds.</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Mod View:</strong> disabled Predictions Notifications and Sniper in the Moderator view since they are redundant there.</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Donations:</strong> changed the extension's donations implementation to support all countries.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Sidebar Previews:</strong> fixed an issue where sometimes sidebar previews didn't show when hovering over streams.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Fullscreen + Chat:</strong> the button will now work when clicking it while already in fullscreen.</span>"
             +  "             </div>"
             +  "    </br>"
     }
