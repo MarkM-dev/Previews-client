@@ -996,6 +996,7 @@
     }
 
     function ga_report_appStart() {
+        let selected_land = "lang_" + options.selected_lang;
         let sidebar_previews = options.isSidebarPreviewsEnabled ? "sBarP_ON":"sBarP_OFF";
         let size = options.PREVIEWDIV_WIDTH + "px";
         let mode = options.isImagePreviewMode ? "Image":"Video";
@@ -1022,7 +1023,7 @@
         let YTsidebar = options.isYTsidebarEnabled ? "YTSB_ON" : "YTSB_OFF";
         let ave = options.isAdvancedVideoEmbedsEnabled ? "ave_ON" : "ave_OFF";
 
-        sendMessageToBG({action: "appStart", detail: sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
+        sendMessageToBG({action: "appStart", detail: selected_land + " : " + sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
                 + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
                 + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
                 + " : " + pip_main + " : " + sidebarFavorites + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
