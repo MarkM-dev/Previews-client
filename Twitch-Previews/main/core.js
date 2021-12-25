@@ -2381,18 +2381,42 @@
                     e.preventDefault();
                     e.cancelBubble = true;
                     selected_mode = 'custom';
-                    add_fScrnWithChat_backToFullscreen_callback();
-                    toggle_fScrnWithChat(selected_mode);
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen().then(() => {
+                            setTimeout(function () {
+                                add_fScrnWithChat_backToFullscreen_callback();
+                                toggle_fScrnWithChat(selected_mode);
+                            }, 500);
+                        })
+                    } else {
+                        add_fScrnWithChat_backToFullscreen_callback();
+                        toggle_fScrnWithChat(selected_mode);
+                    }
+
                 }
                 default_chat_btn.onclick = function (e){
                     e.preventDefault();
                     e.cancelBubble = true;
                     selected_mode = 'default';
-                    toggle_fScrnWithChat(selected_mode);
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen().then(() => {
+                            setTimeout(function () {
+                                toggle_fScrnWithChat(selected_mode);
+                            }, 500);
+                        })
+                    } else {
+                        toggle_fScrnWithChat(selected_mode);
+                    }
+
                 }
 
                 menu_div.appendChild(custom_chat_btn);
-                menu_div.appendChild(default_chat_btn);
+                if (!isInIframe()) {
+                    menu_div.appendChild(default_chat_btn);
+                } else {
+                    menu_div.style.width = '50px';
+                    custom_chat_btn.style.marginRight = '0';
+                }
 
                 btn_container.onclick = function (e){
                     e.preventDefault();
