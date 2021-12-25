@@ -1,4 +1,4 @@
-export let i18n = {
+export const i18n = {
     app_name: {
         'en': 'Twitch Previews',
         'es': 'Twitch Previews',
