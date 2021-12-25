@@ -161,7 +161,6 @@
         for (let i = 0; i < mutations_list.length; i++) {
             for (let j = 0; j < mutations_list[i].addedNodes.length; j++) {
                 if(mutations_list[i].addedNodes[j].classList.contains('side-nav-section')) {
-                    console.log('sidebar added');
 
                     if (options.isSidebarPreviewsEnabled) {
                         refreshNavCardsListAndListeners();
