@@ -4261,7 +4261,7 @@
             "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >" + _i18n('update_toast_share') + "</div>\n" +
             "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >" + _i18n('update_toast_settings') + "</div>\n" +
             "                <div id=\"tp_updateToast_donate_btn\" >\n" +
-            "                                <img id=\"tp_updateToast_donate_btn_img\" src=\"" + getRuntimeUrl('images/donate_heart.png') + "\" width=\"23\" height=\"22\" >\n" +
+            "                                <img id=\"tp_updateToast_donate_btn_img\" src=\"" + getRuntimeUrl('images/donate_heart.png') + "\" width=\"22\" height=\"20\" >\n" +
             "                                <span id=\"tp_updateToast_donate_btn_buffer_span\" ></span>\n" +
             "                                <span id=\"tp_updateToast_donate_btn_text_span\" >" + _i18n('donate_btn_text') + "</span>\n" +
             "                            </div>\n" +
