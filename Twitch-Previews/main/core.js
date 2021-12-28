@@ -1012,7 +1012,7 @@
         let pip_main = options.isPipEnabled ? "pip_ON" : "pip_OFF";
         let screenshot = options.isScreenshotEnabled ? "s_ON" : "s_OFF";
         let fastForward = options.isFastForwardEnabled ? "FF_ON" : "FF_OFF";
-        let seek = options.isFastForwardEnabled ? "seek_ON" : "seek_OFF";
+        let seek = options.isSeekEnabled ? "seek_ON" : "seek_OFF";
         let flashBangDefender = options.isFlashBangDefenderEnabled ? "fbd_ON" : "fbd_OFF";
         let clip_downloader = options.isClipDownloaderEnabled ? "CDL_ON" : "CDL_OFF";
         let sidebarHideSections = options.isSidebarHideSectionsEnabled ? "sBarHS_ON" : "sBarHS_OFF";
