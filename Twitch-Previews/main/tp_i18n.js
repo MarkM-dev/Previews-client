@@ -1589,6 +1589,14 @@ export const i18n = {
         'pt_BR': 'Limpar conversa',
         'ru':'Очистить чат'
     },
+    incognito_chat_btn_title: {
+        'en': 'Incognito Chat',
+        'es': 'Chat de incógnito',
+        'de': 'Inkognito-Chat',
+        'fr': 'Chat en mode navigation privée',
+        'pt_BR': 'Chat anônimo',
+        'ru':'Инкогнито чат'
+    },
     fast_forward_btn_title: {
         'en': 'Fast Forward',
         'es': 'Avance rápido',
