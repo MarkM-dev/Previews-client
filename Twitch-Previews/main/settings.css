@@ -319,7 +319,7 @@
 }
 
 #TPBodyEl .TP_popup_bottom_bar div:hover {
-    background-color: rgb(145, 71, 255);
+    background-color: #9c60ff;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -544,7 +544,7 @@
     align-items: center;
     margin: 15px auto auto auto;
     width: 80%;
-    background-color: #9147ff;
+    background-color: #9c60ff;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
