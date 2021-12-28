@@ -997,6 +997,48 @@ export const i18n = {
             '<br>- Под чатом появится кнопка.' +
             '<br>- Удаляет все сообщения в чате.'
     },
+    settings_feature_isIncognitoChatEnabled: {
+        'en': 'Incognito Chat Button',
+        'es': 'Chat de incógnito',
+        'de': 'Inkognito-Chat',
+        'fr': 'Chat en mode navigation privée',
+        'pt_BR': 'Chat anônimo',
+        'ru':'Инкогнито чат'
+    },
+    settings_feature_subtext_isIncognitoChatEnabled: {
+        'en': '(shows under the chat if banned)',
+        'es': '(se muestra debajo del chat si está prohibido)',
+        'de': '(wird unter dem Chat angezeigt, wenn Sie gesperrt sind)',
+        'fr': '(affiché sous le chat si vous êtes banni)',
+        'pt_BR': '(exibido abaixo do chat se você for banido)',
+        'ru':'(отображается под чатом, если вас забанили)'
+    },
+    settings_feature_isIncognitoChatEnabled_desc: {
+        'en': '<strong>* Incognito Chat Button</strong>' +
+            '<br>- The button will show under the chat (if you are banned).' +
+            '<br>- Opens the chat in a resized incognito window.' +
+            '<br>- Note: extensions are not enabled in incognito mode by default, if you want to use extensions with chat functionality (like emote extensions) in incognito, you will need to enable them in your browser\'s extensions page at chrome://extensions/ .',
+        'es': '<strong>* Chat de incógnito</strong>' +
+            '<br>- El botón se mostrará debajo del chat (si está prohibido en un canal).' +
+            '<br>- Abre el chat en una ventana de incógnito redimensionada.' +
+            '<br>- Nota: las extensiones no están habilitadas en modo incógnito de forma predeterminada, si desea usar extensiones con funcionalidad de chat (como extensiones de emoticonos) en incógnito, deberá habilitarlas en la página de extensiones de su navegador en chrome://extensions/ .',
+        'de': '<strong>* Inkognito-Chat</strong>' +
+            '<br>- Die Schaltfläche wird unter dem Chat angezeigt (wenn Sie von einem Kanal gesperrt sind).' +
+            '<br>- Öffnet den Chat in einem Inkognito-Fenster mit geänderter Größe.' +
+            '<br>- Hinweis: Erweiterungen sind im Inkognito-Modus standardmäßig nicht aktiviert. Wenn Sie Erweiterungen mit Chat-Funktionalität (wie Emote-Erweiterungen) in Inkognito verwenden möchten, müssen Sie sie auf der Erweiterungsseite Ihres Browsers unter chrome://extensions/ aktivieren.',
+        'fr': '<strong>* Chat en mode navigation privée</strong>' +
+            '<br>- Le bouton s\'affichera sous le chat (si vous êtes banni d\'un canal).' +
+            '<br>- Ouvre le chat dans une fenêtre de navigation privée redimensionnée.' +
+            '<br>- Remarque : les extensions ne sont pas activées en mode navigation privée par défaut, si vous souhaitez utiliser des extensions avec fonctionnalité de chat (comme les extensions emote) en navigation privée, vous devrez les activer dans la page des extensions de votre navigateur sur chrome://extensions/ .',
+        'pt_BR': '<strong>* Chat anônimo</strong>' +
+            '<br>- O botão aparecerá embaixo do chat (se você for banido de um canal).' +
+            '<br>- Abre o bate-papo em uma janela anônima redimensionada.' +
+            '<br>- Observação: as extensões não são ativadas no modo de navegação anônima por padrão; se você quiser usar extensões com funcionalidade de bate-papo (como extensões de emote) no modo anônimo, será necessário ativá-las na página de extensões do navegador em chrome://extensions/ .',
+        'ru':'<strong>* Инкогнито чат</strong>' +
+            '<br>- Кнопка будет отображаться под чатом (если вам запрещен доступ к каналу).' +
+            '<br>- Открывает чат в окне инкогнито измененного размера.' +
+            '<br>- Примечание: расширения не включены в режиме инкогнито по умолчанию, если вы хотите использовать расширения с функциями чата (например, расширения эмоций) в режиме инкогнито, вам нужно будет включить их на странице расширений вашего браузера по адресу chrome://extensions/ .'
+    },
     settings_section_predictions: {
         'en': 'Predictions',
         'es': 'Predicciones',
