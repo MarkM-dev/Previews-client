@@ -49,6 +49,7 @@ let options = {
     isSeekEnabled: false,
     isCastEnabled: false,
     isClearChatEnabled: false,
+    isIncognitoChatEnabled: false,
     isMultiStreamEnabled: false,
     isAdvancedVideoEmbedsEnabled: false,
     isSelfPreviewEnabled: false,
@@ -287,6 +288,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isClearChatEnabled":
             send_ga_event('clearChat_mode', 'change', msg.detail ? "clearChat_ON":"clearChat_OFF");
+            break;
+        case "bg_update_isIncognitoChatEnabled":
+            send_ga_event('incognitoChat_mode', 'change', msg.detail ? "incognitoChat_ON":"incognitoChat_OFF");
             break;
         case "bg_update_isFastForwardEnabled":
             send_ga_event('fast_forward_mode', 'change', msg.detail ? "fast_forward_ON":"fast_forward_OFF");
