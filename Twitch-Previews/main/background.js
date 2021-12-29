@@ -302,6 +302,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:msg.detail});
             send_ga_event('multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
             break;
+        case "bg_incognito_chat_btn_click":
+            _browser.windows.create({url:"https://www.twitch.tv/popout/" + msg.detail.stream_name + "/chat", incognito: true, top:msg.detail.top, left: msg.detail.left, height: msg.detail.height, width: msg.detail.width, type: "popup"});
+            send_ga_event('incognitoChat_btn_click', 'incognitoChat_btn_click', 'incognitoChat_btn_click');
+            break;
         case "bg_searchBar_multiStream_started":
             send_ga_event('multiStream_searchBar_btn_click', 'multiStream_searchBar_btn_click', 'multiStream_searchBar_btn_click');
             break;

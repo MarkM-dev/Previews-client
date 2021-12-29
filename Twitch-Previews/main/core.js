@@ -2619,10 +2619,15 @@
                 '</svg>';
 
             btn_container.onclick = function (){
-                let chats = document.querySelector('.chat-scrollable-area__message-container').children;
-                for (let i = 1; i < chats.length; i++) {
-                    chats[i].style.display = "none";
-                }
+                let right_column_rect = document.querySelector('.channel-root__right-column').getBoundingClientRect();
+                let obj = {};
+                obj.stream_name = window.location.pathname.substring(1);
+                obj.height = right_column_rect.height + 8;
+                obj.width = right_column_rect.width + 12;
+                obj.top = 125;
+                obj.left = right_column_rect.left + 5;
+
+                sendMessageToBG({action: "bg_incognito_chat_btn_click", detail: obj});
             }
 
             try {
