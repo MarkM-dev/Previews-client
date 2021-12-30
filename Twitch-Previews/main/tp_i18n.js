@@ -1017,32 +1017,32 @@ export const i18n = {
         'en': '<strong>* Incognito Chat Button</strong>' +
             '<br>- The button will show under the chat (if you are banned).' +
             '<br>- Opens the chat in a resized incognito window.' +
-            '<br><span class="tp-chrome-hide" >- Note: Firefox users will need to manually allow the extension to "Run in Private Windows" in "about:addons" for this feature to work.' +
+            '<span class="tp-chrome-hide" ><br>- Note: Firefox users will need to manually allow the extension to "Run in Private Windows" in "about:addons" for this feature to work.</span>' +
             '<br>- Note: extensions are not enabled in incognito mode by default, if you want to use extensions with chat functionality (like emote extensions) in incognito, you will need to enable them in your browser\'s extensions page at "chrome://extensions/" for Chrome or "about:addons" for Firefox.',
         'es': '<strong>* Chat de incógnito</strong>' +
             '<br>- El botón se mostrará debajo del chat (si está prohibido en un canal).' +
             '<br>- Abre el chat en una ventana de incógnito redimensionada.' +
-            '<br><span class="tp-chrome-hide" >- Nota: Los usuarios de Firefox deberán permitir manualmente que la extensión "Ejecutar en ventanas privadas" en "about: addons" para que esta característica funcione.' +
+            '<span class="tp-chrome-hide" ><br>- Nota: Los usuarios de Firefox deberán permitir manualmente que la extensión "Ejecutar en ventanas privadas" en "about: addons" para que esta característica funcione.</span>' +
             '<br>- Nota: las extensiones no están habilitadas en modo incógnito de forma predeterminada, si desea usar extensiones con funcionalidad de chat (como extensiones de emoticonos) en incógnito, deberá habilitarlas en la página de extensiones de su navegador en "chrome://extensions/" para Chrome o "about:addons" para Firefox.',
         'de': '<strong>* Inkognito-Chat</strong>' +
             '<br>- Die Schaltfläche wird unter dem Chat angezeigt (wenn Sie von einem Kanal gesperrt sind).' +
             '<br>- Öffnet den Chat in einem Inkognito-Fenster mit geänderter Größe.' +
-            '<br><span class="tp-chrome-hide" >- Hinweis: Firefox-Benutzer müssen die Erweiterung "In privatem Windows ausführen" in "about:addons" manuell zulassen, damit diese Funktion funktioniert.' +
+            '<span class="tp-chrome-hide" ><br>- Hinweis: Firefox-Benutzer müssen die Erweiterung "In privatem Windows ausführen" in "about:addons" manuell zulassen, damit diese Funktion funktioniert.</span>' +
             '<br>- Hinweis: Erweiterungen sind im Inkognito-Modus standardmäßig nicht aktiviert. Wenn Sie Erweiterungen mit Chat-Funktionalität (wie Emote-Erweiterungen) in Inkognito verwenden möchten, müssen Sie sie auf der Erweiterungsseite Ihres Browsers unter "chrome://extensions/" aktivieren. für Chrome oder "about:addons" für Firefox.',
         'fr': '<strong>* Chat en mode navigation privée</strong>' +
             '<br>- Le bouton s\'affichera sous le chat (si vous êtes banni d\'un canal).' +
             '<br>- Ouvre le chat dans une fenêtre de navigation privée redimensionnée.' +
-            '<br><span class="tp-chrome-hide" >- Remarque : les utilisateurs de Firefox devront autoriser manuellement l\'extension à "Exécuter dans des fenêtres privées" dans "about:addons" pour que cette fonctionnalité fonctionne.' +
+            '<span class="tp-chrome-hide" ><br>- Remarque : les utilisateurs de Firefox devront autoriser manuellement l\'extension à "Exécuter dans des fenêtres privées" dans "about:addons" pour que cette fonctionnalité fonctionne.</span>' +
             '<br>- Remarque : les extensions ne sont pas activées en mode navigation privée par défaut, si vous souhaitez utiliser des extensions avec fonctionnalité de chat (comme les extensions d\'émoticônes) en navigation privée, vous devrez les activer dans la page des extensions de votre navigateur sur "chrome://extensions/" pour Chrome ou "about:addons" pour Firefox.',
         'pt_BR': '<strong>* Chat anônimo</strong>' +
             '<br>- O botão aparecerá embaixo do chat (se você for banido de um canal).' +
             '<br>- Abre o bate-papo em uma janela anônima redimensionada.' +
-            '<br><span class="tp-chrome-hide" >- Observação: os usuários do Firefox precisarão permitir manualmente que a extensão "Executar em Windows Privado" em "sobre: addons" para que este recurso funcione.' +
+            '<span class="tp-chrome-hide" ><br>- Observação: os usuários do Firefox precisarão permitir manualmente que a extensão "Executar em Windows Privado" em "sobre: addons" para que este recurso funcione.</span>' +
             '<br>- Observação: as extensões não são ativadas no modo de navegação anônima por padrão. Se você quiser usar extensões com funcionalidade de bate-papo (como extensões de ação) no modo anônimo, será necessário ativá-las na página de extensões do navegador em "chrome: // extensions /" para Chrome ou "about: addons" para Firefox.',
         'ru':'<strong>* Инкогнито чат</strong>' +
             '<br>- Кнопка будет отображаться под чатом (если вам запрещен доступ к каналу).' +
             '<br>- Открывает чат в окне инкогнито измененного размера.' +
-            '<br><span class="tp-chrome-hide" >- Примечание: пользователям Firefox необходимо вручную разрешить расширение «Запускать в частной Windows» в «about: addons», чтобы эта функция работала.' +
+            '<span class="tp-chrome-hide" ><br>- Примечание: пользователям Firefox необходимо вручную разрешить расширение «Запускать в частной Windows» в «about: addons», чтобы эта функция работала.</span>' +
             '<br>- Примечание: расширения не включены в режиме инкогнито по умолчанию. Если вы хотите использовать расширения с функциями чата (например, расширения эмоций) в режиме инкогнито, вам нужно будет включить их на странице расширений вашего браузера по адресу "chrome://extensions/" для Chrome или "about:addons" для Firefox.'
     },
     settings_section_predictions: {
