@@ -1067,6 +1067,13 @@
     background: lightgrey;
 }
 
+.tp-player-opacity-slider {
+    background-color: transparent;
+    height: auto;
+    appearance: none;
+    width: 100px;
+}
+
 .tp-multi-stream-info-div {
     position: absolute;
     display: flex;

@@ -2761,6 +2761,8 @@
                         '5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z"></path>' +
                     '</svg>';
 
+                let opacitySlider;
+
                 btn_container.onclick = function (){
                     let video = document.querySelector('video');
                     if (!video) return;
@@ -2768,6 +2770,7 @@
                     let existing_overlay = document.getElementById('tp_flashBangDefender_overlay');
                     if (existing_overlay) {
                         existing_overlay.remove();
+                        opacitySlider.remove();
                         btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="100%" width="73%" xmlns="http://www.w3.org/2000/svg">' +
                                 '<path d="M17.502 12.033l-4.241-2.458 2.138-5.131c.066-.134.103-.285.103-.444 0-.552-.445-1-.997-1-.249.004-.457.083-.622.214l-.07.06-7.5 7.1c-.229.217-.342.529-.306.842.036.313.219.591.491.75l4.242 2.46-2.163 ' +
                                 '5.19c-.183.436-.034.94.354 1.208.173.118.372.176.569.176.248 0 .496-.093.688-.274l7.5-7.102c.229-.217.342-.529.306-.842-.037-.313-.22-.591-.492-.749z"></path>' +
@@ -2784,10 +2787,32 @@
                     document.querySelector('.video-player__overlay').appendChild(overlay);
 
                     btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
-                            '<path d="M14.5 4h.005m-.005 0l-2.5 6 5 2.898-7.5 7.102 2.5-6-5-2.9 7.5-7.1m0-2c-.562.012-1.029.219-1.379.551l-7.497 7.095c-.458.435-.685 1.059-.61 1.686.072.626.437 1.182.982 1.498l3.482 2.021-1.826 4.381c-.362.871-.066 ' +
-                            '1.879.712 2.416.344.236.739.354 1.135.354.498 0 .993-.186 1.375-.548l7.5-7.103c.458-.434.685-1.058.61-1.685-.073-.627-.438-1.183-.982-1.498l-3.482-2.018 1.789-4.293c.123-.26.192-.551.192-.857 0-1.102-.89-1.996-2.001-2z"></path>' +
+                        '<path d="M14.5 4h.005m-.005 0l-2.5 6 5 2.898-7.5 7.102 2.5-6-5-2.9 7.5-7.1m0-2c-.562.012-1.029.219-1.379.551l-7.497 7.095c-.458.435-.685 1.059-.61 1.686.072.626.437 1.182.982 1.498l3.482 2.021-1.826 4.381c-.362.871-.066 ' +
+                        '1.879.712 2.416.344.236.739.354 1.135.354.498 0 .993-.186 1.375-.548l7.5-7.103c.458-.434.685-1.058.61-1.685-.073-.627-.438-1.183-.982-1.498l-3.482-2.018 1.789-4.293c.123-.26.192-.551.192-.857 0-1.102-.89-1.996-2.001-2z"></path>' +
                         '</svg>';
 
+                    opacitySlider = document.createElement('input');
+                    opacitySlider.classList.add('tp-multi-stream-box-title-opacity-slider');
+                    opacitySlider.classList.add('tp-player-opacity-slider');
+                    opacitySlider.type = 'range';
+                    opacitySlider.min = '0';
+                    opacitySlider.max = '1';
+                    opacitySlider.step = '0.01';
+
+                    opacitySlider.value = "0.5";
+
+                    opacitySlider.title = 'Opacity';
+
+                    opacitySlider.oninput = function (e) {
+                        let slider_hex_val = parseInt(e.target.value * 255).toString(16);
+                        if (slider_hex_val === '0') {
+                            slider_hex_val = '00';
+                        }
+
+                        overlay.style.backgroundColor = "#000000" + slider_hex_val;
+                    }
+
+                    document.querySelector('.player-controls__right-control-group').children[2].before(opacitySlider);
                     sendMessageToBG({action: "bg_flashBangDefender_btn_click", detail: ""});
                 }
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
