@@ -1627,6 +1627,14 @@ export const i18n = {
         'pt_BR': 'Alternar Flashbang Defender',
         'ru':'Переключить Защитник Flash'
     },
+    flashbang_defender_slider_title: {
+        'en': 'Opacity',
+        'es': 'Opacidad',
+        'de': 'Opazität',
+        'fr': 'Opacité',
+        'pt_BR': 'Opacidade',
+        'ru':'Непрозрачность'
+    },
     screenshot_btn_title: {
         'en': 'Screenshot Stream',
         'es': 'Captura de pantalla',

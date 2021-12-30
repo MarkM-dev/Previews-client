@@ -2801,7 +2801,7 @@
 
                     opacitySlider.value = "0.5";
 
-                    opacitySlider.title = 'Opacity';
+                    opacitySlider.title = _i18n('flashbang_defender_slider_title');
 
                     opacitySlider.oninput = function (e) {
                         let slider_hex_val = parseInt(e.target.value * 255).toString(16);
