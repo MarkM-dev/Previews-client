@@ -2589,53 +2589,60 @@
     }
 
     function append_incognitoChat_btn() {
+        setTimeout(function () {
+            let streamChatElement = document.querySelector('.stream-chat');
+            if (!streamChatElement) {
+                return;
+            }
 
-        // handle if not banned but icon is on screen
-        // document.querySelector('.stream-chat').querySelector('p[data-test-selector="current-user-banned-text"]');
+            if (!streamChatElement.querySelector('p[data-test-selector="current-user-banned-text"]')) {
+                if (document.getElementById('tp_incognitoChat_btn')) {
+                    document.getElementById('tp_incognitoChat_btn').remove();
+                }
+                return;
+            }
 
+            if (document.getElementById('tp_incognitoChat_btn')) {
+                return;
+            }
 
+            let chat_settings_btn = streamChatElement.querySelector('button[data-a-target="chat-settings"]');
+            if (chat_settings_btn) {
+                let btn_container = document.createElement('div');
+                btn_container.id = "tp_incognitoChat_btn";
+                btn_container.classList.add('tp-under-chat-btn');
+                btn_container.title = _i18n('incognito_chat_btn_title');
 
-        if (document.getElementById('tp_incognitoChat_btn')) {
-            return;
-        }
+                let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
+                btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
+                btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
+                btn_container.style.zIndex = "1";
+                btn_container.style.padding =  "2% 2% 0 2%";
 
-
-        let chat_settings_btn = document.querySelector('button[data-a-target="chat-settings"]');
-        if (chat_settings_btn) {
-            let btn_container = document.createElement('div');
-            btn_container.id = "tp_incognitoChat_btn";
-            btn_container.classList.add('tp-under-chat-btn');
-            btn_container.title = _i18n('incognito_chat_btn_title');
-
-            let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
-            btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
-            btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
-            btn_container.style.zIndex = "1";
-            btn_container.style.padding =  "2% 2% 0 2%";
-
-            btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="-3 -3 22 22" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">' +
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="-3 -3 22 22" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">' +
                     '<path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 ' +
                     '2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"></path><path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>' +
-                '</svg>';
+                    '</svg>';
 
-            btn_container.onclick = function (){
-                let right_column_rect = document.querySelector('.channel-root__right-column').getBoundingClientRect();
-                let obj = {};
-                obj.stream_name = window.location.pathname.substring(1);
-                obj.height = right_column_rect.height + 8;
-                obj.width = right_column_rect.width + 12;
-                obj.top = 125;
-                obj.left = right_column_rect.left + 5;
+                btn_container.onclick = function (){
+                    let right_column_rect = document.querySelector('.channel-root__right-column').getBoundingClientRect();
+                    let obj = {};
+                    obj.stream_name = window.location.pathname.substring(1);
+                    obj.height = right_column_rect.height + 8;
+                    obj.width = right_column_rect.width + 12;
+                    obj.top = 125;
+                    obj.left = right_column_rect.left + 5;
 
-                sendMessageToBG({action: "bg_incognito_chat_btn_click", detail: obj});
+                    sendMessageToBG({action: "bg_incognito_chat_btn_click", detail: obj});
+                }
+
+                try {
+                    chat_settings_btn.parentNode.parentNode.before(btn_container);
+                } catch (e) {
+
+                }
             }
-
-            try {
-                chat_settings_btn.parentNode.parentNode.before(btn_container);
-            } catch (e) {
-
-            }
-        }
+        }, 2500);
     }
 
     function muteAutoplayingVideoElements() {
