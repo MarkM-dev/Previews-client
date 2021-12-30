@@ -4403,6 +4403,7 @@
 
     function getUpdateToastBody() {
         //let ffclass = isFirefox ? 'class="tp_display_none"':'';
+        let cclass = isFirefox ? '':'class="tp_display_none"';
         return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Added new languages!</strong>"
@@ -4413,9 +4414,15 @@
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- You can now choose to hide your favorites from the followed channels list to remove duplications.</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Settings -> expand 'Sidebar Favorite Channels' -> enable the checkbox under the description.</span>"
             +  "       </div>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Incognito Chat!</strong>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- The button will show under the chat (if you are banned).</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Opens the chat in a resized incognito window.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" "+ cclass +" >- Note: Firefox users will need to manually allow the extension to \"Run in Private Windows\" in \"about:addons\" for this feature to work.</span>"
+            +  "       </div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes & Improvements</strong>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Sidebar Previews:</strong> fixed an issue where sometimes sidebar previews didn't show when hovering over streams.</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Fullscreen + Chat:</strong> the button will now work when clicking it while already in fullscreen.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- FlashbangDefender:</strong> added opacity slider.</span>"
             +  "       </div>"
             +  "       <div style=\"font-size: 28px;color: white;margin-top: 20px;text-align: center;font-weight: bold;\" >Happy Holidays!</div>"
 /*            +  "    </br>"*/
