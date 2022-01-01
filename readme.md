@@ -39,6 +39,7 @@
 - Screenshot Stream.
 - FlashBang Defender.
 - Clear Chat Button.
+- Incognito Chat.
 - Native Picture In Picture in current stream (Browser's PIP feature).
 - Custom Picture In Picture via the button under the view count in the sidebar.
 - Auto Extend the sidebar to show all live streamers (when sidebar is open).
@@ -207,6 +208,12 @@
 * **Clear Chat Button**
     - The button will show under the chat.
     - Clears all the messages in chat.
+      <br/><br/>
+
+
+* **Incognito Chat Button**
+    - The button will show under the chat (if you are banned).
+    - Opens the chat in a resized incognito window.
       <br/><br/>
 
 
