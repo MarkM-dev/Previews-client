@@ -879,6 +879,40 @@ export const i18n = {
             '<br>- Скриншоты делаются с тем же разрешением, что и поток.'
 
     },
+    settings_feature_isRecordEnabled: {
+        'en': 'Record Stream Button',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
+    settings_feature_isRecordEnabled_desc: {
+        'en': '<strong>* Record Stream Button</strong>' +
+            '<br>- The button will show in the player controls.' +
+            '<br>- ' +
+            '<br>- ',
+        'es': '<strong>* </strong>' +
+            '<br>' +
+            '<br>' +
+            '<br>',
+        'de': '<strong>* </strong>' +
+            '<br>' +
+            '<br>' +
+            '<br>',
+        'fr': '<strong>* </strong>' +
+            '<br>' +
+            '<br>' +
+            '<br>',
+        'pt_BR': '<strong>* </strong>' +
+            '<br>' +
+            '<br>' +
+            '<br>',
+        'ru':'<strong>* </strong>' +
+            '<br>' +
+            '<br>' +
+            '<br>'
+    },
     settings_feature_isFlashBangDefenderEnabled: {
         'en': 'FlashBang Defender Button',
         'es': 'Botón Flashbang Defender',
