@@ -2894,6 +2894,10 @@
                     '12ZM20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12Z" fill="currentColor"></path>' +
                     '</svg>';
 
+                let isRecording = false;
+                let file_name = '';
+                let mediaRecorder;
+
                 function downloadRecording(event) {
                     console.log(event);
                     if (event.data.size > 0) {
@@ -2905,7 +2909,7 @@
                         document.body.appendChild(a);
                         a.style.display = "none";
                         a.href = url;
-                        a.download = getCurrentStreamerName() + ".mp4";
+                        a.download = file_name;
                         a.click();
                         window.URL.revokeObjectURL(url);
                     } else {
@@ -2913,42 +2917,55 @@
                     }
                 }
 
-                let isRecording = false;
-                let mediaRecorder;
+                function stopRecording() {
+                    mediaRecorder.stop();
+                    btn_container.style.color = 'white';
+                    btn_container.title = 'Start Recording';
+                    isRecording = false;
 
+                    let video = document.querySelector("video");
+                    video.removeEventListener('abort', stopRecording);
+                    window.removeEventListener('beforeunload', stopRecording);
+                }
+
+                function startRecording() {
+                    let videoMuted_timeoutMS = 0;
+                    let video = document.querySelector("video");
+                    if (video.muted) {
+                        videoMuted_timeoutMS = 200;
+                        video.muted = false;
+                    }
+
+                    setTimeout(function () {
+                        video.captureStream = video.captureStream || video.mozCaptureStream;
+                        let stream = video.captureStream(60);
+                        console.log(stream);
+                        let options = { mimeType: 'video/x-matroska;codecs=h264' };
+                        mediaRecorder = new MediaRecorder(stream, options);
+                        mediaRecorder.ondataavailable = downloadRecording;
+                        file_name = getCurrentStreamerName() + ".mp4";
+
+                        video.addEventListener('abort', stopRecording);
+                        window.addEventListener('beforeunload', stopRecording);
+
+                        mediaRecorder.start();
+                        isRecording = true;
+                        btn_container.style.color = 'red';
+                        btn_container.title = 'Stop Recording';
+                        sendMessageToBG({action: "bg_record_started", detail: ""});
+                        if (videoMuted_timeoutMS) {
+                            setTimeout(function () {
+                                video.volume = 0.001;
+                            }, 300);
+                        }
+                    }, videoMuted_timeoutMS);
+                }
 
                 btn_container.onclick = function (){
                     if (isRecording) {
-                        mediaRecorder.stop();
-                        btn_container.style.color = 'white';
-                        btn_container.title = 'Start Recording';
-                        isRecording = false;
+                        stopRecording();
                     } else {
-                        let videoMuted_timeoutMS = 0;
-                        let video = document.querySelector("video");
-                        if (video.muted) {
-                            videoMuted_timeoutMS = 200;
-                            video.muted = false;
-                        }
-
-                        setTimeout(function () {
-                            video.captureStream = video.captureStream || video.mozCaptureStream;
-                            let stream = video.captureStream(60);
-                            console.log(stream);
-                            let options = { mimeType: 'video/x-matroska;codecs=h264' };
-                            mediaRecorder = new MediaRecorder(stream, options);
-                            mediaRecorder.ondataavailable = downloadRecording;
-                            mediaRecorder.start();
-                            isRecording = true;
-                            btn_container.style.color = 'red';
-                            btn_container.title = 'Stop Recording';
-                            sendMessageToBG({action: "bg_record_started", detail: ""});
-                            if (videoMuted_timeoutMS) {
-                                setTimeout(function () {
-                                    video.volume = 0.001;
-                                }, 300);
-                            }
-                        }, videoMuted_timeoutMS);
+                        startRecording()
                     }
                 }
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
