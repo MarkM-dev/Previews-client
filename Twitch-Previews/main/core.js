@@ -4692,12 +4692,12 @@
                 appendFlashBangDefenderBtn();
             }
 
-            if (options.isScreenshotEnabled) {
-                appendScreenShotBtn();
-            }
-
             if (options.isRecordEnabled) {
                 appendRecordBtn();
+            }
+
+            if (options.isScreenshotEnabled) {
+                appendScreenShotBtn();
             }
 
             if (options.isFastForwardEnabled) {
@@ -4875,12 +4875,12 @@
             appendFlashBangDefenderBtn();
         }
 
-        if (options.isScreenshotEnabled) {
-            appendScreenShotBtn();
-        }
-
         if (options.isRecordEnabled) {
             appendRecordBtn();
+        }
+
+        if (options.isScreenshotEnabled) {
+            appendScreenShotBtn();
         }
 
         if (options.isFastForwardEnabled) {
