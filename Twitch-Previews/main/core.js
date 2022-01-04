@@ -1019,12 +1019,13 @@
         let muteAutoPlayers = options.isMuteAutoPlayersEnabled ? "mautop_ON" : "mautop_OFF";
         let YTsidebar = options.isYTsidebarEnabled ? "YTSB_ON" : "YTSB_OFF";
         let ave = options.isAdvancedVideoEmbedsEnabled ? "ave_ON" : "ave_OFF";
+        let record = options.isRecordEnabled ? "rec_ON" : "rec_OFF";
 
         sendMessageToBG({action: "appStart", detail: selected_land + " : " + sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
                 + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
                 + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
                 + " : " + pip_main + " : " + sidebarFavorites + " : " + sidebarFavorites_og + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
-                + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : " + ave});
+                + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : " + ave + " : " + record});
     }
 
     function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -2861,6 +2862,81 @@
                         })
                     });
                     sendMessageToBG({action: "bg_screenshot_btn_click", detail: ""});
+                }
+                document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
+            }
+        } catch (e) {
+
+        }
+    }
+
+
+    function appendRecordBtn() {
+        if (document.getElementById('tp_record_btn')) {
+            return;
+        }
+        try {
+            let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
+            if (ttv_fullscreen_btn) {
+                let btn_container = document.createElement('div');
+                btn_container.id = "tp_record_btn";
+                btn_container.classList.add('tp-player-control');
+                btn_container.title = "Start Recording";
+
+                let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
+                btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
+                btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+                btn_container.style.zIndex = "1";
+
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="currentColor"></path>' +
+                    '<path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 ' +
+                    '12ZM20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12Z" fill="currentColor"></path>' +
+                    '</svg>';
+
+                function downloadRecording(event) {
+                    console.log(event);
+                    if (event.data.size > 0) {
+                        let blob = new Blob([event.data], {
+                            type: "video/webm"
+                        });
+                        let url = URL.createObjectURL(blob);
+                        let a = document.createElement("a");
+                        document.body.appendChild(a);
+                        a.style.display = "none";
+                        a.href = url;
+                        a.download = getCurrentStreamerName() + ".mp4";
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    } else {
+                        alert('Error: recording is empty.');
+                    }
+                }
+
+                let isRecording = false;
+                let mediaRecorder;
+
+
+                btn_container.onclick = function (){
+                    if (isRecording) {
+                        mediaRecorder.stop();
+                        btn_container.style.color = 'white';
+                        btn_container.title = 'Start Recording';
+                        isRecording = false;
+                    } else {
+                        let video = document.querySelector("video");
+                        video.captureStream = video.captureStream || video.mozCaptureStream;
+                        let stream = video.captureStream(60);
+                        console.log(stream);
+                        let options = { mimeType: 'video/x-matroska;codecs=h264' };
+                        mediaRecorder = new MediaRecorder(stream, options);
+                        mediaRecorder.ondataavailable = downloadRecording;
+                        mediaRecorder.start();
+                        isRecording = true;
+                        btn_container.style.color = 'red';
+                        btn_container.title = 'Stop Recording';
+                        sendMessageToBG({action: "bg_record_started", detail: ""});
+                    }
                 }
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
             }
@@ -4769,6 +4845,10 @@
             appendScreenShotBtn();
         }
 
+        if (options.isRecordEnabled) {
+            appendRecordBtn();
+        }
+
         if (options.isFastForwardEnabled) {
             appendFastForwardBtn();
         }
@@ -5316,6 +5396,7 @@
             initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
             initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
             initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
+            initCheckbox(settingsContainer, 'isRecordEnabled', 'TP_popup_record_checkbox', false);
             initCheckbox(settingsContainer, 'isClearChatEnabled', 'TP_popup_clearChat_checkbox', false);
             initCheckbox(settingsContainer, 'isIncognitoChatEnabled', 'TP_popup_incognitoChat_checkbox', false);
             initCheckbox(settingsContainer, 'isFlashBangDefenderEnabled', 'TP_popup_flashBangDefender_checkbox', false);

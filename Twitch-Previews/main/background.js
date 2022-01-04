@@ -44,6 +44,7 @@ let options = {
     isfScrnWithChatEnabled: false,
     isPipEnabled: false,
     isScreenshotEnabled: false,
+    isRecordEnabled: false,
     isFlashBangDefenderEnabled: false,
     isFastForwardEnabled: false,
     isSeekEnabled: false,
@@ -272,6 +273,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isScreenshotEnabled":
             send_ga_event('screenshot_mode', 'change', msg.detail ? "screenshot_ON":"screenshot_OFF");
+            break;
+        case "bg_update_isRecordEnabled":
+            send_ga_event('record_mode', 'change', msg.detail ? "rec_ON":"rec_OFF");
             break;
         case "bg_screenshot_btn_click":
             send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
