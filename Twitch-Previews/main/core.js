@@ -2898,7 +2898,7 @@
                     console.log(event);
                     if (event.data.size > 0) {
                         let blob = new Blob([event.data], {
-                            type: "video/webm"
+                            type: "video/x-matroska;codecs=h264"
                         });
                         let url = URL.createObjectURL(blob);
                         let a = document.createElement("a");
