@@ -4696,6 +4696,10 @@
                 appendScreenShotBtn();
             }
 
+            if (options.isRecordEnabled) {
+                appendRecordBtn();
+            }
+
             if (options.isFastForwardEnabled) {
                 appendFastForwardBtn();
             }
