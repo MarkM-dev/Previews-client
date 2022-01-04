@@ -881,35 +881,35 @@ export const i18n = {
     },
     settings_feature_isRecordEnabled: {
         'en': 'Record Stream Button',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ru':''
+        'es': 'Botón de grabación de flujo',
+        'de': 'Schaltfläche zum Aufnehmen von Streams',
+        'fr': 'Bouton Enregistrer le flux',
+        'pt_BR': 'Botão Gravar Fluxo',
+        'ru':'Кнопка записи потока'
     },
     settings_feature_isRecordEnabled_desc: {
         'en': '<strong>* Record Stream Button</strong>' +
             '<br>- The button will show in the player controls.' +
             '<br>- ' +
             '<br>- ',
-        'es': '<strong>* </strong>' +
-            '<br>' +
-            '<br>' +
-            '<br>',
-        'de': '<strong>* </strong>' +
-            '<br>' +
+        'es': '<strong>* Botón de grabación de flujo</strong>' +
+            '<br>- El botón se mostrará en los controles del reproductor.' +
             '<br>' +
             '<br>',
-        'fr': '<strong>* </strong>' +
-            '<br>' +
-            '<br>' +
-            '<br>',
-        'pt_BR': '<strong>* </strong>' +
-            '<br>' +
+        'de': '<strong>* Schaltfläche zum Aufnehmen von Streams</strong>' +
+            '<br>- Die Schaltfläche wird in den Player-Steuerelementen angezeigt.' +
             '<br>' +
             '<br>',
-        'ru':'<strong>* </strong>' +
+        'fr': '<strong>* Bouton Enregistrer le flux</strong>' +
+            '<br>- Le bouton s\'affichera dans les commandes du lecteur.' +
             '<br>' +
+            '<br>',
+        'pt_BR': '<strong>* Botão Gravar Fluxo</strong>' +
+            '<br>- O botão aparecerá nos controles do player.' +
+            '<br>' +
+            '<br>',
+        'ru':'<strong>* Кнопка записи потока</strong>' +
+            '<br>- Кнопка отобразится в элементах управления плеером.' +
             '<br>' +
             '<br>'
     },
@@ -1676,6 +1676,22 @@ export const i18n = {
         'fr': 'Capture d\'écran',
         'pt_BR': 'Captura de tela',
         'ru':'Снимок экрана'
+    },
+    record_btn_start_title: {
+        'en': 'Start Recording',
+        'es': 'Iniciar la grabación',
+        'de': 'Starte die Aufnahme',
+        'fr': 'Commencer l\'enregistrement',
+        'pt_BR': 'Comece a gravar',
+        'ru':'Начать запись'
+    },
+    record_btn_stop_title: {
+        'en': 'Stop Recording',
+        'es': 'Para de grabar',
+        'de': 'Höre auf, aufzunehmen',
+        'fr': 'Arrête d\'enregistrer',
+        'pt_BR': 'Pare de gravar',
+        'ru':'Остановить запись'
     },
     pip_main_btn_title: {
         'en': 'Start Picture In Picture',
