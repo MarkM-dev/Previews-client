@@ -2924,18 +2924,31 @@
                         btn_container.title = 'Start Recording';
                         isRecording = false;
                     } else {
+                        let videoMuted_timeoutMS = 0;
                         let video = document.querySelector("video");
-                        video.captureStream = video.captureStream || video.mozCaptureStream;
-                        let stream = video.captureStream(60);
-                        console.log(stream);
-                        let options = { mimeType: 'video/x-matroska;codecs=h264' };
-                        mediaRecorder = new MediaRecorder(stream, options);
-                        mediaRecorder.ondataavailable = downloadRecording;
-                        mediaRecorder.start();
-                        isRecording = true;
-                        btn_container.style.color = 'red';
-                        btn_container.title = 'Stop Recording';
-                        sendMessageToBG({action: "bg_record_started", detail: ""});
+                        if (video.muted) {
+                            videoMuted_timeoutMS = 200;
+                            video.muted = false;
+                        }
+
+                        setTimeout(function () {
+                            video.captureStream = video.captureStream || video.mozCaptureStream;
+                            let stream = video.captureStream(60);
+                            console.log(stream);
+                            let options = { mimeType: 'video/x-matroska;codecs=h264' };
+                            mediaRecorder = new MediaRecorder(stream, options);
+                            mediaRecorder.ondataavailable = downloadRecording;
+                            mediaRecorder.start();
+                            isRecording = true;
+                            btn_container.style.color = 'red';
+                            btn_container.title = 'Stop Recording';
+                            sendMessageToBG({action: "bg_record_started", detail: ""});
+                            if (videoMuted_timeoutMS) {
+                                setTimeout(function () {
+                                    video.volume = 0.001;
+                                }, 300);
+                            }
+                        }, videoMuted_timeoutMS);
                     }
                 }
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
