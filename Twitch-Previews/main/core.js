@@ -2899,7 +2899,6 @@
                 let mediaRecorder;
 
                 function downloadRecording(event) {
-                    console.log(event);
                     if (event.data.size > 0) {
                         let blob = new Blob([event.data], {
                             type: "video/x-matroska;codecs=h264"
@@ -2920,7 +2919,7 @@
                 function stopRecording() {
                     mediaRecorder.stop();
                     btn_container.style.color = 'white';
-                    btn_container.title = 'Start Recording';
+                    btn_container.title = _i18n('record_btn_start_title');
                     isRecording = false;
 
                     let video = document.querySelector("video");
@@ -2939,7 +2938,6 @@
                     setTimeout(function () {
                         video.captureStream = video.captureStream || video.mozCaptureStream;
                         let stream = video.captureStream(60);
-                        console.log(stream);
                         let options = { mimeType: 'video/x-matroska;codecs=h264' };
                         mediaRecorder = new MediaRecorder(stream, options);
                         mediaRecorder.ondataavailable = downloadRecording;
@@ -2951,7 +2949,7 @@
                         mediaRecorder.start();
                         isRecording = true;
                         btn_container.style.color = 'red';
-                        btn_container.title = 'Stop Recording';
+                        btn_container.title = _i18n('record_btn_stop_title');
                         sendMessageToBG({action: "bg_record_started", detail: ""});
                         if (videoMuted_timeoutMS) {
                             setTimeout(function () {
