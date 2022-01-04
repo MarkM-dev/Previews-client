@@ -890,7 +890,7 @@ export const i18n = {
     settings_feature_isRecordEnabled_desc: {
         'en': '<strong>* Record Stream Button</strong>' +
             '<br>- The button will show in the player controls.' +
-            '<br>- ' +
+            '<br>- Click to start recording, click again to stop recording and save.' +
             '<br>- ',
         'es': '<strong>* Botón de grabación de flujo</strong>' +
             '<br>- El botón se mostrará en los controles del reproductor.' +
