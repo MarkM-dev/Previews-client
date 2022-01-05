@@ -2964,7 +2964,7 @@
                         isRecording = true;
                         btn_container.style.color = 'red';
                         btn_container.title = _i18n('record_btn_stop_title');
-                        sendMessageToBG({action: "bg_record_started", detail: ""});
+                        sendMessageToBG({action: "bg_record_btn_click", detail: ""});
                         if (videoMuted_timeoutMS) {
                             setTimeout(function () {
                                 video.volume = 0.001;

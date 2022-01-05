@@ -274,11 +274,14 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isScreenshotEnabled":
             send_ga_event('screenshot_mode', 'change', msg.detail ? "screenshot_ON":"screenshot_OFF");
             break;
+        case "bg_screenshot_btn_click":
+            send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
+            break;
         case "bg_update_isRecordEnabled":
             send_ga_event('record_mode', 'change', msg.detail ? "rec_ON":"rec_OFF");
             break;
-        case "bg_screenshot_btn_click":
-            send_ga_event('screenshot_btn_click', 'screenshot_btn_click', 'screenshot_btn_click');
+        case "bg_record_btn_click":
+            send_ga_event('record_btn_click', 'record_btn_click', 'record_btn_click');
             break;
         case "bg_update_isFlashBangDefenderEnabled":
             send_ga_event('fbd_mode', 'change', msg.detail ? "fbd_ON":"fbd_OFF");
