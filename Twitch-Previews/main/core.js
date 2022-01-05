@@ -2901,7 +2901,7 @@
                 function downloadRecording(event) {
                     if (event.data.size > 0) {
                         let blob = new Blob([event.data], {
-                            type: "video/x-matroska;codecs=h264"
+                            type: "video/webm;codecs=h264"
                         });
                         let url = URL.createObjectURL(blob);
 
@@ -2950,7 +2950,7 @@
                     setTimeout(function () {
                         video.captureStream = video.captureStream || video.mozCaptureStream;
                         let stream = video.captureStream(60);
-                        let options = { mimeType: 'video/x-matroska;codecs=h264' };
+                        let options = { mimeType: 'video/webm;codecs=h264' };
                         mediaRecorder = new MediaRecorder(stream, options);
                         mediaRecorder.ondataavailable = downloadRecording;
                         stream_name = getCurrentStreamerName();
