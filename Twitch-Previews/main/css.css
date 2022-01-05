@@ -728,15 +728,16 @@
 
 .tp_update_toast #tp_updateToast_translate_btn {
     position: absolute;
-    left: 24rem;
-    top: 42px;
-    padding: 3px;
+    left: calc(24rem - 30px);
+    padding: 6px;
+    top: 40px;
     border-radius: 5px;
 }
 
 .tp_update_toast #tp_updateToast_translate_btn:hover {
     background-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
+    color: white;
 }
 
 .tp_update_toast #tp_updateToast_translate_btn:active {
@@ -745,18 +746,39 @@
 
 .tp_update_toast #tp_updateToast_settings_top_btn {
     position: absolute;
-    left: calc(24rem + 20px);
-    top: 42px;
-    padding: 3px;
+    left: calc(24rem - 5px);
+    padding: 6px;
+    top: 39px;
     border-radius: 5px;
 }
 
 .tp_update_toast #tp_updateToast_settings_top_btn:hover {
     background-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
+    color: white;
 }
 
 .tp_update_toast #tp_updateToast_settings_top_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tp_update_toast #tp_updateToast_dismiss_top_btn {
+    position: absolute;
+    top: 40px;
+    left: calc(24rem + 20px);
+    border-radius: 5px;
+    padding: 3px 8px;
+    font-size: 12px;
+    color: whitesmoke;
+}
+
+.tp_update_toast #tp_updateToast_dismiss_top_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    color: white;
+}
+
+.tp_update_toast #tp_updateToast_dismiss_top_btn:active {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
