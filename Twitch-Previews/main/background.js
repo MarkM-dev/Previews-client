@@ -21,7 +21,7 @@ let YT_FETCH_INTERVAL_MS = 300000;
 let lastYTFetch = new Date().getTime() - YT_FETCH_INTERVAL_MS;
 let cached_yt_live_streams_arr = null;
 
-let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled'];
+let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled', 'isRecordEnabled'];
 
 let options = {
     selected_lang: 'en',
