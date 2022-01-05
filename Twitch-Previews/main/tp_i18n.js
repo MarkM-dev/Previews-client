@@ -895,7 +895,7 @@ export const i18n = {
             '<br>- Records at 60 frames per second, save size is about 500KB/second for 1080P(60).' +
             '<br>- Recordings will automatically stop and save to file if there was an error with the player or the stream was changed.' +
             '<br>- Note: you must have hardware-acceleration enabled in the browser (enabled by default).' +
-            '<br>- Note: due to a chromium bug, the recordings are saved without metadata like time duration, so the duration will be in the file name.',
+            '<br>- Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly - open them in a new tab (drag the saved video to the browser).',
         'es': '<strong>* Botón de grabación de flujo</strong>' +
             '<br>- El botón se mostrará en los controles del reproductor.' +
             '<br>- Haga clic para comenzar a grabar, haga clic de nuevo para detener la grabación y guardar.' +
@@ -903,7 +903,7 @@ export const i18n = {
             '<br>- Graba a 60 fotogramas por segundo, el tamaño de guardado es de aproximadamente 500 KB / segundo para 1080P (60).' +
             '<br>- Las grabaciones se detendrán automáticamente y se guardarán en un archivo si hubo un error con el reproductor o se cambió la transmisión.' +
             '<br>- Nota: debe tener habilitada la aceleración de hardware en el navegador (habilitada de forma predeterminada).' +
-            '<br>- Nota: debido a un error de cromo, las grabaciones se guardan sin metadatos como la duración del tiempo, por lo que la duración estará en el nombre del archivo.',
+            '<br>- Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente - ábralas en una nueva pestaña (arrastre el video guardado al navegador).',
         'de': '<strong>* Schaltfläche zum Aufnehmen von Streams</strong>' +
             '<br>- Die Schaltfläche wird in den Player-Steuerelementen angezeigt.' +
             '<br>- Klicken Sie auf , um die Aufnahme zu starten, klicken Sie erneut, um die Aufnahme zu stoppen und zu speichern.' +
@@ -911,7 +911,7 @@ export const i18n = {
             '<br>- Nimmt mit 60 Bildern pro Sekunde auf, die Speichergröße beträgt etwa 500 KB/Sekunde für 1080P(60).' +
             '<br>- Aufnahmen werden automatisch gestoppt und in einer Datei gespeichert, wenn ein Fehler mit dem Player aufgetreten ist oder der Stream geändert wurde.' +
             '<br>- Hinweis: Sie müssen die Hardware-Beschleunigung im Browser aktiviert haben (standardmäßig aktiviert).' +
-            '<br>- Hinweis: Aufgrund eines Chromium-Fehlers werden die Aufnahmen ohne Metadaten wie die Zeitdauer gespeichert, sodass die Dauer im Dateinamen enthalten ist.',
+            '<br>- Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen - öffnen Sie sie in einem neuen Tab (ziehen Sie das gespeicherte Video in den Browser).',
         'fr': '<strong>* Bouton Enregistrer le flux</strong>' +
             '<br>- Le bouton s\'affichera dans les commandes du lecteur.' +
             '<br>- Cliquez pour démarrer l\'enregistrement, cliquez à nouveau pour arrêter l\'enregistrement et sauvegarder.' +
@@ -919,7 +919,7 @@ export const i18n = {
             '<br>- Enregistre à 60 images par seconde, la taille de sauvegarde est d\'environ 500 Ko/seconde pour 1080P (60).' +
             '<br>- Les enregistrements s\'arrêteront automatiquement et seront sauvegardés dans un fichier s\'il y a eu une erreur avec le lecteur ou si le flux a été modifié.' +
             '<br>- Remarque : vous devez activer l\'accélération matérielle dans le navigateur (activée par défaut).' +
-            '<br>- Remarque : en raison d\'un bug de chrome, les enregistrements sont enregistrés sans métadonnées comme la durée, donc la durée sera dans le nom du fichier.',
+            '<br>- Remarque : en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement - ouvrez-les dans un nouvel onglet (faites glisser la vidéo enregistrée vers le navigateur).',
         'pt_BR': '<strong>* Botão Gravar Fluxo</strong>' +
             '<br>- O botão aparecerá nos controles do player.' +
             '<br>- Clique para iniciar a gravação, clique novamente para parar a gravação e salve.' +
@@ -927,7 +927,7 @@ export const i18n = {
             '<br>- Grava a 60 quadros por segundo, o tamanho de salvamento é de cerca de 500 KB / segundo para 1080P (60).' +
             '<br>- As gravações irão parar automaticamente e salvar em arquivo se houver um erro com o player ou se o stream for alterado.' +
             '<br>- Observação: você deve ter a aceleração de hardware ativada no navegador (ativada por padrão).' +
-            '<br>- Nota: devido a um bug do chromium, as gravações são salvas sem metadados como o tempo de duração, então a duração estará no nome do arquivo.',
+            '<br>- Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente - abra-as em uma nova guia (arraste o vídeo salvo para o navegador).',
         'ru':'<strong>* Кнопка записи потока</strong>' +
             '<br>- Кнопка отобразится в элементах управления плеером.' +
             '<br>- Щелкните, чтобы начать запись, щелкните еще раз, чтобы остановить запись и сохранить.' +
@@ -935,7 +935,7 @@ export const i18n = {
             '<br>- Запись с частотой 60 кадров в секунду, размер сохранения около 500 КБ / секунду для 1080P (60).' +
             '<br>- Запись автоматически остановится и сохранится в файл, если произошла ошибка плеера или был изменен поток.' +
             '<br>- Примечание: в браузере должно быть включено аппаратное ускорение (по умолчанию включено).' +
-            '<br>- Примечание: из-за ошибки хрома записи сохраняются без метаданных, таких как продолжительность, поэтому продолжительность будет указана в имени файла.'
+            '<br>- Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей - откройте их на новой вкладке (перетащите сохраненное видео в браузер).'
     },
     settings_feature_isFlashBangDefenderEnabled: {
         'en': 'FlashBang Defender Button',

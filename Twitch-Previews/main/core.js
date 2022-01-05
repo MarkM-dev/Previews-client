@@ -2917,7 +2917,7 @@
                             document.body.appendChild(a);
                             a.style.display = "none";
                             a.href = url;
-                            a.download = stream_name + ' - ' + new Date(video.duration * 1000).toISOString().substr(14, 5).replace(':','-').replace('00-','') + 's.mp4';
+                            a.download = stream_name + ' - ' + new Date(video.duration * 1000).toISOString().substr(14, 5).replace(':','-').replace('00-','') + 's.webm';
                             a.click();
                             window.URL.revokeObjectURL(url);
                             video = null;
