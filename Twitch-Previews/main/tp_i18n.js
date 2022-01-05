@@ -891,7 +891,11 @@ export const i18n = {
         'en': '<strong>* Record Stream Button</strong>' +
             '<br>- The button will show in the player controls.' +
             '<br>- Click to start recording, click again to stop recording and save.' +
-            '<br>- ',
+            '<br>- Works great with the "Seek Using keyboard Keys" feature.' +
+            '<br>- Records at 60 frames per second, save size is about 500KB/second for 1080P(60) source quality.' +
+            '<br>- Recordings will automatically stop and save to file if there was an error with the player or the stream was changed.' +
+            '<br>- Note: you must have hardware-acceleration enabled in the browser (it\'s enabled by default).' +
+            '<br>- Note: due to a chromium bug, the recordings are saved without metadata like time duration, so the duration will be in the file name.',
         'es': '<strong>* Botón de grabación de flujo</strong>' +
             '<br>- El botón se mostrará en los controles del reproductor.' +
             '<br>' +
