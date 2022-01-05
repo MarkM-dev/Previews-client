@@ -2895,7 +2895,7 @@
                     '</svg>';
 
                 let isRecording = false;
-                let file_name = '';
+                let stream_name = '';
                 let mediaRecorder;
 
                 function downloadRecording(event) {
@@ -2904,13 +2904,25 @@
                             type: "video/x-matroska;codecs=h264"
                         });
                         let url = URL.createObjectURL(blob);
-                        let a = document.createElement("a");
-                        document.body.appendChild(a);
-                        a.style.display = "none";
-                        a.href = url;
-                        a.download = file_name;
-                        a.click();
-                        window.URL.revokeObjectURL(url);
+
+                        let video = document.createElement('video');
+                        video.preload = "metadata";
+                        video.addEventListener("loadedmetadata", async function () {     // when enough data loads
+                            while (video.duration === Infinity) {
+                                await new Promise(r => setTimeout(r, 1000));
+                                video.currentTime = 10000000 * Math.random();
+                            }
+
+                            let a = document.createElement("a");
+                            document.body.appendChild(a);
+                            a.style.display = "none";
+                            a.href = url;
+                            a.download = stream_name + ' - ' + new Date(video.duration * 1000).toISOString().substr(14, 5).replace(':','-').replace('00-','') + 's.mp4';
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                        })
+                        video.src = url;
+
                     } else {
                         alert('Error: recording is empty.');
                     }
@@ -2941,7 +2953,7 @@
                         let options = { mimeType: 'video/x-matroska;codecs=h264' };
                         mediaRecorder = new MediaRecorder(stream, options);
                         mediaRecorder.ondataavailable = downloadRecording;
-                        file_name = getCurrentStreamerName() + ".mp4";
+                        stream_name = getCurrentStreamerName();
 
                         video.addEventListener('abort', stopRecording);
                         window.addEventListener('beforeunload', stopRecording);
