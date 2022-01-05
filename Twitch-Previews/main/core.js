@@ -2813,7 +2813,7 @@
                         overlay.style.backgroundColor = "#000000" + slider_hex_val;
                     }
 
-                    document.querySelector('.player-controls__right-control-group').children[2].before(opacitySlider);
+                    btn_container.before(opacitySlider);
                     sendMessageToBG({action: "bg_flashBangDefender_btn_click", detail: ""});
                 }
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
