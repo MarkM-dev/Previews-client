@@ -4492,6 +4492,12 @@
             remove_toast(updateToast);
         };
 
+        updateToast.querySelector('#tp_updateToast_dismiss_top_btn').onclick = function () {
+            setConfirmedToastFlag(storageFlagName);
+            sendMessageToBG({action: toastType, detail: getSecondsRangeForToast(parseInt((new Date().getTime() - toast_show_time) / 1000)) + 's'});
+            remove_toast(updateToast);
+        };
+
         updateToast.querySelector('#tp_updateToast_translate_btn').onclick = function () {
             sendMessageToBG({action: toastType + "_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
         };
