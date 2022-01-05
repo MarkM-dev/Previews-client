@@ -37,6 +37,7 @@
 - Fast-Forward Stream.
 - Chrome-Cast -> Close Tab.
 - Screenshot Stream.
+- Record Stream.
 - FlashBang Defender.
 - Clear Chat Button.
 - Incognito Chat.
