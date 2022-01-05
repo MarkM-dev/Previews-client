@@ -198,6 +198,17 @@
       <br/><br/>
       
 
+* **Record Stream**
+    - The button will show in the player controls.
+    - Click to start recording, click again to stop recording and save.
+    - Works great with the "Seek Using Keyboard Arrows" feature.
+    - Records at 60 frames per second, save size is about 500KB/second for 1080P(60).
+    - Recordings will automatically stop and save to file if there was an error with the player or the stream was changed.
+    - Note: you must have hardware-acceleration enabled in the browser (enabled by default).
+    - Note: due to a chromium bug, the recordings are saved without metadata like time duration, so the duration will be in the file name.
+      <br/><br/>
+      
+
 * **FlashBang Defender**
     - For when it's late night and the streamer opens a white screen.
     - Toggles a semi-transparent overlay on top of the stream.
