@@ -5423,7 +5423,14 @@
                 }, 700);
             });
 
-
+            let minimize_settings_btn = settingsContainer.querySelector('#tp_settings_minimize_btn');
+            minimize_settings_btn.addEventListener('click', (event) => {
+                if (settingsContainer.classList.contains('tp-settings-minimized')) {
+                    settingsContainer.classList.remove('tp-settings-minimized');
+                } else {
+                    settingsContainer.classList.add('tp-settings-minimized');
+                }
+            });
 
             settingsContainer.querySelector('#TP_popup_title_logo').src = getRuntimeUrl('images/TP96.png');
             settingsContainer.querySelector('#TP_popup_logo').src = getRuntimeUrl('images/TP96.png');

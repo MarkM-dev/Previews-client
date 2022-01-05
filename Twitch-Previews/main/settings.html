@@ -6,11 +6,14 @@
             <span id="tp_settings_title" ><span tp_i18n="app_name" >Twitch Previews</span>  <span id="tp_version" ></span></span>
         </div>
         <!--<div style="position: absolute;left: 488px;font-size: 10px;color: grey;font-weight: normal;">Hold &amp; Drag</div>-->
-        <div id="tp_settings_close_btn" >X</div>
+        <div>
+            <div id="tp_settings_minimize_btn" >-</div>
+            <div id="tp_settings_close_btn" >X</div>
+        </div>
     </div>
-    <select id="tp_settings_lang_selector" ></select><span class="tp-settings-new-feature-span" style="position: absolute;top: 6px;margin-left: 135px;font-weight: bold;" tp_i18n="settings_new_indication_text" >&nbsp;New!</span>
+    <select id="tp_settings_lang_selector" ></select><span class="tp-settings-new-feature-span tp-lang-selector-new-feature-span" style="position: absolute;top: 6px;margin-left: 135px;font-weight: bold;" tp_i18n="settings_new_indication_text" >&nbsp;New!</span>
     <div class="tp_title_shadow_el" ></div>
-    <div style="display: flex;margin-top: 40px;" >
+    <div id="settings_inner_container" style="display: flex;margin-top: 40px;" >
         <div style="width: 65%;padding: 10px;padding-bottom: 0;" >
             <div id="refreshChangeDivInfo" ><span tp_i18n="settings_refresh_msg" >refresh your Twitch tabs for changes to take effect</span></div>
             <div class="tp_settings_switch_container" style="padding: 10px 5px;height: 549px;overflow: auto;" >

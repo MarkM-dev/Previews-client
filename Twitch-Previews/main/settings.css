@@ -10,6 +10,27 @@
     margin-top: -300px;
 }
 
+.tp-settings-container.tp-settings-minimized #TPBodyEl {
+    height: 40px !important;
+    border: 1px solid grey !important;
+}
+
+.tp-settings-container.tp-settings-minimized #settings_inner_container {
+    display: none !important;
+}
+
+.tp-settings-container.tp-settings-minimized #tp_settings_lang_selector {
+    display: none !important;
+}
+
+.tp-settings-container.tp-settings-minimized .tp-lang-selector-new-feature-span {
+    display: none !important;
+}
+
+.tp-settings-container.tp-settings-minimized .tp_title_shadow_el {
+    display: none !important;
+}
+
 #TPBodyEl {
     position: absolute;
     width: 800px;
@@ -416,6 +437,31 @@
 }
 
 #TPBodyEl #tp_settings_close_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: whitesmoke;
+}
+
+#TPBodyEl #tp_settings_minimize_btn {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-size: 15px;
+    color: grey;
+    cursor: pointer;
+    border-radius: 2px;
+    -webkit-transform: scale(1.4,1);
+    -moz-transform: scale(1.4,1);
+    -ms-transform: scale(1.4,1);
+    -o-transform: scale(1.4,1);
+    transform: scale(1.4,1);
+}
+
+#TPBodyEl #tp_settings_minimize_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: whitesmoke;
+}
+
+#TPBodyEl #tp_settings_minimize_btn:active {
     background-color: rgba(255, 255, 255, 0.2);
     color: whitesmoke;
 }
