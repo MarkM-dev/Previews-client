@@ -2881,7 +2881,7 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_record_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = "Start Recording";
+                btn_container.title = _i18n('record_btn_start_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
