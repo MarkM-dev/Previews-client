@@ -2907,7 +2907,7 @@
 
                         let video = document.createElement('video');
                         video.preload = "metadata";
-                        video.addEventListener("loadedmetadata", async function () {     // when enough data loads
+                        video.addEventListener("loadedmetadata", async function () {
                             while (video.duration === Infinity) {
                                 await new Promise(r => setTimeout(r, 1000));
                                 video.currentTime = 10000000 * Math.random();
@@ -2920,6 +2920,8 @@
                             a.download = stream_name + ' - ' + new Date(video.duration * 1000).toISOString().substr(14, 5).replace(':','-').replace('00-','') + 's.mp4';
                             a.click();
                             window.URL.revokeObjectURL(url);
+                            video = null;
+                            a.remove();
                         })
                         video.src = url;
 
