@@ -4542,7 +4542,7 @@
                                 "<path d=\"M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z\"></path>" +
                                 "</svg>" +
                             "</strong>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- The button will show under the chat (if you are banned).</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show under the chat (if you are banned).</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Opens the chat in a resized incognito window.</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" "+ cclass +" >- Note: Firefox users will need to manually allow the extension to \"Run in Private Windows\" in \"about:addons\" for this feature to work.</span>"
             +  "       </div>"
