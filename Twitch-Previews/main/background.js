@@ -315,6 +315,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_incognito_chat_btn_click":
             _browser.windows.create({url:"https://www.twitch.tv/popout/" + msg.detail.stream_name + "/chat", incognito: true, top:msg.detail.top, left: msg.detail.left, height: msg.detail.height, width: msg.detail.width, type: "popup"});
             send_ga_event('incognitoChat_btn_click', 'incognitoChat_btn_click', 'incognitoChat_btn_click');
+            setTimeout(function () {
+                sendResponse({ result: "any response from background" });
+            }, 1000);
             break;
         case "bg_searchBar_multiStream_started":
             send_ga_event('multiStream_searchBar_btn_click', 'multiStream_searchBar_btn_click', 'multiStream_searchBar_btn_click');
@@ -632,7 +635,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'get_YT_live_streams' && msg.action !== 'tp_settings_upgrade_db') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'get_YT_live_streams' && msg.action !== 'tp_settings_upgrade_db' && msg.action !== 'bg_incognito_chat_btn_click') {
         sendResponse({ result: "any response from background" });
     }
     return true;
