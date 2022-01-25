@@ -813,7 +813,7 @@
 }
 #tp_updateToast_donate_bitcoin_btn:hover {
     box-shadow: 0 0 15px 0px rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 #tp_updateToast_donate_btn_img {
     margin-left: 9px;
