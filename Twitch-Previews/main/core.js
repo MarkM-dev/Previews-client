@@ -4453,7 +4453,7 @@
             "            <div>" +
             "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"25\" height=\"25\" title=\"" + geti18nMessage('translateStr') + "\" />\n" +
             "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"25\" height=\"25\" title=\"Settings\" />\n" +
-            "               <span id='tp_updateToast_dismiss_top_btn' >X</span>\n" +
+            "               <span " + hideClass + " id='tp_updateToast_dismiss_top_btn' >X</span>\n" +
             "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
             "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >" + _i18n('update_toast_rate_line_text') + "</div>\n" +
             "            </div>\n" +
@@ -4572,11 +4572,15 @@
                 _browser.storage.local.get('tpInstallTime', function(result) {
                     if (result.tpInstallTime) {
                         if ((new Date().getTime() - result.tpInstallTime) / 1000 > 604800) {
-                            _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {
-
-                            });
                             setTimeout(function () {
-                                showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', true);
+                                _browser.storage.local.get('shouldShowDelayedRateToast', function(result) {
+                                    if (result.shouldShowDelayedRateToast) {
+                                        showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', true);
+                                        _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {
+
+                                        });
+                                    }
+                                });
                             }, 30000)
                         }
                     }
