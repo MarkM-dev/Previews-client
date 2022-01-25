@@ -4,7 +4,6 @@
     let isFirefox = typeof browser !== "undefined";
     let _browser = isFirefox ? browser : chrome;
     const _tp_i18n = await import(_browser.runtime.getURL("main/tp_i18n.js"));
-    let isAppInit = true;
     let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
     let isNavBarCollapsed;
     let previewDiv = null;
@@ -124,8 +123,7 @@
     }
 
     let sideNavMutationObserver = new MutationObserver(function(mutations) {
-        if (isHovering || isAppInit) {
-            isAppInit = false;
+        if (isHovering) {
             return;
         }
 
@@ -1441,14 +1439,10 @@
 
                     let navCards;
                     for (let i = 0; i < 15; i++) {
-                        console.log('loop: ' + i);
                         navCards = getSidebarNavCards(sideNavSections[0]);
                         if (isStreamerOnline(navCards[navCards.length - 1])) {
-                            console.log('starting extend, loop: ' + i);
                             let extend_status = await extendFollowedSidebarSection(sideNavSections[0]);
-                            console.log('finished waiting extend, loop: ' + i);
                         } else {
-                            console.log('entered else, loop: ' + i);
                             timesExtendedSidebar = 0;
                             extendSidebarSection(sideNavSections[1]);
                             extendSidebarSection(sideNavSections[2]);
