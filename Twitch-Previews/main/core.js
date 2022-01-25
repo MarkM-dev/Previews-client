@@ -1416,30 +1416,45 @@
         }
     }
 
-    function extendSidebar() {
+    function extendFollowedSidebarSection(sideNavSection) {
         return new Promise((resolve, reject) => {
+            if(sideNavSection) {
+                if (sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]')) {
+                    sideNavSection.querySelector('button[data-a-target="side-nav-show-more-button"]').click();
+                    setTimeout(function () {
+                        resolve('done');
+                    }, 300);
+                } else {
+                    resolve('done');
+                }
+            } else {
+                resolve('done');
+            }
+        });
+    }
+
+    function extendSidebar() {
+        return new Promise(async (resolve, reject) => {
             if (!isNavBarCollapsed) {
                 let sideNavSections = document.querySelectorAll('.side-nav-section');
-                if(sideNavSections[0]) {
-                    let navCards = getSidebarNavCards(sideNavSections[0]);
-                    if (isStreamerOnline(navCards[navCards.length - 1])) {
-                        extendSidebarSection(sideNavSections[0]);
-                        if (timesExtendedSidebar < 15) {
-                            timesExtendedSidebar++;
-                            setTimeout(function (){
-                                extendSidebar().then(function (res) {});
-                            },300);
+                if (sideNavSections[0]) {
+
+                    let navCards;
+                    for (let i = 0; i < 15; i++) {
+                        console.log('loop: ' + i);
+                        navCards = getSidebarNavCards(sideNavSections[0]);
+                        if (isStreamerOnline(navCards[navCards.length - 1])) {
+                            console.log('starting extend, loop: ' + i);
+                            let extend_status = await extendFollowedSidebarSection(sideNavSections[0]);
+                            console.log('finished waiting extend, loop: ' + i);
                         } else {
+                            console.log('entered else, loop: ' + i);
                             timesExtendedSidebar = 0;
                             extendSidebarSection(sideNavSections[1]);
                             extendSidebarSection(sideNavSections[2]);
                             resolve('done');
+                            break;
                         }
-                    } else {
-                        timesExtendedSidebar = 0;
-                        extendSidebarSection(sideNavSections[1]);
-                        extendSidebarSection(sideNavSections[2]);
-                        resolve('done');
                     }
                 } else {
                     resolve('done');
