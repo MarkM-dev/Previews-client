@@ -1149,7 +1149,13 @@
                                 navCard.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').innerText = res.result[i].title;
                                 navCard.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').title = res.result[i].title;
                             }
-                            navCard.querySelector('img.tw-image-avatar').src = res.result[i].profile_pic_url;
+
+                            let profile_pic = document.createElement('img');
+                            profile_pic.classList = navCard.querySelector('img.tw-image-avatar').classList;
+                            profile_pic.alt = res.result[i].stream_name;
+                            profile_pic.src = res.result[i].profile_pic_url;
+                            navCard.querySelector('img.tw-image-avatar').parentNode.append(profile_pic);
+                            navCard.querySelector('img.tw-image-avatar').remove();
                             navCard.title = res.result[i].stream_name + ' - ' + res.result[i].title;
 
                             navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
