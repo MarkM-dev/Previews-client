@@ -2931,25 +2931,9 @@
                         });
                         let url = URL.createObjectURL(blob);
 
-                        let video = document.createElement('video');
-                        video.preload = "metadata";
-                        video.addEventListener("loadedmetadata", async function () {
-                            while (video.duration === Infinity) {
-                                await new Promise(r => setTimeout(r, 1000));
-                                video.currentTime = 10000000 * Math.random();
-                            }
-
-                            let a = document.createElement("a");
-                            document.body.appendChild(a);
-                            a.style.display = "none";
-                            a.href = url;
-                            a.download = stream_name + ' - ' + new Date(video.duration * 1000).toISOString().substr(14, 5).replace(':','-').replace('00-','') + 's.webm';
-                            a.click();
-                            window.URL.revokeObjectURL(url);
-                            video = null;
-                            a.remove();
-                        })
-                        video.src = url;
+                        _browser.storage.local.set({'record_url': {url:url, stream_name:stream_name}}, function() {
+                            sendMessageToBG({action: 'bg_open_record_playback', detail: ""})
+                        });
 
                     } else {
                         alert('Error: recording is empty.');

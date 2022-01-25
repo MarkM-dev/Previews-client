@@ -1,0 +1,38 @@
+body {
+    padding-top: 5vh;
+    background-color: #232323;
+    text-align: center;
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+#tp_img {
+    margin-bottom: -10px;
+}
+#tp_ext_name {
+    font-size: 25px;
+}
+#tp_ext_desc {
+    margin-top: 35px;
+}
+.tp-btn {
+    display: inline-block;
+    width: 80px;
+    border: 1px solid grey;
+    transition: all 0.2s;
+    cursor: pointer;
+    padding: 5px 25px;
+    border-radius: 10px;
+    margin: 30px 10px 0 10px;
+}
+.tp-btn:hover {
+    background-color: rgba(255,255,255,0.4);
+}
+.tp-btn:active {
+    background-color: rgba(255,255,255,0.2);
+}
+#vid {
+    width: 50%;
+    height: auto;
+    margin-top: 35px;
+}

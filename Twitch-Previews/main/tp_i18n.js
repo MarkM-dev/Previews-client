@@ -887,6 +887,22 @@ export const i18n = {
         'pt_BR': 'Botão Gravar Fluxo',
         'ru':'Кнопка записи потока'
     },
+    rec_pb_download_recording_btn: {
+        'en': 'Download Recording',
+        'es': 'Descargar grabación',
+        'de': 'Aufzeichnung herunterladen',
+        'fr': 'Télécharger l\'enregistrement',
+        'pt_BR': 'Baixar Gravação',
+        'ru':'Скачать запись'
+    },
+    rec_pb_save_recording_note_text: {
+        'en': 'Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly\nopen them in a new tab (drag the saved video to the browser).',
+        'es': 'Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente\nábralas en una nueva pestaña (arrastre el video guardado al navegador).',
+        'de': 'Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen\nöffnen Sie sie in einem neuen Tab (ziehen Sie das gespeicherte Video in den Browser).',
+        'fr': 'Remarque: en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement\nouvrez-les dans un nouvel onglet (faites glisser la vidéo enregistrée vers le navigateur).',
+        'pt_BR': 'Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente\nabra-as em uma nova guia (arraste o vídeo salvo para o navegador).',
+        'ru':'Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей\nоткройте их на новой вкладке (перетащите сохраненное видео в браузер).'
+    },
     settings_feature_isRecordEnabled_desc: {
         'en': '<strong>* Record Stream Button</strong>' +
             '<br>- The button will show in the player controls.' +
