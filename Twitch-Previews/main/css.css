@@ -1250,6 +1250,10 @@
     z-index: 999999999;
 }
 
+.cast_loading_overlay_click_handler {
+    cursor: pointer;
+}
+
 .tp-multi-stream-box .tp-multistream-iframe {
     width: 100%;
     height: calc(100% - 25px);

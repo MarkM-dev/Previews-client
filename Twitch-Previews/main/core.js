@@ -4361,10 +4361,17 @@
                         if (document.querySelector('.tw-chromecast-button__icon')) {
                             setPvqc();
                             appendCastWorker();
-                            setTimeout(()=>{
+
+                            overlay.innerText = _i18n('cast_click_overlay_text');
+                            overlay.classList.add('cast_loading_overlay_click_handler');
+
+                            overlay.onclick = function (e) {
+                                overlay.classList.remove('cast_loading_overlay_click_handler');
                                 overlay.innerText = _i18n('cast_select_device_text');
                                 document.querySelector('.tw-chromecast-button__icon').closest('button').click();
-                            }, 1000);
+                                overlay.onclick = null;
+                            }
+
                             clearInterval(interval);
                         } else {
                             times_interval_ran++;
