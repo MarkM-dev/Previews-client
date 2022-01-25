@@ -1350,12 +1350,22 @@
                                 if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
                                     if (isStreamerOnline(shown_followed_channels[i])) {
                                         let el = shown_followed_channels[i].cloneNode(true);
-                                        el.title = el.href.split('/').pop();
                                         el.onclick = (e) => {
                                             e.preventDefault();
                                             window.history.replaceState({},'','/' + el.title);
                                             window.location.href = '#';
                                         }
+                                        let style = document.createElement('style');
+                                        el.addEventListener('mouseover', (e) => {
+                                            let distance = isNavBarCollapsed ? "5rem":"24rem";
+                                            simulateHoverOnElement('mouseover', shown_followed_channels[i].parentNode);
+                                            style.textContent = 'div[data-popper-placement] {transform: none !important;inset: 0px auto auto ' + distance + ' !important;' + (isLayoutHorizontallyInverted ? "right":"left") + ': ' + distance + ' ;top: ' + el.getBoundingClientRect().top + 'px !important;}';
+                                            document.head.append(style);
+                                        });
+                                        el.addEventListener('mouseout', (e) => {
+                                            simulateHoverOnElement('mouseout', shown_followed_channels[i].parentNode);
+                                            style.remove();
+                                        });
                                         let container_div = document.createElement('div');
                                         container_div.appendChild(el);
                                         favorites_section.children[1].appendChild(container_div);
@@ -1742,7 +1752,7 @@
         }
     }
 
-    function simulateHoverForPoints(selectedEvent ,el) {
+    function simulateHoverOnElement(selectedEvent ,el) {
         const event = new MouseEvent(selectedEvent, {
             view: window,
             bubbles: true,
@@ -1756,7 +1766,7 @@
         return new Promise((resolve, reject) => {
 
             // simulate hover to get channel points from tooltip
-            simulateHoverForPoints('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+            simulateHoverOnElement('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
             // get points from tooltip
             setTimeout(function (){
                 let tooltip = document.getElementsByClassName('tw-tooltip-wrapper')[0];
@@ -1766,10 +1776,10 @@
                     for (let i = 0; i < points_str_extract_arr.length; i++) {
                         points += points_str_extract_arr[i];
                     }
-                    simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+                    simulateHoverOnElement('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
                     resolve(points);
                 } else {
-                    simulateHoverForPoints('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+                    simulateHoverOnElement('mouseover',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
                     setTimeout(function (){
                         tooltip = document.getElementsByClassName('tw-tooltip-wrapper')[0];
                         if (tooltip) {
@@ -1778,7 +1788,7 @@
                             for (let i = 0; i < points_str_extract_arr.length; i++) {
                                 points += points_str_extract_arr[i];
                             }
-                            simulateHoverForPoints('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
+                            simulateHoverOnElement('mouseout',document.getElementsByClassName('community-points-summary')[0].getElementsByTagName('button')[0]);
                             resolve(points);
                         } else {
                             resolve(null);
