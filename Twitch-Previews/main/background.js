@@ -415,6 +415,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast_donate_btn_click":
             send_ga_event('updateToast', 'updateToast_donate_btn_click', 'updateToast_donate_btn_click');
             break;
+        case "updateToast_donate_bitcoin_btn_click":
+            send_ga_event('updateToast', 'updateToast_donate_bitcoin_btn_click', 'updateToast_donate_bitcoin_btn_click');
+            break;
         case "updateToast_share_btn_click":
             send_ga_event('updateToast', 'updateToast_share_btn_click', 'updateToast_share_btn_click');
             break;
@@ -440,6 +443,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "delayedRateToast_donate_btn_click":
             send_ga_event('delayedRateToast', 'delayedRateToast_donate_btn_click', 'delayedRateToast_donate_btn_click');
             break;
+        case "delayedRateToast_donate_bitcoin_btn_click":
+            send_ga_event('delayedRateToast', 'delayedRateToast_donate_bitcoin_btn_click', 'delayedRateToast_donate_bitcoin_btn_click');
+            break;
         case "delayedRateToast_share_btn_click":
             send_ga_event('delayedRateToast', 'delayedRateToast_share_btn_click', 'delayedRateToast_share_btn_click');
             break;
@@ -456,6 +462,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_show_donate":
             _browser.tabs.create({url:"https://ko-fi.com/twitchpreviews"});
+            break;
+        case "bg_show_donate_bitcoin":
+            _browser.tabs.create({url:"https://commerce.coinbase.com/checkout/5421b63d-50e3-4b52-a86d-8404399968d4"});
             break;
         case "bg_show_rate":
             _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
@@ -483,6 +492,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_donate_btn_click":
             send_ga_event('settings_donate_btn_click', 'settings_donate_btn_click', 'settings_donate_btn_click');
+            break;
+        case "bg_donate_bitcoin_btn_click":
+            send_ga_event('settings_donate_bitcoin_btn_click', 'settings_donate_bitcoin_btn_click', 'settings_donate_bitcoin_btn_click');
             break;
         case "bg_rate_btn_click":
             send_ga_event('settings_rate_btn_click', 'settings_rate_btn_click', 'settings_rate_btn_click');

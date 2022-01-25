@@ -583,9 +583,9 @@
     font-size: 10px;
 }
 
-#TPBodyEl #tp_popup_donate_btn {
+#TPBodyEl .tp_popup_donate_btn {
     height: 32px;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     margin: 15px auto auto auto;
@@ -597,7 +597,12 @@
     transition: all 0.1s;
 }
 
-#TPBodyEl #tp_popup_donate_btn:hover {
+#TPBodyEl .tp_popup_donate_btn:hover {
+    box-shadow: 0 0 15px 0px rgba(255, 255, 255, 0.3);
+    transform: scale(1.03);
+}
+
+#TPBodyEl #tp_popup_donate_bitcoin_btn:hover {
     box-shadow: 0 0 15px 0px rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }

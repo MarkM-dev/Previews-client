@@ -5519,6 +5519,7 @@
             initPreviewSizeSlider(settingsContainer);
 
             initSocialBtn(settingsContainer, 'donate', true);
+            initSocialBtn(settingsContainer, 'donate_bitcoin', true);
             initSocialBtn(settingsContainer, 'rate', true);
             initSocialBtn(settingsContainer, 'share', true);
 
