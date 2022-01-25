@@ -1348,9 +1348,10 @@
                                 if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
                                     if (isStreamerOnline(shown_followed_channels[i])) {
                                         let el = shown_followed_channels[i].cloneNode(true);
+                                        let _stream_name = el.href.split('/').pop();
                                         el.onclick = (e) => {
                                             e.preventDefault();
-                                            window.history.replaceState({},'','/' + el.title);
+                                            window.history.replaceState({},'','/' + _stream_name);
                                             window.location.href = '#';
                                         }
                                         let style = document.createElement('style');
