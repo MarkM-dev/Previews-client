@@ -2134,6 +2134,14 @@ export const i18n = {
         'pt_BR': 'Selecione seu\ndispositivo Chromecast',
         'ru':'Выберите свое\nустройство Chromecast'
     },
+    cast_click_overlay_text: {
+        'en': 'Click To\nStart Casting',
+        'es': 'Haz clic para\nComenzar a transmitir',
+        'de': 'Klicken Sie auf\num mit dem Casting zu beginnen',
+        'fr': 'Cliquez pour\ncommencer la diffusion',
+        'pt_BR': 'Clique para\nIniciar transmissão',
+        'ru':'Нажмите, чтобы\nначать трансляцию'
+    },
     cast_not_found_err_text: {
         'en': 'Twitch Previews:\nError: didn\'t find ChromeCast Button',
         'es': 'Twitch Previews:\nError: no encontré el botón Chromecast',
