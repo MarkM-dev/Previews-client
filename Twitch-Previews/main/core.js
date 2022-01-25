@@ -1355,12 +1355,13 @@
                                     if (isStreamerOnline(shown_followed_channels[i])) {
                                         let el = shown_followed_channels[i].cloneNode(true);
                                         let _stream_name = el.href.split('/').pop();
+                                        el.title = _stream_name;
                                         el.onclick = (e) => {
                                             e.preventDefault();
                                             window.history.replaceState({},'','/' + _stream_name);
                                             window.location.href = '#';
                                         }
-                                        let style = document.createElement('style');
+                                        /*let style = document.createElement('style');
                                         el.addEventListener('mouseover', (e) => {
                                             let distance = isNavBarCollapsed ? "5rem":"24rem";
                                             simulateHoverOnElement('mouseover', shown_followed_channels[i].parentNode);
@@ -1370,7 +1371,7 @@
                                         el.addEventListener('mouseout', (e) => {
                                             simulateHoverOnElement('mouseout', shown_followed_channels[i].parentNode);
                                             style.remove();
-                                        });
+                                        });*/
                                         let container_div = document.createElement('div');
                                         container_div.appendChild(el);
                                         favorites_section.children[1].appendChild(container_div);
