@@ -1156,7 +1156,7 @@
                             profile_pic.src = res.result[i].profile_pic_url;
                             navCard.querySelector('img.tw-image-avatar').parentNode.append(profile_pic);
                             navCard.querySelector('img.tw-image-avatar').remove();
-                            navCard.title = res.result[i].stream_name + ' - ' + res.result[i].title;
+                            navCard.title = res.result[i].stream_name + ' - YouTube\n' + res.result[i].title;
 
                             navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
                             navCard.tp_yt = true;
