@@ -32,6 +32,14 @@ export const i18n = {
         'pt_BR': 'Para ativar os canais da barra lateral do YouTube, a extensão precisa de permissão para buscar os streams do YouTube',
         'ru':'Чтобы включить боковую панель каналов YouTube, расширению необходимо разрешение на получение потоков с YouTube.'
     },
+    opd_fb_msg: {
+        'en': 'To enable Sidebar Facebook Gaming Channels, the extension needs permission to fetch the streams from Facebook',
+        'es': 'Para habilitar los canales de Facebook Gaming de la barra lateral, la extensión necesita permiso para recuperar las transmisiones de Facebook.',
+        'de': 'Um die Facebook-Gaming-Kanäle der Seitenleiste zu aktivieren, benötigt die Erweiterung die Berechtigung, die Streams von Facebook abzurufen',
+        'fr': 'Pour activer les chaînes Facebook Gaming de la barre latérale, l\'extension a besoin d\'une autorisation pour récupérer les flux de Facebook',
+        'pt_BR': 'Para ativar os canais da barra lateral do Facebook Gaming, a extensão precisa de permissão para buscar os streams do Facebook',
+        'ru':'Чтобы включить боковую панель каналов Facebook Gaming, расширению необходимо разрешение на получение потоков с Facebook.'
+    },
     opd_allow_btn: {
         'en': 'Allow',
         'es': 'Permitir',
@@ -482,6 +490,60 @@ export const i18n = {
     },
     settings_feature_isYTsidebarEnabled_desc: {
         'en': '<strong>* Sidebar YouTube Channels</strong>' +
+            '<br>- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.' +
+            '<br>- The list data will update every 5 minutes.' +
+            '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.' +
+            '<br>- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren\'t already).' +
+            '<br>- When enabling this feature, you will need to allow the extension to run on "youtube.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.',
+        'es': '<strong>* Barra lateral canales de YouTube</strong>' +
+            '<br>- Una nueva lista en la parte superior de la barra lateral de Twitch para mostrar sus canales de YouTube suscritos que están actualmente en vivo en YouTube.' +
+            '<br>- Los datos de la lista se actualizarán cada 5 minutos.' +
+            '<br>- Compatible con las funciones Custom Picture-In-Picture y Multi-Stream y Multi-Chat para que pueda utilizar la multiplataforma Multi-Stream.' +
+            '<br>- Debes iniciar sesión en YouTube en tu navegador (solo ve a youtube.com e inicia sesión si aún no lo has hecho).' +
+            '<br>- Al habilitar esta función, deberá permitir que la extensión se ejecute en "youtube.com" (se mostrará un mensaje cuando la habilite); esto es para que la extensión pueda obtener las transmisiones de YouTube.',
+        'de': '<strong>* Seitenleiste YouTube-Kanäle</strong>' +
+            '<br>- Eine neue Liste oben in der Twitch-Seitenleiste, um deine abonnierten YouTube-Kanäle anzuzeigen, die derzeit auf YouTube live sind.' +
+            '<br>- Die Listendaten werden alle 5 Minuten aktualisiert.' +
+            '<br>- Unterstützt durch die benutzerdefinierten Bild-in-Bild- und Multi-Stream- und Multi-Chat-Funktionen, damit Sie den Multi-Stream plattformübergreifend verwenden können.' +
+            '<br>- Sie müssen in Ihrem Browser bei YouTube angemeldet sein (gehen Sie einfach zu youtube.com und melden Sie sich an, wenn Sie es noch nicht sind).' +
+            '<br>- Wenn Sie diese Funktion aktivieren, müssen Sie die Ausführung der Erweiterung auf "youtube.com" zulassen (beim Aktivieren wird eine Eingabeaufforderung angezeigt) - damit die Erweiterung die Streams von YouTube abrufen kann.',
+        'fr': '<strong>* Barre latérale Chaînes YouTube</strong>' +
+            '<br>- Une nouvelle liste en haut de la barre latérale de Twitch pour afficher vos chaînes YouTube auxquelles vous êtes abonné et qui sont actuellement en direct sur YouTube.' +
+            '<br>- Les données de la liste seront mises à jour toutes les 5 minutes.' +
+            '<br>- Pris en charge par les fonctionnalités Custom Picture-In-Picture et Multi-Stream & Multi-Chat afin que vous puissiez utiliser la multi-plateforme Multi-Stream.' +
+            '<br>- Vous devez être connecté à YouTube sur votre navigateur (allez simplement sur youtube.com et connectez-vous si vous ne l\'êtes pas déjà).' +
+            '<br>- Lors de l\'activation de cette fonctionnalité, vous devrez autoriser l\'extension à s\'exécuter sur "youtube.com" (une invite s\'affichera lors de l\'activation) - c\'est ainsi que l\'extension peut récupérer les flux de YouTube.',
+        'pt_BR': '<strong>* Barra Lateral Canais do YouTube</strong>' +
+            '<br>- Uma nova lista no topo da barra lateral do Twitch para mostrar seus canais inscritos no YouTube que estão atualmente ao vivo no YouTube.' +
+            '<br>- Os dados da lista serão atualizados a cada 5 minutos.' +
+            '<br>- Suportado pelos recursos Picture-In-Picture e Multi-Stream & Multi-Chat personalizados para que você possa usar a plataforma cruzada Multi-Stream.' +
+            '<br>- Você precisa estar conectado ao YouTube em seu navegador (basta ir para youtube.com e fazer o login, se ainda não estiver).' +
+            '<br>- Ao ativar este recurso, você precisará permitir que a extensão seja executada em "youtube.com" (um prompt será exibido ao ativar) - isso é para que a extensão possa buscar os streams do YouTube.',
+        'ru':'<strong>* Боковая панель каналы YouTube</strong>' +
+            '<br>- Новый список в верхней части боковой панели Twitch, чтобы показать каналы YouTube, на которые вы подписаны, которые в настоящее время транслируются на YouTube.' +
+            '<br>- Данные списка будут обновляться каждые 5 минут.' +
+            '<br>- Поддерживается функциями Custom Picture-In-Picture и Multi-Stream & Multi-Chat, поэтому вы можете использовать кроссплатформенность Multi-Stream.' +
+            '<br>- Вам необходимо войти на YouTube в своем браузере (просто перейдите на youtube.com и войдите в систему, если вы еще этого не сделали).' +
+            '<br>- При включении этой функции вам нужно будет разрешить запуск расширения на «youtube.com» (при включении появится подсказка) - это значит, что расширение может получать потоки с YouTube.',
+    },
+    settings_feature_isFBsidebarEnabled: {
+        'en': 'Facebook Gaming Channels',
+        'es': 'Facebook Gaming Channels',
+        'de': 'Facebook Gaming Channels',
+        'fr': 'Facebook Gaming Channels',
+        'pt_BR': 'Facebook Gaming Channels',
+        'ru':'Facebook Gaming Channels'
+    },
+    settings_feature_subtext_isFBsidebarEnabled: {
+        'en': '(shows at the top of the sidebar)',
+        'es': '(se muestra en la parte superior de la barra lateral)',
+        'de': '(wird oben in der Seitenleiste angezeigt)',
+        'fr': '(s\'affiche en haut de la barre latérale)',
+        'pt_BR': '(mostra na parte superior da barra lateral)',
+        'ru':'(отображается вверху боковой панели)'
+    },
+    settings_feature_isFBsidebarEnabled_desc: {
+        'en': '<strong>* Facebook Gaming Channels</strong>' +
             '<br>- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.' +
             '<br>- The list data will update every 5 minutes.' +
             '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.' +
@@ -1572,6 +1634,22 @@ export const i18n = {
         'fr': 'Chaînes YouTube',
         'pt_BR': 'Canais do YouTube',
         'ru':'Каналы YouTube'
+    },
+    sidebar_fb_channels_section_title: {
+        'en': 'FB GAMING CHANNELS',
+        'es': 'FB GAMING CHANNELS',
+        'de': 'FB GAMING CHANNELS',
+        'fr': 'FB GAMING CHANNELS',
+        'pt_BR': 'FB GAMING CHANNELS',
+        'ru':'FB GAMING CHANNELS'
+    },
+    sidebar_fb_channels_title: {
+        'en': 'Facebook Gaming Channels',
+        'es': 'Facebook Gaming Channels',
+        'de': 'Facebook Gaming Channels',
+        'fr': 'Facebook Gaming Channels',
+        'pt_BR': 'Facebook Gaming Channels',
+        'ru':'Facebook Gaming Channels'
     },
     favorites_btn_title: {
         'en': 'Toggle Favorite',

@@ -149,6 +149,10 @@
             if (options.isYTsidebarEnabled) {
                 setYTsidebar();
             }
+
+            if (options.isFBsidebarEnabled) {
+                setFBsidebar();
+            }
         }
     });
 
@@ -1016,6 +1020,7 @@
         let sidebarHideSections = options.isSidebarHideSectionsEnabled ? "sBarHS_ON" : "sBarHS_OFF";
         let muteAutoPlayers = options.isMuteAutoPlayersEnabled ? "mautop_ON" : "mautop_OFF";
         let YTsidebar = options.isYTsidebarEnabled ? "YTSB_ON" : "YTSB_OFF";
+        let FBsidebar = options.isFBsidebarEnabled ? "FBSB_ON" : "FBSB_OFF";
         let ave = options.isAdvancedVideoEmbedsEnabled ? "ave_ON" : "ave_OFF";
         let record = options.isRecordEnabled ? "rec_ON" : "rec_OFF";
 
@@ -1023,7 +1028,7 @@
                 + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
                 + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
                 + " : " + pip_main + " : " + sidebarFavorites + " : " + sidebarFavorites_og + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
-                + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : " + ave + " : " + record});
+                + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : "  + FBsidebar + " : " + ave + " : " + record});
     }
 
     function refreshPageOnMainTwitchPlayerError(fullRefresh) {
@@ -1187,6 +1192,122 @@
 
 
                 let old_yt_section = document.getElementById('tp_YTsidebar_section');
+                if (old_yt_section) {
+                    old_yt_section.parentNode.replaceChild(yt_section, old_yt_section);
+                } else {
+                    let favorites_section = document.getElementById('tp_favorites_section');
+                    if (favorites_section) {
+                        favorites_section.after(yt_section);
+                    } else {
+                        followed_channels_section.parentNode.prepend(yt_section);
+                    }
+                }
+
+                if(options.isSidebarPreviewsEnabled) {
+                    refreshNavCardsListAndListeners();
+                }
+                if(options.isSidebarSearchEnabled) {
+                    showSidebarSearchBtn();
+                }
+
+            }
+        })
+    }
+
+    function setFBsidebar() {
+        _browser.runtime.sendMessage({action: "get_FB_live_streams", detail: true}, function(res) {
+
+            let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
+
+            let followed_channels_section = document.querySelector('.side-nav-section');
+            if (followed_channels_section) {
+                let yt_section = followed_channels_section.cloneNode(true);
+                yt_section.id = 'tp_FBsidebar_section';
+                yt_section.classList.remove('side-nav-section');
+                yt_section.children[1].innerHTML = '';
+
+                let section_title = yt_section.querySelector('.side-nav-header');
+                if (section_title) {
+                    let title_figure = section_title.querySelector('figure');
+                    if (title_figure) {
+                        if(isExperimentalSidebar) {
+                            title_figure.innerHTML = '';
+                            title_figure.style.width = '20px';
+                            title_figure.style.height = '20px';
+                            section_title.querySelector('h5').innerText = _i18n('sidebar_fb_channels_section_title');
+                        } else {
+                            title_figure.title = _i18n('sidebar_fb_channels_title');
+                            title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="21px" width="21px" xmlns="http://www.w3.org/2000/svg">' +
+                                    '<path d="M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 ' +
+                                        '1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 ' +
+                                        '2.2 0 4.7.1 7.6.1 8.1.3 17.2.5 26.9.8 27.9 2.2 55.7 4.4 81.9 3 36.1 7.4 66.2 13.4 88.8 12.8 47.9 50.4 85.7 98.3 98.5 28.2 7.6 83.7 12.3 161.7 15.2 37.1 1.4 76.8 2.3 116.5 2.8 13.9.2 ' +
+                                        '26.8.3 38.4.4h29.4c11.6-.1 24.5-.2 38.4-.4 39.7-.5 79.4-1.4 116.5-2.8 78-3 133.5-7.7 161.7-15.2 47.9-12.8 85.5-50.5 98.3-98.5 6.1-22.6 10.4-52.7 13.4-88.8 2.2-26.2 3.6-54 4.4-81.9.3-9.7.4-18.8.5-26.9 0-2.9.1-5.4.1-7.6v-5.6zm-72 5.2c0 2.1 ' +
+                                        '0 4.4-.1 7.1-.1 7.8-.3 16.4-.5 25.7-.7 26.6-2.1 53.2-4.2 77.9-2.7 32.2-6.5 58.6-11.2 76.3-6.2 23.1-24.4 41.4-47.4 47.5-21 5.6-73.9 10.1-145.8 12.8-36.4 1.4-75.6 2.3-114.7 2.8-13.7.2-26.4.3-37.8.3h-28.6l-37.8-.3c-39.1-.5-78.2-1.4-114.7-2.8-71.9-2.8-124.9-7.2-145.8-12.8-23-6.' +
+                                        '2-41.2-24.4-47.4-47.5-4.7-17.7-8.5-44.1-11.2-76.3-2.1-24.7-3.4-51.3-4.2-77.9-.3-9.3-.4-18-.5-25.7 0-2.7-.1-5.1-.1-7.1v-4.8c0-2.1 0-4.4.1-7.1.1-7.8.3-16.4.5-25.7.7-26.6 2.1-53.2 4.2-77.9 2.7-32.2 6.5-58.6 11.2-76.3 6.2-23.1 24.4-41.4 47.4-47.5 21-5.6 73.9-10.1 145.8-12.8 36.4-1.4 75.6-2.3 ' +
+                                        '114.7-2.8 13.7-.2 26.4-.3 37.8-.3h28.6l37.8.3c39.1.5 78.2 1.4 114.7 2.8 71.9 2.8 124.9 7.2 145.8 12.8 23 6.2 41.2 24.4 47.4 47.5 4.7 17.7 8.5 44.1 11.2 76.3 2.1 24.7 3.4 51.3 4.2 77.9.3 9.3.4 18 .5 25.7 0 2.7.1 5.1.1 7.1v4.8zM423 646l232-135-232-133z"></path>' +
+                                '</svg>';
+                        }
+                    } else {
+                        section_title.querySelector('h5').innerText = _i18n('sidebar_fb_channels_section_title');
+                    }
+
+                    if (yt_section.querySelector('.side-nav-show-more-toggle__button')) {
+                        yt_section.querySelector('.side-nav-show-more-toggle__button').remove();
+                    }
+                }
+
+
+                if (res.result.length > 0) {
+                    let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
+
+                    if (shown_followed_channels[0]) {
+                        for (let i = 0; i < res.result.length; i++) {
+                            let navCard = shown_followed_channels[0].cloneNode(true);
+                            if (!isNavBarCollapsed) {
+                                navCard.querySelector('p[data-a-target="side-nav-title"]').innerText = res.result[i].stream_name;
+                                navCard.querySelector('p[data-a-target="side-nav-title"]').title = res.result[i].stream_name;
+                                navCard.querySelector('div[data-a-target="side-nav-live-status"]').querySelector('span').innerText = res.result[i].view_count;
+                                navCard.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').innerText = res.result[i].title;
+                                navCard.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').title = res.result[i].title;
+                            }
+
+                            let profile_pic = document.createElement('img');
+                            profile_pic.classList = navCard.querySelector('img.tw-image-avatar').classList;
+                            profile_pic.alt = res.result[i].stream_name;
+                            profile_pic.src = res.result[i].profile_pic_url;
+                            navCard.querySelector('img.tw-image-avatar').parentNode.append(profile_pic);
+                            navCard.querySelector('img.tw-image-avatar').remove();
+                            navCard.title = res.result[i].stream_name + '\n' + res.result[i].title;
+
+                            navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
+                            navCard.tp_yt = true;
+                            navCard.yt_videoId = res.result[i].videoId;
+                            navCard.stream_name = res.result[i].stream_name;
+                            navCard.thumbnail_url = res.result[i].thumbnail_url;
+                            navCard.onclick = (e) => {
+                                e.preventDefault();
+                                e.cancelBubble = true;
+                                sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.youtube.com/watch?v=" + res.result[i].videoId});
+                            }
+                            let container_div = document.createElement('div');
+                            container_div.appendChild(navCard);
+                            yt_section.children[1].appendChild(container_div);
+                        }
+                    }
+                }
+
+                if(!isExperimentalSidebar) {
+                    if (!yt_section.children[1].firstChild && !isNavBarCollapsed) {
+                        let div = document.createElement('div');
+                        div.innerText = 'No live FB Gaming streamers';
+                        div.style.padding = '0px 10px 5px 10px';
+                        div.style.color = 'grey';
+                        yt_section.children[1].appendChild(div);
+                    }
+                }
+
+
+                let old_yt_section = document.getElementById('tp_FBsidebar_section');
                 if (old_yt_section) {
                     old_yt_section.parentNode.replaceChild(yt_section, old_yt_section);
                 } else {
@@ -1566,6 +1687,16 @@
             } else {
                 changeFeatureMode(featureName, false);
                 settings_YTsidebar_cb_off();
+            }
+        });
+    }
+    function checkForFBPermissions(featureName) {
+        _browser.runtime.sendMessage({action: "check_permission_FB", detail: true}, function(response) {
+            if (response.result === 'granted') {
+                changeFeatureMode(featureName, true);
+            } else {
+                changeFeatureMode(featureName, false);
+                settings_FBsidebar_cb_off();
             }
         });
     }
@@ -4651,6 +4782,9 @@
                         if (result.shouldShowSettingsAndAskNewPermissions.includes('isYTsidebarEnabled')) {
                             checkForYTPermissions('isYTsidebarEnabled');
                         }
+                        if (result.shouldShowSettingsAndAskNewPermissions.includes('isFBsidebarEnabled')) {
+                            checkForYTPermissions('isFBsidebarEnabled');
+                        }
                     },
                     function (err){
 
@@ -4892,6 +5026,11 @@
             if (options.isYTsidebarEnabled) {
                 setYTsidebar();
             }
+
+            if (options.isFBsidebarEnabled) {
+                setFBsidebar();
+            }
+
             document.querySelector('.collapse-toggle').removeEventListener('click', sidebarExpandBtnClick);
         }
 
@@ -4918,6 +5057,19 @@
         if (options.isYTsidebarEnabled) {
             setTimeout(function () {
                 setYTsidebar();
+                setSideNavMutationObserver();
+                setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
+                if (!isFromTitleObserver) {
+                    if (isNavBarCollapsed) {
+                        document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
+                    }
+                }
+            }, 2500)
+        }
+
+        if (options.isFBsidebarEnabled) {
+            setTimeout(function () {
+                setFBsidebar();
                 setSideNavMutationObserver();
                 setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
                 if (!isFromTitleObserver) {
@@ -4988,6 +5140,15 @@
                     if (settingsContainer) {
                         checkForYTPermissions('isYTsidebarEnabled');
                     }
+                } else {
+                    if (msg.action === "tp_enable_FBsidebar") {
+                        sendResponse({action: 'response'});
+                        settings_FBsidebar_cb_on();
+                        let settingsContainer = document.getElementById('TPBodyEl');
+                        if (settingsContainer) {
+                            checkForYTPermissions('isFBsidebarEnabled');
+                        }
+                    }
                 }
             }
         }
@@ -5021,6 +5182,20 @@
         let settingsContainer = document.getElementById('TPBodyEl');
         if (settingsContainer) {
             settingsContainer.querySelector('#TP_popup_YTsidebar_checkbox').checked = true;
+        }
+    }
+
+    function settings_FBsidebar_cb_off() {
+        let settingsContainer = document.getElementById('TPBodyEl');
+        if (settingsContainer) {
+            settingsContainer.querySelector('#TP_popup_FBsidebar_checkbox').checked = false;
+        }
+    }
+
+    function settings_FBsidebar_cb_on() {
+        let settingsContainer = document.getElementById('TPBodyEl');
+        if (settingsContainer) {
+            settingsContainer.querySelector('#TP_popup_FBsidebar_checkbox').checked = true;
         }
     }
 
@@ -5068,7 +5243,11 @@
                         if (featureName === "isYTsidebarEnabled") {
                             checkForYTPermissions(featureName);
                         } else {
-                            changeFeatureMode(featureName,invertBool ? false : true);
+                            if (featureName === "isFBsidebarEnabled") {
+                                checkForFBPermissions(featureName);
+                            } else {
+                                changeFeatureMode(featureName,invertBool ? false : true);
+                            }
                         }
                     }
                 }
@@ -5358,6 +5537,9 @@
                                 if (loaded_settings.tp_options.isYTsidebarEnabled) {
                                     new_permissions_ask_arr.push('isYTsidebarEnabled');
                                 }
+                                if (loaded_settings.tp_options.isFBsidebarEnabled) {
+                                    new_permissions_ask_arr.push('isFBsidebarEnabled');
+                                }
 
                                 delete loaded_settings.tp_options;
                                 selectedSettingsForImportObj.selectedSettings = selectedSettingsForImportObj.selectedSettings.filter(e => e !== 'tp_options');
@@ -5495,6 +5677,7 @@
             initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
             initCheckbox(settingsContainer, 'isClipDownloaderEnabled', 'TP_popup_clip_downloader_checkbox', false);
             initCheckbox(settingsContainer, 'isYTsidebarEnabled', 'TP_popup_YTsidebar_checkbox', false);
+            initCheckbox(settingsContainer, 'isFBsidebarEnabled', 'TP_popup_FBsidebar_checkbox', false);
             initCheckbox(settingsContainer, 'isMuteAutoPlayersEnabled', 'TP_popup_muteAutoPlayers_checkbox', false);
             initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
             initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
