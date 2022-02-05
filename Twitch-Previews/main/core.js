@@ -5464,8 +5464,10 @@
             minimize_settings_btn.addEventListener('click', (event) => {
                 if (settingsContainer.classList.contains('tp-settings-minimized')) {
                     settingsContainer.classList.remove('tp-settings-minimized');
+                    minimize_settings_btn.innerText = '_';
                 } else {
                     settingsContainer.classList.add('tp-settings-minimized');
+                    minimize_settings_btn.innerText = '-';
                 }
             });
 
