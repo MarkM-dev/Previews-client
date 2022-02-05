@@ -17,11 +17,11 @@ body {
 }
 .tp-btn {
     display: inline-block;
-    width: 80px;
+    width: 170px;
     border: 1px solid grey;
     transition: all 0.2s;
     cursor: pointer;
-    padding: 5px 25px;
+    padding: 15px 25px;
     border-radius: 10px;
     margin: 30px 10px 0 10px;
 }
