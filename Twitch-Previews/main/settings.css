@@ -35,12 +35,13 @@
     position: absolute;
     width: 800px;
     height: 600px;
-    background-color: #232323;
+    /*background-color: #232323;*/
+    background-color: rgb(24, 24, 27);
     border-radius: 5px;
     text-align: center;
     color: whitesmoke;
     font-family: "Segoe UI", Tahoma, sans-serif;
-    box-shadow: 10px 15px 10px -5px rgba(23,23,23,0.75);
+    box-shadow: 10px 15px 10px -5px rgba(24,24,27,0.75);
     cursor: default;
 }
 #TPBodyEl > h2 {
@@ -76,7 +77,7 @@
 }
 
 #TPBodyEl #tp_settings_lang_selector option {
-    background-color: #232323;
+    background-color: rgb(24, 24, 27);
     color: whitesmoke;
 }
 
@@ -135,7 +136,7 @@
     background-color: #fff !important;
     border: 1px solid #D9DADC;
     border-radius: 25px;
-    box-shadow: inset -10px 0 0 0 #232323;
+    box-shadow: inset -10px 0 0 0 rgb(24, 24, 27);
 }
 
 #TPBodyEl input.apple-switch:after {
@@ -357,7 +358,7 @@
 
 #TPBodyEl #tp_popup_feature_predictionsSniper > span:first-child input {
     display: inline-block;
-    background-color: #232323;
+    background-color: rgb(24, 24, 27);
     text-align: center;
     width: 30px;
     color: whitesmoke;
@@ -369,7 +370,7 @@
 
 #TPBodyEl #tp_popup_feature_selfPreviews > span:first-child input {
     display: inline-block;
-    background-color: #232323;
+    background-color: rgb(24, 24, 27);
     text-align: center;
     width: 100px;
     color: whitesmoke;
@@ -412,8 +413,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 5px;
-    background-color: rgba(255,255,255,0.035);
-
+    /*background-color: rgba(255,255,255,0.035);*/
+    background-color: rgb(35 35 40);
 }
 
 #TPBodyEl #tp_settings_close_btn {

@@ -1,7 +1,7 @@
 #TPBodyEl {
     width: 270px;
     margin: 8px 0 0 0;
-    background-color: #232323;
+    background-color: rgb(24, 24, 27);
     text-align: center;
     color: whitesmoke;
     cursor: default;
