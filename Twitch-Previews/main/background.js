@@ -610,7 +610,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 sendResponse({ result: cached_yt_live_streams_arr });
             }
             break;
-            case "get_FB_live_streams":
+        case "get_FB_live_streams":
             if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500) {
                 lastFBFetch = new Date().getTime();
                 cached_fb_live_streams_arr = [];
@@ -618,53 +618,19 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 fetch('https://mobile.facebook.com/Ramee/live_videos/').then(function (response) {
                     return response.text();
                 }).then(function (data) {
-                    console.log(data);
-                    return;
                     try {
-                        let parser = new DOMParser();
-                        let doc = parser.parseFromString(data, 'text/html');
+                        if (data.indexOf('videoID') > -1) {
+                            let obj = {};
+                            obj.videoId = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('&quot;,&quot;')[0];
+                            obj.profile_pic_url = data.split("role=\"img\" style=\"background: url(&#039;")[1].split('&#039;)')[0];
+                            obj.thumbnail_url = data.split('widePic')[1].split('<i ')[1].split('style="background: url(&#039;')[1].split('&#039;)')[0];
+                            obj.title = data.split('m-video-play-button')[1].split('</span></div></div></div></div></div></div><div class="')[1].split('<div class="')[1].split('">')[1].split('</div>')[0];
+                            obj.stream_name = data.split('"name":"')[1].split('"')[0];
+                            obj.view_count = data.split('m-video-play-button')[1].split('<i ')[1].split('/i>')[1].split('</span')[0];
 
-                        if (!doc) {
+                            cached_fb_live_streams_arr.push(obj);
                             sendResponse({ result: cached_fb_live_streams_arr });
-                            return;
                         }
-                        let scripts = doc.querySelectorAll('script');
-                        for (let i = 0; i < scripts.length; i++) {
-                            let script = scripts[i].innerText;
-                            if (script.startsWith('var ytInitialData = ')) {
-                                script = script.replace('var ytInitialData = ', '');
-                                script = script.slice(0, -1);
-                                let scriptJson = JSON.parse(script);
-                                let items = scriptJson.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].shelfRenderer.content.gridRenderer.items;
-
-                                for (let j = 0; j < items.length; j++) {
-                                    if (items[j].gridVideoRenderer.badges && items[j].gridVideoRenderer.badges[0].metadataBadgeRenderer.style === 'BADGE_STYLE_TYPE_LIVE_NOW') {
-                                        let obj = {};
-                                        obj.videoId = items[j].gridVideoRenderer.videoId;
-                                        obj.profile_pic_url = items[j].gridVideoRenderer.channelThumbnail.thumbnails[0].url;
-                                        obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
-                                        obj.title = items[j].gridVideoRenderer.title.runs[0].text;
-                                        obj.stream_name = items[j].gridVideoRenderer.shortBylineText.runs[0].text;
-                                        obj.view_count = items[j].gridVideoRenderer.shortViewCountText.runs[0].text;
-
-                                        let num_str = items[j].gridVideoRenderer.viewCountText.runs[0].text.match(/\d+/g);
-                                        let num_count = '';
-                                        for (let i = 0; i < num_str.length; i++) {
-                                            num_count += num_str[i];
-                                        }
-
-                                        obj.view_count_num = num_count;
-                                        cached_fb_live_streams_arr.push(obj);
-                                    }
-                                }
-                                cached_fb_live_streams_arr.sort(function(a, b) {
-                                    return b.view_count_num - a.view_count_num;
-                                })
-                                break;
-                            }
-                        }
-
-                        sendResponse({ result: cached_fb_live_streams_arr });
                     } catch (e) {
                         console.log(e);
                         sendResponse({ result: cached_fb_live_streams_arr });
