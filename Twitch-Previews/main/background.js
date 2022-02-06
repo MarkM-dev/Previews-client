@@ -207,15 +207,20 @@ function fetchFBstream(stream_name) {
             return response.text();
         }).then(function (data) {
             try {
-                //console.log(data);
                 if (data.indexOf('videoID') > -1) {
                     let obj = {};
+
+                    obj.view_count = data.split('m-video-play-button')[1].split('<i ')[1].split('/i>')[1].split('</span')[0];
+                    if (isNaN(obj.view_count.charAt(0))) {
+                        resolve(null);
+                        return;
+                    }
+
                     obj.videoId = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('&quot;,&quot;')[0];
                     obj.profile_pic_url = data.split("profpic")[1].split("url(&#039;")[1].split("&#039;)")[0];
                     obj.thumbnail_url = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('<i ')[1].split('style="background: url(&#039;')[1].split('&#039;)')[0];
                     obj.title = data.split('<a href="/gaming/')[1].split('">')[1].split('</a>')[0];
                     obj.stream_name = data.split('<title>')[1].split('</title>')[0];
-                    obj.view_count = data.split('m-video-play-button')[1].split('<i ')[1].split('/i>')[1].split('</span')[0];
                     resolve(obj);
                 } else {
                     resolve(null);
@@ -239,6 +244,7 @@ function fetchFBstreams() {
             let obj1 = await fetchFBstream("ratedepicz");
             let obj2 = await fetchFBstream("JoblessGarrett");
             let obj3 = await fetchFBstream("LordKebun");
+            let obj4 = await fetchFBstream("Doom49");
             if (obj) {
                 arr.push(obj);
             }
@@ -250,6 +256,9 @@ function fetchFBstreams() {
             }
             if (obj3) {
                 arr.push(obj3);
+            }
+            if (obj4) {
+                arr.push(obj4);
             }
             //console.log(arr);
         }
