@@ -18,11 +18,11 @@ export const i18n = {
     },
     save_text: {
         'en': 'Save',
-        'es': 'Save',
-        'de': 'Save',
-        'fr': 'Save',
-        'pt_BR': 'Save',
-        'ru':'Save'
+        'es': 'Guardar',
+        'de': 'Speichern',
+        'fr': 'Enregistrer',
+        'pt_BR': 'Salvar',
+        'ru':'Сохранять'
     },
     cancel_text: {
         'en': 'Cancel',
@@ -561,48 +561,60 @@ export const i18n = {
     settings_feature_isFBsidebarEnabled_desc: {
         'en': '<strong>* Facebook Gaming Channels</strong>' +
             '<br>- A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.' +
+            '<br>- Enable the feature and click on the edit button to add Facebook streamers to the list.' +
             '<br>- The list data will update every 5 minutes.' +
             '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.' +
-            '<br>- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren\'t already).' +
+            '<br>- You don\'t need to be logged in on facebook.' +
+            '<br>- It may take a few seconds for the list to update, depending on how many streamers you added.' +
             '<br>- When enabling this feature, you will need to allow the extension to run on "facebook.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from Facebook.',
         'es': '<strong>* Barra lateral canales de YouTube</strong>' +
-            '<br>- Una nueva lista en la parte superior de la barra lateral de Twitch para mostrar sus canales de YouTube suscritos que están actualmente en vivo en YouTube.' +
+            '<br>- Una nueva lista en la parte superior de la barra lateral de Twitch para mostrar los canales de juegos de Facebook seleccionados que están actualmente en vivo en Facebook.' +
+            '<br>- Habilite la función y haga clic en el botón Editar para agregar transmisores de Facebook a la lista.' +
             '<br>- Los datos de la lista se actualizarán cada 5 minutos.' +
-            '<br>- Compatible con las funciones Custom Picture-In-Picture y Multi-Stream y Multi-Chat para que pueda utilizar la multiplataforma Multi-Stream.' +
-            '<br>- Debes iniciar sesión en YouTube en tu navegador (solo ve a youtube.com e inicia sesión si aún no lo has hecho).' +
-            '<br>- Al habilitar esta función, deberá permitir que la extensión se ejecute en "facebook.com" (se mostrará un mensaje cuando la habilite); esto es para que la extensión pueda obtener las transmisiones de Facebook.',
+            '<br>- Compatible con las funciones Imagen en imagen personalizada y Multi-Stream & Multi-Chat para que pueda usar Multi-Stream multiplataforma.' +
+            '<br>- No es necesario iniciar sesión en Facebook.' +
+            '<br>- Es posible que la lista tarde unos segundos en actualizarse, según la cantidad de transmisores que haya agregado.' +
+            '<br>- Al habilitar esta función, deberá permitir que la extensión se ejecute en "facebook.com" (aparecerá un aviso al habilitarla); esto es para que la extensión pueda obtener las transmisiones de Facebook.',
         'de': '<strong>* Seitenleiste YouTube-Kanäle</strong>' +
-            '<br>- Eine neue Liste oben in der Twitch-Seitenleiste, um deine abonnierten YouTube-Kanäle anzuzeigen, die derzeit auf YouTube live sind.' +
+            '<br>- Eine neue Liste oben in der Twitch-Seitenleiste, um Ihre ausgewählten Facebook-Gaming-Kanäle anzuzeigen, die derzeit auf Facebook live sind.' +
+            '<br>- Aktivieren Sie die Funktion und klicken Sie auf die Schaltfläche "Bearbeiten", um Facebook-Streamer zur Liste hinzuzufügen.' +
             '<br>- Die Listendaten werden alle 5 Minuten aktualisiert.' +
-            '<br>- Unterstützt durch die benutzerdefinierten Bild-in-Bild- und Multi-Stream- und Multi-Chat-Funktionen, damit Sie den Multi-Stream plattformübergreifend verwenden können.' +
-            '<br>- Sie müssen in Ihrem Browser bei YouTube angemeldet sein (gehen Sie einfach zu youtube.com und melden Sie sich an, wenn Sie es noch nicht sind).' +
-            '<br>- Wenn Sie diese Funktion aktivieren, müssen Sie die Ausführung der Erweiterung auf "youtube.com" zulassen (beim Aktivieren wird eine Eingabeaufforderung angezeigt) - damit die Erweiterung die Streams von YouTube abrufen kann.',
+            '<br>- Unterstützt von den benutzerdefinierten Picture-in-Picture- und Multi-Stream- und Multi-Chat-Funktionen, sodass Sie Multi-Stream plattformübergreifend verwenden können.' +
+            '<br>- Sie müssen nicht bei Facebook angemeldet sein.' +
+            '<br>- Es kann einige Sekunden dauern, bis die Liste aktualisiert wird, je nachdem, wie viele Streamer Sie hinzugefügt haben.' +
+            '<br>- Wenn Sie diese Funktion aktivieren, müssen Sie zulassen, dass die Erweiterung auf "facebook.com" ausgeführt wird (bei der Aktivierung wird eine Eingabeaufforderung angezeigt) - damit die Erweiterung die Streams von Facebook abrufen kann.',
         'fr': '<strong>* Barre latérale Chaînes YouTube</strong>' +
-            '<br>- Une nouvelle liste en haut de la barre latérale de Twitch pour afficher vos chaînes YouTube auxquelles vous êtes abonné et qui sont actuellement en direct sur YouTube.' +
+            '<br>- Une nouvelle liste en haut de la barre latérale Twitch pour afficher vos chaînes de jeu Facebook sélectionnées qui sont actuellement en direct sur Facebook.' +
+            '<br>- Activez la fonctionnalité et cliquez sur le bouton Modifier pour ajouter des streamers Facebook à la liste.' +
             '<br>- Les données de la liste seront mises à jour toutes les 5 minutes.' +
             '<br>- Pris en charge par les fonctionnalités Custom Picture-In-Picture et Multi-Stream & Multi-Chat afin que vous puissiez utiliser la multi-plateforme Multi-Stream.' +
-            '<br>- Vous devez être connecté à YouTube sur votre navigateur (allez simplement sur youtube.com et connectez-vous si vous ne l\'êtes pas déjà).' +
-            '<br>- Lors de l\'activation de cette fonctionnalité, vous devrez autoriser l\'extension à s\'exécuter sur "youtube.com" (une invite s\'affichera lors de l\'activation) - c\'est ainsi que l\'extension peut récupérer les flux de YouTube.',
+            '<br>- Vous n\'avez pas besoin d\'être connecté sur facebook.' +
+            '<br>- La mise à jour de la liste peut prendre quelques secondes, selon le nombre de streamers que vous avez ajoutés.' +
+            '<br>- Lors de l\'activation de cette fonctionnalité, vous devrez autoriser l\'extension à s\'exécuter sur "facebook.com" (une invite s\'affichera lors de l\'activation) - c\'est ainsi que l\'extension peut récupérer les flux de Facebook.',
         'pt_BR': '<strong>* Barra Lateral Canais do YouTube</strong>' +
-            '<br>- Uma nova lista no topo da barra lateral do Twitch para mostrar seus canais inscritos no YouTube que estão atualmente ao vivo no YouTube.' +
+            '<br>- Uma nova lista na parte superior da barra lateral do Twitch para mostrar seus canais selecionados do Facebook Gaming que estão atualmente ao vivo no Facebook.' +
+            '<br>- Habilite o recurso e clique no botão editar para adicionar streamers do Facebook à lista.' +
             '<br>- Os dados da lista serão atualizados a cada 5 minutos.' +
-            '<br>- Suportado pelos recursos Picture-In-Picture e Multi-Stream & Multi-Chat personalizados para que você possa usar a plataforma cruzada Multi-Stream.' +
-            '<br>- Você precisa estar conectado ao YouTube em seu navegador (basta ir para youtube.com e fazer o login, se ainda não estiver).' +
-            '<br>- Ao ativar este recurso, você precisará permitir que a extensão seja executada em "youtube.com" (um prompt será exibido ao ativar) - isso é para que a extensão possa buscar os streams do YouTube.',
+            '<br>- Suportado pelos recursos Custom Picture-In-Picture e Multi-Stream & Multi-Chat para que você possa usar o Multi-Stream multiplataforma.' +
+            '<br>- Você não precisa estar logado no facebook.' +
+            '<br>- Pode levar alguns segundos para que a lista seja atualizada, dependendo de quantos streamers você adicionou.' +
+            '<br>- Ao ativar esse recurso, você precisará permitir que a extensão seja executada em "facebook.com" (um prompt será exibido ao ativar) - isso é para que a extensão possa buscar os fluxos do Facebook.',
         'ru':'<strong>* Боковая панель каналы YouTube</strong>' +
-            '<br>- Новый список в верхней части боковой панели Twitch, чтобы показать каналы YouTube, на которые вы подписаны, которые в настоящее время транслируются на YouTube.' +
+            '<br>- Новый список в верхней части боковой панели Twitch, чтобы показать выбранные вами игровые каналы Facebook, которые в настоящее время транслируются на Facebook.' +
+            '<br>- Включите функцию и нажмите кнопку редактирования, чтобы добавить стримеров Facebook в список.' +
             '<br>- Данные списка будут обновляться каждые 5 минут.' +
-            '<br>- Поддерживается функциями Custom Picture-In-Picture и Multi-Stream & Multi-Chat, поэтому вы можете использовать кроссплатформенность Multi-Stream.' +
-            '<br>- Вам необходимо войти на YouTube в своем браузере (просто перейдите на youtube.com и войдите в систему, если вы еще этого не сделали).' +
-            '<br>- При включении этой функции вам нужно будет разрешить запуск расширения на «youtube.com» (при включении появится подсказка) - это значит, что расширение может получать потоки с YouTube.',
+            '<br>- Поддерживается пользовательскими функциями "Картинка в картинке" и "Мультипоток" и "Мультичат", поэтому вы можете использовать кросс-платформенную функцию "Мультипоток".' +
+            '<br>- Вам не нужно авторизоваться на Facebook\'е.' +
+            '<br>- Обновление списка может занять несколько секунд, в зависимости от того, сколько стримеров вы добавили.' +
+            '<br>- При включении этой функции вам необходимо разрешить запуск расширения на "facebook.com" (при включении появится подсказка) - это необходимо для того, чтобы расширение могло получать потоки с Facebook.',
     },
     settings_feature_fb_streamers_edit_btn_text: {
         'en': 'edit',
-        'es': 'Edit',
-        'de': 'Edit',
-        'fr': 'Edit',
-        'pt_BR': 'Edit',
-        'ru':'Edit'
+        'es': 'editar',
+        'de': 'bearbeiten',
+        'fr': 'Éditer',
+        'pt_BR': 'editar',
+        'ru':'редактировать'
     },
     settings_feature_fb_streamers_popup_sub_title: {
         'en': 'Enter Facebook streamers\' names separated by spaces or commas\n(copy their names from their Facebook page\'s address bar url)',
