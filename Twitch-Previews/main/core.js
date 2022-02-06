@@ -1271,11 +1271,13 @@
                                 navCard.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').title = res.result[i].title;
                             }
 
-                            let profile_pic = document.createElement('img');
-                            profile_pic.classList = navCard.querySelector('img.tw-image-avatar').classList;
-                            profile_pic.alt = res.result[i].stream_name;
-                            profile_pic.src = res.result[i].profile_pic_url;
-                            navCard.querySelector('img.tw-image-avatar').parentNode.append(profile_pic);
+                            let profile_pic_container = navCard.querySelector('.tw-avatar');
+                            profile_pic_container.alt = res.result[i].stream_name;
+                            profile_pic_container.style.backgroundImage = "url('" + res.result[i].profile_pic_url + "')";
+                            profile_pic_container.style.backgroundSize = "contain";
+                            profile_pic_container.style.backgroundRepeat = "no-repeat";
+                            profile_pic_container.style.borderRadius = "50%";
+
                             navCard.querySelector('img.tw-image-avatar').remove();
                             navCard.title = res.result[i].stream_name + '\n' + res.result[i].title;
 

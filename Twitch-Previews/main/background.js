@@ -201,6 +201,50 @@ _browser.runtime.onInstalled.addListener(function(details) {
     }
 });
 
+function fetchFBstream(stream_name) {
+    return new Promise((resolve, reject) => {
+        fetch('https://mobile.facebook.com/gaming/' + stream_name + '/').then(function (response) {
+            return response.text();
+        }).then(function (data) {
+            try {
+                console.log(data);
+                if (data.indexOf('videoID') > -1) {
+                    let obj = {};
+                    obj.videoId = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('&quot;,&quot;')[0];
+                    obj.profile_pic_url = data.split("profpic")[1].split("url(&#039;")[1].split("&#039;)")[0];
+                    obj.thumbnail_url = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('<i ')[1].split('style="background: url(&#039;')[1].split('&#039;)')[0];
+                    obj.title = data.split('<a href="/gaming/')[1].split('">')[1].split('</a>')[0];
+                    obj.stream_name = data.split('<title>')[1].split('</title>')[0];
+                    obj.view_count = data.split('m-video-play-button')[1].split('<i ')[1].split('/i>')[1].split('</span')[0];
+                    resolve(obj);
+                } else {
+                    resolve(null);
+                }
+            } catch (e) {
+                console.log(e);
+                resolve(null);
+            }
+        }).catch(function (err) {
+            console.log('Something went wrong.', err);
+            resolve(null);
+        });
+    });
+}
+
+function fetchFBstreams() {
+    return new Promise(async (resolve, reject) => {
+        let arr = [];
+        for (let i = 0; i < 1; i++) {
+            let obj = await fetchFBstream("ramee");
+            if (obj) {
+                arr.push(obj);
+            }
+            console.log(arr);
+        }
+        resolve(arr);
+    });
+}
+
 _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     switch(msg.action) {
         case "bg_update_isSidebarPreviewsEnabled":
@@ -615,31 +659,26 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 lastFBFetch = new Date().getTime();
                 cached_fb_live_streams_arr = [];
 
-                fetch('https://mobile.facebook.com/Ramee/live_videos/').then(function (response) {
-                    return response.text();
-                }).then(function (data) {
-                    try {
-                        if (data.indexOf('videoID') > -1) {
-                            let obj = {};
-                            obj.videoId = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('&quot;,&quot;')[0];
-                            obj.profile_pic_url = data.split("role=\"img\" style=\"background: url(&#039;")[1].split('&#039;)')[0];
-                            obj.thumbnail_url = data.split('widePic')[1].split('<i ')[1].split('style="background: url(&#039;')[1].split('&#039;)')[0];
-                            obj.title = data.split('m-video-play-button')[1].split('</span></div></div></div></div></div></div><div class="')[1].split('<div class="')[1].split('">')[1].split('</div>')[0];
-                            obj.stream_name = data.split('"name":"')[1].split('"')[0];
-                            obj.view_count = data.split('m-video-play-button')[1].split('<i ')[1].split('/i>')[1].split('</span')[0];
+                /* for (let i = 0; i < 1; i++) {
+                     let obj = await fetchFBstream('Ramee');
+                     cached_fb_live_streams_arr.push(obj);
+                 }*/
+               /* let obj = await fetchFBstream('Ramee');
+                cached_fb_live_streams_arr.push(obj);*/
 
-                            cached_fb_live_streams_arr.push(obj);
-                            sendResponse({ result: cached_fb_live_streams_arr });
-                        }
-                    } catch (e) {
-                        console.log(e);
-                        sendResponse({ result: cached_fb_live_streams_arr });
-                    }
-                }).catch(function (err) {
-                    console.warn('Something went wrong.', err);
+                fetchFBstreams().then(function (res) {
+                   console.log(res);
+                    cached_fb_live_streams_arr = res;
                 });
+                /*let obj1 = await fetchFBstream('ratedepicz');
+                cached_fb_live_streams_arr.push(obj1);*/
+
+
+
+                console.log(cached_fb_live_streams_arr);
+                sendResponse({result: cached_fb_live_streams_arr});
             } else {
-                sendResponse({ result: cached_fb_live_streams_arr });
+                sendResponse({result: cached_fb_live_streams_arr});
             }
             break;
         case "check_permission_clip.twitch.tv":
@@ -716,7 +755,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'check_permission_FB' && msg.action !== 'get_YT_live_streams' && msg.action !== 'tp_settings_upgrade_db' && msg.action !== 'bg_incognito_chat_btn_click') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_permission_YT' && msg.action !== 'check_permission_FB' && msg.action !== 'get_YT_live_streams' && msg.action !== 'get_FB_live_streams' && msg.action !== 'tp_settings_upgrade_db' && msg.action !== 'bg_incognito_chat_btn_click') {
         sendResponse({ result: "any response from background" });
     }
     return true;
