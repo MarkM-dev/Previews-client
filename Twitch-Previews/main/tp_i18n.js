@@ -604,6 +604,14 @@ export const i18n = {
         'pt_BR': 'Edit',
         'ru':'Edit'
     },
+    settings_feature_fb_streamers_popup_sub_title: {
+        'en': 'Enter Facebook streamers\' names separated by spaces or commas\n(copy their names from their Facebook page\'s address bar url)',
+        'es': 'Ingrese los nombres de los streamers de Facebook separados por espacios o comas\n(copie sus nombres de la URL de la barra de direcciones)',
+        'de': 'Geben Sie die Namen der Facebook-Streamer getrennt durch Leerzeichen oder Kommas ein\n(kopieren Sie ihre Namen aus der Adressleisten-URL ihrer Facebook-Seite)',
+        'fr': 'Entrez les noms des streamers Facebook séparés par des espaces ou des virgules\n(copiez leurs noms depuis l\'URL de la barre d\'adresse de leur page Facebook)',
+        'pt_BR': 'Digite os nomes dos streamers do Facebook separados por espaços ou vírgulas\n(copie seus nomes do URL da barra de endereço de sua página do Facebook)',
+        'ru':'Введите имена стримеров Facebook, разделенные пробелами или запятыми.\n(скопируйте их имена из адресной строки URL их страницы в Facebook)'
+    },
     settings_feature_isSidebarExtendEnabled: {
         'en': 'Auto Extend Sidebar (show more)',
         'es': 'Extender automáticamente la barra lateral',
