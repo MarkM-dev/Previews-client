@@ -563,7 +563,7 @@ export const i18n = {
             '<br>- A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.' +
             '<br>- Enable the feature and click on the edit button to add Facebook streamers to the list.' +
             '<br>- The list data will update every 5 minutes.' +
-            '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.' +
+            '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream features so you can use the Multi-Stream cross-platform.' +
             '<br>- You don\'t need to be logged in on facebook.' +
             '<br>- It may take a few seconds for the list to update, depending on how many streamers you added.' +
             '<br>- When enabling this feature, you will need to allow the extension to run on "facebook.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from Facebook.',
