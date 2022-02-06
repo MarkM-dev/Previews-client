@@ -3826,6 +3826,7 @@
                     iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=1";
                 } else {
                     if (fb_videoId) {
+                        extraMultiBoxBtn.style.display = 'none';
                         iframe.style.backgroundColor = "#000";
                         iframe.src = "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&href=https://www.facebook.com/" + streamName + "/videos/" + fb_videoId;
                     } else {
