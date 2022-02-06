@@ -16,6 +16,22 @@ export const i18n = {
             {code:'ru', display_str:'русский'}
         ]
     },
+    save_text: {
+        'en': 'Save',
+        'es': 'Save',
+        'de': 'Save',
+        'fr': 'Save',
+        'pt_BR': 'Save',
+        'ru':'Save'
+    },
+    cancel_text: {
+        'en': 'Cancel',
+        'es': 'Cancelar',
+        'de': 'abbrechen',
+        'fr': 'Annuler',
+        'pt_BR': 'Cancelar',
+        'ru':'Отмена'
+    },
     opd_clips_msg: {
         'en': 'To enable the Clip Downloader, the extension needs permission to run on "clips.twitch.tv"',
         'es': 'Para habilitar el Descargador de clips, la extensión necesita permiso para ejecutarse en "clips.twitch.tv"',

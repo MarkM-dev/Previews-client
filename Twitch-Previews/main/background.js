@@ -661,7 +661,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "get_FB_live_streams":
             if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
-                console.log("fetching");
                 lastFBFetch = new Date().getTime();
                 cached_fb_live_streams_arr = [];
 

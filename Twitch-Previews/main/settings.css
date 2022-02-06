@@ -721,5 +721,40 @@
     margin-left: 5px;
 }
 
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar div {
+    display: inline-block;
+    width: calc(50% - 4px);
+    margin: 0 auto;
+    font-size: 15px;
+    padding: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_save_btn {
+    background-color: #9147ff;
+}
 
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_save_btn:hover {
+    background-color: rgb(156, 96, 255);
+}
+
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_save_btn:active {
+    background-color: #9147ff;
+}
+
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_cancel_btn {
+    background-color: #ffffff26;
+}
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_cancel_btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_cancel_btn:active {
+    background-color: #ffffff26;
+}
