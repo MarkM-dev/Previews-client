@@ -201,6 +201,28 @@ _browser.runtime.onInstalled.addListener(function(details) {
     }
 });
 
+function extractViewcountNumberFromString(str) {
+    let numOfStrChars = 0;
+    let num = '';
+    let isContainingStringChar = false;
+    for(let i = 0; i < str.length; i++) {
+        if (isNaN(str[i])) {
+            numOfStrChars++;
+            isContainingStringChar = true;
+        }
+    }
+    if (isContainingStringChar) {
+        for(let j = 0; j < str.length; j++) {
+            if (!isNaN(str[j])) {
+                num += str[j];
+            }
+        }
+        return numOfStrChars > 1 ? num * 100 : num * 1000;
+    } else {
+        return parseInt(str);
+    }
+}
+
 function fetchFBstream(stream_name) {
     return new Promise((resolve, reject) => {
         fetch('https://mobile.facebook.com/gaming/' + stream_name + '/').then(function (response) {
@@ -215,7 +237,7 @@ function fetchFBstream(stream_name) {
                         resolve(null);
                         return;
                     }
-
+                    obj.view_count_num = extractViewcountNumberFromString(obj.view_count);
                     obj.videoId = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('&quot;,&quot;')[0];
                     obj.profile_pic_url = data.split("profpic")[1].split("url(&#039;")[1].split("&#039;)")[0];
                     obj.thumbnail_url = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('<i ')[1].split('style="background: url(&#039;')[1].split('&#039;)')[0];
@@ -668,6 +690,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                     if (result.fb_streamers && result.fb_streamers.length > 0) {
                         fetchFBstreams(result.fb_streamers).then(function (res) {
                             cached_fb_live_streams_arr = res;
+                            cached_fb_live_streams_arr.sort(function(a, b) {
+                                return b.view_count_num - a.view_count_num;
+                            })
                             sendResponse({result: cached_fb_live_streams_arr});
                         });
                     } else {
