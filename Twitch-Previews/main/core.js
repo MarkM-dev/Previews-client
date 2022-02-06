@@ -4706,29 +4706,16 @@
         let cclass = isFirefox ? '':'class="tp_display_none"';
         return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" "+ ffclass +" ><strong style='color: #2cff95;' >- Record Stream Button! " +
-                                "<svg stroke=\"currentColor\" fill=\"none\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -5px;color:whitesmoke;\" xmlns=\"http://www.w3.org/2000/svg\">" +
-                                    "<path d=\"M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z\" fill=\"currentColor\"></path>" +
-                                    "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM20 12C20 16.4183 16.4183 20 12 20C7.58172 " +
-                                    "20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12Z\" fill=\"currentColor\"></path>" +
-                                "</svg>" +
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" "+ ffclass +" ><strong style='color: #2cff95;' >- Sidebar Facebook Channels! " +
+                                '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20px" width="20px" style="color: whitesmoke;margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M13 19.938A8.001 8.001 0 0 0 12 4a8 8 0 0 0-1 15.938V14H9v-2h2v-1.654c0-1.337.14-1.822.4-2.311A2.726 2.726 0 0 1 12.536 6.9c.382-.205.857-.328 1.687-.381.329-.021.755.005 1.278.08v1.9H15c-.917 0-1.296.043-1.522.164a.727.727 0 0 0-.314.314c-.12.226-.164.45-.164 1.368V12h2.5l-.5 2h-2v5.938zM12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path></g></svg>' +
                             "</strong>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click to start recording, click again to stop recording and save.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Works great with the \"Seek Using Keyboard Arrows\" feature.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Check the settings for more info.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Enable the feature in the settings and click on the edit button to add Facebook streamers to the list.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Supported by the Custom Picture-In-Picture and Multi-Stream features so you can use the Multi-Stream cross-platform.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- You don\'t need to be logged in on facebook.</span>"
 /*
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
 */
-            +  "       </div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Incognito Chat! " +
-                                "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 22 22\" height=\"20px\" width=\"20px\" style=\"margin-bottom: -9px;color:whitesmoke;\" xmlns=\"http://www.w3.org/2000/svg\">" +
-                                "<path d=\"M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z\"></path>" +
-                                "<path d=\"M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z\"></path>" +
-                                "</svg>" +
-                            "</strong>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- The button will show under the chat (if you are banned).</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Opens the chat in a resized incognito window.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" "+ cclass +" >- Note: Firefox users will need to manually allow the extension to \"Run in Private Windows\" in \"about:addons\" for this feature to work.</span>"
             +  "       </div>"
             +  "    </br>"
     }
