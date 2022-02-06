@@ -543,7 +543,7 @@ export const i18n = {
             '<br>- При включении этой функции вам нужно будет разрешить запуск расширения на «youtube.com» (при включении появится подсказка) - это значит, что расширение может получать потоки с YouTube.',
     },
     settings_feature_isFBsidebarEnabled: {
-        'en': 'Facebook Gaming Channels',
+        'en': 'Sidebar Facebook Gaming Channels',
         'es': 'Barra lateral canales de Facebook Gaming',
         'de': 'Seitenleiste Facebook Gaming Kanäle',
         'fr': 'Barre latérale Chaînes Facebook Gaming',
@@ -559,7 +559,7 @@ export const i18n = {
         'ru':'(отображается вверху боковой панели)'
     },
     settings_feature_isFBsidebarEnabled_desc: {
-        'en': '<strong>* Facebook Gaming Channels</strong>' +
+        'en': '<strong>* Sidebar Facebook Gaming Channels</strong>' +
             '<br>- A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.' +
             '<br>- Enable the feature and click on the edit button to add Facebook streamers to the list.' +
             '<br>- The list data will update every 5 minutes.' +
