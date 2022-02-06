@@ -1218,8 +1218,8 @@
         })
     }
 
-    function setFBsidebar() {
-        _browser.runtime.sendMessage({action: "get_FB_live_streams", detail: true}, function(res) {
+    function setFBsidebar(nocache) {
+        _browser.runtime.sendMessage({action: "get_FB_live_streams", detail: {nocache: nocache}}, function(res) {
 
             let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
 
@@ -5607,6 +5607,122 @@
         };
     }
 
+    function initFBstreamersDialog(settingsContainer) {
+        let fb_streamers_input_container = settingsContainer.querySelector('#fb_streamers_input_container');
+        let fb_streamers_input = settingsContainer.querySelector('#fb_streamers_input');
+        let fb_streamers_save_btn = settingsContainer.querySelector('#fb_streamers_save_btn');
+        let fb_streamers_cancel_btn = settingsContainer.querySelector('#fb_streamers_cancel_btn');
+        let edit_btn = settingsContainer.querySelector('#TP_popup_settings_fb_streamers_edit_btn');
+
+        function resizeInput(input, length) {
+            if (!length) {
+                length = 1;
+            }
+            input.style.width = (length + 1) + "rem";
+        }
+
+        function createStreamerTagSpan(text) {
+            let span = document.createElement('span');
+            span.classList.add('tp-settings-fb-streamers-tag-span');
+
+            let name_span = document.createElement('span');
+            name_span.innerText = text;
+
+            let delete_btn = document.createElement('span');
+            delete_btn.classList.add('tp-settings-fb-streamers-tag-delete_btn');
+            delete_btn.innerText = 'x';
+            delete_btn.onclick = (e) => {
+                span.remove();
+                fb_streamers_input.focus();
+            }
+
+            span.appendChild(name_span);
+            span.appendChild(delete_btn);
+
+            return span;
+        }
+
+        fb_streamers_input_container.onclick = (e) => {
+            fb_streamers_input.focus();
+        }
+
+        fb_streamers_input.addEventListener('keyup', (e) => {
+            let key = e.which;
+            if (key === 32) {
+                if (fb_streamers_input.value === " ") {
+                    fb_streamers_input.value = "";
+                    return;
+                }
+
+                let span = createStreamerTagSpan(fb_streamers_input.value.slice(0, -1));
+                fb_streamers_input.before(span);
+                fb_streamers_input.value = '';
+                resizeInput(fb_streamers_input, fb_streamers_input.value.length);
+                fb_streamers_input.focus();
+            }
+        });
+
+        fb_streamers_input.addEventListener('input', (e) => {
+            resizeInput(fb_streamers_input, fb_streamers_input.value.length);
+        });
+
+        fb_streamers_save_btn.onclick = (e) => {
+            let arr = [];
+            let selected_streamers_spans = fb_streamers_input_container.querySelectorAll('.tp-settings-fb-streamers-tag-span');
+            for (let i = 0; i < selected_streamers_spans.length; i++) {
+                arr.push(selected_streamers_spans[i].firstChild.innerText);
+            }
+
+            _browser.storage.local.set({'fb_streamers': arr}, function() {
+                setFBsidebar(true);
+                hideFBstreamersEditor();
+            });
+        }
+
+        fb_streamers_cancel_btn.onclick = (e) => {
+            hideFBstreamersEditor();
+        }
+
+        function populateSelectedStreamersBox() {
+            _browser.storage.local.get('fb_streamers', function(result) {
+                if (result.fb_streamers && result.fb_streamers.length > 0) {
+                    for (let i = 0; i < result.fb_streamers.length; i++) {
+                        let span = createStreamerTagSpan(result.fb_streamers[i]);
+                        fb_streamers_input.before(span);
+                    }
+                }
+            });
+        }
+
+        function clearSelectedStreamersBox() {
+            let selected_streamers_spans = fb_streamers_input_container.querySelectorAll('.tp-settings-fb-streamers-tag-span');
+            for (let i = 0; i < selected_streamers_spans.length; i++) {
+                selected_streamers_spans[i].remove();
+            }
+        }
+
+        function showFBstreamersEditor() {
+            clearSelectedStreamersBox();
+            populateSelectedStreamersBox();
+            settingsContainer.querySelector('#tp_settings_fb_streamers_popup').classList.remove('tp_display_none');
+            resizeInput(fb_streamers_input, fb_streamers_input.value.length);
+            fb_streamers_input.focus();
+        }
+
+        function hideFBstreamersEditor() {
+            settingsContainer.querySelector('#tp_settings_fb_streamers_popup').classList.add('tp_display_none');
+            clearSelectedStreamersBox();
+        }
+
+        edit_btn.onclick = (e) => {
+            if (settingsContainer.querySelector('#tp_settings_fb_streamers_popup').classList.contains('tp_display_none')) {
+                showFBstreamersEditor();
+            } else {
+                hideFBstreamersEditor();
+            }
+        }
+    }
+
     function initLangSelector(settingsContainer) {
         let lang_selector = settingsContainer.querySelector('#tp_settings_lang_selector');
 
@@ -5713,6 +5829,9 @@
             initSettingsImportExportFuncs(settingsContainer);
 
             initLangSelector(settingsContainer);
+
+            initFBstreamersDialog(settingsContainer);
+
             set_settings_i18n(settingsContainer);
 
             if (isFirefox) {

@@ -236,31 +236,15 @@ function fetchFBstream(stream_name) {
     });
 }
 
-function fetchFBstreams() {
+function fetchFBstreams(fb_streamers) {
     return new Promise(async (resolve, reject) => {
         let arr = [];
-        for (let i = 0; i < 1; i++) {
-            let obj = await fetchFBstream("ramee");
-            let obj1 = await fetchFBstream("ratedepicz");
-            let obj2 = await fetchFBstream("JoblessGarrett");
-            let obj3 = await fetchFBstream("LordKebun");
-            let obj4 = await fetchFBstream("Doom49");
+        for (let i = 0; i < fb_streamers.length; i++) {
+
+            let obj = await fetchFBstream(fb_streamers[i]);
             if (obj) {
                 arr.push(obj);
             }
-            if (obj1) {
-                arr.push(obj1);
-            }
-            if (obj2) {
-                arr.push(obj2);
-            }
-            if (obj3) {
-                arr.push(obj3);
-            }
-            if (obj4) {
-                arr.push(obj4);
-            }
-            //console.log(arr);
         }
         resolve(arr);
     });
@@ -676,15 +660,21 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             }
             break;
         case "get_FB_live_streams":
-            if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500) {
+            if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
+                console.log("fetching");
                 lastFBFetch = new Date().getTime();
                 cached_fb_live_streams_arr = [];
 
-                fetchFBstreams().then(function (res) {
-                    cached_fb_live_streams_arr = res;
-                    sendResponse({result: cached_fb_live_streams_arr});
+                _browser.storage.local.get('fb_streamers', function(result) {
+                    if (result.fb_streamers && result.fb_streamers.length > 0) {
+                        fetchFBstreams(result.fb_streamers).then(function (res) {
+                            cached_fb_live_streams_arr = res;
+                            sendResponse({result: cached_fb_live_streams_arr});
+                        });
+                    } else {
+                        sendResponse({result: cached_fb_live_streams_arr});
+                    }
                 });
-
             } else {
                 sendResponse({result: cached_fb_live_streams_arr});
             }
