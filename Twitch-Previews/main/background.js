@@ -207,7 +207,7 @@ function fetchFBstream(stream_name) {
             return response.text();
         }).then(function (data) {
             try {
-                console.log(data);
+                //console.log(data);
                 if (data.indexOf('videoID') > -1) {
                     let obj = {};
                     obj.videoId = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('&quot;,&quot;')[0];
@@ -236,10 +236,22 @@ function fetchFBstreams() {
         let arr = [];
         for (let i = 0; i < 1; i++) {
             let obj = await fetchFBstream("ramee");
+            let obj1 = await fetchFBstream("ratedepicz");
+            let obj2 = await fetchFBstream("JoblessGarrett");
+            let obj3 = await fetchFBstream("LordKebun");
             if (obj) {
                 arr.push(obj);
             }
-            console.log(arr);
+            if (obj1) {
+                arr.push(obj1);
+            }
+            if (obj2) {
+                arr.push(obj2);
+            }
+            if (obj3) {
+                arr.push(obj3);
+            }
+            //console.log(arr);
         }
         resolve(arr);
     });
@@ -659,24 +671,11 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 lastFBFetch = new Date().getTime();
                 cached_fb_live_streams_arr = [];
 
-                /* for (let i = 0; i < 1; i++) {
-                     let obj = await fetchFBstream('Ramee');
-                     cached_fb_live_streams_arr.push(obj);
-                 }*/
-               /* let obj = await fetchFBstream('Ramee');
-                cached_fb_live_streams_arr.push(obj);*/
-
                 fetchFBstreams().then(function (res) {
-                   console.log(res);
                     cached_fb_live_streams_arr = res;
+                    sendResponse({result: cached_fb_live_streams_arr});
                 });
-                /*let obj1 = await fetchFBstream('ratedepicz');
-                cached_fb_live_streams_arr.push(obj1);*/
 
-
-
-                console.log(cached_fb_live_streams_arr);
-                sendResponse({result: cached_fb_live_streams_arr});
             } else {
                 sendResponse({result: cached_fb_live_streams_arr});
             }
