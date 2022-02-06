@@ -1225,12 +1225,12 @@
 
             let followed_channels_section = document.querySelector('.side-nav-section');
             if (followed_channels_section) {
-                let yt_section = followed_channels_section.cloneNode(true);
-                yt_section.id = 'tp_FBsidebar_section';
-                yt_section.classList.remove('side-nav-section');
-                yt_section.children[1].innerHTML = '';
+                let fb_section = followed_channels_section.cloneNode(true);
+                fb_section.id = 'tp_FBsidebar_section';
+                fb_section.classList.remove('side-nav-section');
+                fb_section.children[1].innerHTML = '';
 
-                let section_title = yt_section.querySelector('.side-nav-header');
+                let section_title = fb_section.querySelector('.side-nav-header');
                 if (section_title) {
                     let title_figure = section_title.querySelector('figure');
                     if (title_figure) {
@@ -1255,8 +1255,8 @@
                         section_title.querySelector('h5').innerText = _i18n('sidebar_fb_channels_section_title');
                     }
 
-                    if (yt_section.querySelector('.side-nav-show-more-toggle__button')) {
-                        yt_section.querySelector('.side-nav-show-more-toggle__button').remove();
+                    if (fb_section.querySelector('.side-nav-show-more-toggle__button')) {
+                        fb_section.querySelector('.side-nav-show-more-toggle__button').remove();
                     }
                 }
 
@@ -1296,31 +1296,36 @@
                             }
                             let container_div = document.createElement('div');
                             container_div.appendChild(navCard);
-                            yt_section.children[1].appendChild(container_div);
+                            fb_section.children[1].appendChild(container_div);
                         }
                     }
                 }
 
                 if(!isExperimentalSidebar) {
-                    if (!yt_section.children[1].firstChild && !isNavBarCollapsed) {
+                    if (!fb_section.children[1].firstChild && !isNavBarCollapsed) {
                         let div = document.createElement('div');
                         div.innerText = 'No live FB Gaming streamers';
                         div.style.padding = '0px 10px 5px 10px';
                         div.style.color = 'grey';
-                        yt_section.children[1].appendChild(div);
+                        fb_section.children[1].appendChild(div);
                     }
                 }
 
 
-                let old_yt_section = document.getElementById('tp_FBsidebar_section');
-                if (old_yt_section) {
-                    old_yt_section.parentNode.replaceChild(yt_section, old_yt_section);
+                let old_fb_section = document.getElementById('tp_FBsidebar_section');
+                if (old_fb_section) {
+                    old_fb_section.parentNode.replaceChild(fb_section, old_fb_section);
                 } else {
-                    let favorites_section = document.getElementById('tp_favorites_section');
-                    if (favorites_section) {
-                        favorites_section.after(yt_section);
+                    let yt_section = document.getElementById('tp_YTsidebar_section');
+                    if (yt_section) {
+                        yt_section.after(fb_section);
                     } else {
-                        followed_channels_section.parentNode.prepend(yt_section);
+                        let favorites_section = document.getElementById('tp_favorites_section');
+                        if (favorites_section) {
+                            favorites_section.after(fb_section);
+                        } else {
+                            followed_channels_section.parentNode.prepend(fb_section);
+                        }
                     }
                 }
 
