@@ -347,7 +347,7 @@
     }
 
     function getPreviewImageUrl(navCardEl) {
-        if (navCardEl.tp_yt) {
+        if (navCardEl.yt_videoId) {
             return "url('" + navCardEl.thumbnail_url + "')";
         } else {
             return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + options.PREVIEWDIV_WIDTH + "x" + Math.round(options.PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
@@ -355,7 +355,7 @@
     }
 
     function getPreviewStreamUrl(navCardEl) {
-        if (navCardEl.tp_yt) {
+        if (navCardEl.yt_videoId) {
             return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
         } else {
             return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
@@ -709,7 +709,7 @@
                         clearOverlaysInterval = null;
                         return;
                     }
-                    if (navCardEl.tp_yt && twitchIframe) {
+                    if (navCardEl.yt_videoId && twitchIframe) {
                         previewDiv.style.visibility = "visible";
 
                         setTimeout(function () {
@@ -1164,7 +1164,6 @@
                             navCard.title = res.result[i].stream_name + ' - YouTube\n' + res.result[i].title;
 
                             navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
-                            navCard.tp_yt = true;
                             navCard.yt_videoId = res.result[i].videoId;
                             navCard.stream_name = res.result[i].stream_name;
                             navCard.thumbnail_url = res.result[i].thumbnail_url;
@@ -1281,15 +1280,14 @@
                             navCard.querySelector('img.tw-image-avatar').remove();
                             navCard.title = res.result[i].stream_name + '\n' + res.result[i].title;
 
-                            navCard.href = "https://www.youtube.com/watch?v=" + res.result[i].videoId;
-                            navCard.tp_yt = true;
-                            navCard.yt_videoId = res.result[i].videoId;
+                            navCard.href = "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId;
+                            navCard.fb_videoId = res.result[i].videoId;
                             navCard.stream_name = res.result[i].stream_name;
                             navCard.thumbnail_url = res.result[i].thumbnail_url;
                             navCard.onclick = (e) => {
                                 e.preventDefault();
                                 e.cancelBubble = true;
-                                sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.youtube.com/watch?v=" + res.result[i].videoId});
+                                sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId});
                             }
                             let container_div = document.createElement('div');
                             container_div.appendChild(navCard);
