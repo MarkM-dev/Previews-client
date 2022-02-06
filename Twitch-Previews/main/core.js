@@ -347,7 +347,7 @@
     }
 
     function getPreviewImageUrl(navCardEl) {
-        if (navCardEl.yt_videoId) {
+        if (navCardEl.yt_videoId || navCardEl.fb_videoId) {
             return "url('" + navCardEl.thumbnail_url + "')";
         } else {
             return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + options.PREVIEWDIV_WIDTH + "x" + Math.round(options.PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
@@ -358,8 +358,11 @@
         if (navCardEl.yt_videoId) {
             return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
         } else {
-            return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
-
+            if (navCardEl.fb_videoId) {
+                return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=800&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
+            } else {
+                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
+            }
         }
     }
 
