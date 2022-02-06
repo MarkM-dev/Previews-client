@@ -5614,6 +5614,17 @@
         let fb_streamers_cancel_btn = settingsContainer.querySelector('#fb_streamers_cancel_btn');
         let edit_btn = settingsContainer.querySelector('#TP_popup_settings_fb_streamers_edit_btn');
 
+        let placeholder_span = settingsContainer.querySelector('#fb_streamers_input_placeholder');
+
+        function handleInputPlaceholderVisibility() {
+            if (!fb_streamers_input_container.querySelectorAll('.tp-settings-fb-streamers-tag-span').length) {
+                placeholder_span.style.display = 'inline-block';
+            } else {
+                placeholder_span.style.display = 'none';
+            }
+
+        }
+
         function resizeInput(input) {
             let length = input.value.length;
             if (!length) {
@@ -5635,6 +5646,7 @@
             delete_btn.onclick = (e) => {
                 span.remove();
                 fb_streamers_input.focus();
+                handleInputPlaceholderVisibility();
             }
 
             span.appendChild(name_span);
@@ -5661,6 +5673,7 @@
                 resizeInput(fb_streamers_input);
                 fb_streamers_input.focus();
             }
+            placeholder_span.style.display = 'none';
         });
 
         fb_streamers_input.addEventListener('input', (e) => {
@@ -5692,6 +5705,7 @@
                         fb_streamers_input.before(span);
                     }
                 }
+                handleInputPlaceholderVisibility();
             });
         }
 
@@ -5700,6 +5714,7 @@
             for (let i = 0; i < selected_streamers_spans.length; i++) {
                 selected_streamers_spans[i].remove();
             }
+            handleInputPlaceholderVisibility();
         }
 
         function showFBstreamersEditor() {

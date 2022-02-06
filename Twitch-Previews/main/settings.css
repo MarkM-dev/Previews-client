@@ -677,7 +677,10 @@
     font-size: 12px;
     padding: 0 10px;
 }
-
+#tp_settings_fb_streamers_popup #fb_streamers_input_placeholder {
+    color: grey;
+    margin-left: -15px;
+}
 #tp_settings_fb_streamers_popup #fb_streamers_input_container {
     display: inline-block;
     width: 95%;
