@@ -1455,6 +1455,14 @@ export const i18n = {
         'pt_BR': 'Canais favoritos',
         'ru':'Любимые каналы'
     },
+    settings_feature_import_export_fb_streamers: {
+        'en': 'Facebook Gaming Streamers',
+        'es': 'canales Facebook Gaming',
+        'de': 'Facebook Gaming kanäle',
+        'fr': 'Chaînes Facebook Gaming',
+        'pt_BR': 'Canais Facebook Gaming',
+        'ru':'Facebook Gaming каналы'
+    },
     settings_feature_import_export_aps_settings: {
         'en': 'Predictions Sniper custom per stream settings',
         'es': 'Predicciones Sniper personalizado por configuración de canal',

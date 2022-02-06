@@ -4780,7 +4780,7 @@
                             checkForYTPermissions('isYTsidebarEnabled');
                         }
                         if (result.shouldShowSettingsAndAskNewPermissions.includes('isFBsidebarEnabled')) {
-                            checkForYTPermissions('isFBsidebarEnabled');
+                            checkForFBPermissions('isFBsidebarEnabled');
                         }
                     },
                     function (err){
@@ -5437,6 +5437,7 @@
         let settingsNameDictionary = {
             'tp_options': _i18n('settings_feature_import_export_settings'),
             'favorites_arr': _i18n('settings_feature_import_export_favorites'),
+            'fb_streamers': _i18n('settings_feature_import_export_fb_streamers'),
             'aps_streams_settings_obj': _i18n('settings_feature_import_export_aps_settings'),
             'multiStream_layout_presets': _i18n('settings_feature_import_export_multistream_layouts'),
         };
