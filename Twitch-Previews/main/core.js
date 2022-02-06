@@ -712,7 +712,7 @@
                         clearOverlaysInterval = null;
                         return;
                     }
-                    if (navCardEl.yt_videoId && twitchIframe) {
+                    if ((navCardEl.yt_videoId || navCardEl.fb_videoId) && twitchIframe) {
                         previewDiv.style.visibility = "visible";
 
                         setTimeout(function () {
@@ -732,6 +732,7 @@
                         if (container) {
                             container.appendChild(navCardPipBtn);
                             navCardPipBtn.yt_videoId = navCardEl.yt_videoId;
+                            navCardPipBtn.fb_videoId = navCardEl.fb_videoId;
                             navCardPipBtn.stream_name = navCardEl.stream_name;
                         }
                         clearInterval(clearOverlaysInterval);
