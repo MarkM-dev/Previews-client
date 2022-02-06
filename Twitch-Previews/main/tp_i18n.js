@@ -580,6 +580,14 @@ export const i18n = {
             '<br>- Вам необходимо войти на YouTube в своем браузере (просто перейдите на youtube.com и войдите в систему, если вы еще этого не сделали).' +
             '<br>- При включении этой функции вам нужно будет разрешить запуск расширения на «youtube.com» (при включении появится подсказка) - это значит, что расширение может получать потоки с YouTube.',
     },
+    settings_feature_fb_streamers_edit_btn_text: {
+        'en': 'edit',
+        'es': 'Edit',
+        'de': 'Edit',
+        'fr': 'Edit',
+        'pt_BR': 'Edit',
+        'ru':'Edit'
+    },
     settings_feature_isSidebarExtendEnabled: {
         'en': 'Auto Extend Sidebar (show more)',
         'es': 'Extender automáticamente la barra lateral',
