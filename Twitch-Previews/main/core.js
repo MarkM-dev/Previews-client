@@ -4714,9 +4714,7 @@
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Enable the feature in the settings and click on the edit button to add Facebook streamers to the list.</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Supported by the Custom Picture-In-Picture and Multi-Stream features so you can use the Multi-Stream cross-platform.</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- You don\'t need to be logged in on facebook.</span>"
-/*
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
-*/
             +  "       </div>"
             +  "    </br>"
     }
