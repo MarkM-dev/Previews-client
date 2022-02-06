@@ -359,7 +359,7 @@
             return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
         } else {
             if (navCardEl.fb_videoId) {
-                return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=800&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
+                return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=" + options.PREVIEWDIV_WIDTH + "&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
             } else {
                 return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
             }
@@ -3806,7 +3806,7 @@
                 iframe.src = "https://www.youtube.com/live_chat?v=" + yt_videoId + "&embed_domain=www.twitch.tv";
             } else {
                 if (fb_videoId){
-                    iframe.src = "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=800&href=https://www.facebook.com/" + streamName + "/videos/" + fb_videoId;
+                    iframe.src = "";
                 } else {
                     iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
                 }
