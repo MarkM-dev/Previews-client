@@ -24,6 +24,7 @@
 - Streaming: See your own live stream thumbnail as seen by viewers on twitch.
 - Sidebar Favorite Channels List.
 - Sidebar YouTube Channels List.
+- Sidebar Facebook Gaming Channels List.
 - Multi Stream & Multi Chat.
 - Transparent / Dynamic Chat Overlay.
 - Full Screen With Chat Mode.
@@ -107,10 +108,20 @@
 * **Sidebar YouTube Channels**
     - A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.
     - The list data will update every 5 minutes.
-    - The list will show only the currently live streams in your favorites list.
     - Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.
     - You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren't already).
     - When enabling this feature, you will need to allow the extension to run on "youtube.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.
+      <br/><br/>
+
+
+* **Sidebar Facebook Gaming Channels**
+    - A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.
+    - Enable the feature and click on the edit button to add Facebook streamers to the list.
+    - The list data will update every 5 minutes.
+    - Supported by the Custom Picture-In-Picture and Multi-Stream features so you can use the Multi-Stream cross-platform.
+    - You don't need to be logged in on facebook.
+    - It may take a few seconds for the list to update, depending on how many streamers you added.
+    - When enabling this feature, you will need to allow the extension to run on "facebook.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from Facebook.
       <br/><br/>
 
 
