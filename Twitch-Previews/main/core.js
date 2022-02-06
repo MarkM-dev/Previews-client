@@ -312,7 +312,7 @@
         e.cancelBubble = true;
         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME)
 
-        createMultiStreamBox(e.target.yt_videoId ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false, false, e.target.yt_videoId);
+        createMultiStreamBox((e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false, false, e.target.yt_videoId, e.target.fb_videoId);
         removePipBtn();
         removeVidPreviewVolBtn();
         sendMessageToBG({action: "bg_pip_started", detail: ""});
@@ -638,6 +638,7 @@
             if (container) {
                 container.appendChild(navCardPipBtn);
                 navCardPipBtn.yt_videoId = null;
+                navCardPipBtn.fb_videoId = null;
                 container.appendChild(vidPreviewVolBtn);
             }
         }
@@ -3540,7 +3541,7 @@
     }
 
 
-    function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat, screenshot_imageDataUri, yt_videoId) {
+    function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat, screenshot_imageDataUri, yt_videoId, fb_videoId) {
         let titleBtnContainer;
         let extraMultiBoxBtn;
         let multiStreamDiv = document.createElement("div");
@@ -3793,7 +3794,7 @@
 
             extraMultiBoxBtn = createMultiStreamTitleBtn(_i18n('multistream_title_add_stream_btn_title'), "&#11208;");
             extraMultiBoxBtn.onclick = function () {
-                createMultiStreamBox(streamName, true, false, false, false, yt_videoId);
+                createMultiStreamBox(streamName, true, false, false, false, yt_videoId, fb_videoId);
                 sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
             }
 
@@ -3804,7 +3805,11 @@
             if (yt_videoId) {
                 iframe.src = "https://www.youtube.com/live_chat?v=" + yt_videoId + "&embed_domain=www.twitch.tv";
             } else {
-                iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
+                if (fb_videoId){
+                    iframe.src = "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=800&href=https://www.facebook.com/" + streamName + "/videos/" + fb_videoId;
+                } else {
+                    iframe.src = "https://www.twitch.tv/embed/" + streamName + "/chat?" + (document.querySelector('html.tw-root--theme-dark') ? "darkpopout&":"") + "parent=twitch.tv"
+                }
             }
         } else {
             multiStreamDiv.classList.add('tp-multi-stream-video');
@@ -3814,7 +3819,7 @@
             }
             extraMultiBoxBtn = createMultiStreamTitleBtn(_i18n('multistream_title_add_chat_btn_title'), "&#9703;");
             extraMultiBoxBtn.onclick = function () {
-                createMultiStreamBox(streamName, true, true, false, false, yt_videoId);
+                createMultiStreamBox(streamName, true, true, false, false, yt_videoId, fb_videoId);
                 sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
             }
             title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
@@ -3823,30 +3828,35 @@
                 if (yt_videoId) {
                     iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=1";
                 } else {
-                    if (options.isAdvancedVideoEmbedsEnabled) {
-                        iframe.style.visibility = "hidden";
-                        multiStreamDiv.style.backgroundColor = '#000000';
-                        multiStreamDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + streamName + "-600x338.jpg?" + new Date().getTime() + "')";
-
-                        let loader = document.createElement("span");
-                        loader.classList.add('tp-loading');
-                        loader.innerText = _i18n('preview_loader_text');
-                        loader.style.right = "0";
-                        loader.style.borderTopLeftRadius = "10px";
-                        loader.style.borderLeft = "1px solid #8f8f8f";
-                        multiStreamDiv.appendChild(loader);
-
-                        iframe.contentDocument
-                        iframe.onload = function (e) {
-                            setTimeout(function () {
-                                iframe.style.visibility = "visible";
-                                loader.remove();
-                                multiStreamDiv.style.backgroundImage = "";
-                            }, 2000);
-                        }
-                        iframe.src = "https://www.twitch.tv/" + streamName;
+                    if (fb_videoId) {
+                        iframe.style.backgroundColor = "#000";
+                        iframe.src = "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&href=https://www.facebook.com/" + streamName + "/videos/" + fb_videoId;
                     } else {
-                        iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+                        if (options.isAdvancedVideoEmbedsEnabled) {
+                            iframe.style.visibility = "hidden";
+                            multiStreamDiv.style.backgroundColor = '#000000';
+                            multiStreamDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + streamName + "-600x338.jpg?" + new Date().getTime() + "')";
+
+                            let loader = document.createElement("span");
+                            loader.classList.add('tp-loading');
+                            loader.innerText = _i18n('preview_loader_text');
+                            loader.style.right = "0";
+                            loader.style.borderTopLeftRadius = "10px";
+                            loader.style.borderLeft = "1px solid #8f8f8f";
+                            multiStreamDiv.appendChild(loader);
+
+                            iframe.contentDocument
+                            iframe.onload = function (e) {
+                                setTimeout(function () {
+                                    iframe.style.visibility = "visible";
+                                    loader.remove();
+                                    multiStreamDiv.style.backgroundImage = "";
+                                }, 2000);
+                            }
+                            iframe.src = "https://www.twitch.tv/" + streamName;
+                        } else {
+                            iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+                        }
                     }
                 }
             }
