@@ -528,11 +528,11 @@ export const i18n = {
     },
     settings_feature_isFBsidebarEnabled: {
         'en': 'Facebook Gaming Channels',
-        'es': 'Facebook Gaming Channels',
-        'de': 'Facebook Gaming Channels',
-        'fr': 'Facebook Gaming Channels',
-        'pt_BR': 'Facebook Gaming Channels',
-        'ru':'Facebook Gaming Channels'
+        'es': 'Barra lateral canales de Facebook Gaming',
+        'de': 'Seitenleiste Facebook Gaming Kanäle',
+        'fr': 'Barre latérale Chaînes Facebook Gaming',
+        'pt_BR': 'Barra Lateral Canais do Facebook Gaming',
+        'ru':'Боковая панель каналы Facebook Gaming'
     },
     settings_feature_subtext_isFBsidebarEnabled: {
         'en': '(shows at the top of the sidebar)',
@@ -544,17 +544,17 @@ export const i18n = {
     },
     settings_feature_isFBsidebarEnabled_desc: {
         'en': '<strong>* Facebook Gaming Channels</strong>' +
-            '<br>- A new list at the top of the Twitch sidebar to show your subscribed YouTube channels that are currently live on YouTube.' +
+            '<br>- A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.' +
             '<br>- The list data will update every 5 minutes.' +
             '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream & Multi-Chat features so you can use the Multi-Stream cross-platform.' +
             '<br>- You need to be logged in to YouTube on your browser (just go to youtube.com and login if you aren\'t already).' +
-            '<br>- When enabling this feature, you will need to allow the extension to run on "youtube.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from YouTube.',
+            '<br>- When enabling this feature, you will need to allow the extension to run on "facebook.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from Facebook.',
         'es': '<strong>* Barra lateral canales de YouTube</strong>' +
             '<br>- Una nueva lista en la parte superior de la barra lateral de Twitch para mostrar sus canales de YouTube suscritos que están actualmente en vivo en YouTube.' +
             '<br>- Los datos de la lista se actualizarán cada 5 minutos.' +
             '<br>- Compatible con las funciones Custom Picture-In-Picture y Multi-Stream y Multi-Chat para que pueda utilizar la multiplataforma Multi-Stream.' +
             '<br>- Debes iniciar sesión en YouTube en tu navegador (solo ve a youtube.com e inicia sesión si aún no lo has hecho).' +
-            '<br>- Al habilitar esta función, deberá permitir que la extensión se ejecute en "youtube.com" (se mostrará un mensaje cuando la habilite); esto es para que la extensión pueda obtener las transmisiones de YouTube.',
+            '<br>- Al habilitar esta función, deberá permitir que la extensión se ejecute en "facebook.com" (se mostrará un mensaje cuando la habilite); esto es para que la extensión pueda obtener las transmisiones de Facebook.',
         'de': '<strong>* Seitenleiste YouTube-Kanäle</strong>' +
             '<br>- Eine neue Liste oben in der Twitch-Seitenleiste, um deine abonnierten YouTube-Kanäle anzuzeigen, die derzeit auf YouTube live sind.' +
             '<br>- Die Listendaten werden alle 5 Minuten aktualisiert.' +
@@ -1637,19 +1637,19 @@ export const i18n = {
     },
     sidebar_fb_channels_section_title: {
         'en': 'FB GAMING CHANNELS',
-        'es': 'FB GAMING CHANNELS',
-        'de': 'FB GAMING CHANNELS',
-        'fr': 'FB GAMING CHANNELS',
-        'pt_BR': 'FB GAMING CHANNELS',
-        'ru':'FB GAMING CHANNELS'
+        'es': 'CANALES DE FB GAMING',
+        'de': 'FB GAMING KANÄLE',
+        'fr': 'CHAINES FB GAMING',
+        'pt_BR': 'CANAIS DO FB GAMING',
+        'ru':'КАНАЛЫ FB GAMING'
     },
     sidebar_fb_channels_title: {
         'en': 'Facebook Gaming Channels',
-        'es': 'Facebook Gaming Channels',
-        'de': 'Facebook Gaming Channels',
-        'fr': 'Facebook Gaming Channels',
-        'pt_BR': 'Facebook Gaming Channels',
-        'ru':'Facebook Gaming Channels'
+        'es': 'Canales de Facebook Gaming',
+        'de': 'Facebook Gaming Kanäle',
+        'fr': 'Chaînes Facebook Gaming',
+        'pt_BR': 'Canais do Facebook Gaming',
+        'ru':'Каналы Facebook Gaming'
     },
     favorites_btn_title: {
         'en': 'Toggle Favorite',
