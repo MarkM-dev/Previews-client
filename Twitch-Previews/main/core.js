@@ -5648,7 +5648,6 @@
 
         fb_streamers_input.addEventListener('keyup', (e) => {
             let key = e.which;
-            console.log(key);
             if (key === 32 || key === 188) {
                 if (fb_streamers_input.value === " " || fb_streamers_input.value === ",") {
                     fb_streamers_input.value = "";
