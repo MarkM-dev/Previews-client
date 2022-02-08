@@ -310,8 +310,7 @@
     function startCustomPip(e) {
         e.preventDefault();
         e.cancelBubble = true;
-        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME)
-
+        clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
         createMultiStreamBox((e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false, false, e.target.yt_videoId, e.target.fb_videoId);
         removePipBtn();
         removeVidPreviewVolBtn();
@@ -775,6 +774,8 @@
                     if (container) {
                         container.appendChild(navCardPipBtn);
                         navCardPipBtn.yt_videoId = navCardEl.yt_videoId;
+                        navCardPipBtn.fb_videoId = navCardEl.fb_videoId;
+                        navCardPipBtn.stream_name = navCardEl.stream_name;
                     }
                 }
             }
@@ -3825,11 +3826,15 @@
                 if (yt_videoId) {
                     iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=1";
                 } else {
+                    console.log('7');
                     if (fb_videoId) {
+                        console.log('8');
                         extraMultiBoxBtn.style.display = 'none';
                         iframe.style.backgroundColor = "#000";
+                        console.log('1');
                         iframe.src = "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&href=https://www.facebook.com/" + streamName + "/videos/" + fb_videoId;
                     } else {
+                        console.log('9');
                         if (options.isAdvancedVideoEmbedsEnabled) {
                             iframe.style.visibility = "hidden";
                             multiStreamDiv.style.backgroundColor = '#000000';
@@ -4905,11 +4910,14 @@
                 ttv_theater_mode_btn.remove();
             }
 
-            document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
-            document.querySelector('#root').remove();
-            document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
-            document.querySelector('video').muted = true;
+            try {
+                document.querySelector('body').prepend(document.querySelector('div[data-a-target="video-player"]'));
+                document.querySelector('#root').remove();
+                document.querySelector('.video-player__container').classList.remove('video-player__container--resize-calc');
+                document.querySelector('video').muted = true;
+            } catch (e) {
 
+            }
 
             return;
         }
