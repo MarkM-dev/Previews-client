@@ -178,7 +178,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-            if (details.previousVersion !== "3.4") {
+            if (details.previousVersion !== "3.4" && details.previousVersion !== "3.4.1") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
