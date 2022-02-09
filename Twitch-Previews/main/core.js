@@ -5729,7 +5729,9 @@
             }
 
             _browser.storage.local.set({'fb_streamers': arr}, function() {
-                setFBsidebar(true);
+                if (options.isFBsidebarEnabled) {
+                    setFBsidebar(true);
+                }
                 hideFBstreamersEditor();
             });
         }
