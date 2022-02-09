@@ -5687,7 +5687,7 @@
             let key = e.which;
             if (key === 32 || key === 188) {
                 let streamer_name = fb_streamers_input.value;
-                if (streamer_name === " " || streamer_name === ",") {
+                if (streamer_name === " " || streamer_name === "," || streamer_name === "") {
                     fb_streamers_input.value = "";
                     return;
                 }
@@ -5715,7 +5715,13 @@
             let arr = [];
             let selected_streamers_spans = fb_streamers_input_container.querySelectorAll('.tp-settings-fb-streamers-tag-span');
             for (let i = 0; i < selected_streamers_spans.length; i++) {
-                arr.push(selected_streamers_spans[i].firstChild.innerText);
+                let name = selected_streamers_spans[i].firstChild.innerText;
+                if (name !== '' && name !== ',') {
+                    if (name[name.length - 1] === ',') {
+                        name = name.slice(0, -1);
+                    }
+                    arr.push(name);
+                }
             }
 
             if (fb_streamers_input.value !== '') {
