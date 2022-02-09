@@ -750,7 +750,7 @@
 #TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar div {
     display: inline-block;
     flex: 1;
-    padding: 7px;
+    padding: 5px;
     width: calc(50% - 4px);
     margin: 0 auto;
     font-size: 15px;
