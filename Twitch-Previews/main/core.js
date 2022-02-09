@@ -5704,6 +5704,7 @@
                 let streamer_name = fb_streamers_input.value;
                 if (!validate_FBstreamersInput_spacesAndLinks(streamer_name)) {
                     fb_streamers_input.value = "";
+                    resizeInput(fb_streamers_input);
                     return;
                 }
                 arr.push(streamer_name);
