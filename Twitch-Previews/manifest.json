@@ -3,7 +3,7 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "3.4.2",
+  "version": "3.4.4",
   "permissions": ["storage"],
   "optional_permissions": ["https://clips.twitch.tv/*", "https://www.youtube.com/*", "https://mobile.facebook.com/*"],
   "background": {
