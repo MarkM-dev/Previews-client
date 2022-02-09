@@ -192,6 +192,30 @@ _browser.runtime.onInstalled.addListener(function(details) {
             });
 
 
+            _browser.storage.local.get('fb_streamers', function(result) {
+                if (result.fb_streamers && result.fb_streamers.length > 0) {
+                    try {
+                        let shouldSave = false;
+                        let arr = result.fb_streamers;
+                        for (let i = 0; i < arr.length; i++) {
+                            if (arr[i].indexOf(',') === arr[i].length - 1) {
+                                shouldSave = true;
+                                arr[i] = arr[i].slice(0, -1);
+                            }
+                        }
+
+                        if (shouldSave) {
+                            _browser.storage.local.set({'fb_streamers': arr}, function() {});
+                            send_ga_event('fb_streamers_bg_change', 'fb_streamers_bg_change', 'fb_streamers_bg_change');
+                        }
+                    } catch (e) {
+
+                    }
+                }
+            })
+
+
+
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
                 ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
