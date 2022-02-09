@@ -741,6 +741,7 @@
 }
 
 #TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar {
+    display: flex;
     bottom: 0;
     position: absolute;
     width: 100%;
@@ -748,16 +749,18 @@
 }
 #TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar div {
     display: inline-block;
+    flex: 1;
+    padding: 7px;
     width: calc(50% - 4px);
     margin: 0 auto;
     font-size: 15px;
-    padding: 5px 0;
-    border-radius: 5px;
+    border-radius: 0;
     cursor: pointer;
 }
 
 #TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_save_btn {
     background-color: #9147ff;
+    border-bottom-left-radius: 5px;
 }
 
 #TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_save_btn:hover {
@@ -770,6 +773,7 @@
 
 #TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_cancel_btn {
     background-color: #ffffff26;
+    border-bottom-right-radius: 5px;
 }
 #TPBodyEl #tp_settings_fb_streamers_popup_bottom_bar #fb_streamers_cancel_btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
