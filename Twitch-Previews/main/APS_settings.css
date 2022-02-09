@@ -14,7 +14,7 @@
     position: absolute;
     width: 100%;
     height: 350px;
-    background-color: rgb(24, 24, 27);
+    background-color: rgb(31, 31, 36);
     border-radius: 5px;
     text-align: center;
     color: whitesmoke;
@@ -191,7 +191,7 @@
 
 #tp_APS_settings_menu #tp_APS_settings_feature_predictionsSniper > span:first-child input {
     display: inline-block;
-    background-color: rgb(24, 24, 27);
+    background-color: rgb(31, 31, 36);
     text-align: center;
     width: 30px;
     color: whitesmoke;
