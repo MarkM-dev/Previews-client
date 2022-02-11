@@ -650,7 +650,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                     lastYTFetch = result.lastYTFetch;
                 }
                 if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
-                    console.log('fetching yt');
                     _browser.storage.local.set({'lastYTFetch': new Date().getTime()}, function() {
                         cached_yt_live_streams_arr = [];
 
@@ -700,7 +699,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                                         break;
                                     }
                                 }
-
+                                _browser.storage.local.set({'cached_yt_live_streams_arr': cached_yt_live_streams_arr}, function() {});
                                 sendResponse({ result: cached_yt_live_streams_arr });
                             } catch (e) {
                                 console.log(e);
@@ -711,8 +710,13 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                         });
                     });
                 } else {
-                    console.log('not fetching yt');
-                    sendResponse({ result: cached_yt_live_streams_arr });
+                    _browser.storage.local.get('cached_yt_live_streams_arr', function(result) {
+                        if (result.cached_yt_live_streams_arr) {
+                            sendResponse({ result: result.cached_yt_live_streams_arr });
+                        } else {
+                            sendResponse({ result: cached_yt_live_streams_arr });
+                        }
+                    })
                 }
             });
             break;
@@ -722,7 +726,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                     lastFBFetch = result.lastFBFetch;
                 }
                 if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
-                    console.log('fetching fb');
                     _browser.storage.local.set({'lastFBFetch': new Date().getTime()}, function() {
                         cached_fb_live_streams_arr = [];
 
@@ -733,6 +736,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                                     cached_fb_live_streams_arr.sort(function(a, b) {
                                         return b.view_count_num - a.view_count_num;
                                     })
+                                    _browser.storage.local.set({'cached_fb_live_streams_arr': cached_fb_live_streams_arr}, function() {});
                                     sendResponse({result: cached_fb_live_streams_arr});
                                 });
                             } else {
@@ -741,8 +745,13 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                         });
                     });
                 } else {
-                    console.log('not fetching fb');
-                    sendResponse({result: cached_fb_live_streams_arr});
+                    _browser.storage.local.get('cached_fb_live_streams_arr', function(result) {
+                        if (result.cached_fb_live_streams_arr) {
+                            sendResponse({ result: result.cached_fb_live_streams_arr });
+                        } else {
+                            sendResponse({ result: cached_fb_live_streams_arr });
+                        }
+                    })
                 }
             });
             break;
