@@ -327,7 +327,6 @@ function fetchFBstreams(fb_streamers) {
     return new Promise(async (resolve, reject) => {
         let arr = [];
         for (let i = 0; i < fb_streamers.length; i++) {
-
             let obj = await fetchFBstream(fb_streamers[i]);
             if (obj) {
                 arr.push(obj);
