@@ -608,17 +608,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('appStart', 'content.js', msg.detail);
             break;
         case "heartbeat":
-            _browser.storage.local.get('lastHeartBeat', function(result) {
-                if (result.lastHeartBeat) {
-                    lastHeartBeat = result.lastHeartBeat;
-                }
-                if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
-                    _browser.storage.local.set({'lastHeartBeat': new Date().getTime()}, function() {
-
-                    });
-                    send_ga_event('heartbeat', 'heartbeat', 'heartbeat - ' + tpga_browser);
-                }
-            });
+            if (new Date().getTime() - lastHeartBeat >= HEART_BEAT_INTERVAL_MS - 500) {
+                send_ga_event('heartbeat', 'heartbeat', 'heartbeat - ' + tpga_browser);
+                lastHeartBeat = new Date().getTime();
+            }
             break;
         case "bg_donate_btn_click":
             send_ga_event('settings_donate_btn_click', 'settings_donate_btn_click', 'settings_donate_btn_click');
