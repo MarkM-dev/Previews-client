@@ -308,6 +308,15 @@ function fetchFBstream(stream_name) {
                         obj.title = '';
                     }
                     obj.stream_name = data.split('<title>')[1].split('</title>')[0];
+                    if (obj.stream_name.indexOf('Facebook Gaming') === 0) {
+                        obj.stream_name = 'User not found';
+                        obj.title = '"' + stream_name + '"';
+                        obj.view_count_num = '-1';
+                        obj.view_count = '-1';
+                        obj.profile_pic_url = _browser.runtime.getURL("images/error.png");
+                        obj.thumbnail_url = '';
+                        obj.videoId = '';
+                    }
                     resolve(obj);
                 } else {
                     resolve(null);
