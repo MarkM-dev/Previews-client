@@ -1607,6 +1607,14 @@ export const i18n = {
         'pt_BR': 'Configurações',
         'ru':'Настройки'
     },
+    update_toast_contact: {
+        'en': 'Contact',
+        'es': 'Contacta con nosotros',
+        'de': 'kontaktiere uns',
+        'fr': 'Nous contacter',
+        'pt_BR': 'Contate-Nos',
+        'ru':'связаться с нами'
+    },
     update_toast_close: {
         'en': 'Close',
         'es': 'cerrar',
