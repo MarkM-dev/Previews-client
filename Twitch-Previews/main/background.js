@@ -266,8 +266,13 @@ function fetchFBstream(stream_name) {
                     try {
                          obj.profile_pic_url = data.split("profpic")[1].split("url(&#039;")[1].split("&#039;)")[0];
                     } catch (e) {
-                        let img_src = obj.profile_pic_url = data.split('scaledImageFitWidth img" src="')[1].split('" ')[0];
-                        obj.profile_pic_url = img_src.replaceAll("amp;", "");
+                        try {
+                            let img_src = obj.profile_pic_url = data.split('scaledImageFitWidth img" src="')[1].split('" ')[0];
+                            obj.profile_pic_url = img_src.replaceAll("amp;", "");
+                        } catch (e) {
+                            obj.profile_pic_url = '';
+                        }
+
                     }
                     obj.thumbnail_url = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('<i ')[1].split('style="background: url(&#039;')[1].split('&#039;)')[0];
                     obj.title = data.split('<a href="/gaming/')[1].split('">')[1].split('</a>')[0];
