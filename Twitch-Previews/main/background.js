@@ -228,12 +228,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
                                 _browser.storage.local.get('tp_options', function(result) {
                                     let options = result.tp_options;
                                     if (options && !options.isFBsidebarEnabled) {
-                                        options.isFBsidebarEnabled = true;
-                                        _browser.storage.local.set({'tp_options': options}, function() {
-
-                                        });
-                                        _browser.storage.local.set({'lastFBFetch': new Date().getTime() - YT_FETCH_INTERVAL_MS}, function() {});
-                                        send_ga_event('fb_streamers_bg_switch', 'fb_streamers_bg_switch', 'fb_streamers_bg_switch');
+                                        _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
                                     }
                                 });
                             }
