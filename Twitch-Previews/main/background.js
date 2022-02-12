@@ -272,7 +272,6 @@ function fetchFBstream(stream_name) {
                         } catch (e) {
                             obj.profile_pic_url = '';
                         }
-
                     }
                     obj.thumbnail_url = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('<i ')[1].split('style="background: url(&#039;')[1].split('&#039;)')[0];
                     obj.title = data.split('<a href="/gaming/')[1].split('">')[1].split('</a>')[0];
