@@ -21,8 +21,8 @@ let YT_FETCH_INTERVAL_MS = 300000;
 let FB_FETCH_INTERVAL_MS = 300000;
 let lastYTFetch = new Date().getTime() - YT_FETCH_INTERVAL_MS;
 let lastFBFetch = new Date().getTime() - FB_FETCH_INTERVAL_MS;
-let cached_yt_live_streams_arr = null;
-let cached_fb_live_streams_arr = null;
+let cached_yt_live_streams_arr = [];
+let cached_fb_live_streams_arr = [];
 
 let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled', 'isRecordEnabled'];
 
