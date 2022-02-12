@@ -1596,10 +1596,10 @@
                             timesExtendedSidebar = 0;
                             extendSidebarSection(sideNavSections[1]);
                             extendSidebarSection(sideNavSections[2]);
-                            resolve('done');
                             break;
                         }
                     }
+                    resolve('done');
                 } else {
                     resolve('done');
                 }
