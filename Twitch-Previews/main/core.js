@@ -3976,7 +3976,7 @@
             }
 
             if (isMultiStreamMode) {
-                if (multiStream_curr_selected_preset_index) {
+                if (multiStream_curr_selected_preset_index || multiStream_curr_selected_preset_index === 0) {
                     load_multiStream_layout_preset(multiStream_curr_selected_preset_index);
                 }
             }
