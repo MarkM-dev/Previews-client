@@ -572,6 +572,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "delayedRateToast_settings_btn_click":
             send_ga_event('delayedRateToast', 'delayedRateToast_settings_btn_click', 'delayedRateToast_settings_btn_click');
             break;
+        case "delayedRateToast_contact_btn_click":
+            send_ga_event('delayedRateToast', 'delayedRateToast_contact_btn_click', 'delayedRateToast_contact_btn_click');
+            break;
         case "delayedRateToast_translate_btn_click":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('delayedRateToast', 'delayedRateToast_translate_btn_click', 'delayedRateToast_translate_btn_click');

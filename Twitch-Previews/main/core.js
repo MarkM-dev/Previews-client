@@ -4640,7 +4640,7 @@
             "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
             "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >" + _i18n('update_toast_rate') + "</div>\n" +
             "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_share_btn' >" + _i18n('update_toast_share') + "</div>\n" +
-            "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >" + _i18n('update_toast_settings') + "</div>\n" +
+            "               | <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_settings_btn' >" + _i18n(isDelayedRateToast ? 'update_toast_contact':'update_toast_settings') + "</div>\n" +
             "                <div id=\"tp_updateToast_donate_btn\" class=\"tp_updateToast_donate_btn\" >\n" +
     "                                <img id=\"tp_updateToast_donate_btn_img\" src=\"" + getRuntimeUrl('images/donate_heart.png') + "\" width=\"22\" height=\"20\" >\n" +
     "                                <span id=\"tp_updateToast_donate_btn_buffer_span\" ></span>\n" +
@@ -4669,8 +4669,13 @@
             sendMessageToBG({action: "bg_show_share", detail: ""});
         };
         updateToast.querySelector('#tp_updateToast_settings_btn').onclick = function () {
-            showSettings();
-            sendMessageToBG({action: toastType + "_settings_btn_click", detail: ""});
+            if (isDelayedRateToast) {
+                sendMessageToBG({action: toastType + "_contact_btn_click", detail: ""});
+                window.location = 'mailto:twitchPreviews@gmail.com';
+            } else {
+                showSettings();
+                sendMessageToBG({action: toastType + "_settings_btn_click", detail: ""});
+            }
         };
 
         updateToast.querySelector('#tp_updateToast_donate_btn').onclick = function () {
