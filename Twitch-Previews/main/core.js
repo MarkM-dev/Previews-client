@@ -3849,7 +3849,6 @@
                         iframe.style.backgroundColor = "#000";
                         iframe.src = "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&href=https://www.facebook.com/" + streamName + "/videos/" + fb_videoId;
                     } else {
-                        console.log('9');
                         if (options.isAdvancedVideoEmbedsEnabled) {
                             iframe.style.visibility = "hidden";
                             multiStreamDiv.style.backgroundColor = '#000000';
