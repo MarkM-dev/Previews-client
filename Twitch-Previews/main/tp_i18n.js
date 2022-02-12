@@ -1609,11 +1609,11 @@ export const i18n = {
     },
     update_toast_contact: {
         'en': 'Contact',
-        'es': 'Contacta con nosotros',
+        'es': 'contacto',
         'de': 'kontaktiere uns',
-        'fr': 'Nous contacter',
-        'pt_BR': 'Contate-Nos',
-        'ru':'связаться с нами'
+        'fr': 'contacter',
+        'pt_BR': 'Contate',
+        'ru':'связаться'
     },
     update_toast_close: {
         'en': 'Close',
