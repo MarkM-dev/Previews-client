@@ -1322,30 +1322,41 @@
                     }
                 }
 
-
-                let old_fb_section = document.getElementById('tp_FBsidebar_section');
-                if (old_fb_section) {
-                    old_fb_section.parentNode.replaceChild(fb_section, old_fb_section);
-                } else {
-                    let yt_section = document.getElementById('tp_YTsidebar_section');
-                    if (yt_section) {
-                        yt_section.after(fb_section);
-                    } else {
-                        let favorites_section = document.getElementById('tp_favorites_section');
-                        if (favorites_section) {
-                            favorites_section.after(fb_section);
+                _browser.storage.local.get('delayedFB', function(result) {
+                    let shouldAppend = true;
+                    if (result.delayedFB) {
+                        if (res.result.length === 0) {
+                            shouldAppend = false;
                         } else {
-                            followed_channels_section.parentNode.prepend(fb_section);
+                            _browser.storage.local.set({'delayedFB': false}, function() {});
                         }
                     }
-                }
+                    if (shouldAppend) {
+                        let old_fb_section = document.getElementById('tp_FBsidebar_section');
+                        if (old_fb_section) {
+                            old_fb_section.parentNode.replaceChild(fb_section, old_fb_section);
+                        } else {
+                            let yt_section = document.getElementById('tp_YTsidebar_section');
+                            if (yt_section) {
+                                yt_section.after(fb_section);
+                            } else {
+                                let favorites_section = document.getElementById('tp_favorites_section');
+                                if (favorites_section) {
+                                    favorites_section.after(fb_section);
+                                } else {
+                                    followed_channels_section.parentNode.prepend(fb_section);
+                                }
+                            }
+                        }
 
-                if(options.isSidebarPreviewsEnabled) {
-                    refreshNavCardsListAndListeners();
-                }
-                if(options.isSidebarSearchEnabled) {
-                    showSidebarSearchBtn();
-                }
+                        if(options.isSidebarPreviewsEnabled) {
+                            refreshNavCardsListAndListeners();
+                        }
+                        if(options.isSidebarSearchEnabled) {
+                            showSidebarSearchBtn();
+                        }
+                    }
+                });
 
             }
         })
@@ -1714,6 +1725,7 @@
     function checkForFBPermissions(featureName) {
         _browser.runtime.sendMessage({action: "check_permission_FB", detail: true}, function(response) {
             if (response.result === 'granted') {
+                _browser.storage.local.set({'delayedFB': false}, function() {});
                 changeFeatureMode(featureName, true);
             } else {
                 changeFeatureMode(featureName, false);
