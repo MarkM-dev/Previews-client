@@ -331,6 +331,7 @@ function fetchFBstreams(fb_streamers) {
                 obj.profile_pic_url = _browser.runtime.getURL("images/error.png");
                 obj.thumbnail_url = _browser.runtime.getURL("images/error.png");
                 obj.videoId = '';
+                obj.accept_new_permissions = true;
                 arr.push(obj);
             }
             resolve(arr);

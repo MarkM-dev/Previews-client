@@ -1300,11 +1300,22 @@
                             navCard.fb_videoId = res.result[i].videoId;
                             navCard.stream_name = res.result[i].stream_name;
                             navCard.thumbnail_url = res.result[i].thumbnail_url;
-                            navCard.onclick = (e) => {
-                                e.preventDefault();
-                                e.cancelBubble = true;
-                                sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId});
+
+                            if (res.result[i].accept_new_permissions) {
+                                navCard.href = null;
+                                navCard.onclick = (e) => {
+                                    e.preventDefault();
+                                    e.cancelBubble = true;
+
+                                }
+                            } else {
+                                navCard.onclick = (e) => {
+                                    e.preventDefault();
+                                    e.cancelBubble = true;
+                                    sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId});
+                                }
                             }
+
                             let container_div = document.createElement('div');
                             container_div.appendChild(navCard);
                             fb_section.children[1].appendChild(container_div);
