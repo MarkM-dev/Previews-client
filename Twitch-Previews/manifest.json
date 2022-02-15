@@ -5,7 +5,7 @@
   "default_locale": "en",
   "version": "3.4.6",
   "permissions": ["storage"],
-  "optional_permissions": ["https://clips.twitch.tv/*", "https://www.youtube.com/*", "https://mobile.facebook.com/*"],
+  "optional_permissions": ["https://clips.twitch.tv/*", "https://www.youtube.com/*", "https://*.facebook.com/*"],
   "background": {
     "scripts": ["main/background.js"],
     "persistent": false
