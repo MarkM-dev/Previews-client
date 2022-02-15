@@ -1700,7 +1700,7 @@
     }
 
     function checkForYTPermissions(featureName) {
-        _browser.runtime.sendMessage({action: "check_permission_YT", detail: true}, function(response) {
+        _browser.runtime.sendMessage({action: "check_show_permission_YT", detail: true}, function(response) {
             if (response.result === 'granted') {
                 changeFeatureMode(featureName, true);
             } else {
@@ -1710,7 +1710,7 @@
         });
     }
     function checkForFBPermissions(featureName) {
-        _browser.runtime.sendMessage({action: "check_permission_FB", detail: true}, function(response) {
+        _browser.runtime.sendMessage({action: "check_show_permission_FB", detail: true}, function(response) {
             if (response.result === 'granted') {
                 _browser.storage.local.set({'delayedFB': false}, function() {});
                 changeFeatureMode(featureName, true);
