@@ -1712,7 +1712,6 @@
     function checkForFBPermissions(featureName) {
         _browser.runtime.sendMessage({action: "check_show_permission_FB", detail: true}, function(response) {
             if (response.result === 'granted') {
-                _browser.storage.local.set({'delayedFB': false}, function() {});
                 changeFeatureMode(featureName, true);
             } else {
                 changeFeatureMode(featureName, false);

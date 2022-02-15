@@ -311,13 +311,29 @@ function fetchFBstream(stream_name) {
 function fetchFBstreams(fb_streamers) {
     return new Promise(async (resolve, reject) => {
         let arr = [];
-        for (let i = 0; i < fb_streamers.length; i++) {
-            let obj = await fetchFBstream(fb_streamers[i]);
-            if (obj) {
+        _browser.permissions.contains({
+            origins: ['https://*.facebook.com/*']
+        }, async (result) => {
+            if (result) {
+                for (let i = 0; i < fb_streamers.length; i++) {
+                    let obj = await fetchFBstream(fb_streamers[i]);
+                    if (obj) {
+                        arr.push(obj);
+                    }
+                }
+            } else {
+                let obj = {};
+                obj.stream_name = 'Feature Updated';
+                obj.title = 'click to allow';
+                obj.view_count_num = '-1';
+                obj.view_count = '-1';
+                obj.profile_pic_url = _browser.runtime.getURL("images/error.png");
+                obj.thumbnail_url = _browser.runtime.getURL("images/error.png");
+                obj.videoId = '';
                 arr.push(obj);
             }
-        }
-        resolve(arr);
+            resolve(arr);
+        });
     });
 }
 
@@ -840,7 +856,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                         sendResponse({ result: "denied" });
                     } else {
                         _browser.permissions.request({
-                            origins: ['https:/*.facebook.com/*']
+                            origins: ['https://*.facebook.com/*']
                         }, (granted) => {
                             if (granted) {
                                 sendResponse({ result: "granted" });
