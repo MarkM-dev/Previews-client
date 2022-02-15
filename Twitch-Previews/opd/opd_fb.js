@@ -21,7 +21,7 @@ async function main() {
 
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
         browser.permissions.request({
-            origins: ['https://mobile.facebook.com/*']
+            origins: ['https://*.facebook.com/*']
         }, (granted) => {
             if (granted) {
                 try {
