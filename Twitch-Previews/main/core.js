@@ -1322,42 +1322,29 @@
                     }
                 }
 
-                _browser.storage.local.get('delayedFB', function(result) {
-                    let shouldAppend = true;
-                    if (result.delayedFB) {
-                        if (res.result.length === 0) {
-                            shouldAppend = false;
+                let old_fb_section = document.getElementById('tp_FBsidebar_section');
+                if (old_fb_section) {
+                    old_fb_section.parentNode.replaceChild(fb_section, old_fb_section);
+                } else {
+                    let yt_section = document.getElementById('tp_YTsidebar_section');
+                    if (yt_section) {
+                        yt_section.after(fb_section);
+                    } else {
+                        let favorites_section = document.getElementById('tp_favorites_section');
+                        if (favorites_section) {
+                            favorites_section.after(fb_section);
                         } else {
-                            _browser.storage.local.set({'delayedFB': false}, function() {});
+                            followed_channels_section.parentNode.prepend(fb_section);
                         }
                     }
-                    if (shouldAppend) {
-                        let old_fb_section = document.getElementById('tp_FBsidebar_section');
-                        if (old_fb_section) {
-                            old_fb_section.parentNode.replaceChild(fb_section, old_fb_section);
-                        } else {
-                            let yt_section = document.getElementById('tp_YTsidebar_section');
-                            if (yt_section) {
-                                yt_section.after(fb_section);
-                            } else {
-                                let favorites_section = document.getElementById('tp_favorites_section');
-                                if (favorites_section) {
-                                    favorites_section.after(fb_section);
-                                } else {
-                                    followed_channels_section.parentNode.prepend(fb_section);
-                                }
-                            }
-                        }
+                }
 
-                        if(options.isSidebarPreviewsEnabled) {
-                            refreshNavCardsListAndListeners();
-                        }
-                        if(options.isSidebarSearchEnabled) {
-                            showSidebarSearchBtn();
-                        }
-                    }
-                });
-
+                if(options.isSidebarPreviewsEnabled) {
+                    refreshNavCardsListAndListeners();
+                }
+                if(options.isSidebarSearchEnabled) {
+                    showSidebarSearchBtn();
+                }
             }
         })
     }

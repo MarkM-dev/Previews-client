@@ -218,30 +218,6 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             })
 
-            setTimeout(function () {
-                _browser.permissions.contains({
-                    origins: ['https://mobile.facebook.com/*']
-                }, (result) => {
-                    if (result) {
-                        _browser.storage.local.get('fb_streamers', function(result) {
-                            if (result.fb_streamers && result.fb_streamers.length > 0) {
-                                _browser.storage.local.get('tp_options', function(result) {
-                                    let options = result.tp_options;
-                                    if (options && !options.isFBsidebarEnabled) {
-                                        options.isFBsidebarEnabled = true;
-                                        _browser.storage.local.set({'tp_options': options}, function() {});
-                                        _browser.storage.local.set({'lastFBFetch': new Date().getTime() - YT_FETCH_INTERVAL_MS}, function() {});
-                                        _browser.storage.local.set({'delayedFB': true}, function() {});
-                                        send_ga_event('fb_streamers_bg_switch', 'fb_streamers_bg_switch', 'fb_streamers_bg_switch');
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }, 1000);
-
-
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
                 ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
