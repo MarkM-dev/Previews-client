@@ -182,7 +182,8 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 && details.previousVersion !== "3.4.1"
                 && details.previousVersion !== "3.4.2"
                 && details.previousVersion !== "3.4.4"
-                && details.previousVersion !== "3.4.5") {
+                && details.previousVersion !== "3.4.5"
+                && details.previousVersion !== "3.4.6") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
