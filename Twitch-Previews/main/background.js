@@ -252,7 +252,12 @@ function extractViewcountNumberFromString(str) {
 
 function fetchFBstream(stream_name) {
     return new Promise((resolve, reject) => {
-        fetch('https://m.facebook.com/gaming/' + stream_name + '/').then(function (response) {
+        let headers = new Headers({
+            "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
+        });
+
+        fetch('https://m.facebook.com/gaming/' + stream_name + '/', {method  : 'GET', headers : headers})
+            .then(function (response) {
             return response.text();
         }).then(function (data) {
             try {
@@ -688,115 +693,140 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             removeListenersForClipDownloader();
             break;
         case "get_YT_live_streams":
-            _browser.storage.local.get('lastYTFetch', function(result) {
-                if (result.lastYTFetch) {
-                    lastYTFetch = result.lastYTFetch;
-                }
-                if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
-                    _browser.storage.local.set({'lastYTFetch': new Date().getTime()}, function() {
-                        cached_yt_live_streams_arr = [];
+            if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
+                _browser.storage.local.get('lastYTFetch', function(result) {
+                    if (result.lastYTFetch) {
+                        lastYTFetch = result.lastYTFetch;
+                    }
+                    if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
+                        lastYTFetch = new Date().getTime();
+                        _browser.storage.local.set({'lastYTFetch': lastYTFetch}, function() {
+                            cached_yt_live_streams_arr = [];
 
-                        fetch('https://www.youtube.com/feed/subscriptions?flow=1').then(function (response) {
-                            return response.text();
-                        }).then(function (data) {
-                            try {
-                                let parser = new DOMParser();
-                                let doc = parser.parseFromString(data, 'text/html');
+                            let headers = new Headers({
+                                "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
+                            });
+                            fetch('https://www.youtube.com/feed/subscriptions?flow=1', {method  : 'GET', headers : headers})
+                                .then(function (response) {
+                                return response.text();
+                            }).then(function (data) {
+                                try {
+                                    let parser = new DOMParser();
+                                    let doc = parser.parseFromString(data, 'text/html');
 
-                                if (!doc) {
-                                    sendResponse({ result: cached_yt_live_streams_arr });
-                                    return;
-                                }
-                                let scripts = doc.querySelectorAll('script');
-                                for (let i = 0; i < scripts.length; i++) {
-                                    let script = scripts[i].innerText;
-                                    if (script.startsWith('var ytInitialData = ')) {
-                                        script = script.replace('var ytInitialData = ', '');
-                                        script = script.slice(0, -1);
-                                        let scriptJson = JSON.parse(script);
-                                        let items = scriptJson.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].shelfRenderer.content.gridRenderer.items;
-
-                                        for (let j = 0; j < items.length; j++) {
-                                            if (items[j].gridVideoRenderer.badges && items[j].gridVideoRenderer.badges[0].metadataBadgeRenderer.style === 'BADGE_STYLE_TYPE_LIVE_NOW') {
-                                                let obj = {};
-                                                obj.videoId = items[j].gridVideoRenderer.videoId;
-                                                obj.profile_pic_url = items[j].gridVideoRenderer.channelThumbnail.thumbnails[0].url;
-                                                obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
-                                                obj.title = items[j].gridVideoRenderer.title.runs[0].text;
-                                                obj.stream_name = items[j].gridVideoRenderer.shortBylineText.runs[0].text;
-                                                obj.view_count = items[j].gridVideoRenderer.shortViewCountText.runs[0].text;
-
-                                                let num_str = items[j].gridVideoRenderer.viewCountText.runs[0].text.match(/\d+/g);
-                                                let num_count = '';
-                                                for (let i = 0; i < num_str.length; i++) {
-                                                    num_count += num_str[i];
-                                                }
-
-                                                obj.view_count_num = num_count;
-                                                cached_yt_live_streams_arr.push(obj);
-                                            }
-                                        }
-                                        cached_yt_live_streams_arr.sort(function(a, b) {
-                                            return b.view_count_num - a.view_count_num;
-                                        })
-                                        break;
+                                    if (!doc) {
+                                        sendResponse({ result: cached_yt_live_streams_arr });
+                                        return;
                                     }
+                                    let scripts = doc.querySelectorAll('script');
+                                    for (let i = 0; i < scripts.length; i++) {
+                                        let script = scripts[i].innerText;
+                                        if (script.startsWith('var ytInitialData = ')) {
+                                            script = script.replace('var ytInitialData = ', '');
+                                            script = script.slice(0, -1);
+                                            let scriptJson = JSON.parse(script);
+                                            let items = scriptJson.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].shelfRenderer.content.gridRenderer.items;
+
+                                            for (let j = 0; j < items.length; j++) {
+                                                if (items[j].gridVideoRenderer.badges && items[j].gridVideoRenderer.badges[0].metadataBadgeRenderer.style === 'BADGE_STYLE_TYPE_LIVE_NOW') {
+                                                    let obj = {};
+                                                    obj.videoId = items[j].gridVideoRenderer.videoId;
+                                                    obj.profile_pic_url = items[j].gridVideoRenderer.channelThumbnail.thumbnails[0].url;
+                                                    obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
+                                                    obj.title = items[j].gridVideoRenderer.title.runs[0].text;
+                                                    obj.stream_name = items[j].gridVideoRenderer.shortBylineText.runs[0].text;
+                                                    obj.view_count = items[j].gridVideoRenderer.shortViewCountText.runs[0].text;
+
+                                                    let num_str = items[j].gridVideoRenderer.viewCountText.runs[0].text.match(/\d+/g);
+                                                    let num_count = '';
+                                                    for (let i = 0; i < num_str.length; i++) {
+                                                        num_count += num_str[i];
+                                                    }
+
+                                                    obj.view_count_num = num_count;
+                                                    cached_yt_live_streams_arr.push(obj);
+                                                }
+                                            }
+                                            cached_yt_live_streams_arr.sort(function(a, b) {
+                                                return b.view_count_num - a.view_count_num;
+                                            })
+                                            break;
+                                        }
+                                    }
+                                    _browser.storage.local.set({'cached_yt_live_streams_arr': cached_yt_live_streams_arr}, function() {});
+                                    sendResponse({ result: cached_yt_live_streams_arr });
+                                } catch (e) {
+                                    console.log(e);
+                                    sendResponse({ result: cached_yt_live_streams_arr });
                                 }
-                                _browser.storage.local.set({'cached_yt_live_streams_arr': cached_yt_live_streams_arr}, function() {});
-                                sendResponse({ result: cached_yt_live_streams_arr });
-                            } catch (e) {
-                                console.log(e);
+                            }).catch(function (err) {
+                                console.warn('Something went wrong.', err);
+                            });
+                        });
+                    } else {
+                        _browser.storage.local.get('cached_yt_live_streams_arr', function(result) {
+                            if (result.cached_yt_live_streams_arr) {
+                                sendResponse({ result: result.cached_yt_live_streams_arr });
+                            } else {
                                 sendResponse({ result: cached_yt_live_streams_arr });
                             }
-                        }).catch(function (err) {
-                            console.warn('Something went wrong.', err);
-                        });
-                    });
-                } else {
-                    _browser.storage.local.get('cached_yt_live_streams_arr', function(result) {
-                        if (result.cached_yt_live_streams_arr) {
-                            sendResponse({ result: result.cached_yt_live_streams_arr });
-                        } else {
-                            sendResponse({ result: cached_yt_live_streams_arr });
-                        }
-                    })
-                }
-            });
+                        })
+                    }
+                });
+            } else {
+                _browser.storage.local.get('cached_yt_live_streams_arr', function(result) {
+                    if (result.cached_yt_live_streams_arr) {
+                        sendResponse({ result: result.cached_yt_live_streams_arr });
+                    } else {
+                        sendResponse({ result: cached_yt_live_streams_arr });
+                    }
+                })
+            }
             break;
         case "get_FB_live_streams":
-            _browser.storage.local.get('lastFBFetch', function(result) {
-                if (result.lastFBFetch) {
-                    lastFBFetch = result.lastFBFetch;
-                }
-                if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
-                    _browser.storage.local.set({'lastFBFetch': new Date().getTime()}, function() {
-                        cached_fb_live_streams_arr = [];
-
-                        _browser.storage.local.get('fb_streamers', function(result) {
-                            if (result.fb_streamers && result.fb_streamers.length > 0) {
-                                fetchFBstreams(result.fb_streamers).then(function (res) {
-                                    cached_fb_live_streams_arr = res;
-                                    cached_fb_live_streams_arr.sort(function(a, b) {
-                                        return b.view_count_num - a.view_count_num;
-                                    })
-                                    _browser.storage.local.set({'cached_fb_live_streams_arr': cached_fb_live_streams_arr}, function() {});
+            if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
+                _browser.storage.local.get('lastFBFetch', function(result) {
+                    if (result.lastFBFetch) {
+                        lastFBFetch = result.lastFBFetch;
+                    }
+                    if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
+                        lastFBFetch = new Date().getTime();
+                        _browser.storage.local.set({'lastFBFetch': lastFBFetch}, function() {
+                            cached_fb_live_streams_arr = [];
+                            _browser.storage.local.get('fb_streamers', function(result) {
+                                if (result.fb_streamers && result.fb_streamers.length > 0) {
+                                    fetchFBstreams(result.fb_streamers).then(function (res) {
+                                        cached_fb_live_streams_arr = res;
+                                        cached_fb_live_streams_arr.sort(function(a, b) {
+                                            return b.view_count_num - a.view_count_num;
+                                        })
+                                        _browser.storage.local.set({'cached_fb_live_streams_arr': cached_fb_live_streams_arr}, function() {});
+                                        sendResponse({result: cached_fb_live_streams_arr});
+                                    });
+                                } else {
                                     sendResponse({result: cached_fb_live_streams_arr});
-                                });
-                            } else {
-                                sendResponse({result: cached_fb_live_streams_arr});
-                            }
+                                }
+                            });
                         });
-                    });
-                } else {
-                    _browser.storage.local.get('cached_fb_live_streams_arr', function(result) {
-                        if (result.cached_fb_live_streams_arr) {
-                            sendResponse({ result: result.cached_fb_live_streams_arr });
-                        } else {
-                            sendResponse({ result: cached_fb_live_streams_arr });
-                        }
-                    })
-                }
-            });
+                    } else {
+                        _browser.storage.local.get('cached_fb_live_streams_arr', function(result) {
+                            if (result.cached_fb_live_streams_arr) {
+                                sendResponse({ result: result.cached_fb_live_streams_arr });
+                            } else {
+                                sendResponse({ result: cached_fb_live_streams_arr });
+                            }
+                        })
+                    }
+                });
+            } else {
+                _browser.storage.local.get('cached_fb_live_streams_arr', function(result) {
+                    if (result.cached_fb_live_streams_arr) {
+                        sendResponse({ result: result.cached_fb_live_streams_arr });
+                    } else {
+                        sendResponse({ result: cached_fb_live_streams_arr });
+                    }
+                })
+            }
             break;
         case "check_permission_clip.twitch.tv":
             _browser.permissions.contains({
