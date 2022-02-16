@@ -57,12 +57,12 @@ export const i18n = {
         'ru':'Чтобы включить боковую панель каналов Facebook Gaming, расширению необходимо разрешение на получение потоков с Facebook.'
     },
     opd_fb_new_permissions_msg: {
-        'en': 'Fixed and improvements have been made on the Sidebar Facebook Gaming feature and permissions have been reset.',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ru':''
+        'en': 'Fixes and improvements have been made to the Sidebar Facebook Gaming feature and permissions have been reset',
+        'es': 'Se han realizado correcciones y mejoras en la función Sidebar Facebook Gaming y se han restablecido los permisos',
+        'de': 'Es wurden Korrekturen und Verbesserungen an der Sidebar-Facebook-Gaming-Funktion vorgenommen und Berechtigungen wurden zurückgesetzt',
+        'fr': 'Des correctifs et des améliorations ont été apportés à la fonctionnalité Sidebar Facebook Gaming et les autorisations ont été réinitialisées',
+        'pt_BR': 'Correções e melhorias foram feitas no recurso Sidebar Facebook Gaming e as permissões foram redefinidas',
+        'ru':'Исправления и улучшения были внесены в функцию боковой панели Facebook Gaming, а разрешения были сброшены'
     },
     opd_allow_btn: {
         'en': 'Allow',
