@@ -5118,7 +5118,11 @@
                 setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
                 if (!isFromTitleObserver) {
                     if (isNavBarCollapsed) {
-                        document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
+                        try {
+                            document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
+                        } catch (e) {
+
+                        }
                     }
                 }
             }, 2500)
