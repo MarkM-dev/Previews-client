@@ -1296,7 +1296,6 @@
                             navCard.querySelector('img.tw-image-avatar').remove();
                             navCard.title = res.result[i].stream_name + '\n' + res.result[i].title;
 
-                            navCard.href = "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId;
                             navCard.fb_videoId = res.result[i].videoId;
                             navCard.stream_name = res.result[i].stream_name;
                             navCard.thumbnail_url = res.result[i].thumbnail_url;
@@ -1311,6 +1310,7 @@
                                 }
                                 fb_section.classList.add('tp-fb-sidebar-section-new-permissions-error');
                             } else {
+                                navCard.href = "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId;
                                 navCard.onclick = (e) => {
                                     e.preventDefault();
                                     e.cancelBubble = true;
