@@ -253,7 +253,7 @@ function extractViewcountNumberFromString(str) {
 function fetchFBstream(stream_name) {
     return new Promise((resolve, reject) => {
         let headers = new Headers({
-            "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",
         });
 
         fetch('https://m.facebook.com/gaming/' + stream_name + '/', {method  : 'GET', headers : headers})
@@ -301,6 +301,10 @@ function fetchFBstream(stream_name) {
                     }
                     resolve(obj);
                 } else {
+                    if (data.indexOf('m_login_upsell') > -1) {
+                        console.log('m_login_upsell');
+                    }
+                    console.log("here");
                     resolve(null);
                 }
             } catch (e) {
@@ -704,7 +708,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                             cached_yt_live_streams_arr = [];
 
                             let headers = new Headers({
-                                "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
+                                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
                             });
                             fetch('https://www.youtube.com/feed/subscriptions?flow=1', {method  : 'GET', headers : headers})
                                 .then(function (response) {
