@@ -342,7 +342,7 @@ function fetchFBstreams(fb_streamers) {
                 }
             } else {
                 let obj = {};
-                obj.stream_name = 'Feature Updated';
+                obj.stream_name = 'Action Required';
                 obj.title = 'click to see details';
                 obj.view_count_num = '-1';
                 obj.view_count = '-1';
