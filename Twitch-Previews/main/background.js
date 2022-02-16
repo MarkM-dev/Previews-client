@@ -301,11 +301,12 @@ function fetchFBstream(stream_name) {
                     }
                     resolve(obj);
                 } else {
-                    if (data.indexOf('m_login_upsell') > -1) {
-                        console.log('m_login_upsell');
+                    if (data.indexOf('login_upsell') > -1) {
+                        console.log('login_upsell');
+                    } else {
+                        console.log("here");
+                        resolve(null);
                     }
-                    console.log("here");
-                    resolve(null);
                 }
             } catch (e) {
                 console.log(e);
