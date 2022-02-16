@@ -3,6 +3,7 @@ async function main() {
     let isFirefox = typeof browser !== "undefined";
     let _browser = isFirefox ? browser : chrome;
     let options = {};
+    let isNewPermissions = false;
     const _tp_i18n = await import(_browser.runtime.getURL("./main/tp_i18n.js")).then((res) => {
         _browser.storage.local.get('tp_options', function(result) {
             options = result.tp_options;
@@ -20,14 +21,14 @@ async function main() {
     }
 
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
-        browser.permissions.request({
+        _browser.permissions.request({
             origins: ['https://*.facebook.com/*']
         }, (granted) => {
             if (granted) {
                 try {
-                    browser.tabs.query({currentWindow: true}, function(tabs){
+                    _browser.tabs.query({currentWindow: true}, function(tabs){
                         for (let i = 0; i < tabs.length; i++) {
-                            browser.tabs.sendMessage(tabs[i].id, {action: "tp_enable_FBsidebar"}, function(response) {});
+                            _browser.tabs.sendMessage(tabs[i].id, {action: isNewPermissions ? "tp_enable_FBsidebar_new_permissions":"tp_enable_FBsidebar"}, function(response) {});
                         }
                     });
                 } catch (e) {
@@ -43,5 +44,14 @@ async function main() {
     document.getElementById('tp_cancel_btn').addEventListener('click', function (e) {
         closeTab();
     })
+
+    _browser.storage.local.get('FB_request_new_permission', function(result) {
+        if (result.FB_request_new_permission) {
+            _browser.storage.local.set({'FB_request_new_permission': false}, function() {});
+            isNewPermissions = true;
+            document.getElementById('tp_new_permissions_text').style.display = 'block';
+        }
+    });
+
 }
 main().then();

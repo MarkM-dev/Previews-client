@@ -56,6 +56,14 @@ export const i18n = {
         'pt_BR': 'Para ativar os canais da barra lateral do Facebook Gaming, a extensão precisa de permissão para buscar os streams do Facebook',
         'ru':'Чтобы включить боковую панель каналов Facebook Gaming, расширению необходимо разрешение на получение потоков с Facebook.'
     },
+    opd_fb_new_permissions_msg: {
+        'en': 'Fixed and improvements have been made on the Sidebar Facebook Gaming feature and permissions have been reset.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ru':''
+    },
     opd_allow_btn: {
         'en': 'Allow',
         'es': 'Permitir',
