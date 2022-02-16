@@ -252,7 +252,7 @@ function extractViewcountNumberFromString(str) {
 
 function fetchFBstream(stream_name) {
     return new Promise((resolve, reject) => {
-        fetch('https://mobile.facebook.com/gaming/' + stream_name + '/').then(function (response) {
+        fetch('https://m.facebook.com/gaming/' + stream_name + '/').then(function (response) {
             return response.text();
         }).then(function (data) {
             try {
