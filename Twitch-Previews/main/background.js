@@ -302,18 +302,17 @@ function fetchFBstream(stream_name) {
                     resolve(obj);
                 } else {
                     if (data.indexOf('login_upsell') > -1) {
-                        console.log('login_upsell');
                         let obj = {};
-                        obj.stream_name = 'cookies';
-                        obj.title = '"' + stream_name + '"';
+                        obj.stream_name = 'error';
+                        obj.title = 'click to see details';
                         obj.view_count_num = '-1';
                         obj.view_count = '-1';
                         obj.profile_pic_url = _browser.runtime.getURL("images/error.png");
                         obj.thumbnail_url = '';
                         obj.videoId = '';
+                        obj.fb_login_err = true;
                         resolve(obj);
                     } else {
-                        console.log("here");
                         resolve(null);
                     }
                 }
@@ -418,6 +417,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:msg.detail});
             break;
         case "bg_open_FB_stream":
+            _browser.tabs.create({url:msg.detail});
+            break;
+        case "bg_open_FB_github":
             _browser.tabs.create({url:msg.detail});
             break;
         case "bg_fScrnWithChat_started":

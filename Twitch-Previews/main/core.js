@@ -1310,11 +1310,20 @@
                                 }
                                 fb_section.classList.add('tp-fb-sidebar-section-new-permissions-error');
                             } else {
-                                navCard.href = "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId;
-                                navCard.onclick = (e) => {
-                                    e.preventDefault();
-                                    e.cancelBubble = true;
-                                    sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId});
+                                if (res.result[i].fb_login_err) {
+                                    navCard.href = null;
+                                    navCard.onclick = (e) => {
+                                        e.preventDefault();
+                                        e.cancelBubble = true;
+                                        sendMessageToBG({action: "bg_open_FB_github", detail: "https://github.com/MarkM-dev/Twitch-Previews/issues/33"});
+                                    }
+                                } else {
+                                    navCard.href = "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId;
+                                    navCard.onclick = (e) => {
+                                        e.preventDefault();
+                                        e.cancelBubble = true;
+                                        sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.facebook.com/" + res.result[i].stream_name + "/videos/" + res.result[i].videoId});
+                                    }
                                 }
                             }
 
