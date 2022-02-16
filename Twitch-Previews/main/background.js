@@ -303,6 +303,15 @@ function fetchFBstream(stream_name) {
                 } else {
                     if (data.indexOf('login_upsell') > -1) {
                         console.log('login_upsell');
+                        let obj = {};
+                        obj.stream_name = 'cookies';
+                        obj.title = '"' + stream_name + '"';
+                        obj.view_count_num = '-1';
+                        obj.view_count = '-1';
+                        obj.profile_pic_url = _browser.runtime.getURL("images/error.png");
+                        obj.thumbnail_url = '';
+                        obj.videoId = '';
+                        resolve(obj);
                     } else {
                         console.log("here");
                         resolve(null);
