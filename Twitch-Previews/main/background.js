@@ -325,7 +325,7 @@ function fetchFBstreams(fb_streamers) {
             } else {
                 let obj = {};
                 obj.stream_name = 'Feature Updated';
-                obj.title = 'click to allow';
+                obj.title = 'click to see details';
                 obj.view_count_num = '-1';
                 obj.view_count = '-1';
                 obj.profile_pic_url = _browser.runtime.getURL("images/error.png");
@@ -844,6 +844,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                         });
                     }
                 }
+            });
+            break;
+        case "show_FB_new_permission_page":
+            _browser.storage.local.set({'FB_request_new_permission': true}, function() {
+                _browser.storage.local.set({'lastFBFetch': new Date().getTime() - FB_FETCH_INTERVAL_MS}, function() {});
+                _browser.tabs.create({url: _browser.runtime.getURL("opd/opd_fb.html")});
             });
             break;
         case "check_show_permission_FB":

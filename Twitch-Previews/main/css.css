@@ -1457,3 +1457,7 @@
     position: relative;
     box-shadow: 0 0 5px 1px rgba(24,24,27,0.7);
 }
+
+.tp-fb-sidebar-section-new-permissions-error .side-nav-card__title>p {
+    color: cornflowerblue !important;
+}

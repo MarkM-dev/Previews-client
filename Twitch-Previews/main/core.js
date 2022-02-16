@@ -1303,11 +1303,13 @@
 
                             if (res.result[i].accept_new_permissions) {
                                 navCard.href = null;
+                                navCard.id = 'fb_new_permissions_card';
                                 navCard.onclick = (e) => {
                                     e.preventDefault();
                                     e.cancelBubble = true;
-
+                                    sendMessageToBG({action: "show_FB_new_permission_page", detail: ""});
                                 }
+                                fb_section.classList.add('tp-fb-sidebar-section-new-permissions-error');
                             } else {
                                 navCard.onclick = (e) => {
                                     e.preventDefault();
@@ -5161,40 +5163,41 @@
 
     _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
-        if (msg.action === "tp_open_settings") {
-            if (!isInIframe()) {
-                sendResponse({action: 'content-available'});
-                showSettings();
-            }
-        } else {
-            if (msg.action === "tp_enable_clip_downloader") {
+        switch (msg.action) {
+            case 'tp_open_settings':
+                if (!isInIframe()) {
+                    sendResponse({action: 'content-available'});
+                    showSettings();
+                }
+                break;
+            case 'tp_enable_clip_downloader':
                 sendResponse({action: 'response'});
                 settings_clipDownloader_cb_on();
-                let settingsContainer = document.getElementById('TPBodyEl');
-                if (settingsContainer) {
+                if (document.getElementById('TPBodyEl')) {
                     checkForTwitchClipsPermissions('isClipDownloaderEnabled');
                 }
-            } else {
-                if (msg.action === "tp_enable_YTsidebar") {
-                    sendResponse({action: 'response'});
-                    settings_YTsidebar_cb_on();
-                    let settingsContainer = document.getElementById('TPBodyEl');
-                    if (settingsContainer) {
-                        checkForYTPermissions('isYTsidebarEnabled');
-                    }
-                } else {
-                    if (msg.action === "tp_enable_FBsidebar") {
-                        sendResponse({action: 'response'});
-                        settings_FBsidebar_cb_on();
-                        let settingsContainer = document.getElementById('TPBodyEl');
-                        if (settingsContainer) {
-                            checkForYTPermissions('isFBsidebarEnabled');
-                        }
-                    }
+                break;
+            case 'tp_enable_YTsidebar':
+                sendResponse({action: 'response'});
+                settings_YTsidebar_cb_on();
+                if (document.getElementById('TPBodyEl')) {
+                    checkForYTPermissions('isYTsidebarEnabled');
                 }
-            }
-        }
+                break;
+            case 'tp_enable_FBsidebar':
+                sendResponse({action: 'response'});
+                settings_FBsidebar_cb_on();
+                if (document.getElementById('TPBodyEl')) {
+                    checkForFBPermissions('isFBsidebarEnabled');
+                }
+                break;
+            case 'tp_enable_FBsidebar_new_permissions':
+                sendResponse({action: 'response'});
+                setFBsidebar();
+                break;
+            default:
 
+        }
     });
 
     ///////////////////////////////////////// SETTINGS /////////////////////////////////////////
