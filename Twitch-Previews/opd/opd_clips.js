@@ -24,16 +24,7 @@ async function main() {
             origins: ['https://clips.twitch.tv/*']
         }, (granted) => {
             if (granted) {
-                try {
-                    browser.tabs.query({currentWindow: true}, function (tabs) {
-                        for (let i = 0; i < tabs.length; i++) {
-                            browser.tabs.sendMessage(tabs[i].id, {action: "tp_enable_clip_downloader"}, function (response) {
-                            });
-                        }
-                    });
-                } catch (e) {
-                    console.log(e);
-                }
+                _browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_clip_downloader"}, function(response) {});
                 closeTab();
             } else {
                 console.log("denied");

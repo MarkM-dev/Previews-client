@@ -5229,7 +5229,11 @@
                 break;
             case 'tp_enable_FBsidebar_new_permissions':
                 sendResponse({action: 'response'});
-                setFBsidebar();
+                try {
+                    window.location.replace(window.location);
+                } catch (e) {
+                    console.log(e);
+                }
                 break;
             default:
 

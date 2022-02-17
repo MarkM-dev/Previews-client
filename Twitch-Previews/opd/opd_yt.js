@@ -24,15 +24,7 @@ async function main() {
             origins: ['https://www.youtube.com/*']
         }, (granted) => {
             if (granted) {
-                try {
-                    browser.tabs.query({currentWindow: true}, function(tabs){
-                        for (let i = 0; i < tabs.length; i++) {
-                            browser.tabs.sendMessage(tabs[i].id, {action: "tp_enable_YTsidebar"}, function(response) {});
-                        }
-                    });
-                } catch (e) {
-                    console.log(e);
-                }
+                _browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_YTsidebar"}, function(response) {});
                 closeTab();
             } else {
                 console.log("denied");

@@ -67,6 +67,18 @@ let options = {
     aps_min_vote_margin_percent: 15
 };
 
+function sendMessageToTabs(action) {
+    _browser.tabs.query({currentWindow: true}, function(tabs){
+        for (let i = 0; i < tabs.length; i++) {
+            try {
+                _browser.tabs.sendMessage(tabs[i].id, {action: action}, function(response) {});
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    });
+}
+
 function handleTabUpdateForClipDownloader(tabId, changeInfo, tabInfo) {
     if (changeInfo.status && changeInfo.status === 'complete') {
         if (tabInfo.url && tabInfo.url.indexOf('https://clips.twitch.tv') > -1) {
@@ -218,6 +230,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
                     }
                 }
             })
+            _browser.storage.local.set({'lastFBFetch': new Date().getTime() - FB_FETCH_INTERVAL_MS}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
@@ -894,14 +907,18 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "show_FB_new_permission_page":
             _browser.storage.local.set({'FB_request_new_permission': true}, function() {
-                _browser.storage.local.set({'lastFBFetch': new Date().getTime() - FB_FETCH_INTERVAL_MS}, function() {});
                 _browser.tabs.create({url: _browser.runtime.getURL("opd/opd_fb.html")});
             });
             break;
         case "tp_clear_FBsidebar_cached_streams":
+            _browser.storage.local.set({'lastFBFetch': new Date().getTime() - FB_FETCH_INTERVAL_MS}, function() {});
+            lastFBFetch = new Date().getTime() - FB_FETCH_INTERVAL_MS;
             _browser.storage.local.set({'cached_fb_live_streams_arr': []}, function() {
                 sendResponse({ result: "response" });
             });
+            break;
+        case "sendMessageToTabs":
+            sendMessageToTabs(msg.detail);
             break;
         case "check_show_permission_FB":
             _browser.permissions.contains({

@@ -20,30 +20,18 @@ async function main() {
         this.close();
     }
 
-    function sendMessageToActiveTabs() {
-        try {
-            _browser.tabs.query({currentWindow: true}, function(tabs){
-                for (let i = 0; i < tabs.length; i++) {
-                    _browser.tabs.sendMessage(tabs[i].id, {action: isNewPermissions ? "tp_enable_FBsidebar_new_permissions":"tp_enable_FBsidebar"}, function(response) {});
-                }
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
         _browser.permissions.request({
             origins: ['https://*.facebook.com/*']
         }, (granted) => {
             if (granted) {
                 if (isNewPermissions) {
-                    _browser.runtime.sendMessage({'action':'tp_clear_FBsidebar_cached_streams', detail: ""}, function(response) {
-                        sendMessageToActiveTabs();
-                        closeTab();
+                    _browser.runtime.sendMessage({action:'tp_clear_FBsidebar_cached_streams', detail: ""}, function(response) {
+                    _browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_FBsidebar_new_permissions"}, function(response) {});
+                    closeTab();
                     });
                 } else {
-                    sendMessageToActiveTabs();
+                    _browser.runtime.sendMessage({action:'sendEnableFBMessageToTabs', detail: "tp_enable_FBsidebar"}, function(response) {});
                     closeTab();
                 }
             } else {
