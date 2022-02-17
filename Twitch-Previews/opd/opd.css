@@ -14,16 +14,22 @@ body {
 }
 #tp_ext_desc {
     margin-top: 35px;
+    font-size: 14px;
 }
 .tp-btn {
-    display: inline-block;
-    width: 80px;
-    border: 1px solid grey;
-    transition: all 0.2s;
-    cursor: pointer;
+    width: 135px;
+    height: 25px;
+    display: inline-flex;
+    justify-content: center;
     padding: 5px 25px;
-    border-radius: 10px;
     margin: 30px 10px 0 10px;
+    align-items: center;
+    background-color: #ffffff26;
+    cursor: pointer;
+    font-weight: bold;
+    border: 1px solid grey;
+    border-radius: 10px;
+    transition: all 0.2s;
 }
 .tp-btn:hover {
     background-color: rgba(255,255,255,0.4);
@@ -31,6 +37,9 @@ body {
 .tp-btn:active {
     background-color: rgba(255,255,255,0.2);
 }
+#tp_allow_permissions_btn {
+    background-color: #9147ff;
+}
 #tp_allow_permissions_btn:hover {
-    color: limegreen;
+    background-color: #9c60ff;
 }
