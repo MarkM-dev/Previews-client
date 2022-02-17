@@ -1840,7 +1840,7 @@ export const i18n = {
         'ru':'Chrome Cast -> Закрыть вкладку'
     },
     flashbang_defender_btn_title: {
-        'en': 'Toggle FlashBang Defender',
+        'en': 'FlashBang Defender',
         'es': 'Alternar defensor de Flashbang',
         'de': 'Flash Defender umschalten',
         'fr': 'Basculer Flash Defender',
@@ -1856,7 +1856,7 @@ export const i18n = {
         'ru':'Непрозрачность'
     },
     screenshot_btn_title: {
-        'en': 'Screenshot Stream',
+        'en': 'Screenshot',
         'es': 'Captura de pantalla',
         'de': 'Bildschirmfoto',
         'fr': 'Capture d\'écran',
@@ -1880,7 +1880,7 @@ export const i18n = {
         'ru':'Остановить запись'
     },
     pip_main_btn_title: {
-        'en': 'Start Picture In Picture',
+        'en': 'Picture In Picture',
         'es': 'Iniciar imagen en imagen',
         'de': 'Bild in Bild starten',
         'fr': 'Démarrer l\'image dans l\'image',
