@@ -898,6 +898,11 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 _browser.tabs.create({url: _browser.runtime.getURL("opd/opd_fb.html")});
             });
             break;
+        case "tp_clear_FBsidebar_cached_streams":
+            _browser.storage.local.set({'cached_fb_live_streams_arr': []}, function() {
+                sendResponse({ result: "response" });
+            });
+            break;
         case "check_show_permission_FB":
             _browser.permissions.contains({
                 origins: ['https://*.facebook.com/*']
@@ -924,7 +929,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_show_permission_YT' && msg.action !== 'check_show_permission_FB' && msg.action !== 'get_YT_live_streams' && msg.action !== 'get_FB_live_streams' && msg.action !== 'tp_settings_upgrade_db' && msg.action !== 'bg_incognito_chat_btn_click') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_show_permission_YT' && msg.action !== 'check_show_permission_FB' && msg.action !== 'tp_clear_FBsidebar_cached_streams' && msg.action !== 'get_YT_live_streams' && msg.action !== 'get_FB_live_streams' && msg.action !== 'tp_settings_upgrade_db' && msg.action !== 'bg_incognito_chat_btn_click') {
         sendResponse({ result: "any response from background" });
     }
     return true;
