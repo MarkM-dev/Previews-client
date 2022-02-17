@@ -122,6 +122,21 @@
         return window.top !== window.self && window.top.location.origin === 'https://www.twitch.tv';
     }
 
+    function createTooltip(el, position, text) {
+        el.classList.add('tp-tooltip-container');
+        let tooltip = document.createElement('span');
+        tooltip.classList.add('tp-tooltip');
+        tooltip.classList.add('tp-tooltip-pos-' + position);
+        tooltip.innerText = text;
+
+        let old_tooltip = el.querySelector('.tp-tooltip');
+        if (old_tooltip) {
+            el.replaceChild(tooltip, old_tooltip);
+        } else {
+            el.appendChild(tooltip);
+        }
+    }
+
     let sideNavMutationObserver = new MutationObserver(function(mutations) {
         if (isHovering) {
             return;
@@ -2569,12 +2584,12 @@
                 let custom_chat_btn = document.createElement('div');
                 custom_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/fScrnWithChat_custom.png') + ")";
                 custom_chat_btn.style.marginRight = "2px";
-                custom_chat_btn.title = _i18n('fScrnWithChat_custom_chat_btn_title');
+                custom_chat_btn.title = '';
 
                 let default_chat_btn = document.createElement('div');
                 default_chat_btn.style.backgroundImage = "url(" + getRuntimeUrl('../images/fScrnWithChat_default.png') + ")";
                 default_chat_btn.style.backgroundSize = "60%";
-                default_chat_btn.title = _i18n('fScrnWithChat_default_chat_btn_title');
+                default_chat_btn.title = '';
 
                 let selected_mode = '';
 
@@ -2610,9 +2625,10 @@
                     }
 
                 }
-
+                createTooltip(custom_chat_btn, 'top-left', _i18n('fScrnWithChat_custom_chat_btn_title'));
                 menu_div.appendChild(custom_chat_btn);
                 if (!isInIframe()) {
+                    createTooltip(default_chat_btn, 'top-right', _i18n('fScrnWithChat_default_chat_btn_title'));
                     menu_div.appendChild(default_chat_btn);
                 } else {
                     menu_div.style.width = '50px';
@@ -2878,7 +2894,6 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_fast_forward_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = _i18n('fast_forward_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -2894,6 +2909,7 @@
                     fastForwardFuncExec();
                 }
 
+                createTooltip(btn_container, 'lower-top', _i18n('fast_forward_btn_title'));
                 document.querySelector('.player-controls__left-control-group').children[0].after(btn_container);
             }
         } catch (e) {
@@ -2911,7 +2927,6 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_cast_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = _i18n('cast_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -2932,6 +2947,8 @@
                         sendMessageToBG({action: "bg_cast_btn_click", detail: window.location.href});
                     });
                 }
+
+                createTooltip(btn_container, 'top', _i18n('cast_btn_title'));
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
             }
         } catch (e) {
@@ -2949,7 +2966,6 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_flashBangDefender_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = _i18n('flashbang_defender_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -3015,6 +3031,8 @@
                     btn_container.before(opacitySlider);
                     sendMessageToBG({action: "bg_flashBangDefender_btn_click", detail: ""});
                 }
+
+                createTooltip(btn_container, 'top', _i18n('flashbang_defender_btn_title'));
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
             }
         } catch (e) {
@@ -3032,7 +3050,6 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_screenshot_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = _i18n('screenshot_btn_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -3062,6 +3079,9 @@
                     });
                     sendMessageToBG({action: "bg_screenshot_btn_click", detail: ""});
                 }
+
+                createTooltip(btn_container, 'top', _i18n('screenshot_btn_title'));
+
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
             }
         } catch (e) {
@@ -3080,7 +3100,6 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_record_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = _i18n('record_btn_start_title');
 
                 let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -3116,7 +3135,7 @@
                 function stopRecording() {
                     mediaRecorder.stop();
                     btn_container.style.color = 'white';
-                    btn_container.title = _i18n('record_btn_start_title');
+                    createTooltip(btn_container, 'top', _i18n('record_btn_start_title'));
                     isRecording = false;
 
                     let video = document.querySelector("video");
@@ -3146,7 +3165,7 @@
                         mediaRecorder.start();
                         isRecording = true;
                         btn_container.style.color = 'red';
-                        btn_container.title = _i18n('record_btn_stop_title');
+                        createTooltip(btn_container, 'top', _i18n('record_btn_stop_title'));
                         sendMessageToBG({action: "bg_record_btn_click", detail: ""});
                         if (videoMuted_timeoutMS) {
                             setTimeout(function () {
@@ -3160,9 +3179,11 @@
                     if (isRecording) {
                         stopRecording();
                     } else {
-                        startRecording()
+                        startRecording();
                     }
                 }
+
+                createTooltip(btn_container, 'top', _i18n('record_btn_start_title'));
                 document.querySelector('.player-controls__right-control-group').children[2].before(btn_container);
             }
         } catch (e) {
@@ -3180,7 +3201,6 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_pip_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.title = _i18n('pip_main_btn_title');
 
                 let ttv_theater_mode_btn_size = ttv_theater_mode_btn.getBoundingClientRect();
                 btn_container.style.width = (ttv_theater_mode_btn_size.width || "30") + "px";
@@ -3199,6 +3219,8 @@
                     sendMessageToBG({action: "bg_pip_main_started", detail: true});
                 }
                 btn_container.appendChild(img);
+
+                createTooltip(btn_container, 'top', _i18n('pip_main_btn_title'));
                 ttv_theater_mode_btn.parentNode.before(btn_container);
             }
         } catch (e) {
@@ -3218,7 +3240,6 @@
                     let btn_container = document.createElement('div');
                     btn_container.id = "tp_clip_download_btn";
                     btn_container.classList.add('tp-player-control');
-                    btn_container.title = _i18n('clip_download_btn_title');
 
                     let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
                     btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
@@ -3247,6 +3268,8 @@
                             alert(_i18n('clip_download_no_clip_found_alert_text'));
                         }
                     }
+
+                    createTooltip(btn_container, 'top', _i18n('clip_download_btn_title'));
                     document.querySelector('.player-controls__right-control-group').firstChild.before(btn_container);
                 }
             } catch (e) {
