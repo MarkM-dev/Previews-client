@@ -151,7 +151,11 @@
         let shouldRefresh = false;
         mutations.forEach(function(mutation) {
             if (mutation.type === "childList") {
-                shouldRefresh = true;
+                if (mutation.removedNodes[0] && (mutation.removedNodes[0].id === 'tp_navCard_vpv_btn' || mutation.removedNodes[0].id === 'tp_navCard_pip_btn' )) {
+
+                } else {
+                    shouldRefresh = true;
+                }
             }
         });
         if (shouldRefresh){
