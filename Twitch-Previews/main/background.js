@@ -195,7 +195,8 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 && details.previousVersion !== "3.4.2"
                 && details.previousVersion !== "3.4.4"
                 && details.previousVersion !== "3.4.5"
-                && details.previousVersion !== "3.4.6") {
+                && details.previousVersion !== "3.4.6"
+                && details.previousVersion !== "3.4.7") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
@@ -207,30 +208,6 @@ _browser.runtime.onInstalled.addListener(function(details) {
                     _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
                 }
             });
-
-
-            _browser.storage.local.get('fb_streamers', function(result) {
-                if (result.fb_streamers && result.fb_streamers.length > 0) {
-                    try {
-                        let shouldSave = false;
-                        let arr = result.fb_streamers;
-                        for (let i = 0; i < arr.length; i++) {
-                            if (arr[i].indexOf(',') === arr[i].length - 1) {
-                                shouldSave = true;
-                                arr[i] = arr[i].slice(0, -1);
-                            }
-                        }
-
-                        if (shouldSave) {
-                            _browser.storage.local.set({'fb_streamers': arr}, function() {});
-                            send_ga_event('fb_streamers_bg_change', 'fb_streamers_bg_change', 'fb_streamers_bg_change');
-                        }
-                    } catch (e) {
-
-                    }
-                }
-            })
-            _browser.storage.local.set({'lastFBFetch': new Date().getTime() - FB_FETCH_INTERVAL_MS}, function() {});
 
            /* if (details.previousVersion === "1.5.1.6") {
                 _browser.tabs.create({url:"../popups/updatePopup.html"});
@@ -722,13 +699,13 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             removeListenersForClipDownloader();
             break;
         case "get_YT_live_streams":
-            if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
                 _browser.storage.local.get('lastYTFetch', function(result) {
                     if (result.lastYTFetch) {
                         lastYTFetch = result.lastYTFetch;
                     }
-                    if (new Date().getTime() - lastYTFetch >= YT_FETCH_INTERVAL_MS - 500) {
-                        lastYTFetch = new Date().getTime();
+                    let now = new Date().getTime();
+                    if (now - lastYTFetch >= YT_FETCH_INTERVAL_MS) {
+                        lastYTFetch = now;
                         _browser.storage.local.set({'lastYTFetch': lastYTFetch}, function() {
                             cached_yt_live_streams_arr = [];
 
@@ -802,24 +779,15 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                         })
                     }
                 });
-            } else {
-                _browser.storage.local.get('cached_yt_live_streams_arr', function(result) {
-                    if (result.cached_yt_live_streams_arr) {
-                        sendResponse({ result: result.cached_yt_live_streams_arr });
-                    } else {
-                        sendResponse({ result: cached_yt_live_streams_arr });
-                    }
-                })
-            }
             break;
         case "get_FB_live_streams":
-            if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
                 _browser.storage.local.get('lastFBFetch', function(result) {
                     if (result.lastFBFetch) {
                         lastFBFetch = result.lastFBFetch;
                     }
-                    if (new Date().getTime() - lastFBFetch >= FB_FETCH_INTERVAL_MS - 500 || msg.detail.nocache) {
-                        lastFBFetch = new Date().getTime();
+                    let now = new Date().getTime();
+                    if (now - lastFBFetch >= FB_FETCH_INTERVAL_MS || msg.detail.nocache) {
+                        lastFBFetch = now;
                         _browser.storage.local.set({'lastFBFetch': lastFBFetch}, function() {
                             cached_fb_live_streams_arr = [];
                             _browser.storage.local.get('fb_streamers', function(result) {
@@ -847,15 +815,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                         })
                     }
                 });
-            } else {
-                _browser.storage.local.get('cached_fb_live_streams_arr', function(result) {
-                    if (result.cached_fb_live_streams_arr) {
-                        sendResponse({ result: result.cached_fb_live_streams_arr });
-                    } else {
-                        sendResponse({ result: cached_fb_live_streams_arr });
-                    }
-                })
-            }
             break;
         case "check_permission_clip.twitch.tv":
             _browser.permissions.contains({
