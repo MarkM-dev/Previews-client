@@ -5127,7 +5127,7 @@
             }
         }
 
-        function sidebarExpandBtnClick(e) {
+        /*function sidebarExpandBtnClick(e) {
             if (options.isSidebarFavoritesEnabled) {
                 setSidebarFavorites();
             }
@@ -5140,7 +5140,7 @@
             }
 
             document.querySelector('.collapse-toggle').removeEventListener('click', sidebarExpandBtnClick);
-        }
+        }*/
 
         if (options.isSidebarHideSectionsEnabled) {
             setTimeout(function () {
@@ -5154,11 +5154,11 @@
                 setSideNavMutationObserver();
                 setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
                 appendFavoritesBtn();
-                if (!isFromTitleObserver) {
+                /*if (!isFromTitleObserver) {
                     if (isNavBarCollapsed) {
                         document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
                     }
-                }
+                }*/
             }, 2000)
         }
 
@@ -5167,11 +5167,11 @@
                 setYTsidebar();
                 setSideNavMutationObserver();
                 setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
-                if (!isFromTitleObserver) {
+                /*if (!isFromTitleObserver) {
                     if (isNavBarCollapsed) {
                         document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
                     }
-                }
+                }*/
             }, 2500)
         }
 
@@ -5180,7 +5180,7 @@
                 setFBsidebar();
                 setSideNavMutationObserver();
                 setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
-                if (!isFromTitleObserver) {
+                /*if (!isFromTitleObserver) {
                     if (isNavBarCollapsed) {
                         try {
                             document.querySelector('.collapse-toggle').addEventListener('click', sidebarExpandBtnClick);
@@ -5188,7 +5188,7 @@
 
                         }
                     }
-                }
+                }*/
             }, 2500)
         }
 
