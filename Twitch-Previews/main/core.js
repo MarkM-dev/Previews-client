@@ -1225,7 +1225,7 @@
             if(!isExperimentalSidebar) {
                 if (!yt_section.children[1].firstChild && !isNavBarCollapsed) {
                     let div = document.createElement('div');
-                    div.innerText = 'No live youtubers';
+                    div.innerText = _i18n('sidebar_favorite_no_live_youtubers');
                     div.style.padding = '0px 10px 5px 10px';
                     div.style.color = 'grey';
                     yt_section.children[1].appendChild(div);
@@ -1358,7 +1358,7 @@
             if(!isExperimentalSidebar) {
                 if (!fb_section.children[1].firstChild && !isNavBarCollapsed) {
                     let div = document.createElement('div');
-                    div.innerText = 'No live FB Gaming streamers';
+                    div.innerText = _i18n('sidebar_favorite_no_live_FB_gaming_streamers');
                     div.style.padding = '0px 10px 5px 10px';
                     div.style.color = 'grey';
                     fb_section.children[1].appendChild(div);

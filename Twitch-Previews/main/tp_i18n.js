@@ -721,6 +721,15 @@ export const i18n = {
         'ko': '페이스북 스트리머의 이름을 공백 또는 쉼표로 구분해 입력하세요.\n(페이스북 페이지의 URL에서 이름 복사)',
         'ru':'Введите имена стримеров Facebook, разделенные пробелами или запятыми.\n(скопируйте их имена из адресной строки URL их страницы в Facebook)'
     },
+    settings_feature_fb_streamers_popup_err_text: {
+        'en': 'No spaces or links',
+        'es': 'sin espacios ni URL',
+        'de': 'ohne Leerzeichen oder URLs',
+        'fr': 'sans espaces ni URL',
+        'pt_BR': 'sem espaços ou URLs',
+        'ko': 'No spaces or links',
+        'ru':'без пробелов или URL'
+    },
     settings_feature_isSidebarExtendEnabled: {
         'en': 'Auto Extend Sidebar (show more)',
         'es': 'Extender automáticamente la barra lateral',
@@ -1804,7 +1813,7 @@ export const i18n = {
         'de': 'Twitch Previews Aktualisiert!',
         'fr': 'Twitch Previews mis à jour!',
         'pt_BR': 'Twitch Previews atualizado!',
-        'ko': '트위치 프리뷰 업데이트!',
+        'ko': 'Twitch Previews 업데이트!',
         'ru':'Twitch Previews обновлено!'
     },
     update_toast_rate_line_text: {
@@ -1995,6 +2004,24 @@ export const i18n = {
         'pt_BR': 'Nenhum canal favorito ao vivo',
         'ko': '방송 중이지 않은 즐겨찾기',
         'ru':'Нет любимых каналов в прямом эфире'
+    },
+    sidebar_favorite_no_live_youtubers: {
+        'en': 'No live youtubers',
+        'es': 'No hay youtubers actualmente vivos',
+        'de': 'Keine derzeit aktiven YouTuber',
+        'fr': 'Aucun youtubeur actuellement en ligne',
+        'pt_BR': 'Nenhum youtuber atualmente ao vivo',
+        'ko': '',
+        'ru':'Нет активных ютуберов'
+    },
+    sidebar_favorite_no_live_FB_gaming_streamers: {
+        'en': 'No live FB Gaming streamers',
+        'es': 'No hay streamers de FB Gaming actualmente en vivo',
+        'de': 'Keine derzeit aktiven FB Gaming-Streamer',
+        'fr': 'Aucun streamer FB Gaming actuellement en direct',
+        'pt_BR': 'Nenhum streamer do FB Gaming atualmente ao vivo',
+        'ko': '',
+        'ru':'Нет активных стримеров FB Gaming'
     },
     sidebar_search_input_placeholder: {
         'en': 'Search Streamer',
