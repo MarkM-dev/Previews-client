@@ -718,7 +718,7 @@ export const i18n = {
         'de': 'Geben Sie die Namen der Facebook-Streamer getrennt durch Leerzeichen oder Kommas ein\n(kopieren Sie ihre Namen aus der Adressleisten-URL ihrer Facebook-Seite)',
         'fr': 'Entrez les noms des streamers Facebook séparés par des espaces ou des virgules\n(copiez leurs noms depuis l\'URL de la barre d\'adresse de leur page Facebook)',
         'pt_BR': 'Digite os nomes dos streamers do Facebook separados por espaços ou vírgulas\n(copie seus nomes do URL da barra de endereço de sua página do Facebook)',
-        'ko': '페이스북 스트리머의 이름을 공백 또는 쉼표로 구분해 입력하세요.\\n(페이스북 페이지의 URL에서 이름 복사)',
+        'ko': '페이스북 스트리머의 이름을 공백 또는 쉼표로 구분해 입력하세요.\n(페이스북 페이지의 URL에서 이름 복사)',
         'ru':'Введите имена стримеров Facebook, разделенные пробелами или запятыми.\n(скопируйте их имена из адресной строки URL их страницы в Facebook)'
     },
     settings_feature_isSidebarExtendEnabled: {
