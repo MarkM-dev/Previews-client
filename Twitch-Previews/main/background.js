@@ -348,6 +348,18 @@ function fetchFBstream(stream_name) {
     });
 }
 
+function randomIntBetweenTwoNumbers(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function waitPromise() {
+    return new Promise(async (resolve, reject) => {
+        setTimeout(function () {
+            resolve('done');
+        }, randomIntBetweenTwoNumbers(500, 1100));
+    });
+}
+
 function fetchFBstreams(fb_streamers) {
     return new Promise(async (resolve, reject) => {
         let arr = [];
@@ -360,6 +372,7 @@ function fetchFBstreams(fb_streamers) {
                     if (obj) {
                         arr.push(obj);
                     }
+                    await waitPromise();
                 }
             } else {
                 let obj = {};
