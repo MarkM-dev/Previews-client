@@ -101,7 +101,7 @@ export const i18n = {
             'Vérifiez les fonctionnalités dans le menu des paramètres ci-dessous',
         'pt_BR': 'Yay! você acabou de adicionar Twitch Previews! sua experiência no Twitch está prestes a ficar muito mais fácil :)\n' +
             'Verifique os recursos no menu de configurações abaixo',
-        'ko': 'Wa! 트위치 프리뷰를 받아주셨군요! 더 멋진 트수 생활을 즐길 수 있게 되었어요! :)\n' +
+        'ko': 'Wa! Twitch Previews를 받아주셨군요! 더 멋진 트수 생활을 즐길 수 있게 되었어요! :)\n' +
             '아래의 설정 메뉴에서 기능을 확인해보세요.',
         'ru':'Ура! вы только что добавили Twitch Previews! Ваш опыт Twitch станет намного проще :)\n' +
             'Проверьте функции в меню настроек ниже'
@@ -1876,7 +1876,7 @@ export const i18n = {
         'de': 'Genießen Sie Twitch Previews?',
         'fr': 'Vous aimez Twitch Previews?',
         'pt_BR': 'Gostando de Twitch Previews?',
-        'ko': '트위치 프리뷰를 잘 쓰고 계신가요?',
+        'ko': 'Twitch Previews를 잘 쓰고 계신가요?',
         'ru':'Нравится Twitch Previews?'
     },
     delayed_rate_toast_body: {
@@ -2669,7 +2669,7 @@ export const i18n = {
         'de': 'Twitch Previews:\nFehler: Chromecast-Button nicht gefunden',
         'fr': 'Twitch Previews:\nErreur : n\'a pas trouvé le bouton Chromecast',
         'pt_BR': 'Twitch Previews:\nErro: botão Chromecast não encontrado',
-        'ko': '트위치 프리뷰:\n에러: 크롬캐스트 버튼을 찾을 수 없어요.',
+        'ko': 'Twitch Previews:\n에러: 크롬캐스트 버튼을 찾을 수 없어요.',
         'ru':'Twitch Previews:\nОшибка: не удалось найти кнопку Chromecast'
     }
 }
