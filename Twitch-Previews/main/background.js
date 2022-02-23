@@ -204,6 +204,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 if (navigator_lang === 'ko' || navigator_lang === 'ko-KR' || navigator_lang === 'ko_KR') {
                     _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
                     _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+                    _browser.storage.local.set({'shouldShowUpdatePopup': false}, function() {});
                     new_db_container_obj.upgraded_options.selected_lang = navigator_lang;
                     new_db_container_obj.bSetToStorage = true;
                 }
