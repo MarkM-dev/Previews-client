@@ -196,15 +196,13 @@ _browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
+            let navigator_lang = getNavigatorLangSelection();
+
             _browser.storage.local.get('tp_options', function(result) {
                 // upgrade db.
                 let new_db_container_obj = upgradeDB(result.tp_options);
 
-                let navigator_lang = getNavigatorLangSelection();
-                if (navigator_lang === 'ko' || navigator_lang === 'ko-KR' || navigator_lang === 'ko_KR') {
-                    _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
-                    _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
-                    _browser.storage.local.set({'shouldShowUpdatePopup': false}, function() {});
+                if (navigator_lang === 'ko') {
                     new_db_container_obj.upgraded_options.selected_lang = navigator_lang;
                     new_db_container_obj.bSetToStorage = true;
                 }
@@ -229,6 +227,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
             }
 
+            if (navigator_lang === 'ko') {
+                _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
+                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+                _browser.storage.local.set({'shouldShowUpdatePopup': false}, function() {});
+            }
 
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (!result.tpInstallTime) {
