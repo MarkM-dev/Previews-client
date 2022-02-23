@@ -1822,7 +1822,7 @@ export const i18n = {
         'de': 'Außerdem würden wir uns freuen, wenn Sie die Erweiterung im Webstore bewerten, falls Sie dies noch nicht getan haben :)',
         'fr': 'De plus, si vous ne l\'avez pas déjà fait, nous serions ravis que vous évaluiez l\'extension sur la boutique en ligne :)',
         'pt_BR': 'Além disso, se ainda não o fez, adoraríamos se você classificasse a extensão na loja on-line :)',
-        'ko': '아직 평가하지 않으셨다면 웹 스토어에서 확장 등급을 매겨주세요(기왕이면 만점!). :)',
+        'ko': '아직 평가하지 않으셨다면 웹 스토어에서 확장 등급을 매겨주세요 :)',
         'ru':'Кроме того, если вы еще этого не сделали, мы были бы рады, если бы вы оценили расширение в интернет-магазине :)'
     },
     update_toast_rate: {
@@ -1887,6 +1887,24 @@ export const i18n = {
         'pt_BR': 'Adoraríamos se você classificasse a extensão na loja da web :)',
         'ko': '웹 스토어에서 프로그램을 평가해주세요. :)',
         'ru':'Нам бы очень понравилось, если бы вы оценили расширение в интернет-магазине :)'
+    },
+    new_lang_toast_title: {
+        'en': 'New language: Korean!',
+        'es': 'New language: Korean!',
+        'de': 'New language: Korean!',
+        'fr': 'New language: Korean!',
+        'pt_BR': 'New language: Korean!',
+        'ko': '새로운 언어: 한국어!',
+        'ru':'New language: Korean!'
+    },
+    new_lang_toast_body: {
+        'en': 'Translations to Korean were made thanks to <"YOUR NAME/NICKNAME" or "an anonymous member">.',
+        'es': ' ',
+        'de': ' ',
+        'fr': ' ',
+        'pt_BR': ' ',
+        'ko': 'Translations to Korean were made thanks to <"YOUR NAME/NICKNAME" or "an anonymous member">.',
+        'ru':' '
     },
     delayed_rate_toast_close: {
         'en': 'Close & Don\'t show again',

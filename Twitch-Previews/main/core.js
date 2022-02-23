@@ -4685,10 +4685,10 @@
         }
     }
 
-    function showToast(toast_body, storageFlagName, isDelayedRateToast) {
+    function showToast(toast_body, storageFlagName, toastType) {
         let toast_show_time;
         let hideClass = '';
-        let toastType = isDelayedRateToast ? 'delayedRateToast':'updateToast';
+        //let toastType = 'delayedRateToast','updateToast','newLangToast';
 
         function remove_toast(updateToast) {
             updateToast.remove();
@@ -4697,7 +4697,7 @@
         let updateToast = document.createElement("div");
         updateToast.id = "tp_updateToast";
         updateToast.classList.add("tp_update_toast");
-        if (isDelayedRateToast) {
+        if (toastType === 'delayedRateToast') {
             hideClass = 'class="tp_display_none"';
             updateToast.classList.add("tp_update_toast_delayedRate");
         }
@@ -4734,7 +4734,7 @@
     "                                </svg>\n" +
     "                            </div>" +
             "            </div>\n" +
-            "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (isDelayedRateToast ? _i18n('delayed_rate_toast_close'):_i18n('update_toast_close')) + "</div>\n" +
+            "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (toastType === 'delayedRateToast' ? _i18n('delayed_rate_toast_close'):_i18n('update_toast_close')) + "</div>\n" +
             "        </div>";
 
         updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
@@ -4746,7 +4746,7 @@
             sendMessageToBG({action: "bg_show_share", detail: ""});
         };
 
-        if (isDelayedRateToast) {
+        if (toastType === 'delayedRateToast') {
             updateToast.querySelector('#tp_updateToast_settings_btn').style.display = 'none';
         } else {
             updateToast.querySelector('#tp_updateToast_contact_btn').style.display = 'none';
@@ -4810,6 +4810,14 @@
             +  "       <div style=\"font-size: 13px;margin-top: 10px;color: white;\" >" + _i18n('delayed_rate_toast_body') + "</div>";
     }
 
+    function getNewLangToastBody() {
+        return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >"+ _i18n('new_lang_toast_title') +"</strong>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >" + _i18n('new_lang_toast_body') + "</span>"
+            +  "       </div>"
+            +  "    </br>";
+    }
+
     function getUpdateToastBody() {
         let ffclass = isFirefox ? 'class="tp_display_none"':'';
         let cclass = isFirefox ? '':'class="tp_display_none"';
@@ -4830,7 +4838,7 @@
     function showUpdateToast() {
         _browser.storage.local.get('shouldShowUpdatePopup', function(result) {
             if (result.shouldShowUpdatePopup) {
-                showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
+                showToast(getUpdateToastBody(), 'shouldShowUpdatePopup', 'updateToast');
             }
         });
     }
@@ -4844,7 +4852,7 @@
                             setTimeout(function () {
                                 _browser.storage.local.get('shouldShowDelayedRateToast', function(result) {
                                     if (result.shouldShowDelayedRateToast) {
-                                        showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', true);
+                                        showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', 'delayedRateToast');
                                         _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {
 
                                         });
@@ -4854,6 +4862,23 @@
                         }
                     }
                 })
+            }
+        });
+    }
+
+    function check_shouldShowNewLangToast() {
+        _browser.storage.local.get('shouldShowNewLangToast', function(result) {
+            if (result.shouldShowNewLangToast) {
+                setTimeout(function () {
+                    _browser.storage.local.get('shouldShowNewLangToast', function(result) {
+                        if (result.shouldShowNewLangToast) {
+                            showToast(getNewLangToastBody(), 'shouldShowNewLangToast', 'newLangToast');
+                            _browser.storage.local.set({'shouldShowNewLangToast': false}, function() {
+
+                            });
+                        }
+                    });
+                }, 10000)
             }
         });
     }
@@ -5437,7 +5462,7 @@
             sendMessageToBG({action: 'bg_' + name +'_btn_click', detail: ""});
             if (name === "changelog") {
                 if (!document.getElementById('tp_updateToast')) {
-                    showToast(getUpdateToastBody(), 'shouldShowUpdatePopup');
+                    showToast(getUpdateToastBody(), 'shouldShowUpdatePopup', 'updateToast');
                 } else {
                     document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
                 }
@@ -6146,6 +6171,7 @@
         check_multistream_start();
         check_cast_start();
         check_shouldShowDelayedRateToast();
+        check_shouldShowNewLangToast();
     }
 
 })();

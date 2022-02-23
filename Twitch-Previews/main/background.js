@@ -199,6 +199,15 @@ _browser.runtime.onInstalled.addListener(function(details) {
             _browser.storage.local.get('tp_options', function(result) {
                 // upgrade db.
                 let new_db_container_obj = upgradeDB(result.tp_options);
+
+                let navigator_lang = getNavigatorLangSelection();
+                if (navigator_lang === 'ko' || navigator_lang === 'ko-KR' || navigator_lang === 'ko_KR') {
+                    _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
+                    _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+                    new_db_container_obj.upgraded_options.selected_lang = navigator_lang;
+                    new_db_container_obj.bSetToStorage = true;
+                }
+
                 if (new_db_container_obj.bSetToStorage) {
                     _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
 
@@ -215,9 +224,9 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 && details.previousVersion !== "3.4.7"
                 && details.previousVersion !== "3.4.8") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
             }
-            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
 
 
             _browser.storage.local.get('tpInstallTime', function(result) {
@@ -635,6 +644,31 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "delayedRateToast_translate_btn_click":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('delayedRateToast', 'delayedRateToast_translate_btn_click', 'delayedRateToast_translate_btn_click');
+            break;
+        case "newLangToast":
+            send_ga_event('newLangToast_dismiss', 'dismiss', msg.detail);
+            break;
+        case "newLangToast_rate_btn_click":
+            send_ga_event('newLangToast', 'newLangToast_rate_btn_click', 'newLangToast_rate_btn_click');
+            break;
+        case "newLangToast_donate_btn_click":
+            send_ga_event('newLangToast', 'newLangToast_donate_btn_click', 'newLangToast_donate_btn_click');
+            break;
+        case "newLangToast_donate_bitcoin_btn_click":
+            send_ga_event('newLangToast', 'newLangToast_donate_bitcoin_btn_click', 'newLangToast_donate_bitcoin_btn_click');
+            break;
+        case "newLangToast_share_btn_click":
+            send_ga_event('newLangToast', 'newLangToast_share_btn_click', 'newLangToast_share_btn_click');
+            break;
+        case "newLangToast_settings_btn_click":
+            send_ga_event('newLangToast', 'newLangToast_settings_btn_click', 'newLangToast_settings_btn_click');
+            break;
+        case "newLangToast_translate_btn_click":
+            _browser.tabs.create({url:msg.detail});
+            send_ga_event('newLangToast', 'newLangToast_translate_btn_click', 'newLangToast_translate_btn_click');
+            break;
+        case "newLangToast_settings_top_btn_click":
+            send_ga_event('newLangToast', 'newLangToast_settings_top_btn_click', 'newLangToast_settings_top_btn_click');
             break;
         case "bg_translate_infoDiv":
             _browser.tabs.create({url:msg.detail});
