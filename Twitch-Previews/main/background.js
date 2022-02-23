@@ -131,7 +131,11 @@ function getNavigatorLangSelection() {
             return 'es';
         case 'es-ES':
             return 'es';
+        case 'es_ES':
+            return 'es';
         case 'fr':
+            return 'fr';
+        case 'fr-FR':
             return 'fr';
         case 'fr_FR':
             return 'fr';
@@ -139,13 +143,21 @@ function getNavigatorLangSelection() {
             return 'de';
         case 'de-DE':
             return 'de';
+        case 'de_DE':
+            return 'de';
+        case 'pt-BR':
+            return 'pt_BR';
         case 'pt_BR':
             return 'pt_BR';
         case 'ko':
             return 'ko';
+        case 'ko-KR':
+            return 'ko';
         case 'ko_KR':
             return 'ko';
         case 'ru':
+            return 'ru';
+        case 'ru-RU':
             return 'ru';
         case 'ru_RU':
             return 'ru';
