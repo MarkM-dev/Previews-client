@@ -4,11 +4,11 @@
     "description": "Extension name."
   },
   "appDesc": {
-    "message": "Live previews when hovering over streams on twitch | A bunch of quality of life improvement features to twitch.",
+    "message": "마우스를 이용한 방송 미리 보기 | 기타 다양한 트수 생활 보조 기능.",
     "description": "Extension description."
   },
   "translateStr": {
-    "message": "Translate",
+    "message": "번역",
     "description": "Translate Button text."
   }
 }
