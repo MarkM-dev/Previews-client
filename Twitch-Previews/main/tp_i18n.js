@@ -139,7 +139,7 @@ export const i18n = {
         'de': '* Übersetzungen wurden mit Google Translate erstellt, Kontaktieren Sie uns, wenn Sie helfen möchten, die Übersetzungen in Ihrer Sprache genauer zu machen.',
         'fr': '* les traductions ont été faites à l\'aide de Google Translate, Contactez-nous si vous souhaitez aider à rendre les traductions plus précises dans votre langue.',
         'pt_BR': '* traduções foram feitas usando o Google Translate, Contacte-nos se quiser ajudar a tornar as traduções mais precisas no seu idioma.',
-        'ko': '',
+        'ko': '* 트위치-레알트루가 번역했어요. 수정이나 추가 사항이 있다고 생각하면 우리에게 문의해주세요.',
         'ru':'* перевод выполнен с использованием Google Translate, Свяжитесь с нами, если вы хотите помочь сделать переводы на вашем языке более точными.'
     },
     settings_feature_subtext_shows_in_player_controls: {
@@ -727,7 +727,7 @@ export const i18n = {
         'de': 'ohne Leerzeichen oder URLs',
         'fr': 'sans espaces ni URL',
         'pt_BR': 'sem espaços ou URLs',
-        'ko': 'No spaces or links',
+        'ko': '띄어쓰기나 링크는 안돼요',
         'ru':'без пробелов или URL'
     },
     settings_feature_isSidebarExtendEnabled: {
@@ -1898,12 +1898,12 @@ export const i18n = {
         'ru':'New language: Korean!'
     },
     new_lang_toast_body: {
-        'en': 'Translations to Korean were made thanks to <"YOUR NAME/NICKNAME" or "an anonymous member">.',
+        'en': 'Translations to Korean were made thanks to 레알트루!',
         'es': ' ',
         'de': ' ',
         'fr': ' ',
         'pt_BR': ' ',
-        'ko': 'Translations to Korean were made thanks to <"YOUR NAME/NICKNAME" or "an anonymous member">.',
+        'ko': '트위치-레알트루가 번역했어요. 수정이나 추가 사항이 있다고 생각하면 우리에게 문의해주세요.',
         'ru':' '
     },
     delayed_rate_toast_close: {
@@ -2029,7 +2029,7 @@ export const i18n = {
         'de': 'Keine derzeit aktiven YouTuber',
         'fr': 'Aucun youtubeur actuellement en ligne',
         'pt_BR': 'Nenhum youtuber atualmente ao vivo',
-        'ko': '',
+        'ko': '방송 중인 유튜버가 없어요',
         'ru':'Нет активных ютуберов'
     },
     sidebar_favorite_no_live_FB_gaming_streamers: {
@@ -2038,7 +2038,7 @@ export const i18n = {
         'de': 'Keine derzeit aktiven FB Gaming-Streamer',
         'fr': 'Aucun streamer FB Gaming actuellement en direct',
         'pt_BR': 'Nenhum streamer do FB Gaming atualmente ao vivo',
-        'ko': '',
+        'ko': '방송 중인 페이스북 게이밍 스트리머가 없어요',
         'ru':'Нет активных стримеров FB Gaming'
     },
     sidebar_search_input_placeholder: {
