@@ -4707,7 +4707,7 @@
         updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
             "            <div>" +
             "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"25\" height=\"25\" title=\"" + geti18nMessage('translateStr') + "\" />\n" +
-            "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"25\" height=\"25\" title=\"Settings\" />\n" +
+            "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"25\" height=\"25\" title=\"" + _i18n('update_toast_settings') + "\" />\n" +
             "               <span " + hideClass + " id='tp_updateToast_dismiss_top_btn' >X</span>\n" +
             "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
             "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >" + _i18n('update_toast_rate_line_text') + "</div>\n" +
