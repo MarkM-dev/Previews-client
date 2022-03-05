@@ -196,16 +196,16 @@ _browser.runtime.onInstalled.addListener(function(details) {
     } else {
         if (details.reason === "update") {
 
-            let navigator_lang = getNavigatorLangSelection();
+            //let navigator_lang = getNavigatorLangSelection();
 
             _browser.storage.local.get('tp_options', function(result) {
                 // upgrade db.
                 let new_db_container_obj = upgradeDB(result.tp_options);
 
-                if (navigator_lang === 'ko') {
+                /*if (navigator_lang === 'ko') {
                     new_db_container_obj.upgraded_options.selected_lang = navigator_lang;
                     new_db_container_obj.bSetToStorage = true;
-                }
+                }*/
 
                 if (new_db_container_obj.bSetToStorage) {
                     _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
@@ -221,17 +221,18 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 && details.previousVersion !== "3.4.5"
                 && details.previousVersion !== "3.4.6"
                 && details.previousVersion !== "3.4.7"
-                && details.previousVersion !== "3.4.8") {
+                && details.previousVersion !== "3.4.8"
+                && details.previousVersion !== "3.5") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
             }
 
-            if (navigator_lang === 'ko') {
+           /* if (navigator_lang === 'ko') {
                 _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
                 _browser.storage.local.set({'shouldShowUpdatePopup': false}, function() {});
-            }
+            }*/
 
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (!result.tpInstallTime) {
