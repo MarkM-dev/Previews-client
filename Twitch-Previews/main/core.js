@@ -978,6 +978,10 @@
     }
 
     function setDragAngDropListeners(navCardEl) {
+        if(!isStreamerOnline(navCardEl)) {
+            return;
+        }
+
         navCardEl.draggable = "true";
         navCardEl.ondragstart = function (e) {
             let data = {};
@@ -1003,8 +1007,8 @@
             let navCards = getSidebarNavCards();
             for (let i = 0; i < navCards.length; i++) {
                 navCards[i].lastImageLoadTimeStamp = new Date().getTime();
-                setDragAngDropListeners(navCards[i]);
                 setMouseOverListeners(navCards[i]);
+                setDragAngDropListeners(navCards[i]);
             }
         }
     }
