@@ -339,7 +339,7 @@
         createMultiStreamBox((e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false, false, e.target.yt_videoId, e.target.fb_videoId);
         removePipBtn();
         removeVidPreviewVolBtn();
-        sendMessageToBG({action: "bg_pip_started", detail: ""});
+        sendMessageToBG({action: "bg_pip_started", detail: "click"});
     }
 
     function getElementOffset(el) {
@@ -955,11 +955,55 @@
         return navCards;
     }
 
+    function appendDragAndDrop_DropDivOverlay() {
+        let drop_div = document.createElement('div');
+        drop_div.id = 'tp_drag_and_drop_target_overlay';
+        drop_div.classList.add('tp-drag-and-drop-target-overlay');
+        if (!isNavBarCollapsed) {
+            drop_div.classList.add('tp-drag-and-drop-target-overlay-sidebar-expanded');
+        }
+
+        drop_div.ondrop = function (e) {
+            e.preventDefault();
+            let data = JSON.parse(e.dataTransfer.getData("tp_data"));
+            createMultiStreamBox(data.streamName, true, false, false, false, data.yt_videoId, data.fb_videoId);
+            sendMessageToBG({action: "bg_pip_started", detail: "drag"});
+        }
+
+        drop_div.ondragover = function (e) {
+            e.preventDefault();
+        }
+
+        document.querySelector('main').appendChild(drop_div);
+    }
+
+    function setDragAngDropListeners(navCardEl) {
+        navCardEl.draggable = "true";
+        navCardEl.ondragstart = function (e) {
+            let data = {};
+            data.streamName = (e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+            data.yt_videoId = e.target.yt_videoId;
+            data.fb_videoId = e.target.fb_videoId;
+            e.dataTransfer.setData("tp_data", JSON.stringify(data));
+
+            appendDragAndDrop_DropDivOverlay();
+
+            clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+        };
+
+        navCardEl.ondragend = function (e) {
+            setTimeout(function () {
+                clearExistingPreviewDivs('tp-drag-and-drop-target-overlay');
+            }, 1);
+        };
+    }
+
     function refreshNavCardsListAndListeners() {
         if (document.getElementById('sideNav')) {
             let navCards = getSidebarNavCards();
             for (let i = 0; i < navCards.length; i++) {
                 navCards[i].lastImageLoadTimeStamp = new Date().getTime();
+                setDragAngDropListeners(navCards[i]);
                 setMouseOverListeners(navCards[i]);
             }
         }

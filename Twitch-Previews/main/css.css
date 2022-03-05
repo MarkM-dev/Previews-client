@@ -1542,3 +1542,20 @@
     right: 100%;
     border-color: transparent #fff transparent transparent;
 }
+
+.tp-drag-and-drop-target-overlay {
+    position: fixed;
+    margin-top: 2px;
+    width: calc(100% - 5rem - 2px);
+    height: calc(100% - 5rem - 2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 999999;
+    border: 2px dashed white;
+}
+
+.tp-drag-and-drop-target-overlay-sidebar-expanded {
+    width: calc(100% - 24rem - 2px);
+}

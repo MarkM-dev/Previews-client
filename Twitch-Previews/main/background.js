@@ -601,7 +601,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('APS_s_secondsBefore', 'change', msg.detail + "s");
             break;
         case "bg_pip_started":
-            send_ga_event('pip_started', 'pip_started', 'pip_started');
+            send_ga_event('pip_started', 'pip_started', msg.detail);
             break;
         case "bg_pip_main_started":
             send_ga_event('pip_main_started', 'pip_main_started', 'pip_main_started');
