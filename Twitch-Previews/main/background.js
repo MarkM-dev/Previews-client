@@ -214,19 +214,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-            if (details.previousVersion !== "3.4"
-                && details.previousVersion !== "3.4.1"
-                && details.previousVersion !== "3.4.2"
-                && details.previousVersion !== "3.4.4"
-                && details.previousVersion !== "3.4.5"
-                && details.previousVersion !== "3.4.6"
-                && details.previousVersion !== "3.4.7"
-                && details.previousVersion !== "3.4.8"
-                && details.previousVersion !== "3.5") {
-                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
-            }
+
+            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+
 
            /* if (navigator_lang === 'ko') {
                 _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
