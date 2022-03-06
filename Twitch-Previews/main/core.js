@@ -4867,17 +4867,15 @@
     }
 
     function getUpdateToastBody() {
-        let ffclass = isFirefox ? 'class="tp_display_none"':'';
-        let cclass = isFirefox ? '':'class="tp_display_none"';
+        //let ffclass = isFirefox ? 'class="tp_display_none"':'';
+        //let cclass = isFirefox ? '':'class="tp_display_none"';
         return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" "+ ffclass +" ><strong style='color: #2cff95;' >- Sidebar Facebook Channels! " +
-                                '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="20px" width="20px" style="color: whitesmoke;margin-bottom: -5px;" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M13 19.938A8.001 8.001 0 0 0 12 4a8 8 0 0 0-1 15.938V14H9v-2h2v-1.654c0-1.337.14-1.822.4-2.311A2.726 2.726 0 0 1 12.536 6.9c.382-.205.857-.328 1.687-.381.329-.021.755.005 1.278.08v1.9H15c-.917 0-1.296.043-1.522.164a.727.727 0 0 0-.314.314c-.12.226-.164.45-.164 1.368V12h2.5l-.5 2h-2v5.938zM12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path></g></svg>' +
-                            "</strong>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Enable the feature in the settings and click on the edit button to add Facebook streamers to the list.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Supported by the Custom Picture-In-Picture and Multi-Stream features so you can use the Multi-Stream cross-platform.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- You don\'t need to be logged in on facebook.</span>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Sidebar Drag & Drop Video Embeds!</strong>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Drag & Drop streamers from the sidebar onto the page to add as a video embed.</span>"
+            +  "             <br><span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Very convenient when the sidebar is closed, no need to scroll and open the sidebar to click the squares video embed button.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Supported by the YouTube & Facebook sidebar features.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: Must have the 'Sidebar Previews' feature enabled.</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "       </div>"
             +  "    </br>"
