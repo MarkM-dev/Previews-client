@@ -1246,11 +1246,20 @@
                             navCard.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').title = streamers_arr[i].title;
                         }
 
-                        let profile_pic = document.createElement('img');
+                        /*let profile_pic = document.createElement('img');
                         profile_pic.classList = navCard.querySelector('img.tw-image-avatar').classList;
                         profile_pic.alt = streamers_arr[i].stream_name;
                         profile_pic.src = streamers_arr[i].profile_pic_url;
                         navCard.querySelector('img.tw-image-avatar').parentNode.append(profile_pic);
+                        navCard.querySelector('img.tw-image-avatar').remove();*/
+
+                        let profile_pic_container = navCard.querySelector('.tw-avatar');
+                        profile_pic_container.alt = streamers_arr[i].stream_name;
+                        profile_pic_container.style.backgroundImage = "url('" + streamers_arr[i].profile_pic_url + "')";
+                        profile_pic_container.style.backgroundSize = "contain";
+                        profile_pic_container.style.backgroundRepeat = "no-repeat";
+                        profile_pic_container.style.borderRadius = "50%";
+
                         navCard.querySelector('img.tw-image-avatar').remove();
                         navCard.title = streamers_arr[i].stream_name + '\n' + streamers_arr[i].title;
 
