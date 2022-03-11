@@ -21,7 +21,7 @@ async function main() {
         document.body.appendChild(a);
         a.style.display = "none";
         a.href = recording_url_obj.url;
-        a.download = recording_url_obj.stream_name + ' - ' + new Date(document.getElementById('vid').duration * 1000).toISOString().substr(14, 5).replace(':','-').replace('00-','') + 's.webm';
+        a.download = recording_url_obj.stream_name + ' - ' + new Date(document.getElementById('vid').duration * 1000).toISOString().slice(14, 19).replace(':','-').replace('00-','') + 's.webm';
         a.click();
         window.URL.revokeObjectURL(recording_url_obj.url);
         a.remove();

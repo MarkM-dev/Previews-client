@@ -336,7 +336,7 @@
         e.preventDefault();
         e.cancelBubble = true;
         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-        createMultiStreamBox((e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false, false, e.target.yt_videoId, e.target.fb_videoId);
+        createMultiStreamBox((e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.slice(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false, false, e.target.yt_videoId, e.target.fb_videoId);
         removePipBtn();
         removeVidPreviewVolBtn();
         sendMessageToBG({action: "bg_pip_started", detail: "click"});
@@ -374,7 +374,7 @@
         if (navCardEl.yt_videoId || navCardEl.fb_videoId) {
             return "url('" + navCardEl.thumbnail_url + "')";
         } else {
-            return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "-" + options.PREVIEWDIV_WIDTH + "x" + Math.round(options.PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
+            return "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + navCardEl.href.slice(navCardEl.href.lastIndexOf("/") + 1) + "-" + options.PREVIEWDIV_WIDTH + "x" + Math.round(options.PREVIEWDIV_HEIGHT) + ".jpg?" + navCardEl.lastImageLoadTimeStamp + "')";
         }
     }
 
@@ -385,7 +385,7 @@
             if (navCardEl.fb_videoId) {
                 return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=" + options.PREVIEWDIV_WIDTH + "&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
             } else {
-                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
+                return "https://player.twitch.tv/?channel=" + navCardEl.href.slice(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
             }
         }
     }
@@ -464,7 +464,7 @@
             anch.style.position = "absolute";
             anch.style.left = "0px";
             anch.style.top = "0px";
-            anch.href = "/" + lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+            anch.href = "/" + lastHoveredCardEl.href.slice(lastHoveredCardEl.href.lastIndexOf("/") + 1);
             anch.onmouseleave = function () {
                 isHovering = false;
                 clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
@@ -908,7 +908,7 @@
                     twitchIframe.contentDocument.querySelector('video').onclick = function () {
                         isHovering = false;
                         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-                        window.location = "https://www.twitch.tv/" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1);
+                        window.location = "https://www.twitch.tv/" + navCardEl.href.slice(navCardEl.href.lastIndexOf("/") + 1);
                     }
                     if (isStreamerOnline(lastHoveredCardEl)) {
                         if(clearOverlaysInterval) {
@@ -985,7 +985,7 @@
         navCardEl.draggable = "true";
         navCardEl.ondragstart = function (e) {
             let data = {};
-            data.streamName = (e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+            data.streamName = (e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.slice(lastHoveredCardEl.href.lastIndexOf("/") + 1);
             data.yt_videoId = e.target.yt_videoId;
             data.fb_videoId = e.target.fb_videoId;
             e.dataTransfer.setData("tp_data", JSON.stringify(data));
@@ -4152,7 +4152,7 @@
                     e.preventDefault();
                     e.cancelBubble = true;
                     let href = e.target.closest('a').href
-                    href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
+                    href = href.slice(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
                     createMultiStreamBox(href, true, false, false, false, false);
                     sendMessageToBG({action: "bg_searchBar_multiStream_started", detail: ""});
                 })
@@ -4178,7 +4178,7 @@
                     e.preventDefault();
                     e.cancelBubble = true;
                     let href = e.target.closest('a').href
-                    href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
+                    href = href.slice(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
                     createMultiStreamBox(href, true, true, false, false, false);
                     sendMessageToBG({action: "bg_searchBar_multiStream_chat_started", detail: ""});
                 })
