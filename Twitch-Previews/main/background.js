@@ -704,7 +704,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:"https://twitter.com/TwitchPreviews"});
             break;
         case "bg_show_discord":
-            _browser.tabs.create({url:""});
+            _browser.tabs.create({url:"https://discord.gg/7q4etvdFcg"});
             break;
         case "bg_show_bugReport":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
