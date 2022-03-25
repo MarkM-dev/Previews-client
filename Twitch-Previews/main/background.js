@@ -628,8 +628,8 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast_settings_top_btn_click":
             send_ga_event('updateToast', 'updateToast_settings_top_btn_click', 'updateToast_settings_top_btn_click');
             break;
-        case "updateToast_twitter_btn_click":
-            send_ga_event('updateToast', 'updateToast_twitter_btn_click', 'updateToast_twitter_btn_click');
+        case "updateToast_discord_btn_click":
+            send_ga_event('updateToast', 'updateToast_discord_btn_click', 'updateToast_discord_btn_click');
             break;
         case "delayedRateToast":
             send_ga_event('delayedRateToast_dismiss', 'dismiss', msg.detail);
@@ -703,6 +703,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_show_twitter":
             _browser.tabs.create({url:"https://twitter.com/TwitchPreviews"});
             break;
+        case "bg_show_discord":
+            _browser.tabs.create({url:""});
+            break;
         case "bg_show_bugReport":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
             break;
@@ -732,6 +735,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_twitter_btn_click":
             send_ga_event('settings_twitter_btn_click', 'settings_twitter_btn_click', 'settings_twitter_btn_click');
+            break;
+        case "bg_discord_btn_click":
+            send_ga_event('settings_discord_btn_click', 'settings_discord_btn_click', 'settings_discord_btn_click');
             break;
         case "bg_bugReport_btn_click":
             send_ga_event('settings_bug_report_btn_click', 'settings_bug_report_btn_click', 'settings_bug_report_btn_click');

@@ -4850,6 +4850,11 @@
             sendMessageToBG({action: toastType + "_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
         };
 
+        updateToast.querySelector('#tp_updateToast_discord_btn').onclick = function () {
+            sendMessageToBG({action: "bg_show_discord", detail: ""});
+            sendMessageToBG({action: toastType + "_discord_btn_click", detail: ""});
+        };
+
         document.body.appendChild(updateToast);
         setTimeout(function (){
             if (isOverflown(updateToast)) {
@@ -4883,7 +4888,7 @@
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Sidebar Drag & Drop Video Embeds!</strong>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Drag & Drop streamers from the sidebar onto the page to add as a video embed.</span>"
             +  "             <br><span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Very convenient when the sidebar is closed, no need to scroll and open the sidebar to click the squares video embed button.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >- Note: Must have the 'Sidebar Previews' feature enabled.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" id='tp_updateToast_discord_btn' >- Discord.</span>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >Pro-Tip: Enable the 'Advanced video embeds' feature for a better video embed experience.</span>"
             +  "             <span ><br><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "       </div>"
@@ -6099,6 +6104,7 @@
             initSocialBtn(settingsContainer, 'changelog', false);
             initSocialBtn(settingsContainer, 'contact', false);
             initSocialBtn(settingsContainer, 'twitter', true);
+            initSocialBtn(settingsContainer, 'discord', true);
 
 
             _browser.storage.local.get('shouldShowNewFeatureSettingsSpan', function(result) {
