@@ -1559,3 +1559,23 @@
 .tp-drag-and-drop-target-overlay-sidebar-expanded {
     width: calc(100% - 24rem - 2px);
 }
+
+#tp_updateToast_discord_btn {
+    color: whitesmoke;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 0;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#tp_updateToast_discord_btn:hover {
+    background: rgba(255,255,255,0.4);
+}
+#tp_updateToast_discord_btn:active {
+    background: rgba(255,255,255,0.2);
+}
