@@ -1521,7 +1521,7 @@
 }
 
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-bottom {
-    bottom: -90%;
+    top: 5rem;
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-bottom::after {
     bottom: 100%;
