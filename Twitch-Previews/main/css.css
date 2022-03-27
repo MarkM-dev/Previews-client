@@ -1579,3 +1579,22 @@
 #tp_updateToast_discord_btn:active {
     background: rgba(255,255,255,0.2);
 }
+
+#tp_settings_menu_btn {
+    display: inline-flex;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#tp_settings_menu_btn:hover {
+    background-color: #ffffff33;
+}
+#tp_settings_menu_btn:active {
+    background-color: rgb(38, 38, 38);
+}

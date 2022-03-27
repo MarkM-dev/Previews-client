@@ -5072,14 +5072,6 @@
             if (ttv_profile_btn) {
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_settings_menu_btn";
-                btn_container.classList.add('tp-player-control');
-
-                btn_container.style.width = '3rem';
-                btn_container.style.height = '3rem';
-                btn_container.style.marginLeft = "0.5rem";
-                btn_container.style.marginRight = "0.5rem";
-                btn_container.style.marginRight = "0.5rem";
-                btn_container.style.padding = "4px";
 
                 let img = document.createElement('img');
                 img.src = getRuntimeUrl('../images/TP32.png');
