@@ -5068,7 +5068,7 @@
             return;
         }
         try {
-            let ttv_profile_btn = document.querySelector('button[data-a-target="player-theatre-mode-button"]');
+            let ttv_profile_btn = document.querySelector('.top-nav__menu').lastChild.lastChild;
             if (ttv_profile_btn) {
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_settings_menu_btn";
