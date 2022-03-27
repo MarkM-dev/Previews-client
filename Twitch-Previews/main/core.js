@@ -4890,7 +4890,7 @@
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Discord Server!</strong>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- We opened a Discord server!</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- It's pretty basic right now, let us know how we can improve it! :)</span>"
-            +  "             <br><span id='tp_updateToast_discord_btn' >" +
+            +  "             <br><span id='tp_updateToast_discord_btn' title='https://discord.gg/7q4etvdFcg' >" +
             "<svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" role=\"img\" viewBox=\"0 0 24 24\" height=\"1em\" width=\"1em\" " +
             "xmlns=\"http://www.w3.org/2000/svg\"><title></title><path d=\"M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 " +
             "1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 " +
@@ -4905,7 +4905,7 @@
             +  "             <span ><br><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='136' width='263' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
 */
             +  "       </div>"
-            +  "    </br>"
+/*            +  "    </br>"*/
     }
 
     function showUpdateToast() {

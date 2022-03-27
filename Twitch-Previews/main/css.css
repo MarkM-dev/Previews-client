@@ -1561,7 +1561,7 @@
 }
 
 #tp_updateToast_discord_btn {
-    color: whitesmoke;
+    color: white;
     font-size: 15px;
     font-weight: bold;
     padding: 5px 0;
@@ -1572,12 +1572,13 @@
     margin-top: 20px;
     border-radius: 4px;
     cursor: pointer;
+    background: rgba(255,255,255,0.3);
 }
 #tp_updateToast_discord_btn:hover {
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.5);
 }
 #tp_updateToast_discord_btn:active {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.3);
 }
 
 #tp_settings_menu_btn {
