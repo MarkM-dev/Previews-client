@@ -5075,8 +5075,9 @@
                 img.style.margin = "auto";
 
                 btn_container.onclick = function () {
-
-                    sendMessageToBG({action: "bg_pip_main_started", detail: true});
+                    if (!isInIframe()) {
+                        showSettings();
+                    }
                 }
                 btn_container.appendChild(img);
 
