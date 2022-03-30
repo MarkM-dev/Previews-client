@@ -4553,14 +4553,14 @@
                 btn_container.title = "Start Multi Stream";
 
                 let more_btn_size = more_btn.getBoundingClientRect();
-                btn_container.style.width = (more_btn_size.width || "30") + "px";
-                btn_container.style.height = (more_btn_size.height || "30") + "px";
+                btn_container.style.width = "3rem";
+                btn_container.style.height = "3rem";
                 btn_container.style.zIndex = "1";
 
                 let img = document.createElement('img');
                 img.src = getRuntimeUrl('../images/multistream.png');
-                img.width = (more_btn_size.width || "30") * 0.6;
-                img.height = (more_btn_size.height || "30") * 0.6;
+                img.style.width = '60%';
+                img.style.height = '60%';
                 img.style.margin = "auto";
                 img.classList.add('tp-theme-support');
 
