@@ -457,6 +457,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('favorite_btn_click', 'favorite_btn_click', msg.detail ? 'favorite_add' : 'favorite_remove');
             break;
         case "bg_clip_download_btn_click":
+            _browser.tabs.create({url:msg.detail});
             send_ga_event('clip_download_btn_click', 'clip_download_btn_click', 'clip_download_btn_click');
             break;
         case "bg_update_isMultiStreamEnabled":

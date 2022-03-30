@@ -431,24 +431,31 @@ export const i18n = {
     settings_feature_isClipDownloaderEnabled_desc: {
         'en': '<strong>* Clip Download Button</strong>' +
             '<br>- The button will show in the player controls of clips.' +
+            '<br>- If the video appears in a new tab instead of downloading, right-click the video in the new tab and then save.' +
             '<br>- When enabling this feature, you will need to allow the extension to run on "clips.twitch.tv" (a prompt will show when enabling).',
         'es': '<strong>* Botón de descarga de clip</strong>' +
             '<br>- El botón se mostrará en los controles del reproductor de clips.' +
+            '<br>- Si el clip aparece en una nueva pestaña en lugar de descargarse, haga clic derecho en el clip en la nueva pestaña y luego guarde.' +
             '<br>- Al habilitar esta función, deberá permitir que la extensión se ejecute en "clips.twitch.tv" (se mostrará un mensaje cuando la habilite).',
         'de': '<strong>* Schaltfläche zum Herunterladen von Clips</strong>' +
             '<br>- Die Schaltfläche wird in den Player-Steuerelementen von Clips angezeigt.' +
+            '<br>- Wenn der Clip in einem neuen Tab angezeigt wird, anstatt heruntergeladen zu werden, klicken Sie mit der rechten Maustaste auf den Clip im neuen Tab und speichern Sie ihn dann.' +
             '<br>- Wenn Sie diese Funktion aktivieren, müssen Sie zulassen, dass die Erweiterung auf "clips.twitch.tv" ausgeführt wird (beim Aktivieren wird eine Eingabeaufforderung angezeigt).',
         'fr': '<strong>* Bouton de téléchargement de clips</strong>' +
             '<br>- Le bouton s\'affichera dans les commandes du lecteur de clips.' +
+            '<br>- Si le clip apparaît dans un nouvel onglet au lieu d\'être téléchargé, cliquez avec le bouton droit sur le clip dans le nouvel onglet, puis enregistrez.' +
             '<br>- Lors de l\'activation de cette fonctionnalité, vous devrez autoriser l\'extension à s\'exécuter sur "clips.twitch.tv" (une invite s\'affichera lors de l\'activation).',
         'pt_BR': '<strong>* Botão de download do clipe</strong>' +
             '<br>- O botão aparecerá nos controles do player de clipes.' +
+            '<br>- Se o clipe aparecer em uma nova guia em vez de ser baixado, clique com o botão direito do mouse no clipe na nova guia e salve.' +
             '<br>- Ao habilitar este recurso, você precisará permitir que a extensão seja executada em "clips.twitch.tv" (um prompt será mostrado ao habilitar).',
         'ko': '<strong>* 클립 다운로드 버튼</strong>' +
             '<br>- 클립의 플레이어 컨트롤에 버튼이 표시되요.' +
+            '<br>- If the video appears in a new tab instead of downloading, right-click the video in the new tab and then save.' +
             '<br>- 이 기능을 활성화할 때 프로그램이 "clips.twitch.tv"에서 확장 프로그램을 실행할 권한이 필요해요.(활성화할 때 프롬프트가 표시됨)',
         'ru':'<strong>* Кнопка скачивания клипа</strong>' +
             '<br>- Кнопка будет отображаться в элементах управления проигрывателя клипов.' +
+            '<br>- Если клип отображается на новой вкладке вместо загрузки, щелкните правой кнопкой мыши клип на новой вкладке и сохраните его.' +
             '<br>- При включении этой функции вам нужно будет разрешить запуск расширения на «clips.twitch.tv» (при включении появится подсказка).'
     },
     settings_feature_isMuteAutoPlayersEnabled: {

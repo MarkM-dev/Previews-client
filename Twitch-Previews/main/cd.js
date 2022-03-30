@@ -25,17 +25,17 @@
                     btn_container.onclick = function (){
                         let video_el = document.querySelector('video');
                         if (video_el && video_el.src.indexOf('.mp4?') > -1) {
-                            let element = document.createElement('a');
+                            /*let element = document.createElement('a');
                             element.setAttribute('href', 'data:video/mp4;mp4,' + encodeURIComponent(video_el.src));
                             element.setAttribute('download', document.title);
                             element.style.display = 'none';
                             document.body.appendChild(element);
                             element.click();
-                            document.body.removeChild(element);
+                            document.body.removeChild(element);*/
 
                             let isFirefox = typeof browser !== "undefined";
                             let _browser = isFirefox ? browser : chrome;
-                            _browser.runtime.sendMessage({action: "bg_clip_download_btn_click", detail: true}, function(response) {
+                            _browser.runtime.sendMessage({action: "bg_clip_download_btn_click", detail: video_el.src}, function(response) {
 
                             });
                         } else {
