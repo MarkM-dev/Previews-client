@@ -2835,7 +2835,7 @@
 
         document.body.setAttribute("tp_seek_listener", 'true');
         document.body.addEventListener('keydown', function(event) {
-            if (event.target.tagName.toUpperCase() === 'INPUT' || event.target.tagName.toUpperCase() === 'TEXTAREA') {
+            if (event.target.tagName.toUpperCase() === 'INPUT' || event.target.tagName.toUpperCase() === 'TEXTAREA'|| event.target.classList.contains('chat-wysiwyg-input__editor')) {
                 return;
             }
 
