@@ -214,11 +214,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-            if (details.previousVersion !== "3.5.4") {
+            /*if (details.previousVersion !== "3.5.4") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 //_browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
-            }
+            }*/
 
 
 
