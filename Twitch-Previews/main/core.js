@@ -2099,7 +2099,7 @@
     }
 
     function closePopoutMenu() {
-        let closePopoutBtn = document.getElementsByClassName('tw-popover-header__icon-slot--right')[0];
+        let closePopoutBtn = document.getElementsByClassName('tw-popover-header__icon-slot--right')[1];
         if (closePopoutBtn && closePopoutBtn.firstChild) {
             closePopoutBtn.firstChild.click();
         }
