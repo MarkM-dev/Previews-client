@@ -6,16 +6,15 @@
         let video = document.querySelector('video');
         if (video && video.src.indexOf('.mp4?') > -1) {
             try {
-                let ttv_fullscreen_btn = document.querySelector('button[data-a-target="player-fullscreen-button"]');
-                if (ttv_fullscreen_btn) {
+                let append_containers = document.querySelectorAll('.player-controls__right-control-group');
+                if (append_containers.length) {
                     let btn_container = document.createElement('div');
                     btn_container.id = "tp_clip_download_btn";
                     btn_container.classList.add('tp-player-control');
                     btn_container.title = "Download Clip";
 
-                    let ttv_fullscreen_btn_size = ttv_fullscreen_btn.getBoundingClientRect();
-                    btn_container.style.width = (ttv_fullscreen_btn_size.width || "30") + "px";
-                    btn_container.style.height = (ttv_fullscreen_btn_size.height || "30") + "px";
+                    btn_container.style.width = "3rem";
+                    btn_container.style.height = "3rem";
                     btn_container.style.zIndex = "1";
 
                     btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="100%" width="70%" xmlns="http://www.w3.org/2000/svg">' +
@@ -43,7 +42,10 @@
                             alert('no clip found');
                         }
                     }
-                    document.querySelector('.player-controls__right-control-group').firstChild.before(btn_container);
+                    append_containers[append_containers.length - 1].firstChild.before(btn_container);
+                    if (append_containers.length > 1) {
+                        append_containers[append_containers.length - 2].style.opacity = '0';
+                    }
                 }
             } catch (e) {
                 console.log(e)
