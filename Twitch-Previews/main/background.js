@@ -221,7 +221,6 @@ _browser.runtime.onInstalled.addListener(function(details) {
             }*/
 
 
-
            /* if (navigator_lang === 'ko') {
                 _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
