@@ -1238,6 +1238,7 @@
                 if (shown_followed_channels[0]) {
                     for (let i = 0; i < streamers_arr.length; i++) {
                         let navCard = shown_followed_channels[0].cloneNode(true);
+                        navCard.firstChild.classList.remove('side-nav-card__avatar--offline');
                         if (!isNavBarCollapsed) {
                             navCard.querySelector('p[data-a-target="side-nav-title"]').innerText = streamers_arr[i].stream_name;
                             navCard.querySelector('p[data-a-target="side-nav-title"]').title = streamers_arr[i].stream_name;
@@ -1356,6 +1357,7 @@
                 if (shown_followed_channels[0]) {
                     for (let i = 0; i < streamers_arr.length; i++) {
                         let navCard = shown_followed_channels[0].cloneNode(true);
+                        navCard.firstChild.classList.remove('side-nav-card__avatar--offline');
                         if (!isNavBarCollapsed) {
                             navCard.querySelector('p[data-a-target="side-nav-title"]').innerText = streamers_arr[i].stream_name;
                             navCard.querySelector('p[data-a-target="side-nav-title"]').title = streamers_arr[i].stream_name;
