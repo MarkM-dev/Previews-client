@@ -3798,6 +3798,83 @@
             }
         }
 
+        // handle chat top bar buttons
+        let swapEmbedsBtn = createMultiStreamTitleBtn(_i18n('multistream_title_swap_embeds_title'), "&#8646;");
+        swapEmbedsBtn.onclick = function () {
+            if (swapEmbedsBtn.attributes.tp_swap_state_active) {
+                swapEmbedsBtn.removeAttribute('tp_swap_state_active');
+                let swap_overlays = document.querySelectorAll('.tp-multistream-swap-overlay');
+                for (let j = 0; j < swap_overlays.length; j++) {
+                    swap_overlays[j].remove();
+                }
+            } else {
+                swapEmbedsBtn.setAttribute('tp_swap_state_active', 'true');
+                let elements = [];
+                if (isMultiStreamChat) {
+                    elements = document.querySelectorAll('.tp-multi-stream-chat');
+                } else {
+                    elements = document.querySelectorAll('.tp-multi-stream-video');
+                }
+
+                for (let i = 0; i < elements.length; i++) {
+                    if (elements[i] === multiStreamDiv) {
+                        continue;
+                    }
+
+                    let swap_overlay = document.createElement('div');
+                    swap_overlay.classList.add('tp-multistream-swap-overlay');
+
+                    swap_overlay.onclick = function (e) {
+                        let box_to_swap_with = e.target.closest('.tp-multi-stream-box');
+                        multiStreamDiv.parentNode.insertBefore(multiStreamDiv, box_to_swap_with);
+
+                        let multiStreamDiv_rect = multiStreamDiv.getBoundingClientRect();
+                        let box_to_swap_with_rect = box_to_swap_with.getBoundingClientRect();
+
+                        multiStreamDiv.style.top = 'calc(' + box_to_swap_with_rect.top + 'px' + ' - 5rem)';
+                        multiStreamDiv.style.left = 'calc(' + box_to_swap_with_rect.left + 'px' + ' - 5rem)';
+                        multiStreamDiv.style.height = box_to_swap_with_rect.height + 'px';
+                        multiStreamDiv.style.width = box_to_swap_with_rect.width + 'px';
+
+                        box_to_swap_with.style.top = 'calc(' + multiStreamDiv_rect.top + 'px' + ' - 5rem)';
+                        box_to_swap_with.style.left = 'calc(' + multiStreamDiv_rect.left + 'px' + ' - 5rem)';
+                        box_to_swap_with.style.height = multiStreamDiv_rect.height + 'px';
+                        box_to_swap_with.style.width = multiStreamDiv_rect.width + 'px';
+
+                        if (!isMultiStreamChat && options.isAdvancedVideoEmbedsEnabled && !yt_videoId && !fb_videoId) {
+                            iframe.style.visibility = "hidden";
+                            multiStreamDiv.style.backgroundColor = '#000000';
+                            multiStreamDiv.style.backgroundImage = "url('https://static-cdn.jtvnw.net/previews-ttv/live_user_" + streamName + "-600x338.jpg?" + new Date().getTime() + "')";
+
+                            let loader = document.createElement("span");
+                            loader.classList.add('tp-loading');
+                            loader.innerText = _i18n('preview_loader_text');
+                            loader.style.right = "0";
+                            loader.style.borderTopLeftRadius = "10px";
+                            loader.style.borderLeft = "1px solid #8f8f8f";
+                            multiStreamDiv.appendChild(loader);
+
+                            iframe.onload = function (e) {
+                                setTimeout(function () {
+                                    iframe.style.visibility = "visible";
+                                    loader.remove();
+                                    multiStreamDiv.style.backgroundImage = "";
+                                }, 2000);
+                            }
+                        }
+
+                        swapEmbedsBtn.removeAttribute('tp_swap_state_active');
+                        let swap_overlays = document.querySelectorAll('.tp-multistream-swap-overlay');
+                        for (let j = 0; j < swap_overlays.length; j++) {
+                            swap_overlays[j].remove();
+                        }
+                    }
+                    elements[i].appendChild(swap_overlay);
+                }
+
+            }
+        }
+
         if (isMultiStreamChat) {
             multiStreamDiv.classList.add('tp-multi-stream-chat');
             var opacitySlider;
@@ -4024,7 +4101,6 @@
                             loader.style.borderLeft = "1px solid #8f8f8f";
                             multiStreamDiv.appendChild(loader);
 
-                            iframe.contentDocument
                             iframe.onload = function (e) {
                                 setTimeout(function () {
                                     iframe.style.visibility = "visible";
@@ -4046,6 +4122,7 @@
 
         if(!isFScrnWithChat) {
             titleBtnContainer.appendChild(extraMultiBoxBtn);
+            titleBtnContainer.appendChild(swapEmbedsBtn);
             titleBtnContainer.appendChild(alwaysOnTopBtn);
         }
         titleBtnContainer.appendChild(minimizeBtn);
@@ -4053,8 +4130,8 @@
         titleBtnContainer.appendChild(closeBtn);
 
         title.appendChild(titleBtnContainer);
-
         multiStreamDiv.appendChild(title);
+
         if (screenshot_imageDataUri) {
             multiStreamDiv.classList.add('tp-multi-stream-box-screenshot');
             let img = document.createElement('img');
