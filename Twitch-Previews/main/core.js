@@ -3802,12 +3802,14 @@
         swapEmbedsBtn.onclick = function () {
             if (swapEmbedsBtn.attributes.tp_swap_state_active) {
                 swapEmbedsBtn.removeAttribute('tp_swap_state_active');
+                swapEmbedsBtn.style.color = 'whitesmoke';
                 let swap_overlays = document.querySelectorAll('.tp-multistream-swap-overlay');
                 for (let j = 0; j < swap_overlays.length; j++) {
                     swap_overlays[j].remove();
                 }
             } else {
                 swapEmbedsBtn.setAttribute('tp_swap_state_active', 'true');
+                swapEmbedsBtn.style.color = 'cornflowerblue';
                 let elements = [];
                // if (isMultiStreamChat) {
                //     elements = document.querySelectorAll('.tp-multi-stream-chat');
@@ -3822,6 +3824,7 @@
 
                     let swap_overlay = document.createElement('div');
                     swap_overlay.classList.add('tp-multistream-swap-overlay');
+                    swap_overlay.innerHTML = '&#8646;';
 
                     swap_overlay.onclick = function (e) {
                         let box_to_swap_with = e.target.closest('.tp-multi-stream-box');
@@ -3863,6 +3866,7 @@
                         }
 
                         swapEmbedsBtn.removeAttribute('tp_swap_state_active');
+                        swapEmbedsBtn.style.color = 'whitesmoke';
                         let swap_overlays = document.querySelectorAll('.tp-multistream-swap-overlay');
                         for (let j = 0; j < swap_overlays.length; j++) {
                             swap_overlays[j].remove();
