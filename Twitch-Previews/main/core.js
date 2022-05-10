@@ -3798,7 +3798,6 @@
             }
         }
 
-        // handle chat top bar buttons
         let swapEmbedsBtn = createMultiStreamTitleBtn(_i18n('multistream_title_swap_embeds_title'), "&#8646;");
         swapEmbedsBtn.onclick = function () {
             if (swapEmbedsBtn.attributes.tp_swap_state_active) {
@@ -3810,11 +3809,11 @@
             } else {
                 swapEmbedsBtn.setAttribute('tp_swap_state_active', 'true');
                 let elements = [];
-                if (isMultiStreamChat) {
-                    elements = document.querySelectorAll('.tp-multi-stream-chat');
-                } else {
+               // if (isMultiStreamChat) {
+               //     elements = document.querySelectorAll('.tp-multi-stream-chat');
+               // } else {
                     elements = document.querySelectorAll('.tp-multi-stream-video');
-                }
+               // }
 
                 for (let i = 0; i < elements.length; i++) {
                     if (elements[i] === multiStreamDiv) {
@@ -4122,7 +4121,9 @@
 
         if(!isFScrnWithChat) {
             titleBtnContainer.appendChild(extraMultiBoxBtn);
-            titleBtnContainer.appendChild(swapEmbedsBtn);
+            if (!isMultiStreamChat) {
+                titleBtnContainer.appendChild(swapEmbedsBtn);
+            }
             titleBtnContainer.appendChild(alwaysOnTopBtn);
         }
         titleBtnContainer.appendChild(minimizeBtn);
