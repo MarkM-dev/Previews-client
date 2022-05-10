@@ -2499,7 +2499,7 @@ export const i18n = {
         'ko': '멀티 창 추가',
         'ru':'Добавить MultiStream'
     },
-    multistream_title_swap_embeds_title: {
+    multistream_title_swap_embeds_btn_title: {
         'en': 'Swap Embeds',
         'es': 'Intercambiar ubicaciones de incrustaciones de video',
         'de': 'Tauschen Sie die Positionen der Videoeinbettungen aus',
