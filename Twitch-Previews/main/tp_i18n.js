@@ -2499,6 +2499,15 @@ export const i18n = {
         'ko': '멀티 창 추가',
         'ru':'Добавить MultiStream'
     },
+    multistream_title_swap_embeds_title: {
+        'en': 'Swap Embeds',
+        'es': 'Swap Embeds',
+        'de': 'Swap Embeds',
+        'fr': 'Swap Embeds',
+        'pt_BR': 'Swap Embeds',
+        'ko': 'Swap Embeds',
+        'ru':'Swap Embeds'
+    },
     multistream_title_add_chat_btn_title: {
         'en': 'Add Multi-Chat',
         'es': 'Agregar chat',
