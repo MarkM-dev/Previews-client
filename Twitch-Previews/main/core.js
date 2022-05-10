@@ -3798,7 +3798,7 @@
             }
         }
 
-        let swapEmbedsBtn = createMultiStreamTitleBtn(_i18n('multistream_title_swap_embeds_title'), "&#8646;");
+        let swapEmbedsBtn = createMultiStreamTitleBtn(_i18n('multistream_title_swap_embeds_btn_title'), "&#8646;");
         swapEmbedsBtn.onclick = function () {
             if (swapEmbedsBtn.attributes.tp_swap_state_active) {
                 swapEmbedsBtn.removeAttribute('tp_swap_state_active');
