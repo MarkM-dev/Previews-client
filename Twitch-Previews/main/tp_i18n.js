@@ -2501,12 +2501,12 @@ export const i18n = {
     },
     multistream_title_swap_embeds_title: {
         'en': 'Swap Embeds',
-        'es': 'Swap Embeds',
-        'de': 'Swap Embeds',
-        'fr': 'Swap Embeds',
-        'pt_BR': 'Swap Embeds',
-        'ko': 'Swap Embeds',
-        'ru':'Swap Embeds'
+        'es': 'Intercambiar ubicaciones de incrustaciones de video',
+        'de': 'Tauschen Sie die Positionen der Videoeinbettungen aus',
+        'fr': 'Échanger les emplacements des intégrations vidéo',
+        'pt_BR': 'Trocar locais de incorporação de vídeo',
+        'ko': '비디오 삽입 위치 교체',
+        'ru':'Поменять местами вставки видео'
     },
     multistream_title_add_chat_btn_title: {
         'en': 'Add Multi-Chat',
