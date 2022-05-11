@@ -5020,7 +5020,7 @@
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- This should make the multi-stream feature much more convenient :)</span>"
             +  "             <span ><br><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='79' width='161' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Open in new tab!</strong>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click on the channel name in embeds (top left) to open their stream in a new tab.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click on the small icon next to the channel name in embeds (top left) to open their stream in a new tab.</span>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Reminder</strong>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can drag & drop streamers from the sidebar onto the page to open their stream in a video embed (from all platforms - Twitch, Youtube and Facebook).</span>"
             +  "       </div>"
