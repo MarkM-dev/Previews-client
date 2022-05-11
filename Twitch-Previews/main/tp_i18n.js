@@ -1492,13 +1492,13 @@ export const i18n = {
         'ru':'Прогнозы Снайпер'
     },
     settings_feature_subtext_isPredictionsSniperEnabled: {
-        'en': 'Default settings:',
-        'es': 'Configuración por defecto:',
-        'de': 'Standardeinstellungen:',
-        'fr': 'Paramètres par défaut:',
-        'pt_BR': 'Configurações padrão:',
-        'ko': '기본 세팅:',
-        'ru':'Настройки по умолчанию:'
+        'en': '(Currently available only for predictions with 2 voting options)\nDefault settings:',
+        'es': '(Actualmente disponible solo para predicciones con 2 opciones de votación)\nConfiguración por defecto:',
+        'de': '(Derzeit nur für Vorhersagen mit 2 Abstimmungsoptionen verfügbar)\nStandardeinstellungen:',
+        'fr': '(Actuellement disponible uniquement pour les pronostics avec 2 options de vote)\nParamètres par défaut:',
+        'pt_BR': '(Atualmente disponível apenas para previsões com 2 opções de votação)\nConfigurações padrão:',
+        'ko': '(현재 2가지 투표 옵션이 있는 예측에만 사용 가능)\n기본 세팅:',
+        'ru':'(В настоящее время доступно только для прогнозов с 2 вариантами голосования)\nНастройки по умолчанию:'
     },
     settings_feature_isPredictionsSniperEnabled_desc: {
         'en': '<strong>* Predictions Sniper</strong>' +
