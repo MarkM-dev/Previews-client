@@ -4135,6 +4135,18 @@
         titleBtnContainer.appendChild(closeBtn);
 
         title.appendChild(titleBtnContainer);
+        title.firstChild.style.cursor = 'pointer';
+        title.firstChild.onclick = function () {
+            if (yt_videoId) {
+                sendMessageToBG({action: "bg_multiStream_new_tab_click", detail: "https://www.youtube.com/watch?v=" + yt_videoId});
+            } else {
+                if (fb_videoId) {
+                    sendMessageToBG({action: "bg_multiStream_new_tab_click", detail: "https://www.facebook.com/" + streamName + "/videos/" + fb_videoId});
+                } else {
+                    sendMessageToBG({action: "bg_multiStream_new_tab_click", detail: "https://www.twitch.tv/" + streamName});
+                }
+            }
+        }
         multiStreamDiv.appendChild(title);
 
         if (screenshot_imageDataUri) {
