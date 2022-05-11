@@ -1832,6 +1832,15 @@ export const i18n = {
         'ko': '아직 평가하지 않으셨다면 웹 스토어에서 확장 등급을 매겨주세요 :)',
         'ru':'Кроме того, если вы еще этого не сделали, мы были бы рады, если бы вы оценили расширение в интернет-магазине :)'
     },
+    update_toast_rate_line_new_text: {
+        'en': 'Support the development of this extension!\nYour support is greatly appreciated! :)',
+        'es': '¡Apoya el desarrollo de esta extensión!\n¡Su apoyo es muy apreciado! :)',
+        'de': 'Unterstützen Sie die Entwicklung dieser Erweiterung!\nIhre Unterstützung wird sehr geschätzt! :)',
+        'fr': 'Soutenez le développement de cette extension !\nVotre aide est très appréciée! :)',
+        'pt_BR': 'Apoie o desenvolvimento desta extensão!\nSeu apoio é muito apreciado! :)',
+        'ko': '이 확장의 개발을 지원하십시오!\n귀하의 지원을 대단히 감사합니다! :)',
+        'ru':'Поддержите разработку этого расширения!\nВаша поддержка очень ценится! :)'
+    },
     update_toast_rate: {
         'en': 'Rate',
         'es': 'Califica',
