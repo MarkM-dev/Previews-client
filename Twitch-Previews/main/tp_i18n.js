@@ -226,6 +226,38 @@ export const i18n = {
             '<br>- Показывает изображение предварительного просмотра вашего собственного канала в реальном времени, как его видят зрители на Twitch, при наведении курсора на логотип Twitch в левом верхнем углу.' +
             '<br>- ов или на панели управления (например, clips.twitch.tv).'
     },
+    settings_feature_isStartMutedEnabled: {
+        'en': 'Start Muted',
+        'es': 'Comienza silenciado',
+        'de': 'Starten Sie stumm',
+        'fr': 'Démarrer en mode silencieux',
+        'pt_BR': 'Iniciar sem som',
+        'ko': '음소거 시작',
+        'ru':'Начать без звука'
+    },
+    settings_feature_isStartMutedEnabled_desc: {
+        'en': '<strong>* Start previews muted</strong>' +
+            '<br>- Mutes video stream previews by default.' +
+            '<br>- Press the volume icon to toggle mute.',
+        'es': '<strong>* Iniciar vistas previas silenciadas</strong>' +
+            '<br>- Silencia las vistas previas de la transmisión de video de forma predeterminada.' +
+            '<br>- Presiona el ícono de volumen para alternar el silencio.',
+        'de': '<strong>* Vorschau stumm starten</strong>' +
+            '<br>- Schaltet Videostream-Vorschauen standardmäßig stumm.' +
+            '<br>- Drücken Sie das Lautstärkesymbol, um stumm zu schalten.',
+        'fr': '<strong>* Démarrer les aperçus en mode silencieux</strong>' +
+            '<br>- Désactive les aperçus de flux vidéo par défaut.' +
+            '<br>- Appuyez sur l\'icône de volume pour désactiver le son.',
+        'pt_BR': '<strong>* Iniciar visualizações silenciadas</strong>' +
+            '<br>- Silencia as visualizações de fluxo de vídeo por padrão.' +
+            '<br>- Pressione o ícone de volume para alternar para mudo.',
+        'ko': '<strong>* 음소거된 미리보기 시작</strong>' +
+            '<br>- 기본적으로 비디오 스트림 미리 보기를 음소거합니다.' +
+            '<br>- 음소거를 전환하려면 볼륨 아이콘을 누릅니다.',
+        'ru':'<strong>* Начать предварительный просмотр отключен</strong>' +
+            '<br>- По умолчанию отключает предварительный просмотр видеопотока.' +
+            '<br>- Нажмите значок громкости, чтобы отключить звук.'
+    },
     settings_section_misc: {
         'en': 'Misc',
         'es': 'Diversa',

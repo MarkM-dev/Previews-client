@@ -33,6 +33,7 @@ let options = {
     PREVIEWDIV_WIDTH: 440,
     PREVIEWDIV_HEIGHT: 248,
     isDirpEnabled: true,
+    isStartMutedEnabled: true,
     isChannelPointsClickerEnabled: false,
     isErrRefreshEnabled: false,
     isSidebarFavoritesEnabled: false,
@@ -404,6 +405,8 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_isSelfPreviewEnabled":
             send_ga_event('selfPreview_mode', 'change', msg.detail ? "SP_ON":"SP_OFF");
             break;
+        case "bg_update_isStartMutedEnabled":
+                send_ga_event('startMuted', 'change', msg.detail ? "SM_ON":"SM_OFF")
         case "bg_update_isChannelPointsClickerEnabled":
             send_ga_event('channelPointsClicker_mode', 'change', msg.detail ? "cpc_ON":"cpc_OFF");
             break;

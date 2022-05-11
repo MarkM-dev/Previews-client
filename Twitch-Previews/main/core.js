@@ -380,12 +380,12 @@
 
     function getPreviewStreamUrl(navCardEl) {
         if (navCardEl.yt_videoId) {
-            return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
+            return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=" + (options.isStartMutedEnabled ? "1" : "0");
         } else {
             if (navCardEl.fb_videoId) {
                 return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=" + options.PREVIEWDIV_WIDTH + "&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
             } else {
-                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
+                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=" + (options.isStartMutedEnabled ? "true" : "false&volume=0.2");
             }
         }
     }
@@ -1102,6 +1102,7 @@
         let FBsidebar = options.isFBsidebarEnabled ? "FBSB_ON" : "FBSB_OFF";
         let ave = options.isAdvancedVideoEmbedsEnabled ? "ave_ON" : "ave_OFF";
         let record = options.isRecordEnabled ? "rec_ON" : "rec_OFF";
+        let startMuted = options.isStartMutedEnabled ? "SM_ON" : "SM_OFF";
 
         sendMessageToBG({action: "appStart", detail: selected_land + " : " + sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
                 + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
@@ -4084,7 +4085,7 @@
             if (!screenshot_imageDataUri) {
                 iframe.setAttribute('allowfullscreen', 'true');
                 if (yt_videoId) {
-                    iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=1";
+                    iframe.src = "https://www.youtube.com/embed/" + yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=" + (options.isStartMutedEnabled ? "1" : "0");
                 } else {
                     if (fb_videoId) {
                         extraMultiBoxBtn.style.display = 'none';
@@ -4113,7 +4114,7 @@
                             }
                             iframe.src = "https://www.twitch.tv/" + streamName;
                         } else {
-                            iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=true";
+                            iframe.src = "https://player.twitch.tv/?channel=" + streamName + "&parent=twitch.tv&muted=" + (options.isStartMutedEnabled ? "true" : "false&volume=0.2");
                         }
                     }
                 }
@@ -6204,6 +6205,7 @@
             initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
             initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
             initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox', false);
+            initCheckbox(settingsContainer, 'isStartMutedEnabled', 'TP_popup_start_muted_checkbox', false);
             initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
             initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
             initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
