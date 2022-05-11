@@ -4056,7 +4056,7 @@
                 sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
             }
 
-            title.innerHTML = "&#9703; " + streamName.charAt(0).toUpperCase() + streamName.slice(1);
+            title.innerHTML = "<span ><span>&#9703;</span> " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
 
             multiStreamDiv.style.width = "350px";
             multiStreamDiv.style.height = "600px";
@@ -4080,7 +4080,7 @@
                 createMultiStreamBox(streamName, true, true, false, false, yt_videoId, fb_videoId);
                 sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
             }
-            title.innerHTML = "<span style='position:absolute;top: 4px;' >&#11208; " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
+            title.innerHTML = "<span style='position:absolute;top: 4px;' ><span>&#11208;</span> " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
             if (!screenshot_imageDataUri) {
                 iframe.setAttribute('allowfullscreen', 'true');
                 if (yt_videoId) {
@@ -4135,8 +4135,8 @@
         titleBtnContainer.appendChild(closeBtn);
 
         title.appendChild(titleBtnContainer);
-        title.firstChild.style.cursor = 'pointer';
-        title.firstChild.onclick = function () {
+        title.firstChild.firstChild.style.cursor = 'pointer';
+        title.firstChild.firstChild.onclick = function () {
             if (yt_videoId) {
                 sendMessageToBG({action: "bg_multiStream_new_tab_click", detail: "https://www.youtube.com/watch?v=" + yt_videoId});
             } else {
