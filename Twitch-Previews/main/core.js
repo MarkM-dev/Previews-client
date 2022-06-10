@@ -5602,6 +5602,29 @@
         }
     }
 
+    function setSelfPreviewInputValue(settingsContainer) {
+        let input_box = settingsContainer.querySelector('#TP_popup_self_preview_input');
+        if (input_box && !input_box.value) {
+            let user_menu_toggle = document.querySelector('button[data-a-target="user-menu-toggle"]');
+            if (user_menu_toggle) {
+                let temp_hide_menu_css = document.createElement('style');
+                temp_hide_menu_css.textContent = 'div[role="dialog"] {opacity: 0 !important;}';
+                document.head.append(temp_hide_menu_css);
+                user_menu_toggle.click();
+                setTimeout(function () {
+                    let channel_link = document.querySelector('a[data-a-target="channel-dropdown-link"]');
+                    if (channel_link) {
+                        input_box.value = channel_link.href.split('/').pop();
+                        let event = new Event('change');
+                        input_box.dispatchEvent(event);
+                    }
+                    user_menu_toggle.click();
+                    temp_hide_menu_css.remove();
+                }, 300);
+            }
+        }
+    }
+
     function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
         let checkbox = settingsContainer.querySelector('#' + checkboxID);
         checkbox.checked = invertBool ? !options[featureName] : options[featureName];
@@ -5619,6 +5642,10 @@
                         break;
                     case "isFBsidebarEnabled":
                         checkForFBPermissions(featureName);
+                        break;
+                    case "isSelfPreviewEnabled":
+                        setSelfPreviewInputValue(settingsContainer, checkboxID);
+                        changeFeatureMode(featureName,invertBool ? false : true);
                         break;
                     default:
                         changeFeatureMode(featureName,invertBool ? false : true);
