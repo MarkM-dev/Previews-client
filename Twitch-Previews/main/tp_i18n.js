@@ -134,13 +134,13 @@ export const i18n = {
         'ru':' Новый!'
     },
     settings_recommended_indication_text: {
-        'en': ' Recommended!',
-        'es': ' ¡Recomendada!',
-        'de': ' Empfohlen!',
-        'fr': ' Recommandée!',
-        'pt_BR': ' Recomendada!',
-        'ko': '추천!',
-        'ru':' Рекомендуем!'
+        'en': '  Recommended!',
+        'es': '  ¡Recomendada!',
+        'de': '  Empfohlen!',
+        'fr': '  Recommandée!',
+        'pt_BR': '  Recomendada!',
+        'ko': '  추천 기능!',
+        'ru':'  Рекомендуем!'
     },
     settings_lang_info_text: {
         'en': ' ',
