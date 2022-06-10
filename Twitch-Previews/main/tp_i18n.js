@@ -133,6 +133,15 @@ export const i18n = {
         'ko': '알림!',
         'ru':' Новый!'
     },
+    settings_recommended_indication_text: {
+        'en': ' Recommended!',
+        'es': ' ¡Recomendada!',
+        'de': ' Empfohlen!',
+        'fr': ' Recommandée!',
+        'pt_BR': ' Recomendada!',
+        'ko': '추천!',
+        'ru':' Рекомендуем!'
+    },
     settings_lang_info_text: {
         'en': ' ',
         'es': '* las traducciones se realizaron con Google Translate, Comuníquese con nosotros si desea ayudar a que las traducciones en su idioma sean más precisas.',
