@@ -1335,6 +1335,18 @@
     display: none !important;
 }
 
+.tp-top-toast-content {
+    position: relative;
+    margin: auto auto auto 25%;
+    width: 450px;
+    padding: 15px 0 0 0;
+    font-size: 14px;
+    color: white;
+    background: #9c60ff;
+    box-shadow: rgba(24, 24, 27, 0.75) 10px 15px 10px -5px;
+    border-radius: 10px;
+}
+
 .tp-fte-toast-container {
     width: 100%;
     padding: 0;

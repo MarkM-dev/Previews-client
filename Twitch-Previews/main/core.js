@@ -332,6 +332,36 @@
         }
     }
 
+    function show_dragndrop_hint_msg() {
+        let container = document.createElement('div');
+        container.classList.add('tp-fte-toast-container');
+        container.classList.add('animated');
+        container.classList.add('slideInDown');
+
+        let content = document.createElement('div');
+        content.classList.add('tp-top-toast-content');
+        content.innerText = _i18n('dragndrop_message');
+
+        let closeBtn = document.createElement('div');
+        closeBtn.classList.add('tp-fte-toast-close-btn');
+        closeBtn.innerText = _i18n('fte_close_btn_text');
+
+        let img = document.createElement('img');
+        img.style.marginTop = '10px';
+        img.width = '200';
+        img.height = '100';
+        img.src = getRuntimeUrl('../images/dragndrop_hint.jpg')
+
+        closeBtn.onclick = function () {
+            document.body.removeChild(container);
+        };
+
+        content.appendChild(img);
+        content.appendChild(closeBtn);
+        container.appendChild(content);
+        document.body.appendChild(container);
+    }
+
     function startCustomPip(e) {
         e.preventDefault();
         e.cancelBubble = true;
@@ -340,6 +370,16 @@
         removePipBtn();
         removeVidPreviewVolBtn();
         sendMessageToBG({action: "bg_pip_started", detail: "click"});
+
+        _browser.storage.local.get('hasSeenDragndropHint', function(result) {
+            if (!result.hasSeenDragndropHint) {
+                _browser.storage.local.set({'hasSeenDragndropHint': true}, function() {});
+                setTimeout(function () {
+                    show_dragndrop_hint_msg();
+                }, 1000);
+            }
+        });
+
     }
 
     function getElementOffset(el) {
