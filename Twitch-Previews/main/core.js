@@ -1623,6 +1623,13 @@
                 extendSidebar().then(function (promise_result) {
                     if (res.favorites_arr) {
                         let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
+                        let isFavHovering = false;
+                        let style = document.head.querySelector('#tp_fav_streamer_tooltip');
+                        if (!style) {
+                            style = document.createElement('style');
+                            style.id = 'tp_fav_streamer_tooltip';
+                            document.head.append(style);
+                        }
                         for (let i = 0; i < shown_followed_channels.length; i++) {
                             for (let j = 0; j < res.favorites_arr.length; j++) {
                                 if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
@@ -1635,17 +1642,26 @@
                                             window.history.replaceState({},'','/' + _stream_name);
                                             window.location.href = '#';
                                         }
-                                        /*let style = document.createElement('style');
+
                                         el.addEventListener('mouseover', (e) => {
+                                            isFavHovering = true;
                                             let distance = isNavBarCollapsed ? "5rem":"24rem";
                                             simulateHoverOnElement('mouseover', shown_followed_channels[i].parentNode);
                                             style.textContent = 'div[data-popper-placement] {transform: none !important;inset: 0px auto auto ' + distance + ' !important;' + (isLayoutHorizontallyInverted ? "right":"left") + ': ' + distance + ' ;top: ' + el.getBoundingClientRect().top + 'px !important;}';
-                                            document.head.append(style);
                                         });
                                         el.addEventListener('mouseout', (e) => {
-                                            simulateHoverOnElement('mouseout', shown_followed_channels[i].parentNode);
-                                            style.remove();
-                                        });*/
+                                            isFavHovering = false;
+                                            setTimeout(function () {
+                                                if (!isFavHovering) {
+                                                    simulateHoverOnElement('mouseout', shown_followed_channels[i].parentNode);
+                                                    setTimeout(function () {
+                                                        if (!isFavHovering) {
+                                                            style.textContent = '';
+                                                        }
+                                                    }, 300);
+                                                }
+                                            }, 1)
+                                        });
                                         let container_div = document.createElement('div');
                                         container_div.appendChild(el);
                                         favorites_section.children[1].appendChild(container_div);
