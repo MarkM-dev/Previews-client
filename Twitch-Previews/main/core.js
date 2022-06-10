@@ -5607,22 +5607,21 @@
         checkbox.checked = invertBool ? !options[featureName] : options[featureName];
         checkbox.addEventListener('change', (event) => {
             if (event.target.checked) {
-                if (featureName === "isPredictionsNotificationsEnabled") {
-                    checkForTwitchNotificationsPermissions(featureName);
-                } else {
-                    if (featureName === "isClipDownloaderEnabled") {
+                switch(featureName) {
+                    case "isPredictionsNotificationsEnabled":
+                        checkForTwitchNotificationsPermissions(featureName);
+                        break;
+                    case "isClipDownloaderEnabled":
                         checkForTwitchClipsPermissions(featureName);
-                    } else {
-                        if (featureName === "isYTsidebarEnabled") {
-                            checkForYTPermissions(featureName);
-                        } else {
-                            if (featureName === "isFBsidebarEnabled") {
-                                checkForFBPermissions(featureName);
-                            } else {
-                                changeFeatureMode(featureName,invertBool ? false : true);
-                            }
-                        }
-                    }
+                        break;
+                    case "isYTsidebarEnabled":
+                        checkForYTPermissions(featureName);
+                        break;
+                    case "isFBsidebarEnabled":
+                        checkForFBPermissions(featureName);
+                        break;
+                    default:
+                        changeFeatureMode(featureName,invertBool ? false : true);
                 }
             } else {
                 changeFeatureMode(featureName,invertBool ? true : false);
