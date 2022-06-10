@@ -585,6 +585,13 @@
     color: limegreen;
     font-size: 10px;
 }
+#TPBodyEl .tp-settings-recommended-feature-span {
+    display: inline-block;
+    top: -5px;
+    position: relative;
+    color: limegreen;
+    font-size: 10px;
+}
 
 #TPBodyEl .tp_popup_donate_btn {
     height: 32px;
