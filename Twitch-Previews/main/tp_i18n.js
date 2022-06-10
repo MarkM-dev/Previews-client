@@ -1958,6 +1958,15 @@ export const i18n = {
         'ko': 'Picture In Picture (비디오 임베드)',
         'ru':'Картинка в картинке (встраивание видео)'
     },
+    dragndrop_message: {
+        'en': 'Hint:\nDrag & Drop streamers from the sidebar onto the page',
+        'es': 'Indirecta:\nArrastra y suelta serpentinas desde la barra lateral a la página',
+        'de': 'Andeuten:\nZiehen Sie Streamer per Drag & Drop aus der Seitenleiste auf die Seite',
+        'fr': 'Allusion:\nFaites glisser et déposez les streamers de la barre latérale sur la page',
+        'pt_BR': 'Dica:\nArraste e solte streamers da barra lateral na página',
+        'ko': '힌트:\n사이드바에서 페이지로 스트리머를 끌어다 놓기',
+        'ru':'Совет:\nПеретащите стримеры с боковой панели на страницу'
+    },
     preview_loader_text: {
         'en': 'loading stream...',
         'es': 'cargando...',
