@@ -1676,7 +1676,7 @@
                                     if (isStreamerOnline(shown_followed_channels[i])) {
                                         let el = shown_followed_channels[i].cloneNode(true);
                                         let _stream_name = el.href.split('/').pop();
-                                        el.title = _stream_name;
+                                        //el.title = _stream_name;
                                         el.onclick = (e) => {
                                             e.preventDefault();
                                             window.history.replaceState({},'','/' + _stream_name);
