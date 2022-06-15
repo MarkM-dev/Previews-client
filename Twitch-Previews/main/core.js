@@ -366,7 +366,7 @@
         e.preventDefault();
         e.cancelBubble = true;
         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-        createMultiStreamBox((e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), true, false, false, false, e.target.yt_videoId, e.target.fb_videoId);
+        createMultiStreamBox((e.target.yt_videoId || e.target.fb_videoId) ? e.target.stream_name:lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1), false, false, false, false, e.target.yt_videoId, e.target.fb_videoId);
         removePipBtn();
         removeVidPreviewVolBtn();
         sendMessageToBG({action: "bg_pip_started", detail: "click"});
@@ -2622,7 +2622,7 @@
     function enter_fScrnWithChat(dontCreateBox) {
         document.querySelector('.video-player__container').addEventListener("fullscreenchange", fScrnWithChat_exitFullScreen_callback);
         if (!dontCreateBox) {
-            createMultiStreamBox(window.location.pathname.substring(1), true, true, true, false, false);
+            createMultiStreamBox(window.location.pathname.substring(1), false, true, true, false, false);
         }
         hasEnteredFScreenWithChat = true;
         sendMessageToBG({action: "bg_fScrnWithChat_started", detail: 'custom'});
@@ -3246,7 +3246,7 @@
 
                     fetch(dataURI).then(function (res) {
                         res.blob().then(function (blob_res) {
-                            createMultiStreamBox(document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[2].innerText, true, false, false, URL.createObjectURL(blob_res), false);
+                            createMultiStreamBox(document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[2].innerText, false, false, false, URL.createObjectURL(blob_res), false);
                         })
                     });
                     sendMessageToBG({action: "bg_screenshot_btn_click", detail: ""});
@@ -4119,7 +4119,7 @@
 
             extraMultiBoxBtn = createMultiStreamTitleBtn(_i18n('multistream_title_add_stream_btn_title'), "&#11208;");
             extraMultiBoxBtn.onclick = function () {
-                createMultiStreamBox(streamName, true, false, false, false, yt_videoId, fb_videoId);
+                createMultiStreamBox(streamName, false, false, false, false, yt_videoId, fb_videoId);
                 sendMessageToBG({action: "bg_multiStream_box_stream_started", detail: ""});
             }
 
@@ -4144,7 +4144,7 @@
             }
             extraMultiBoxBtn = createMultiStreamTitleBtn(_i18n('multistream_title_add_chat_btn_title'), "&#9703;");
             extraMultiBoxBtn.onclick = function () {
-                createMultiStreamBox(streamName, true, true, false, false, yt_videoId, fb_videoId);
+                createMultiStreamBox(streamName, false, true, false, false, yt_videoId, fb_videoId);
                 sendMessageToBG({action: "bg_multiStream_box_chat_started", detail: ""});
             }
             title.innerHTML = "<span style='position:absolute;top: 4px;' ><span>&#11208;</span> " + streamName.charAt(0).toUpperCase() + streamName.slice(1) + "</span>";
@@ -4344,7 +4344,7 @@
                     e.cancelBubble = true;
                     let href = e.target.closest('a').href
                     href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                    createMultiStreamBox(href, true, false, false, false, false);
+                    createMultiStreamBox(href, false, false, false, false, false);
                     sendMessageToBG({action: "bg_searchBar_multiStream_started", detail: ""});
                 })
 
@@ -4370,7 +4370,7 @@
                     e.cancelBubble = true;
                     let href = e.target.closest('a').href
                     href = href.substr(href.lastIndexOf(href.indexOf("term=") > 0 ? "=" : "/") + 1);
-                    createMultiStreamBox(href, true, true, false, false, false);
+                    createMultiStreamBox(href, false, true, false, false, false);
                     sendMessageToBG({action: "bg_searchBar_multiStream_chat_started", detail: ""});
                 })
 
