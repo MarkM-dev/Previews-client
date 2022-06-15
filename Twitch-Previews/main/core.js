@@ -3792,7 +3792,7 @@
         multiStreamDiv.classList.add('tp-multi-stream-box');
 
         if(mousePos) {
-            multiStreamDiv.style.left = `calc(${mousePos.left}px - 5rem - 300px)`;
+            multiStreamDiv.style.left = `calc(${mousePos.left}px ${isNavBarCollapsed? '- 5rem':'- 24rem'} - 300px)`;
             multiStreamDiv.style.top = `calc(${mousePos.top}px - 5rem - 10px)`;
         }
 
