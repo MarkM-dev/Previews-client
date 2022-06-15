@@ -1006,7 +1006,11 @@
         drop_div.ondrop = function (e) {
             e.preventDefault();
             let data = JSON.parse(e.dataTransfer.getData("tp_data"));
-            createMultiStreamBox(data.streamName, true, false, false, false, data.yt_videoId, data.fb_videoId);
+            let mousePos = {
+                left: e.pageX,
+                top: e.pageY
+            };
+            createMultiStreamBox(data.streamName, mousePos, false, false, false, data.yt_videoId, data.fb_videoId);
             sendMessageToBG({action: "bg_pip_started", detail: "drag"});
         }
 
@@ -3781,14 +3785,15 @@
     }
 
 
-    function createMultiStreamBox(streamName, isOTF, isMultiStreamChat, isFScrnWithChat, screenshot_imageDataUri, yt_videoId, fb_videoId) {
+    function createMultiStreamBox(streamName, mousePos, isMultiStreamChat, isFScrnWithChat, screenshot_imageDataUri, yt_videoId, fb_videoId) {
         let titleBtnContainer;
         let extraMultiBoxBtn;
         let multiStreamDiv = document.createElement("div");
         multiStreamDiv.classList.add('tp-multi-stream-box');
 
-        if(isOTF) {
-            multiStreamDiv.classList.add('tp-multi-stream-otf');
+        if(mousePos) {
+            multiStreamDiv.style.left = `calc(${mousePos.left}px - 5rem - 300px)`;
+            multiStreamDiv.style.top = `calc(${mousePos.top}px - 5rem - 10px)`;
         }
 
         if(isFScrnWithChat) {
