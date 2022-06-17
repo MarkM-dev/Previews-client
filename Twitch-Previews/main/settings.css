@@ -605,6 +605,7 @@
     cursor: pointer;
     font-weight: bold;
     transition: all 0.1s;
+    transform: scale(1);
 }
 
 #TPBodyEl .tp_popup_donate_btn:hover {
