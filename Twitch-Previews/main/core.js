@@ -1221,6 +1221,50 @@
         }
     }
 
+    function createSidebarTooltip(el, dataObj) {
+        el.classList.add('tp-tooltip-container');
+        let tooltip = document.createElement('span');
+        tooltip.classList.add('tp-tooltip-sidebar');
+        tooltip.classList.add('animated');
+        tooltip.classList.add('fadeIn');
+
+        tooltip.style.inset = isLayoutHorizontallyInverted ? `0px ${isNavBarCollapsed ? '5rem': '24rem'} auto auto` : `0px auto auto ${isNavBarCollapsed ? '5rem': '24rem'}`;
+        tooltip.style[isLayoutHorizontallyInverted ? 'right':'left'] = isNavBarCollapsed ? '6rem': '25rem';
+
+        if (isNavBarCollapsed) {
+            let tooltip_top = document.createElement('p');
+            tooltip_top.classList.add('tp-tooltip-sidebar-top');
+            tooltip_top.innerText = dataObj.stream_name;
+
+            let tooltip_middle = document.createElement('p');
+            tooltip_middle.classList.add('tp-tooltip-sidebar-middle');
+            tooltip_middle.innerText = dataObj.title;
+
+            let tooltip_bottom = document.createElement('div');
+            tooltip_bottom.classList.add('tp-tooltip-sidebar-bottom');
+
+            let tooltip_bottom_live_indicator = document.createElement('div');
+            tooltip_bottom_live_indicator.classList.add('tp-tooltip-sidebar-bottom-live-indicator');
+            let tooltip_bottom_text_content = document.createElement('span');
+            tooltip_bottom_text_content.classList.add('tp-tooltip-sidebar-bottom-text-content');
+            tooltip_bottom_text_content.innerText = _i18n('sidebar_tooltip_bottom_text', [dataObj.view_count]);
+            tooltip_bottom.appendChild(tooltip_bottom_live_indicator);
+            tooltip_bottom.appendChild(tooltip_bottom_text_content);
+
+            tooltip.appendChild(tooltip_top);
+            tooltip.appendChild(tooltip_middle);
+            tooltip.appendChild(tooltip_bottom);
+        } else {
+            let tooltip_middle = document.createElement('p');
+            tooltip_middle.classList.add('tp-tooltip-sidebar-middle');
+            tooltip.classList.add('tp-tooltip-sidebar-expanded');
+            tooltip_middle.innerText = dataObj.title;
+            tooltip.appendChild(tooltip_middle);
+        }
+
+        el.appendChild(tooltip);
+    }
+
     function appendYTsidebar(streamers_arr) {
 
         let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
@@ -1308,7 +1352,7 @@
                         profile_pic_container.style.borderRadius = "50%";
 
                         navCard.querySelector('img.tw-image-avatar').remove();
-                        navCard.title = streamers_arr[i].stream_name + '\n' + streamers_arr[i].title;
+                        //navCard.title = streamers_arr[i].stream_name + '\n' + streamers_arr[i].title;
 
                         navCard.href = "https://www.youtube.com/watch?v=" + streamers_arr[i].videoId;
                         navCard.yt_videoId = streamers_arr[i].videoId;
@@ -1319,6 +1363,9 @@
                             e.cancelBubble = true;
                             sendMessageToBG({action: "bg_open_YT_stream", detail: "https://www.youtube.com/watch?v=" + streamers_arr[i].videoId});
                         }
+
+                        createSidebarTooltip(navCard,{stream_name: streamers_arr[i].stream_name, title: streamers_arr[i].title, view_count: streamers_arr[i].view_count});
+
                         let container_div = document.createElement('div');
                         container_div.appendChild(navCard);
                         yt_section.children[1].appendChild(container_div);
@@ -1422,7 +1469,7 @@
                         profile_pic_container.style.borderRadius = "50%";
 
                         navCard.querySelector('img.tw-image-avatar').remove();
-                        navCard.title = streamers_arr[i].stream_name + '\n' + streamers_arr[i].title;
+                        //navCard.title = streamers_arr[i].stream_name + '\n' + streamers_arr[i].title;
 
                         navCard.fb_videoId = streamers_arr[i].videoId;
                         navCard.stream_name = streamers_arr[i].stream_name;
@@ -1454,6 +1501,8 @@
                                 }
                             }
                         }
+
+                        createSidebarTooltip(navCard,{stream_name: streamers_arr[i].stream_name, title: streamers_arr[i].title, view_count: streamers_arr[i].view_count});
 
                         let container_div = document.createElement('div');
                         container_div.appendChild(navCard);

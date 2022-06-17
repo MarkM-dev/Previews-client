@@ -2714,5 +2714,14 @@ export const i18n = {
         'pt_BR': 'Twitch Previews:\nErro: botão Chromecast não encontrado',
         'ko': 'Twitch Previews:\n에러: 크롬캐스트 버튼을 찾을 수 없어요.',
         'ru':'Twitch Previews:\nОшибка: не удалось найти кнопку Chromecast'
+    },
+    sidebar_tooltip_bottom_text: {
+        'en': 'Live | %s viewers',
+        'es': 'En directo | %s espectadores',
+        'de': 'Live | %s Zuschauer',
+        'fr': 'Live | %s spectateurs',
+        'pt_BR': 'Ao vivo | %s espectadores',
+        'ko': '생방송 | 시청자 %s명',
+        'ru':'Прямая трансляция | Зрители: %s'
     }
 }

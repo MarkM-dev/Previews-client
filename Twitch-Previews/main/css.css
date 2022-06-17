@@ -1555,6 +1555,80 @@
     border-color: transparent #fff transparent transparent;
 }
 
+
+.tp-tooltip-container .tp-tooltip-sidebar {
+    display: none;
+    padding: 0.5rem !important;
+    margin-top: 3rem;
+    position: fixed !important;
+    top: auto !important;
+    min-width: 16rem;
+    max-width: 90vw;
+    border-radius: 0.6rem;
+    background-color: var(--color-background-base) !important;
+    box-shadow: var(--shadow-elevation-2) !important;
+}
+.tp-tooltip-container .tp-tooltip-sidebar.tp-tooltip-sidebar-expanded {
+    margin-top: -1rem;
+}
+.tp-tooltip-container .tp-tooltip-sidebar > * {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+.tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-top {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--color-text-link) !important;
+}
+.tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-middle {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: var(--color-text-base) !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal !important;
+}
+.tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-bottom {
+    display: flex !important;
+    -webkit-box-align: center !important;
+    align-items: center !important;
+}
+
+.tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-bottom .tp-tooltip-sidebar-bottom-live-indicator {
+    background-color: var(--color-fill-live);
+    border-radius: var(--border-radius-rounded);
+    width: 0.8rem;
+    height: 0.8rem;
+    display: inline-block;
+    position: relative;
+}
+
+.tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-bottom .tp-tooltip-sidebar-bottom-text-content {
+    white-space: nowrap;
+    padding-left: 0.5rem !important;
+    color: var(--color-text-alt-2) !important;
+}
+
+.tp-tooltip-container:hover .tp-tooltip-sidebar {
+    display: inline-block;
+    z-index: 2000;
+}
+/*.hhGaMT {
+    display: inline-block;
+    min-width: 16rem;
+    max-width: 90vw;
+}
+
+.hyZrBs {
+    border-radius: 0.6rem !important;
+    background-color: var(--color-background-base) !important;
+    box-shadow: var(--shadow-elevation-2) !important;
+    color: inherit !important;
+}*/
+
 .tp-drag-and-drop-target-overlay {
     position: fixed;
     margin-top: 2px;
