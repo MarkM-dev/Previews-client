@@ -908,7 +908,7 @@
                                 hidePreview();
                                 previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
                             }
-                        },250)
+                        },10)
                     }
                     removePipBtn();
                     removeVidPreviewVolBtn();
