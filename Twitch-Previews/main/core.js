@@ -1684,10 +1684,10 @@
                 favorites_section.id = 'tp_favorites_section';
                 favorites_section.classList.remove('side-nav-section');
                 favorites_section.children[1].innerHTML = '';
-
+                let title_figure = null;
                 let section_title = favorites_section.querySelector('.side-nav-header');
                 if (section_title) {
-                    let title_figure = section_title.querySelector('figure');
+                    title_figure = section_title.querySelector('figure');
                     if (title_figure) {
                         if(isExperimentalSidebar) {
                             title_figure.innerHTML = '';
@@ -1769,6 +1769,18 @@
                     }
 
                     if(!isExperimentalSidebar) {
+
+                        if (promise_result === 'FOLLOWED_LIST_IS_PARTIAL') {
+                            if (title_figure) {
+                                title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+                                    '<path d="M 908.1 353.1 l -253.9 -36.9 L 540.7 86.1 c -3.1 -6.3 -8.2 -11.4 -14.5 -14.5 c -15.8 -7.8 -35 -1.3 -42.9 14.5 L 369.8 316.2 l -253.9 36.9 c -7 1 -13.4 4.3 -18.3 ' +
+                                    '9.3 a 32.05 32.05 0 0 0 0.6 45.3 l 183.7 179.1 l -43.4 252.9 a 31.95 31.95 0 0 0 46.4 33.7 L 512 754 l 227.1 119.4 c 6.2 3.3 13.4 4.4 20.3 3.2 c 17.4 -3 29.1 -19.5 26.1 -36.9 l ' +
+                                    '-43.4 -252.9 l 183.7 -179.1 c 5 -4.9 8.3 -11.3 9.3 -18.3 c 2.7 -17.5 -9.5 -33.7 -27 -36.3 z M 664.8 561.6 l 36.1 210.3 L 512 672.7 L 323.1 772 l 36.1 -210.3 l -152.8 -149 L 417.6 382 ' +
+                                    'L 512 190.7 L 606.4 382 l 211.2 30.7 l -152.8 148.9 z L 701 773 Z Z M 675 603 L 351 604 L 320 785 L 512 729 L 703 777"></path>' +
+                                    '</svg>';
+                            }
+                        }
+
                         if (!favorites_section.children[1].firstChild && !isNavBarCollapsed) {
                             let div = document.createElement('div');
                             div.innerText = _i18n('sidebar_favorite_no_live_favorites');
@@ -1776,6 +1788,7 @@
                             div.style.color = 'grey';
                             favorites_section.children[1].appendChild(div);
                         }
+
                     }
 
 
@@ -1822,7 +1835,7 @@
         });
     }
 
-    function extendSidebar() {
+    /*function extendSidebar() {
         return new Promise(async (resolve, reject) => {
             if (!isNavBarCollapsed) {
                 let sideNavSections = document.querySelectorAll('.side-nav-section');
@@ -1849,7 +1862,45 @@
             }
         })
 
-    }
+    }*/
+    function extendSidebar() {
+            return new Promise(async (resolve, reject) => {
+                if (!isNavBarCollapsed) {
+                    let sideNavSections = document.querySelectorAll('.side-nav-section');
+                    if (sideNavSections[0]) {
+
+                        let navCards;
+                        for (let i = 0; i < 15; i++) {
+                            navCards = getSidebarNavCards(sideNavSections[0]);
+                            if (isStreamerOnline(navCards[navCards.length - 1])) {
+                                let extend_status = await extendFollowedSidebarSection(sideNavSections[0]);
+                            } else {
+                                timesExtendedSidebar = 0;
+                                extendSidebarSection(sideNavSections[1]);
+                                extendSidebarSection(sideNavSections[2]);
+                                break;
+                            }
+                        }
+                        resolve('done');
+                    } else {
+                        resolve('done');
+                    }
+                } else {
+                    let sideNavSections = document.querySelectorAll('.side-nav-section');
+                    if (sideNavSections[0]) {
+                        let navCards = getSidebarNavCards(sideNavSections[0]);
+                        if (isStreamerOnline(navCards[navCards.length - 1])) {
+                            resolve('FOLLOWED_LIST_IS_PARTIAL');
+                        } else {
+                            resolve('done');
+                        }
+                    } else {
+                        resolve('done');
+                    }
+                }
+            })
+
+        }
 
     function searchStreamer(e) {
         let filter = e.target.value.toUpperCase()
