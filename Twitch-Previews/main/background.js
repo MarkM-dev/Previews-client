@@ -37,6 +37,7 @@ let options = {
     isErrRefreshEnabled: false,
     isSidebarFavoritesEnabled: false,
     sidebarFavorites_hide_originals: false,
+    sidebarFavorites_always_updated: false,
     isSidebarExtendEnabled: false,
     isSidebarSearchEnabled: false,
     isSidebarHideSectionsEnabled: false,
@@ -426,6 +427,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_sidebarFavorites_hide_originals":
             send_ga_event('sidebarFavorites_og_mode', 'change', msg.detail ? "sBarFavorites_og_ON":"sBarFavorites_og_OFF");
+            break;
+        case "bg_update_sidebarFavorites_always_updated":
+            send_ga_event('sidebarFavorites_au_mode', 'change', msg.detail ? "sBarFavorites_au_ON":"sBarFavorites_au_OFF");
             break;
         case "bg_update_isfScrnWithChatEnabled":
             send_ga_event('fScrnWithChat_mode', 'change', msg.detail ? "fScrnWithChat_ON":"fScrnWithChat_OFF");
