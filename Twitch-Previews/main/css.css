@@ -1478,8 +1478,8 @@
     display: none;
     position: absolute;
     width: fit-content;
-    background-color: #fff;
-    color: #040109;
+    background-color: var(--color-background-tooltip, #fff);
+    color: var(--color-text-tooltip, #040109);
     padding: 3px 6px;
     font-size: 1.3rem;
     font-weight: 600;
@@ -1504,14 +1504,14 @@
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-top::after {
     top: 100%;
-    border-color: #fff transparent transparent transparent;
+    border-color: var(--color-background-tooltip, #fff) transparent transparent transparent;
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-lower-top {
     top: -69%;
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-lower-top::after {
     top: 100%;
-    border-color: #fff transparent transparent transparent;
+    border-color: var(--color-background-tooltip, #fff) transparent transparent transparent;
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-top-left {
     top: -90%;
@@ -1520,7 +1520,7 @@
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-top-left::after {
     top: 100%;
     left: 20%;
-    border-color: #fff transparent transparent transparent;
+    border-color: var(--color-background-tooltip, #fff) transparent transparent transparent;
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-top-right {
     top: -90%;
@@ -1529,7 +1529,7 @@
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-top-right::after {
     top: 100%;
     left: 80%;
-    border-color: #fff transparent transparent transparent;
+    border-color: var(--color-background-tooltip, #fff) transparent transparent transparent;
 }
 
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-bottom {
@@ -1537,7 +1537,7 @@
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-bottom::after {
     bottom: 100%;
-    border-color: transparent transparent #fff transparent;
+    border-color: transparent transparent var(--color-background-tooltip, #fff) transparent;
 }
 
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-left {
@@ -1545,14 +1545,14 @@
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-left::after {
     left: 100%;
-    border-color: transparent transparent transparent #fff;
+    border-color: transparent transparent transparent var(--color-background-tooltip, #fff);
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-right {
     right: -90%;
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-right::after {
     right: 100%;
-    border-color: transparent #fff transparent transparent;
+    border-color: transparent var(--color-background-tooltip, #fff) transparent transparent;
 }
 
 
@@ -1565,8 +1565,8 @@
     min-width: 16rem;
     max-width: 90vw;
     border-radius: 0.6rem;
-    background-color: var(--color-background-base) !important;
-    box-shadow: var(--shadow-elevation-2) !important;
+    background-color: var(--color-background-base, #18181b) !important;
+    box-shadow: var(--shadow-elevation-2, rgba(0,0,0,0.4)) !important;
 }
 .tp-tooltip-container .tp-tooltip-sidebar.tp-tooltip-sidebar-expanded {
     margin-top: -1rem;
@@ -1580,13 +1580,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    color: var(--color-text-link) !important;
+    color: var(--color-text-link, #bf94ff) !important;
 }
 .tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-middle {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    color: var(--color-text-base) !important;
+    color: var(--color-text-base, #efeff1) !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: normal !important;
@@ -1598,8 +1598,8 @@
 }
 
 .tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-bottom .tp-tooltip-sidebar-bottom-live-indicator {
-    background-color: var(--color-fill-live);
-    border-radius: var(--border-radius-rounded);
+    background-color: var(--color-fill-live, #eb0400);
+    border-radius: var(--border-radius-rounded, 9000px);
     width: 0.8rem;
     height: 0.8rem;
     display: inline-block;
@@ -1609,25 +1609,13 @@
 .tp-tooltip-container .tp-tooltip-sidebar .tp-tooltip-sidebar-bottom .tp-tooltip-sidebar-bottom-text-content {
     white-space: nowrap;
     padding-left: 0.5rem !important;
-    color: var(--color-text-alt-2) !important;
+    color: var(--color-text-alt-2, #adadb8) !important;
 }
 
 .tp-tooltip-container:hover .tp-tooltip-sidebar {
     display: inline-block;
     z-index: 2000;
 }
-/*.hhGaMT {
-    display: inline-block;
-    min-width: 16rem;
-    max-width: 90vw;
-}
-
-.hyZrBs {
-    border-radius: 0.6rem !important;
-    background-color: var(--color-background-base) !important;
-    box-shadow: var(--shadow-elevation-2) !important;
-    color: inherit !important;
-}*/
 
 .tp-drag-and-drop-target-overlay {
     position: fixed;
