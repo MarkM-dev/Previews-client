@@ -1697,3 +1697,22 @@
 .tp-multistream-swap-overlay:active {
     background-color: rgba(0,0,0,0.50);
 }
+
+@-moz-keyframes tp_spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes tp_spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes tp_spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+.tp_fav_spin_endless {
+    animation-name: tp_spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}

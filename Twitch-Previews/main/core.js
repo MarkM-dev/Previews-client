@@ -6,6 +6,7 @@
     const _tp_i18n = await import(_browser.runtime.getURL("main/tp_i18n.js"));
     let iframeAllowAutoplayStr = isFirefox ? '': 'autoplay;';
     let isNavBarCollapsed;
+    let isCurrentlyExtendingSidebar;
     let previewDiv = null;
     let appendContainer;
     let IMAGE_CACHE_TTL_MS = 20000;
@@ -1778,6 +1779,29 @@
                                     '-43.4 -252.9 l 183.7 -179.1 c 5 -4.9 8.3 -11.3 9.3 -18.3 c 2.7 -17.5 -9.5 -33.7 -27 -36.3 z M 664.8 561.6 l 36.1 210.3 L 512 672.7 L 323.1 772 l 36.1 -210.3 l -152.8 -149 L 417.6 382 ' +
                                     'L 512 190.7 L 606.4 382 l 211.2 30.7 l -152.8 148.9 z L 701 773 Z Z M 675 603 L 351 604 L 320 785 L 512 729 L 703 777"></path>' +
                                     '</svg>';
+                                title_figure.parentNode.style.cursor = 'pointer';
+                                title_figure.parentNode.onclick = function () {
+                                    let expand_btn = document.querySelector('button[data-a-target="side-nav-arrow"]')
+                                    if (expand_btn) {
+                                        title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+                                            '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 ' +
+                                            '179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 ' +
+                                            '561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path>' +
+                                            '</svg>';
+                                        title_figure.classList.add('tp_fav_spin_endless');
+                                        favorites_section.children[1].style.pointerEvents = 'none';
+                                        expand_btn.click();
+                                        let sidebar_extend_interval = setInterval(function () {
+                                          if (!isCurrentlyExtendingSidebar) {
+                                              clearInterval(sidebar_extend_interval);
+                                              sidebar_extend_interval = null;
+                                              expand_btn.click();
+                                              isHovering = false;
+                                          }
+                                        },1500);
+                                    }
+                                }
+
                             }
                         }
 
@@ -1864,6 +1888,7 @@
 
     }*/
     function extendSidebar() {
+        isCurrentlyExtendingSidebar = true;
             return new Promise(async (resolve, reject) => {
                 if (!isNavBarCollapsed) {
                     let sideNavSections = document.querySelectorAll('.side-nav-section');
@@ -1881,8 +1906,10 @@
                                 break;
                             }
                         }
+                        isCurrentlyExtendingSidebar = false;
                         resolve('done');
                     } else {
+                        isCurrentlyExtendingSidebar = false;
                         resolve('done');
                     }
                 } else {
@@ -1890,11 +1917,14 @@
                     if (sideNavSections[0]) {
                         let navCards = getSidebarNavCards(sideNavSections[0]);
                         if (isStreamerOnline(navCards[navCards.length - 1])) {
+                            isCurrentlyExtendingSidebar = false;
                             resolve('FOLLOWED_LIST_IS_PARTIAL');
                         } else {
+                            isCurrentlyExtendingSidebar = false;
                             resolve('done');
                         }
                     } else {
+                        isCurrentlyExtendingSidebar = false;
                         resolve('done');
                     }
                 }
