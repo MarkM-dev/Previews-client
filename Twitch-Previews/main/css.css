@@ -1716,3 +1716,9 @@
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
+
+.tp-fav-section-figure-clickable:hover {
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--color-background-button-text-hover, hsla(0,0%,100%,0.2));
+}

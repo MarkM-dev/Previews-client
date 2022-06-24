@@ -1779,7 +1779,7 @@
                                     '-43.4 -252.9 l 183.7 -179.1 c 5 -4.9 8.3 -11.3 9.3 -18.3 c 2.7 -17.5 -9.5 -33.7 -27 -36.3 z M 664.8 561.6 l 36.1 210.3 L 512 672.7 L 323.1 772 l 36.1 -210.3 l -152.8 -149 L 417.6 382 ' +
                                     'L 512 190.7 L 606.4 382 l 211.2 30.7 l -152.8 148.9 z L 701 773 Z Z M 675 603 L 351 604 L 320 785 L 512 729 L 703 777"></path>' +
                                     '</svg>';
-                                title_figure.parentNode.style.cursor = 'pointer';
+                                title_figure.parentNode.classList.add('tp-fav-section-figure-clickable');
                                 title_figure.parentNode.onclick = function () {
                                     let expand_btn = document.querySelector('button[data-a-target="side-nav-arrow"]')
                                     if (expand_btn) {
