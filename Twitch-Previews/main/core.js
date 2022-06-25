@@ -5228,11 +5228,12 @@
 /*
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Swap Video Embeds!</span>"
 */
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Better discoverability: You can now have your favorite streamers list always be up-to-date by auto opening and closing the sidebar when needed, so you can see your favorites with a low view count without any effort when the sidebar is closed!</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- <strong>To enable:</strong> Settings -> expand the 'Sidebar Favorite Channels' feature (arrow next to toggle) -> enable 'Always keep Favorites list updated' toggle.</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- <strong>If you leave this off:</strong> the Favorites list icon (star) will be half full to let you know that the list might not be complete, and clickable to perform the action manually.</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- More updates are planned for the favorites feature.</span>"
-            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='40' width='250' style='' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- <span style='border-bottom: 1px dashed white;' >Better discoverability:</span> You can now have your favorite streamers list always be up-to-date by auto opening and closing the sidebar when needed, so you can see your favorites with a low view count without any effort when the sidebar is closed!</span>"
+            +  "             <br><div style='height: 10px;' > </div>"
+            +  "             <span style=\"font-size: 12px;color: whitesmoke;\" >- <strong style='border-bottom: 1px dashed white;' >To enable:</strong> Settings -> expand the 'Sidebar Favorite Channels' feature (arrow next to toggle) -> enable 'Always keep Favorites list updated' toggle.</span>"
+            +  "             <br><div style='height: 10px;' > </div>"
+            +  "             <span style=\"font-size: 12px;color: whitesmoke;\" >- <strong style='border-bottom: 1px dashed white;' >If you leave this off:</strong> the Favorites list icon (star) will be half-full (when followed list isn't extended enough) to let you know that the list might not be complete, and clickable to perform the action manually.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='40' width='250' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes and improvements</strong>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Improved reliability of sidebar hover previews.</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added stream title tooltips to custom sidebar sections (Favorites, Youtube & Facebook gaming).</span>"
