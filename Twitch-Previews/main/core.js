@@ -5228,7 +5228,7 @@
 /*
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Swap Video Embeds!</span>"
 */
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- You can now have your favorite streamers list always updated by automatically opening and closing the sidebar when needed.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- You can now have your favorite streamers list always be up-to-date by automatically opening and closing the sidebar when needed, so you can see your favorites with a low view count without any effort!</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- <strong>To enable:</strong> Settings -> expand the 'Sidebar Favorite Channels' feature (arrow next to toggle) -> enable 'Always keep Favorites list updated' toggle.</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- <strong>If you leave this off:</strong> the Favorites list icon (star) will be half full to let you know that the list might not be complete, and clickable to perform the action manually.</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- More updates are planned for the favorites feature.</span>"
