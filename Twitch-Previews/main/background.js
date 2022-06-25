@@ -215,9 +215,9 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-                /*_browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});*/
+                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                //_browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
 
 
            /* if (navigator_lang === 'ko') {
