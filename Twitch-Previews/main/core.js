@@ -5222,9 +5222,9 @@
     function getUpdateToastBody() {
         //let ffclass = isFirefox ? 'class="tp_display_none"':'';
         //let cclass = isFirefox ? '':'class="tp_display_none"';
-        return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
+        return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" ><img style='margin-top: -3px;' src='" + getRuntimeUrl('images/TP24.png') + "' width='24' height='24' />&nbsp;" + _i18n('update_toast_updated_title') + "</div>"
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Favorites list feature update!</strong>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 10px;\" ><strong style='color: #2cff95;' >- Favorites list feature update!</strong>"
 /*
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Swap Video Embeds!</span>"
 */
