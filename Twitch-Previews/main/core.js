@@ -5103,10 +5103,10 @@
             "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"25\" height=\"25\" title=\"" + _i18n('update_toast_settings') + "\" />\n" +
             "               <span " + hideClass + " id='tp_updateToast_dismiss_top_btn' >X</span>\n" +
             "               <div id='tp_updateToast_body_container' >" + toast_body + "</div>" +
-/*
             "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;\" >" + _i18n('update_toast_rate_line_text') + "</div>\n" +
-*/
+/*
             "               <div " + hideClass + " style=\"font-size: 12px;margin-top: 25px;white-space: pre-line;text-align: center;\" >" + _i18n('update_toast_rate_line_new_text') + "</div>\n" +
+*/
             "            </div>\n" +
             "            <div style=\"font-size: 12px;margin-top: 10px;text-align: center;\" >\n" +
             "                <div style=\"display: inline-block;padding: 5px;cursor: pointer;font-weight: bold;\" id='tp_updateToast_rate_btn' >" + _i18n('update_toast_rate') + "</div>\n" +
@@ -5224,20 +5224,23 @@
         //let cclass = isFirefox ? '':'class="tp_display_none"';
         return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Swap Video Embeds!</strong>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Favorites list feature update!</strong>"
 /*
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Swap Video Embeds!</span>"
 */
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- A button at the top toolbar of video embeds to swap between video embeds locations.</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click the button on a video embed -> then click the embed you want to swap with.</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- This should make the multi-stream feature much more convenient :)</span>"
-            +  "             <span ><br><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='79' width='161' style='margin-top: 5px;' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Open in new tab!</strong>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click on the small icon next to the channel name in embeds (top left) to open their stream in a new tab.</span>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Reminder</strong>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- You can drag & drop streamers from the sidebar onto the page to open their stream in a video embed (from all platforms - Twitch, Youtube and Facebook).</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- You can now have your favorite streamers list always updated by automatically opening and closing the sidebar when needed.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- <strong>To enable:</strong> Settings -> expand the 'Sidebar Favorite Channels' feature (arrow next to toggle) -> enable 'Always keep Favorites list updated' toggle.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- <strong>If you leave this off:</strong> the Favorites list icon (star) will be half full to let you know that the list might not be complete, and clickable to perform the action manually.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- More updates are planned for the favorites feature.</span>"
+            +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" ><img height='40' width='250' style='' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes and improvements</strong>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Improved reliability of sidebar hover previews.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added stream title tooltips to custom sidebar sections (Favorites, Youtube & Facebook gaming).</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added Drag & Drop embeds position set according to mouse location.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Fixed an issue with the Preview size slider.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Added auto name set for the self preview feature.</span>"
             +  "       </div>"
-            +  "    </br>"
+         /*   +  "    </br>"*/
     }
 
     function showUpdateToast() {
