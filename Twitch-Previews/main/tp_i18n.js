@@ -1214,13 +1214,13 @@ export const i18n = {
         'ru':'Выберите видеофайл'
     },
     rec_pb_save_recording_note_text: {
-        'en': 'Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly\nopen them in a new tab (drag the saved video to the browser).',
-        'es': 'Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente\nábralas en una nueva pestaña (arrastre el video guardado al navegador).',
-        'de': 'Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen\nöffnen Sie sie in einem neuen Tab (ziehen Sie das gespeicherte Video in den Browser).',
-        'fr': 'Remarque: en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement\nouvrez-les dans un nouvel onglet (faites glisser la vidéo enregistrée vers le navigateur).',
-        'pt_BR': 'Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente\nabra-as em uma nova guia (arraste o vídeo salvo para o navegador).',
-        'ko': '참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요. 새 탭에서 제대로 열 수 있어요(저장된 비디오를 브라우저로 드래그).',
-        'ru':'Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей\nоткройте их на новой вкладке (перетащите сохраненное видео в браузер).'
+        'en': 'Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly\nopen them in the Recordings Video Player (hover the record button in the player controls).',
+        'es': 'Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente\nábralos en Recordings Video Player (desplace el botón de grabación en los controles del reproductor).',
+        'de': 'Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen\nÖffnen Sie sie im Recordings Video Player (bewegen Sie die Aufnahmeschaltfläche in den Player-Steuerelementen).',
+        'fr': 'Remarque: en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement\nouvrez-les dans le lecteur vidéo d\'enregistrements (survolez le bouton d\'enregistrement dans les commandes du lecteur).',
+        'pt_BR': 'Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente\nabra-os no Recordings Video Player (passe o botão de gravação nos controles do player).',
+        'ko': '참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요.\n동영상 재생 에서 열기(플레이어 컨트롤에서 녹화 버튼을 가리킴).',
+        'ru':'Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей\nоткрыть их в видеоплеере записей (наведите кнопку записи в элементах управления плеером).'
     },
     settings_feature_isRecordEnabled_desc: {
         'en': '<strong>* Record Stream Button</strong>' +
