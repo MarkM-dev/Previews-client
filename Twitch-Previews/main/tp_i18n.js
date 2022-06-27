@@ -1195,23 +1195,23 @@ export const i18n = {
         'ko': '다운로드',
         'ru':'Скачать запись'
     },
-    rec_pb_open_player_btn: {
-        'en': 'Recordings Player',
-        'es': 'Recordings Player',
-        'de': 'Recordings Player',
-        'fr': 'Recordings Player',
-        'pt_BR': 'Recordings Player',
-        'ko': 'Recordings Player',
-        'ru':'Recordings Player'
+    rec_pb_player_name: {
+        'en': 'Recordings Video Player',
+        'es': 'Reproductor de video de grabaciones',
+        'de': 'Videoplayer für Aufnahmen',
+        'fr': 'Enregistrements Lecteur vidéo',
+        'pt_BR': 'Reprodutor de vídeo de gravações',
+        'ko': '동영상 재생',
+        'ru':'Видео-плеер'
     },
     rec_pb_player_select_file_btn: {
-        'en': 'Select File',
-        'es': 'Select File',
-        'de': 'Select File',
-        'fr': 'Select File',
-        'pt_BR': 'Select File',
-        'ko': 'Select File',
-        'ru':'Select File'
+        'en': 'Select Video File',
+        'es': 'Seleccionar archivo de vídeo',
+        'de': 'Wählen Sie Videodatei',
+        'fr': 'Sélectionnez le fichier vidéo',
+        'pt_BR': 'Selecionar arquivo de vídeo',
+        'ko': '비디오 파일 선택',
+        'ru':'Выберите видеофайл'
     },
     rec_pb_save_recording_note_text: {
         'en': 'Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly\nopen them in a new tab (drag the saved video to the browser).',
