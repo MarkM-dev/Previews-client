@@ -1,5 +1,4 @@
 body {
-    padding-top: 5vh;
     background-color: rgb(24, 24, 27);
     text-align: center;
     color: whitesmoke;
@@ -16,14 +15,14 @@ body {
     margin-top: 35px;
 }
 .tp-btn {
-    display: inline-block;
+    display: block;
     width: 170px;
     border: 1px solid grey;
     transition: all 0.2s;
     cursor: pointer;
     padding: 15px 25px;
     border-radius: 10px;
-    margin: 30px 10px 0 10px;
+    margin: 35px auto;
 }
 .tp-btn:hover {
     background-color: rgba(255,255,255,0.4);
@@ -32,9 +31,12 @@ body {
     background-color: rgba(255,255,255,0.2);
 }
 #vid {
-    width: 50%;
+    width: 60%;
     height: auto;
     margin-top: 35px;
     outline: none;
     border: none;
+}
+#tp_select_file_input {
+    display: none;
 }
