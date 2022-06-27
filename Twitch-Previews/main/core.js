@@ -1,4 +1,4 @@
-// (c) Twitch Previews.
+// (c) Mark M <https://github.com/MarkM-dev>.
 (async () => {
 
     let isFirefox = typeof browser !== "undefined";
