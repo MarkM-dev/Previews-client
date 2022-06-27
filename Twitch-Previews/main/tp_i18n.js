@@ -582,13 +582,13 @@ export const i18n = {
         'ru':'Скрыть избранные каналы из списка каналов, за которыми вы следите'
     },
     settings_feature_sidebarFavorites_always_updated: {
-        'en': 'Always keep Favorites list updated\n(auto-open sidebar -> get favorites -> close sidebar)',
-        'es': 'Mantenga siempre actualizada la lista de favoritos\n(barra lateral de apertura automática -> obtener favoritos -> cerrar barra lateral)',
-        'de': 'Halten Sie die Favoritenliste immer auf dem neuesten Stand\n(Seitenleiste automatisch öffnen -> Favoriten abrufen -> Seitenleiste schließen)',
-        'fr': 'Gardez toujours la liste des favoris à jour\n(barre latérale à ouverture automatique -> obtenir les favoris -> fermer la barre latérale)',
-        'pt_BR': 'Mantenha sempre a lista de Favoritos atualizada\n(barra lateral de abertura automática -> obter favoritos -> fechar barra lateral)',
-        'ko': '즐겨찾기 목록을 항상 최신 상태로 유지\n(자동 열기 사이드바 -> 즐겨찾기 가져오기 -> 사이드바 닫기)',
-        'ru':'Всегда обновляйте список избранного\n(автоматическое открытие боковой панели -> получить избранное -> закрыть боковую панель)'
+        'en': 'Always keep Favorites list updated\n(auto-open sidebar -> Extend sidebar -> get favorites -> close sidebar)',
+        'es': 'Mantenga siempre actualizada la lista de favoritos\n(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> cerrar barra lateral)',
+        'de': 'Halten Sie die Favoritenliste immer auf dem neuesten Stand\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Favoriten abrufen -> Seitenleiste schließen)',
+        'fr': 'Gardez toujours la liste des favoris à jour\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> fermer la barre latérale)',
+        'pt_BR': 'Mantenha sempre a lista de Favoritos atualizada\n(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> fechar barra lateral)',
+        'ko': '즐겨찾기 목록을 항상 최신 상태로 유지\n(사이드바 자동 열기 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 닫기)',
+        'ru':'Всегда обновляйте список избранного\n(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> закрыть боковую панель)'
     },
     settings_feature_isYTsidebarEnabled: {
         'en': 'Sidebar YouTube Channels',
