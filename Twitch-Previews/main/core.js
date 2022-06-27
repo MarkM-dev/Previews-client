@@ -1129,6 +1129,7 @@
         let sidebarFavorites_og = options.sidebarFavorites_hide_originals ? "sBarF_og_ON" : "sBarF_og_OFF";
         let sidebarFavorites_au = options.sidebarFavorites_always_updated ? "sBarF_au_ON" : "sBarF_au_OFF";
         let sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
+        let sidebarExtend_ae = options.isSidebarAlwaysExtendEnabled ? "sBarAE_ON" : "sBarAE_OFF";
         let sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
         let pvqc = options.isPvqcEnabled ? "pvqc_ON" : "pvqc_OFF";
         let isfScrnWithChatEnabled = options.isfScrnWithChatEnabled ? "fScrnC_ON" : "fScrnC_OFF";
@@ -1150,7 +1151,7 @@
         let record = options.isRecordEnabled ? "rec_ON" : "rec_OFF";
 
         sendMessageToBG({action: "appStart", detail: selected_land + " : " + sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
-                + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + isfScrnWithChatEnabled + " : " + errRefresh
+                + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + sidebarExtend_ae + " : " + isfScrnWithChatEnabled + " : " + errRefresh
                 + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
                 + " : " + pip_main + " : " + sidebarFavorites + " : " + sidebarFavorites_au + " : " + sidebarFavorites_og + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
                 + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : "  + FBsidebar + " : " + ave + " : " + record});
@@ -1675,15 +1676,17 @@
         }
     }
 
-    function autoOpenCloseSidebar(favorites_section, title_figure) {
+    function autoOpenCloseSidebar(title_figure) {
         let expand_btn = document.querySelector('button[data-a-target="side-nav-arrow"]')
         if (expand_btn) {
-            title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
-                '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 ' +
-                '179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 ' +
-                '561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path>' +
-                '</svg>';
-            title_figure.classList.add('tp_fav_spin_endless');
+            if (title_figure) {
+                title_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 ' +
+                    '179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 ' +
+                    '561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path>' +
+                    '</svg>';
+                title_figure.classList.add('tp_fav_spin_endless');
+            }
             //favorites_section.children[1].style.pointerEvents = 'none';
             let navCards = getSidebarNavCards();
             for (let i = 0; i < navCards.length; i++) {
@@ -1691,6 +1694,11 @@
                 navCards[i].onmouseleave = null;
             }
             expand_btn.click();
+            if (!title_figure) {
+                setTimeout(function () {
+                    extendSidebar().then(function (res) {});
+                }, 50);
+            }
             let sidebar_extend_interval = setInterval(function () {
                 if (!isCurrentlyExtendingSidebar) {
                     clearInterval(sidebar_extend_interval);
@@ -1812,10 +1820,10 @@
                                     '</svg>';
                                 title_figure.parentNode.classList.add('tp-fav-section-figure-clickable');
                                 if (options.sidebarFavorites_always_updated) {
-                                    autoOpenCloseSidebar(favorites_section, title_figure);
+                                    autoOpenCloseSidebar(title_figure);
                                 } else {
                                     title_figure.parentNode.onclick = function () {
-                                        autoOpenCloseSidebar(favorites_section, title_figure);
+                                        autoOpenCloseSidebar(title_figure);
                                     }
                                 }
                             }
@@ -5519,14 +5527,23 @@
             listenForPlayerError();
         }
 
-        if (options.isSidebarExtendEnabled) {
-            try {
-                document.getElementsByClassName('side-nav-section')[0].parentNode.addEventListener("mouseenter", extendSidebar);
-                extendSidebar().then(function (res) {});
-            } catch (e) {
+        if (!options.isSidebarFavoritesEnabled) {
+            if (options.isSidebarExtendEnabled) {
+                try {
+                    document.getElementsByClassName('side-nav-section')[0].parentNode.addEventListener("mouseenter", extendSidebar);
+                    if (options.isSidebarAlwaysExtendEnabled) {
+                        extendSidebar().then(function (promise_result) {
+                            if (promise_result === 'FOLLOWED_LIST_IS_PARTIAL') {
+                                autoOpenCloseSidebar(null);
+                            }
+                        });
+                    } else {
+                        extendSidebar().then(function (res) {});
+                    }
+                } catch (e) {
 
+                }
             }
-
         }
 
         if (options.isSidebarSearchEnabled) {
@@ -6450,6 +6467,7 @@
             initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
             initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
             initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
+            initCheckbox(settingsContainer, 'isSidebarAlwaysExtendEnabled', 'TP_popup_sidebar_always_extend_checkbox', false);
             initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
             initCheckbox(settingsContainer, 'sidebarFavorites_hide_originals', 'TP_popup_sidebar_favorites_hide_originals_checkbox', false);
             initCheckbox(settingsContainer, 'sidebarFavorites_always_updated', 'TP_popup_sidebar_favorites_always_updated_checkbox', false);

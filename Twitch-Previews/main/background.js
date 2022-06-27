@@ -39,6 +39,7 @@ let options = {
     sidebarFavorites_hide_originals: false,
     sidebarFavorites_always_updated: false,
     isSidebarExtendEnabled: false,
+    isSidebarAlwaysExtendEnabled: false,
     isSidebarSearchEnabled: false,
     isSidebarHideSectionsEnabled: false,
     isMuteAutoPlayersEnabled: false,
@@ -421,6 +422,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isSidebarExtendEnabled":
             send_ga_event('sidebarExtend_mode', 'change', msg.detail ? "sBarExtend_ON":"sBarExtend_OFF");
+            break;
+        case "bg_update_isSidebarAlwaysExtendEnabled":
+            send_ga_event('sidebarAlwaysExtend_mode', 'change', msg.detail ? "sBarAlwaysExtend_ON":"sBarAlwaysExtend_OFF");
             break;
         case "bg_update_isSidebarFavoritesEnabled":
             send_ga_event('sidebarFavorites_mode', 'change', msg.detail ? "sBarFavorites_ON":"sBarFavorites_OFF");
