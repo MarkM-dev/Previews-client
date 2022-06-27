@@ -1394,7 +1394,7 @@
     display: none;
     position: absolute;
     top: -50px;
-    right: 25px;
+    right: auto;
     width: 100px;
     height: 50px;
     padding: 5px;
