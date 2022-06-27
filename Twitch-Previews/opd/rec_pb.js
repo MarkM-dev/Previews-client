@@ -16,6 +16,11 @@ async function main() {
     });
 
 
+    document.getElementById('tp_open_player_btn').addEventListener('click', function (e) {
+        _browser.runtime.sendMessage({action: 'bg_open_record_playback_player', detail: ""}, function(response) {
+
+        });
+    });
     document.getElementById('tp_download_clip_btn').addEventListener('click', function (e) {
         let a = document.createElement("a");
         document.body.appendChild(a);
@@ -36,6 +41,7 @@ async function main() {
             });
 
             let video = document.getElementById('vid');
+            video.volume = 0.1;
             video.preload = "metadata";
             video.src = recording_url_obj.url;
 

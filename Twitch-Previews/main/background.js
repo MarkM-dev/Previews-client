@@ -490,6 +490,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_open_record_playback":
             _browser.tabs.create({url: _browser.runtime.getURL("opd/rec_pb.html")});
             break;
+        case "bg_open_record_playback_player":
+            _browser.tabs.create({url: _browser.runtime.getURL("opd/rec_pb_player.html")});
+            break;
         case "bg_update_isFlashBangDefenderEnabled":
             send_ga_event('fbd_mode', 'change', msg.detail ? "fbd_ON":"fbd_OFF");
             break;
