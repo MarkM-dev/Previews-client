@@ -5439,7 +5439,6 @@
     }
 
     function toggleFeatures(isFromTitleObserver) {
-        sendMessageToBG({action: 'bg_open_record_playback_player', detail: ""});
         if(isInIframe()) {
 
             if (options.isErrRefreshEnabled) {
