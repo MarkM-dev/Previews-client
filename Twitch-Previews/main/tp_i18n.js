@@ -582,13 +582,13 @@ export const i18n = {
         'ru':'Скрыть избранные каналы из списка каналов, за которыми вы следите'
     },
     settings_feature_sidebarFavorites_always_updated: {
-        'en': 'Always keep Favorites list updated\n(auto-open sidebar -> Extend sidebar -> get favorites -> close sidebar)',
-        'es': 'Mantenga siempre actualizada la lista de favoritos\n(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> cerrar barra lateral)',
-        'de': 'Halten Sie die Favoritenliste immer auf dem neuesten Stand\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Favoriten abrufen -> Seitenleiste schließen)',
-        'fr': 'Gardez toujours la liste des favoris à jour\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> fermer la barre latérale)',
-        'pt_BR': 'Mantenha sempre a lista de Favoritos atualizada\n(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> fechar barra lateral)',
-        'ko': '즐겨찾기 목록을 항상 최신 상태로 유지\n(사이드바 자동 열기 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 닫기)',
-        'ru':'Всегда обновляйте список избранного\n(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> закрыть боковую панель)'
+        'en': 'Always keep Favorites list updated (if sidebar is closed)\n(auto-open sidebar -> Extend sidebar -> get favorites -> close sidebar)',
+        'es': 'Mantenga siempre actualizada la lista de favoritos (si la barra lateral está cerrada)\n(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> cerrar barra lateral)',
+        'de': 'Halten Sie die Favoritenliste immer auf dem neuesten Stand (wenn Seitenleiste geschlossen)\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Favoriten abrufen -> Seitenleiste schließen)',
+        'fr': 'Gardez toujours la liste des favoris à jour (si la barre latérale est fermée)\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> fermer la barre latérale)',
+        'pt_BR': 'Mantenha sempre a lista de Favoritos atualizada (se a barra lateral estiver fechada)\n(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> fechar barra lateral)',
+        'ko': '즐겨찾기 목록을 항상 최신 상태로 유지 (사이드바가 닫힌 경우)\n(사이드바 자동 열기 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 닫기)',
+        'ru':'Всегда обновляйте список избранного (если боковая панель закрыта)\n(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> закрыть боковую панель)'
     },
     settings_feature_isYTsidebarEnabled: {
         'en': 'Sidebar YouTube Channels',
@@ -795,6 +795,15 @@ export const i18n = {
         'ru':'<strong>* Автоматическое расширение боковой панели</strong>' +
             '<br>- Авто расширяет боковую панель, чтобы на боковой панели отображались все прямые трансляции (когда боковая панель открыта).' +
             '<br>- Примечание: вы можете отключить эту функцию, если у вас включена функция списка избранного.'
+    },
+    settings_feature_isSidebarAlwaysExtendEnabled: {
+        'en': 'Always keep sidebar extended (if sidebar is closed)\n(auto-open sidebar -> Extend sidebar -> close sidebar)',
+        'es': 'Mantenga siempre la barra lateral extendida (si la barra lateral está cerrada)\n(barra lateral de apertura automática -> Extender barra lateral -> cerrar barra lateral)',
+        'de': 'Seitenleiste immer ausgefahren lassen (wenn Seitenleiste geschlossen)\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Seitenleiste schließen)',
+        'fr': 'Gardez toujours la barre latérale étendue (si la barre latérale est fermée)\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> fermer la barre latérale)',
+        'pt_BR': 'Sempre mantenha a barra lateral estendida (se a barra lateral estiver fechada)\n(barra lateral de abertura automática -> Estender barra lateral -> fechar barra lateral)',
+        'ko': '항상 사이드바 확장 유지(사이드바가 닫힌 경우)\n(사이드바 자동 열기 -> 사이드바 확장 -> 사이드바 닫기)',
+        'ru':'Всегда держите боковую панель расширенной (если боковая панель закрыта)\n(автоматическое открытие боковой панели -> Расширить боковую панель -> закрыть боковую панель)'
     },
     settings_feature_isSidebarSearchEnabled: {
         'en': 'Sidebar Search Button',
