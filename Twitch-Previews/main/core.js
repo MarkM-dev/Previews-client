@@ -1635,8 +1635,18 @@
                 let favorites_btn = bell_btn.cloneNode(true);
                 favorites_btn.id = 'tp_favorites_btn';
                 favorites_btn.style.margin = '0 0px 0 10px';
-                favorites_btn.title = _i18n('favorites_btn_title');
+                //favorites_btn.title = _i18n('favorites_btn_title');
                 favorites_btn.querySelector('button').removeAttribute('disabled');
+
+                let favorites_btn_tooltip = createTooltip(favorites_btn, 'top', _i18n('favorites_btn_title'));
+                favorites_btn_tooltip.style.padding = '0.5rem';
+                favorites_btn_tooltip.style.top = '-103%';
+                favorites_btn_tooltip.classList.add('animated');
+                favorites_btn_tooltip.classList.add('fadeIn');
+
+                favorites_btn.onmouseover = function () {
+                    favorites_btn_tooltip.style.marginLeft = 'calc(' + favorites_btn_tooltip.getBoundingClientRect().width / 2 * -1 + 'px' + ' - 1.5rem - 5px)';
+                };
 
                 updateFavoritesBtnIcon(favorites_btn);
 
