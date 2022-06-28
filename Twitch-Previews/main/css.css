@@ -1446,7 +1446,7 @@
     width: 3rem;
 }
 
-#tp_favorites_btn svg:hover {
+#tp_favorites_btn:hover svg {
     transform: scale(1.2);
     transition: 200ms all;
 }
