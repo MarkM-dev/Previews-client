@@ -1228,7 +1228,7 @@ export const i18n = {
             '<br>- Click to start recording, click again to stop recording and save.' +
             '<br>- Works great with the "Seek Using Keyboard Arrows" feature.' +
             '<br>- Records at 60 frames per second, save size is about 500KB/second for 1080P(60).' +
-            '<br>- Recordings will automatically stop and save to file if there was an error with the player or the stream was changed.' +
+            '<br>- Recordings will automatically stop and save to file if there was an error with the player or the stream was changed or the volume was muted.' +
             '<br>- Note: you must have hardware-acceleration enabled in the browser (enabled by default).' +
             '<br>- Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly - open them in the Recordings Video Player (hover the record button in the player controls).',
         'es': '<strong>* Botón de grabación de flujo</strong>' +
@@ -1236,7 +1236,7 @@ export const i18n = {
             '<br>- Haga clic para comenzar a grabar, haga clic de nuevo para detener la grabación y guardar.' +
             '<br>- Funciona muy bien con la función "Buscar usando las flechas del teclado".' +
             '<br>- Graba a 60 fotogramas por segundo, el tamaño de guardado es de aproximadamente 500 KB / segundo para 1080P (60).' +
-            '<br>- Las grabaciones se detendrán automáticamente y se guardarán en un archivo si hubo un error con el reproductor o se cambió la transmisión.' +
+            '<br>- Las grabaciones se detendrán automáticamente y se guardarán en un archivo si hubo un error con el reproductor, se cambió la transmisión o se silenció el volumen.' +
             '<br>- Nota: debe tener habilitada la aceleración de hardware en el navegador (habilitada de forma predeterminada).' +
             '<br>- Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente - ábralos en Recordings Video Player (desplace el botón de grabación en los controles del reproductor).',
         'de': '<strong>* Schaltfläche zum Aufnehmen von Streams</strong>' +
@@ -1244,7 +1244,7 @@ export const i18n = {
             '<br>- Klicken Sie auf , um die Aufnahme zu starten, klicken Sie erneut, um die Aufnahme zu stoppen und zu speichern.' +
             '<br>- Funktioniert hervorragend mit der Funktion "Suchen mit Tastaturpfeilen".' +
             '<br>- Nimmt mit 60 Bildern pro Sekunde auf, die Speichergröße beträgt etwa 500 KB/Sekunde für 1080P(60).' +
-            '<br>- Aufnahmen werden automatisch gestoppt und in einer Datei gespeichert, wenn ein Fehler mit dem Player aufgetreten ist oder der Stream geändert wurde.' +
+            '<br>- Aufnahmen werden automatisch angehalten und in einer Datei gespeichert, wenn ein Fehler mit dem Player aufgetreten ist oder der Stream geändert oder die Lautstärke stummgeschaltet wurde.' +
             '<br>- Hinweis: Sie müssen die Hardware-Beschleunigung im Browser aktiviert haben (standardmäßig aktiviert).' +
             '<br>- Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen - Öffnen Sie sie im Recordings Video Player (bewegen Sie die Aufnahmeschaltfläche in den Player-Steuerelementen).',
         'fr': '<strong>* Bouton Enregistrer le flux</strong>' +
@@ -1252,7 +1252,7 @@ export const i18n = {
             '<br>- Cliquez pour démarrer l\'enregistrement, cliquez à nouveau pour arrêter l\'enregistrement et sauvegarder.' +
             '<br>- Fonctionne très bien avec la fonction "Rechercher à l\'aide des flèches du clavier".' +
             '<br>- Enregistre à 60 images par seconde, la taille de sauvegarde est d\'environ 500 Ko/seconde pour 1080P (60).' +
-            '<br>- Les enregistrements s\'arrêteront automatiquement et seront sauvegardés dans un fichier s\'il y a eu une erreur avec le lecteur ou si le flux a été modifié.' +
+            '<br>- Les enregistrements s\'arrêteront automatiquement et seront sauvegardés dans un fichier s\'il y a eu une erreur avec le lecteur ou si le flux a été modifié ou si le volume a été coupé.' +
             '<br>- Remarque : vous devez activer l\'accélération matérielle dans le navigateur (activée par défaut).' +
             '<br>- Remarque : en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement - ouvrez-les dans le lecteur vidéo d\'enregistrements (survolez le bouton d\'enregistrement dans les commandes du lecteur).',
         'pt_BR': '<strong>* Botão Gravar Fluxo</strong>' +
@@ -1260,7 +1260,7 @@ export const i18n = {
             '<br>- Clique para iniciar a gravação, clique novamente para parar a gravação e salve.' +
             '<br>- Funciona muito bem com o recurso "Buscar usando as setas do teclado".' +
             '<br>- Grava a 60 quadros por segundo, o tamanho de salvamento é de cerca de 500 KB / segundo para 1080P (60).' +
-            '<br>- As gravações irão parar automaticamente e salvar em arquivo se houver um erro com o player ou se o stream for alterado.' +
+            '<br>- As gravações pararão automaticamente e serão salvas no arquivo se houver um erro com o player, se o fluxo for alterado ou se o volume estiver mudo.' +
             '<br>- Observação: você deve ter a aceleração de hardware ativada no navegador (ativada por padrão).' +
             '<br>- Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente - abra-os no Recordings Video Player (passe o botão de gravação nos controles do player).',
         'ko': '<strong>* 방송 녹화 버튼</strong>' +
@@ -1268,7 +1268,7 @@ export const i18n = {
             '<br>- 녹화를 시작하려면 클릭하고 정지 후 저장하려면 다시 클릭하세요.' +
             '<br>- \'키보드 화살표를 사용해 탐색\' 기능과 같이 쓸 수 있어요.' +
             '<br>- 초당 60프레임으로 녹화하며, 저장 크기는 1080P (60) 기준으로 초당 약 500KB에요..' +
-            '<br>- 플레이어에 오류가 있거나 방송이 변경된 경우 녹화가 자동으로 중지되고 파일로 저장되요.' +
+            '<br>- 플레이어에 오류가 있거나 스트림이 변경되었거나 볼륨이 음소거된 경우 녹음이 자동으로 중지되고 파일에 저장됩니다.' +
             '<br>- 참고: 프라우저에서 하드웨어 가속이 활성화되어 있어야해요(기본적으로 활성화됨).' +
             '<br>- 참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요\n동영상 재생 에서 열기(플레이어 컨트롤에서 녹화 버튼을 가리킴).',
         'ru':'<strong>* Кнопка записи потока</strong>' +
@@ -1276,7 +1276,7 @@ export const i18n = {
             '<br>- Щелкните, чтобы начать запись, щелкните еще раз, чтобы остановить запись и сохранить.' +
             '<br>- Отлично работает с функцией «Искать с помощью стрелок на клавиатуре».' +
             '<br>- Запись с частотой 60 кадров в секунду, размер сохранения около 500 КБ / секунду для 1080P (60).' +
-            '<br>- Запись автоматически остановится и сохранится в файл, если произошла ошибка плеера или был изменен поток.' +
+            '<br>- Запись автоматически остановится и сохранится в файл, если произошла ошибка с плеером, был изменен поток или отключен звук.' +
             '<br>- Примечание: в браузере должно быть включено аппаратное ускорение (по умолчанию включено).' +
             '<br>- Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей - открыть их в видеоплеере записей (наведите кнопку записи в элементах управления плеером).'
     },
