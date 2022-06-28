@@ -32,9 +32,45 @@ async function main() {
     file_input.addEventListener('change', function (e) {
         let file = e.target.files[0];
         let blobURL = URL.createObjectURL(file);
-        console.log("setting");
         video.src = blobURL;
     });
+
+    function showLoading() {
+        document.getElementById('tp_loading').style.display = 'inline-block';
+    }
+
+    function hideLoading() {
+        document.getElementById('tp_loading').style.display = 'none';
+    }
+
+    let dropZone = document.body;
+    dropZone.addEventListener('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+    });
+    dropZone.addEventListener('drop', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let files = e.dataTransfer.files; // Array of all files
+
+        for (let i=0, file; file=files[i]; i++) {
+            if (file.type.match(/video.*/)) {
+                showLoading();
+                let reader = new FileReader();
+
+                reader.onload = function(e2) {
+                    video.src = e2.target.result;
+                    setTimeout(function () {
+                        hideLoading();
+                    }, 1500);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+
 
     _browser.runtime.sendMessage({action: 'bg_record_playback_player_show', detail: ""}, function(response) {
 

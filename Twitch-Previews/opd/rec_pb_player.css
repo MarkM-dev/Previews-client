@@ -40,3 +40,11 @@ body {
 #tp_select_file_input {
     display: none;
 }
+
+#tp_loading {
+    display: none;
+    font-size: 20px;
+    position: absolute;
+    left: 20%;
+    top: 10%;
+}
