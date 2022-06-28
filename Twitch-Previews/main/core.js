@@ -3479,10 +3479,10 @@
                 let record_btn_tooltip = createTooltip(record_btn, 'top', _i18n('record_btn_start_title'));
 
                 player_btn.onmouseover = function () {
-                    player_btn_tooltip.style.marginLeft = (player_btn_tooltip.getBoundingClientRect().width / 2 + 8) * -1 + 'px';
+                    player_btn_tooltip.style.marginLeft = (player_btn_tooltip.getBoundingClientRect().width / 2 + 9) * -1 + 'px';
                 };
                 record_btn.onmouseover = function () {
-                    record_btn_tooltip.style.marginLeft = (record_btn_tooltip.getBoundingClientRect().width / 2 + 8) * -1 + 'px';
+                    record_btn_tooltip.style.marginLeft = (record_btn_tooltip.getBoundingClientRect().width / 2 + 9) * -1 + 'px';
                 };
 
                 btn_container.appendChild(player_btn);
