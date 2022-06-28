@@ -4937,7 +4937,7 @@
             if (more_btn) {
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_multi_stream_btn";
-                btn_container.title = "Start Multi Stream";
+                //btn_container.title = "Start Multi Stream";
 
                 btn_container.style.width = "3rem";
                 btn_container.style.height = "3rem";
@@ -4956,6 +4956,16 @@
                     });
                     sendMessageToBG({action: "bg_multiStream_btn_click", detail: 'https://www.twitch.tv/directory/game/' + new Date().getTime()});
                 }
+
+                let btn_container_tooltip = createTooltip(btn_container, 'bottom', _i18n('start_multistream_btn_title'));
+                btn_container_tooltip.style.top = 'auto';
+                btn_container_tooltip.style.bottom = '4px';
+
+                btn_container.onmouseover = function () {
+                    btn_container_tooltip.style.marginLeft = 'calc(' + btn_container_tooltip.getBoundingClientRect().width / 2 * -1 + 'px' + ' + 1.5rem)';
+                };
+
+
                 btn_container.appendChild(img);
                 more_btn.before(btn_container);
             }
