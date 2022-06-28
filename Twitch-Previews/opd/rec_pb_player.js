@@ -35,5 +35,9 @@ async function main() {
         console.log("setting");
         video.src = blobURL;
     });
+
+    _browser.runtime.sendMessage({action: 'bg_record_playback_player_show', detail: ""}, function(response) {
+
+    });
 }
 main().then();
