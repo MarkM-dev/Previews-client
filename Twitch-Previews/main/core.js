@@ -3517,7 +3517,14 @@
 
                     let video = document.querySelector("video");
                     video.removeEventListener('abort', stopRecording);
+                    video.removeEventListener('volumechange', checkVideoVolForRecording);
                     window.removeEventListener('beforeunload', stopRecording);
+                }
+
+                function checkVideoVolForRecording(e) {
+                    if (e.target.volume === 0 || e.target.muted) {
+                        stopRecording();
+                    }
                 }
 
                 function startRecording() {
@@ -3537,6 +3544,7 @@
                         stream_name = getCurrentStreamerName();
 
                         video.addEventListener('abort', stopRecording);
+                        video.addEventListener('volumechange', checkVideoVolForRecording);
                         window.addEventListener('beforeunload', stopRecording);
 
                         mediaRecorder.start();
