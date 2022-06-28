@@ -2057,6 +2057,15 @@ export const i18n = {
         'ko': '페이스북 게이밍 채널',
         'ru':'Каналы Facebook Gaming'
     },
+    start_multistream_btn_title: {
+        'en': 'Start Multi Stream',
+        'es': 'Iniciar Multi Stream',
+        'de': 'Multi Stream starten',
+        'fr': 'Démarrer le Multi Stream',
+        'pt_BR': 'Iniciar Multi Stream',
+        'ko': '멀티 스트림 시작',
+        'ru':'Начать Multi Stream'
+    },
     favorites_btn_title: {
         'en': 'Toggle Favorite',
         'es': 'Alternar canal favorito',
