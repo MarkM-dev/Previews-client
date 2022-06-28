@@ -1640,7 +1640,7 @@
 
                 let favorites_btn_tooltip = createTooltip(favorites_btn, 'top', _i18n('favorites_btn_title'));
                 favorites_btn_tooltip.style.padding = '0.5rem';
-                favorites_btn_tooltip.style.top = '-103%';
+                favorites_btn_tooltip.style.top = '-105%';
                 favorites_btn_tooltip.classList.add('animated');
                 favorites_btn_tooltip.classList.add('fadeIn');
 
