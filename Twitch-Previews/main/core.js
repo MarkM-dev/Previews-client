@@ -610,7 +610,9 @@
                 twitchIframe.allow = iframeAllowAutoplayStr;
                 twitchIframe.style.visibility = 'hidden';
                 setTimeout(function () {
-                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                    if (isHovering) {
+                        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                    }
                 },250)
                 previewDiv.appendChild(twitchIframe);
             }
@@ -644,7 +646,9 @@
                 twitchIframe.style.display = 'block';
                 twitchIframe.style.visibility = 'hidden';
                 setTimeout(function () {
-                    twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                    if (isHovering) {
+                        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
+                    }
                 }, 125);
 
                 createAndShowLoadingSpinnerForSideNav();
