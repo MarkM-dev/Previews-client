@@ -1417,35 +1417,6 @@
     background-color: rgba(255,255,255,0.4);
 }
 
-.tp-player-control-extend {
-    text-align: center;
-    transition: width 0.2s linear;
-}
-.tp-player-control-extend:hover {
-    width: 7rem !important;
-    background-color: transparent !important;
-}
-.tp-player-control-extend:active {
-    background-color: transparent !important;
-}
-.tp-player-control-extend > div {
-    border-radius: 4px;
-}
-.tp-player-control-extend > div:hover {
-    background-color: #ffffff33;
-}
-.tp-player-control-extend > div:active {
-    background-color: rgb(38, 38, 38);
-}
-.tp-player-control-extend #tp_record_player_btn {
-    display: inline-block;
-    width: 0px;
-    transition: width 0.2s linear 0.2s;
-}
-.tp-player-control-extend:hover #tp_record_player_btn {
-    width: 3rem;
-}
-
 #tp_favorites_btn:hover svg {
     transform: scale(1.2);
     transition: 200ms all;
