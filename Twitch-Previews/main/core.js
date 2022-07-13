@@ -1230,14 +1230,14 @@
         }
     }
 
-    function createSidebarTooltip(el, dataObj) {
+    function createSidebarTooltip(el, sidebar_scroll_content, dataObj) {
         el.classList.add('tp-tooltip-container');
         let tooltip = document.createElement('span');
         tooltip.classList.add('tp-tooltip-sidebar');
         tooltip.classList.add('animated');
         tooltip.classList.add('fadeIn');
 
-        tooltip.style.inset = isLayoutHorizontallyInverted ? `0px ${isNavBarCollapsed ? '5rem': '24rem'} auto auto` : `0px auto auto ${isNavBarCollapsed ? '5rem': '24rem'}`;
+        tooltip.style.inset = isLayoutHorizontallyInverted ? `0px ${isNavBarCollapsed ? '6rem': '25rem'} auto auto` : `0px auto auto ${isNavBarCollapsed ? '6rem': '25rem'}`;
         tooltip.style[isLayoutHorizontallyInverted ? 'right':'left'] = isNavBarCollapsed ? '6rem': '25rem';
 
         if (isNavBarCollapsed) {
@@ -1269,6 +1269,12 @@
             tooltip.classList.add('tp-tooltip-sidebar-expanded');
             tooltip_middle.innerText = dataObj.title;
             tooltip.appendChild(tooltip_middle);
+        }
+
+        el.parentNode.onmouseover = (e) => {
+            let margin_top = 'calc(-' + sidebar_scroll_content.scrollTop * 2 + 'px + 3rem)';
+            tooltip.style.marginTop = margin_top;
+            tooltip.style.inset = isLayoutHorizontallyInverted ? `${margin_top} ${isNavBarCollapsed ? '6rem': '25rem'} auto auto` : `${margin_top} auto auto ${isNavBarCollapsed ? '6rem': '25rem'}`;
         }
 
         el.appendChild(tooltip);
@@ -1335,6 +1341,9 @@
                 let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
 
                 if (shown_followed_channels[0]) {
+
+                    let sidebar_scroll_content = document.querySelector('.simplebar-scroll-content');
+
                     for (let i = 0; i < streamers_arr.length; i++) {
                         let navCard = shown_followed_channels[0].cloneNode(true);
                         navCard.firstChild.classList.remove('side-nav-card__avatar--offline');
@@ -1373,10 +1382,11 @@
                             sendMessageToBG({action: "bg_open_YT_stream", detail: "https://www.youtube.com/watch?v=" + streamers_arr[i].videoId});
                         }
 
-                        createSidebarTooltip(navCard,{stream_name: streamers_arr[i].stream_name, title: streamers_arr[i].title, view_count: streamers_arr[i].view_count});
-
                         let container_div = document.createElement('div');
                         container_div.appendChild(navCard);
+
+                        createSidebarTooltip(navCard, sidebar_scroll_content,{stream_name: streamers_arr[i].stream_name, title: streamers_arr[i].title, view_count: streamers_arr[i].view_count});
+
                         yt_section.children[1].appendChild(container_div);
                     }
                 }
@@ -1459,6 +1469,9 @@
                 let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
 
                 if (shown_followed_channels[0]) {
+
+                    let sidebar_scroll_content = document.querySelector('.simplebar-scroll-content');
+
                     for (let i = 0; i < streamers_arr.length; i++) {
                         let navCard = shown_followed_channels[0].cloneNode(true);
                         navCard.firstChild.classList.remove('side-nav-card__avatar--offline');
@@ -1511,10 +1524,11 @@
                             }
                         }
 
-                        createSidebarTooltip(navCard,{stream_name: streamers_arr[i].stream_name, title: streamers_arr[i].title, view_count: streamers_arr[i].view_count});
-
                         let container_div = document.createElement('div');
                         container_div.appendChild(navCard);
+
+                        createSidebarTooltip(navCard, sidebar_scroll_content,{stream_name: streamers_arr[i].stream_name, title: streamers_arr[i].title, view_count: streamers_arr[i].view_count});
+
                         fb_section.children[1].appendChild(container_div);
                     }
                 }
