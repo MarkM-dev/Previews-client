@@ -195,13 +195,13 @@ export const i18n = {
             '<br>- Показывает превью видеопотока при наведении курсора на потоки в каталогах Twitch.'
     },
     settings_feature_isSelfPreviewEnabled: {
-        'en': 'Streaming - See Your Own Live Stream Thumbnail',
-        'es': 'ver su propia imagen en miniatura del canal en vivo',
-        'de': 'Sehen Sie sich das Miniaturbild Ihres eigenen Live-Kanals an',
-        'fr': 'voir votre propre image miniature de chaîne en direct',
-        'pt_BR': 'veja sua própria imagem em miniatura do canal ao vivo',
-        'ko': '스트리밍 - 내 라이브 썸네일 미리보기',
-        'ru':'увидеть превью своего собственного канала в прямом эфире'
+        'en': 'Streaming - See Your Own Live Stream Thumbnail (hover Twitch logo)',
+        'es': 'ver su propia imagen en miniatura del canal en vivo (flotar el logotipo de Twitch)',
+        'de': 'Sehen Sie sich das Miniaturbild Ihres eigenen Live-Kanals an (Bewegen Sie das Twitch-Logo)',
+        'fr': 'voir votre propre image miniature de chaîne en direct (survolez le logo Twitch)',
+        'pt_BR': 'veja sua própria imagem em miniatura do canal ao vivo (passe o logotipo do Twitch)',
+        'ko': '스트리밍 - 내 라이브 썸네일 미리보기 (호버 Twitch 로고)',
+        'ru':'увидеть превью своего собственного канала в прямом эфире (наведите логотип Twitch)'
     },
     settings_feature_subtext_isSelfPreviewEnabled: {
         'en': 'Stream name (english):',
