@@ -3452,6 +3452,37 @@
         }
     }
 
+    function appendRecordingsPlayerBtn(record_btn) {
+        if (document.getElementById('tp_record_player_btn')) {
+            return;
+        }
+
+        try {
+            let append_containers = document.querySelectorAll('.player-controls__right-control-group');
+            if (append_containers.length) {
+                let btn_container = document.createElement('div');
+                btn_container.id = "tp_record_player_btn";
+                btn_container.classList.add('tp-player-control');
+
+                btn_container.style.width = "3rem";
+                btn_container.style.height = "3rem";
+                btn_container.style.zIndex = "1";
+
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path fill="none" d="M0 0h24v24H0V0z"></path><path d="M21 3H3c-1.11 0-2 .89-2 2v12a2 2 0 002 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5a2 2 0 00-2-2zm0 14H3V5h18v12zm-5-6l-7 4V7z"></path>' +
+                    '</svg>';
+
+                btn_container.onclick = function (){
+                    sendMessageToBG({action: "bg_open_record_playback_player", detail: ""});
+                }
+
+                createTooltip(btn_container, 'top', _i18n('rec_pb_player_name'));
+                record_btn.before(btn_container);
+            }
+        } catch (e) {
+
+        }
+    }
 
     function appendRecordBtn() {
         if (document.getElementById('tp_record_btn')) {
@@ -3558,6 +3589,7 @@
                 if (append_containers.length > 1) {
                     append_containers[append_containers.length - 2].style.opacity = '0';
                 }
+                appendRecordingsPlayerBtn(btn_container);
             }
         } catch (e) {
 
