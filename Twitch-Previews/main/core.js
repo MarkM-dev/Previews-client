@@ -1788,8 +1788,13 @@
                                         //el.title = _stream_name;
                                         el.onclick = (e) => {
                                             e.preventDefault();
-                                            window.history.replaceState({},'','/' + _stream_name);
-                                            window.location.href = '#';
+                                            if (e.ctrlKey) {
+                                                sendMessageToBG({action:'bg_favorite_open_in_new_tab', detail:_stream_name});
+                                                clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+                                            } else {
+                                                window.history.replaceState({},'','/' + _stream_name);
+                                                window.location.href = '#';
+                                            }
                                         }
 
                                         el.addEventListener('mouseover', (e) => {
