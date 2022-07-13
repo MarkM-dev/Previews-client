@@ -771,7 +771,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "tp_settings_upgrade_db":
             if (isFirefox) {
                 let obj = upgradeDB(msg.detail);
-                for (let featureName in optionsDisabledForFirefox) {
+                for (let featureName of optionsDisabledForFirefox) {
                     if (obj.upgraded_options[featureName]) {
                         obj.upgraded_options[featureName] = false;
                     }
