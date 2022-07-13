@@ -3463,53 +3463,16 @@
                 let btn_container = document.createElement('div');
                 btn_container.id = "tp_record_btn";
                 btn_container.classList.add('tp-player-control');
-                btn_container.classList.add('tp-player-control-extend');
 
                 btn_container.style.width = "3rem";
                 btn_container.style.height = "3rem";
                 btn_container.style.zIndex = "1";
 
-                let record_btn = document.createElement('div');
-                record_btn.style.display = 'inline-block';
-                record_btn.style.width = '3rem';
-
-                record_btn.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
+                btn_container.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
                     '<path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="currentColor"></path>' +
                     '<path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 ' +
                     '12ZM20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12Z" fill="currentColor"></path>' +
                     '</svg>';
-
-                record_btn.onclick = function (){
-                    if (isRecording) {
-                        stopRecording();
-                    } else {
-                        startRecording();
-                    }
-                }
-
-                let player_btn = document.createElement('div');
-                player_btn.id = 'tp_record_player_btn';
-
-                player_btn.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="100%" width="63%" xmlns="http://www.w3.org/2000/svg">' +
-                    '<path fill="none" d="M0 0h24v24H0V0z"></path><path d="M21 3H3c-1.11 0-2 .89-2 2v12a2 2 0 002 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5a2 2 0 00-2-2zm0 14H3V5h18v12zm-5-6l-7 4V7z"></path>' +
-                    '</svg>';
-
-                player_btn.onclick = function (){
-                    sendMessageToBG({action: 'bg_open_record_playback_player', detail: ""});
-                }
-
-                let player_btn_tooltip = createTooltip(player_btn, 'top', _i18n('rec_pb_player_name'));
-                let record_btn_tooltip = createTooltip(record_btn, 'top', _i18n('record_btn_start_title'));
-
-                player_btn.onmouseover = function () {
-                    player_btn_tooltip.style.marginLeft = (player_btn_tooltip.getBoundingClientRect().width / 2 + 9) * -1 + 'px';
-                };
-                record_btn.onmouseover = function () {
-                    record_btn_tooltip.style.marginLeft = (record_btn_tooltip.getBoundingClientRect().width / 2 + 9) * -1 + 'px';
-                };
-
-                btn_container.appendChild(player_btn);
-                btn_container.appendChild(record_btn);
 
                 let isRecording = false;
                 let stream_name = '';
@@ -3533,9 +3496,8 @@
 
                 function stopRecording() {
                     mediaRecorder.stop();
-                    record_btn.style.color = 'white';
-                    record_btn_tooltip = createTooltip(record_btn, 'top', _i18n('record_btn_start_title'));
-                    record_btn_tooltip.style.marginLeft = (record_btn_tooltip.getBoundingClientRect().width / 2 + 8) * -1 + 'px';
+                    btn_container.style.color = 'white';
+                    createTooltip(btn_container, 'top', _i18n('record_btn_start_title'));
                     isRecording = false;
 
                     let video = document.querySelector("video");
@@ -3572,9 +3534,8 @@
 
                         mediaRecorder.start();
                         isRecording = true;
-                        record_btn.style.color = 'red';
-                        record_btn_tooltip = createTooltip(record_btn, 'top', _i18n('record_btn_stop_title'));
-                        record_btn_tooltip.style.marginLeft = (record_btn_tooltip.getBoundingClientRect().width / 2 + 8) * -1 + 'px';
+                        btn_container.style.color = 'red';
+                        createTooltip(btn_container, 'top', _i18n('record_btn_stop_title'));
                         sendMessageToBG({action: "bg_record_btn_click", detail: ""});
                         if (videoMuted_timeoutMS) {
                             setTimeout(function () {
@@ -3584,6 +3545,15 @@
                     }, videoMuted_timeoutMS);
                 }
 
+                btn_container.onclick = function (){
+                    if (isRecording) {
+                        stopRecording();
+                    } else {
+                        startRecording();
+                    }
+                }
+
+                createTooltip(btn_container, 'top', _i18n('record_btn_start_title'));
                 append_containers[append_containers.length - 1].children[2].before(btn_container);
                 if (append_containers.length > 1) {
                     append_containers[append_containers.length - 2].style.opacity = '0';
