@@ -464,7 +464,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('favorite_btn_click', 'favorite_btn_click', msg.detail ? 'favorite_add' : 'favorite_remove');
             break;
         case "bg_favorite_open_in_new_tab":
-            _browser.tabs.create({url:'https://www.twitch.tv/' + msg.detail});
+            _browser.tabs.create({url:'https://www.twitch.tv/' + msg.detail, active: false});
             break;
         case "bg_clip_download_btn_click":
             _browser.tabs.create({url:msg.detail});
