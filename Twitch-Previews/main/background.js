@@ -214,6 +214,19 @@ _browser.runtime.onInstalled.addListener(function(details) {
 
                     });
                 }
+
+                // anonymized stats to show the community statistics of the top favorited streamers in the extension.
+                let stats = {};
+                stats.isSbarFavsEnabled = new_db_container_obj.upgraded_options.isSidebarFavoritesEnabled;
+                _browser.storage.local.get('favorites_arr', function(result) {
+                    if (result.favorites_arr) {
+                        stats.favorites_arr = result.favorites_arr;
+                    } else {
+                        stats.favorites_arr = 'null';
+                    }
+                    send_ga_event('fav_stats', 'fav_stats', JSON.stringify(stats));
+                });
+
             });
 
             if (details.previousVersion !== "3.9" && details.previousVersion !== "4.0") {
