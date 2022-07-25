@@ -428,7 +428,7 @@
             if (navCardEl.fb_videoId) {
                 return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=" + options.PREVIEWDIV_WIDTH + "&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
             } else {
-                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true";
+                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true&controls=false";
             }
         }
     }
@@ -784,7 +784,8 @@
                         clearOverlaysInterval = null;
                         return;
                     }
-                    if ((navCardEl.yt_videoId || navCardEl.fb_videoId) && twitchIframe) {
+                    if (twitchIframe) {
+                    //if ((navCardEl.yt_videoId || navCardEl.fb_videoId) && twitchIframe) {
                         previewDiv.style.visibility = "visible";
 
                         setTimeout(function () {
