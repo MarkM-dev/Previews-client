@@ -5,7 +5,7 @@
   "author": "Mark M <https://github.com/MarkM-dev>",
   "homepage_url": "https://betterttv.com",
   "default_locale": "en",
-  "version": "4.2.0",
+  "version": "4.3",
   "permissions": ["storage"],
   "optional_permissions": ["https://clips.twitch.tv/*", "https://www.youtube.com/*", "https://*.facebook.com/*"],
   "background": {
