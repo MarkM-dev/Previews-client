@@ -3,7 +3,6 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "author": "Mark M <https://github.com/MarkM-dev>",
-  "homepage_url": "https://betterttv.com",
   "default_locale": "en",
   "version": "4.3",
   "permissions": ["storage"],
