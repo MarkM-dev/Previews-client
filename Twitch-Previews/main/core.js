@@ -951,18 +951,20 @@
             createAndShowDirectoryPreview();
 
             setTimeout(function () {
-                if (twitchIframe && twitchIframe.contentDocument && twitchIframe.contentDocument.querySelector('video')) {
-                    twitchIframe.contentDocument.querySelector('video').style.cursor = "pointer";
+                //if (twitchIframe && twitchIframe.contentDocument && twitchIframe.contentDocument.querySelector('video')) {
+                if (twitchIframe) {
+                   /* twitchIframe.contentDocument.querySelector('video').style.cursor = "pointer";
                     twitchIframe.contentDocument.querySelector('video').onclick = function () {
                         isHovering = false;
                         clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
                         window.location = "https://www.twitch.tv/" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1);
-                    }
+                    }*/
                     if (isStreamerOnline(lastHoveredCardEl)) {
                         if(clearOverlaysInterval) {
                             clearInterval(clearOverlaysInterval);
                             clearOverlaysInterval = null;
                         }
+                        clearLoadingRoller(navCardEl);
                         clearOverlays(navCardEl, true);
                     }
                 }
