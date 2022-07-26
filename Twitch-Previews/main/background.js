@@ -215,25 +215,13 @@ _browser.runtime.onInstalled.addListener(function(details) {
                     });
                 }
 
-                // anonymized stats to show the community statistics of the top favorited streamers in the extension.
-                let stats = {};
-                stats.isSbarFavsEnabled = new_db_container_obj.upgraded_options.isSidebarFavoritesEnabled;
-                _browser.storage.local.get('favorites_arr', function(result) {
-                    if (result.favorites_arr) {
-                        stats.favorites_arr = result.favorites_arr;
-                    } else {
-                        stats.favorites_arr = 'null';
-                    }
-                    send_ga_event('fav_stats', 'fav_stats', JSON.stringify(stats));
-                });
-
             });
 
-            if (details.previousVersion !== "3.9" && details.previousVersion !== "4.0" && details.previousVersion !== "4.1") {
+            /*if (details.previousVersion !== "3.9" && details.previousVersion !== "4.0" && details.previousVersion !== "4.1") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 //_browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
                 _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
-            }
+            }*/
 
            /* if (navigator_lang === 'ko') {
                 _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
