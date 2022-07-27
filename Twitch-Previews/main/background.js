@@ -111,7 +111,6 @@ function checkShouldStartCdListeners() {
 }
 
 _browser.browserAction.onClicked.addListener(function(tab) {
-
         let errString = "Could not establish connection. Receiving end does not exist.";
         _browser.tabs.query({active: true, currentWindow: true}, function (tabs) {
             _browser.tabs.sendMessage(tabs[0].id, {action: 'tp_open_settings'}, {}, (response) => {
@@ -124,7 +123,6 @@ _browser.browserAction.onClicked.addListener(function(tab) {
                 }
             })
         });
-
 });
 
 function getNavigatorLangSelection() {
@@ -184,7 +182,6 @@ _browser.runtime.onInstalled.addListener(function(details) {
     let manifestData = _browser.runtime.getManifest();
     let appVer = "v" + manifestData.version;
 
-
     if (details.reason === "install") {
         options.selected_lang = getNavigatorLangSelection();
         _browser.storage.local.set({'tp_options': options}, function() {});
@@ -197,9 +194,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
     } else {
         if (details.reason === "update") {
-
             //let navigator_lang = getNavigatorLangSelection();
-
             _browser.storage.local.get('tp_options', function(result) {
                 // upgrade db.
                 let new_db_container_obj = upgradeDB(result.tp_options);
