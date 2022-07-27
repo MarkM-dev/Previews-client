@@ -3438,7 +3438,18 @@
 
                     fetch(dataURI).then(function (res) {
                         res.blob().then(function (blob_res) {
-                            createMultiStreamBox(document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[window.location.pathname.indexOf('/videos/') > -1 ? 2:1].innerText, false, false, false, URL.createObjectURL(blob_res), false);
+                            let name = "Screenshot";
+                            try {
+                                if (window.location.pathname.indexOf('/videos/') > -1) {
+                                    name = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[2].innerText;
+                                } else {
+                                    name = getCurrentStreamerName();
+                                }
+                            } catch (e) {
+
+                            }
+
+                            createMultiStreamBox(name, false, false, false, URL.createObjectURL(blob_res), false);
                         })
                     });
                     sendMessageToBG({action: "bg_screenshot_btn_click", detail: ""});
