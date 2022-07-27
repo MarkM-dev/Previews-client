@@ -790,13 +790,13 @@
 
                         setTimeout(function () {
                             clearLoadingSpinnerFromSideNav();
-                            twitchIframe.classList.add('tp-anim-duration-100ms');
+                            /*twitchIframe.classList.add('tp-anim-duration-100ms');
                             twitchIframe.classList.add('fadeIn');
                             setTimeout(function () {
                                 if (twitchIframe) {
                                     twitchIframe.classList.remove('fadeIn');
                                 }
-                            },200)
+                            },200)*/
 
                             twitchIframe.style.visibility = "visible";
                         }, 250);
