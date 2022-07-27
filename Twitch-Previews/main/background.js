@@ -450,10 +450,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('FBsidebar_mode', 'change', msg.detail ? "FBSB_ON":"FBSB_OFF");
             break;
         case "bg_open_YT_stream":
-            _browser.tabs.create({url:msg.detail});
+            _browser.tabs.create({url:msg.detail, active: !!msg.active});
             break;
         case "bg_open_FB_stream":
-            _browser.tabs.create({url:msg.detail});
+            _browser.tabs.create({url:msg.detail, active: !!msg.active});
             break;
         case "bg_open_FB_github":
             _browser.tabs.create({url:msg.detail});

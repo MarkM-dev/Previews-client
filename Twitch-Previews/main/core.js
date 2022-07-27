@@ -1382,7 +1382,7 @@
                         navCard.onclick = (e) => {
                             e.preventDefault();
                             e.cancelBubble = true;
-                            sendMessageToBG({action: "bg_open_YT_stream", detail: "https://www.youtube.com/watch?v=" + streamers_arr[i].videoId});
+                            sendMessageToBG({action: "bg_open_YT_stream", detail: "https://www.youtube.com/watch?v=" + streamers_arr[i].videoId, active: !e.ctrlKey});
                         }
 
                         let container_div = document.createElement('div');
@@ -1522,7 +1522,7 @@
                                 navCard.onclick = (e) => {
                                     e.preventDefault();
                                     e.cancelBubble = true;
-                                    sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.facebook.com/" + streamers_arr[i].stream_name + "/videos/" + streamers_arr[i].videoId});
+                                    sendMessageToBG({action: "bg_open_FB_stream", detail: "https://www.facebook.com/" + streamers_arr[i].stream_name + "/videos/" + streamers_arr[i].videoId, active: !e.ctrlKey});
                                 }
                             }
                         }
@@ -1807,7 +1807,7 @@
                                             e.preventDefault();
                                             if (e.ctrlKey) {
                                                 sendMessageToBG({action:'bg_favorite_open_in_new_tab', detail:_stream_name});
-                                                clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+                                                //clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
                                             } else {
                                                 window.history.replaceState({},'','/' + _stream_name);
                                                 window.location.href = '#';
