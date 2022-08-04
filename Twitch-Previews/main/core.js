@@ -1057,7 +1057,8 @@
     }
 
     function refreshNavCardsListAndListeners() {
-        if (document.getElementById('sideNav')) {
+        //if (document.getElementById('sideNav')) {
+        if (document.querySelector('.side-nav')) {
             let navCards = getSidebarNavCards();
             for (let i = 0; i < navCards.length; i++) {
                 navCards[i].lastImageLoadTimeStamp = new Date().getTime();
@@ -6710,7 +6711,13 @@
             let sidenav = document.getElementById('sideNav');
             if (sidenav) {
                 sidenav.style.zIndex = '10';
+            } else {
+                let sidenav = document.querySelector('.side-nav');
+                if (sidenav) {
+                    sidenav.parentNode.style.zIndex = '10';
+                }
             }
+
             setOptionsFromDB().then(
                 function (options){
                     ga_report_appStart();
