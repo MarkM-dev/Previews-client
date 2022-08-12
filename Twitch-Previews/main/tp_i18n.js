@@ -1372,6 +1372,31 @@ export const i18n = {
             '<br>- Все происходит автоматически, вам просто нужно выбрать устройство для трансляции при появлении запроса.' +
             '<br>- Примечание: экспериментальная функция, попробуйте еще раз, если она не удалась.'
     },
+    settings_feature_isHideTtvOverlayExtensionsEnabled: {
+        'en': 'Hide Twitch Extensions Overlays',
+        'es': 'Ocultar superposiciones de extensiones de Twitch',
+        'de': 'Twitch-Erweiterungs-Overlays ausblenden',
+        'fr': 'Masquer les superpositions d\'extensions Twitch',
+        'pt_BR': 'Ocultar sobreposições de extensões do Twitch',
+        'ko': 'Twitch 확장 프로그램 오버레이 숨기기',
+        'ru':'Скрыть оверлеи расширений Twitch'
+    },
+    settings_feature_isHideTtvOverlayExtensionsEnabled_desc: {
+        'en': '<strong>* Hide Twitch Extensions Overlays</strong>' +
+            '<br>- Hides Twitch extensions overlays that show over the video.',
+        'es': '<strong>* Ocultar superposiciones de extensiones de Twitch</strong>' +
+            '<br>- Oculta las superposiciones de extensiones de Twitch que se muestran sobre el video.',
+        'de': '<strong>* Twitch-Erweiterungs-Overlays ausblenden</strong>' +
+            '<br>- Blendet Überlagerungen von Twitch-Erweiterungen aus, die über dem Video angezeigt werden.',
+        'fr': '<strong>* Masquer les superpositions d\'extensions Twitch</strong>' +
+        '<br>- Masque les superpositions d\'extensions Twitch qui s\'affichent sur la vidéo.',
+        'pt_BR': '<strong>* Ocultar sobreposições de extensões do Twitch</strong>' +
+            '<br>- Oculta sobreposições de extensões do Twitch que aparecem no vídeo.',
+        'ko': '<strong>* Twitch 확장 프로그램 오버레이 숨기기</strong>' +
+            '<br>- 비디오 위에 표시되는 Twitch 확장 오버레이를 숨깁니다.',
+        'ru':'<strong>* Скрыть оверлеи Twitch Extensions</strong>' +
+            '<br>- Скрывает оверлеи расширений Twitch, которые отображаются поверх видео.',
+    },
     settings_section_chat: {
         'en': 'Chat',
         'es': 'Chat',
