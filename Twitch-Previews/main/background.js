@@ -55,6 +55,7 @@ let options = {
     isFastForwardEnabled: false,
     isSeekEnabled: false,
     isCastEnabled: false,
+    isHideTtvOverlayExtensionsEnabled: false,
     isClearChatEnabled: false,
     isIncognitoChatEnabled: false,
     isMultiStreamEnabled: false,
@@ -513,6 +514,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isCastEnabled":
             send_ga_event('cast_mode', 'change', msg.detail ? "cast_ON":"cast_OFF");
+            break;
+        case "bg_update_isHideTtvOverlayExtensionsEnabled":
+            send_ga_event('hteo_mode', 'change', msg.detail ? "hteo_ON":"hteo_OFF");
             break;
         case "bg_cast_btn_click":
             _browser.tabs.create({url:msg.detail});

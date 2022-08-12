@@ -3222,6 +3222,15 @@
         }, 2500);
     }
 
+    function hideTtvOverlayExtensions() {
+        if (!document.head.querySelector('#tp_hideTtvOverlayExtensions')) {
+            let style = document.createElement('style');
+            style.id = 'tp_hideTtvOverlayExtensions';
+            style.textContent = '.extensions-video-overlay-size-container {display:none !important;} .extensions-dock__layout {display:none !important;} .extensions-notifications {display:none !important;}';
+            document.head.append(style);
+        }
+    }
+
     function muteAutoplayingVideoElements() {
         let videoContainer = document.querySelector('div[data-a-target="video-player"]');
         if (videoContainer) {
@@ -5813,6 +5822,10 @@
         if (options.isMuteAutoPlayersEnabled) {
             muteAutoplayingVideoElements();
         }
+
+        if (options.isHideTtvOverlayExtensionsEnabled) {
+            hideTtvOverlayExtensions();
+        }
     }
 
     _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -6591,6 +6604,7 @@
             initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox');
             initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox');
             initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox');
+            initCheckbox(settingsContainer, 'isHideTtvOverlayExtensionsEnabled', 'TP_popup_hteo_checkbox');
             initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox');
             initCheckbox(settingsContainer, 'isAdvancedVideoEmbedsEnabled', 'TP_popup_AdvancedVideoEmbeds_checkbox');
             initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox');
