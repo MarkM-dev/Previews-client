@@ -951,7 +951,7 @@
                             }
                         }, 900)
                     }
-                }, 100);
+                }, 90);
             }
         } else {
             navCardEl.onmouseleave = function () {
