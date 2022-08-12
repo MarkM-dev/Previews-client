@@ -1732,7 +1732,7 @@
     font-size: 2em;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 1px;
     border-radius: 5px;
 }
 
