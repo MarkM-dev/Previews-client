@@ -514,7 +514,7 @@
             previewDiv.style.visibility = "hidden";
             previewDiv.appendChild(twitchIframe);
 
-            let anch = document.createElement("a");
+            /*let anch = document.createElement("a");
             anch.style.width = calculatedSize.width + "px";
             anch.style.height = calculatedSize.height + "px";
             anch.style.position = "absolute";
@@ -524,8 +524,12 @@
             anch.onmouseleave = function () {
                 isHovering = false;
                 clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+            }*/
+            previewDiv.onmouseleave = function () {
+                isHovering = false;
+                clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
             }
-            previewDiv.appendChild(anch);
+            //previewDiv.appendChild(anch);
         } else {
             previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
             twitchIframe = createIframeElement();
