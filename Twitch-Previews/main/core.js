@@ -14,6 +14,7 @@
     let twitchIframe;
     let isHovering = false;
     let isHoveringPreviewDiv = false;
+    let isLoadingSidebarPreview = false;
     let lastHoveredCardEl = null;
     let TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
     let TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
@@ -537,6 +538,7 @@
     }
 
     function createAndShowLoadingSpinnerForSideNav() {
+        isLoadingSidebarPreview = true;
         if (!previewDiv.querySelector('.tp-loading')) {
             let loader = document.createElement("span");
             loader.classList.add('tp-loading');
@@ -708,7 +710,8 @@
         if (previewDiv) {
             let tploading = previewDiv.querySelector('.tp-loading');
             if (tploading) {
-                tploading.parentNode.removeChild(tploading);
+                tploading.remove();
+                isLoadingSidebarPreview = false;
             }
         }
     }
@@ -774,9 +777,9 @@
                         intervalCount++;
                     }
                 }
-                if (intervalCount === 24) {
+                /*if (intervalCount === 24) {
                     previewDiv.querySelector('.tp-loading').innerText = _i18n('preview_loader_offline_text');
-                }
+                }*/
             }, 300);
 
         } catch (e) {
@@ -905,9 +908,9 @@
                 }
 
                 if (previewDiv) {
-                    if (previewDiv.classList.contains("tp-anim-duration-1s")) {
+                    /*if (previewDiv.classList.contains("tp-anim-duration-1s")) {
                         previewDiv.classList.remove("tp-anim-duration-1s");
-                    }
+                    }*/
                     if (previewDiv.style.display === "none") {
                         previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideInRight':'slideInLeft');
                     }
@@ -945,11 +948,15 @@
                     if (!isHoveringPreviewDiv) {
                         hidePreviewDiv();
                     } else {
-                        setTimeout(function () {
-                            if (!isHovering) {
-                                hidePreviewDiv();
-                            }
-                        }, 900)
+                        if (isLoadingSidebarPreview) {
+                            hidePreviewDiv();
+                        } else {
+                            setTimeout(function () {
+                                if (!isHovering) {
+                                    hidePreviewDiv();
+                                }
+                            }, 900)
+                        }
                     }
                 }, 90);
             }
