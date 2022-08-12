@@ -443,7 +443,7 @@
         return iframe;
     }
 
-    function createPreviewDiv(cssClass) {
+    function createPreviewDiv(cssClass, isFromSidebar) {
         let previewDiv = document.createElement("div");
         previewDiv.classList.add(cssClass);
         previewDiv.classList.add("animated");
@@ -453,13 +453,15 @@
         previewDiv.style.backgroundColor = "#000";
         previewDiv.style.borderRadius = "5px";
 
-        previewDiv.onmouseover = function () {
-            isHoveringPreviewDiv = true;
-        };
+        if (isFromSidebar) {
+            previewDiv.onmouseover = function () {
+                isHoveringPreviewDiv = true;
+            };
 
-        previewDiv.onmouseleave = function () {
-            isHoveringPreviewDiv = false;
-            hidePreviewDiv();
+            previewDiv.onmouseleave = function () {
+                isHoveringPreviewDiv = false;
+                hidePreviewDiv();
+            }
         }
 
         return previewDiv;
@@ -602,7 +604,7 @@
     }
 
     function createAndShowPreview() {
-        previewDiv = createPreviewDiv(TP_PREVIEW_DIV_CLASSNAME);
+        previewDiv = createPreviewDiv(TP_PREVIEW_DIV_CLASSNAME, true);
         previewDiv.style.width = options.PREVIEWDIV_WIDTH + "px";
         previewDiv.style.height = options.PREVIEWDIV_HEIGHT + "px";
         setPreviewDivPosition();
@@ -683,6 +685,7 @@
     }
 
     function hidePreview() {
+        console.log('hidePreview');
         if (clearVidPlayInterval) {
             clearInterval(clearVidPlayInterval);
             clearVidPlayInterval = null;
