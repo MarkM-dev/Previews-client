@@ -514,22 +514,24 @@
             previewDiv.style.visibility = "hidden";
             previewDiv.appendChild(twitchIframe);
 
-            /*let anch = document.createElement("a");
-            anch.style.width = calculatedSize.width + "px";
-            anch.style.height = calculatedSize.height + "px";
-            anch.style.position = "absolute";
-            anch.style.left = "0px";
-            anch.style.top = "0px";
-            anch.href = "/" + lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+            let anch = document.createElement("a");
+            anch.classList.add('directory-preview-anch');
+            let stream_name = lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+            anch.href = "/" + stream_name;
+            anch.innerText = '⯈';
+
             anch.onmouseleave = function () {
                 isHovering = false;
                 clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-            }*/
+            }
             previewDiv.onmouseleave = function () {
                 isHovering = false;
                 clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
             }
-            //previewDiv.appendChild(anch);
+
+            createTooltip(anch, 'top', 'twitch.tv/' + stream_name);
+
+            previewDiv.appendChild(anch);
         } else {
             previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
             twitchIframe = createIframeElement();
