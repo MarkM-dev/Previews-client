@@ -5922,29 +5922,6 @@
         }
     }
 
-    function changeFeatureMode(featureName, value) {
-        onSettingChange(featureName, value);
-        sendMessageToBG({action: "bg_update_" + featureName, detail: value});
-    }
-
-    function initSettingsInfoBtn(settingsContainer, checkboxID) {
-        try {
-            let infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
-            infoBtn.src = getRuntimeUrl('images/expand.png');
-            infoBtn.addEventListener('click', (event) => {
-                let infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
-                if (infoDiv.style.maxHeight === "415px") {
-                    infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
-                    infoBtn.style.transform = "rotate(0deg)";
-                } else {
-                    infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "415px";
-                    infoBtn.style.transform = "rotate(180deg)";
-                }
-            });
-        } catch (e) {
-        }
-    }
-
     function setSelfPreviewInputValue(settingsContainer) {
         let input_box = settingsContainer.querySelector('#TP_popup_self_preview_input');
         if (input_box && !input_box.value) {
@@ -5965,6 +5942,29 @@
                     temp_hide_menu_css.remove();
                 }, 300);
             }
+        }
+    }
+
+    function changeFeatureMode(featureName, value) {
+        onSettingChange(featureName, value);
+        sendMessageToBG({action: "bg_update_" + featureName, detail: value});
+    }
+
+    function initSettingsInfoBtn(settingsContainer, checkboxID) {
+        try {
+            let infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
+            infoBtn.src = getRuntimeUrl('images/expand.png');
+            infoBtn.addEventListener('click', (event) => {
+                let infoDiv = infoBtn.parentNode.parentNode.nextElementSibling;
+                if (infoDiv.style.maxHeight === "415px") {
+                    infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "0px";
+                    infoBtn.style.transform = "rotate(0deg)";
+                } else {
+                    infoBtn.parentNode.parentNode.nextElementSibling.style.maxHeight = "415px";
+                    infoBtn.style.transform = "rotate(180deg)";
+                }
+            });
+        } catch (e) {
         }
     }
 
@@ -5989,6 +5989,15 @@
                     case "isSelfPreviewEnabled":
                         setSelfPreviewInputValue(settingsContainer, checkboxID);
                         changeFeatureMode(featureName,true);
+                        break;
+                    case "isSidebarFavoritesEnabled":
+                        changeFeatureMode(featureName,true);
+                        try {
+                            let infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
+                            if (!infoBtn.style.transform) {
+                                infoBtn.click();
+                            }
+                        } catch (e) {}
                         break;
                     default:
                         changeFeatureMode(featureName,true);
