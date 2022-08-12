@@ -1214,13 +1214,20 @@ export const i18n = {
         'ru':'Выберите видеофайл'
     },
     rec_pb_save_recording_note_text: {
-        'en': 'Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly\nopen them in the Recordings Video Player (button next to the record button).',
-        'es': 'Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente\nábralos en Recordings Video Player (botón al lado del botón de grabación).',
-        'de': 'Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen\nÖffnen Sie sie im Recordings Video Player (neben der Aufnahmetaste).',
-        'fr': 'Remarque: en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement\nouvrez-les dans le lecteur vidéo d\'enregistrements (bouton à côté du bouton d\'enregistrement).',
-        'pt_BR': 'Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente\nabra-os no Recordings Video Player (botão ao lado do botão de gravação).',
-        'ko': '참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요.\n동영상 재생 에서 열기(녹음 버튼 옆에 있는 버튼).',
-        'ru':'Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей\nоткрыть их в видеоплеере записей (кнопка рядом с кнопкой записи).'
+        'en': 'Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly\nopen them in the Recordings Video Player (button next to the record button).' +
+        '\n\n- Remember to re-enable "Hardware Acceleration".',
+        'es': 'Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente\nábralos en Recordings Video Player (botón al lado del botón de grabación).' +
+            '\n\n- Recuerde volver a habilitar "Aceleración de hardware".',
+        'de': 'Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen\nÖffnen Sie sie im Recordings Video Player (neben der Aufnahmetaste).' +
+            '\n\n- Denken Sie daran, die "Hardwarebeschleunigung" wieder zu aktivieren.',
+        'fr': 'Remarque: en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement\nouvrez-les dans le lecteur vidéo d\'enregistrements (bouton à côté du bouton d\'enregistrement).' +
+            '\n\n- N\'oubliez pas de réactiver "Hardware Acceleration".',
+        'pt_BR': 'Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente\nabra-os no Recordings Video Player (botão ao lado do botão de gravação).' +
+            '\n\n- Lembre-se de reativar a "Aceleração de Hardware".',
+        'ko': '참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요.\n동영상 재생 에서 열기(녹음 버튼 옆에 있는 버튼).' +
+            '\n\n- "하드웨어 가속"을 다시 활성화하는 것을 잊지 마십시오.',
+        'ru':'Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей\nоткрыть их в видеоплеере записей (кнопка рядом с кнопкой записи).' +
+            '\n\n- Не забудьте снова включить «Аппаратное ускорение».'
     },
     settings_feature_isRecordEnabled_desc: {
         'en': '<strong>* Record Stream Button</strong>' +
@@ -2263,6 +2270,29 @@ export const i18n = {
         'pt_BR': 'Pare de gravar',
         'ko': '녹화 정지',
         'ru':'Остановить запись'
+    },
+    record_hardware_acceleration_msg: {
+        'en': '\n- Before recording you must first disable "Hardware Acceleration" in your browser and then relaunch your browser.' +
+            '\n- Remember to re-enable "Hardware Acceleration" after recording.' +
+            '\n\nConfirm this dialog to start recording.',
+        'es': '\n- Antes de grabar, primero debe deshabilitar la "Aceleración de hardware" en su navegador y luego reiniciar su navegador.' +
+            '\n- Recuerde volver a habilitar "Aceleración de hardware" después de la grabación.' +
+            '\n\nConfirme este cuadro de diálogo para comenzar a grabar.',
+        'de': '\n- Vor der Aufzeichnung müssen Sie zuerst die "Hardwarebeschleunigung" in Ihrem Browser deaktivieren und dann Ihren Browser neu starten.' +
+            '\n- Denken Sie daran, die "Hardwarebeschleunigung" nach der Aufnahme wieder zu aktivieren.' +
+            '\n\nBestätigen Sie diesen Dialog, um die Aufnahme zu starten.',
+        'fr': '\n- Avant d\'enregistrer, vous devez d\'abord désactiver "l\'accélération matérielle" dans votre navigateur, puis relancer votre navigateur.' +
+            '\n- N\'oubliez pas de réactiver "l\'accélération matérielle" après l\'enregistrement.' +
+            '\n\nConfirmez cette boîte de dialogue pour commencer l\'enregistrement.',
+        'pt_BR': '\n- Antes de gravar, você deve primeiro desabilitar a "Aceleração de Hardware" em seu navegador e, em seguida, reiniciá-lo.' +
+            '\n- Lembre-se de reativar a "Aceleração de Hardware" após a gravação.' +
+            '\n\nConfirme esta caixa de diálogo para iniciar a gravação.',
+        'ko': '\n- 녹화하기 전에 먼저 브라우저에서 "하드웨어 가속"을 비활성화한 다음 브라우저를 다시 시작해야 합니다.' +
+            '\n- 녹음 후 "하드웨어 가속"을 다시 활성화하는 것을 잊지 마십시오.' +
+            '\n\n녹화를 시작하려면 이 대화 상자를 확인하십시오.',
+        'ru':'\n- Перед записью вы должны сначала отключить "Аппаратное ускорение" в своем браузере, а затем перезапустить браузер.' +
+            '\n- Не забудьте снова включить "Аппаратное ускорение" после записи.' +
+            '\n\nПодтвердите это диалоговое окно, чтобы начать запись.'
     },
     pip_main_btn_title: {
         'en': 'Picture In Picture',
