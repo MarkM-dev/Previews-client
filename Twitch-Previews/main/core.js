@@ -13,6 +13,7 @@
     let channelPointsClickerInterval = null;
     let twitchIframe;
     let isHovering = false;
+    let isHoveringPreviewDiv = false;
     let lastHoveredCardEl = null;
     let TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
     let TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
@@ -451,6 +452,15 @@
         previewDiv.style.backgroundColor = "#000";
         previewDiv.style.borderRadius = "5px";
 
+        previewDiv.onmouseover = function () {
+            isHoveringPreviewDiv = true;
+        };
+
+        previewDiv.onmouseleave = function () {
+            isHoveringPreviewDiv = false;
+            hidePreviewDiv();
+        }
+
         return previewDiv;
     }
 
@@ -857,11 +867,37 @@
         }
     }
 
+    function hidePreviewDiv() {
+        //setTimeout(function () {
+            //try {
+                if (!isHovering) {
+                    // shouldSlideOut
+                    if (previewDiv) {
+                        previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
+                    }
+                    setTimeout(function () {
+                        isHovering = false;
+                        if (previewDiv) {
+                            hidePreview();
+                            previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
+                        }
+                    },10)
+                }
+                removePipBtn();
+                removeVidPreviewVolBtn();
+            /*} catch (e) {
+
+            }*/
+
+        //},50)
+    }
+
     function setMouseOverListeners(navCardEl) {
         navCardEl.onmouseover = function () {
             if (!isHovering) {
                 isHovering = true;
                 lastHoveredCardEl = navCardEl;
+                isHoveringPreviewDiv = false;
 
                 if (clearVidPlayInterval) {
                     clearInterval(clearVidPlayInterval);
@@ -902,10 +938,54 @@
 
         };
 
-        navCardEl.onmouseleave = function () {
-            isHovering = false;
+        if(options.isVideoPreviewMode) {
+            navCardEl.onmouseleave = function () {
+                isHovering = false;
+                setTimeout(function () {
+                    if (!isHoveringPreviewDiv) {
+                        hidePreviewDiv();
+                    } else {
+                        setTimeout(function () {
+                            if (!isHovering) {
+                                hidePreviewDiv();
+                            }
+                        }, 900)
+                    }
+                }, 100);
+            }
+        } else {
+            navCardEl.onmouseleave = function () {
+                isHovering = false;
+                setTimeout(function () {
+                    hidePreviewDiv();
+                }, 50)
+            }
+        }
 
-            setTimeout(function () {
+
+       /* navCardEl.onmouseleave = function () {
+            isHovering = false;
+            if (options.isVideoPreviewMode) {
+                setTimeout(function () {
+                    if(!isHoveringPreviewDiv) {
+                        hidePreviewDiv();
+                    } else {
+                        setTimeout(function () {
+                            if (!isHovering) {
+                                hidePreviewDiv();
+                            }
+                        }, 900)
+                    }
+                }, 100);
+            } else {
+                setTimeout(function () {
+                    hidePreviewDiv();
+                }, 50)
+            }
+
+
+
+            /!*setTimeout(function () {
                 try {
                     if (!isHovering) {
                         // shouldSlideOut
@@ -924,8 +1004,8 @@
 
                 }
 
-            },50)
-        }
+            },50)*!/
+        }*/
     }
 
     function setDirectoryMouseOverListeners(navCardEl) {
