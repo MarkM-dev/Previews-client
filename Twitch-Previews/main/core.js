@@ -250,7 +250,7 @@
     function adjustVidPreviewVolClick(e) {
         e.preventDefault();
         e.cancelBubble = true;
-        try {
+        /*try {
             let video = twitchIframe.contentDocument.querySelector('video');
             if (video.muted) {
                 video.muted = false;
@@ -262,7 +262,8 @@
             }
         } catch (e) {
 
-        }
+        }*/
+        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl, true);
     }
 
     function adjustVidPreviewVolScroll(e) {
@@ -309,7 +310,7 @@
         vidPreviewVolBtn.style.backgroundRepeat = "no-repeat";
         vidPreviewVolBtn.style.backgroundImage = "url('" + getRuntimeUrl('../images/vidPreviewVolBtn.png') + "')";
         vidPreviewVolBtn.title = _i18n('vidPreviewVolBtn_title');
-        vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
+        //vidPreviewVolBtn.onwheel = adjustVidPreviewVolScroll;
         vidPreviewVolBtn.onclick = adjustVidPreviewVolClick;
     }
 
@@ -423,13 +424,23 @@
         }
     }
 
-    function getPreviewStreamUrl(navCardEl) {
+    function getPreviewStreamUrl(navCardEl, volumeBtnClick) {
         if (navCardEl.yt_videoId) {
+            if (volumeBtnClick) {
+                if (twitchIframe.src.indexOf('mute=1') > -1) {
+                    return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=0";
+                }
+            }
             return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
         } else {
             if (navCardEl.fb_videoId) {
                 return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=" + options.PREVIEWDIV_WIDTH + "&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
             } else {
+                if (volumeBtnClick) {
+                    if (twitchIframe.src.indexOf('muted=true') > -1) {
+                        return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=false&controls=true";
+                    }
+                }
                 return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true&controls=false";
             }
         }
@@ -826,6 +837,7 @@
                         let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                         if (container) {
                             container.appendChild(navCardPipBtn);
+                            container.appendChild(vidPreviewVolBtn);
                             navCardPipBtn.yt_videoId = navCardEl.yt_videoId;
                             navCardPipBtn.fb_videoId = navCardEl.fb_videoId;
                             navCardPipBtn.stream_name = navCardEl.stream_name;
