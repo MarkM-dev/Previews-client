@@ -29,7 +29,7 @@ let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled', 'isRecordEnable
 let options = {
     selected_lang: 'en',
     isSidebarPreviewsEnabled: true,
-    isImagePreviewMode: true,
+    isVideoPreviewMode: false,
     PREVIEWDIV_WIDTH: 440,
     PREVIEWDIV_HEIGHT: 248,
     isDirpEnabled: true,
@@ -75,7 +75,16 @@ function sendMessageToTabs(action) {
             try {
                 _browser.tabs.sendMessage(tabs[i].id, {action: action}, function(response) {});
             } catch (e) {
-                console.log(e);
+                //console.log(e);
+            }
+        }
+    });
+    _browser.tabs.query({currentWindow: false}, function(tabs){
+        for (let i = 0; i < tabs.length; i++) {
+            try {
+                _browser.tabs.sendMessage(tabs[i].id, {action: action}, function(response) {});
+            } catch (e) {
+                //console.log(e);
             }
         }
     });
@@ -390,8 +399,8 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_update_selected_lang":
             send_ga_event('selected_lang_mode', 'change', msg.detail);
             break;
-        case "bg_update_isImagePreviewMode":
-            send_ga_event('preview_mode', 'change', msg.detail ? "image":"video");
+        case "bg_update_isVideoPreviewMode":
+            send_ga_event('preview_mode', 'change', msg.detail ? "video":"image");
             break;
         case "bg_update_PREVIEWDIV_WIDTH":
             send_ga_event('preview_size', 'change', msg.detail + "px");

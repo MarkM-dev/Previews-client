@@ -602,7 +602,7 @@
             previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
             lastHoveredCardEl.lastImageLoadTimeStamp = new Date().getTime();
 
-            if (!options.isImagePreviewMode) {
+            if (options.isVideoPreviewMode) {
                 createAndShowLoadingSpinnerForSideNav();
                 twitchIframe = createIframeElement();
                 twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
@@ -618,7 +618,7 @@
             }
         } else {
             previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
-            if (!options.isImagePreviewMode) {
+            if (options.isVideoPreviewMode) {
                 twitchIframe = createIframeElement();
                 twitchIframe.width = options.PREVIEWDIV_WIDTH + "px";
                 twitchIframe.height = options.PREVIEWDIV_HEIGHT + "px";
@@ -638,7 +638,7 @@
             }
             previewDiv.style.backgroundImage = getPreviewImageUrl(lastHoveredCardEl);
 
-            if (options.isImagePreviewMode) {
+            if (!options.isVideoPreviewMode) {
                 if (twitchIframe) { // in case its from directory and user in image mode.
                     twitchIframe.style.display = 'none';
                 }
@@ -659,7 +659,7 @@
         } else {
             clearLoadingSpinnerFromSideNav();
             previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
-            if (!options.isImagePreviewMode){
+            if (options.isVideoPreviewMode){
                 twitchIframe.style.display = "none";
             }
         }
@@ -1131,7 +1131,7 @@
         let selected_land = "lang_" + options.selected_lang;
         let sidebar_previews = options.isSidebarPreviewsEnabled ? "sBarP_ON":"sBarP_OFF";
         let size = options.PREVIEWDIV_WIDTH + "px";
-        let mode = options.isImagePreviewMode ? "Image":"Video";
+        let mode = options.isVideoPreviewMode ? "Video":"Image";
         let dirp = options.isDirpEnabled ? "dirp_ON":"dirp_OFF";
         let errRefresh = options.isErrRefreshEnabled ? "errRefresh_ON":"errRefresh_OFF";
         let channelPointsClicker = options.isChannelPointsClickerEnabled ? "cpc_ON":"cpc_OFF";
@@ -5606,7 +5606,7 @@
         appendTPSettingsButton();
 
         if (options.isSidebarPreviewsEnabled) {
-            if (!options.isImagePreviewMode) {
+            if (options.isVideoPreviewMode) {
                 createVidPreviewVolBtn();
             }
             createPipBtn();
@@ -5953,9 +5953,9 @@
         }
     }
 
-    function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
+    function initCheckbox(settingsContainer, featureName, checkboxID) {
         let checkbox = settingsContainer.querySelector('#' + checkboxID);
-        checkbox.checked = invertBool ? !options[featureName] : options[featureName];
+        checkbox.checked = options[featureName];
         checkbox.addEventListener('change', (event) => {
             if (event.target.checked) {
                 switch(featureName) {
@@ -5973,14 +5973,14 @@
                         break;
                     case "isSelfPreviewEnabled":
                         setSelfPreviewInputValue(settingsContainer, checkboxID);
-                        changeFeatureMode(featureName,invertBool ? false : true);
+                        changeFeatureMode(featureName,true);
                         break;
                     default:
-                        changeFeatureMode(featureName,invertBool ? false : true);
+                        changeFeatureMode(featureName,true);
                 }
             } else {
-                changeFeatureMode(featureName,invertBool ? true : false);
-                if (featureName !== "isImagePreviewMode") {
+                changeFeatureMode(featureName,false);
+                if (featureName !== "isVideoPreviewMode") {
                     settingsContainer.querySelector('#refreshChangeDivInfo').style.display = "block";
                     settingsContainer.querySelector('.tp_settings_switch_container').style.height = "532px";
                 }
@@ -5990,7 +5990,7 @@
             }
         });
 
-        if (featureName !== "isSidebarPreviewsEnabled" && featureName !== "isImagePreviewMode") {
+        if (featureName !== "isSidebarPreviewsEnabled" && featureName !== "isVideoPreviewMode") {
             initSettingsInfoBtn(settingsContainer, checkboxID);
             initTranslateInfoDivBtn(settingsContainer, checkboxID);
         }
@@ -6558,41 +6558,41 @@
             settingsContainer.querySelector('#tp_multiStream_img').src = getRuntimeUrl('images/multistream.png');
             settingsContainer.querySelector('#tp_multiStream_chat_img').src = getRuntimeUrl('images/multistream_chat.png');
 
-            initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox', false);
+            initCheckbox(settingsContainer, 'isSidebarPreviewsEnabled', 'TP_popup_sidebar_previews_checkbox');
             settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-on'].value = _i18n('settings_feature_preview_mode_data_on');
             settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-off'].value = _i18n('settings_feature_preview_mode_data_off');
-            initCheckbox(settingsContainer, 'isImagePreviewMode', 'TP_popup_preview_mode_checkbox', true);
-            initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox', false);
-            initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox', false);
+            initCheckbox(settingsContainer, 'isVideoPreviewMode', 'TP_popup_preview_mode_checkbox');
+            initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox');
+            initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox');
             initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
-            initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox', false);
-            initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox', false);
-            initCheckbox(settingsContainer, 'isSidebarAlwaysExtendEnabled', 'TP_popup_sidebar_always_extend_checkbox', false);
-            initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox', false);
-            initCheckbox(settingsContainer, 'sidebarFavorites_hide_originals', 'TP_popup_sidebar_favorites_hide_originals_checkbox', false);
-            initCheckbox(settingsContainer, 'sidebarFavorites_always_updated', 'TP_popup_sidebar_favorites_always_updated_checkbox', false);
-            initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox', false);
-            initCheckbox(settingsContainer, 'isSidebarHideSectionsEnabled', 'TP_popup_sidebar_hide_sections_checkbox', false);
-            initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox', false);
-            initCheckbox(settingsContainer, 'isClipDownloaderEnabled', 'TP_popup_clip_downloader_checkbox', false);
-            initCheckbox(settingsContainer, 'isYTsidebarEnabled', 'TP_popup_YTsidebar_checkbox', false);
-            initCheckbox(settingsContainer, 'isFBsidebarEnabled', 'TP_popup_FBsidebar_checkbox', false);
-            initCheckbox(settingsContainer, 'isMuteAutoPlayersEnabled', 'TP_popup_muteAutoPlayers_checkbox', false);
-            initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox', false);
-            initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox', false);
-            initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox', false);
-            initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox', false);
-            initCheckbox(settingsContainer, 'isRecordEnabled', 'TP_popup_record_checkbox', false);
-            initCheckbox(settingsContainer, 'isClearChatEnabled', 'TP_popup_clearChat_checkbox', false);
-            initCheckbox(settingsContainer, 'isIncognitoChatEnabled', 'TP_popup_incognitoChat_checkbox', false);
-            initCheckbox(settingsContainer, 'isFlashBangDefenderEnabled', 'TP_popup_flashBangDefender_checkbox', false);
-            initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox', false);
-            initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox', false);
-            initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox', false);
-            initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox', false);
-            initCheckbox(settingsContainer, 'isAdvancedVideoEmbedsEnabled', 'TP_popup_AdvancedVideoEmbeds_checkbox', false);
-            initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
-            initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
+            initCheckbox(settingsContainer, 'isChannelPointsClickerEnabled', 'TP_popup_channel_points_checkbox');
+            initCheckbox(settingsContainer, 'isSidebarExtendEnabled', 'TP_popup_sidebar_extend_checkbox');
+            initCheckbox(settingsContainer, 'isSidebarAlwaysExtendEnabled', 'TP_popup_sidebar_always_extend_checkbox');
+            initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox');
+            initCheckbox(settingsContainer, 'sidebarFavorites_hide_originals', 'TP_popup_sidebar_favorites_hide_originals_checkbox');
+            initCheckbox(settingsContainer, 'sidebarFavorites_always_updated', 'TP_popup_sidebar_favorites_always_updated_checkbox');
+            initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox');
+            initCheckbox(settingsContainer, 'isSidebarHideSectionsEnabled', 'TP_popup_sidebar_hide_sections_checkbox');
+            initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox');
+            initCheckbox(settingsContainer, 'isClipDownloaderEnabled', 'TP_popup_clip_downloader_checkbox');
+            initCheckbox(settingsContainer, 'isYTsidebarEnabled', 'TP_popup_YTsidebar_checkbox');
+            initCheckbox(settingsContainer, 'isFBsidebarEnabled', 'TP_popup_FBsidebar_checkbox');
+            initCheckbox(settingsContainer, 'isMuteAutoPlayersEnabled', 'TP_popup_muteAutoPlayers_checkbox');
+            initCheckbox(settingsContainer, 'isErrRefreshEnabled', 'TP_popup_err_refresh_checkbox');
+            initCheckbox(settingsContainer, 'isfScrnWithChatEnabled', 'TP_popup_fScrnWithChat_checkbox');
+            initCheckbox(settingsContainer, 'isPipEnabled', 'TP_popup_pip_checkbox');
+            initCheckbox(settingsContainer, 'isScreenshotEnabled', 'TP_popup_screenshot_checkbox');
+            initCheckbox(settingsContainer, 'isRecordEnabled', 'TP_popup_record_checkbox');
+            initCheckbox(settingsContainer, 'isClearChatEnabled', 'TP_popup_clearChat_checkbox');
+            initCheckbox(settingsContainer, 'isIncognitoChatEnabled', 'TP_popup_incognitoChat_checkbox');
+            initCheckbox(settingsContainer, 'isFlashBangDefenderEnabled', 'TP_popup_flashBangDefender_checkbox');
+            initCheckbox(settingsContainer, 'isFastForwardEnabled', 'TP_popup_fastForward_checkbox');
+            initCheckbox(settingsContainer, 'isSeekEnabled', 'TP_popup_seek_checkbox');
+            initCheckbox(settingsContainer, 'isCastEnabled', 'TP_popup_cast_checkbox');
+            initCheckbox(settingsContainer, 'isMultiStreamEnabled', 'TP_popup_multiStream_checkbox');
+            initCheckbox(settingsContainer, 'isAdvancedVideoEmbedsEnabled', 'TP_popup_AdvancedVideoEmbeds_checkbox');
+            initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox');
+            initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox');
             initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
             initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
             initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
