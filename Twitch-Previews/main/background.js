@@ -91,8 +91,8 @@ function sendMessageToTabs(action) {
 }
 
 function handleTabUpdateForClipDownloader(tabId, changeInfo, tabInfo) {
-    if (changeInfo.status && changeInfo.status === 'complete') {
-        if (tabInfo.url && tabInfo.url.indexOf('https://clips.twitch.tv') > -1) {
+    if (tabInfo.url && tabInfo.url.indexOf('https://clips.twitch.tv') > -1) {
+        if (changeInfo.status && changeInfo.status === 'complete') {
             _browser.tabs.executeScript(tabId, {
                 file: 'main/cd.js'
             });
