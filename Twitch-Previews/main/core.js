@@ -15,6 +15,7 @@
     let isHovering = false;
     let isHoveringPreviewDiv = false;
     let isLoadingSidebarPreview = false;
+    let isKeepSBarPreviewsOpenMode = false;
     let lastHoveredCardEl = null;
     let TP_PREVIEW_DIV_CLASSNAME = "twitch_previews_previewDiv";
     let TP_SELF_PREVIEW_DIV_CLASSNAME = "twitch_previews_self_previewDiv";
@@ -263,7 +264,13 @@
         } catch (e) {
 
         }*/
-        twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl, true);
+        if (isKeepSBarPreviewsOpenMode) {
+            isKeepSBarPreviewsOpenMode = false;
+            twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl, false);
+        } else {
+            isKeepSBarPreviewsOpenMode = true;
+            twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl, true);
+        }
     }
 
     function adjustVidPreviewVolScroll(e) {
@@ -424,24 +431,16 @@
         }
     }
 
-    function getPreviewStreamUrl(navCardEl, volumeBtnClick) {
+    function getPreviewStreamUrl(navCardEl, bVolume_and_controls) {
         if (navCardEl.yt_videoId) {
-            if (volumeBtnClick) {
-                if (twitchIframe.src.indexOf('mute=1') > -1) {
-                    return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=1&mute=0";
-                }
-            }
-            return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
+            //return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
+            return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&" + (bVolume_and_controls ? "controls=1&mute=0":"controls=0&mute=1");
         } else {
             if (navCardEl.fb_videoId) {
                 return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=" + options.PREVIEWDIV_WIDTH + "&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
             } else {
-                if (volumeBtnClick) {
-                    if (twitchIframe.src.indexOf('muted=true') > -1) {
-                        return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=false&controls=true";
-                    }
-                }
-                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true&controls=false";
+                return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&" + (bVolume_and_controls ? "muted=false&controls=true":"muted=true&controls=false");
+                //return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true&controls=false";
             }
         }
     }
@@ -923,6 +922,7 @@
                 isHovering = true;
                 lastHoveredCardEl = navCardEl;
                 isHoveringPreviewDiv = false;
+                isKeepSBarPreviewsOpenMode = false;
 
                 if (clearVidPlayInterval) {
                     clearInterval(clearVidPlayInterval);
@@ -971,11 +971,11 @@
                         hidePreviewDiv();
                     } else {
                         if (isLoadingSidebarPreview) {
-                            if (!options.isKeepSBarPreviewsOpenMode) {
+                            if (!isKeepSBarPreviewsOpenMode) {
                                 hidePreviewDiv();
                             }
                         } else {
-                            if (!options.isKeepSBarPreviewsOpenMode) {
+                            if (!isKeepSBarPreviewsOpenMode) {
                                 setTimeout(function () {
                                     if (!isHovering) {
                                         hidePreviewDiv();
@@ -5936,10 +5936,6 @@
         if (options.isHideTtvOverlayExtensionsEnabled) {
             hideTtvOverlayExtensions();
         }
-
-        /*if (options.isKeepSBarPreviewsOpenMode) {
-
-        }*/
     }
 
     _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -6709,7 +6705,6 @@
             settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-on'].value = _i18n('settings_feature_preview_mode_data_on');
             settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-off'].value = _i18n('settings_feature_preview_mode_data_off');
             initCheckbox(settingsContainer, 'isVideoPreviewMode', 'TP_popup_preview_mode_checkbox');
-            initCheckbox(settingsContainer, 'isKeepSBarPreviewsOpenMode', 'TP_popup_keepSBarPreviewsOpen_mode_checkbox');
             initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox');
             initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox');
             initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');

@@ -30,7 +30,6 @@ let options = {
     selected_lang: 'en',
     isSidebarPreviewsEnabled: true,
     isVideoPreviewMode: false,
-    isKeepSBarPreviewsOpenMode: false,
     PREVIEWDIV_WIDTH: 440,
     PREVIEWDIV_HEIGHT: 248,
     isDirpEnabled: true,
@@ -563,9 +562,6 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "bg_update_isErrRefreshEnabled":
             send_ga_event('errRefresh_mode', 'change', msg.detail ? "ErrRefresh_ON":"ErrRefresh_OFF");
-            break;
-        case "bg_update_isKeepSBarPreviewsOpenMode":
-            send_ga_event('keepSBarPreviewsOpen_mode', 'change', msg.detail ? "keepSBarPreviewsOpen_ON":"keepSBarPreviewsOpen_OFF");
             break;
         case "bg_update_isPredictionsNotificationsEnabled":
             send_ga_event('predictionsNotifications_mode', 'change', msg.detail ? "PN_ON":"PN_OFF");
