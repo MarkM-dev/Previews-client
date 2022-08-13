@@ -973,11 +973,13 @@
                         if (isLoadingSidebarPreview) {
                             hidePreviewDiv();
                         } else {
-                            setTimeout(function () {
-                                if (!isHovering) {
-                                    hidePreviewDiv();
-                                }
-                            }, 900)
+                            if (!options.isKeepSBarPreviewsOpenMode) {
+                                setTimeout(function () {
+                                    if (!isHovering) {
+                                        hidePreviewDiv();
+                                    }
+                                }, 900)
+                            }
                         }
                     }
                 }, 90);
@@ -5935,6 +5937,10 @@
         if (options.isHideTtvOverlayExtensionsEnabled) {
             hideTtvOverlayExtensions();
         }
+
+        /*if (options.isKeepSBarPreviewsOpenMode) {
+
+        }*/
     }
 
     _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
@@ -6695,6 +6701,7 @@
             settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-on'].value = _i18n('settings_feature_preview_mode_data_on');
             settingsContainer.querySelector('#TP_popup_preview_mode_toggle_btn_data_span').attributes['data-off'].value = _i18n('settings_feature_preview_mode_data_off');
             initCheckbox(settingsContainer, 'isVideoPreviewMode', 'TP_popup_preview_mode_checkbox');
+            initCheckbox(settingsContainer, 'isKeepSBarPreviewsOpenMode', 'TP_popup_keepSBarPreviewsOpen_mode_checkbox');
             initCheckbox(settingsContainer, 'isDirpEnabled', 'TP_popup_directory_preview_mode_checkbox');
             initCheckbox(settingsContainer, 'isSelfPreviewEnabled', 'TP_popup_self_previews_checkbox');
             initTextInputValue(settingsContainer, 'selfPreviewStreamName', 'TP_popup_self_preview_input');
