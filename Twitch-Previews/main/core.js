@@ -470,6 +470,7 @@
 
             previewDiv.onmouseleave = function () {
                 isHoveringPreviewDiv = false;
+                isKeepSBarPreviewsOpenMode = false;
                 hidePreviewDiv();
             }
         }
