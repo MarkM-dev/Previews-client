@@ -971,7 +971,9 @@
                         hidePreviewDiv();
                     } else {
                         if (isLoadingSidebarPreview) {
-                            hidePreviewDiv();
+                            if (!options.isKeepSBarPreviewsOpenMode) {
+                                hidePreviewDiv();
+                            }
                         } else {
                             if (!options.isKeepSBarPreviewsOpenMode) {
                                 setTimeout(function () {
