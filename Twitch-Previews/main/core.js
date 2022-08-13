@@ -702,7 +702,6 @@
     }
 
     function hidePreview() {
-        console.log('hidePreview');
         if (clearVidPlayInterval) {
             clearInterval(clearVidPlayInterval);
             clearVidPlayInterval = null;
@@ -837,7 +836,9 @@
                         let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                         if (container) {
                             container.appendChild(navCardPipBtn);
-                            container.appendChild(vidPreviewVolBtn);
+                            if (!navCardEl.fb_videoId) {
+                                container.appendChild(vidPreviewVolBtn);
+                            }
                             navCardPipBtn.yt_videoId = navCardEl.yt_videoId;
                             navCardPipBtn.fb_videoId = navCardEl.fb_videoId;
                             navCardPipBtn.stream_name = navCardEl.stream_name;
