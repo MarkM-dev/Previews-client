@@ -6111,6 +6111,15 @@
                             }
                         } catch (e) {}
                         break;
+                    case "isSidebarExtendEnabled":
+                        changeFeatureMode(featureName,true);
+                        try {
+                            let infoBtn = settingsContainer.querySelector('#' + checkboxID).nextElementSibling;
+                            if (!infoBtn.style.transform) {
+                                infoBtn.click();
+                            }
+                        } catch (e) {}
+                        break;
                     default:
                         changeFeatureMode(featureName,true);
                 }
