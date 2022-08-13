@@ -189,6 +189,22 @@ function upgradeDB(loaded_options) {
     return {bSetToStorage: bSetToStorage, upgraded_options: loaded_options}
 }
 
+function upgradeFavoriteStreamersArray(favorites_arr) {
+    let bHasBeenUpgraded = false;
+    let new_array = [];
+    if (favorites_arr && favorites_arr.length) {
+        if (typeof favorites_arr[0] === 'string') {
+            for (let i = 0; i < favorites_arr.length; i++) {
+                //if (favorites_arr[i] !== 'xqcow') {
+                    new_array.push({stream_name: favorites_arr[i]});
+                //}
+            }
+            bHasBeenUpgraded = true;
+        }
+    }
+    return {bHasBeenUpgraded: bHasBeenUpgraded, fav_array: bHasBeenUpgraded ? new_array : favorites_arr};
+}
+
 _browser.runtime.onInstalled.addListener(function(details) {
     let manifestData = _browser.runtime.getManifest();
     let appVer = "v" + manifestData.version;
@@ -221,6 +237,15 @@ _browser.runtime.onInstalled.addListener(function(details) {
                     });
                 }
 
+            });
+
+            _browser.storage.local.get('favorites_arr', function (res) {
+                let new_fav_container_obj = upgradeFavoriteStreamersArray(res.favorites_arr);
+                if (new_fav_container_obj.bHasBeenUpgraded) {
+                    _browser.storage.local.set({'favorites_arr': new_fav_container_obj.fav_array}, function() {
+
+                    });
+                }
             });
 
             /*if (details.previousVersion !== "3.9" && details.previousVersion !== "4.0" && details.previousVersion !== "4.1") {
