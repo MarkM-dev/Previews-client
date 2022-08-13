@@ -1378,8 +1378,8 @@
                 /*let offline_text_span = document.createElement('span');
                 offline_text_span.style.color = '#adadb8';
                 offline_text_span.innerText = ' · ' +_i18n('offline_text');
-                tooltip_top.appendChild(offline_text_span);
-                //tooltip_bottom_text_content.innerText = ' · ' +_i18n('offline_text');*/
+                tooltip_top.appendChild(offline_text_span);*/
+                tooltip_bottom_text_content.innerText = _i18n('offline_text');
             } else {
                 tooltip_bottom_text_content.innerText = _i18n('sidebar_tooltip_bottom_text', [dataObj.view_count]);
                 tooltip_bottom.appendChild(tooltip_bottom_live_indicator);
@@ -1396,16 +1396,27 @@
             tooltip.classList.add('tp-tooltip-sidebar-expanded');
             if (dataObj.is_offline_channel) {
                 tooltip_middle.innerText = dataObj.stream_name;
+
+                let tooltip_bottom = document.createElement('div');
+                tooltip_bottom.classList.add('tp-tooltip-sidebar-bottom');
+
+                let tooltip_bottom_text_content = document.createElement('span');
+                tooltip_bottom_text_content.classList.add('tp-tooltip-sidebar-bottom-text-content');
+                tooltip_bottom_text_content.innerText = _i18n('offline_text');
+
+                tooltip_bottom.appendChild(tooltip_bottom_text_content);
+
+                tooltip.appendChild(tooltip_middle);
+                tooltip.appendChild(tooltip_bottom);
             } else {
                 tooltip_middle.innerText = dataObj.title;
+                tooltip.appendChild(tooltip_middle);
             }
 
-
-            tooltip.appendChild(tooltip_middle);
         }
 
         el.parentNode.onmouseover = (e) => {
-            let margin_top = 'calc(-' + sidebar_scroll_content.scrollTop * 2 + 'px + 3rem)';
+            let margin_top = 'calc(-' + sidebar_scroll_content.scrollTop * 2 + 'px + ' + (dataObj.is_offline_channel ? '1.5':'3') + 'rem)';
             tooltip.style.marginTop = margin_top;
             tooltip.style.inset = isLayoutHorizontallyInverted ? `${margin_top} ${isNavBarCollapsed ? '6rem': '25rem'} auto auto` : `${margin_top} auto auto ${isNavBarCollapsed ? '6rem': '25rem'}`;
         }
