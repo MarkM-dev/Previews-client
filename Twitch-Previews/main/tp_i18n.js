@@ -194,45 +194,6 @@ export const i18n = {
         'ru':'<strong>* Превью в каталогах</strong>' +
             '<br>- Показывает превью видеопотока при наведении курсора на потоки в каталогах Twitch.'
     },
-    settings_feature_isKeepSBarPreviewsOpenMode: {
-        'en': 'Keep Sidebar Preview Open If Hovering The Preview Window',
-        'es': 'Mantenga abierta la vista previa de la barra lateral si pasa el mouse sobre la ventana de vista previa',
-        'de': 'Sidebar-Vorschau geöffnet lassen, wenn der Mauszeiger über das Vorschaufenster bewegt wird',
-        'fr': 'Gardez l\'aperçu de la barre latérale ouvert si vous survolez la fenêtre d\'aperçu',
-        'pt_BR': 'Mantenha a visualização da barra lateral aberta se passar o mouse sobre a janela de visualização',
-        'ko': '미리보기 창을 가리킬 때 사이드바 미리보기를 열어 두십시오.',
-        'ru':'Держите окно предварительного просмотра на боковой панели открытым, если наведите курсор на окно предварительного просмотра'
-    },
-    settings_feature_isKeepSBarPreviewsOpenMode_desc: {
-        'en': '<strong>* Keep Sidebar Preview Open If Hovering The Preview Window</strong>' +
-            '<br>- This feature is intended for use if you enabled Video Previews and use the previews volume button frequently.' +
-            '<br>- When enabling this feature you would be able to mouse over the sidebar preview window without it closing and interact with the contols.' +
-            '<br>- Note: without enabling this feature, you can still mouse-over and interact with the preview window for 1 seconds once it starts playing.',
-        'es': '<strong>* Mantenga abierta la vista previa de la barra lateral si pasa el mouse sobre la ventana de vista previa</strong>' +
-            '<br>- Esta función está pensada para usarse si habilitó las vistas previas de video y usa el botón de volumen de vistas previas con frecuencia.' +
-            '<br>- Al habilitar esta función, podrá pasar el mouse sobre la ventana de vista previa de la barra lateral sin que se cierre e interactuar con los controles.' +
-            '<br>- Nota: sin habilitar esta función, aún puede pasar el mouse e interactuar con la ventana de vista previa durante 1 segundo una vez que comience a reproducirse.',
-        'de': '<strong>* Sidebar-Vorschau geöffnet lassen, wenn der Mauszeiger über das Vorschaufenster bewegt wird</strong>' +
-            '<br>- Diese Funktion ist für die Verwendung vorgesehen, wenn Sie die Videovorschau aktiviert haben und die Lautstärketaste für die Vorschau häufig verwenden.' +
-            '<br>- Wenn Sie diese Funktion aktivieren, können Sie mit der Maus über das Vorschaufenster der Seitenleiste fahren, ohne dass es geschlossen wird, und mit den Steuerelementen interagieren.' +
-            '<br>- Hinweis: Ohne diese Funktion zu aktivieren, können Sie immer noch 1 Sekunde lang mit der Maus über das Vorschaufenster fahren und mit ihm interagieren, sobald die Wiedergabe beginnt.',
-        'fr': '<strong>* Gardez l\'aperçu de la barre latérale ouvert si vous survolez la fenêtre d\'aperçu</strong>' +
-            '<br>- Cette fonctionnalité est destinée à être utilisée si vous avez activé les aperçus vidéo et utilisé fréquemment le bouton de volume des aperçus.' +
-            '<br>- Lors de l\'activation de cette fonctionnalité, vous pourrez passer la souris sur la fenêtre d\'aperçu de la barre latérale sans qu\'elle ne se ferme et interagir avec les commandes.' +
-            '<br>- Remarque : sans activer cette fonctionnalité, vous pouvez toujours passer la souris et interagir avec la fenêtre d\'aperçu pendant 1 seconde une fois la lecture commencée.',
-        'pt_BR': '<strong>* Mantenha a visualização da barra lateral aberta se passar o mouse sobre a janela de visualização</strong>' +
-            '<br>- Este recurso deve ser usado se você ativou as visualizações de vídeo e usa o botão de volume das visualizações com frequência.' +
-            '<br>- Ao habilitar esse recurso, você poderá passar o mouse sobre a janela de visualização da barra lateral sem fechá-la e interagir com os controles.' +
-            '<br>- Nota: sem habilitar este recurso, você ainda pode passar o mouse e interagir com a janela de visualização por 1 segundo quando ela começar a ser reproduzida.',
-        'ko': '<strong>* 미리보기 창을 가리킬 때 사이드바 미리보기를 열어 두십시오.</strong>' +
-            '<br>- 이 기능은 비디오 미리보기를 활성화하고 미리보기 볼륨 버튼을 자주 사용하는 경우에 사용하기 위한 것입니다.' +
-            '<br>- 이 기능을 활성화하면 사이드바 미리보기 창을 닫지 않고 컨트롤과 상호 작용할 수 있습니다.' +
-            '<br>- 참고: 이 기능을 활성화하지 않아도 재생이 시작되면 미리보기 창에 마우스를 올려 놓고 1초 동안 상호작용할 수 있습니다.',
-        'ru':'<strong>* Держите окно предварительного просмотра на боковой панели открытым, если наведите курсор на окно предварительного просмотра</strong>' +
-            '<br>- Эта функция предназначена для использования, если вы включили предварительный просмотр видео и часто используете кнопку громкости предварительного просмотра.' +
-            '<br>- При включении этой функции вы сможете наводить указатель мыши на окно предварительного просмотра боковой панели, не закрывая его, и взаимодействовать с элементами управления.' +
-            '<br>- Примечание: без включения этой функции вы все еще можете наводить указатель мыши и взаимодействовать с окном предварительного просмотра в течение 1 секунды после начала воспроизведения.'
-    },
     settings_feature_isSelfPreviewEnabled: {
         'en': 'Streaming - See Your Own Live Stream Thumbnail (hover Twitch logo)',
         'es': 'ver su propia imagen en miniatura del canal en vivo (flotar el logotipo de Twitch)',
@@ -2048,13 +2009,13 @@ export const i18n = {
         'ru':'Закрыть и больше не показывать'
     },
     vidPreviewVolBtn_title: {
-        'en': 'Click / Scroll for preview volume',
-        'es': 'Haga clic o desplácese',
-        'de': 'Klicken oder scrollen',
-        'fr': 'Cliquez ou faites défiler',
-        'pt_BR': 'Clique ou role',
-        'ko': '미리보기 볼륨을 보려면 클릭/스크롤',
-        'ru':'Щелкните или прокрутите'
+        'en': 'Click for preview volume',
+        'es': 'Haga clic para ver el volumen de vista previa',
+        'de': 'Klicken Sie für Vorschauvolumen',
+        'fr': 'Cliquez pour prévisualiser le volume',
+        'pt_BR': 'Clique para volume de visualização',
+        'ko': '미리보기 볼륨 클릭',
+        'ru':'Нажмите, чтобы просмотреть объем'
     },
     navCardPipBtn_title: {
         'en': 'Picture In Picture (Video Embed)',
