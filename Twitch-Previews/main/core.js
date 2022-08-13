@@ -12,6 +12,7 @@
     let IMAGE_CACHE_TTL_MS = 20000;
     let channelPointsClickerInterval = null;
     let twitchIframe;
+    let isFavHovering = false;
     let isHovering = false;
     let isHoveringPreviewDiv = false;
     let isLoadingSidebarPreview = false;
@@ -1250,6 +1251,7 @@
         let sidebarFavorites = options.isSidebarFavoritesEnabled ? "sBarF_ON" : "sBarF_OFF";
         let sidebarFavorites_og = options.sidebarFavorites_hide_originals ? "sBarF_og_ON" : "sBarF_og_OFF";
         let sidebarFavorites_au = options.sidebarFavorites_always_updated ? "sBarF_au_ON" : "sBarF_au_OFF";
+        let sidebarFavorites_of = options.sidebarFavorites_show_offline_channels ? "sBarF_of_ON" : "sBarF_of_OFF";
         let sidebarExtend = options.isSidebarExtendEnabled ? "sBarE_ON" : "sBarE_OFF";
         let sidebarExtend_ae = options.isSidebarAlwaysExtendEnabled ? "sBarAE_ON" : "sBarAE_OFF";
         let sidebarSearch = options.isSidebarSearchEnabled ? "sBarS_ON" : "sBarS_OFF";
@@ -1275,7 +1277,7 @@
         sendMessageToBG({action: "appStart", detail: selected_land + " : " + sidebar_previews + " : " + mode + " : " + size + " : " + dirp + " : "
                 + channelPointsClicker + " : " + sidebarSearch + " : " + sidebarExtend + " : " + sidebarExtend_ae + " : " + isfScrnWithChatEnabled + " : " + errRefresh
                 + " : " + pvqc + " : " + predictionsNotifications + " : " + predictionsSniper + " : " + selfPreview + " : " + multiStream
-                + " : " + pip_main + " : " + sidebarFavorites + " : " + sidebarFavorites_au + " : " + sidebarFavorites_og + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
+                + " : " + pip_main + " : " + sidebarFavorites + " : " + sidebarFavorites_au + " : " + sidebarFavorites_of + " : " + sidebarFavorites_og + " : " + screenshot + " : " + flashBangDefender + " : " + fastForward + " : "
                 + seek + " : " + clip_downloader + " : " + sidebarHideSections + " : " + muteAutoPlayers + " : " + YTsidebar + " : "  + FBsidebar + " : " + ave + " : " + record});
     }
 
@@ -1372,8 +1374,17 @@
             tooltip_bottom_live_indicator.classList.add('tp-tooltip-sidebar-bottom-live-indicator');
             let tooltip_bottom_text_content = document.createElement('span');
             tooltip_bottom_text_content.classList.add('tp-tooltip-sidebar-bottom-text-content');
-            tooltip_bottom_text_content.innerText = _i18n('sidebar_tooltip_bottom_text', [dataObj.view_count]);
-            tooltip_bottom.appendChild(tooltip_bottom_live_indicator);
+            if (dataObj.is_offline_channel) {
+                /*let offline_text_span = document.createElement('span');
+                offline_text_span.style.color = '#adadb8';
+                offline_text_span.innerText = ' · ' +_i18n('offline_text');
+                tooltip_top.appendChild(offline_text_span);
+                //tooltip_bottom_text_content.innerText = ' · ' +_i18n('offline_text');*/
+            } else {
+                tooltip_bottom_text_content.innerText = _i18n('sidebar_tooltip_bottom_text', [dataObj.view_count]);
+                tooltip_bottom.appendChild(tooltip_bottom_live_indicator);
+            }
+
             tooltip_bottom.appendChild(tooltip_bottom_text_content);
 
             tooltip.appendChild(tooltip_top);
@@ -1383,7 +1394,13 @@
             let tooltip_middle = document.createElement('p');
             tooltip_middle.classList.add('tp-tooltip-sidebar-middle');
             tooltip.classList.add('tp-tooltip-sidebar-expanded');
-            tooltip_middle.innerText = dataObj.title;
+            if (dataObj.is_offline_channel) {
+                tooltip_middle.innerText = dataObj.stream_name;
+            } else {
+                tooltip_middle.innerText = dataObj.title;
+            }
+
+
             tooltip.appendChild(tooltip_middle);
         }
 
@@ -1859,6 +1876,70 @@
         }
     }
 
+    function createSidebarFavoritesElement(followed_streamer_element, style, offline_stream_name, sidebar_scroll_content) {
+        let el = followed_streamer_element.cloneNode(true);
+        let _stream_name = offline_stream_name || el.href.split('/').pop();
+        //el.title = _stream_name;
+
+        if (offline_stream_name) {
+            el.firstChild.classList.add('side-nav-card__avatar--offline');
+
+            if (!isNavBarCollapsed) {
+                el.querySelector('p[data-a-target="side-nav-title"]').innerText = offline_stream_name;
+                el.querySelector('p[data-a-target="side-nav-title"]').title = offline_stream_name;
+                el.querySelector('div[data-a-target="side-nav-live-status"]').querySelector('span').innerText = _i18n('offline_text');
+                el.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').innerText = '';
+                el.querySelector('div[data-a-target="side-nav-game-title"]').querySelector('p').title = '';
+                let status_indicator = el.querySelector('div.tw-channel-status-indicator');
+                if (status_indicator) {
+                    status_indicator.remove();
+                }
+            }
+
+            let profile_pic_container = el.querySelector('.tw-avatar');
+            profile_pic_container.alt = offline_stream_name;
+            //profile_pic_container.style.backgroundImage = "url('" + streamers_arr[i].profile_pic_url + "')";
+            profile_pic_container.style.backgroundSize = "contain";
+            profile_pic_container.style.backgroundRepeat = "no-repeat";
+            profile_pic_container.style.borderRadius = "50%";
+
+            el.querySelector('img.tw-image-avatar').remove();
+        } else {
+            el.addEventListener('mouseover', (e) => {
+                isFavHovering = true;
+                let distance = isNavBarCollapsed ? "5rem":"24rem";
+                simulateHoverOnElement('mouseover', followed_streamer_element.parentNode);
+                style.textContent = 'div[data-popper-escaped="true"] {transform: none !important;inset: 0px auto auto ' + distance + ' !important;' + (isLayoutHorizontallyInverted ? "right":"left") + ': ' + distance + ' ;top: ' + el.getBoundingClientRect().top + 'px !important;}';
+            });
+            el.addEventListener('mouseout', (e) => {
+                isFavHovering = false;
+                setTimeout(function () {
+                    if (!isFavHovering) {
+                        simulateHoverOnElement('mouseout', followed_streamer_element.parentNode);
+                        setTimeout(function () {
+                            if (!isFavHovering) {
+                                style.textContent = '';
+                            }
+                        }, 300);
+                    }
+                }, 1)
+            });
+        }
+
+        el.onclick = (e) => {
+            e.preventDefault();
+            if (e.ctrlKey) {
+                sendMessageToBG({action:'bg_favorite_open_in_new_tab', detail:_stream_name});
+                //clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
+            } else {
+                window.history.replaceState({},'','/' + _stream_name);
+                window.location.href = '#';
+            }
+        }
+
+        return el;
+    }
+
     function setSidebarFavorites() {
         _browser.storage.local.get('favorites_arr',function (res) {
 
@@ -1902,50 +1983,28 @@
                 extendSidebar().then(function (promise_result) {
                     if (res.favorites_arr) {
                         let shown_followed_channels = getSidebarNavCards(document.querySelector('.side-nav-section'));
-                        let isFavHovering = false;
+
                         let style = document.head.querySelector('#tp_fav_streamer_tooltip');
                         if (!style) {
                             style = document.createElement('style');
                             style.id = 'tp_fav_streamer_tooltip';
                             document.head.append(style);
                         }
+
+                        let offline_favs_arr = res.favorites_arr;
+
+
                         for (let i = 0; i < shown_followed_channels.length; i++) {
                             for (let j = 0; j < res.favorites_arr.length; j++) {
                                 if (shown_followed_channels[i].href.split('/').pop() === res.favorites_arr[j]) {
+
                                     if (isStreamerOnline(shown_followed_channels[i])) {
-                                        let el = shown_followed_channels[i].cloneNode(true);
-                                        let _stream_name = el.href.split('/').pop();
-                                        //el.title = _stream_name;
-                                        el.onclick = (e) => {
-                                            e.preventDefault();
-                                            if (e.ctrlKey) {
-                                                sendMessageToBG({action:'bg_favorite_open_in_new_tab', detail:_stream_name});
-                                                //clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-                                            } else {
-                                                window.history.replaceState({},'','/' + _stream_name);
-                                                window.location.href = '#';
-                                            }
+                                        let index = offline_favs_arr.indexOf(res.favorites_arr[j]);
+                                        if (index !== -1) {
+                                            offline_favs_arr.splice(index, 1);
                                         }
 
-                                        el.addEventListener('mouseover', (e) => {
-                                            isFavHovering = true;
-                                            let distance = isNavBarCollapsed ? "5rem":"24rem";
-                                            simulateHoverOnElement('mouseover', shown_followed_channels[i].parentNode);
-                                            style.textContent = 'div[data-popper-escaped="true"] {transform: none !important;inset: 0px auto auto ' + distance + ' !important;' + (isLayoutHorizontallyInverted ? "right":"left") + ': ' + distance + ' ;top: ' + el.getBoundingClientRect().top + 'px !important;}';
-                                        });
-                                        el.addEventListener('mouseout', (e) => {
-                                            isFavHovering = false;
-                                            setTimeout(function () {
-                                                if (!isFavHovering) {
-                                                    simulateHoverOnElement('mouseout', shown_followed_channels[i].parentNode);
-                                                    setTimeout(function () {
-                                                        if (!isFavHovering) {
-                                                            style.textContent = '';
-                                                        }
-                                                    }, 300);
-                                                }
-                                            }, 1)
-                                        });
+                                        let el = createSidebarFavoritesElement(shown_followed_channels[i], style);
                                         let container_div = document.createElement('div');
                                         container_div.appendChild(el);
                                         favorites_section.children[1].appendChild(container_div);
@@ -1954,6 +2013,19 @@
                                         }
                                     }
                                     break;
+                                }
+                            }
+                        }
+                        if (options.sidebarFavorites_show_offline_channels) {
+                            let sidebar_scroll_content = document.querySelector('.simplebar-scroll-content');
+                            for (let i = 0; i < offline_favs_arr.length; i++) {
+                                let el = createSidebarFavoritesElement(shown_followed_channels[0], style, offline_favs_arr[i], sidebar_scroll_content);
+                                let container_div = document.createElement('div');
+                                container_div.appendChild(el);
+                                createSidebarTooltip(el, sidebar_scroll_content,{stream_name: offline_favs_arr[i], title: '', view_count: _i18n('offline_text'), is_offline_channel: true});
+                                favorites_section.children[1].appendChild(container_div);
+                                if (options.sidebarFavorites_hide_originals) {
+                                    shown_followed_channels[i].parentNode.style.display = 'none';
                                 }
                             }
                         }
@@ -6713,6 +6785,7 @@
             initCheckbox(settingsContainer, 'isSidebarFavoritesEnabled', 'TP_popup_sidebar_favorites_checkbox');
             initCheckbox(settingsContainer, 'sidebarFavorites_hide_originals', 'TP_popup_sidebar_favorites_hide_originals_checkbox');
             initCheckbox(settingsContainer, 'sidebarFavorites_always_updated', 'TP_popup_sidebar_favorites_always_updated_checkbox');
+            initCheckbox(settingsContainer, 'sidebarFavorites_show_offline_channels', 'TP_popup_sidebar_favorites_show_offline_checkbox');
             initCheckbox(settingsContainer, 'isSidebarSearchEnabled', 'TP_popup_sidebar_search_checkbox');
             initCheckbox(settingsContainer, 'isSidebarHideSectionsEnabled', 'TP_popup_sidebar_hide_sections_checkbox');
             initCheckbox(settingsContainer, 'isPvqcEnabled', 'TP_popup_pvqc_checkbox');

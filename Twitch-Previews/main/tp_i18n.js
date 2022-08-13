@@ -581,6 +581,15 @@ export const i18n = {
         'ko': '팔로우 목록에서 즐겨찾는 채널 숨기기',
         'ru':'Скрыть избранные каналы из списка каналов, за которыми вы следите'
     },
+    settings_feature_sidebarFavorites_show_offline: {
+        'en': 'Show offline favorite channels',
+        'es': 'Mostrar canales favoritos sin conexión',
+        'de': 'Offline-Favoritenkanäle anzeigen',
+        'fr': 'Afficher les chaînes préférées hors ligne',
+        'pt_BR': 'Mostrar canais favoritos offline',
+        'ko': '오프라인 즐겨찾기 채널 표시',
+        'ru':'Показать любимые офлайн-каналы'
+    },
     settings_feature_sidebarFavorites_always_updated: {
         'en': 'Always keep Favorites list updated (if sidebar is closed)\n(auto-open sidebar -> Extend sidebar -> get favorites -> close sidebar)',
         'es': 'Mantenga siempre actualizada la lista de favoritos (si la barra lateral está cerrada)\n(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> cerrar barra lateral)',
@@ -2823,5 +2832,14 @@ export const i18n = {
         'pt_BR': 'Ao vivo | %s espectadores',
         'ko': '생방송 | 시청자 %s명',
         'ru':'Прямая трансляция | Зрители: %s'
+    },
+    offline_text: {
+        'en': 'Offline',
+        'es': 'Desconectado',
+        'de': 'Offline',
+        'fr': 'Hors ligne',
+        'pt_BR': 'Desligado',
+        'ko': '오프라인',
+        'ru':'Не в сети'
     }
 }
