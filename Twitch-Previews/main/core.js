@@ -433,14 +433,12 @@
 
     function getPreviewStreamUrl(navCardEl, bVolume_and_controls) {
         if (navCardEl.yt_videoId) {
-            //return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&controls=0&mute=1";
             return "https://www.youtube.com/embed/" + navCardEl.yt_videoId + "?autoplay=1&origin=twitch.tv&" + (bVolume_and_controls ? "controls=1&mute=0":"controls=0&mute=1");
         } else {
             if (navCardEl.fb_videoId) {
                 return "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=" + options.PREVIEWDIV_WIDTH + "&href=https://www.facebook.com/" + navCardEl.stream_name + "/videos/" + navCardEl.fb_videoId;
             } else {
                 return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&" + (bVolume_and_controls ? "muted=false&controls=true":"muted=true&controls=false");
-                //return "https://player.twitch.tv/?channel=" + navCardEl.href.substr(navCardEl.href.lastIndexOf("/") + 1) + "&parent=twitch.tv&muted=true&controls=false";
             }
         }
     }
