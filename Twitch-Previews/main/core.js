@@ -3247,10 +3247,9 @@
             btn_container.id = "tp_clearChat_btn";
             btn_container.classList.add('tp-under-chat-btn');
             btn_container.title = _i18n('clear_chat_btn_title');
-
-            let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
-            btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
-            btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
+            
+            btn_container.style.width = "3rem";
+            btn_container.style.height = "3rem";
             btn_container.style.zIndex = "1";
             btn_container.style.padding =  "2% 2% 0 2%";
 
@@ -3301,11 +3300,10 @@
                 btn_container.classList.add('tp-under-chat-btn');
                 btn_container.title = _i18n('incognito_chat_btn_title');
 
-                let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
-                btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
-                btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
+                btn_container.style.width = "3rem";
+                btn_container.style.height = "3rem";
                 btn_container.style.zIndex = "1";
-                btn_container.style.padding =  "2% 2% 0 2%";
+                btn_container.style.padding =  "2% 3% 0 2%";
 
                 btn_container.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="-3 -3 22 22" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">' +
                     '<path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 ' +
@@ -4039,15 +4037,14 @@
             btn_container.classList.add('tp-under-chat-btn');
             btn_container.title = _i18n('aps_btn_title_status_idle_text');
 
-            let chat_settings_btn_size = chat_settings_btn.getBoundingClientRect();
-            btn_container.style.width = (chat_settings_btn_size.width || "30") + "px";
-            btn_container.style.height = (chat_settings_btn_size.height || "30") + "px";
+            btn_container.style.width = "3rem";
+            btn_container.style.height = "3rem";
             btn_container.style.zIndex = "1";
 
             let img = document.createElement('img');
             img.src = getRuntimeUrl('../images/gamepad_idle.png');
-            img.width = (chat_settings_btn_size.width || "30") * 0.6;
-            img.height = (chat_settings_btn_size.height || "30") * 0.6;
+            img.width = 18;
+            img.height = 18;
             img.style.margin = "auto";
             img.classList.add('tp-theme-support');
 
