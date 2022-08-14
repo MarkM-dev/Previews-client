@@ -5253,7 +5253,7 @@
 
                 let btn_container_tooltip = createTooltip(btn_container, 'bottom', _i18n('start_multistream_btn_title'));
                 btn_container_tooltip.style.top = 'auto';
-                btn_container_tooltip.style.bottom = '-5px';
+                btn_container_tooltip.style.bottom = '3px';
 
                 btn_container.onmouseover = function () {
                     btn_container_tooltip.style.marginLeft = 'calc(' + btn_container_tooltip.getBoundingClientRect().width / 2 * -1 + 'px' + ' + 1.5rem)';
