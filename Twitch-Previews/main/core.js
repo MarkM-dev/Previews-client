@@ -3402,6 +3402,7 @@
 
             }
         }
+        set_expand_chat_btn_click_listener();
     }
 
     function append_incognitoChat_btn() {
@@ -3458,6 +3459,7 @@
                 }
             }
         }, 2500);
+        set_expand_chat_btn_click_listener();
     }
 
     function hideTtvOverlayExtensions() {
@@ -4188,6 +4190,7 @@
 
             }
         }
+        set_expand_chat_btn_click_listener();
     }
 
     function setPvqc() {
@@ -6065,6 +6068,36 @@
         }
     }
 
+    function set_expand_chat_btn_click_listener() {
+            let expand_chat_btn = document.querySelector('.toggle-visibility__right-column');
+            if (!expand_chat_btn) {
+                return;
+            }
+            if (expand_chat_btn.attributes.tp_click_listener) {
+                return;
+            }
+
+            expand_chat_btn.addEventListener("click", function() {
+                setTimeout(function () {
+                    if (expand_chat_btn.classList.contains('toggle-visibility__right-column--expanded')) {
+                        if (options.isPredictionsSniperEnabled) {
+                            append_APS_settings_btn();
+                        }
+
+                        if (options.isClearChatEnabled) {
+                            append_clearChat_btn();
+                        }
+
+                        if (options.isIncognitoChatEnabled) {
+                            append_incognitoChat_btn();
+                        }
+                    }
+                },100);
+            });
+
+            expand_chat_btn.setAttribute('tp_click_listener', 'true');
+    }
+    
     _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
         switch (msg.action) {
