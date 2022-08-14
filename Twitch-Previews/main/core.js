@@ -6459,9 +6459,18 @@
             return new Promise((resolve, reject) => {
                 let obj = {};
                 obj[key] = value;
-                _browser.storage.local.set(obj, function(e) {
-                    resolve('done');
-                });
+                if (key === 'favorites_arr') {
+                    _browser.runtime.sendMessage({action: "tp_settings_upgrade_favorites", detail: value}, function(response) {
+                        obj[key] = response.result.fav_array;
+                        _browser.storage.local.set(obj, function(e) {
+                            resolve('done');
+                        });
+                    })
+                } else {
+                    _browser.storage.local.set(obj, function(e) {
+                        resolve('done');
+                    });
+                }
             })
         }
 

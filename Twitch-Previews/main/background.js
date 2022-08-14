@@ -819,6 +819,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 sendResponse({result: upgradeDB(msg.detail)});
             }
             break;
+        case "tp_settings_upgrade_favorites":
+                sendResponse({result: upgradeFavoriteStreamersArray(msg.detail)});
+            break;
         case "setListenersForCd":
             setListenersForClipDownloader();
             break;
@@ -1032,7 +1035,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         default:
     }
-    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_show_permission_YT' && msg.action !== 'check_show_permission_FB' && msg.action !== 'tp_clear_FBsidebar_cached_streams' && msg.action !== 'get_YT_live_streams' && msg.action !== 'get_FB_live_streams' && msg.action !== 'tp_settings_upgrade_db' && msg.action !== 'bg_incognito_chat_btn_click') {
+    if (msg.action !== 'check_permission_clip.twitch.tv' && msg.action !== 'check_show_permission_YT' && msg.action !== 'check_show_permission_FB' && msg.action !== 'tp_clear_FBsidebar_cached_streams' && msg.action !== 'get_YT_live_streams' && msg.action !== 'get_FB_live_streams' && msg.action !== 'tp_settings_upgrade_db' && msg.action !== 'tp_settings_upgrade_favorites' && msg.action !== 'bg_incognito_chat_btn_click') {
         sendResponse({ result: "any response from background" });
     }
     return true;
