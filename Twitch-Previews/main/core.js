@@ -2063,16 +2063,18 @@
                                 }
                             }
                         }
-                        if (options.sidebarFavorites_show_offline_channels) {
-                            let sidebar_scroll_content = document.querySelector('.simplebar-scroll-content');
-                            for (let i = 0; i < offline_favs_arr.length; i++) {
-                                let el = createSidebarFavoritesElement(shown_followed_channels[0], style, offline_favs_arr[i].stream_name, offline_favs_arr[i].display_name, offline_favs_arr[i].profile_pic_url);
-                                let container_div = document.createElement('div');
-                                container_div.appendChild(el);
-                                createSidebarTooltip(el, sidebar_scroll_content,{stream_name: offline_favs_arr[i].display_name || offline_favs_arr[i].stream_name, title: '', view_count: _i18n('offline_text'), is_offline_channel: true});
-                                favorites_section.children[1].appendChild(container_div);
-                                if (options.sidebarFavorites_hide_originals) {
-                                    shown_followed_channels[i].parentNode.style.display = 'none';
+                        if (promise_result !== 'FOLLOWED_LIST_IS_PARTIAL') {
+                            if (options.sidebarFavorites_show_offline_channels) {
+                                let sidebar_scroll_content = document.querySelector('.simplebar-scroll-content');
+                                for (let i = 0; i < offline_favs_arr.length; i++) {
+                                    let el = createSidebarFavoritesElement(shown_followed_channels[0], style, offline_favs_arr[i].stream_name, offline_favs_arr[i].display_name, offline_favs_arr[i].profile_pic_url);
+                                    let container_div = document.createElement('div');
+                                    container_div.appendChild(el);
+                                    createSidebarTooltip(el, sidebar_scroll_content,{stream_name: offline_favs_arr[i].display_name || offline_favs_arr[i].stream_name, title: '', view_count: _i18n('offline_text'), is_offline_channel: true});
+                                    favorites_section.children[1].appendChild(container_div);
+                                    if (options.sidebarFavorites_hide_originals) {
+                                        shown_followed_channels[i].parentNode.style.display = 'none';
+                                    }
                                 }
                             }
                         }
