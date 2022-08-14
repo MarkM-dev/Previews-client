@@ -862,3 +862,14 @@
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
+
+#TPBodyEl #tp_settings_favorites_offline_info_btn {
+    color: #9c60ff;
+    cursor: pointer;
+}
+#TPBodyEl #tp_settings_favorites_offline_info_btn:hover {
+    color: #ba9cff;
+}
+#TPBodyEl #tp_settings_favorites_offline_info_btn:active {
+    color: #9c60ff;
+}

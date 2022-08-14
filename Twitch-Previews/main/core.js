@@ -6771,6 +6771,13 @@
         }
     }
 
+    function initFavOfflineTiteInfoBtn(settingsContainer) {
+        let btn = settingsContainer.querySelector('#tp_settings_favorites_offline_info_btn');
+        btn.onclick = function (e) {
+            settingsContainer.querySelector('#tp_popup_feature_sidebar_favorites').previousElementSibling.scrollIntoView({behavior: "smooth", block: "start"});
+        }
+    }
+
     function initLangSelector(settingsContainer) {
         let lang_selector = settingsContainer.querySelector('#tp_settings_lang_selector');
 
@@ -6884,20 +6891,9 @@
 
             initFBstreamersDialog(settingsContainer);
 
-            set_settings_i18n(settingsContainer);
+            initFavOfflineTiteInfoBtn(settingsContainer);
 
-            if (isFirefox) {
-                let els = settingsContainer.querySelectorAll('.tp-firefox-hide');
-                for (let i = 0; i < els.length; i++) {
-                    els[i].style.display = "none";
-                }
-                settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '4px';
-            } else {
-                let els = settingsContainer.querySelectorAll('.tp-chrome-hide');
-                for (let i = 0; i < els.length; i++) {
-                    els[i].style.display = "none";
-                }
-            }
+            set_settings_i18n(settingsContainer);
 
             initPreviewSizeSlider(settingsContainer);
 
@@ -6913,6 +6909,18 @@
             initSocialBtn(settingsContainer, 'twitter', true);
             initSocialBtn(settingsContainer, 'discord', true);
 
+            if (isFirefox) {
+                let els = settingsContainer.querySelectorAll('.tp-firefox-hide');
+                for (let i = 0; i < els.length; i++) {
+                    els[i].style.display = "none";
+                }
+                settingsContainer.querySelector('#tp_settings_first_section_title').style.marginTop = '4px';
+            } else {
+                let els = settingsContainer.querySelectorAll('.tp-chrome-hide');
+                for (let i = 0; i < els.length; i++) {
+                    els[i].style.display = "none";
+                }
+            }
 
             _browser.storage.local.get('shouldShowNewFeatureSettingsSpan', function(result) {
                 if (result.shouldShowNewFeatureSettingsSpan) {
