@@ -401,6 +401,10 @@ function fetchFBstreams(fb_streamers) {
                     let obj = await fetchFBstream(fb_streamers[i]);
                     if (obj) {
                         arr.push(obj);
+                        if (obj.fb_login_err) {
+                            resolve(arr);
+                            break;
+                        }
                     }
                     await waitPromise();
                 }
