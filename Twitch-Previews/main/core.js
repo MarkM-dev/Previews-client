@@ -1926,6 +1926,7 @@
         //el.title = _stream_name;
 
         if (offline_stream_name) {
+            el.href = '/' + _stream_name;
             el.firstChild.classList.add('side-nav-card__avatar--offline');
 
             if (!isNavBarCollapsed) {
