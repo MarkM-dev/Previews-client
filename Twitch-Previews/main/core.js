@@ -1380,6 +1380,7 @@
                 offline_text_span.innerText = ' · ' +_i18n('offline_text');
                 tooltip_top.appendChild(offline_text_span);*/
                 tooltip_bottom_text_content.innerText = _i18n('offline_text');
+                tooltip_bottom_text_content.style.marginLeft = '-5px';
             } else {
                 tooltip_bottom_text_content.innerText = _i18n('sidebar_tooltip_bottom_text', [dataObj.view_count]);
                 tooltip_bottom.appendChild(tooltip_bottom_live_indicator);
@@ -1403,7 +1404,7 @@
                 let tooltip_bottom_text_content = document.createElement('span');
                 tooltip_bottom_text_content.classList.add('tp-tooltip-sidebar-bottom-text-content');
                 tooltip_bottom_text_content.innerText = _i18n('offline_text');
-
+                tooltip_bottom_text_content.style.marginLeft = '-5px';
                 tooltip_bottom.appendChild(tooltip_bottom_text_content);
 
                 tooltip.appendChild(tooltip_middle);
