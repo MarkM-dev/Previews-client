@@ -1773,13 +1773,23 @@
                 if (item_index !== -1) {
                     isFavorite = true;
                     try {
-                        if (!res.favorites_arr[item_index].display_name) {
-                            res.favorites_arr[item_index].display_name = document.querySelector('.channel-info-content').querySelector('.tw-title').innerText;
+                        let shouldSave = false;
+                        let display_name = document.querySelector('.channel-info-content').querySelector('.tw-title').innerText;
+                        if (!res.favorites_arr[item_index].display_name || res.favorites_arr[item_index].display_name !== display_name) {
+                            res.favorites_arr[item_index].display_name = display_name;
+                            shouldSave = true;
                         }
-                        res.favorites_arr[item_index].profile_pic_url = document.querySelector('.channel-info-content').querySelector('.tw-image-avatar').src;
-                        _browser.storage.local.set({'favorites_arr': res.favorites_arr}, function() {
+                        let profile_pic_src = document.querySelector('.channel-info-content').querySelector('.tw-image-avatar').src;
+                        if (!res.favorites_arr[item_index].profile_pic_url || res.favorites_arr[item_index].profile_pic_url !== profile_pic_src) {
+                            res.favorites_arr[item_index].profile_pic_url = profile_pic_src;
+                            shouldSave = true;
+                        }
 
-                        });
+                        if (shouldSave) {
+                            _browser.storage.local.set({'favorites_arr': res.favorites_arr}, function() {
+                                setSidebarFavorites();
+                            });
+                        }
                     } catch (e) {}
                 }
             }
