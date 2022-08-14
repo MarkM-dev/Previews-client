@@ -873,3 +873,24 @@
 #TPBodyEl #tp_settings_favorites_offline_info_btn:active {
     color: #9c60ff;
 }
+
+@-webkit-keyframes tp-blink-element-background {
+    0%   { background-color: transparent; }
+    50% { background-color: #9c60ff; }
+    100% { background-color: transparent; }
+}
+@-moz-keyframes tp-blink-element-background {
+    0%   { background-color: transparent; }
+    50% { background-color: #9c60ff; }
+    100% { background-color: transparent; }
+}
+@keyframes tp-blink-element-background {
+    0%   { background-color: transparent; }
+    50% { background-color: #9c60ff; }
+    100% { background-color: transparent; }
+}
+.tp-blink-element-background {
+    -webkit-animation: tp-blink-element-background 2s;
+    -moz-animation:    tp-blink-element-background 2s;
+    animation:         tp-blink-element-background 2s;
+}

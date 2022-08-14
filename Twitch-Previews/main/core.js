@@ -6775,6 +6775,13 @@
         let btn = settingsContainer.querySelector('#tp_settings_favorites_offline_info_btn');
         btn.onclick = function (e) {
             settingsContainer.querySelector('#tp_popup_feature_sidebar_favorites').previousElementSibling.scrollIntoView({behavior: "smooth", block: "start"});
+            let note = settingsContainer.querySelector('#tp_settings_favorites_desc_note_el');
+            if (note.classList.contains('tp-blink-element-background')) {
+                note.classList.remove('tp-blink-element-background');
+            }
+            setTimeout(function () {
+                note.classList.add('tp-blink-element-background');
+            },1)
         }
     }
 
