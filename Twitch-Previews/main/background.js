@@ -195,9 +195,12 @@ function upgradeFavoriteStreamersArray(favorites_arr) {
     if (favorites_arr && favorites_arr.length) {
         if (typeof favorites_arr[0] === 'string') {
             for (let i = 0; i < favorites_arr.length; i++) {
-                //if (favorites_arr[i] !== 'xqcow') {
+                // remove unusable items.
+                // %20 are added categories due to an old bug ("Just%20Chatting"), "VALORANT" is also a category.
+                // xqcow is now xqc.
+                if (favorites_arr[i].indexOf('%20') === -1 && favorites_arr[i] !== 'xqcow' && favorites_arr[i] !== 'VALORANT') {
                     new_array.push({stream_name: favorites_arr[i]});
-                //}
+                }
             }
             bHasBeenUpgraded = true;
         }
