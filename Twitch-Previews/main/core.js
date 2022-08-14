@@ -1942,15 +1942,19 @@
             profile_pic_container.alt = offline_display_name || offline_stream_name;
             if (profile_pic_url) {
                 profile_pic_container.style.backgroundImage = "url('" + profile_pic_url + "')";
-            } /*else {
-                profile_pic_container.innerText = "C";
-            }*/
+                profile_pic_container.style.backgroundSize = "contain";
+                profile_pic_container.style.backgroundRepeat = "no-repeat";
+                profile_pic_container.style.borderRadius = "50%";
+            } else {
+                profile_pic_container.textContent = offline_display_name ? offline_display_name[0]:offline_stream_name[0];
+                profile_pic_container.style.fontSize = '2rem';
+                profile_pic_container.style.textAlign = 'center';
+            }
 
-            profile_pic_container.style.backgroundSize = "contain";
-            profile_pic_container.style.backgroundRepeat = "no-repeat";
-            profile_pic_container.style.borderRadius = "50%";
-
-            el.querySelector('img.tw-image-avatar').remove();
+            let ttv_profile_img = el.querySelector('img.tw-image-avatar');
+            if (ttv_profile_img) {
+                ttv_profile_img.remove();
+            }
         } else {
             el.addEventListener('mouseover', (e) => {
                 isFavHovering = true;
