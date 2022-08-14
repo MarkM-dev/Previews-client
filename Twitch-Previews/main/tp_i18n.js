@@ -532,44 +532,37 @@ export const i18n = {
         'en': '<strong>* Sidebar Favorite Channels</strong>' +
             '<br>- A new Favorites list at the top of the sidebar (for your most favorite streamers).' +
             '<br>- Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.' +
-            '<br>- The list will show only the currently live streams in your favorites list.' +
-            '<br>- Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it\'s closed, the list will still populate but will be partial.' +
+            '<br>- Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it\'s collapsed, the list will still populate but will be partial and marked with a clickable half full star icon you can click to automate the process. You can enable the "Support collapsed sidebar" feature below to do this process automatically.' +
             '<br>- Note: it might take a few seconds for the list to show or update.',
         'es': '<strong>* Barra lateral Canales favoritos</strong>' +
             '<br>- Una nueva lista de favoritos en la parte superior de la barra lateral (para sus streamers más favoritos).' +
             '<br>- Agregue transmisiones a su lista de favoritos haciendo clic en el botón Favoritos junto a la campana debajo de la transmisión.' +
-            '<br>- La lista mostrará solo las transmisiones en vivo actualmente en su lista de favoritos.' +
-            '<br>- Nota: la función se basa en la lista de canales seguidos, por lo que se expandirá automáticamente (mostrará más) cuando se abra la barra lateral. si está cerrado, la lista seguirá llenándose pero será parcial.' +
+            '<br>- Nota: la función se basa en la lista de canales seguidos, por lo que se expandirá automáticamente (mostrar más) cuando se abra la barra lateral. si está colapsado, la lista seguirá llenándose pero será parcial y marcada con un icono de estrella medio lleno en el que se puede hacer clic para automatizar el proceso. Puede habilitar la función "Compatibilidad con la barra lateral colapsada" a continuación para realizar este proceso automáticamente.' +
             '<br>- Nota: la lista puede tardar unos segundos en mostrarse o actualizarse.',
         'de': '<strong>* Seitenleiste Lieblingskanäle</strong>' +
             '<br>- Eine neue Favoritenliste oben in der Seitenleiste (für deine beliebtesten Streamer).' +
             '<br>- Fügen Sie Streams zu Ihrer Favoritenliste hinzu, indem Sie auf die Schaltfläche Favoriten neben der Glocke unter dem Stream klicken.' +
-            '<br>- Die Liste zeigt nur die aktuellen Livestreams in Ihrer Favoritenliste an.' +
-            '<br>- Hinweis: Die Funktion basiert auf der Liste der verfolgten Kanäle, daher wird sie automatisch erweitert (mehr anzeigen), wenn die Seitenleiste geöffnet wird. Wenn sie geschlossen ist, wird die Liste immer noch ausgefüllt, ist jedoch unvollständig.' +
+            '<br>- Hinweis: Die Funktion basiert auf der Liste der verfolgten Kanäle, sodass sie automatisch erweitert wird (mehr anzeigen), wenn die Seitenleiste geöffnet wird. Wenn es reduziert ist, wird die Liste immer noch gefüllt, aber sie ist teilweise und mit einem anklickbaren halbgefüllten Sternsymbol gekennzeichnet, auf das Sie klicken können, um den Vorgang zu automatisieren. Sie können unten die Funktion „Unterstützen Sie die eingeklappte Seitenleiste“ aktivieren, um diesen Vorgang automatisch durchzuführen.' +
             '<br>- Hinweis: Es kann einige Sekunden dauern, bis die Liste angezeigt oder aktualisiert wird.',
         'fr': '<strong>* Barre latérale Chaînes préférées</strong>' +
             '<br>- Une nouvelle liste de favoris en haut de la barre latérale (pour vos streamers les plus préférés).' +
             '<br>- Ajoutez des flux à votre liste de favoris en cliquant sur le bouton Favoris à côté de la cloche sous le flux.' +
-            '<br>- La liste n\'affichera que les flux en direct actuellement dans votre liste de favoris.' +
-            '<br>- Remarque : la fonctionnalité repose sur la liste des chaînes suivies, elle s\'étendra donc automatiquement (afficher plus) lorsque la barre latérale sera ouverte. si elle est fermée, la liste se remplira toujours mais sera partielle.' +
+            '<br>- Remarque : la fonctionnalité repose sur la liste des chaînes suivies, elle s\'étendra donc automatiquement (en affichera plus) lorsque la barre latérale est ouverte. si elle est réduite, la liste sera toujours remplie mais sera partielle et marquée d\'une icône d\'étoile cliquable à moitié pleine sur laquelle vous pouvez cliquer pour automatiser le processus. Vous pouvez activer la fonctionnalité "Prise en charge de la barre latérale réduite" ci-dessous pour effectuer ce processus automatiquement.' +
             '<br>- Remarque : l\'affichage ou la mise à jour de la liste peut prendre quelques secondes.',
         'pt_BR': '<strong>* Barra Lateral Canais Favoritos</strong>' +
             '<br>- Uma nova lista de favoritos no topo da barra lateral (para seus streamers favoritos).' +
             '<br>- Adicione streams à sua lista de favoritos clicando no botão Favoritos ao lado do sino abaixo do stream.' +
-            '<br>- A lista mostrará apenas as transmissões ao vivo atualmente em sua lista de favoritos.' +
-            '<br>- Nota: o recurso depende da lista de canais seguidos, por isso irá se expandir automaticamente (mostrar mais) quando a barra lateral for aberta. se estiver fechada, a lista ainda será preenchida, mas será parcial.' +
+            '<br>- Nota: o recurso depende da lista de canais seguidos, portanto, expandirá automaticamente (mostrar mais) quando a barra lateral for aberta. se estiver recolhida, a lista ainda será preenchida, mas será parcial e marcada com um ícone de meia estrela clicável que você pode clicar para automatizar o processo. Você pode ativar o recurso "Suporte a barra lateral recolhida" abaixo para fazer esse processo automaticamente.' +
             '<br>- Observação: pode demorar alguns segundos para que a lista seja exibida ou atualizada.',
         'ko': '<strong>* 사이드바 즐겨찾는 채널</strong>' +
             '<br>- 사이드바 상단에 새로운 즐겨찾기 목록이 만들어져요.' +
             '<br>- 방송 화면 아래의 알림 버튼 옆에 있는 즐겨찾기 버튼을 클릭해 즐겨찾기 목록에 방송을 추가할 수 있어요.' +
-            '<br>- 목록에는 즐겨찾기 목록에 있는 라이브 방송만 표시되요.' +
-            '<br>- 참고: 이 기능은 팔로우 중인 채널 목록을 참고하기 때문에 사이드바가 열리면 자동으로 확장되요. 닫혀있으면 목록이 계속 채워지지만 일부만 들어갈거에요.' +
+            '<br>- 참고: 이 기능은 팔로우된 채널 목록에 의존하므로 사이드바가 열리면 자동 확장(더 보기)됩니다. 축소된 경우 목록은 계속 채워지지만 부분적으로 표시되며 클릭하여 프로세스를 자동화할 수 있는 클릭 가능한 별표 반 아이콘으로 표시됩니다. 이 프로세스를 자동으로 수행하려면 아래에서 "접힌 사이드바 지원" 기능을 활성화할 수 있습니다.' +
             '<br>- 참고: 목록이 표시되거나 업데이트하는데 몇 초 정도 걸릴 수 있어요.',
         'ru':'<strong>* Боковая панель Избранные каналы</strong>' +
             '<br>- Новый список избранного в верхней части боковой панели (для ваших самых любимых стримеров).' +
             '<br>- Добавьте потоки в список избранного, нажав кнопку «Избранное» рядом с колокольчиком под потоком.' +
-            '<br>- В списке будут отображаться только текущие прямые трансляции из вашего списка избранного.' +
-            '<br>- Примечание: функция полагается на список отслеживаемых каналов, поэтому он будет автоматически расширяться (показывать больше) при открытии боковой панели. если он закрыт, список все равно будет заполнен, но будет неполным.' +
+            '<br>- Примечание: эта функция зависит от списка отслеживаемых каналов, поэтому она будет автоматически расширяться (показывать больше) при открытии боковой панели. если он свернут, список по-прежнему будет заполняться, но будет частичным и помечен интерактивным значком половинной звезды, по которому можно щелкнуть, чтобы автоматизировать процесс. Вы можете включить функцию «Поддержка свернутой боковой панели» ниже, чтобы этот процесс выполнялся автоматически.' +
             '<br>- Примечание: отображение или обновление списка может занять несколько секунд.'
     },
     settings_feature_sidebarFavorites_hide_originals: {
@@ -591,13 +584,13 @@ export const i18n = {
         'ru':'Показать любимые офлайн-каналы'
     },
     settings_feature_sidebarFavorites_always_updated: {
-        'en': 'Always keep Favorites list updated (if sidebar is closed)\n(auto-open sidebar -> Extend sidebar -> get favorites -> close sidebar)',
-        'es': 'Mantenga siempre actualizada la lista de favoritos (si la barra lateral está cerrada)\n(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> cerrar barra lateral)',
-        'de': 'Halten Sie die Favoritenliste immer auf dem neuesten Stand (wenn Seitenleiste geschlossen)\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Favoriten abrufen -> Seitenleiste schließen)',
-        'fr': 'Gardez toujours la liste des favoris à jour (si la barre latérale est fermée)\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> fermer la barre latérale)',
-        'pt_BR': 'Mantenha sempre a lista de Favoritos atualizada (se a barra lateral estiver fechada)\n(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> fechar barra lateral)',
-        'ko': '즐겨찾기 목록을 항상 최신 상태로 유지 (사이드바가 닫힌 경우)\n(사이드바 자동 열기 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 닫기)',
-        'ru':'Всегда обновляйте список избранного (если боковая панель закрыта)\n(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> закрыть боковую панель)'
+        'en': 'Support collapsed sidebar\n(auto-open sidebar -> extend sidebar -> get favorites -> collapse sidebar)',
+        'es': 'Compatibilidad con la barra lateral colapsada\n(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> colapsar barra lateral)',
+        'de': 'Unterstützen Sie die eingeklappte Seitenleiste\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Favoriten abrufen -> Seitenleiste einklappen)',
+        'fr': 'Prise en charge de la barre latérale réduite\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> réduire la barre latérale)',
+        'pt_BR': 'Suporte a barra lateral recolhida\n(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> recolher barra lateral)',
+        'ko': '접힌 사이드바 지원\n(자동 열기 사이드바 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 축소)',
+        'ru':'Поддержка свернутой боковой панели\n(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> свернуть боковую панель)'
     },
     settings_feature_isYTsidebarEnabled: {
         'en': 'Sidebar YouTube Channels',
@@ -806,13 +799,13 @@ export const i18n = {
             '<br>- Примечание: вы можете отключить эту функцию, если у вас включена функция списка избранного.'
     },
     settings_feature_isSidebarAlwaysExtendEnabled: {
-        'en': 'Always keep sidebar extended (if sidebar is closed)\n(auto-open sidebar -> Extend sidebar -> close sidebar)',
-        'es': 'Mantenga siempre la barra lateral extendida (si la barra lateral está cerrada)\n(barra lateral de apertura automática -> Extender barra lateral -> cerrar barra lateral)',
-        'de': 'Seitenleiste immer ausgefahren lassen (wenn Seitenleiste geschlossen)\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Seitenleiste schließen)',
-        'fr': 'Gardez toujours la barre latérale étendue (si la barre latérale est fermée)\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> fermer la barre latérale)',
-        'pt_BR': 'Sempre mantenha a barra lateral estendida (se a barra lateral estiver fechada)\n(barra lateral de abertura automática -> Estender barra lateral -> fechar barra lateral)',
-        'ko': '항상 사이드바 확장 유지(사이드바가 닫힌 경우)\n(사이드바 자동 열기 -> 사이드바 확장 -> 사이드바 닫기)',
-        'ru':'Всегда держите боковую панель расширенной (если боковая панель закрыта)\n(автоматическое открытие боковой панели -> Расширить боковую панель -> закрыть боковую панель)'
+        'en': 'Support collapsed sidebar\n(auto-open sidebar -> extend sidebar -> collapse sidebar)',
+        'es': 'Compatibilidad con la barra lateral colapsada\n(barra lateral de apertura automática -> Extender barra lateral -> colapsar barra lateral)',
+        'de': 'Unterstützen Sie die eingeklappte Seitenleiste\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Seitenleiste einklappen)',
+        'fr': 'Prise en charge de la barre latérale réduite\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> réduire la barre latérale)',
+        'pt_BR': 'Suporte a barra lateral recolhida\n(barra lateral de abertura automática -> Estender barra lateral -> recolher barra lateral)',
+        'ko': '접힌 사이드바 지원\n(자동 열기 사이드바 -> 사이드바 확장 -> 사이드바 축소)',
+        'ru':'Поддержка свернутой боковой панели\n(автоматическое открытие боковой панели -> Расширить боковую панель -> свернуть боковую панель)'
     },
     settings_feature_isSidebarSearchEnabled: {
         'en': 'Sidebar Search Button',
