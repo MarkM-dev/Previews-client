@@ -270,11 +270,12 @@
             twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl, false);
         } else {
             isKeepSBarPreviewsOpenMode = true;
+            twitchIframe.allowFullscreen = 'true';
             twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl, true);
         }
     }
 
-    function adjustVidPreviewVolScroll(e) {
+    /*function adjustVidPreviewVolScroll(e) {
         e.preventDefault();
         e.cancelBubble = true;
         try {
@@ -294,7 +295,7 @@
             }
         } catch (e) {
         }
-    }
+    }*/
 
     function removeVidPreviewVolBtn() {
         let volBtn = document.getElementById("tp_navCard_vpv_btn");
@@ -994,51 +995,6 @@
                 }, 50)
             }
         }
-
-
-       /* navCardEl.onmouseleave = function () {
-            isHovering = false;
-            if (options.isVideoPreviewMode) {
-                setTimeout(function () {
-                    if(!isHoveringPreviewDiv) {
-                        hidePreviewDiv();
-                    } else {
-                        setTimeout(function () {
-                            if (!isHovering) {
-                                hidePreviewDiv();
-                            }
-                        }, 900)
-                    }
-                }, 100);
-            } else {
-                setTimeout(function () {
-                    hidePreviewDiv();
-                }, 50)
-            }
-
-
-
-            /!*setTimeout(function () {
-                try {
-                    if (!isHovering) {
-                        // shouldSlideOut
-                        previewDiv.classList.add(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
-                        setTimeout(function () {
-                            isHovering = false;
-                            if (previewDiv) {
-                                hidePreview();
-                                previewDiv.classList.remove(isLayoutHorizontallyInverted ? 'slideOutRight':'slideOutLeft');
-                            }
-                        },10)
-                    }
-                    removePipBtn();
-                    removeVidPreviewVolBtn();
-                } catch (e) {
-
-                }
-
-            },50)*!/
-        }*/
     }
 
     function setDirectoryMouseOverListeners(navCardEl) {
