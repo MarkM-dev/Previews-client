@@ -2091,9 +2091,9 @@
                                 let toggle_offline_favorites_btn = document.createElement('div');
                                 toggle_offline_favorites_btn.classList.add('tp-toggle_offline_favorites_btn');
                                 if (!bShowOfflineFavs_result.bShowOfflineFavs) {
-                                    toggle_offline_favorites_btn.innerText = 'Show Offline';
+                                    toggle_offline_favorites_btn.innerText = _i18n('sidebar_favorite_show_offline_btn');
                                 } else {
-                                    toggle_offline_favorites_btn.innerText = 'Hide Offline';
+                                    toggle_offline_favorites_btn.innerText = _i18n('sidebar_favorite_hide_offline_btn');
                                 }
 
 

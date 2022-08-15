@@ -2136,6 +2136,24 @@ export const i18n = {
         'ko': '방송 중이지 않은 즐겨찾기',
         'ru':'Нет любимых каналов в прямом эфире'
     },
+    sidebar_favorite_show_offline_btn: {
+        'en': 'Show Offline',
+        'es': 'Mostrar sin conexión',
+        'de': 'Offline anzeigen',
+        'fr': 'Afficher hors ligne',
+        'pt_BR': 'Mostrar off-line',
+        'ko': '오프라인으로 표시',
+        'ru':'Показать в автономном режиме'
+    },
+    sidebar_favorite_hide_offline_btn: {
+        'en': 'Hide Offline',
+        'es': 'Ocultar sin conexión',
+        'de': 'Offline ausblenden',
+        'fr': 'Masquer hors ligne',
+        'pt_BR': 'Ocultar off-line',
+        'ko': '오프라인 숨기기',
+        'ru':'Скрыть в автономном режиме'
+    },
     sidebar_favorite_no_live_youtubers: {
         'en': 'No live youtubers',
         'es': 'No hay youtubers actualmente vivos',
