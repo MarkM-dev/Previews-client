@@ -2073,6 +2073,9 @@
                         if (promise_result !== 'FOLLOWED_LIST_IS_PARTIAL') {
                             if (options.sidebarFavorites_show_offline_channels) {
                                 let sidebar_scroll_content = document.querySelector('.simplebar-scroll-content');
+                                offline_favs_arr.sort(function (a, b) {
+                                    return a.stream_name[0] === b.stream_name[0] ? 0 : a.stream_name[0] > b.stream_name[0] ? 1 : -1;
+                                });
                                 for (let i = 0; i < offline_favs_arr.length; i++) {
                                     let el = createSidebarFavoritesElement(shown_followed_channels[0], style, offline_favs_arr[i].stream_name, offline_favs_arr[i].display_name, offline_favs_arr[i].profile_pic_url);
                                     let container_div = document.createElement('div');
