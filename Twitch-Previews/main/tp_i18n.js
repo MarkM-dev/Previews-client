@@ -533,37 +533,44 @@ export const i18n = {
             '<br>- A new Favorites list at the top of the sidebar (for your most favorite streamers).' +
             '<br>- Add streams to your favorites list by clicking the Favorites button next to the bell under the stream.' +
             '<br><span id="tp_settings_favorites_desc_note_el" >- Note: the feature relies on the followed channels list, so it will auto-expand (show more) when the sidebar is opened. if it\'s collapsed, the list will still populate but will be partial and marked with a clickable half full star icon you can click to automate the process. You can enable the "Support collapsed sidebar" feature below to do this process automatically.</span>' +
-            '<br>- Note: it might take a few seconds for the list to show or update.',
+            '<br>- Note: it might take a few seconds for the list to show or update.' +
+            '<br>- Note: if your offline favorites are missing profile pictures, open their page to update (updates ~3 seconds after opening).',
         'es': '<strong>* Barra lateral Canales favoritos</strong>' +
             '<br>- Una nueva lista de favoritos en la parte superior de la barra lateral (para sus streamers más favoritos).' +
             '<br>- Agregue transmisiones a su lista de favoritos haciendo clic en el botón Favoritos junto a la campana debajo de la transmisión.' +
             '<br><span id="tp_settings_favorites_desc_note_el" >- Nota: la función se basa en la lista de canales seguidos, por lo que se expandirá automáticamente (mostrar más) cuando se abra la barra lateral. si está colapsado, la lista seguirá llenándose pero será parcial y marcada con un icono de estrella medio lleno en el que se puede hacer clic para automatizar el proceso. Puede habilitar la función "Compatibilidad con la barra lateral colapsada" a continuación para realizar este proceso automáticamente.</span>' +
-            '<br>- Nota: la lista puede tardar unos segundos en mostrarse o actualizarse.',
+            '<br>- Nota: la lista puede tardar unos segundos en mostrarse o actualizarse.'+
+            '<br>- Nota: si a tus favoritos sin conexión les faltan fotos de perfil, abre su página para actualizar (actualiza ~3 segundos después de abrir).',
         'de': '<strong>* Seitenleiste Lieblingskanäle</strong>' +
             '<br>- Eine neue Favoritenliste oben in der Seitenleiste (für deine beliebtesten Streamer).' +
             '<br>- Fügen Sie Streams zu Ihrer Favoritenliste hinzu, indem Sie auf die Schaltfläche Favoriten neben der Glocke unter dem Stream klicken.' +
             '<br><span id="tp_settings_favorites_desc_note_el" >- Hinweis: Die Funktion basiert auf der Liste der verfolgten Kanäle, sodass sie automatisch erweitert wird (mehr anzeigen), wenn die Seitenleiste geöffnet wird. Wenn es reduziert ist, wird die Liste immer noch gefüllt, aber sie ist teilweise und mit einem anklickbaren halbgefüllten Sternsymbol gekennzeichnet, auf das Sie klicken können, um den Vorgang zu automatisieren. Sie können unten die Funktion „Unterstützen Sie die eingeklappte Seitenleiste“ aktivieren, um diesen Vorgang automatisch durchzuführen.</span>' +
-            '<br>- Hinweis: Es kann einige Sekunden dauern, bis die Liste angezeigt oder aktualisiert wird.',
+            '<br>- Hinweis: Es kann einige Sekunden dauern, bis die Liste angezeigt oder aktualisiert wird.'+
+            '<br>- Hinweis: Wenn Ihren Offline-Favoriten Profilbilder fehlen, öffnen Sie deren Seite, um sie zu aktualisieren (aktualisiert ca. 3 Sekunden nach dem Öffnen).',
         'fr': '<strong>* Barre latérale Chaînes préférées</strong>' +
             '<br>- Une nouvelle liste de favoris en haut de la barre latérale (pour vos streamers les plus préférés).' +
             '<br>- Ajoutez des flux à votre liste de favoris en cliquant sur le bouton Favoris à côté de la cloche sous le flux.' +
             '<br><span id="tp_settings_favorites_desc_note_el" >- Remarque : la fonctionnalité repose sur la liste des chaînes suivies, elle s\'étendra donc automatiquement (en affichera plus) lorsque la barre latérale est ouverte. si elle est réduite, la liste sera toujours remplie mais sera partielle et marquée d\'une icône d\'étoile cliquable à moitié pleine sur laquelle vous pouvez cliquer pour automatiser le processus. Vous pouvez activer la fonctionnalité "Prise en charge de la barre latérale réduite" ci-dessous pour effectuer ce processus automatiquement.</span>' +
-            '<br>- Remarque : l\'affichage ou la mise à jour de la liste peut prendre quelques secondes.',
+            '<br>- Remarque : l\'affichage ou la mise à jour de la liste peut prendre quelques secondes.'+
+            '<br>- Remarque : s\'il manque des photos de profil à vos favoris hors ligne, ouvrez leur page pour les mettre à jour (mises à jour environ 3 secondes après l\'ouverture).',
         'pt_BR': '<strong>* Barra Lateral Canais Favoritos</strong>' +
             '<br>- Uma nova lista de favoritos no topo da barra lateral (para seus streamers favoritos).' +
             '<br>- Adicione streams à sua lista de favoritos clicando no botão Favoritos ao lado do sino abaixo do stream.' +
             '<br><span id="tp_settings_favorites_desc_note_el" >- Nota: o recurso depende da lista de canais seguidos, portanto, expandirá automaticamente (mostrar mais) quando a barra lateral for aberta. se estiver recolhida, a lista ainda será preenchida, mas será parcial e marcada com um ícone de meia estrela clicável que você pode clicar para automatizar o processo. Você pode ativar o recurso "Suporte a barra lateral recolhida" abaixo para fazer esse processo automaticamente.</span>' +
-            '<br>- Observação: pode demorar alguns segundos para que a lista seja exibida ou atualizada.',
+            '<br>- Observação: pode demorar alguns segundos para que a lista seja exibida ou atualizada.'+
+            '<br>- Nota: se seus favoritos offline não tiverem fotos de perfil, abra a página para atualizar (atualizações ~ 3 segundos após a abertura).',
         'ko': '<strong>* 사이드바 즐겨찾는 채널</strong>' +
             '<br>- 사이드바 상단에 새로운 즐겨찾기 목록이 만들어져요.' +
             '<br>- 방송 화면 아래의 알림 버튼 옆에 있는 즐겨찾기 버튼을 클릭해 즐겨찾기 목록에 방송을 추가할 수 있어요.' +
             '<br><span id="tp_settings_favorites_desc_note_el" >- 참고: 이 기능은 팔로우된 채널 목록에 의존하므로 사이드바가 열리면 자동 확장(더 보기)됩니다. 축소된 경우 목록은 계속 채워지지만 부분적으로 표시되며 클릭하여 프로세스를 자동화할 수 있는 클릭 가능한 별표 반 아이콘으로 표시됩니다. 이 프로세스를 자동으로 수행하려면 아래에서 "접힌 사이드바 지원" 기능을 활성화할 수 있습니다.</span>' +
-            '<br>- 참고: 목록이 표시되거나 업데이트하는데 몇 초 정도 걸릴 수 있어요.',
+            '<br>- 참고: 목록이 표시되거나 업데이트하는데 몇 초 정도 걸릴 수 있어요.'+
+            '<br>- 참고: 오프라인 즐겨찾기에 프로필 사진이 없는 경우 해당 페이지를 열어 업데이트하십시오(열린 후 ~3초 후에 업데이트됨).',
         'ru':'<strong>* Боковая панель Избранные каналы</strong>' +
             '<br>- Новый список избранного в верхней части боковой панели (для ваших самых любимых стримеров).' +
             '<br>- Добавьте потоки в список избранного, нажав кнопку «Избранное» рядом с колокольчиком под потоком.' +
             '<br><span id="tp_settings_favorites_desc_note_el" >- Примечание: эта функция зависит от списка отслеживаемых каналов, поэтому она будет автоматически расширяться (показывать больше) при открытии боковой панели. если он свернут, список по-прежнему будет заполняться, но будет частичным и помечен интерактивным значком половинной звезды, по которому можно щелкнуть, чтобы автоматизировать процесс. Вы можете включить функцию «Поддержка свернутой боковой панели» ниже, чтобы этот процесс выполнялся автоматически.</span>' +
-            '<br>- Примечание: отображение или обновление списка может занять несколько секунд.'
+            '<br>- Примечание: отображение или обновление списка может занять несколько секунд.' +
+            '<br>– Примечание. Если в ваших избранных офлайн-страницах отсутствуют изображения профиля, откройте их страницу для обновления (обновление происходит примерно через 3 секунды после открытия).'
     },
     settings_feature_sidebarFavorites_hide_originals: {
         'en': 'Hide favorite channels from followed list',
