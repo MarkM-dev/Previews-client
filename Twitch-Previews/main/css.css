@@ -1742,3 +1742,15 @@
 .directory-preview-anch:active {
     background-color: hsla(0,0%,100%,0.1);
 }
+
+.tp-toggle_offline_favorites_btn {
+    padding: 0.5rem 1rem 0;
+    text-decoration: none;
+    color: var(--color-text-link, #bf94ff);
+    font-size: var(--font-size-7, 1.2rem);
+    cursor: pointer;
+}
+.tp-toggle_offline_favorites_btn:hover {
+    text-decoration: underline;
+    color: var(--color-text-link-hover, #a970ff);
+}
