@@ -212,3 +212,14 @@
 #tp_APS_settings_menu input[type=number] {
     -moz-appearance: textfield;
 }
+
+#tp_APS_settings_menu #tp_aps_settings_menu_reset_to_global {
+    display: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: calc(50% - 10px);
+    margin-top: 30px;
+    cursor: pointer;
+    color: #9c60ff;
+}

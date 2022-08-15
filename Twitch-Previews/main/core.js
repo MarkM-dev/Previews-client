@@ -4004,6 +4004,7 @@
                     }
                 }
             });
+            settingsContainer.querySelector('tp_aps_settings_menu_reset_to_global')
             sendMessageToBG({action: "bg_APS_settings_menu_update_" + featureName, detail: newVal});
         })
     }
@@ -4113,6 +4114,19 @@
             _browser.storage.local.get('aps_streams_settings_obj', function(res) {
                 if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
                     aps_curr_stream_settings = res.aps_streams_settings_obj[curr_stream_name];
+
+                    let reset_btn = settingsContainer.querySelector('#tp_aps_settings_menu_reset_to_global');
+                    reset_btn.style.display = 'inline-block';
+                    reset_btn.parentNode.title = 'Reset To Global Settings';
+                    reset_btn.onclick = function () {
+                        delete res.aps_streams_settings_obj[curr_stream_name];
+                        _browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
+                            toggle_APS_settings_menu();
+                            setTimeout(function () {
+                                toggle_APS_settings_menu();
+                            }, 250);
+                        });
+                    };
                 }
                 aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_percent', 'tp_APS_settings_percent_input', 0);
                 aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_max_points', 'tp_APS_settings_max_points_input', 0);
