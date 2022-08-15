@@ -5606,7 +5606,7 @@
             +  "             <span style=\"font-size: 12px;color: whitesmoke;\" ><img height='40' width='250' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "        </div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 10px;\" ><strong style='color: #2cff95;' >- Preview Volume Button Is Back!</strong>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Added volume button for Twitch & YouTube sidebar previews (Video Mode).</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Added volume button for Twitch, YouTube & Facebook sidebar previews (Video Mode).</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >After clicking the volume button (under the view count in the sidebar) you can hover your mouse over the preview and interact with the controls (change vol, etc..).</span>"
             +  "        </div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes and improvements</strong>"
