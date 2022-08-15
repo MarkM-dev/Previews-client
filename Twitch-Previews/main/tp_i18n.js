@@ -582,13 +582,13 @@ export const i18n = {
         'ru':'Скрыть избранные каналы из списка каналов, за которыми вы следите'
     },
     settings_feature_sidebarFavorites_show_offline: {
-        'en': 'Show offline favorite channels button',
-        'es': 'Mostrar botón de canales favoritos sin conexión',
-        'de': 'Schaltfläche Offline-Favoritenkanäle anzeigen',
-        'fr': 'Afficher le bouton des chaînes favorites hors ligne',
-        'pt_BR': 'Botão Mostrar canais favoritos offline',
-        'ko': '오프라인 즐겨찾기 채널 표시 버튼',
-        'ru':'Показывать кнопку избранных офлайн-каналов'
+        'en': 'Show offline favorite channels toggle button',
+        'es': 'Mostrar botón de alternancia de canales favoritos sin conexión',
+        'de': 'Umschaltfläche für Offline-Favoritenkanäle anzeigen',
+        'fr': 'Afficher le bouton bascule des chaînes favorites hors ligne',
+        'pt_BR': 'Mostrar botão de alternância de canais favoritos offline',
+        'ko': '오프라인 즐겨찾기 채널 표시 토글 버튼',
+        'ru':'Показывать кнопку-переключатель избранных офлайн-каналов'
     },
     settings_feature_sidebarFavorites_always_updated: {
         'en': 'Support collapsed sidebar<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Recommended!</span><br>(auto-open sidebar -> extend sidebar -> get favorites -> collapse sidebar)',
