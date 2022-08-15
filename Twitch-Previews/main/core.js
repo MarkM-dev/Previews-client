@@ -1371,7 +1371,7 @@
         }
 
         el.parentNode.onmouseover = (e) => {
-            let margin_top = 'calc(-' + sidebar_scroll_content.scrollTop * 2 + 'px + ' + (dataObj.is_offline_channel ? '1.5':'3') + 'rem)';
+            let margin_top = 'calc(-' + sidebar_scroll_content.scrollTop * 2 + 'px + ' + (isNavBarCollapsed ? '3':'0') + 'rem)';
             tooltip.style.marginTop = margin_top;
             tooltip.style.inset = isLayoutHorizontallyInverted ? `${margin_top} ${isNavBarCollapsed ? '6rem': '25rem'} auto auto` : `${margin_top} auto auto ${isNavBarCollapsed ? '6rem': '25rem'}`;
         }
