@@ -6829,12 +6829,18 @@
         let btn = settingsContainer.querySelector('#tp_settings_favorites_offline_info_btn');
         btn.onclick = function (e) {
             settingsContainer.querySelector('#tp_popup_feature_sidebar_favorites').previousElementSibling.scrollIntoView({behavior: "smooth", block: "start"});
-            let note = settingsContainer.querySelector('#tp_settings_favorites_desc_note_el');
-            if (note.classList.contains('tp-blink-element-background')) {
-                note.classList.remove('tp-blink-element-background');
-            }
+            let el1 = settingsContainer.querySelector('#tp_settings_favorites_desc_note_el');
+            let el2 = settingsContainer.querySelector('#tp_settings_favorites_support_collapsed_sidebar_span');
+            let el3 = settingsContainer.querySelector('#tp_settings_favorites_desc_note_el2');
+
+            el1.classList.remove('tp-blink-element-background');
+            el2.classList.remove('tp-blink-element-background');
+            el3.classList.remove('tp-blink-element-background');
+
             setTimeout(function () {
-                note.classList.add('tp-blink-element-background');
+                el1.classList.add('tp-blink-element-background');
+                el2.classList.add('tp-blink-element-background');
+                el3.classList.add('tp-blink-element-background');
             },1)
         }
     }
