@@ -1587,7 +1587,7 @@ export const i18n = {
             '<br>- If you have chat open (no need), you will see the prediction menu for a split second when the sniper is entering a prediction.' +
             '<br>- You can enable the \'Predictions notifications\' feature if you want to know what\'s happening in real-time.' +
             '<br>- To change Sniper settings for individual streams, click the Sniper settings button under the chat.' +
-            '<br><strong>Default Settings:</strong>' +
+            '<br><strong>Global Settings:</strong>' +
             '<br><strong>Bet % -</strong> the percentage of channel points you want the sniper to bet.' +
             '<br><strong>Max num of points -</strong> the maximum amount of points the sniper is allowed to vote with.' +
             '<br><strong>Min vote margin % -</strong> a percentage representation of the minimum required vote margin between the two prediction options for the sniper to participate.' +
@@ -1600,12 +1600,12 @@ export const i18n = {
             '<br>- Si tiene el chat abierto (no es necesario), verá el menú de predicción durante una fracción de segundo cuando el francotirador ingrese una predicción.' +
             '<br>- Puede habilitar la función \'Notificaciones de predicciones\' si desea saber qué está sucediendo en tiempo real.' +
             '<br>- Para cambiar la configuración de Sniper para transmisiones individuales, haga clic en el botón Configuración de Sniper debajo del chat.' +
-            '<br><strong> Configuración predeterminada: </strong>' +
-            '<br><strong> Bet%: </strong> el porcentaje de puntos de canal que desea que apueste el francotirador.' +
-            '<br><strong> Número máximo de puntos: </strong> la cantidad máxima de puntos con la que el francotirador puede votar.' +
-            '<br><strong> Porcentaje de margen de voto mínimo: </strong> una representación porcentual del margen de voto mínimo requerido entre las dos opciones de predicción para que participe el francotirador.' +
-            '<br><strong> Por ejemplo: </strong> opción A- 100 votos, opción B- 115 votos, distribución de votos: A-46,51% B-53,49%, <strong> margen de voto: 6,98% </strong> (53,49% - 46,51%). <strong> si el margen de voto mínimo es inferior al 6,98% </strong>, el francotirador <strong> participará </strong>.' +
-            '<br><strong> Segundos: </strong> la cantidad de segundos que el francotirador hará una predicción antes de que se cierre (mínimo 2 segundos).',
+            '<br><strong>Configuración global:</strong>' +
+            '<br><strong>Bet%: </strong> el porcentaje de puntos de canal que desea que apueste el francotirador.' +
+            '<br><strong>Número máximo de puntos: </strong> la cantidad máxima de puntos con la que el francotirador puede votar.' +
+            '<br><strong>Porcentaje de margen de voto mínimo: </strong> una representación porcentual del margen de voto mínimo requerido entre las dos opciones de predicción para que participe el francotirador.' +
+            '<br><strong>Por ejemplo: </strong> opción A- 100 votos, opción B- 115 votos, distribución de votos: A-46,51% B-53,49%, <strong> margen de voto: 6,98% </strong> (53,49% - 46,51%). <strong> si el margen de voto mínimo es inferior al 6,98% </strong>, el francotirador <strong> participará </strong>.' +
+            '<br><strong>Segundos: </strong> la cantidad de segundos que el francotirador hará una predicción antes de que se cierre (mínimo 2 segundos).',
         'de': '<strong>* Vorhersagen Scharfschütze</strong>' +
             '<br>- Der Vorhersage-Scharfschütze wird für Sie an Vorhersagen teilnehmen.' +
             '<br>- Funktioniert auf Twitch-Tabs im Browser.' +
@@ -1613,7 +1613,7 @@ export const i18n = {
             '<br>- Wenn Sie den Chat geöffnet haben (nicht erforderlich), sehen Sie das Vorhersagemenü für den Bruchteil einer Sekunde, wenn der Scharfschütze eine Vorhersage eingibt.' +
             '<br>- Sie können die Funktion \'Vorhersagebenachrichtigungen\' aktivieren, wenn Sie in Echtzeit wissen möchten, was passiert.' +
             '<br>- Um die Scharfschützeneinstellungen für einzelne Streams zu ändern, klicke auf die Scharfschützeneinstellungen-Schaltfläche unter dem Chat.' +
-            '<br><strong>Standardeinstellungen:</strong>' +
+            '<br><strong>Globale Einstellungen:</strong>' +
             '<br><strong>Einsatz % –</strong> Der Prozentsatz der Kanalpunkte, den der Scharfschütze setzen soll.' +
             '<br><strong>Maximale Punktzahl –</strong> Die maximale Punktzahl, mit der der Scharfschütze abstimmen darf.' +
             '<br><strong>Mindest-Abstimmungsspielraum % –</strong> eine prozentuale Darstellung des minimal erforderlichen Abstimmungsspielraums zwischen den beiden Vorhersageoptionen für die Teilnahme des Scharfschützen.' +
@@ -1626,11 +1626,11 @@ export const i18n = {
             '<br>- Si vous avez ouvert le chat (pas besoin), vous verrez le menu de prédiction pendant une fraction de seconde lorsque le tireur d\'élite entre dans une prédiction.' +
             '<br>- Vous pouvez activer la fonction \'Notifications de prédictions\' si vous voulez savoir ce qui se passe en temps réel.' +
             '<br>- Pour modifier les paramètres de Sniper pour des flux individuels, cliquez sur le bouton Paramètres de Sniper sous le chat.' +
-            '<br><strong>Paramètres par défaut :</strong>' +
+            '<br><strong>Paramètres globaux:</strong>' +
             '<br><strong>% de mise -</strong> le pourcentage de points de canal que vous souhaitez que le tireur d\'élite parie.' +
             '<br><strong>Nombre maximum de points -</strong> le nombre maximum de points avec lequel le tireur d\'élite est autorisé à voter.' +
             '<br><strong>Min vote margin % -</strong> une représentation en pourcentage de la marge de vote minimale requise entre les deux options de prédiction pour que le tireur d\'élite participe.' +
-            '<br><strong>Par exemple :</strong> option A- 100 voix, option B- 115 voix, répartition des voix : A-46,51% B-53,49%, <strong>marge de vote : 6,98 %</strong> (53,49% - 46,51 %). <strong>si la marge de vote Min est inférieure à 6,98 %</strong>, le tireur d\'élite <strong>participera</strong>.' +
+            '<br><strong>Par exemple :</strong> option A- 100 voix, option B- 115 voix, répartition des voix : A-46,51% B-53,49%, <strong>marge de vote : 6,98 %</strong> (53,49% - 46,51 %). <strong>si la marge de vote Min est inférieure à 6,98 %</strong>, le tireur d\'élite <strong>participera</strong>.' +
             '<br><strong>Secondes -</strong> le nombre de secondes pendant lesquelles le tireur d\'élite fera une prédiction avant la fermeture de la prédiction (minimum 2s).',
         'pt_BR': '<strong>* Sniper de previsões</strong>' +
             '<br>- O atirador de previsões participará das previsões para você.' +
@@ -1639,12 +1639,12 @@ export const i18n = {
             '<br>- Se o chat estiver aberto (não há necessidade), você verá o menu de previsão por uma fração de segundo quando o atirador estiver entrando em uma previsão.' +
             '<br>- Você pode habilitar o recurso \'Notificações de previsões\' se quiser saber o que está acontecendo em tempo real.' +
             '<br>- Para alterar as configurações do Sniper para streams individuais, clique no botão Configurações do Sniper no bate-papo.' +
-            '<br><strong> Configurações padrão: </strong>' +
+            '<br><strong>Configurações globais:</strong>' +
             '<br><strong>% da aposta - </strong> a porcentagem de pontos do canal que você deseja que o atirador aposte.' +
-            '<br><strong> Número máximo de pontos - </strong> a quantidade máxima de pontos com que o atirador pode votar.' +
+            '<br><strong>Número máximo de pontos - </strong> a quantidade máxima de pontos com que o atirador pode votar.' +
             '<br><strong>% de margem de voto mínima - </strong> uma representação percentual da margem de voto mínima exigida entre as duas opções de previsão para o atirador participar.' +
-            '<br><strong> Por exemplo: </strong> opção A- 100 votos, opção B- 115 votos, distribuição de votos: A-46,51% B-53,49%, <strong> margem de votos: 6,98% </strong> (53,49% - 46,51%). <strong> se a margem mínima de voto for inferior a 6,98% </strong>, o atirador <strong> irá </strong> participar.' +
-            '<br><strong> Segundos - </strong> a quantidade de segundos que o atirador fará uma previsão antes de a previsão fechar (mínimo 2s).',
+            '<br><strong>Por exemplo:</strong> opção A- 100 votos, opção B- 115 votos, distribuição de votos: A-46,51% B-53,49%, <strong> margem de votos: 6,98% </strong> (53,49% - 46,51%). <strong> se a margem mínima de voto for inferior a 6,98% </strong>, o atirador <strong> irá </strong> participar.' +
+            '<br><strong>Segundos -</strong> a quantidade de segundos que o atirador fará uma previsão antes de a previsão fechar (mínimo 2s).',
         'ko': '<strong>* 고스트 도박왕</strong>' +
             '<br>- 고스트 도박왕이 대신 예측할거에요.' +
             '<br>- 브라우저의 트위치 탭에서 작동해요.' +
@@ -1652,12 +1652,12 @@ export const i18n = {
             '<br>- 채팅이 열려있는 경우(필수가 아님), 예측할 때 잠시동안 메뉴가 표시되요.' +
             '<br>- 실시간으로 무슨 일이 일어나고 있는지 알고 싶으면 \'예측 알림\' 기능을 활성화할 수 있어요.' +
             '<br>- 개별 방송의 설정을 변경하려면 채팅 아래의 설정 버튼을 클릭하세요' +
-            '<br><strong> 기본 설정: </strong>' +
-            '<br><strong> 배팅% - </strong> 배팅하길 원하는 채널 포인트의 백분율.' +
-            '<br><strong> 최대 포인트 수 - </strong> 사용할 수 있는 최대 점수.' +
-            '<br><strong> 최소 비율 차이% </strong> - 두 선택지 사이에 필요한 최소 비율 차이를 백분율로 나타내요.' +
-            '<br><strong> 예시: </strong> A - 100표, B - 115표, 투표 비율: A-46,51% B-53,49%, <strong> 비율 차이: 6,98% </strong> (53,49% - 46,51%). <strong> 최소 투표 비율이 6,98%보다 낮으면 </strong>, 자동으로 참여할거에요.' +
-            '<br><strong> 초 - </strong> 예측이 종료되기 전 예측하는 시간(초)이에요. - 최소 2초',
+            '<br><strong>전역 설정:</strong>' +
+            '<br><strong>배팅% -</strong> 배팅하길 원하는 채널 포인트의 백분율.' +
+            '<br><strong>최대 포인트 수 -</strong> 사용할 수 있는 최대 점수.' +
+            '<br><strong>최소 비율 차이%</strong> - 두 선택지 사이에 필요한 최소 비율 차이를 백분율로 나타내요.' +
+            '<br><strong>예시:</strong> A - 100표, B - 115표, 투표 비율: A-46,51% B-53,49%, <strong> 비율 차이: 6,98% </strong> (53,49% - 46,51%). <strong> 최소 투표 비율이 6,98%보다 낮으면 </strong>, 자동으로 참여할거에요.' +
+            '<br><strong>초 -</strong> 예측이 종료되기 전 예측하는 시간(초)이에요. - 최소 2초',
         'ru':'<strong>* Прогнозы Снайпер</strong>' +
             '<br>- Снайпер предсказаний будет участвовать в предсказаниях для вас.' +
             '<br>- Работает на вкладках Twitch в браузере.' +
@@ -1665,12 +1665,12 @@ export const i18n = {
             '<br>- Если у вас открыт чат (нет необходимости), вы увидите меню прогнозов на долю секунды, когда снайпер вводит прогноз.' +
             '<br>- Вы можете включить функцию «Уведомления о прогнозах», если хотите знать, что происходит в режиме реального времени.' +
             '<br>- Чтобы изменить настройки снайпера для отдельных потоков, нажмите кнопку настроек снайпера под чатом.' +
-            '<br><strong> Настройки по умолчанию: </strong>' +
-            '<br><strong> Ставка% - </strong> процент очков канала, на который снайпер должен поставить.' +
-            '<br><strong> Максимальное количество баллов - </strong> максимальное количество баллов, за которое снайпер может голосовать.' +
-            '<br><strong> Мин. разницы при голосовании% </strong> - процентное представление минимального необходимого запаса голосов между двумя вариантами прогноза для участия снайпера.' +
-            '<br><strong> Например: </strong> вариант A - 100 голосов, вариант B - 115 голосов, разброс голосов: A-46,51% B-53,49%, <strong> разница голосов: 6,98% </strong> (53,49% - 46,51%). <strong> если минимальный запас голосов ниже 6,98% </strong>, снайпер <strong> будет </strong> участвовать.' +
-            '<br><strong> Секунды - </strong> количество секунд, в течение которых снайпер сделает прогноз до его закрытия (минимум 2 секунды).'
+            '<br><strong>Глобальные настройки: </strong>' +
+            '<br><strong>Ставка% -</strong> процент очков канала, на который снайпер должен поставить.' +
+            '<br><strong>Максимальное количество баллов -</strong> максимальное количество баллов, за которое снайпер может голосовать.' +
+            '<br><strong>Мин. разницы при голосовании%</strong> - процентное представление минимального необходимого запаса голосов между двумя вариантами прогноза для участия снайпера.' +
+            '<br><strong>Например:</strong> вариант A - 100 голосов, вариант B - 115 голосов, разброс голосов: A-46,51% B-53,49%, <strong> разница голосов: 6,98% </strong> (53,49% - 46,51%). <strong> если минимальный запас голосов ниже 6,98% </strong>, снайпер <strong> будет </strong> участвовать.' +
+            '<br><strong>Секунды -</strong> количество секунд, в течение которых снайпер сделает прогноз до его закрытия (минимум 2 секунды).'
     },
     settings_section_settings: {
         'en': 'Settings',
