@@ -6870,7 +6870,7 @@
 
             let close_settings_btn = settingsContainer.querySelector('#tp_settings_close_btn');
             close_settings_btn.addEventListener('click', (event) => {
-                settingsContainer.style.width = '800px';
+                settingsContainer.style.width = '850px';
                 settingsContainer.style.height = '600px';
                 settingsContainer.classList.remove('bounceIn');
                 settingsContainer.classList.add('zoomOut');

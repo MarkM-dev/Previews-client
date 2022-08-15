@@ -2,10 +2,10 @@
     display: block;
     position: fixed;
     z-index: 9999999;
-    width: 800px;
+    width: 850px;
     height: 600px;
     left: 50%;
-    margin-left: -400px;
+    margin-left: -425px;
     top: 50%;
     margin-top: -300px;
 }
@@ -33,7 +33,7 @@
 
 #TPBodyEl {
     position: absolute;
-    width: 800px;
+    width: 850px;
     height: 600px;
     /*background-color: #232323;*/
     background-color: rgb(24, 24, 27);
@@ -69,6 +69,7 @@
 #TPBodyEl #tp_settings_lang_selector {
     position: absolute;
     top: 11px;
+    margin-left: 25px;
     z-index: 999999;
     background-color: transparent;
     color: whitesmoke;
@@ -392,7 +393,7 @@
 }
 
 #TPBodyEl .tp_title_shadow_el {
-    width: 512px;
+    width: 565px;
     height: 40px;
     position: absolute;
     top: 0;
