@@ -2834,5 +2834,14 @@ export const i18n = {
         'pt_BR': 'Desligado',
         'ko': '오프라인',
         'ru':'Не в сети'
+    },
+    Reset_To_Global_Settings: {
+        'en': 'Reset To Global Settings',
+        'es': 'Restablecer a la configuración global',
+        'de': 'Auf globale Einstellungen zurücksetzen',
+        'fr': 'Réinitialiser aux paramètres globaux',
+        'pt_BR': 'Redefinir para configurações globais',
+        'ko': '전역 설정으로 재설정',
+        'ru':'Сбросить глобальные настройки'
     }
 }

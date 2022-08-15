@@ -4004,7 +4004,6 @@
                     }
                 }
             });
-            settingsContainer.querySelector('tp_aps_settings_menu_reset_to_global')
             sendMessageToBG({action: "bg_APS_settings_menu_update_" + featureName, detail: newVal});
         })
     }
@@ -4117,7 +4116,19 @@
 
                     let reset_btn = settingsContainer.querySelector('#tp_aps_settings_menu_reset_to_global');
                     reset_btn.style.display = 'inline-block';
-                    reset_btn.parentNode.title = 'Reset To Global Settings';
+                    let reset_btn_tooltop = createTooltip(reset_btn.parentNode, 'bottom', _i18n('Reset_To_Global_Settings'));
+                    reset_btn_tooltop.style.top = 'auto';
+                    reset_btn_tooltop.style.minWidth = 'max-content';
+                    reset_btn_tooltop.style.position = 'relative';
+                    reset_btn_tooltop.style.marginLeft = '49px';
+                    reset_btn_tooltop.style.marginTop = '40px';
+
+                    reset_btn.parentNode.onmouseover = function (e) {
+                        console.log(reset_btn.getBoundingClientRect());
+                        console.log(reset_btn_tooltop.getBoundingClientRect().width);
+                        reset_btn_tooltop.style.marginLeft = `calc(calc(50% - ${reset_btn_tooltop.getBoundingClientRect().width / 2}px - 17px)`;
+                    }
+
                     reset_btn.onclick = function () {
                         delete res.aps_streams_settings_obj[curr_stream_name];
                         _browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
