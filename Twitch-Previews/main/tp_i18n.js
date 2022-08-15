@@ -584,13 +584,13 @@ export const i18n = {
         'ru':'Показать любимые офлайн-каналы'
     },
     settings_feature_sidebarFavorites_always_updated: {
-        'en': 'Support collapsed sidebar\n(auto-open sidebar -> extend sidebar -> get favorites -> collapse sidebar)',
-        'es': 'Compatibilidad con la barra lateral colapsada\n(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> colapsar barra lateral)',
-        'de': 'Unterstützen Sie die eingeklappte Seitenleiste\n(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Favoriten abrufen -> Seitenleiste einklappen)',
-        'fr': 'Prise en charge de la barre latérale réduite\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> réduire la barre latérale)',
-        'pt_BR': 'Suporte a barra lateral recolhida\n(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> recolher barra lateral)',
-        'ko': '접힌 사이드바 지원\n(자동 열기 사이드바 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 축소)',
-        'ru':'Поддержка свернутой боковой панели\n(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> свернуть боковую панель)'
+        'en': 'Support collapsed sidebar<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Recommended!</span><br>(auto-open sidebar -> extend sidebar -> get favorites -> collapse sidebar)',
+        'es': 'Compatibilidad con la barra lateral colapsada<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;¡Recomendada!</span><br>(barra lateral de apertura automática -> Extender barra lateral -> obtener favoritos -> colapsar barra lateral)',
+        'de': 'Unterstützen Sie die eingeklappte Seitenleiste<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Empfohlen!</span><br>(Seitenleiste automatisch öffnen -> Seitenleiste erweitern -> Favoriten abrufen -> Seitenleiste einklappen)',
+        'fr': 'Prise en charge de la barre latérale réduite<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Recommandée!</span><br>(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> réduire la barre latérale)',
+        'pt_BR': 'Suporte a barra lateral recolhida<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Recomendada!</span><br>(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> recolher barra lateral)',
+        'ko': '접힌 사이드바 지원<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;추천 기능!</span><br>(자동 열기 사이드바 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 축소)',
+        'ru':'Поддержка свернутой боковой панели<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Рекомендуем!</span><br>(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> свернуть боковую панель)'
     },
     settings_feature_isYTsidebarEnabled: {
         'en': 'Sidebar YouTube Channels',
