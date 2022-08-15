@@ -836,9 +836,7 @@
                         let container = lastHoveredCardEl.querySelector('div[data-a-target="side-nav-live-status"]');
                         if (container) {
                             container.appendChild(navCardPipBtn);
-                            if (!navCardEl.fb_videoId) {
-                                container.appendChild(vidPreviewVolBtn);
-                            }
+                            container.appendChild(vidPreviewVolBtn);
                             navCardPipBtn.yt_videoId = navCardEl.yt_videoId;
                             navCardPipBtn.fb_videoId = navCardEl.fb_videoId;
                             navCardPipBtn.stream_name = navCardEl.stream_name;
