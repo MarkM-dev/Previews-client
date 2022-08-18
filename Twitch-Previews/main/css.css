@@ -1754,3 +1754,11 @@
     text-decoration: underline;
     color: var(--color-text-link-hover, #a970ff);
 }
+
+.tp-section-title-figure {
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    color: var(--color-text-alt-2, #adadb8) !important;
+}
