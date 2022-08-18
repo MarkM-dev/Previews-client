@@ -2107,6 +2107,15 @@ export const i18n = {
         'ko': '멀티 스트림 시작',
         'ru':'Начать Multi Stream'
     },
+    sidebar_followed_channels_title: {
+        'en': 'Followed Channels',
+        'es': 'Canales que sigo',
+        'de': 'Kanäle, denen du folgst',
+        'fr': 'Chaînes suivies',
+        'pt_BR': 'Canais seguidos',
+        'ko': '팔로우 중인 채널',
+        'ru':'Отслеживаемые каналы'
+    },
     favorites_btn_title: {
         'en': 'Toggle Favorite',
         'es': 'Alternar canal favorito',
