@@ -1379,6 +1379,61 @@
         el.appendChild(tooltip);
     }
 
+    function handleCustomSidebarHeader(followed_channels_section, dataObj) {
+        let section_header_figure = null;
+
+        let favorites_section = followed_channels_section.cloneNode(true);
+        favorites_section.id = dataObj.id;
+        favorites_section.classList.remove('side-nav-section');
+
+        let append_container = favorites_section.children[1];
+        if (!isNavBarCollapsed) {
+            if (favorites_section.children[0].id === 'tp_custom_followed_section_header') {
+                favorites_section.children[0].remove();
+                append_container = favorites_section.children[1];
+            }
+            if (!append_container.classList.contains('tw-transition-group')) {
+                append_container.remove();
+                append_container = favorites_section.children[1];
+            }
+
+            let title_el_text_el = favorites_section.querySelector('.side-nav-header').querySelector('h5') || favorites_section.querySelector('.side-nav-header').querySelector('h2');
+            if (title_el_text_el) {
+                title_el_text_el.innerText = dataObj.section_title_text;
+            }
+        } else {
+            if (favorites_section.children[0].id === 'tp_custom_followed_section_header') {
+                favorites_section.children[0].remove();
+            }
+            if (!favorites_section.children[0].classList.contains('tw-transition-group')) {
+                favorites_section.children[0].remove();
+            }
+            append_container = favorites_section.children[0];
+
+            let section_header = document.createElement('div');
+            section_header.style.height = '4rem';
+            section_header.classList.add('side-nav-header');
+            section_header_figure = document.createElement('figure');
+            section_header_figure.classList.add('tp-section-title-figure');
+            //section_header_figure.title = _i18n('sidebar_favorite_channels_title');
+            section_header_figure.innerHTML = dataObj.section_icon;
+
+            let tooltip = createTooltip(section_header, 'right', dataObj.section_tooltip_text);
+            tooltip.classList.add('tp-section-header-tooltip');
+            section_header.onmouseover = (e) => {
+                tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
+            }
+
+            section_header.appendChild(section_header_figure);
+            favorites_section.prepend(section_header);
+        }
+        return {
+            append_container: append_container,
+            sidebar_section: favorites_section,
+            section_header_figure: section_header_figure
+        };
+    }
+
     function appendYTsidebar(streamers_arr) {
 
         let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
@@ -1386,43 +1441,11 @@
         let followed_channels_section = document.querySelector('.side-nav-section');
         if (followed_channels_section) {
 
-            let section_header_figure = null;
-
-            let yt_section = followed_channels_section.cloneNode(true);
-            yt_section.id = 'tp_YTsidebar_section';
-            yt_section.classList.remove('side-nav-section');
-
-            let append_container = yt_section.children[1];
-            if (!isNavBarCollapsed) {
-                if (yt_section.children[0].id === 'tp_custom_followed_section_header') {
-                    yt_section.children[0].remove();
-                    append_container = yt_section.children[1];
-                }
-                if (!append_container.classList.contains('tw-transition-group')) {
-                    append_container.remove();
-                    append_container = yt_section.children[1];
-                }
-
-                let title_el_text_el = yt_section.querySelector('.side-nav-header').querySelector('h5') || yt_section.querySelector('.side-nav-header').querySelector('h2');
-                if (title_el_text_el) {
-                    title_el_text_el.innerText = _i18n('sidebar_yt_channels_section_title');
-                }
-            } else {
-                if (yt_section.children[0].id === 'tp_custom_followed_section_header') {
-                    yt_section.children[0].remove();
-                }
-                if (!yt_section.children[0].classList.contains('tw-transition-group')) {
-                    yt_section.children[0].remove();
-                }
-                append_container = yt_section.children[0];
-
-                let section_header = document.createElement('div');
-                section_header.style.height = '4rem';
-                section_header.classList.add('side-nav-header');
-                section_header_figure = document.createElement('figure');
-                section_header_figure.classList.add('tp-section-title-figure');
-                //section_header_figure.title = _i18n('sidebar_yt_channels_title');
-                section_header_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="21px" width="100%" xmlns="http://www.w3.org/2000/svg">' +
+            let dataObj = {
+                id: 'tp_YTsidebar_section',
+                section_title_text: _i18n('sidebar_yt_channels_section_title'),
+                section_tooltip_text: _i18n('sidebar_yt_channels_title'),
+                section_icon: '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="21px" width="100%" xmlns="http://www.w3.org/2000/svg">' +
                     '<path d="M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 ' +
                     '1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 ' +
                     '2.2 0 4.7.1 7.6.1 8.1.3 17.2.5 26.9.8 27.9 2.2 55.7 4.4 81.9 3 36.1 7.4 66.2 13.4 88.8 12.8 47.9 50.4 85.7 98.3 98.5 28.2 7.6 83.7 12.3 161.7 15.2 37.1 1.4 76.8 2.3 116.5 2.8 13.9.2 ' +
@@ -1430,17 +1453,12 @@
                     '0 4.4-.1 7.1-.1 7.8-.3 16.4-.5 25.7-.7 26.6-2.1 53.2-4.2 77.9-2.7 32.2-6.5 58.6-11.2 76.3-6.2 23.1-24.4 41.4-47.4 47.5-21 5.6-73.9 10.1-145.8 12.8-36.4 1.4-75.6 2.3-114.7 2.8-13.7.2-26.4.3-37.8.3h-28.6l-37.8-.3c-39.1-.5-78.2-1.4-114.7-2.8-71.9-2.8-124.9-7.2-145.8-12.8-23-6.' +
                     '2-41.2-24.4-47.4-47.5-4.7-17.7-8.5-44.1-11.2-76.3-2.1-24.7-3.4-51.3-4.2-77.9-.3-9.3-.4-18-.5-25.7 0-2.7-.1-5.1-.1-7.1v-4.8c0-2.1 0-4.4.1-7.1.1-7.8.3-16.4.5-25.7.7-26.6 2.1-53.2 4.2-77.9 2.7-32.2 6.5-58.6 11.2-76.3 6.2-23.1 24.4-41.4 47.4-47.5 21-5.6 73.9-10.1 145.8-12.8 36.4-1.4 75.6-2.3 ' +
                     '114.7-2.8 13.7-.2 26.4-.3 37.8-.3h28.6l37.8.3c39.1.5 78.2 1.4 114.7 2.8 71.9 2.8 124.9 7.2 145.8 12.8 23 6.2 41.2 24.4 47.4 47.5 4.7 17.7 8.5 44.1 11.2 76.3 2.1 24.7 3.4 51.3 4.2 77.9.3 9.3.4 18 .5 25.7 0 2.7.1 5.1.1 7.1v4.8zM423 646l232-135-232-133z"></path>' +
-                    '</svg>';
-
-                let tooltip = createTooltip(section_header, 'right', _i18n('sidebar_yt_channels_title'));
-                tooltip.classList.add('tp-section-header-tooltip');
-                section_header.onmouseover = (e) => {
-                    tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
-                }
-
-                section_header.appendChild(section_header_figure);
-                yt_section.prepend(section_header);
-            }
+                    '</svg>'
+            };
+            let obj = handleCustomSidebarHeader(followed_channels_section, dataObj);
+            let append_container = obj.append_container;
+            let yt_section = obj.sidebar_section;
+            //let section_header_figure = obj.section_header_figure;
 
             append_container.innerHTML = '';
 
@@ -1550,58 +1568,21 @@
         let followed_channels_section = document.querySelector('.side-nav-section');
         if (followed_channels_section) {
 
-            let section_header_figure = null;
-
-            let fb_section = followed_channels_section.cloneNode(true);
-            fb_section.id = 'tp_FBsidebar_section';
-            fb_section.classList.remove('side-nav-section');
-
-            let append_container = fb_section.children[1];
-            if (!isNavBarCollapsed) {
-                if (fb_section.children[0].id === 'tp_custom_followed_section_header') {
-                    fb_section.children[0].remove();
-                    append_container = fb_section.children[1];
-                }
-                if (!append_container.classList.contains('tw-transition-group')) {
-                    append_container.remove();
-                    append_container = fb_section.children[1];
-                }
-
-                let title_el_text_el = fb_section.querySelector('.side-nav-header').querySelector('h5') || fb_section.querySelector('.side-nav-header').querySelector('h2');
-                if (title_el_text_el) {
-                    title_el_text_el.innerText = _i18n('sidebar_fb_channels_section_title');
-                }
-            } else {
-                if (fb_section.children[0].id === 'tp_custom_followed_section_header') {
-                    fb_section.children[0].remove();
-                }
-                if (!fb_section.children[0].classList.contains('tw-transition-group')) {
-                    fb_section.children[0].remove();
-                }
-                append_container = fb_section.children[0];
-
-                let section_header = document.createElement('div');
-                section_header.style.height = '4rem';
-                section_header.classList.add('side-nav-header');
-                section_header_figure = document.createElement('figure');
-                section_header_figure.classList.add('tp-section-title-figure');
-                //section_header_figure.title = _i18n('sidebar_fb_channels_title');
-                section_header_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="21px" width="100%" xmlns="http://www.w3.org/2000/svg">' +
-                        '<g><path fill="none" d="M0 0h24v24H0z"></path>' +
-                        '<path d="M13 19.938A8.001 8.001 0 0 0 12 4a8 8 0 0 0-1 15.938V14H9v-2h2v-1.654c0-1.337.14-1.822.4-2.311A2.726 2.726 0 0 1 12.536 6.9c.382-.205.857-.328 1.687-.381.329-.021.755.005 ' +
-                        '1.278.08v1.9H15c-.917 0-1.296.043-1.522.164a.727.727 0 0 0-.314.314c-.12.226-.164.45-.164 1.368V12h2.5l-.5 2h-2v5.938zM12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path>' +
-                        '</g>' +
-                    '</svg>';
-
-                let tooltip = createTooltip(section_header, 'right', _i18n('sidebar_fb_channels_title'));
-                tooltip.classList.add('tp-section-header-tooltip');
-                section_header.onmouseover = (e) => {
-                    tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
-                }
-
-                section_header.appendChild(section_header_figure);
-                fb_section.prepend(section_header);
-            }
+            let dataObj = {
+                id: 'tp_FBsidebar_section',
+                section_title_text: _i18n('sidebar_fb_channels_section_title'),
+                section_tooltip_text: _i18n('sidebar_fb_channels_title'),
+                section_icon: '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="21px" width="100%" xmlns="http://www.w3.org/2000/svg">' +
+                    '<g><path fill="none" d="M0 0h24v24H0z"></path>' +
+                    '<path d="M13 19.938A8.001 8.001 0 0 0 12 4a8 8 0 0 0-1 15.938V14H9v-2h2v-1.654c0-1.337.14-1.822.4-2.311A2.726 2.726 0 0 1 12.536 6.9c.382-.205.857-.328 1.687-.381.329-.021.755.005 ' +
+                    '1.278.08v1.9H15c-.917 0-1.296.043-1.522.164a.727.727 0 0 0-.314.314c-.12.226-.164.45-.164 1.368V12h2.5l-.5 2h-2v5.938zM12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path>' +
+                    '</g>' +
+                    '</svg>'
+            };
+            let obj = handleCustomSidebarHeader(followed_channels_section, dataObj);
+            let append_container = obj.append_container;
+            let fb_section = obj.sidebar_section;
+            //let section_header_figure = obj.section_header_figure;
 
             append_container.innerHTML = '';
 
@@ -2037,63 +2018,25 @@
         _browser.storage.local.get('favorites_arr',function (res) {
             _browser.storage.local.get('bShowOfflineFavs', function(bShowOfflineFavs_result) {
 
-
                 let isExperimentalSidebar = !!document.querySelector('.side-nav--hover-exp');
 
                 let followed_channels_section = document.querySelector('.side-nav-section');
                 if (followed_channels_section) {
 
-                    let section_header_figure = null;
-
-                    let favorites_section = followed_channels_section.cloneNode(true);
-                    favorites_section.id = 'tp_favorites_section';
-                    favorites_section.classList.remove('side-nav-section');
-
-                    let append_container = favorites_section.children[1];
-                    if (!isNavBarCollapsed) {
-                        if (favorites_section.children[0].id === 'tp_custom_followed_section_header') {
-                            favorites_section.children[0].remove();
-                            append_container = favorites_section.children[1];
-                        }
-                        if (!append_container.classList.contains('tw-transition-group')) {
-                            append_container.remove();
-                            append_container = favorites_section.children[1];
-                        }
-
-                        let title_el_text_el = favorites_section.querySelector('.side-nav-header').querySelector('h5') || favorites_section.querySelector('.side-nav-header').querySelector('h2');
-                        if (title_el_text_el) {
-                            title_el_text_el.innerText = _i18n('sidebar_favorite_channels_section_title');
-                        }
-                    } else {
-                        if (favorites_section.children[0].id === 'tp_custom_followed_section_header') {
-                            favorites_section.children[0].remove();
-                        }
-                        if (!favorites_section.children[0].classList.contains('tw-transition-group')) {
-                            favorites_section.children[0].remove();
-                        }
-                        append_container = favorites_section.children[0];
-
-                        let section_header = document.createElement('div');
-                        section_header.style.height = '4rem';
-                        section_header.classList.add('side-nav-header');
-                        section_header_figure = document.createElement('figure');
-                        section_header_figure.classList.add('tp-section-title-figure');
-                        //section_header_figure.title = _i18n('sidebar_favorite_channels_title');
-                        section_header_figure.innerHTML = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="100%" xmlns="http://www.w3.org/2000/svg">' +
+                    let dataObj = {
+                        id: 'tp_favorites_section',
+                        section_title_text: _i18n('sidebar_favorite_channels_section_title'),
+                        section_tooltip_text: _i18n('sidebar_favorite_channels_title'),
+                        section_icon: '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="20px" width="100%" xmlns="http://www.w3.org/2000/svg">' +
                             '<path d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 ' +
                             '179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM664.8 ' +
                             '561.6l36.1 210.3L512 672.7 323.1 772l36.1-210.3-152.8-149L417.6 382 512 190.7 606.4 382l211.2 30.7-152.8 148.9z"></path>' +
-                            '</svg>';
-
-                        let tooltip = createTooltip(section_header, 'right', _i18n('sidebar_favorite_channels_title'));
-                        tooltip.classList.add('tp-section-header-tooltip');
-                        section_header.onmouseover = (e) => {
-                            tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
-                        }
-
-                        section_header.appendChild(section_header_figure);
-                        favorites_section.prepend(section_header);
-                    }
+                            '</svg>'
+                    };
+                    let obj = handleCustomSidebarHeader(followed_channels_section, dataObj);
+                    let append_container = obj.append_container;
+                    let favorites_section = obj.sidebar_section;
+                    let section_header_figure = obj.section_header_figure;
 
                     append_container.innerHTML = '';
 
