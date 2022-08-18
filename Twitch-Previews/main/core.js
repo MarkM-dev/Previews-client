@@ -1404,7 +1404,11 @@
                     title_el_text_el.innerText = _i18n('sidebar_yt_channels_section_title');
                 }
             } else {
-                yt_section.children[0].remove();
+                if (!yt_section.children[0].classList.contains('tw-transition-group')) {
+                    yt_section.children[0].remove();
+                }
+                append_container = yt_section.children[0];
+
                 let section_header = document.createElement('div');
                 section_header.style.height = '4rem';
                 section_header.classList.add('side-nav-header');
@@ -1542,7 +1546,11 @@
                     title_el_text_el.innerText = _i18n('sidebar_fb_channels_section_title');
                 }
             } else {
-                fb_section.children[0].remove();
+                if (!fb_section.children[0].classList.contains('tw-transition-group')) {
+                    fb_section.children[0].remove();
+                }
+                append_container = fb_section.children[0];
+
                 let section_header = document.createElement('div');
                 section_header.style.height = '4rem';
                 section_header.classList.add('side-nav-header');
@@ -1978,7 +1986,11 @@
                             title_el_text_el.innerText = _i18n('sidebar_favorite_channels_section_title');
                         }
                     } else {
-                        favorites_section.children[0].remove();
+                        if (!favorites_section.children[0].classList.contains('tw-transition-group')) {
+                            favorites_section.children[0].remove();
+                        }
+                        append_container = favorites_section.children[0];
+
                         let section_header = document.createElement('div');
                         section_header.style.height = '4rem';
                         section_header.classList.add('side-nav-header');
