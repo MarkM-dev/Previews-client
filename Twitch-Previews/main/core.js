@@ -1919,7 +1919,7 @@
                 isFavHovering = true;
                 let distance = isNavBarCollapsed ? "5rem":"24rem";
                 simulateHoverOnElement('mouseover', followed_streamer_element.parentNode);
-                style.textContent = 'div[data-popper-escaped="true"] {transform: none !important;inset: 0px auto auto ' + distance + ' !important;' + (isLayoutHorizontallyInverted ? "right":"left") + ': ' + distance + ' ;top: ' + el.getBoundingClientRect().top + 'px !important;}';
+                style.textContent = 'div[data-popper-escaped="true"] {transform: none !important;inset: 0px auto auto ' + distance + ' !important;' + (isLayoutHorizontallyInverted ? "right":"left") + ': ' + distance + ' ;top: ' + el.getBoundingClientRect().top + 'px !important;} div[data-popper-escaped="true"] .online-side-nav-channel-tooltip__body + div{display:none !important}';
             });
             el.addEventListener('mouseout', (e) => {
                 isFavHovering = false;
