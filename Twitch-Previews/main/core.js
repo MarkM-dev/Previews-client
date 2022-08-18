@@ -408,11 +408,14 @@
         let elOffset = getElementOffset(navCardEl).top + (isNavBarCollapsed? 45:30);
         if (window.innerHeight - elOffset < options.PREVIEWDIV_HEIGHT) { // if cuts off bottom
             if (elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) < 0) { // if cuts off top too
+                document.head.querySelector('#tp_pinned_channels_style').textContent = 'div[data-popper-escaped="true"] .online-side-nav-channel-tooltip__body + div {position: absolute;top: -3rem !important;width: auto !important;height: auto !important;padding: 0 !important;border-radius: 6px;}';
                 return "5rem";
             } else {
+                document.head.querySelector('#tp_pinned_channels_style').textContent = 'div[data-popper-escaped="true"] .online-side-nav-channel-tooltip__body + div {position: absolute;top: auto !important;width: auto !important;height: auto !important;padding: 0 !important;border-radius: 6px;}';
                 return elOffset - options.PREVIEWDIV_HEIGHT - (isNavBarCollapsed? 25:20) + "px";
             }
         } else {
+            document.head.querySelector('#tp_pinned_channels_style').textContent = 'div[data-popper-escaped="true"] .online-side-nav-channel-tooltip__body + div {position: absolute;top: -3rem !important;width: auto !important;height: auto !important;padding: 0 !important;border-radius: 6px;}';
             return elOffset + "px";
         }
     }
