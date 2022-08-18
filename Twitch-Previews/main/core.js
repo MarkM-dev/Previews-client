@@ -1997,7 +1997,7 @@
                             if (!isFavHovering) {
                                 style.textContent = '';
                             }
-                        }, 700);
+                        }, 500);
                     }
                 }, 1)
             });
