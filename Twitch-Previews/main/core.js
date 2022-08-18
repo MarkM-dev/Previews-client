@@ -1394,6 +1394,10 @@
 
             let append_container = yt_section.children[1];
             if (!isNavBarCollapsed) {
+                if (yt_section.children[0].id === 'tp_custom_followed_section_header') {
+                    yt_section.children[0].remove();
+                    append_container = yt_section.children[1];
+                }
                 if (!append_container.classList.contains('tw-transition-group')) {
                     append_container.remove();
                     append_container = yt_section.children[1];
@@ -1404,6 +1408,9 @@
                     title_el_text_el.innerText = _i18n('sidebar_yt_channels_section_title');
                 }
             } else {
+                if (yt_section.children[0].id === 'tp_custom_followed_section_header') {
+                    yt_section.children[0].remove();
+                }
                 if (!yt_section.children[0].classList.contains('tw-transition-group')) {
                     yt_section.children[0].remove();
                 }
@@ -1498,6 +1505,15 @@
                 }
             }
 
+            if (!isNavBarCollapsed) {
+                let tp_followed_section_header = followed_channels_section.querySelector('#tp_custom_followed_section_header');
+                if (tp_followed_section_header) {
+                    tp_followed_section_header.remove();
+                }
+            } else {
+                addCustomFollowedChannelsSectionHeader(followed_channels_section);
+            }
+
 
             let old_yt_section = document.getElementById('tp_YTsidebar_section');
             if (old_yt_section) {
@@ -1536,6 +1552,10 @@
 
             let append_container = fb_section.children[1];
             if (!isNavBarCollapsed) {
+                if (fb_section.children[0].id === 'tp_custom_followed_section_header') {
+                    fb_section.children[0].remove();
+                    append_container = fb_section.children[1];
+                }
                 if (!append_container.classList.contains('tw-transition-group')) {
                     append_container.remove();
                     append_container = fb_section.children[1];
@@ -1546,6 +1566,9 @@
                     title_el_text_el.innerText = _i18n('sidebar_fb_channels_section_title');
                 }
             } else {
+                if (fb_section.children[0].id === 'tp_custom_followed_section_header') {
+                    fb_section.children[0].remove();
+                }
                 if (!fb_section.children[0].classList.contains('tw-transition-group')) {
                     fb_section.children[0].remove();
                 }
@@ -1651,6 +1674,15 @@
                     div.style.color = 'grey';
                     append_container.appendChild(div);
                 }
+            }
+
+            if (!isNavBarCollapsed) {
+                let tp_followed_section_header = followed_channels_section.querySelector('#tp_custom_followed_section_header');
+                if (tp_followed_section_header) {
+                    tp_followed_section_header.remove();
+                }
+            } else {
+                addCustomFollowedChannelsSectionHeader(followed_channels_section);
             }
 
             let old_fb_section = document.getElementById('tp_FBsidebar_section');
@@ -1884,6 +1916,31 @@
         }
     }
 
+    function addCustomFollowedChannelsSectionHeader(followed_channels_section) {
+        if (followed_channels_section.children[0].classList.contains('tw-transition-group')) {
+            if (followed_channels_section.querySelector('#tp_custom_followed_section_header')) {
+                return;
+            }
+
+            let section_header = document.createElement('div');
+            section_header.style.height = '4rem';
+            section_header.classList.add('side-nav-header');
+            section_header.id = 'tp_custom_followed_section_header';
+            let section_header_figure = document.createElement('figure');
+            section_header_figure.classList.add('tp-section-title-figure');
+            section_header_figure.title = _i18n('sidebar_favorite_channels_title');
+            section_header_figure.innerHTML = '<svg stroke="currentColor" fill="none" stroke-width="0.7" viewBox="0 0 23 23" height="17px" width="100%" xmlns="http://www.w3.org/2000/svg">' +
+                '<path fill-rule="evenodd" clip-rule="evenodd" d="M12.0122 5.57169L10.9252 4.48469C8.77734 2.33681 5.29493 2.33681 3.14705 4.48469C0.999162 6.63258 0.999162 10.115 3.14705 ' +
+                '12.2629L11.9859 21.1017L11.9877 21.0999L12.014 21.1262L20.8528 12.2874C23.0007 10.1395 23.0007 6.65711 20.8528 4.50923C18.705 2.36134 15.2226 2.36134 13.0747 4.50923L12.0122 ' +
+                '5.57169ZM11.9877 18.2715L16.9239 13.3352L18.3747 11.9342L18.3762 11.9356L19.4386 10.8732C20.8055 9.50635 20.8055 7.29028 19.4386 5.92344C18.0718 4.55661 15.8557 4.55661 14.4889 ' +
+                '5.92344L12.0133 8.39904L12.006 8.3918L12.005 8.39287L9.51101 5.89891C8.14417 4.53207 5.92809 4.53207 4.56126 5.89891C3.19442 7.26574 3.19442 9.48182 4.56126 10.8487L7.10068 13.3881L7.10248 13.3863L11.9877 18.2715Z" fill="currentColor"></path>' +
+                '</svg>';
+
+            section_header.appendChild(section_header_figure);
+            followed_channels_section.prepend(section_header);
+        }
+    }
+
     function createSidebarFavoritesElement(followed_streamer_element, style, offline_stream_name, offline_display_name, profile_pic_url) {
         let el = followed_streamer_element.cloneNode(true);
         let _stream_name = offline_stream_name || el.href.split('/').pop();
@@ -1976,6 +2033,10 @@
 
                     let append_container = favorites_section.children[1];
                     if (!isNavBarCollapsed) {
+                        if (favorites_section.children[0].id === 'tp_custom_followed_section_header') {
+                            favorites_section.children[0].remove();
+                            append_container = favorites_section.children[1];
+                        }
                         if (!append_container.classList.contains('tw-transition-group')) {
                             append_container.remove();
                             append_container = favorites_section.children[1];
@@ -1986,6 +2047,9 @@
                             title_el_text_el.innerText = _i18n('sidebar_favorite_channels_section_title');
                         }
                     } else {
+                        if (favorites_section.children[0].id === 'tp_custom_followed_section_header') {
+                            favorites_section.children[0].remove();
+                        }
                         if (!favorites_section.children[0].classList.contains('tw-transition-group')) {
                             favorites_section.children[0].remove();
                         }
@@ -2108,6 +2172,10 @@
                         }
 
                         if (!isNavBarCollapsed) {
+                            let tp_followed_section_header = followed_channels_section.querySelector('#tp_custom_followed_section_header');
+                            if (tp_followed_section_header) {
+                                tp_followed_section_header.remove();
+                            }
                             if (options.sidebarFavorites_show_offline_channels) {
                                 let toggle_offline_favorites_btn = document.createElement('div');
                                 toggle_offline_favorites_btn.classList.add('tp-toggle_offline_favorites_btn');
@@ -2134,6 +2202,8 @@
 
                                 favorites_section.appendChild(toggle_offline_favorites_btn);
                             }
+                        } else {
+                            addCustomFollowedChannelsSectionHeader(followed_channels_section);
                         }
 
                         let old_favorites_section = document.getElementById('tp_favorites_section');
