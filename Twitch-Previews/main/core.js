@@ -1930,7 +1930,7 @@
                             if (!isFavHovering) {
                                 style.textContent = '';
                             }
-                        }, 300);
+                        }, 700);
                     }
                 }, 1)
             });
