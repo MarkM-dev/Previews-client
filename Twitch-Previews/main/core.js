@@ -3477,6 +3477,22 @@
         }
     }
 
+    function append_custom_style_for_pinned_channels_tooltip_button() {
+        if (!document.head.querySelector('#tp_pinned_channels_style')) {
+            let style = document.createElement('style');
+            style.id = 'tp_pinned_channels_style';
+            style.textContent = 'div[data-popper-escaped="true"] .online-side-nav-channel-tooltip__body + div {\n' +
+                '    position: absolute;\n' +
+                '    top: -3rem !important;\n' +
+                '    width: auto !important;\n' +
+                '    height: auto !important;\n' +
+                '    padding: 0 !important;\n' +
+                '    border-radius: 6px;\n' +
+                '}';
+            document.head.append(style);
+        }
+    }
+
     function muteAutoplayingVideoElements() {
         let videoContainer = document.querySelector('div[data-a-target="video-player"]');
         if (videoContainer) {
@@ -5895,6 +5911,7 @@
             refreshNavCardsListAndListeners();
             setSideNavMutationObserver();
             setSideNavMutationObserver_for_sidebar_disappearing_followed_bug();
+            append_custom_style_for_pinned_channels_tooltip_button();
         }
 
         if (options.isDirpEnabled) {
