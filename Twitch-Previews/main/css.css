@@ -1499,6 +1499,15 @@
     border-style: solid;
 }
 
+.tp-tooltip-container .tp-tooltip.tp-section-header-tooltip {
+    position: fixed;
+    left: 6rem;
+}
+
+.tp-tooltip-container .tp-tooltip.tp-section-header-tooltip::after {
+    display: none;
+}
+
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-top {
     top: -90%;
 }

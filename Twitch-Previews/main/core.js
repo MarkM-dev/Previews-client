@@ -1433,8 +1433,7 @@
                     '</svg>';
 
                 let tooltip = createTooltip(section_header, 'right', _i18n('sidebar_yt_channels_title'));
-                tooltip.style.position = 'fixed';
-                tooltip.style.left = '6rem';
+                tooltip.classList.add('tp-section-header-tooltip');
                 section_header.onmouseover = (e) => {
                     tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
                 }
@@ -1595,8 +1594,7 @@
                     '</svg>';
 
                 let tooltip = createTooltip(section_header, 'right', _i18n('sidebar_fb_channels_title'));
-                tooltip.style.position = 'fixed';
-                tooltip.style.left = '6rem';
+                tooltip.classList.add('tp-section-header-tooltip');
                 section_header.onmouseover = (e) => {
                     tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
                 }
@@ -1951,8 +1949,7 @@
                 '</svg>';
 
             let tooltip = createTooltip(section_header, 'right', _i18n('sidebar_followed_channels_title'));
-            tooltip.style.position = 'fixed';
-            tooltip.style.left = '6rem';
+            tooltip.classList.add('tp-section-header-tooltip');
             section_header.onmouseover = (e) => {
                 tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
             }
@@ -2089,8 +2086,7 @@
                             '</svg>';
 
                         let tooltip = createTooltip(section_header, 'right', _i18n('sidebar_favorite_channels_title'));
-                        tooltip.style.position = 'fixed';
-                        tooltip.style.left = '6rem';
+                        tooltip.classList.add('tp-section-header-tooltip');
                         section_header.onmouseover = (e) => {
                             tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
                         }
