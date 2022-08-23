@@ -2090,13 +2090,13 @@ export const i18n = {
         'ru':'КАНАЛЫ FB GAMING'
     },
     sidebar_fb_channels_title: {
-        'en': 'Facebook Gaming Channels',
-        'es': 'Canales de Facebook Gaming',
-        'de': 'Facebook Gaming Kanäle',
-        'fr': 'Chaînes Facebook Gaming',
-        'pt_BR': 'Canais do Facebook Gaming',
-        'ko': '페이스북 게이밍 채널',
-        'ru':'Каналы Facebook Gaming'
+        'en': 'Facebook Channels',
+        'es': 'Canales de Facebook',
+        'de': 'Facebook Kanäle',
+        'fr': 'Chaînes Facebook',
+        'pt_BR': 'Canais do Facebook',
+        'ko': '페이스북 채널',
+        'ru':'Каналы Facebook'
     },
     start_multistream_btn_title: {
         'en': 'Start Multi Stream',
