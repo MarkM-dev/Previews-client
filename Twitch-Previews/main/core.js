@@ -45,6 +45,7 @@
     let lastFBFetch = new Date().getTime() - FB_FETCH_INTERVAL_MS;
     let cached_yt_live_streams_arr = [];
     let cached_fb_live_streams_arr = [];
+    let hasSeenExtensionUpdatedInBgToast;
     const predict_langs = {
         'Predict':'English'
         ,'Forudsig':'Dansk'
@@ -1139,7 +1140,7 @@
     }
 
     function show_extension_updated_while_in_background_toast() {
-        if (document.getElementById('tp_updated_in_bg_toast')) {
+        if (hasSeenExtensionUpdatedInBgToast) {
             return;
         }
 
@@ -1186,6 +1187,19 @@
         content.appendChild(refreshBtn);
         container.appendChild(content);
         document.body.appendChild(container);
+        hasSeenExtensionUpdatedInBgToast = true;
+    }
+
+    function checkIfExtensionUpdated() {
+        try {
+            _browser.runtime.sendMessage({action: "tp_checkUpdated", detail: ""}, function(response) {
+
+            });
+        } catch (e) {
+            if (e.message.indexOf('Extension context invalidated') > -1) {
+                show_extension_updated_while_in_background_toast();
+            }
+        }
     }
 
     function ga_heartbeat() {
@@ -7240,6 +7254,9 @@
                 refreshPageOnMainTwitchPlayerError(true);
             }
         }
+
+        checkIfExtensionUpdated();
+
         setOptionsFromDB().then(
             function (options){
                 toggleFeatures();
