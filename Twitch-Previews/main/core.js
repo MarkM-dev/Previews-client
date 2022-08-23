@@ -1197,8 +1197,7 @@
                 show_extension_updated_while_in_background_toast();
             }
         }
-        //setTimeout(ga_heartbeat, 325000);
-        setTimeout(ga_heartbeat, 60000);
+        setTimeout(ga_heartbeat, 325000);
     }
 
     function getCalculatedPreviewSizeByWidth (width) {
