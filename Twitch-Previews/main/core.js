@@ -1494,6 +1494,8 @@
 
             let tooltip = createTooltip(section_header, 'right', dataObj.section_tooltip_text);
             tooltip.classList.add('tp-section-header-tooltip');
+            tooltip.classList.add('animated');
+            tooltip.classList.add('fadeIn');
             section_header.onmouseover = (e) => {
                 tooltip.style.top = (section_header.getBoundingClientRect().top + 10) + 'px';
             }

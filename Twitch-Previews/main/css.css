@@ -1502,6 +1502,8 @@
 .tp-tooltip-container .tp-tooltip.tp-section-header-tooltip {
     position: fixed;
     left: 6rem;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
 }
 
 .tp-tooltip-container .tp-tooltip.tp-section-header-tooltip::after {
