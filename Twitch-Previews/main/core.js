@@ -1138,9 +1138,67 @@
         }
     }
 
+    function show_extension_updated_while_in_background_toast() {
+        if (document.getElementById('tp_updated_in_bg_toast')) {
+            return;
+        }
+
+        let container = document.createElement('div');
+        container.id = 'tp_updated_in_bg_toast';
+        container.classList.add('tp-fte-toast-container');
+        container.classList.add('animated');
+        container.classList.add('slideInDown');
+
+        let content = document.createElement('div');
+        content.classList.add('tp-top-toast-content');
+
+        let title = document.createElement('div');
+        title.innerText = 'Twitch Previews';
+
+        let body = document.createElement('div');
+        body.innerText = '\nTwitch Previews was updated in the background while the tab was active.\n- Refresh your tab for the extension to resume operation.\n\n* Extensions don\'t have control over update times.';
+        body.style.textAlign = 'left';
+        body.style.padding = '0 16px';
+
+        let closeBtn = document.createElement('div');
+        closeBtn.classList.add('tp-fte-toast-close-btn');
+        closeBtn.style.width = '50%';
+        closeBtn.style.display = 'inline-block';
+        closeBtn.innerText = 'Close';
+
+        closeBtn.onclick = function () {
+            document.body.removeChild(container);
+        };
+
+        let refreshBtn = document.createElement('div');
+        refreshBtn.classList.add('tp-fte-toast-close-btn');
+        refreshBtn.style.width = '50%';
+        refreshBtn.style.display = 'inline-block';
+        refreshBtn.innerText = 'Refresh';
+
+        refreshBtn.onclick = function () {
+            location.replace(window.location);
+        };
+
+        content.appendChild(title);
+        content.appendChild(body);
+        content.appendChild(closeBtn);
+        content.appendChild(refreshBtn);
+        container.appendChild(content);
+        document.body.appendChild(container);
+    }
+
     function ga_heartbeat() {
-        sendMessageToBG({action: "heartbeat", detail: ""});
-        setTimeout(ga_heartbeat, 325000);
+        //sendMessageToBG({action: "heartbeat", detail: ""});
+        try {
+            _browser.runtime.sendMessage({action: "heartbeat", detail: ""}, function(response) {});
+        } catch (e) {
+            if (e.message.indexOf('Extension context invalidated') > -1) {
+                show_extension_updated_while_in_background_toast();
+            }
+        }
+        //setTimeout(ga_heartbeat, 325000);
+        setTimeout(ga_heartbeat, 60000);
     }
 
     function getCalculatedPreviewSizeByWidth (width) {
