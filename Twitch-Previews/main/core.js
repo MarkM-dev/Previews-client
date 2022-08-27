@@ -1218,6 +1218,23 @@
         container.appendChild(content);
         document.body.appendChild(container);
         hasSeenExtensionUpdatedInBgToast = true;
+        try {
+            localStorage.setItem('tp_updatedInBG', 'y');
+        } catch (e) {
+
+        }
+    }
+
+    function checkIfExtensionUpdated_LS() {
+        try {
+            let updated = localStorage.getItem('tp_updatedInBG');
+            console.log(updated);
+            if (updated) {
+                console.log('sending ');
+                localStorage.removeItem('tp_updatedInBG');
+                sendMessageToBG({action: "tp_updated_in_bg_dialog_show", detail: true});
+            }
+        } catch (e) {}
     }
 
     function checkIfExtensionUpdated() {
@@ -7307,6 +7324,7 @@
         check_cast_start();
         check_shouldShowDelayedRateToast();
         check_shouldShowNewLangToast();
+        checkIfExtensionUpdated_LS();
     }
 
 })();

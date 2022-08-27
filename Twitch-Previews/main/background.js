@@ -730,6 +730,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "newLangToast":
             send_ga_event('newLangToast_dismiss', 'dismiss', msg.detail);
             break;
+        case "tp_updated_in_bg_dialog_show":
+            send_ga_event('tp_updated_in_bg_dialog_show', 'tp_updated_in_bg_dialog_show', 'tp_updated_in_bg_dialog_show');
+            break;
         case "newLangToast_rate_btn_click":
             send_ga_event('newLangToast', 'newLangToast_rate_btn_click', 'newLangToast_rate_btn_click');
             break;
