@@ -1164,13 +1164,13 @@
                 'ru':'OK'
             },
             refresh: {
-                'en': 'Refresh',
-                'es': 'recargar la pagina',
-                'de': 'Lade die Seite neu',
-                'fr': 'Actualiser',
-                'pt_BR': 'Recarregue',
-                'ko': '새로 고침 탭',
-                'ru':'Вкладка «Обновить»'
+                'en': '⭮ Refresh',
+                'es': '⭮ recargar la pagina',
+                'de': '⭮ Lade die Seite neu',
+                'fr': '⭮ Actualiser',
+                'pt_BR': '⭮ Recarregue',
+                'ko': '⭮ 새로 고침 탭',
+                'ru':'⭮ Вкладка «Обновить»'
             }
         }
 
