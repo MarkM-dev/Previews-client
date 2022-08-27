@@ -4036,9 +4036,7 @@
                     if (isRecording) {
                         stopRecording();
                     } else {
-                        if (confirm(_i18n('app_name') + ':' + _i18n('record_hardware_acceleration_msg'))) {
-                            startRecording();
-                        }
+                        startRecording();
                     }
                 }
 
