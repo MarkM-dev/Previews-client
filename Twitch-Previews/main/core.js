@@ -1228,9 +1228,7 @@
     function checkIfExtensionUpdated_LS() {
         try {
             let updated = localStorage.getItem('tp_updatedInBG');
-            console.log(updated);
             if (updated) {
-                console.log('sending ');
                 localStorage.removeItem('tp_updatedInBG');
                 sendMessageToBG({action: "tp_updated_in_bg_dialog_show", detail: true});
             }
@@ -7298,13 +7296,13 @@
         if (window.location.href.indexOf('twitch.tv/embed/') > -1) {
             return;
         }
-        if (isMainPlayerError) {
-            if (!isInIframe()) {
+
+        if (!isInIframe()) {
+            checkIfExtensionUpdated();
+            if (isMainPlayerError) {
                 refreshPageOnMainTwitchPlayerError(true);
             }
         }
-
-        checkIfExtensionUpdated();
 
         setOptionsFromDB().then(
             function (options){
