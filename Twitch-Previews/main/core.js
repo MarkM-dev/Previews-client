@@ -1144,6 +1144,36 @@
             return;
         }
 
+        let langs = {
+            body: {
+                'en': '\nTwitch Previews was updated in the background while the tab was active.\n- Refresh your tab for the extension to resume operation.\n\n* Extensions don\'t have control over update times.',
+                'es': '\nTwitch Previews se actualizó en segundo plano mientras la pestaña estaba activa.\n- Actualice la página para que la extensión reanude su funcionamiento.\n\n* Las extensiones no tienen control sobre los tiempos de actualización.',
+                'de': '\nTwitch Previews wurde im Hintergrund aktualisiert, während der Tab aktiv war.\n- Aktualisieren Sie die Seite für die Erweiterung, um den Betrieb fortzusetzen.\n\n* Erweiterungen haben keine Kontrolle über die Aktualisierungszeiten.',
+                'fr': '\nTwitch Previews a été mis à jour en arrière-plan pendant que l\'onglet était actif.\n - Actualisez la page de l\'extension pour reprendre le fonctionnement.\n\n* Les extensions n\'ont aucun contrôle sur les heures de mise à jour.',
+                'pt_BR': '\nTwitch Previews foi atualizado em segundo plano enquanto a guia estava ativa.\n - Atualize a página do ramal para retomar a operação.\n\n* As extensões não têm controle sobre os tempos de atualização.',
+                'ko': '\nTwitch Previews 탭이 활성화된 동안 백그라운드에서 업데이트되었습니다.\n- 확장 기능의 페이지를 새로고침하여 작업을 재개하세요.\n\n* 확장 프로그램은 업데이트 시간을 제어할 수 없습니다.',
+                'ru':'\nTwitch Previews обновлялся в фоновом режиме, пока вкладка была активна.\n- Обновите страницу, чтобы расширение возобновило работу.\n\n* Расширения не контролируют время обновления.'
+            },
+            close: {
+                'en': 'Close',
+                'es': 'cerrar',
+                'de': 'Okay',
+                'fr': 'Fermer',
+                'pt_BR': 'Fechar',
+                'ko': '닫기',
+                'ru':'OK'
+            },
+            refresh: {
+                'en': 'Refresh',
+                'es': 'recargar la pagina',
+                'de': 'Lade die Seite neu',
+                'fr': 'Actualiser',
+                'pt_BR': 'Recarregue',
+                'ko': '새로 고침 탭',
+                'ru':'Вкладка «Обновить»'
+            }
+        }
+
         let container = document.createElement('div');
         container.id = 'tp_updated_in_bg_toast';
         container.classList.add('tp-fte-toast-container');
@@ -1157,7 +1187,7 @@
         title.innerText = 'Twitch Previews';
 
         let body = document.createElement('div');
-        body.innerText = '\nTwitch Previews was updated in the background while the tab was active.\n- Refresh your tab for the extension to resume operation.\n\n* Extensions don\'t have control over update times.';
+        body.innerText = langs.body[options.selected_lang ? options.selected_lang:'en'];
         body.style.textAlign = 'left';
         body.style.padding = '0 16px';
 
@@ -1165,7 +1195,7 @@
         closeBtn.classList.add('tp-fte-toast-close-btn');
         closeBtn.style.width = '50%';
         closeBtn.style.display = 'inline-block';
-        closeBtn.innerText = 'Close';
+        closeBtn.innerText = langs.close[options.selected_lang ? options.selected_lang:'en'];
 
         closeBtn.onclick = function () {
             document.body.removeChild(container);
@@ -1175,7 +1205,7 @@
         refreshBtn.classList.add('tp-fte-toast-close-btn');
         refreshBtn.style.width = '50%';
         refreshBtn.style.display = 'inline-block';
-        refreshBtn.innerText = 'Refresh';
+        refreshBtn.innerText = langs.refresh[options.selected_lang ? options.selected_lang:'en'];
 
         refreshBtn.onclick = function () {
             location.replace(window.location);
