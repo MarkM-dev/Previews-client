@@ -5777,7 +5777,12 @@
                 updateToast.firstChild.style.width = "30rem";
             }
         }, 100);
+
         toast_show_time = new Date().getTime();
+
+        if (toastType === 'updateToast') {
+            _browser.storage.local.set({'updateToast_latest_show_time': toast_show_time}, function() {});
+        }
     }
 
     function getDelayedRateToastBody() {
@@ -5826,6 +5831,15 @@
         });
     }
 
+    function check_shouldShowDelayedRateToast_delayed() {
+        _browser.storage.local.get('shouldShowDelayedRateToast', function(result) {
+            if (result.shouldShowDelayedRateToast) {
+                showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', 'delayedRateToast');
+                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+            }
+        });
+    }
+
     function check_shouldShowDelayedRateToast() {
         _browser.storage.local.get('shouldShowDelayedRateToast', function(result) {
             if (result.shouldShowDelayedRateToast) {
@@ -5833,14 +5847,15 @@
                     if (result.tpInstallTime) {
                         if ((new Date().getTime() - result.tpInstallTime) / 1000 > 604800) {
                             setTimeout(function () {
-                                _browser.storage.local.get('shouldShowDelayedRateToast', function(result) {
-                                    if (result.shouldShowDelayedRateToast) {
-                                        showToast(getDelayedRateToastBody(), 'shouldShowDelayedRateToast', 'delayedRateToast');
-                                        _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {
-
-                                        });
+                                _browser.storage.local.get('updateToast_latest_show_time', function(result) {
+                                    if (result.updateToast_latest_show_time) {
+                                        if ((new Date().getTime() - result.updateToast_latest_show_time) / 1000 > 259200) {
+                                            check_shouldShowDelayedRateToast_delayed();
+                                        }
+                                    } else {
+                                        check_shouldShowDelayedRateToast_delayed();
                                     }
-                                });
+                                })
                             }, 30000)
                         }
                     }
