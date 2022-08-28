@@ -257,7 +257,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-            if (details.previousVersion !== "4.7" && details.previousVersion !== "4.8") {
+            if (details.previousVersion !== "4.7" && details.previousVersion !== "4.8" && details.previousVersion !== "4.9") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
             }
