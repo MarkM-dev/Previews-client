@@ -522,8 +522,8 @@
             }
 
             twitchIframe = createIframeElement();
-            twitchIframe.width = calculatedSize.width + "px";
-            twitchIframe.height = calculatedSize.height + "px";
+            twitchIframe.style.width = calculatedSize.width + "px";
+            twitchIframe.style.height = calculatedSize.height + "px";
             twitchIframe.style.borderRadius = "0px";
             twitchIframe.src = getPreviewStreamUrl(lastHoveredCardEl);
             previewDiv.style.visibility = "hidden";
@@ -547,13 +547,42 @@
             vol_btn.classList.add('tp-horizontal-flip');
             vol_btn.innerText = '🕪';
 
+            let saved_previewDiv_rect = null;
+
             vol_btn.onclick = adjustVidPreviewVolClick;
+            vol_btn.onclick = function (e) {
+                if (isKeepSBarPreviewsOpenMode) {
+                    previewDiv.style.width = saved_previewDiv_rect.width + "px";
+                    previewDiv.style.height = saved_previewDiv_rect.height + "px";
+                    twitchIframe.style.width = saved_previewDiv_rect.width + "px";
+                    twitchIframe.style.height = saved_previewDiv_rect.height + "px";
+                    previewDiv.style.top = '0';
+                    previewDiv.style.left = '0';
+                    previewDiv.classList.remove('directory-preview-enlarged-element');
+                    lastHoveredCardEl.parentNode.appendChild(previewDiv);
+                } else {
+                    if (!saved_previewDiv_rect) {
+                        saved_previewDiv_rect = previewDiv.getBoundingClientRect();
+                    }
+                    previewDiv.style.width = (saved_previewDiv_rect.width * 2) + 'px';
+                    previewDiv.style.height = (saved_previewDiv_rect.height * 2) + 'px';
+                    twitchIframe.style.width = (saved_previewDiv_rect.width * 2) + 'px';
+                    twitchIframe.style.height = (saved_previewDiv_rect.height * 2) + 'px';
+                    previewDiv.style.top = '-' + (saved_previewDiv_rect.height / 2) + "px";
+                    previewDiv.style.left = '-' + (saved_previewDiv_rect.width / 2) + "px";
+                    previewDiv.classList.add('directory-preview-enlarged-element');
+                    previewDiv.closest('.tw-hover-accent-effect').prepend(previewDiv);
+                }
+
+                adjustVidPreviewVolClick(e);
+            };
             let vol_btn_tooltip = createTooltip(vol_btn, 'top', _i18n('vidPreviewVolBtn_title'));
             vol_btn_tooltip.style.minWidth = 'max-content';
             vol_btn_tooltip.classList.add('tp-horizontal-flip');
 
             previewDiv.onmouseleave = function () {
                 isHovering = false;
+                isKeepSBarPreviewsOpenMode = false;
                 clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
             }
 
