@@ -1761,10 +1761,12 @@
     top: 41px;
     font-size: 23px;
 }
+
 .directory-preview-enlarged-element {
     box-shadow: rgba(23,23,23,0.75) 10px 15px 10px -5px;
     -webkit-box-shadow: rgba(23,23,23,0.75) 10px 15px 10px -5px;
 }
+
 .tp-horizontal-flip {
     -moz-transform: scale(-1, 1);
     -webkit-transform: scale(-1, 1);
