@@ -547,6 +547,7 @@
             vol_btn.classList.add('tp-horizontal-flip');
             vol_btn.innerText = '🕪';
 
+            vol_btn.onclick = adjustVidPreviewVolClick;
             let vol_btn_tooltip = createTooltip(vol_btn, 'top', _i18n('vidPreviewVolBtn_title'));
             vol_btn_tooltip.style.minWidth = 'max-content';
             vol_btn_tooltip.classList.add('tp-horizontal-flip');
