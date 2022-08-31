@@ -1766,6 +1766,9 @@
     box-shadow: rgba(23,23,23,0.75) 10px 15px 10px -5px;
     -webkit-box-shadow: rgba(23,23,23,0.75) 10px 15px 10px -5px;
 }
+.directory-preview-enlarged-element iframe {
+    border-radius: 5px !important;
+}
 
 .tp-horizontal-flip {
     -moz-transform: scale(-1, 1);
