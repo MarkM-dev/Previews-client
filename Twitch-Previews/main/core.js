@@ -534,17 +534,12 @@
             let stream_name = lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
             anch.href = "/" + stream_name;
             anch.innerText = '⯈';
+            createTooltip(anch, 'top', 'twitch.tv/' + stream_name);
 
-            anch.onmouseleave = function () {
-                isHovering = false;
-                clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
-            }
             previewDiv.onmouseleave = function () {
                 isHovering = false;
                 clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
             }
-
-            createTooltip(anch, 'top', 'twitch.tv/' + stream_name);
 
             previewDiv.appendChild(anch);
         } else {
