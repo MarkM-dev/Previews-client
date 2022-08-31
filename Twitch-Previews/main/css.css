@@ -1745,6 +1745,8 @@
     left: 0;
     top: 1px;
     border-radius: 5px;
+    cursor: pointer;
+    color: var(--color-text-link-hover, #a970ff);
 }
 
 .directory-preview-anch:hover {
@@ -1752,6 +1754,18 @@
 }
 .directory-preview-anch:active {
     background-color: hsla(0,0%,100%,0.1);
+}
+
+.directory-preview-vol-btn {
+    top: 41px;
+    font-size: 23px;
+}
+.tp-horizontal-flip {
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
 }
 
 .tp-toggle_offline_favorites_btn {

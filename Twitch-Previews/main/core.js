@@ -529,19 +529,33 @@
             previewDiv.style.visibility = "hidden";
             previewDiv.appendChild(twitchIframe);
 
-            let anch = document.createElement("a");
-            anch.classList.add('directory-preview-anch');
+            let go_to_channel_btn = document.createElement("div");
+            go_to_channel_btn.classList.add('directory-preview-anch');
             let stream_name = lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
-            anch.href = "/" + stream_name;
-            anch.innerText = '⯈';
-            createTooltip(anch, 'top', 'twitch.tv/' + stream_name);
+            go_to_channel_btn.innerText = '⯈';
+
+            go_to_channel_btn.onclick = function (e) {
+                window.location = "https://www.twitch.tv/" + stream_name;
+            }
+            createTooltip(go_to_channel_btn, 'top', 'twitch.tv/' + stream_name);
+
+            let vol_btn = document.createElement("div");
+            vol_btn.classList.add('directory-preview-anch');
+            vol_btn.classList.add('directory-preview-vol-btn');
+            vol_btn.classList.add('tp-horizontal-flip');
+            vol_btn.innerText = '🕪';
+
+            let vol_btn_tooltip = createTooltip(vol_btn, 'top', _i18n('vidPreviewVolBtn_title'));
+            vol_btn_tooltip.style.minWidth = 'max-content';
+            vol_btn_tooltip.classList.add('tp-horizontal-flip');
 
             previewDiv.onmouseleave = function () {
                 isHovering = false;
                 clearExistingPreviewDivs(TP_PREVIEW_DIV_CLASSNAME);
             }
 
-            previewDiv.appendChild(anch);
+            previewDiv.appendChild(go_to_channel_btn);
+            previewDiv.appendChild(vol_btn);
         } else {
             previewDiv.style.backgroundImage = getPreviewOfflineImageUrl();
             twitchIframe = createIframeElement();
