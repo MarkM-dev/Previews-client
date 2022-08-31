@@ -549,7 +549,6 @@
 
             let saved_previewDiv_rect = null;
 
-            vol_btn.onclick = adjustVidPreviewVolClick;
             vol_btn.onclick = function (e) {
                 if (isKeepSBarPreviewsOpenMode) {
                     previewDiv.style.width = saved_previewDiv_rect.width + "px";
