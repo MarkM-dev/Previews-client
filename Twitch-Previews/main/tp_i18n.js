@@ -2018,7 +2018,7 @@ export const i18n = {
         'ru':'Закрыть и больше не показывать'
     },
     vidPreviewVolBtn_title: {
-        'en': 'Click for preview volume',
+        'en': 'Preview volume',
         'es': 'Haga clic para ver el volumen de vista previa',
         'de': 'Klicken Sie für Vorschauvolumen',
         'fr': 'Cliquez pour prévisualiser le volume',
