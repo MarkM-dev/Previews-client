@@ -529,9 +529,11 @@
             previewDiv.style.visibility = "hidden";
             previewDiv.appendChild(twitchIframe);
 
-            let go_to_channel_btn = document.createElement("div");
+
+            let go_to_channel_btn = document.createElement("a");
             go_to_channel_btn.classList.add('directory-preview-anch');
             let stream_name = lastHoveredCardEl.href.substr(lastHoveredCardEl.href.lastIndexOf("/") + 1);
+            go_to_channel_btn.href = "/" + stream_name;
             go_to_channel_btn.innerText = '⯈';
 
             go_to_channel_btn.onclick = function (e) {
