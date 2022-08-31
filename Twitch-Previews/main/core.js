@@ -564,12 +564,27 @@
                     if (!saved_previewDiv_rect) {
                         saved_previewDiv_rect = previewDiv.getBoundingClientRect();
                     }
-                    previewDiv.style.width = (saved_previewDiv_rect.width * 2) + 'px';
-                    previewDiv.style.height = (saved_previewDiv_rect.height * 2) + 'px';
-                    twitchIframe.style.width = (saved_previewDiv_rect.width * 2) + 'px';
-                    twitchIframe.style.height = (saved_previewDiv_rect.height * 2) + 'px';
+
+                    let new_width = saved_previewDiv_rect.width * 2;
+                    let new_height = saved_previewDiv_rect.height * 2;
+                    previewDiv.style.width = new_width + 'px';
+                    previewDiv.style.height = new_height + 'px';
+                    twitchIframe.style.width = new_width + 'px';
+                    twitchIframe.style.height = new_height + 'px';
                     previewDiv.style.top = '-' + (saved_previewDiv_rect.height / 2) + "px";
-                    previewDiv.style.left = '-' + (saved_previewDiv_rect.width / 2) + "px";
+
+                    let clientWidth = document.querySelector('main').clientWidth;
+                    let left_distance = saved_previewDiv_rect.left - (saved_previewDiv_rect.width / 2);
+                    if (left_distance < 150) {
+                        previewDiv.style.left = '0';
+                    } else {
+                        if (left_distance + new_width > clientWidth) {
+                            previewDiv.style.left = '-' + saved_previewDiv_rect.width + "px";
+                        } else {
+                            previewDiv.style.left = '-' + (saved_previewDiv_rect.width / 2) + "px";
+                        }
+                    }
+
                     previewDiv.classList.add('directory-preview-enlarged-element');
                     previewDiv.closest('.tw-hover-accent-effect').prepend(previewDiv);
                 }
