@@ -1761,6 +1761,20 @@
     top: 41px;
     font-size: 23px;
 }
+.directory-preview-tp-logo {
+    top: calc(100% - 35px);
+    left: calc(100% - 44px);
+    opacity: 50%;
+    cursor: default;
+    background-color: transparent !important;
+}
+.directory-preview-tp-logo:hover {
+    opacity: 90%;
+}
+.directory-preview-tp-logo img {
+    width: 30px;
+    height: 30px;
+}
 
 .directory-preview-enlarged-element {
     box-shadow: rgba(23,23,23,0.75) 10px 15px 10px -5px;

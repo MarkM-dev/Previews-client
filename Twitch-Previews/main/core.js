@@ -539,7 +539,8 @@
             go_to_channel_btn.onclick = function (e) {
                 window.location = "https://www.twitch.tv/" + stream_name;
             }
-            createTooltip(go_to_channel_btn, 'top', 'twitch.tv/' + stream_name);
+            let go_to_channel_btn_tooltip = createTooltip(go_to_channel_btn, 'top', 'twitch.tv/' + stream_name);
+            go_to_channel_btn_tooltip.style.top = '-75%';
 
             let vol_btn = document.createElement("div");
             vol_btn.classList.add('directory-preview-anch');
@@ -586,6 +587,19 @@
 
                     previewDiv.classList.add('directory-preview-enlarged-element');
                     previewDiv.closest('.tw-hover-accent-effect').prepend(previewDiv);
+
+                    let tp_logo = document.createElement("div");
+                    tp_logo.classList.add('directory-preview-anch');
+                    tp_logo.classList.add('directory-preview-tp-logo');
+
+                    let tp_logo_img = document.createElement("img");
+                    tp_logo_img.src = getRuntimeUrl('../images/TP96.png');
+
+                    let tp_logo_tooltip = createTooltip(tp_logo, 'top', _i18n('app_name'));
+                    tp_logo_tooltip.style.minWidth = 'max-content';
+                    tp_logo_tooltip.style.top = '-50%';
+                    tp_logo.appendChild(tp_logo_img);
+                    previewDiv.appendChild(tp_logo);
                 }
 
                 adjustVidPreviewVolClick(e);
