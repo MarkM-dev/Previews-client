@@ -228,6 +228,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
         _browser.storage.local.set({'shouldShowDelayedRateToast': true}, function() {});
         _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
+        _browser.tabs.create({url:'https://www.twitch.tv/', active: true});
     } else {
         if (details.reason === "update") {
             //let navigator_lang = getNavigatorLangSelection();
