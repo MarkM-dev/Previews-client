@@ -571,7 +571,7 @@
                     previewDiv.style.height = new_height + 'px';
                     twitchIframe.style.width = new_width + 'px';
                     twitchIframe.style.height = new_height + 'px';
-                    previewDiv.style.top = '-' + (saved_previewDiv_rect.height / 2) + "px";
+                    previewDiv.style.top = '-' + ((saved_previewDiv_rect.height / 2) + 5) + "px";
 
                     let clientWidth = document.querySelector('main').clientWidth;
                     let left_distance = saved_previewDiv_rect.left - (saved_previewDiv_rect.width / 2);
@@ -579,9 +579,9 @@
                         previewDiv.style.left = '0';
                     } else {
                         if (left_distance + new_width > clientWidth) {
-                            previewDiv.style.left = '-' + saved_previewDiv_rect.width + "px";
+                            previewDiv.style.left = '-' + (saved_previewDiv_rect.width - 5) + "px";
                         } else {
-                            previewDiv.style.left = '-' + (saved_previewDiv_rect.width / 2) + "px";
+                            previewDiv.style.left = '-' + ((saved_previewDiv_rect.width / 2) - 5) + "px";
                         }
                     }
 
