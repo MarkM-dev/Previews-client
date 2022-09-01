@@ -1752,9 +1752,11 @@
 
 .directory-preview-anch:hover {
     background-color: var(--color-background-button-text-hover, hsla(0,0%,100%,0.3));
+    text-decoration: none;
 }
 .directory-preview-anch:active {
     background-color: hsla(0,0%,100%,0.1);
+    text-decoration: none;
 }
 
 .directory-preview-vol-btn {
