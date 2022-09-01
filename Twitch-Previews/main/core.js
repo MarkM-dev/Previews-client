@@ -5874,7 +5874,7 @@
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Features!</div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 10px;\" ><strong style='color: #2cff95;' >- Directory Previews Feature Update!</strong>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Bigger preview, controls & audio in directories.</span>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click the speaker button on previews in Twitch directories to see the streamer in a bigger preview with controls & audio.</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click the <div class='tp-horizontal-flip' style='display:inline-block;color:#a970ff;background-color: white;border-radius: 4px;padding: 0 2px;' >🕪</div> speaker button on previews in Twitch directories to see the streamer in a bigger preview with controls & audio.</span>"
             +  "             <div style='height: 8px;' > </div>"
             +  "             <span style=\"font-size: 12px;color: whitesmoke;\" >- 'Directory Previews' feature must be enabled.</span>"
             /*+  "             <br><div style='height: 8px;' > </div>"
