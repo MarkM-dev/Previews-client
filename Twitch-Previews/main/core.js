@@ -3737,7 +3737,10 @@
         if (videoContainer) {
             let attr = videoContainer.getAttribute('data-a-player-type');
             if (attr && (attr === 'frontpage' || attr === 'channel_home_carousel')) {
-                videoContainer.querySelector('video').muted = true;
+                let video = videoContainer.querySelector('video');
+                if (video) {
+                    video.muted = true;
+                }
             }
         }
     }
@@ -6025,10 +6028,14 @@
     function check_FTE() {
         _browser.storage.local.get('isFTE', function(result) {
             if (result.isFTE) {
-
                 _browser.storage.local.set({'isFTE': false}, function() {});
                 check_import_tp_options_availability().then(function () {
                     show_FTE();
+                    window.addEventListener('load', (event) => {
+                        setTimeout(function (){
+                            muteAutoplayingVideoElements();
+                        }, 2000);
+                    });
                 });
             }
         });
