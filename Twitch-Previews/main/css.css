@@ -818,6 +818,13 @@
     top: 12px;
 }
 
+.tp_update_toast_delayedRate #tp_updateToast_twitter_btn {
+    display: none;
+}
+.tp_update_toast_delayedRate #tp_updateToast_discord_btn {
+    display: none;
+}
+
 .tp_updateToast_donate_btn {
     height: 32px;
     display: inline-flex;
