@@ -744,6 +744,33 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.tp_update_toast .tp_updateToast_social_btn {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    padding: 6px;
+    top: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+.tp_update_toast .tp_updateToast_social_btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.tp_update_toast .tp_updateToast_social_btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tp_update_toast #tp_updateToast_discord_btn {
+    left: calc(24rem - 105px);
+}
+
+.tp_update_toast #tp_updateToast_twitter_btn {
+    left: calc(24rem - 80px);
+}
+
 .tp_update_toast #tp_updateToast_settings_top_btn {
     position: absolute;
     left: calc(24rem - 5px);
@@ -825,16 +852,6 @@
 }
 #tp_updateToast_donate_btn_buffer_span {
     width: 15px;
-}
-
-#tp_updateToast_twitter_btn {
-    cursor: pointer;
-    border-bottom: 1px dashed white;
-
-}
-
-#tp_updateToast_twitter_btn:hover {
-    zoom: 1.05;
 }
 
 .tp-under-chat-btn {
@@ -1645,7 +1662,7 @@
     width: calc(100% - 24rem - 2px);
 }
 
-#tp_updateToast_discord_btn {
+/*#tp_updateToast_discord_btn {
     color: white;
     font-size: 15px;
     font-weight: bold;
@@ -1664,7 +1681,7 @@
 }
 #tp_updateToast_discord_btn:active {
     background: rgba(255,255,255,0.3);
-}
+}*/
 
 #tp_settings_menu_btn {
     display: inline-flex;
