@@ -7318,6 +7318,12 @@
 
             initDragForSettings(settingsContainer);
 
+            if (options.selected_lang === 'ja') {
+                settingsContainer.querySelector('#TPBodyEl').style.height = '610px';
+                settingsContainer.querySelector('.tp_settings_switch_container').style.height = '559px';
+            }
+
+
             document.body.appendChild(settingsContainer);
 
             setTimeout(function (){
