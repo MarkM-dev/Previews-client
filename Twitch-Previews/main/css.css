@@ -764,11 +764,11 @@
 }
 
 .tp_update_toast #tp_updateToast_discord_btn {
-    left: calc(24rem - 105px);
+    left: calc(24rem - 100px);
 }
 
 .tp_update_toast #tp_updateToast_twitter_btn {
-    left: calc(24rem - 80px);
+    left: calc(24rem - 75px);
 }
 
 .tp_update_toast #tp_updateToast_settings_top_btn {
