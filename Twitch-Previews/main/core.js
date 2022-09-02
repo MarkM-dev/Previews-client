@@ -5896,7 +5896,7 @@
 
     function getNewLangToastBody() {
         return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" >" + _i18n('update_toast_updated_title') + "</div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >"+ _i18n('new_lang_toast_title') +"</strong>"
+            +  "       <div style=\"font-size: 14px;color: white;margin-top: 25px;\" ><strong style='color: #2cff95;' >"+ _i18n('new_lang_toast_title') +"</strong>"
             +  "             <span ><br><span style=\"font-size: 12px;color: whitesmoke;\" >" + _i18n('new_lang_toast_body') + "</span>"
             +  "       </div>"
             +  "    </br>";
