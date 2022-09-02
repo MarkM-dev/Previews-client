@@ -702,6 +702,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "updateToast_discord_btn_click":
             send_ga_event('updateToast', 'updateToast_discord_btn_click', 'updateToast_discord_btn_click');
             break;
+        case "updateToast_twitter_btn_click":
+            send_ga_event('updateToast', 'updateToast_twitter_btn_click', 'updateToast_twitter_btn_click');
+            break;
         case "delayedRateToast":
             send_ga_event('delayedRateToast_dismiss', 'dismiss', msg.detail);
             break;
@@ -722,6 +725,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "delayedRateToast_contact_btn_click":
             send_ga_event('delayedRateToast', 'delayedRateToast_contact_btn_click', 'delayedRateToast_contact_btn_click');
+            break;
+        case "delayedRateToast_discord_btn_click":
+            send_ga_event('updateToast', 'delayedRateToast_discord_btn_click', 'delayedRateToast_discord_btn_click');
+            break;
+        case "delayedRateToast_twitter_btn_click":
+            send_ga_event('updateToast', 'delayedRateToast_twitter_btn_click', 'delayedRateToast_twitter_btn_click');
             break;
         case "delayedRateToast_translate_btn_click":
             _browser.tabs.create({url:msg.detail});
@@ -747,6 +756,12 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             break;
         case "newLangToast_settings_btn_click":
             send_ga_event('newLangToast', 'newLangToast_settings_btn_click', 'newLangToast_settings_btn_click');
+            break;
+        case "newLangToast_discord_btn_click":
+            send_ga_event('updateToast', 'newLangToast_discord_btn_click', 'newLangToast_discord_btn_click');
+            break;
+        case "newLangToast_twitter_btn_click":
+            send_ga_event('updateToast', 'newLangToast_twitter_btn_click', 'newLangToast_twitter_btn_click');
             break;
         case "newLangToast_translate_btn_click":
             _browser.tabs.create({url:msg.detail});

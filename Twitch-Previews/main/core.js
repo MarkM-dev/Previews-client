@@ -5807,7 +5807,11 @@
 
         updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
             sendMessageToBG({action: toastType + "_twitter_btn_click", detail: ""});
-            sendMessageToBG({action: "bg_show_rate", detail: ""});
+            sendMessageToBG({action: "bg_show_twitter", detail: ""});
+        };
+        updateToast.querySelector('#tp_updateToast_discord_btn').onclick = function () {
+            sendMessageToBG({action: "bg_show_discord", detail: ""});
+            sendMessageToBG({action: toastType + "_discord_btn_click", detail: ""});
         };
         updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
             sendMessageToBG({action: toastType + "_rate_btn_click", detail: ""});
@@ -5865,11 +5869,6 @@
         updateToast.querySelector('#tp_updateToast_settings_top_btn').onclick = function () {
             showSettings();
             sendMessageToBG({action: toastType + "_settings_top_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(updateToast.querySelector('#tp_updateToast_body_container').innerText) + '&op=translate'});
-        };
-
-        updateToast.querySelector('#tp_updateToast_discord_btn').onclick = function () {
-            sendMessageToBG({action: "bg_show_discord", detail: ""});
-            sendMessageToBG({action: toastType + "_discord_btn_click", detail: ""});
         };
 
         document.body.appendChild(updateToast);
