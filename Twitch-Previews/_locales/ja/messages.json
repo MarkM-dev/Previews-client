@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "Twitch Previews",
+    "description": "Extension name."
+  },
+  "appDesc": {
+    "message": "ストリームにカーソルを合わせたときのライブ プレビュー | Twitch の生活の質を向上させる機能の束。",
+    "description": "Extension description."
+  },
+  "translateStr": {
+    "message": "翻訳",
+    "description": "Translate Button text."
+  }
+}

@@ -166,6 +166,12 @@ function getNavigatorLangSelection() {
             return 'ko';
         case 'ko_KR':
             return 'ko';
+        case 'ja':
+            return 'ja';
+        case 'ja-JP':
+            return 'ja';
+        case 'ja_JP':
+            return 'ja';
         case 'ru':
             return 'ru';
         case 'ru-RU':
@@ -231,15 +237,15 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.tabs.create({url:'https://www.twitch.tv/', active: true});
     } else {
         if (details.reason === "update") {
-            //let navigator_lang = getNavigatorLangSelection();
+            let navigator_lang = getNavigatorLangSelection();
             _browser.storage.local.get('tp_options', function(result) {
                 // upgrade db.
                 let new_db_container_obj = upgradeDB(result.tp_options);
 
-                /*if (navigator_lang === 'ko') {
+                if (navigator_lang === 'ja') {
                     new_db_container_obj.upgraded_options.selected_lang = navigator_lang;
                     new_db_container_obj.bSetToStorage = true;
-                }*/
+                }
 
                 if (new_db_container_obj.bSetToStorage) {
                     _browser.storage.local.set({'tp_options': new_db_container_obj.upgraded_options}, function() {
@@ -263,11 +269,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
             }
 
-           /* if (navigator_lang === 'ko') {
+            if (navigator_lang === 'ja') {
                 _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
-                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
-                _browser.storage.local.set({'shouldShowUpdatePopup': false}, function() {});
-            }*/
+                /*_browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+                _browser.storage.local.set({'shouldShowUpdatePopup': false}, function() {});*/
+            }
 
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (!result.tpInstallTime) {

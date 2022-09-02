@@ -1221,6 +1221,7 @@
                 'fr': '\nTwitch Previews a été mis à jour en arrière-plan pendant que l\'onglet était actif.\n - Actualisez la page de l\'extension pour reprendre le fonctionnement.\n\n* Les extensions n\'ont aucun contrôle sur les heures de mise à jour.',
                 'pt_BR': '\nTwitch Previews foi atualizado em segundo plano enquanto a guia estava ativa.\n - Atualize a página do ramal para retomar a operação.\n\n* As extensões não têm controle sobre os tempos de atualização.',
                 'ko': '\nTwitch Previews 탭이 활성화된 동안 백그라운드에서 업데이트되었습니다.\n- 확장 기능의 페이지를 새로고침하여 작업을 재개하세요.\n\n* 확장 프로그램은 업데이트 시간을 제어할 수 없습니다.',
+                'ja': '\nTwitch Previews は、タブがアクティブなときにバックグラウンドで更新されました。\n- 拡張機能のタブを更新して操作を再開します。\n\n* 拡張機能は更新時間を制御できません。',
                 'ru':'\nTwitch Previews обновлялся в фоновом режиме, пока вкладка была активна.\n- Обновите страницу, чтобы расширение возобновило работу.\n\n* Расширения не контролируют время обновления.'
             },
             close: {
@@ -1230,6 +1231,7 @@
                 'fr': 'Fermer',
                 'pt_BR': 'Fechar',
                 'ko': '닫기',
+                'ja': 'クローズ',
                 'ru':'OK'
             },
             refresh: {
@@ -1239,6 +1241,7 @@
                 'fr': '⭮ Actualiser',
                 'pt_BR': '⭮ Recarregue',
                 'ko': '⭮ 새로 고침 탭',
+                'ja': '⭮ リロードタブ',
                 'ru':'⭮ Вкладка «Обновить»'
             }
         }
