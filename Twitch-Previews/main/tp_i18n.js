@@ -6,7 +6,7 @@ export const i18n = {
         'fr': 'Twitch Previews',
         'pt_BR': 'Twitch Previews',
         'ko': 'Twitch Previews',
-        'ja': '',
+        'ja': 'Twitch Previews',
         'ru':'Twitch Previews'
     },
     availableLangs: {0:[
@@ -27,7 +27,7 @@ export const i18n = {
         'fr': 'Enregistrer',
         'pt_BR': 'Salvar',
         'ko': '세이브',
-        'ja': '',
+        'ja': '保存',
         'ru':'Сохранять'
     },
     cancel_text: {
@@ -37,7 +37,7 @@ export const i18n = {
         'fr': 'Annuler',
         'pt_BR': 'Cancelar',
         'ko': '취소',
-        'ja': '',
+        'ja': 'キャンセル',
         'ru':'Отмена'
     },
     opd_clips_msg: {
@@ -47,7 +47,7 @@ export const i18n = {
         'fr': 'Pour activer le Clip Downloader, l\'extension a besoin d\'une autorisation pour s\'exécuter sur "clips.twitch.tv"',
         'pt_BR': 'Para habilitar o Clip Downloader, a extensão precisa de permissão para rodar em "clips.twitch.tv"',
         'ko': '클립 다운로더를 사용하려면 "clips.twitch.tv"에서 확장 프로그램을 실행할 권한이 필요해요.',
-        'ja': '',
+        'ja': 'クリップ ダウンローダーを有効にするには、拡張機能を「clips.twitch.tv」で実行する権限が必要です。',
         'ru':'Чтобы включить Загрузчик для клипов, расширению необходимо разрешение на запуск на "clips.twitch.tv".'
     },
     opd_yt_msg: {
@@ -57,7 +57,7 @@ export const i18n = {
         'fr': 'Pour activer les chaînes YouTube de la barre latérale, l\'extension a besoin d\'une autorisation pour récupérer les flux de YouTube',
         'pt_BR': 'Para ativar os canais da barra lateral do YouTube, a extensão precisa de permissão para buscar os streams do YouTube',
         'ko': '사이드바 유튜브 채널을 사용하려면 프로그램이 유튜브에서 방송을 가져올 수 있는 권한이 필요해요.',
-        'ja': '',
+        'ja': 'サイドバー YouTube チャンネルを有効にするには、拡張機能に YouTube からストリームを取得する権限が必要です',
         'ru':'Чтобы включить боковую панель каналов YouTube, расширению необходимо разрешение на получение потоков с YouTube.'
     },
     opd_fb_msg: {
@@ -67,7 +67,7 @@ export const i18n = {
         'fr': 'Pour activer les chaînes Facebook Gaming de la barre latérale, l\'extension a besoin d\'une autorisation pour récupérer les flux de Facebook',
         'pt_BR': 'Para ativar os canais da barra lateral do Facebook Gaming, a extensão precisa de permissão para buscar os streams do Facebook',
         'ko': '사이드바 페이스북 게임 채널을 사용하려면 프로그램이 페이스북에서 방송을 가져올 수 있는 권한이 필요해요.',
-        'ja': '',
+        'ja': 'サイドバーの Facebook ゲーム チャネルを有効にするには、拡張機能に Facebook からストリームを取得する権限が必要です',
         'ru':'Чтобы включить боковую панель каналов Facebook Gaming, расширению необходимо разрешение на получение потоков с Facebook.'
     },
     opd_fb_new_permissions_msg: {
@@ -77,7 +77,7 @@ export const i18n = {
         'fr': 'Des correctifs et des améliorations ont été apportés à la fonctionnalité Sidebar Facebook Gaming et les autorisations ont été réinitialisées',
         'pt_BR': 'Correções e melhorias foram feitas no recurso Sidebar Facebook Gaming e as permissões foram redefinidas',
         'ko': '사이드바 페이스북 게이밍 기능에 대한 수정 및 개선이 이루어졌으며 권한이 재설정되었어요.',
-        'ja': '',
+        'ja': 'サイドバーの Facebook ゲーム機能に修正と改善が加えられ、権限がリセットされました',
         'ru':'Исправления и улучшения были внесены в функцию боковой панели Facebook Gaming, а разрешения были сброшены'
     },
     opd_allow_btn: {
@@ -87,7 +87,7 @@ export const i18n = {
         'fr': 'Permettre',
         'pt_BR': 'autorizar',
         'ko': '허용',
-        'ja': '',
+        'ja': '許可する',
         'ru':'разрешить'
     },
     opd_cancel_btn: {
@@ -97,7 +97,7 @@ export const i18n = {
         'fr': 'Annuler',
         'pt_BR': 'Cancelar',
         'ko': '취소',
-        'ja': '',
+        'ja': 'キャンセル',
         'ru':'Отмена'
     },
     fte_message: {
@@ -113,7 +113,8 @@ export const i18n = {
             'Verifique os recursos no menu de configurações abaixo',
         'ko': 'Wa! Twitch Previews를 받아주셨군요! 더 멋진 트수 생활을 즐길 수 있게 되었어요! :)\n' +
             '아래의 설정 메뉴에서 기능을 확인해보세요.',
-        'ja': '',
+        'ja': 'わーい！ Twitch Previews を手に入れました！ あなたの Twitch 体験がとても簡単になります :)\n' +
+            '下の設定メニューで機能を確認してください',
         'ru':'Ура! вы только что добавили Twitch Previews! Ваш опыт Twitch станет намного проще :)\n' +
             'Проверьте функции в меню настроек ниже'
     },
@@ -124,7 +125,7 @@ export const i18n = {
         'fr': 'Fermer',
         'pt_BR': 'Fechar',
         'ko': '닫기',
-        'ja': '',
+        'ja': 'クローズ',
         'ru':'OK'
     },
     settings_refresh_msg: {
@@ -134,7 +135,7 @@ export const i18n = {
         'fr': 'Actualisez vos onglets Twitch pour que les modifications prennent effet',
         'pt_BR': 'Atualize as guias do Twitch para que as alterações tenham efeito',
         'ko': '변경사항을 적용하려면 트위치 탭을 새로고침하세요.',
-        'ja': '',
+        'ja': '変更を有効にするには、Twitch タブを更新してください',
         'ru':'Обновите свои вкладки Twitch, чтобы изменения вступили в силу'
     },
     settings_new_indication_text: {
@@ -144,7 +145,7 @@ export const i18n = {
         'fr': ' Nouvelle!',
         'pt_BR': ' Nova!',
         'ko': '알림!',
-        'ja': '',
+        'ja': ' 新しい！',
         'ru':' Новый!'
     },
     settings_recommended_indication_text: {
@@ -154,7 +155,7 @@ export const i18n = {
         'fr': '  Recommandée!',
         'pt_BR': '  Recomendada!',
         'ko': '  추천 기능!',
-        'ja': '',
+        'ja': '  おすすめされた！',
         'ru':'  Рекомендуем!'
     },
     settings_lang_info_text: {
@@ -164,7 +165,7 @@ export const i18n = {
         'fr': '* les traductions ont été faites à l\'aide de Google Translate, Contactez-nous si vous souhaitez aider à rendre les traductions plus précises dans votre langue.',
         'pt_BR': '* traduções foram feitas usando o Google Translate, Contacte-nos se quiser ajudar a tornar as traduções mais precisas no seu idioma.',
         'ko': '* 트위치-레알트루가 번역했어요. 수정이나 추가 사항이 있다고 생각하면 우리에게 문의해주세요.',
-        'ja': '',
+        'ja': '* 翻訳は Google Translate を使用して行われました。お客様の言語での翻訳をより正確にするためにご協力いただける場合は、お問い合わせください。',
         'ru':'* перевод выполнен с использованием Google Translate, Свяжитесь с нами, если вы хотите помочь сделать переводы на вашем языке более точными.'
     },
     settings_feature_subtext_shows_in_player_controls: {
@@ -174,7 +175,7 @@ export const i18n = {
         'fr': '(affiché dans les commandes du lecteur)',
         'pt_BR': '(mostra nos controles do player)',
         'ko': '(플레이어 컨트롤에 표시됨)',
-        'ja': '',
+        'ja': '(プレーヤー コントロールに表示)',
         'ru':'(отображается в элементах управления плеером)'
     },
     settings_section_previews: {
@@ -184,7 +185,7 @@ export const i18n = {
         'fr': 'Aperçus',
         'pt_BR': 'Previews',
         'ko': '미리보기',
-        'ja': '',
+        'ja': 'プレビュー',
         'ru':'Превью'
     },
     settings_feature_isDirpEnabled: {
@@ -194,7 +195,7 @@ export const i18n = {
         'fr': 'Aperçus dans les répertoires',
         'pt_BR': 'Prévias em diretórios',
         'ko': '방송 미리보기',
-        'ja': '',
+        'ja': 'ディレクトリのプレビュー',
         'ru':'Превью в каталогах'
     },
     settings_feature_isDirpEnabled_desc: {
@@ -210,7 +211,8 @@ export const i18n = {
             '<br>- Mostra uma visualização do fluxo de vídeo ao passar o mouse sobre os fluxos nos diretórios do Twitch.',
         'ko': '<strong>* 방송 미리보기</strong>' +
             '<br>- 트위치 사이드 바(팔로우 중인 채널, 추천 채널 등)에 있는 타이틀에 마우스를 가져가면 방송 미리보기가 표시되요.',
-        'ja': '',
+        'ja': '<strong>* ディレクトリのプレビュー</strong>' +
+            '<br>- Twitch ディレクトリ内のストリームにカーソルを合わせると、ビデオ ストリームのプレビューが表示されます (参照ディレクトリ内のチャンネル、フォロー中など)。',
         'ru':'<strong>* Превью в каталогах</strong>' +
             '<br>- Показывает превью видеопотока при наведении курсора на потоки в каталогах Twitch.'
     },
@@ -221,7 +223,7 @@ export const i18n = {
         'fr': 'voir votre propre image miniature de chaîne en direct (survolez le logo Twitch)',
         'pt_BR': 'veja sua própria imagem em miniatura do canal ao vivo (passe o logotipo do Twitch)',
         'ko': '스트리밍 - 내 라이브 썸네일 미리보기 (호버 Twitch 로고)',
-        'ja': '',
+        'ja': 'ストリーミング - 自分のライブ ストリームのサムネイルを見る (Twitch ロゴにカーソルを合わせる)',
         'ru':'увидеть превью своего собственного канала в прямом эфире (наведите логотип Twitch)'
     },
     settings_feature_subtext_isSelfPreviewEnabled: {
@@ -231,7 +233,7 @@ export const i18n = {
         'fr': 'Nom de la chaîne (anglais) :',
         'pt_BR': 'Nome do canal (inglês):',
         'ko': '스트리밍 이름(english):',
-        'ja': '',
+        'ja': 'ストリーム名 (英語):',
         'ru':'Имя канала (английский):'
     },
     settings_feature_isSelfPreviewEnabled_desc: {
@@ -253,7 +255,9 @@ export const i18n = {
         'ko': '<strong>* 내 라이브 썸네일 미리보기</strong>' +
             '<br>- 왼쪽 위의 트위치 로고 위에 마우스를 가져가면 시청자가 보는 것처럼 내 방송의 라이브 썸네일 미리보기를 표시해요.' +
             '<br>- 이 기능은 <strong>\'twitch.tv\'</strong>에서만 활성화되며 <strong>\'채널 창이나 대시보드\'</strong>에서는 활성화되지 않아요.',
-        'ja': '',
+        'ja': '<strong>* 自分のライブ ストリームのサムネイルを見る</strong>' +
+            '<br>- 左上の Twitch ロゴにカーソルを合わせると、Twitch の視聴者に表示される、独自のストリームのライブ サムネイル プレビューが表示されます。' +
+            '<br>- この機能は <strong>\'twitch.tv\' ページでのみ有効です</strong>。<strong>クリップ ディレクトリやダッシュボードでは無効です</strong> ( clips.twitch.tv）」',
         'ru':'<strong>* увидеть превью своего собственного канала в прямом эфире</strong>' +
             '<br>- Показывает изображение предварительного просмотра вашего собственного канала в реальном времени, как его видят зрители на Twitch, при наведении курсора на логотип Twitch в левом верхнем углу.' +
             '<br>- ов или на панели управления (например, clips.twitch.tv).'
@@ -265,7 +269,7 @@ export const i18n = {
         'fr': 'Divers',
         'pt_BR': 'Diversas',
         'ko': '기타',
-        'ja': '',
+        'ja': '雑多な',
         'ru':'Разное'
     },
     settings_feature_isChannelPointsClickerEnabled: {
@@ -275,7 +279,7 @@ export const i18n = {
         'fr': 'Clic automatique de points de canal',
         'pt_BR': 'Clicker automático de pontos de canal',
         'ko': '채널 포인트 자동으로 받기',
-        'ja': '',
+        'ja': '自動チャンネル ポイント クリッカー',
         'ru':'Автоматический кликер по точкам канала'
     },
     settings_feature_isChannelPointsClickerEnabled_desc: {
@@ -297,7 +301,9 @@ export const i18n = {
         'ko': '<strong>* 채널 포인트 자동으로 받기</strong>' +
             '<br>- 자동으로 채널 포인트 받기 버튼을 클릭해요' +
             '<br>- 채팅창을 닫거나 탭이나 창이 백그라운드에 있어도 작동해요.',
-        'ja': '',
+        'ja': '<strong>* 自動チャネル ポイント クリッカー</strong>' +
+            '<br>- この機能により、ボーナス チャネル ポイントの交換ボタンが自動的にクリックされます。' +
+            '<br>- チャットが閉じられていて、タブまたはウィンドウがバックグラウンドにある場合にも機能します。',
         'ru':'<strong>* Автоматический кликер по точкам канала</strong>' +
             '<br>- Эта функция автоматически нажимает кнопку погашения баллов бонусного канала.' +
             '<br>- Это также работает, когда чат закрыт и когда вкладка или окно находятся в фоновом режиме.'
@@ -309,7 +315,7 @@ export const i18n = {
         'fr': 'Multi-Stream & Multi-Chat',
         'pt_BR': 'Multi-Stream & Multi-Chat',
         'ko': '멀티 창 & 멀티 채팅',
-        'ja': '',
+        'ja': 'マルチストリーム & マルチチャット',
         'ru':'Multi-Stream & Multi-Chat'
     },
     settings_feature_subtext_isMultiStreamEnabled: {
@@ -319,7 +325,7 @@ export const i18n = {
         'fr': '(s\'affiche à côté de la disponibilité de la chaîne, de la barre latérale et des résultats de recherche)',
         'pt_BR': '(mostra ao lado do tempo de atividade do canal, barra lateral e resultados de pesquisa)',
         'ko': '(방송 업데이트, 사이드바 및 검색 결과 옆에 표시됨)',
-        'ja': '',
+        'ja': '(ストリーム稼働時間、サイドバー、検索結果の横に表示)',
         'ru':'(отображается рядом с временем работы канала, боковой панелью и результатами поиска)'
     },
     settings_feature_isMultiStreamEnabled_desc: {
@@ -371,7 +377,14 @@ export const i18n = {
             '<br>- 페이지 스크롤, 배경색이나 투명도 변경, 글자 색상, 두께 크기 증가/감소, 전체 화면, 드래그, 크기 조정과 개별 창 최소화를 할 수 있어요.' +
             '<br>- 채널 포인트 자동 받기 기능이 활성화되어 있으면 포인트가 적립되요.' +
             '<br>- \'사이드바 유튜브 채널\' 기능을 활성화하면 구독 중인 유튜브 채널을 멀티 창에 추가하고 크로스 플랫폼으로 사용할 수 있어요(유튜브 채팅도 지원함!)',
-        'ja': '',
+        'ja': '<strong>* マルチストリーム & マルチチャット</strong>' +
+            '<br>- サイドバーから直接、または上部の検索バー (マルチストリーム機能が有効になっている場合) を介して、表示中のページにマルチストリームとマルチチャットをオンザフライで追加できます。' +
+            '<br>- ストリームの下のストリーム アップタイムの横にあるボタンもあります。' +
+            '<br>- クリックすると、新しい Twitch タブでマルチ ストリームが開始されます。そのため、サイドバーの利点とトップ バーの検索機能を引き続き利用できます。' +
+            '<br>- 新しい [マルチストリーム] タブで、サイドバーからストリームを追加するか、上部の Twitch 検索バーでストリームを検索し、結果の [マルチストリーム] ボタンをクリックしてストリームを追加します。' +
+            '<br>- ページのスクロール、背景色と透明度の変更、フォントの色、太さ、サイズの増減、全画面表示、ドラッグ、サイズ変更、ボックスの最小化 (ボックスの上部バーと右下隅) ができます。' +
+            '<br>- 自動チャネル ポイント機能が有効になっている場合、チャット ボックスでポイントが収集されます。' +
+            '<br>-「サイドバー YouTube チャンネル」機能を有効にすると、サブスクライブした YouTube チャンネルをマルチストリームに追加して、クロスプラットフォームで使用できます (YouTube チャットもサポートします)。',
         'ru':'<strong>* Multi-Stream & Multi-Chat</strong>' +
             '<br>- Вы можете добавить многопоточность и многопоточность на лету на любую страницу, на которой вы находитесь, прямо с боковой панели или через верхнюю панель поиска (если включена функция многопоточности).' +
             '<br>- Также есть кнопка, которая находится рядом с аптаймом потока под потоком.' +
@@ -388,7 +401,7 @@ export const i18n = {
         'fr': 'Intégration vidéo avancée',
         'pt_BR': 'Incorporação de vídeo avançada',
         'ko': '고오급 비디오 임베드',
-        'ja': '',
+        'ja': '高度な動画埋め込み',
         'ru':'Расширенное встраивание видео'
     },
     settings_feature_isAdvancedVideoEmbedsEnabled_desc: {
@@ -440,7 +453,14 @@ export const i18n = {
             '<br>- 주의: 이 기능은 더 많은 리소스를 사용해요. 성능 문제가 발생하면 이 기능을 끄는걸 추천해요.' +
             '<br>- 참고: 트위치 메인 플레이어를 대체하는 다른 확장 프로그램을 사용하는 경우에도 보라색 화면이 나타날 수 있어요.' +
             '<br>- 테스트 중인 기능임!',
-        'ja': '',
+        'ja': '<strong>* 高度な動画埋め込み</strong>' +
+            '<br>- これは、マルチストリーム機能とオンザフライ ビデオの埋め込み (プレビューではない) に適用されます。' +
+            '<br>- パープル スクリーンをバイパスします。' +
+            '<br>- 有効な Twitch Previews 機能を埋め込みに追加します (シーク、早送り、自動更新、ピクチャー イン ピクチャー、カスタム チャットによるフルスクリーン、キャスト -> タブを閉じる、フラッシュバン ディフェンダー、スクリーンショットのストリーミング)。' +
+            '<br>- これらの埋め込みでキーボードの矢印キーを使用したシークは、マルチストリームのストリーム同期を容易にするために、通常の 5 秒ではなく 1.5 秒間隔になります。' +
+            '<br>- 注: この機能は、前述の埋め込みを使用すると、より多くのリソースを使用します。 パフォーマンスの問題に気付いた場合は、この機能をオフにすることができます。' +
+            '<br>- 注: Twitch のメイン プレーヤーを置き換える別の拡張機能を使用している場合でも、紫色の画面が表示されることがあります。' +
+            '<br>- 実験的な機能です。',
         'ru':'<strong>* Расширенное встраивание видео</strong>' +
             '<br>- Это относится к функции многопоточности и встраиванию видео «на лету» (не к предварительному просмотру).' +
             '<br>- Обходит фиолетовый экран.' +
@@ -457,7 +477,7 @@ export const i18n = {
         'fr': 'Bouton de téléchargement de clips',
         'pt_BR': 'Botão de download do clipe',
         'ko': '클립 다운로드 버튼',
-        'ja': '',
+        'ja': 'クリップダウンロードボタン',
         'ru':'Кнопка скачивания клипа'
     },
     settings_feature_subtext_isClipDownloaderEnabled: {
@@ -467,7 +487,7 @@ export const i18n = {
         'fr': '(s\'affiche dans les commandes du lecteur des clips)',
         'pt_BR': '(mostra nos controles do player de clipes)',
         'ko': '(클립의 플레이어 컨트롤에 표시됨)',
-        'ja': '',
+        'ja': '(クリップのプレーヤー コントロールに表示)',
         'ru':'(отображается в элементах управления проигрывателем клипов)'
     },
     settings_feature_isClipDownloaderEnabled_desc: {
@@ -495,7 +515,10 @@ export const i18n = {
             '<br>- 클립의 플레이어 컨트롤에 버튼이 표시되요.' +
             '<br>- If the video appears in a new tab instead of downloading, right-click the video in the new tab and then save.' +
             '<br>- 이 기능을 활성화할 때 프로그램이 "clips.twitch.tv"에서 확장 프로그램을 실행할 권한이 필요해요.(활성화할 때 프롬프트가 표시됨)',
-        'ja': '',
+        'ja': '<strong>* クリップダウンロードボタン</strong>' +
+            '<br>- ボタンは、クリップのプレーヤー コントロールに表示されます。' +
+            '<br>- ビデオがダウンロードではなく新しいタブに表示される場合は、新しいタブでビデオを右クリックしてから保存します。' +
+            '<br>- この機能を有効にするときは、「clips.twitch.tv」で拡張機能を実行できるようにする必要があります (有効にするとプロンプトが表示されます)。',
         'ru':'<strong>* Кнопка скачивания клипа</strong>' +
             '<br>- Кнопка будет отображаться в элементах управления проигрывателя клипов.' +
             '<br>- Если клип отображается на новой вкладке вместо загрузки, щелкните правой кнопкой мыши клип на новой вкладке и сохраните его.' +
@@ -508,7 +531,7 @@ export const i18n = {
         'fr': 'Couper le son des vidéos en lecture automatique sur différentes pages',
         'pt_BR': 'Silenciar o áudio de vídeos de reprodução automática em várias páginas',
         'ko': '여러 페이지에서 자동 비디오 음소거',
-        'ja': '',
+        'ja': 'さまざまなページで自動再生ビデオをミュートする',
         'ru':'Отключение звука при автоматическом воспроизведении видео на разных страницах'
     },
     settings_feature_subtext_isMuteAutoPlayersEnabled: {
@@ -518,7 +541,7 @@ export const i18n = {
         'fr': '(page d\'accueil, page de chaîne hors ligne)',
         'pt_BR': '(página inicial, página do canal offline)',
         'ko': '(홈페이지, 오프라인 방송화면 등..)',
-        'ja': '',
+        'ja': '（ホームページ、オフライン配信ページなど）',
         'ru':'(домашняя страница, страница офлайн-канала)'
     },
     settings_feature_isMuteAutoPlayersEnabled_desc: {
@@ -534,7 +557,8 @@ export const i18n = {
             '<br>- Silencia o áudio de reprodutores de vídeo de reprodução automática em várias páginas.',
         'ko': '<strong>* 여러 페이지에서 자동 비디오 음소거</strong>' +
             '<br>- 여러 페이지에서 자동 재생되는 비디오를 음소거해요.',
-        'ja': '',
+        'ja': '<strong>* さまざまなページで自動再生ビデオをミュート</strong>' +
+            '<br>- さまざまなページの自動再生ビデオ プレーヤーをミュートします。',
         'ru':'<strong>* Отключение звука при автоматическом воспроизведении видео на разных страницах</strong>' +
             '<br>- Отключает звук автоматически воспроизводимых видеоплееров на различных страницах.'
     },
@@ -545,7 +569,7 @@ export const i18n = {
         'fr': 'Barre latérale',
         'pt_BR': 'Barra Lateral',
         'ko': '사이드바',
-        'ja': '',
+        'ja': 'サイドバー',
         'ru':'Боковая панель'
     },
     settings_feature_isSidebarFavoritesEnabled: {
@@ -555,7 +579,7 @@ export const i18n = {
         'fr': 'Barre latérale Chaînes préférées',
         'pt_BR': 'Barra Lateral Canais Favoritos',
         'ko': '사이드바 즐겨찾는 채널',
-        'ja': '',
+        'ja': 'サイドバーのお気に入りチャンネル',
         'ru':'Боковая панель Избранные каналы'
     },
     settings_feature_subtext_isSidebarFavoritesEnabled: {
@@ -565,7 +589,7 @@ export const i18n = {
         'fr': '(s\'affiche en haut de la barre latérale)',
         'pt_BR': '(mostra na parte superior da barra lateral)',
         'ko': '(사이드바 상단에 표시됨)',
-        'ja': '',
+        'ja': '(サイドバーの上部に表示されます)',
         'ru':'(отображается вверху боковой панели)'
     },
     settings_feature_isSidebarFavoritesEnabled_desc: {
@@ -605,7 +629,12 @@ export const i18n = {
             '<br><span id="tp_settings_favorites_desc_note_el" >- 참고: 이 기능은 팔로우된 채널 목록에 의존하므로 사이드바가 열리면 자동 확장(더 보기)됩니다. 축소된 경우 목록은 계속 채워지지만 부분적으로 표시되며 클릭하여 프로세스를 자동화할 수 있는 클릭 가능한 별표 반 아이콘으로 표시됩니다. 이 프로세스를 자동으로 수행하려면 아래에서 "접힌 사이드바 지원" 기능을 활성화할 수 있습니다.</span>' +
             '<br>- 참고: 목록이 표시되거나 업데이트하는데 몇 초 정도 걸릴 수 있어요.'+
             '<br><span id="tp_settings_favorites_desc_note_el2" >- 참고: 오프라인 즐겨찾기에 프로필 사진이 없는 경우 해당 페이지를 열어 업데이트하십시오(열린 후 ~3초 후에 업데이트됨).</span>',
-        'ja': '',
+        'ja': '<strong>* サイドバーのお気に入りチャンネル</strong>' +
+            '<br>- サイドバーの上部にある新しいお気に入りリスト (最もお気に入りのストリーマー用)。' +
+            '<br>- ストリームの下のベルの横にある [お気に入り] ボタンをクリックして、ストリームをお気に入りリストに追加します。' +
+            '<br><span id="tp_settings_favorites_desc_note_el" >- 注: この機能はフォローしているチャンネルのリストに依存しているため、サイドバーを開くと自動的に展開 (詳細を表示) します。 折りたたまれている場合、リストはまだ入力されますが、部分的であり、クリック可能な半分が完全な星のアイコンでマークされ、クリックしてプロセスを自動化できます. 以下の「折りたたみサイドバーのサポート」機能を有効にして、このプロセスを自動的に行うことができます。</span>' +
+            '<br>- 注: リストが表示または更新されるまでに数秒かかる場合があります。' +
+            '<br><span id="tp_settings_favorites_desc_note_el2" >- 注: オフラインのお気に入りにプロフィール写真がない場合は、そのページを開いて更新します (開いてから 3 秒以内に更新されます)。</span>',
         'ru':'<strong>* Боковая панель Избранные каналы</strong>' +
             '<br>- Новый список избранного в верхней части боковой панели (для ваших самых любимых стримеров).' +
             '<br>- Добавьте потоки в список избранного, нажав кнопку «Избранное» рядом с колокольчиком под потоком.' +
@@ -620,7 +649,7 @@ export const i18n = {
         'fr': 'Masquer les chaînes favorites de la liste des chaînes que vous suivez',
         'pt_BR': 'Ocultar canais favoritos da lista de canais seguidos',
         'ko': '팔로우 목록에서 즐겨찾는 채널 숨기기',
-        'ja': '',
+        'ja': 'フォロー中のリストからお気に入りのチャンネルを非表示にする',
         'ru':'Скрыть избранные каналы из списка каналов, за которыми вы следите'
     },
     settings_feature_sidebarFavorites_show_offline: {
@@ -630,7 +659,7 @@ export const i18n = {
         'fr': 'Afficher le bouton bascule des chaînes favorites hors ligne',
         'pt_BR': 'Mostrar botão de alternância de canais favoritos offline',
         'ko': '오프라인 즐겨찾기 채널 표시 토글 버튼',
-        'ja': '',
+        'ja': 'オフラインのお気に入りチャンネルを表示トグル ボタン',
         'ru':'Показывать кнопку-переключатель избранных офлайн-каналов'
     },
     settings_feature_sidebarFavorites_always_updated: {
@@ -640,7 +669,7 @@ export const i18n = {
         'fr': 'Prise en charge de la barre latérale réduite<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Recommandée!</span><br>(barre latérale à ouverture automatique -> Étendre la barre latérale -> obtenir les favoris -> réduire la barre latérale)',
         'pt_BR': 'Suporte a barra lateral recolhida<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Recomendada!</span><br>(barra lateral de abertura automática -> Estender barra lateral -> obter favoritos -> recolher barra lateral)',
         'ko': '접힌 사이드바 지원<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;추천 기능!</span><br>(자동 열기 사이드바 -> 사이드바 확장 -> 즐겨찾기 가져오기 -> 사이드바 축소)',
-        'ja': '',
+        'ja': '折りたたみサイドバーのサポート<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;推奨!</span><br>(サイドバーの自動オープン -> サイドバーの拡張 -> お気に入りの取得 -> サイドバーの折りたたみ)',
         'ru':'Поддержка свернутой боковой панели<span class="tp-settings-recommended-feature-span" >&nbsp;&nbsp;Рекомендуем!</span><br>(автоматическое открытие боковой панели -> Расширить боковую панель -> получить избранное -> свернуть боковую панель)'
     },
     settings_feature_isYTsidebarEnabled: {
@@ -650,7 +679,7 @@ export const i18n = {
         'fr': 'Barre latérale Chaînes YouTube',
         'pt_BR': 'Barra Lateral Canais do YouTube',
         'ko': '사이드바 유튜브 채널',
-        'ja': '',
+        'ja': 'サイドバー YouTube チャンネル',
         'ru':'Боковая панель каналы YouTube'
     },
     settings_feature_subtext_isYTsidebarEnabled: {
@@ -660,7 +689,7 @@ export const i18n = {
         'fr': '(s\'affiche en haut de la barre latérale)',
         'pt_BR': '(mostra na parte superior da barra lateral)',
         'ko': '(사이드바 상단에 표시됨)',
-        'ja': '',
+        'ja': '(サイドバーの上部に表示されます)',
         'ru':'(отображается вверху боковой панели)'
     },
     settings_feature_isYTsidebarEnabled_desc: {
@@ -700,7 +729,12 @@ export const i18n = {
             '<br>- 커스텀 PIP와 멀티 창 & 멀티 채팅 기능을 지원하니 크로스 플랫폼을 사용할 수 있어요.' +
             '<br>- 브라우저에서 유튜브에 로그인 해야해요(로그인하지 않았다면 유튜브에서 로그인하세요.).' +
             '<br>- 이 기능을 쓸 때 프로그램이 "youtube.com"에서 방송을 가져올 수 있는 권한이 필요해요.(활성화 시 메시지가 표시됨. 이는 프로그램이 유튜브에서 방송을 가져올 수 있도록 하기 위함)',
-        'ja': '',
+        'ja': '<strong>* サイドバー YouTube チャンネル</strong>' +
+            '<br>- Twitch サイドバーの上部にある新しいリストで、現在 YouTube でライブ配信されているサブスクライブしている YouTube チャンネルを表示します。' +
+            '<br>- リスト データは 5 分ごとに更新されます。' +
+            '<br>- カスタム ピクチャー イン ピクチャーおよびマルチストリーム & マルチチャット機能でサポートされているため、マルチストリーム クロスプラットフォームを使用できます。' +
+            '<br>- ブラウザで YouTube にログインする必要があります (まだログインしていない場合は、youtube.com にアクセスしてログインしてください)。' +
+            '<br>- この機能を有効にする場合、「youtube.com」で拡張機能を実行できるようにする必要があります (有効にするとプロンプトが表示されます)。これは、拡張機能が YouTube からストリームを取得できるようにするためです。',
         'ru':'<strong>* Боковая панель каналы YouTube</strong>' +
             '<br>- Новый список в верхней части боковой панели Twitch, чтобы показать каналы YouTube, на которые вы подписаны, которые в настоящее время транслируются на YouTube.' +
             '<br>- Данные списка будут обновляться каждые 5 минут.' +
@@ -715,7 +749,7 @@ export const i18n = {
         'fr': 'Barre latérale Chaînes Facebook Gaming',
         'pt_BR': 'Barra Lateral Canais do Facebook Gaming',
         'ko': '사이드바 페이스북 게이밍 채널',
-        'ja': '',
+        'ja': 'サイドバー Facebook ゲーム チャンネル',
         'ru':'Боковая панель каналы Facebook Gaming'
     },
     settings_feature_subtext_isFBsidebarEnabled: {
@@ -725,7 +759,7 @@ export const i18n = {
         'fr': '(s\'affiche en haut de la barre latérale)',
         'pt_BR': '(mostra na parte superior da barra lateral)',
         'ko': '(사이드바 상단에 표시됨)',
-        'ja': '',
+        'ja': '(サイドバーの上部に表示されます)',
         'ru':'(отображается вверху боковой панели)'
     },
     settings_feature_isFBsidebarEnabled_desc: {
@@ -777,7 +811,14 @@ export const i18n = {
             '<br>- 페이스북에 로그인할 필요가 없어요.' +
             '<br>- 추가한 스트리머 수에 따라 목록이 업데이트 되는데 시간이 더 필요할 수 있어요.' +
             '<br>- 이 기능을 쓸 때 프로그램이 "facebook.com"에서 방송을 가져올 수 있는 권한이 필요해요.(활성화 시 메시지가 표시됨. 이는 프로그램이 페이스북에서 방송을 가져올 수 있도록 하기 위함)',
-        'ja': '',
+        'ja': '<strong>* サイドバー Facebook ゲーム チャンネル</strong>' +
+            '<br>- Twitch サイドバーの上部に新しいリストが表示され、現在 Facebook でライブ配信されている、選択した Facebook ゲーム チャンネルが表示されます。' +
+            '<br>- 機能を有効にして編集ボタンをクリックし、Facebook ストリーマーをリストに追加します。' +
+            '<br>- リスト データは 5 分ごとに更新されます。' +
+            '<br>- カスタム ピクチャー イン ピクチャーおよびマルチストリーム機能でサポートされているため、マルチストリーム クロスプラットフォームを使用できます。' +
+            '<br>- Facebookにログインする必要はありません。' +
+            '<br>- 追加したストリーマーの数によっては、リストが更新されるまで数秒かかる場合があります。' +
+            '<br>- この機能を有効にする場合、「facebook.com」で拡張機能を実行できるようにする必要があります (有効にするとプロンプトが表示されます)。これは、拡張機能が Facebook からストリームを取得できるようにするためです。',
         'ru':'<strong>* Боковая панель каналы YouTube</strong>' +
             '<br>- Новый список в верхней части боковой панели Twitch, чтобы показать выбранные вами игровые каналы Facebook, которые в настоящее время транслируются на Facebook.' +
             '<br>- Включите функцию и нажмите кнопку редактирования, чтобы добавить стримеров Facebook в список.' +
@@ -794,7 +835,7 @@ export const i18n = {
         'fr': 'Éditer',
         'pt_BR': 'editar',
         'ko': '편집',
-        'ja': '',
+        'ja': '編集',
         'ru':'редактировать'
     },
     settings_feature_fb_streamers_popup_sub_title: {
@@ -804,7 +845,7 @@ export const i18n = {
         'fr': 'Entrez les noms des streamers Facebook séparés par des espaces ou des virgules\n(copiez leurs noms depuis l\'URL de la barre d\'adresse de leur page Facebook)',
         'pt_BR': 'Digite os nomes dos streamers do Facebook separados por espaços ou vírgulas\n(copie seus nomes do URL da barra de endereço de sua página do Facebook)',
         'ko': '페이스북 스트리머의 이름을 공백 또는 쉼표로 구분해 입력하세요.\n(페이스북 페이지의 URL에서 이름 복사)',
-        'ja': '',
+        'ja': 'Facebook ストリーマーの名前をスペースまたはカンマで区切って入力してください\n（FacebookページのアドレスバーのURLから名前をコピーしてください）',
         'ru':'Введите имена стримеров Facebook, разделенные пробелами или запятыми.\n(скопируйте их имена из адресной строки URL их страницы в Facebook)'
     },
     settings_feature_fb_streamers_popup_err_text: {
@@ -814,7 +855,7 @@ export const i18n = {
         'fr': 'sans espaces ni URL',
         'pt_BR': 'sem espaços ou URLs',
         'ko': '띄어쓰기나 링크는 안돼요',
-        'ja': '',
+        'ja': 'スペースやリンクはありません',
         'ru':'без пробелов или URL'
     },
     settings_feature_isSidebarExtendEnabled: {
@@ -824,7 +865,7 @@ export const i18n = {
         'fr': 'Extension automatique de la barre latérale',
         'pt_BR': 'Extensão automática da barra lateral',
         'ko': '사이드바 자동 확장(자세히 보기)',
-        'ja': '',
+        'ja': '自動拡張サイドバー (さらに表示)',
         'ru':'Автоматическое расширение боковой панели'
     },
     settings_feature_subtext_isSidebarExtendEnabled: {
@@ -834,7 +875,7 @@ export const i18n = {
         'fr': '(lorsque la barre latérale est ouverte)',
         'pt_BR': '(quando a barra lateral está aberta)',
         'ko': '(사이드바가 열려 있을 때)',
-        'ja': '',
+        'ja': '(サイドバーが開いている場合)',
         'ru':'(когда боковая панель открыта)'
     },
     settings_feature_isSidebarExtendEnabled_desc: {
@@ -856,7 +897,9 @@ export const i18n = {
         'ko': '<strong>* 사이드바 자동 확장(자세히 보기)</strong>' +
             '<br>- 사이드바가 자동으로 확장되어 사이드바에 모든 라이브 스트리머가 표시되요(사이드바가 열려 있을 때).' +
             '<br>- 참고: 즐겨찾기 기능이 활성화된 경우 이 기능을 해제할 수 있어요.',
-        'ja': '',
+        'ja': '<strong>* 自動拡張サイドバー (さらに表示)</strong>' +
+            '<br>- サイドバーを自動拡張して、サイドバーにすべてのライブ ストリーマーを表示します (サイドバーが開いている場合)。' +
+            '<br>- 注: お気に入りリスト機能が有効になっている場合は、この機能をオフのままにしておくことができます。',
         'ru':'<strong>* Автоматическое расширение боковой панели</strong>' +
             '<br>- Авто расширяет боковую панель, чтобы на боковой панели отображались все прямые трансляции (когда боковая панель открыта).' +
             '<br>- Примечание: вы можете отключить эту функцию, если у вас включена функция списка избранного.'
@@ -868,7 +911,7 @@ export const i18n = {
         'fr': 'Prise en charge de la barre latérale réduite\n(barre latérale à ouverture automatique -> Étendre la barre latérale -> réduire la barre latérale)',
         'pt_BR': 'Suporte a barra lateral recolhida\n(barra lateral de abertura automática -> Estender barra lateral -> recolher barra lateral)',
         'ko': '접힌 사이드바 지원\n(자동 열기 사이드바 -> 사이드바 확장 -> 사이드바 축소)',
-        'ja': '',
+        'ja': '折りたたまれたサイドバーをサポート\n(サイドバーを自動的に開く -> サイドバーを拡張する -> サイドバーを折りたたむ)',
         'ru':'Поддержка свернутой боковой панели\n(автоматическое открытие боковой панели -> Расширить боковую панель -> свернуть боковую панель)'
     },
     settings_feature_isSidebarSearchEnabled: {
@@ -878,7 +921,7 @@ export const i18n = {
         'fr': 'Barre latérale Bouton de recherche',
         'pt_BR': 'Barra lateral botão de pesquisa',
         'ko': '사이드바 검색 버튼',
-        'ja': '',
+        'ja': 'サイドバー検索ボタン',
         'ru':'Боковая панель кнопка поиска'
     },
     settings_feature_isSidebarSearchEnabled_desc: {
@@ -900,7 +943,9 @@ export const i18n = {
         'ko': '<strong>* 사이드바 스트리머 검색</strong>' +
             '<br>- 사이드바 상단에 있는 보라색 검색 버튼으로 방송 중인 스트리머를 쉽게 찾을 수 있어요.' +
             '<br>- 표시된 스트리머 중에서 검색하기 때문에 검색 전 사이드바가 자동으로 확장되어 모든 방송 중인 스트리머를 표시해요.',
-        'ja': '',
+        'ja': '<strong>* サイドバー ストリーマー検索</strong>' +
+            '<br>- ライブストリーマーを簡単に見つけるための、サイドバーの上部にある紫色の検索ボタン。' +
+            '<br>- 現在表示されているストリーマー内を検索するため、検索を開始するとサイドバーが自動的に拡張され、すべてのライブ ストリーマーが表示されます。',
         'ru':'<strong>* Боковая панель кнопка поиска</strong>' +
             '<br>- Фиолетовая кнопка поиска в верхней части боковой панели для быстрого поиска прямых трансляций.' +
             '<br>- Выполняет поиск по показанным в данный момент стримерам, поэтому при запуске поиска боковая панель автоматически расширяется для отображения всех стримеров в прямом эфире.'
@@ -912,7 +957,7 @@ export const i18n = {
         'fr': 'Masquer toutes les sections de la barre latérale sauf les chaînes suivies',
         'pt_BR': 'Ocultar todas as seções da barra lateral, exceto os canais seguidos',
         'ko': '팔로우한 채널을 제외한 모든 사이드바 섹션 숨기기',
-        'ja': '',
+        'ja': 'フォローしているチャネルを除くすべてのサイドバー セクションを非表示にする',
         'ru':'Скрыть все разделы боковой панели, кроме каналов, на которые вы подписаны'
     },
     settings_feature_isSidebarHideSectionsEnabled_desc: {
@@ -934,7 +979,9 @@ export const i18n = {
         'ko': '<strong>* 팔로우 중인 채널을 제외한 모든 사이드바 섹션 숨기기</strong>' +
             '<br>- 팔로우 중인 채널을 제외한 사이드바의 다른 모든 섹션을 숨겨요.' +
             '<br>- 참고: 이 기능은 \'사이드바 즐겨찾기\'와 \'사이드바 유튜브 채널\'기능에 영향을 주지 않고 즐겨찾기와 유튜브 채널 목록은 계속 볼 수 있어요.',
-        'ja': '',
+        'ja': '<strong>* フォローしているチャネルを除くすべてのサイドバー セクションを非表示にする</strong>' +
+            '<br>- フォローしているチャネルを除く、サイドバーの他のすべてのセクションを非表示にします。' +
+            '<br>- 注: この機能は、「サイドバーのお気に入り」および「サイドバーの YouTube チャンネル」機能には影響しません。お気に入りと YouTube チャンネルのリストは引き続き表示されます。',
         'ru':'<strong>* Скрыть все разделы боковой панели, кроме каналов, на которые вы подписаны</strong>' +
             '<br>- Скрывает все остальные разделы на боковой панели, кроме следующих каналов.' +
             '<br>- Примечание. Эта функция не влияет на функции «Избранное» на боковой панели и «Каналы YouTube на боковой панели», вы по-прежнему будете видеть свои избранные и списки каналов YouTube.'
@@ -946,7 +993,7 @@ export const i18n = {
         'fr': 'Lecteur vidéo',
         'pt_BR': 'Video Player',
         'ko': '플레이어',
-        'ja': '',
+        'ja': 'プレーヤー',
         'ru':'Видео проигрыватель'
     },
     settings_feature_isErrRefreshEnabled: {
@@ -956,7 +1003,7 @@ export const i18n = {
         'fr': 'Actualisation automatique en cas d\'erreur du lecteur Twitch',
         'pt_BR': 'Atualização automática no erro do Twitch Player',
         'ko': '트위치 플레이어 오류 시 자동 새로고침',
-        'ja': '',
+        'ja': 'Twitch ビデオ プレーヤー エラーの自動更新',
         'ru':'Автоматическое обновление при ошибке игрока Twitch'
     },
     settings_feature_subtext_isErrRefreshEnabled: {
@@ -966,7 +1013,7 @@ export const i18n = {
         'fr': '(#1000, #2000, #3000, #4000)',
         'pt_BR': '(#1000, #2000, #3000, #4000)',
         'ko': '(#1000, #2000, #3000, #4000)',
-        'ja': '',
+        'ja': '(#1000, #2000, #3000, #4000)',
         'ru':'(#1000, #2000, #3000, #4000)'
     },
     settings_feature_isErrRefreshEnabled_desc: {
@@ -982,7 +1029,8 @@ export const i18n = {
             '<br>- Atualiza o player de vídeo se ocorrer um erro.',
         'ko': '<strong>* 오류 발생 시 자동으로 새로고침 (# 1000, # 2000, # 3000, # 4000)</strong>' +
             '<br>- 오류가 발생하면 자동으로 새로고침해요.',
-        'ja': '',
+        'ja': '<strong>* エラー時の自動更新 (#1000、#2000、#3000、#4000)</strong>' +
+            '<br>- エラーが発生した場合、プレーヤーを更新します。',
         'ru':'<strong>* Автоматическое обновление при ошибках (# 1000, # 2000, # 3000, # 4000)</strong>' +
             '<br>- Обновляет видеопроигрыватель при возникновении ошибки.'
     },
@@ -993,7 +1041,7 @@ export const i18n = {
         'fr': 'Empêcher le changement automatique de la qualité vidéo en arrière-plan',
         'pt_BR': 'Impedir mudança automática de qualidade de vídeo quando em segundo plano',
         'ko': '백그라운드에서 자동 비디오 품질 변경 방지',
-        'ja': '',
+        'ja': 'バックグラウンドでのビデオ品質の自動変更を防止する',
         'ru':'Запретить автоматическое изменение качества видео в фоновом режиме'
     },
     settings_feature_isPvqcEnabled_desc: {
@@ -1015,7 +1063,9 @@ export const i18n = {
         'ko': '<strong>* 자동 비디오 품질 변경</strong>' +
             '<br>- 트위치가 백그라운드에 있을 때(탭/작업 전환 시) 자동으로 비디오 품질을 변경하는 것을 방지해요.' +
             '<br>- 트위치 플레이어 오류(# 1000, # 2000)의 대부분을 방지할거에요.',
-        'ja': '',
+        'ja': '<strong>* ビデオ品質の自動変更を防止する</strong>' +
+            '<br>- Twitch がバックグラウンドにある場合 (タブ/タスクの切り替え時) に、ビデオ品質の自動変更を防ぎます。' +
+            '<br>- Twitch プレーヤーのエラー (#1000、#2000) を 99% 防止します。',
         'ru':'<strong>* Предотвратить автоматическое изменение качества видео</strong>' +
             '<br>- Предотвращает автоматическое изменение качества видео, когда Twitch находится в фоновом режиме (при переключении вкладок / задач).' +
             '<br>- Предотвращает 99% ошибок игрока Twitch (# 1000, # 2000).'
@@ -1027,7 +1077,7 @@ export const i18n = {
         'fr': 'Plein écran avec chat',
         'pt_BR': 'Tela inteira com bate-papo',
         'ko': '전체 화면 + 채팅 버튼',
-        'ja': '',
+        'ja': 'フルスクリーン + チャットボタン',
         'ru':'Полный экран с чатом'
     },
     settings_feature_isfScrnWithChatEnabled_desc: {
@@ -1085,7 +1135,15 @@ export const i18n = {
             '<br>- 모드에서 전체 화면을 종료한 후 전체 화면으로 돌아가면 사용자 지정 채팅이 다시 생성되요.' +
             '<br>- 플레이어 큰트롤에서 버튼을 다시 클릭해 모드를 종료하거나 사용자 지정 채팅에서 닫기(x) 버튼을 클릭해 전체화면을 종료할 수 있어요.' +
             '<br><span class="tp-chrome-hide" >-Firefox 유저 - ESC를 두번 눌러 \'기본 채팅\' 모드를 종료할 수 있어요.',
-        'ja': '',
+        'ja': '<strong>* チャット付きフルスクリーン</strong>' +
+            '<br>- ボタンは、プレーヤー コントロールの \'シアター モード\' または \'フルスクリーン\' ボタンの横に表示されます。' +
+            '<br>- カーソルを合わせると、2 つのオプションが表示されます。カスタム チャットまたはデフォルト チャットを使用した全画面表示です。' +
+            '<br>- カスタム チャットは自動的にビデオの右側に配置され、画面の高さまで引き伸ばされます。' +
+            '<br>- チャット ボックスの上部にあるコントロールを使用して、サイズの変更、移動、両側への配置、スタイルの変更を行うことができます。' +
+            '<br>- カスタム チャットの設定 (位置、サイズ、色など) は、現在のページ セッション用に保存されます。' +
+            '<br>- モード中にフルスクリーンを終了してからフルスクリーンに戻ると、カスタム チャットが再び表示されます。' +
+            '<br>- プレーヤー コントロールのボタンをもう一度クリックしてモードを終了するか、カスタム チャットの閉じる (x) ボタンをクリックしてフルスクリーンを終了します。' +
+            '<br><span class="tp-chrome-hide" >- Firefox ユーザー - ESC をダブルタップして \'Default-Chat\' モードを終了してください。</span>',
         'ru':'<strong>* Полный экран с чатом</strong>' +
             '<br>- Кнопка будет отображаться рядом с кнопкой «режим театра» или «полноэкранный режим» в элементах управления плеером.' +
             '<br>- При наведении курсора на него отобразятся два варианта: «Полный экран с пользовательским чатом» или «Чат по умолчанию».' +
@@ -1103,7 +1161,7 @@ export const i18n = {
         'fr': 'Bouton Image dans l\'image',
         'pt_BR': 'Botão de imagem em imagem',
         'ko': 'Picture In Picture 버튼',
-        'ja': '',
+        'ja': 'ピクチャー イン ピクチャー ボタン',
         'ru':'Картинка в картинке'
     },
     settings_feature_isPipEnabled_desc: {
@@ -1125,7 +1183,9 @@ export const i18n = {
         'ko': '<strong>* Picture In Picture</strong>' +
             '<br>- 플레이어 컨트롤의 \'극장 모드\' 옆에 버튼이 표시되요.' +
             '<br>- 클릭하면 현재 방송에 대한 브라우저의 \'PIP(Picture In Picture)\'가 시작되요.',
-        'ja': '',
+        'ja': '<strong>* ピクチャー イン ピクチャー</strong>' +
+            '<br>- ボタンは、プレーヤー コントロールの「シアター モード」ボタンの横に表示されます。' +
+            '<br>- クリックすると、現在のストリームのブラウザのピクチャ イン ピクチャが起動します。',
         'ru':'<strong>* Картинка в картинке</strong>' +
             '<br>- Кнопка будет отображаться рядом с кнопкой «режим театра» в элементах управления плеером.' +
             '<br>- При нажатии на нее запускается режим «Картинка в картинке» в браузере.'
@@ -1137,7 +1197,7 @@ export const i18n = {
         'fr': 'Bouton d\'avance rapide',
         'pt_BR': 'Botão Fast-Forward',
         'ko': '빨리 감기 버튼',
-        'ja': '',
+        'ja': '早送りボタン',
         'ru':'Кнопка перемотки вперед'
     },
     settings_feature_subtext_isFastForwardEnabled: {
@@ -1147,7 +1207,7 @@ export const i18n = {
         'fr': '(s\'affiche dans les commandes du lecteur, utile si le flux vidéo est retardé)',
         'pt_BR': '(mostra nos controles do player, útil se o fluxo de vídeo estiver atrasado)',
         'ko': '(플레이어 컨트롤에 표시, 방송이 지연되는 경우 쓸만함)',
-        'ja': '',
+        'ja': '(プレーヤー コントロールに表示されます。ストリームが遅延している場合に役立ちます)',
         'ru':'(отображается в элементах управления плеером, полезно, если видеопоток задерживается)'
     },
     settings_feature_isFastForwardEnabled_desc: {
@@ -1175,7 +1235,10 @@ export const i18n = {
             '<br>- 방송이 지연되는 경우 쓸만해요.' +
             '<br>- 버튼은 \'재생/일시정지\' 버튼 옆에 있는 플레이어 컨트롤에 표시되요.' +
             '<br>- 버퍼의 최신 지점으로 방송을 빨리 감기 하려면 클릭하세요.',
-        'ja': '',
+        'ja': '<strong>* 早送りボタン</strong>' +
+            '<br>- ストリームが遅延している場合に便利です。' +
+            '<br>- ボタンはプレーヤー コントロールの [再生/一時停止] ボタンの横に表示されます。' +
+            '<br>- クリックすると、ストリームがバッファ内の最新のポイントに早送りされます。',
         'ru':'<strong>* Кнопка перемотки вперед</strong>' +
             '<br>- Полезно, если ваш видеопоток задерживается.' +
             '<br>- Кнопка будет отображаться в элементах управления плеером рядом с кнопкой «воспроизведение / пауза».' +
@@ -1188,7 +1251,7 @@ export const i18n = {
         'fr': 'Déplacer le temps vidéo à l\'aide des touches fléchées du clavier',
         'pt_BR': 'Mova o tempo de vídeo usando as teclas de seta do teclado',
         'ko': '키보드 화살표 키를 이용해 방송 탐색하기',
-        'ja': '',
+        'ja': 'キーボードの矢印キーを使用してストリームをシークする',
         'ru':'Перемещение времени видео с помощью клавиш со стрелками на клавиатуре'
     },
     settings_feature_isSeekEnabled_desc: {
@@ -1216,7 +1279,10 @@ export const i18n = {
             '<br>- 키보드 왼쪽/오른쪽 화살표 키를 이용해 앞, 뒤로 5초를 건너뛰어요.' +
             '<br>- 참고: 이 기능은 버퍼에서 재생 지점을 이동하며, 이 지점은 트위치에 의해 지속적으로 지워지므로 가끔 먹통이 될 수도 있어요.' +
             '<br>- 참고: 버퍼 크기는 0초~2분 사이에요.',
-        'ja': '',
+        'ja': '<strong>* キーボードの矢印キーを使用してストリームをシーク</strong>' +
+            '<br>- キーボードの左右矢印キーを使用して 5 秒前後にシークします。' +
+            '<br>- 注: この機能は、Twitch によって常にクリアされるバッファー内の再生ポイントを移動するため、シークが中断されることがあります。' +
+            '<br>- 注: バッファ サイズは 0 秒から 2 分の間で変化します。',
         'ru':'<strong>* Перемещение времени видео с помощью клавиш со стрелками на клавиатуре</strong>' +
             '<br>- Переход на 5 секунд назад или вперед с помощью клавиш со стрелками влево / вправо на клавиатуре.' +
             '<br>- Примечание: эта функция перемещает точку воспроизведения в буфере, который Twitch постоянно очищает, поэтому поиск иногда может прерываться.' +
@@ -1229,7 +1295,7 @@ export const i18n = {
         'fr': 'Bouton de capture d\'écran',
         'pt_BR': 'Botão de captura de tela',
         'ko': '방송 스크린샷 버튼',
-        'ja': '',
+        'ja': 'スクリーンショット ストリーム ボタン',
         'ru':'Кнопка снимка экрана'
     },
     settings_feature_isScreenshotEnabled_desc: {
@@ -1257,7 +1323,10 @@ export const i18n = {
             '<br>- 플레이어 컨트롤에 버튼이 표시되요.' +
             '<br>- 여러 장의 스크린샷을 캡쳐한 다음 원하는 것만 저장할 수 있어요.' +
             '<br>- 스크린샷은 방송과 동일한 해상도로 캡쳐되요.',
-        'ja': '',
+        'ja': '<strong>* スクリーンショット ストリーム ボタン</strong>' +
+            '<br>- ボタンはプレーヤー コントロールに表示されます。' +
+            '<br>- 複数のスクリーンショットをキャプチャして、気に入ったものだけを保存できます。' +
+            '<br>- スクリーンショットはストリームと同じ解像度でキャプチャされます。',
         'ru':'<strong>* Кнопка снимка экрана</strong>' +
             '<br>- Кнопка отобразится в элементах управления плеером.' +
             '<br>- Вы можете сделать несколько снимков экрана, а затем сохранить только те, которые вам нравятся.' +
@@ -1271,7 +1340,7 @@ export const i18n = {
         'fr': 'Bouton Enregistrer le flux',
         'pt_BR': 'Botão Gravar Fluxo',
         'ko': '방송 녹화 버튼',
-        'ja': '',
+        'ja': '録画ストリーム ボタン',
         'ru':'Кнопка записи потока'
     },
     rec_pb_download_recording_btn: {
@@ -1281,7 +1350,7 @@ export const i18n = {
         'fr': 'Télécharger l\'enregistrement',
         'pt_BR': 'Baixar Gravação',
         'ko': '다운로드',
-        'ja': '',
+        'ja': 'ダウンロード記録',
         'ru':'Скачать запись'
     },
     rec_pb_player_name: {
@@ -1291,7 +1360,7 @@ export const i18n = {
         'fr': 'Enregistrements Lecteur vidéo',
         'pt_BR': 'Reprodutor de vídeo de gravações',
         'ko': '동영상 재생',
-        'ja': '',
+        'ja': '録画ビデオプレーヤー',
         'ru':'Видео-плеер'
     },
     rec_pb_player_select_file_btn: {
@@ -1301,12 +1370,12 @@ export const i18n = {
         'fr': 'Sélectionnez le fichier vidéo',
         'pt_BR': 'Selecionar arquivo de vídeo',
         'ko': '비디오 파일 선택',
-        'ja': '',
+        'ja': 'ビデオファイルを選択',
         'ru':'Выберите видеофайл'
     },
     rec_pb_save_recording_note_text: {
         'en': 'Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly\nopen them in the Recordings Video Player (button next to the record button).' +
-        '\n\n- Remember to re-enable "Hardware Acceleration".',
+            '\n\n- Remember to re-enable "Hardware Acceleration".',
         'es': 'Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente\nábralos en Recordings Video Player (botón al lado del botón de grabación).' +
             '\n\n- Recuerde volver a habilitar "Aceleración de hardware".',
         'de': 'Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen\nÖffnen Sie sie im Recordings Video Player (neben der Aufnahmetaste).' +
@@ -1317,7 +1386,8 @@ export const i18n = {
             '\n\n- Lembre-se de reativar a "Aceleração de Hardware".',
         'ko': '참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요.\n동영상 재생 에서 열기(녹음 버튼 옆에 있는 버튼).' +
             '\n\n- "하드웨어 가속"을 다시 활성화하는 것을 잊지 마십시오.',
-        'ja': '',
+        'ja': '注: ブラウザの問題により、録画を適切に再生するために、録画は継続時間などのメタデータなしで保存されます。\n録画ビデオ プレーヤー (録画ボタンの横のボタン) で開いてください。' +
+            '\n\n- 「ハードウェア アクセラレーション」を再度有効にすることを忘れないでください。',
         'ru':'Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей\nоткрыть их в видеоплеере записей (кнопка рядом с кнопкой записи).' +
             '\n\n- Не забудьте снова включить «Аппаратное ускорение».'
     },
@@ -1370,7 +1440,14 @@ export const i18n = {
             '<br>- 플레이어에 오류가 있거나 스트림이 변경되었거나 볼륨이 음소거된 경우 녹음이 자동으로 중지되고 파일에 저장됩니다.' +
             '<br>- 참고: 재생 중에 검은색 화면이 표시되면 기록하기 전에 브라우저에서 하드웨어 가속을 다른 상태로 전환합니다(이후 브라우저를 다시 시작). 하드웨어 가속을 끈 경우 기록 후 다시 활성화하는 것을 잊지 마십시오.' +
             '<br>- 참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요\n동영상 재생 에서 열기(녹음 버튼 옆에 있는 버튼).',
-        'ja': '',
+        'ja': '<strong>* 録画ストリーム ボタン</strong>' +
+            '<br>- ボタンはプレーヤー コントロールに表示されます。' +
+            '<br>- クリックして記録を開始し、もう一度クリックして記録を停止し、保存します。' +
+            '<br>- 「キーボードの矢印を使用して探す」機能とうまく連携します。' +
+            '<br>- 毎秒 60 フレームで記録し、保存サイズは 1080P(60) で約 500KB/秒です。' +
+            '<br>- プレーヤーにエラーが発生した場合、ストリームが変更された場合、または音量がミュートされた場合、録画は自動的に停止してファイルに保存されます。' +
+            '<br>- 注: 再生中に黒い画面が表示される場合は、記録する前にブラウザのハードウェア アクセラレーションを別の状態に切り替えてください (後でブラウザを再起動してください)。オフに切り替えた場合は、記録後にハードウェア アクセラレーションを再度有効にすることを忘れないでください。' +
+            '<br>- 注: ブラウザの問題により、録画を適切に再生するために、録画は期間などのメタデータなしで保存されます - 録画ビデオ プレーヤー (録画ボタンの横にあるボタン) で開いてください。',
         'ru':'<strong>* Кнопка записи потока</strong>' +
             '<br>- Кнопка отобразится в элементах управления плеером.' +
             '<br>- Щелкните, чтобы начать запись, щелкните еще раз, чтобы остановить запись и сохранить.' +
@@ -1387,7 +1464,7 @@ export const i18n = {
         'fr': 'Bouton Défenseur Flashbang',
         'pt_BR': 'Botão Defensor Flashbang',
         'ko': '눈뽕 방지 버튼',
-        'ja': '',
+        'ja': 'フラッシュディフェンダーボタン',
         'ru':'Кнопка Flashbang Defender'
     },
     settings_feature_isFlashBangDefenderEnabled_desc: {
@@ -1415,7 +1492,10 @@ export const i18n = {
             '<br>- 늦은 밤에 스트리머가 흰색 화면을 열 때 사용해요.' +
             '<br>- 방송 상단의 반투명 오버레이를 토글해요.' +
             '<br>- 플레이어 컨트롤에 버튼이 표시되요.',
-        'ja': '',
+        'ja': '<strong>* フラッシュディフェンダーボタン</strong>' +
+            '<br>- 深夜にストリーマーが白い画面を開く場合に。' +
+            '<br>- ストリームの上にある半透明のオーバーレイを切り替えます。' +
+            '<br>- ボタンはプレーヤー コントロールに表示されます。',
         'ru':'<strong>* Кнопка Flashbang Defender</strong>' +
             '<br>- Когда поздняя ночь и стример открывает белый экран.' +
             '<br>- Включает полупрозрачное наложение поверх потока.' +
@@ -1428,7 +1508,7 @@ export const i18n = {
         'fr': 'Chrome-Cast -> Fermer l\'onglet',
         'pt_BR': 'Chrome-Cast -> Fechar guia',
         'ko': '크롬 캐스트 -> 탭 닫기 버튼',
-        'ja': '',
+        'ja': 'Chrome-Cast -> タブを閉じるボタン',
         'ru':'Chrome-Cast -> Закрыть вкладку'
     },
     settings_feature_isCastEnabled_desc: {
@@ -1462,7 +1542,11 @@ export const i18n = {
             '<br>- 클릭해 새 탭에 전송을 시작한 다음 크롬 캐스트를 중지하지 않고 새 탭을 닫으세요.' +
             '<br>- 모두 자동으로 수행되고 메세지가 표시되면 캐스팅 장치를 선택하기만 하면 되요.' +
             '<br>- 참고: 테스트 중인 기능이에요.',
-        'ja': '',
+        'ja': '<strong>* Chrome-Cast -> タブを閉じる</strong>' +
+            '<br>- ボタンはプレーヤー コントロールに表示されます。' +
+            '<br>- クリックして新しいタブでキャストを開始し、Chrome-Cast を停止せずに新しいタブを閉じます。' +
+            '<br>- すべてが自動的に行われます。プロンプトが表示されたら、キャスト デバイスを選択するだけです。' +
+            '<br>- 注: 実験的な機能です。失敗した場合は再試行してください。',
         'ru':'<strong>* Chrome-Cast -> Закрыть вкладку</strong>' +
             '<br>- Кнопка отобразится в элементах управления плеером.' +
             '<br>- Щелкните его, чтобы начать трансляцию на новой вкладке, а затем закройте новую вкладку, не останавливая Chrome-Cast.' +
@@ -1476,7 +1560,7 @@ export const i18n = {
         'fr': 'Masquer les superpositions d\'extensions Twitch',
         'pt_BR': 'Ocultar sobreposições de extensões do Twitch',
         'ko': 'Twitch 확장 프로그램 오버레이 숨기기',
-        'ja': '',
+        'ja': 'Twitch 拡張機能のオーバーレイを非表示にする',
         'ru':'Скрыть оверлеи расширений Twitch'
     },
     settings_feature_isHideTtvOverlayExtensionsEnabled_desc: {
@@ -1492,7 +1576,8 @@ export const i18n = {
             '<br>- Oculta sobreposições de extensões do Twitch que aparecem no vídeo.',
         'ko': '<strong>* Twitch 확장 프로그램 오버레이 숨기기</strong>' +
             '<br>- 비디오 위에 표시되는 Twitch 확장 오버레이를 숨깁니다.',
-        'ja': '',
+        'ja': '<strong>* Twitch 拡張機能のオーバーレイを非表示</strong>' +
+            '<br>- ビデオの上に表示される Twitch 拡張機能のオーバーレイを非表示にします。',
         'ru':'<strong>* Скрыть оверлеи Twitch Extensions</strong>' +
             '<br>- Скрывает оверлеи расширений Twitch, которые отображаются поверх видео.',
     },
@@ -1503,7 +1588,7 @@ export const i18n = {
         'fr': 'Chat',
         'pt_BR': 'Chat',
         'ko': '채팅',
-        'ja': '',
+        'ja': 'チャット',
         'ru':'Чат'
     },
     settings_feature_isClearChatEnabled: {
@@ -1513,7 +1598,7 @@ export const i18n = {
         'fr': 'Effacer le bouton de discussion',
         'pt_BR': 'Botão Limpar bate-papo',
         'ko': '채팅 초기화 버튼',
-        'ja': '',
+        'ja': 'チャットボタンをクリア',
         'ru':'Кнопка очистки чата'
     },
     settings_feature_subtext_isClearChatEnabled: {
@@ -1523,7 +1608,7 @@ export const i18n = {
         'fr': '(s\'affiche sous le chat)',
         'pt_BR': '(mostra no chat)',
         'ko': '(채팅 아래에 표시됨)',
-        'ja': '',
+        'ja': '(チャットの下に表示されます)',
         'ru':'(отображается под чатом)'
     },
     settings_feature_isClearChatEnabled_desc: {
@@ -1545,7 +1630,9 @@ export const i18n = {
         'ko': '<strong>* К채팅 초기화 버튼</strong>' +
             '<br>- 채팅 아래에 표시되요.' +
             '<br>- 채팅창의 모든 메세지를 지워요.',
-        'ja': '',
+        'ja': '<strong>* クリア チャット ボタン</strong>' +
+            '<br>- ボタンはチャットの下に表示されます。' +
+            '<br>- チャット内のすべてのメッセージを消去します。',
         'ru':'<strong>* Кнопка очистки чата</strong>' +
             '<br>- Под чатом появится кнопка.' +
             '<br>- Удаляет все сообщения в чате.'
@@ -1557,7 +1644,7 @@ export const i18n = {
         'fr': 'Chat en mode navigation privée',
         'pt_BR': 'Chat anônimo',
         'ko': '익명 채팅 버튼',
-        'ja': '',
+        'ja': 'シークレットチャットボタン',
         'ru':'Инкогнито чат'
     },
     settings_feature_subtext_isIncognitoChatEnabled: {
@@ -1567,7 +1654,7 @@ export const i18n = {
         'fr': '(affiché sous le chat si vous êtes banni)',
         'pt_BR': '(exibido abaixo do chat se você for banido)',
         'ko': '(밴 된 경우 채팅 아래에 표시됨)',
-        'ja': '',
+        'ja': '(禁止されている場合はチャットの下に表示されます)',
         'ru':'(отображается под чатом, если вас забанили)'
     },
     settings_feature_isIncognitoChatEnabled_desc: {
@@ -1601,7 +1688,11 @@ export const i18n = {
             '<br>- 크기가 재조정된 창에서 채팅을 열어요.' +
             '<span class="tp-chrome-hide" ><br>- Firefox 사용자는 이 기능을 사용하려면 프로그램이 \'개인 Windows에서 실행\'하도록 수동으로 허용해야 해요.</span>' +
             '<br>- 참고: 확장 프로그램은 기본적으로 익명 모드가 활성화되어 있지 않아요. 채팅 기능이 있는 확장 프로그램(예:이모티콘 확장 프로그램)을 익명 모드에서 사용하려면 브라우저 확장 프로그램 페이지에서 활성화 해야해요. 크롬은 "chrome://extensions/", Firefox는 "about:addons".',
-        'ja': '',
+        'ja': '<strong>* シークレット チャット ボタン</strong>' +
+            '<br>- ボタンはチャットの下に表示されます (禁止されている場合)。' +
+            '<br>- サイズを変更したシークレット ウィンドウでチャットを開きます。' +
+            '<span class="tp-chrome-hide" ><br>- 注: Firefox ユーザーは、この機能を動作させるために、"about:addons" で拡張機能の "プライベート ウィンドウで実行" を手動で許可する必要があります。</span >' +
+            '<br>- 注: 拡張機能はデフォルトではシークレット モードでは有効になっていません。チャット機能付きの拡張機能 (エモート拡張機能など) をシークレット モードで使用する場合は、ブラウザの拡張機能ページでそれらを有効にする必要があります。 Chrome の場合は「chrome://extensions/」、Firefox の場合は「about:addons」。',
         'ru':'<strong>* Инкогнито чат</strong>' +
             '<br>- Кнопка будет отображаться под чатом (если вам запрещен доступ к каналу).' +
             '<br>- Открывает чат в окне инкогнито измененного размера.' +
@@ -1615,7 +1706,7 @@ export const i18n = {
         'fr': 'Prédictions',
         'pt_BR': 'Previsões',
         'ko': '예측',
-        'ja': '',
+        'ja': '予測',
         'ru':'Прогнозы'
     },
     settings_feature_isPredictionsNotificationsEnabled: {
@@ -1625,7 +1716,7 @@ export const i18n = {
         'fr': 'Prédictions Notifications',
         'pt_BR': 'Notificações de previsões',
         'ko': '예측 알림',
-        'ja': '',
+        'ja': '予測通知',
         'ru':'Уведомления о прогнозах'
     },
     settings_feature_subtext_isPredictionsNotificationsEnabled: {
@@ -1635,7 +1726,7 @@ export const i18n = {
         'fr': '(fonctionne sur les onglets Twitch dans le navigateur)',
         'pt_BR': '(funciona nas guias Twitch do navegador)',
         'ko': '(브라우저의 트위치 탭에서 작동함)',
-        'ja': '',
+        'ja': '(ブラウザーの単収縮タブで動作します)',
         'ru':'(работает на вкладках Twitch в браузере)'
     },
     settings_feature_isPredictionsNotificationsEnabled_desc: {
@@ -1663,7 +1754,10 @@ export const i18n = {
             '<br>- 예측이 시작되고 예측 결과 알림이 발생하는지 모를 때 알림이 표시되요(예: 채팅이 닫혀있거나 탭이 브라우저에 있지 않은 경우)' +
             '<br>- 브라우저의 트위치 탭에서 작동해요.' +
             '<br>- 기능을 활성화할 때 Twitch.tv에 대한 알림 권한을 허용해야해요.(프롬프트가 표시됨. 그렇지 않은 경우 URL 왼쪽의 잠금 아이콘을 클릭하고 허용되었는지 확인하세요.)',
-        'ja': '',
+        'ja': '<strong>* 予測通知</strong>' +
+            '<br>- 予測が開始され、それが起こっていることに気付いていないときに予測結果の通知が表示されます (たとえば、チャットが閉じられている場合や、タブまたはブラウザーを開いていない場合)。' +
+            '<br>- ブラウザの Twitch タブで動作します。' +
+            '<br>- この機能を有効にするときは、Twitch.tv の通知許可を許可する必要があります (プロンプトが表示されます。許可されていない場合は、URL の左側にある鍵のアイコンをクリックして、そこで許可されているかどうかを確認してください) )',
         'ru':'<strong>* Уведомления о прогнозах</strong>' +
             '<br>- Прогнозы запущены и уведомления о результатах прогнозов, когда вы не знаете, что это происходит (например, если ваш чат закрыт или вы не находитесь на вкладке или в браузере).' +
             '<br>- Работает на вкладках Twitch в браузере.' +
@@ -1676,17 +1770,17 @@ export const i18n = {
         'fr': 'Prédictions Sniper',
         'pt_BR': 'Sniper de previsões',
         'ko': '고스트 도박왕',
-        'ja': '',
+        'ja': '予測スナイパー',
         'ru':'Прогнозы Снайпер'
     },
     settings_feature_subtext_isPredictionsSniperEnabled: {
-        'en': '(Currently available only for predictions with 2 voting options)\nDefault settings:',
+        'en': '(Currently available only for predictions with 2 voting options)\nGlobal settings:',
         'es': '(Actualmente disponible solo para predicciones con 2 opciones de votación)\nConfiguración por defecto:',
         'de': '(Derzeit nur für Vorhersagen mit 2 Abstimmungsoptionen verfügbar)\nStandardeinstellungen:',
         'fr': '(Actuellement disponible uniquement pour les pronostics avec 2 options de vote)\nParamètres par défaut:',
         'pt_BR': '(Atualmente disponível apenas para previsões com 2 opções de votação)\nConfigurações padrão:',
         'ko': '(현재 2가지 투표 옵션이 있는 예측에만 사용 가능)\n기본 세팅:',
-        'ja': '',
+        'ja': '(現在、2 つの投票オプションを使用した予測でのみ使用できます)\n全体設定：',
         'ru':'(В настоящее время доступно только для прогнозов с 2 вариантами голосования)\nНастройки по умолчанию:'
     },
     settings_feature_isPredictionsSniperEnabled_desc: {
@@ -1768,7 +1862,19 @@ export const i18n = {
             '<br><strong>최소 비율 차이%</strong> - 두 선택지 사이에 필요한 최소 비율 차이를 백분율로 나타내요.' +
             '<br><strong>예시:</strong> A - 100표, B - 115표, 투표 비율: A-46,51% B-53,49%, <strong> 비율 차이: 6,98% </strong> (53,49% - 46,51%). <strong> 최소 투표 비율이 6,98%보다 낮으면 </strong>, 자동으로 참여할거에요.' +
             '<br><strong>초 -</strong> 예측이 종료되기 전 예측하는 시간(초)이에요. - 최소 2초',
-        'ja': '',
+        'ja': '<strong>* 予測スナイパー</strong>' +
+            '<br>- 予測スナイパーが予測に参加します。' +
+            '<br>- ブラウザの Twitch タブで動作します。' +
+            '<br>- 狙撃兵は、エントリー時に投票数が最も多いオプションを選択します (予測が終了する x 秒前)。' +
+            '<br>- チャットを開いている場合 (必要ありません)、スナイパーが予測に入った瞬間に予測メニューが表示されます。' +
+            '<br>- 何が起こっているかをリアルタイムで知りたい場合は、\'Predictions notifications\' 機能を有効にすることができます。' +
+            '<br>- 個々のストリームのスナイパー設定を変更するには、チャットの下にある [スナイパー設定] ボタンをクリックします。' +
+            '<br><strong>グローバル設定:</strong>' +
+            '<br><strong>賭け % -</strong> スナイパーに賭けさせたいチャネル ポイントの割合。' +
+            '<br><strong>最大ポイント数 -</strong> スナイパーが投票できる最大ポイント数。' +
+            '<br><strong>最低得票率 % -</strong> スナイパーが参加するための 2 つの予測オプション間の最低必要得票率のパーセンテージ表現。' +
+            '<br><strong>例:</strong> オプション A-100 票、オプション B-115 票、得票率: A-46.51% B-53.49%、<strong>得票率: 6.98%</strong> (53.49% - 46.51%)。 <strong>最低投票率が 6.98% 未満</strong>の場合、スナイパーは<strong>参加します</strong>。' +
+            '<br><strong>秒 -</strong> スナイパーが予測を閉じるまでの秒数 (最小 2 秒)。',
         'ru':'<strong>* Прогнозы Снайпер</strong>' +
             '<br>- Снайпер предсказаний будет участвовать в предсказаниях для вас.' +
             '<br>- Работает на вкладках Twitch в браузере.' +
@@ -1790,7 +1896,7 @@ export const i18n = {
         'fr': 'Réglages',
         'pt_BR': 'Configurações',
         'ko': '세팅',
-        'ja': '',
+        'ja': '設定',
         'ru':'Настройки'
     },
     settings_feature_import_export: {
@@ -1800,7 +1906,7 @@ export const i18n = {
         'fr': 'Paramètres d\'importation/exportation',
         'pt_BR': 'Configurações de importação / exportação',
         'ko': '세팅 세이브/로드',
-        'ja': '',
+        'ja': 'インポート/エクスポート設定',
         'ru':'Настройки импорта / экспорта'
     },
     settings_feature_import_export_desc_pt1: {
@@ -1816,7 +1922,8 @@ export const i18n = {
             '<br><strong>- Apenas as configurações selecionadas abaixo serão importadas / exportadas.</strong>',
         'ko': '<strong>* 세팅 세이브/로드</strong>' +
             '<br><strong>- 선택한 설정만 세이브/로드 해요.</strong>',
-        'ja': '',
+        'ja': '<strong>* インポート/エクスポート設定</strong>' +
+            '<br><strong>- 以下で選択した設定のみがインポート/エクスポートされます。</strong>',
         'ru':'<strong>* Настройки импорта / экспорта</strong>' +
             '<br><strong>- Только выбранные ниже настройки будут импортированы / экспортированы.</strong>'
     },
@@ -1833,7 +1940,8 @@ export const i18n = {
             '<br>- A página será atualizada após a importação das configurações e pedirá uma nova permissão se as configurações importadas tiverem recursos habilitados que exijam novas permissões.',
         'ko': '<br>- 멀티 창 레이아웃 설정은 브라우저 해상도와 관련이 있으므로 다른 브라우저 해상도에서 저장된 레이아웃 설정을 사용하면 크기가 다르게 나올거에요.' +
             '<br>- 설정을 가져온 후 페이지가 새로고침되고 가져온 설정에 새 권한이 필요한 경우 새 권한을 요청할거에요.',
-        'ja': '',
+        'ja': '<br>- マルチストリーム レイアウト プリセットは、ブラウザの解像度に関連しています。別のブラウザ解像度で保存されたレイアウト プリセットを使用すると、サイズが異なって見えます。' +
+            '<br>- 設定のインポート後にページが更新され、インポートされた設定で新しい権限を必要とする機能が有効になっている場合は、新しい権限が求められます。',
         'ru':'<br>- Предустановки макета MultiStream соответствуют разрешению вашего браузера, использование сохраненных предустановок макета при другом разрешении браузера будет выглядеть иначе по размеру.' +
             '<br>- Страница обновится после импорта настроек и запросит новое разрешение, если в импортированных настройках включены функции, требующие новых разрешений.'
     },
@@ -1844,7 +1952,7 @@ export const i18n = {
         'fr': 'Importer',
         'pt_BR': 'Importar',
         'ko': '로드',
-        'ja': '',
+        'ja': '輸入',
         'ru':'Импортировать'
     },
     settings_feature_export_btn_text: {
@@ -1854,7 +1962,7 @@ export const i18n = {
         'fr': 'Exporter',
         'pt_BR': 'Exportar',
         'ko': '세이브',
-        'ja': '',
+        'ja': '書き出す',
         'ru':'Экспорт'
     },
     settings_feature_subtext_import_export: {
@@ -1864,7 +1972,7 @@ export const i18n = {
         'fr': '(développer pour la sélection des paramètres)',
         'pt_BR': '(expandir para seleção de configurações)',
         'ko': '(설정 선택을 위해 펼치기)',
-        'ja': '',
+        'ja': '(設定選択のために展開)',
         'ru':'(разверните для выбора настроек)'
     },
     settings_feature_import_export_settings: {
@@ -1874,7 +1982,7 @@ export const i18n = {
         'fr': 'Réglages',
         'pt_BR': 'Configurações',
         'ko': '설정',
-        'ja': '',
+        'ja': '設定',
         'ru':'Настройки'
     },
     settings_feature_import_export_favorites: {
@@ -1884,7 +1992,7 @@ export const i18n = {
         'fr': 'Chaînes favorites',
         'pt_BR': 'Canais favoritos',
         'ko': '즐겨찾기',
-        'ja': '',
+        'ja': 'お気に入り',
         'ru':'Любимые каналы'
     },
     settings_feature_import_export_fb_streamers: {
@@ -1894,7 +2002,7 @@ export const i18n = {
         'fr': 'Chaînes Facebook Gaming',
         'pt_BR': 'Canais Facebook Gaming',
         'ko': '페이스북 게이밍 스트리머',
-        'ja': '',
+        'ja': 'Facebook ゲームストリーマー',
         'ru':'Facebook Gaming каналы'
     },
     settings_feature_import_export_aps_settings: {
@@ -1904,7 +2012,7 @@ export const i18n = {
         'fr': 'Prédictions Sniper paramètres personnalisés par canal',
         'pt_BR': 'Predições Sniper personalizadas por configurações de canal',
         'ko': '방송 설정에 따른 고스트 도박왕 세팅',
-        'ja': '',
+        'ja': '予測スナイパー ストリームごとのカスタム設定',
         'ru':'Прогнозы снайперские настройки для каждого канала'
     },
     settings_feature_import_export_multistream_layouts: {
@@ -1914,7 +2022,7 @@ export const i18n = {
         'fr': 'Préréglages de disposition multiflux',
         'pt_BR': 'Predefinições de layout MultiStream',
         'ko': '멀티 창 레이아웃 사전 설정',
-        'ja': '',
+        'ja': 'マルチストリーム レイアウト プリセット',
         'ru':'Предустановки многопоточного макета'
     },
     settings_feature_import_export_no_selected_err_text: {
@@ -1924,7 +2032,7 @@ export const i18n = {
         'fr': 'pas de paramètres sélectionnés pour l\'import/export',
         'pt_BR': 'nenhuma configuração selecionada para importação / exportação',
         'ko': '세이브/로드 설정이 선택되지 않음',
-        'ja': '',
+        'ja': 'インポート/エクスポートの設定が選択されていません',
         'ru':'нет выбранных настроек для импорта / экспорта'
     },
     settings_feature_isSidebarPreviewsEnabled: {
@@ -1934,7 +2042,7 @@ export const i18n = {
         'fr': 'Aperçus de la barre latérale',
         'pt_BR': 'Visualizações da barra lateral',
         'ko': '사이드바 미리보기',
-        'ja': '',
+        'ja': 'サイドバーのプレビュー',
         'ru':'Предпросмотр боковой панели'
     },
     settings_feature_preview_mode_data_on: {
@@ -1944,7 +2052,7 @@ export const i18n = {
         'fr': 'vidéo',
         'pt_BR': 'vídeo',
         'ko': '비디오',
-        'ja': '',
+        'ja': 'ビデオ',
         'ru':'видео'
     },
     settings_feature_preview_mode_data_off: {
@@ -1954,7 +2062,7 @@ export const i18n = {
         'fr': 'photo',
         'pt_BR': 'foto',
         'ko': '이미지',
-        'ja': '',
+        'ja': '画像',
         'ru':'Фото'
     },
     settings_feature_preview_image_preview: {
@@ -1964,7 +2072,7 @@ export const i18n = {
         'fr': 'photo',
         'pt_BR': 'foto',
         'ko': '이미지\n미리보기',
-        'ja': '',
+        'ja': '画像\nプレビュー',
         'ru':'Фото'
     },
     settings_feature_preview_video_preview: {
@@ -1974,7 +2082,7 @@ export const i18n = {
         'fr': 'vidéo',
         'pt_BR': 'vídeo',
         'ko': '비디오\n미리보기',
-        'ja': '',
+        'ja': 'ビデオ\nプレビュー',
         'ru':'видео'
     },
     settings_feature_preview_size: {
@@ -1984,7 +2092,7 @@ export const i18n = {
         'fr': 'Taille de l\'aperçu :',
         'pt_BR': 'Tamanho da pré-visualização:',
         'ko': '미리보기 크기:',
-        'ja': '',
+        'ja': 'プレビュー サイズ:',
         'ru':'Размер предварительного просмотра:'
     },
     donate_btn_text: {
@@ -1994,7 +2102,7 @@ export const i18n = {
         'fr': 'Faire un don :)',
         'pt_BR': 'D o a r :)',
         'ko': '후원하기 :)',
-        'ja': '',
+        'ja': '寄付 ：）',
         'ru':'Пожертвовать :)'
     },
     settings_donate_above_text: {
@@ -2004,7 +2112,7 @@ export const i18n = {
         'fr': 'Si vous aimez cette extension, pensez\nà contribuer :)',
         'pt_BR': 'Se você gosta desta extensão, considere\ncontribuir :)',
         'ko': '이 프로그램이 마음에 든다면\n후원해주세요 :)',
-        'ja': '',
+        'ja': 'この拡張機能が気に入った場合は、検討してください貢献:)',
         'ru':'Если вам нравится это расширение, подумайте о\nпожертвовании :)'
     },
     settings_rate: {
@@ -2014,7 +2122,7 @@ export const i18n = {
         'fr': 'Noter',
         'pt_BR': 'Avalie',
         'ko': '별점',
-        'ja': '',
+        'ja': '評価',
         'ru':'Оцените'
     },
     settings_share: {
@@ -2024,7 +2132,7 @@ export const i18n = {
         'fr': 'Partager',
         'pt_BR': 'Compartilhe',
         'ko': '공유',
-        'ja': '',
+        'ja': 'シェア',
         'ru':'Поделиться'
     },
     update_toast_updated_title: {
@@ -2034,7 +2142,7 @@ export const i18n = {
         'fr': 'Twitch Previews mis à jour!',
         'pt_BR': 'Twitch Previews atualizado!',
         'ko': 'Twitch Previews 업데이트!',
-        'ja': '',
+        'ja': 'Twitch Previews 更新！',
         'ru':'Twitch Previews обновлено!'
     },
     update_toast_rate_line_text: {
@@ -2044,7 +2152,7 @@ export const i18n = {
         'fr': 'De plus, si vous ne l\'avez pas déjà fait, nous serions ravis que vous évaluiez l\'extension sur la boutique en ligne :)',
         'pt_BR': 'Além disso, se ainda não o fez, adoraríamos se você classificasse a extensão na loja on-line :)',
         'ko': '아직 평가하지 않으셨다면 웹 스토어에서 확장 등급을 매겨주세요 :)',
-        'ja': '',
+        'ja': 'また、まだお持ちでない場合は、ストアで拡張機能を評価していただければ幸いです :)',
         'ru':'Кроме того, если вы еще этого не сделали, мы были бы рады, если бы вы оценили расширение в интернет-магазине :)'
     },
     update_toast_rate_line_new_text: {
@@ -2054,7 +2162,7 @@ export const i18n = {
         'fr': 'Soutenez le développement de cette extension !\nVotre aide est très appréciée! :)',
         'pt_BR': 'Apoie o desenvolvimento desta extensão!\nSeu apoio é muito apreciado! :)',
         'ko': '이 확장의 개발을 지원하십시오!\n귀하의 지원을 대단히 감사합니다! :)',
-        'ja': '',
+        'ja': 'この拡張機能の開発をサポートしてください!\nあなたのサポートは大歓迎です! :)',
         'ru':'Поддержите разработку этого расширения!\nВаша поддержка очень ценится! :)'
     },
     update_toast_rate: {
@@ -2064,7 +2172,7 @@ export const i18n = {
         'fr': 'Noter',
         'pt_BR': 'Avalie',
         'ko': '별점',
-        'ja': '',
+        'ja': '評価',
         'ru':'Оцените'
     },
     update_toast_share: {
@@ -2074,7 +2182,7 @@ export const i18n = {
         'fr': 'Partager',
         'pt_BR': 'Compartilhe',
         'ko': '공유',
-        'ja': '',
+        'ja': 'シェア',
         'ru':'Поделиться'
     },
     update_toast_settings: {
@@ -2084,7 +2192,7 @@ export const i18n = {
         'fr': 'Réglages',
         'pt_BR': 'Configurações',
         'ko': '세팅',
-        'ja': '',
+        'ja': '設定',
         'ru':'Настройки'
     },
     update_toast_contact: {
@@ -2094,7 +2202,7 @@ export const i18n = {
         'fr': 'contacter',
         'pt_BR': 'Contate',
         'ko': '연락',
-        'ja': '',
+        'ja': 'お問い合わせ',
         'ru':'связаться'
     },
     update_toast_close: {
@@ -2104,7 +2212,7 @@ export const i18n = {
         'fr': 'Fermer',
         'pt_BR': 'Fechar',
         'ko': '닫기',
-        'ja': '',
+        'ja': 'クローズ',
         'ru':'OK'
     },
     delayed_rate_toast_title: {
@@ -2114,7 +2222,7 @@ export const i18n = {
         'fr': 'Vous aimez Twitch Previews?',
         'pt_BR': 'Gostando de Twitch Previews?',
         'ko': 'Twitch Previews를 잘 쓰고 계신가요?',
-        'ja': '',
+        'ja': 'Twitch Previews を楽しんでいますか？',
         'ru':'Нравится Twitch Previews?'
     },
     delayed_rate_toast_body: {
@@ -2124,27 +2232,27 @@ export const i18n = {
         'fr': 'Nous serions ravis que vous évaluiez l\'extension sur la boutique en ligne :)',
         'pt_BR': 'Adoraríamos se você classificasse a extensão na loja da web :)',
         'ko': '웹 스토어에서 프로그램을 평가해주세요. :)',
-        'ja': '',
+        'ja': 'ストアで拡張機能を評価していただければ幸いです:)',
         'ru':'Нам бы очень понравилось, если бы вы оценили расширение в интернет-магазине :)'
     },
     new_lang_toast_title: {
-        'en': 'New language: Korean!',
-        'es': 'New language: Korean!',
-        'de': 'New language: Korean!',
-        'fr': 'New language: Korean!',
-        'pt_BR': 'New language: Korean!',
-        'ko': '새로운 언어: 한국어!',
-        'ja': '',
-        'ru':'New language: Korean!'
+        'en': 'New language: Japanese!',
+        'es': 'New language: Japanese!',
+        'de': 'New language: Japanese!',
+        'fr': 'New language: Japanese!',
+        'pt_BR': 'New language: Japanese!',
+        'ko': 'New language: Japanese!',
+        'ja': '新しい言語: 日本語!',
+        'ru':'New language: Japanese!'
     },
     new_lang_toast_body: {
-        'en': 'Translations to Korean were made thanks to 레알트루!',
+        'en': 'translations were made using Google Translate, contact us if you would like to help make the translations in your language more accurate.',
         'es': ' ',
         'de': ' ',
         'fr': ' ',
         'pt_BR': ' ',
         'ko': '트위치-레알트루가 번역했어요.<br>수정이나 추가 사항이 있다고 생각하면 우리에게 문의해주세요.',
-        'ja': '',
+        'ja': '翻訳は Google 翻訳を使用して行われました。お客様の言語での翻訳をより正確にするためにご協力いただける場合は、お問い合わせください。',
         'ru':' '
     },
     delayed_rate_toast_close: {
@@ -2154,7 +2262,7 @@ export const i18n = {
         'fr': 'Fermer et ne plus afficher',
         'pt_BR': 'Fechar e não mostrar novamente',
         'ko': '닫기 & 다시 보지않기',
-        'ja': '',
+        'ja': '閉じて二度と表示しない',
         'ru':'Закрыть и больше не показывать'
     },
     vidPreviewVolBtn_title: {
@@ -2164,7 +2272,7 @@ export const i18n = {
         'fr': 'Cliquez pour prévisualiser le volume',
         'pt_BR': 'Clique para volume de visualização',
         'ko': '미리보기 볼륨 클릭',
-        'ja': '',
+        'ja': 'プレビュー ボリューム',
         'ru':'Нажмите, чтобы просмотреть объем'
     },
     navCardPipBtn_title: {
@@ -2174,7 +2282,7 @@ export const i18n = {
         'fr': 'Image dans l\'image (intégration vidéo)',
         'pt_BR': 'Imagem na imagem (vídeo incorporado)',
         'ko': 'Picture In Picture (비디오 임베드)',
-        'ja': '',
+        'ja': 'ピクチャー・イン・ピクチャー (動画埋め込み)',
         'ru':'Картинка в картинке (встраивание видео)'
     },
     dragndrop_message: {
@@ -2184,7 +2292,7 @@ export const i18n = {
         'fr': 'Allusion:\nFaites glisser et déposez les streamers de la barre latérale sur la page',
         'pt_BR': 'Dica:\nArraste e solte streamers da barra lateral na página',
         'ko': '힌트:\n사이드바에서 페이지로 스트리머를 끌어다 놓기',
-        'ja': '',
+        'ja': 'ヒント：\nストリーマーをサイドバーからページにドラッグ アンド ドロップします',
         'ru':'Совет:\nПеретащите стримеры с боковой панели на страницу'
     },
     preview_loader_text: {
@@ -2194,7 +2302,7 @@ export const i18n = {
         'fr': 'Chargement en cours...',
         'pt_BR': 'carregando...',
         'ko': '로딩 중 ...',
-        'ja': '',
+        'ja': '読み込み中 ...',
         'ru':'загрузка ...'
     },
     preview_loader_offline_text: {
@@ -2204,7 +2312,7 @@ export const i18n = {
         'fr': 'la chaîne est peut-être hors ligne...',
         'pt_BR': 'canal pode estar offline ...',
         'ko': '오프라인...',
-        'ja': '',
+        'ja': 'ストリームがオフラインの可能性があります...',
         'ru':'канал может быть не в сети ...'
     },
     sidebar_yt_channels_section_title: {
@@ -2214,7 +2322,7 @@ export const i18n = {
         'fr': 'CHAINES YOUTUBE',
         'pt_BR': 'CANAIS DO YOUTUBE',
         'ko': '유튜브 채널',
-        'ja': '',
+        'ja': 'YouTubeチャンネル',
         'ru':'КАНАЛЫ YOUTUBE'
     },
     sidebar_yt_channels_title: {
@@ -2224,7 +2332,7 @@ export const i18n = {
         'fr': 'Chaînes YouTube',
         'pt_BR': 'Canais do YouTube',
         'ko': '유튜브 채널',
-        'ja': '',
+        'ja': 'YouTube チャンネル',
         'ru':'Каналы YouTube'
     },
     sidebar_fb_channels_section_title: {
@@ -2234,7 +2342,7 @@ export const i18n = {
         'fr': 'CHAINES FB GAMING',
         'pt_BR': 'CANAIS DO FB GAMING',
         'ko': '페북 게이밍 채널',
-        'ja': '',
+        'ja': 'FB ゲームチャンネル',
         'ru':'КАНАЛЫ FB GAMING'
     },
     sidebar_fb_channels_title: {
@@ -2244,7 +2352,7 @@ export const i18n = {
         'fr': 'Chaînes Facebook',
         'pt_BR': 'Canais do Facebook',
         'ko': '페이스북 채널',
-        'ja': '',
+        'ja': 'Facebookチャンネル',
         'ru':'Каналы Facebook'
     },
     start_multistream_btn_title: {
@@ -2254,7 +2362,7 @@ export const i18n = {
         'fr': 'Démarrer le Multi Stream',
         'pt_BR': 'Iniciar Multi Stream',
         'ko': '멀티 스트림 시작',
-        'ja': '',
+        'ja': 'マルチストリームを開始',
         'ru':'Начать Multi Stream'
     },
     sidebar_followed_channels_title: {
@@ -2264,7 +2372,7 @@ export const i18n = {
         'fr': 'Chaînes suivies',
         'pt_BR': 'Canais seguidos',
         'ko': '팔로우 중인 채널',
-        'ja': '',
+        'ja': 'フォローしているチャンネル',
         'ru':'Отслеживаемые каналы'
     },
     favorites_btn_title: {
@@ -2274,7 +2382,7 @@ export const i18n = {
         'fr': 'Basculer vers la chaîne favorite',
         'pt_BR': 'Alternar canal favorito',
         'ko': '즐겨찾기 토글',
-        'ja': '',
+        'ja': 'お気に入りの切り替え',
         'ru':'Переключить любимый канал'
     },
     sidebar_favorite_channels_section_title: {
@@ -2284,7 +2392,7 @@ export const i18n = {
         'fr': 'CHAÎNES PRÉFÉRÉES',
         'pt_BR': 'CANAIS FAVORITOS',
         'ko': '방송 즐겨찾기',
-        'ja': '',
+        'ja': 'お気に入りのチャンネル',
         'ru':'ЛЮБИМЫЕ КАНАЛЫ'
     },
     sidebar_favorite_channels_title: {
@@ -2294,7 +2402,7 @@ export const i18n = {
         'fr': 'Chaînes favorites',
         'pt_BR': 'Canais favoritos',
         'ko': '방송 즐겨찾기',
-        'ja': '',
+        'ja': 'お気に入りのチャンネル',
         'ru':'Любимые каналы'
     },
     sidebar_favorite_no_live_favorites: {
@@ -2304,7 +2412,7 @@ export const i18n = {
         'fr': 'Pas de chaînes favorites en direct',
         'pt_BR': 'Nenhum canal favorito ao vivo',
         'ko': '방송 중이지 않은 즐겨찾기',
-        'ja': '',
+        'ja': 'ライブのお気に入りはありません',
         'ru':'Нет любимых каналов в прямом эфире'
     },
     sidebar_favorite_show_offline_btn: {
@@ -2314,7 +2422,7 @@ export const i18n = {
         'fr': 'Afficher hors ligne',
         'pt_BR': 'Mostrar off-line',
         'ko': '오프라인으로 표시',
-        'ja': '',
+        'ja': 'オフラインで表示',
         'ru':'Показать в автономном режиме'
     },
     sidebar_favorite_hide_offline_btn: {
@@ -2324,7 +2432,7 @@ export const i18n = {
         'fr': 'Masquer hors ligne',
         'pt_BR': 'Ocultar off-line',
         'ko': '오프라인 숨기기',
-        'ja': '',
+        'ja': 'オフラインを非表示',
         'ru':'Скрыть в автономном режиме'
     },
     sidebar_favorite_no_live_youtubers: {
@@ -2334,7 +2442,7 @@ export const i18n = {
         'fr': 'Aucun youtubeur actuellement en ligne',
         'pt_BR': 'Nenhum youtuber atualmente ao vivo',
         'ko': '방송 중인 유튜버가 없어요',
-        'ja': '',
+        'ja': 'ライブユーチューバーはいません',
         'ru':'Нет активных ютуберов'
     },
     sidebar_favorite_no_live_FB_gaming_streamers: {
@@ -2344,7 +2452,7 @@ export const i18n = {
         'fr': 'Aucun streamer FB Gaming actuellement en direct',
         'pt_BR': 'Nenhum streamer do FB Gaming atualmente ao vivo',
         'ko': '방송 중인 페이스북 게이밍 스트리머가 없어요',
-        'ja': '',
+        'ja': 'ライブ FB ゲームのストリーマーはありません',
         'ru':'Нет активных стримеров FB Gaming'
     },
     sidebar_search_input_placeholder: {
@@ -2354,7 +2462,7 @@ export const i18n = {
         'fr': 'Rechercher une chaîne',
         'pt_BR': 'Canal de Pesquisa',
         'ko': '스트리머 검색',
-        'ja': '',
+        'ja': 'ストリーマーを検索',
         'ru':'Поиск канала'
     },
     sidebar_search_btn_title: {
@@ -2364,7 +2472,7 @@ export const i18n = {
         'fr': 'Rechercher une chaîne',
         'pt_BR': 'Canal de Pesquisa',
         'ko': '스트리머 검색',
-        'ja': '',
+        'ja': 'ストリーマーを検索',
         'ru':'Поиск канала'
     },
     fScrnWithChat_btn_title: {
@@ -2374,7 +2482,7 @@ export const i18n = {
         'fr': 'Plein écran avec chat',
         'pt_BR': 'Tela inteira com bate-papo',
         'ko': '채팅 있는 전체화면',
-        'ja': '',
+        'ja': 'チャット付きフルスクリーン',
         'ru':'Полный экран с чатом'
     },
     fScrnWithChat_custom_chat_btn_title: {
@@ -2384,7 +2492,7 @@ export const i18n = {
         'fr': 'Plein écran + Chat personnalisé',
         'pt_BR': 'Tela inteira + bate-papo personalizado',
         'ko': '전체 화면 + 커스텀 채팅',
-        'ja': '',
+        'ja': 'フルスクリーン + カスタムチャット',
         'ru':'Полный экран + настраиваемый чат'
     },
     fScrnWithChat_default_chat_btn_title: {
@@ -2394,7 +2502,7 @@ export const i18n = {
         'fr': 'Plein écran + Chat par défaut',
         'pt_BR': 'Tela inteira + bate-papo padrão',
         'ko': '전체 화면 + 기본 채팅',
-        'ja': '',
+        'ja': 'フルスクリーン + デフォルトのチャット',
         'ru':'Полный экран + чат по умолчанию'
     },
     seek_indication_seconds_text: {
@@ -2404,7 +2512,7 @@ export const i18n = {
         'fr': 'secondes',
         'pt_BR': 'segundos',
         'ko': '초',
-        'ja': '',
+        'ja': '秒',
         'ru':'секунды'
     },
     seek_indication_end_text: {
@@ -2414,7 +2522,7 @@ export const i18n = {
         'fr': 'Finir',
         'pt_BR': 'Fim',
         'ko': '끝',
-        'ja': '',
+        'ja': '終わり',
         'ru':'Конец'
     },
     clear_chat_btn_title: {
@@ -2424,7 +2532,7 @@ export const i18n = {
         'fr': 'Effacer le chat',
         'pt_BR': 'Limpar conversa',
         'ko': '채팅 초기화',
-        'ja': '',
+        'ja': 'チャットをクリア',
         'ru':'Очистить чат'
     },
     incognito_chat_btn_title: {
@@ -2434,7 +2542,7 @@ export const i18n = {
         'fr': 'Chat en mode navigation privée',
         'pt_BR': 'Chat anônimo',
         'ko': '익명 채팅',
-        'ja': '',
+        'ja': 'シークレット チャット',
         'ru':'Инкогнито чат'
     },
     fast_forward_btn_title: {
@@ -2444,7 +2552,7 @@ export const i18n = {
         'fr': 'Avance rapide',
         'pt_BR': 'Avanço rápido',
         'ko': '앞으로',
-        'ja': '',
+        'ja': '早送り',
         'ru':'Перемотка вперед'
     },
     cast_btn_title: {
@@ -2454,7 +2562,7 @@ export const i18n = {
         'fr': 'Chrome Cast -> Fermer l\'onglet',
         'pt_BR': 'Chrome Cast -> Fechar guia',
         'ko': '크롬 캐스트 -> 탭 닫기',
-        'ja': '',
+        'ja': 'Chrome Cast -> タブを閉じる',
         'ru':'Chrome Cast -> Закрыть вкладку'
     },
     flashbang_defender_btn_title: {
@@ -2464,7 +2572,7 @@ export const i18n = {
         'fr': 'Basculer Flash Defender',
         'pt_BR': 'Alternar Flashbang Defender',
         'ko': '눈뽕 방지',
-        'ja': '',
+        'ja': 'フラッシュディフェンダー',
         'ru':'Переключить Защитник Flash'
     },
     flashbang_defender_slider_title: {
@@ -2474,7 +2582,7 @@ export const i18n = {
         'fr': 'Opacité',
         'pt_BR': 'Opacidade',
         'ko': '투명도',
-        'ja': '',
+        'ja': '不透明度',
         'ru':'Непрозрачность'
     },
     screenshot_btn_title: {
@@ -2484,7 +2592,7 @@ export const i18n = {
         'fr': 'Capture d\'écran',
         'pt_BR': 'Captura de tela',
         'ko': '스크린샷',
-        'ja': '',
+        'ja': 'スクリーンショット',
         'ru':'Снимок экрана'
     },
     record_btn_start_title: {
@@ -2494,7 +2602,7 @@ export const i18n = {
         'fr': 'Commencer l\'enregistrement',
         'pt_BR': 'Comece a gravar',
         'ko': '녹화 시작',
-        'ja': '',
+        'ja': '録音開始',
         'ru':'Начать запись'
     },
     record_btn_stop_title: {
@@ -2504,7 +2612,7 @@ export const i18n = {
         'fr': 'Arrête d\'enregistrer',
         'pt_BR': 'Pare de gravar',
         'ko': '녹화 정지',
-        'ja': '',
+        'ja': '記録を停止',
         'ru':'Остановить запись'
     },
     pip_main_btn_title: {
@@ -2514,7 +2622,7 @@ export const i18n = {
         'fr': 'Démarrer l\'image dans l\'image',
         'pt_BR': 'Iniciar imagem na imagem',
         'ko': 'Picture In Picture',
-        'ja': '',
+        'ja': 'ピクチャー・イン・ピクチャー',
         'ru':'Начать картинку в картинке'
     },
     clip_download_btn_title: {
@@ -2524,7 +2632,7 @@ export const i18n = {
         'fr': 'Télécharger l\'extrait',
         'pt_BR': 'Baixar clipe',
         'ko': '클립 다운로드',
-        'ja': '',
+        'ja': 'クリップをダウンロード',
         'ru':'Скачать клип'
     },
     clip_download_no_clip_found_alert_text: {
@@ -2534,7 +2642,7 @@ export const i18n = {
         'fr': 'aucun clip trouvé',
         'pt_BR': 'nenhum clipe encontrado',
         'ko': '클립을 찾을 수 없음',
-        'ja': '',
+        'ja': 'クリップが見つかりません',
         'ru':'клип не найден'
     },
     aps_notification_denied_alert_text: {
@@ -2545,7 +2653,7 @@ export const i18n = {
             '(vous devriez avoir une bulle de texte ou une icône de verrouillage à gauche de l\'URL)\npuis activez la fonctionnalité.',
         'pt_BR': 'Twitch Previews:\nPara notificações de previsões, ative as notificações de twitch.tv\n(você deve ter um balão de texto ou um ícone de cadeado à esquerda do URL)\ne então habilite o recurso.',
         'ko': 'Twitch Previews:\n예측 알림의 경우 twitch.tv\n(URL 왼쪽에 텍스트 버블 또는 잠금 아이콘이 있어야 함)의 알림을 활성화한 다음 기능을 활성화하세요.',
-        'ja': '',
+        'ja': 'Twitch Previews:\n予測通知については、twitch.tv からの通知を有効にしてください。\n(URL の左側に吹き出しまたはロック アイコンが表示されます)\n機能を有効にします。',
         'ru':'Twitch Previews:\nДля уведомлений о прогнозах включите уведомления от twitch.tv\n(у вас должен быть текстовый пузырь или значок замка слева от URL-адреса)\nа затем включите эту функцию.'
     },
     aps_notification_enabled_notif_text: {
@@ -2555,7 +2663,7 @@ export const i18n = {
         'fr': 'Notifications de prédictions activées !',
         'pt_BR': 'Notificações de previsões ativadas!',
         'ko': '예측 알림 활성화됨!',
-        'ja': '',
+        'ja': '予測通知が有効になりました!',
         'ru':'Уведомления о прогнозах включены!'
     },
     aps_prediction_started_notif_text: {
@@ -2565,7 +2673,7 @@ export const i18n = {
         'fr': 'La prédiction a commencé',
         'pt_BR': 'Predição iniciada',
         'ko': '예측 시작',
-        'ja': '',
+        'ja': '予測開始',
         'ru':'Прогноз начат'
     },
     aps_prediction_closed_or_ended_notif_text: {
@@ -2575,7 +2683,7 @@ export const i18n = {
         'fr': 'Prédiction Fermée / Terminée',
         'pt_BR': 'Previsão fechada / finalizada',
         'ko': '예측 닫기 / 종료',
-        'ja': '',
+        'ja': '予測終了 / 終了',
         'ru':'Прогноз закрыт / завершен'
     },
     aps_prediction_ended_notif_text: {
@@ -2585,7 +2693,7 @@ export const i18n = {
         'fr': 'Prédiction terminée',
         'pt_BR': 'Previsão Terminada',
         'ko': '예측 종료',
-        'ja': '',
+        'ja': '予測終了',
         'ru':'Прогноз завершен'
     },
     aps_prediction_closed_notif_text: {
@@ -2595,7 +2703,7 @@ export const i18n = {
         'fr': 'Prédiction fermée',
         'pt_BR': 'Previsão Fechada',
         'ko': '예측 닫기',
-        'ja': '',
+        'ja': '予測終了',
         'ru':'Прогноз закрыт'
     },
     aps_prediction_closed_before_exec_notif_text: {
@@ -2605,7 +2713,7 @@ export const i18n = {
         'fr': 'La prédiction s\'est terminée avant que le tireur d\'élite ne puisse voter',
         'pt_BR': 'Previsão fechada antes que o atirador pudesse votar',
         'ko': '도박왕이 투표하기 전에 예측이 종료되었어요.',
-        'ja': '',
+        'ja': 'スナイパーが投票する前に予測が終了しました',
         'ru':'Прогноз закрыт до того, как снайпер сможет проголосовать'
     },
     aps_sniper_active_notif_text: {
@@ -2615,7 +2723,7 @@ export const i18n = {
         'fr': 'Prédictions tireur d\'élite actif !',
         'pt_BR': 'Atirador de previsões ativo!',
         'ko': '도박왕 대기 중!',
-        'ja': '',
+        'ja': '予言スナイパー活躍！',
         'ru':'Прогнозы снайперские активные!'
     },
     aps_sniper_didnt_vote_notif_text: {
@@ -2625,7 +2733,7 @@ export const i18n = {
         'fr': 'Sniper n\'a pas voté : la marge de vote était trop faible : ',
         'pt_BR': 'O Sniper não votou: a margem de voto era muito baixa: ',
         'ko': '차이가 너무 낮아 투표하지 않음: ',
-        'ja': '',
+        'ja': 'スナイパーは投票しませんでした: 投票率が低すぎました: ',
         'ru':'Снайпер не голосовал: слишком низкий запас голосов: '
     },
     aps_sniper_voted_title_notif_text: {
@@ -2635,7 +2743,7 @@ export const i18n = {
         'fr': 'Le tireur d\'élite a voté !',
         'pt_BR': 'Sniper votou!',
         'ko': '도박왕이 투표했어요!',
-        'ja': '',
+        'ja': 'スナイパー投票！',
         'ru':'Проголосовал снайпер!'
     },
     aps_sniper_voted_body_notif_text: {
@@ -2645,7 +2753,7 @@ export const i18n = {
         'fr': '%s %s\nLe tireur d\'élite a voté "%s" avec %s points !',
         'pt_BR': '%s %s\nO Sniper votou na "%s" com %s pontos!',
         'ko': '%s %s\n도박왕이 %s 에 %s 점을 투표했어요!',
-        'ja': '',
+        'ja': '%s %s\nスナイパーは %s ポイントで「%s」に投票しました!',
         'ru':'%s %s\nСнайпер проголосовал за %s со %s ballov!'
     },
     aps_vote_now_btn: {
@@ -2655,7 +2763,7 @@ export const i18n = {
         'fr': 'Votez maintenant',
         'pt_BR': 'Vote agora',
         'ko': '지금 투표하기',
-        'ja': '',
+        'ja': '今すぐ投票',
         'ru':'Голосуйте сейчас'
     },
     aps_cancel_vote_btn: {
@@ -2665,7 +2773,7 @@ export const i18n = {
         'fr': 'Annuler le vote à venir',
         'pt_BR': 'Cancelar próxima votação',
         'ko': '이번 투표 취소',
-        'ja': '',
+        'ja': '今後の投票をキャンセル',
         'ru':'Отменить предстоящее голосование'
     },
     aps_check_prediction_btn: {
@@ -2675,7 +2783,7 @@ export const i18n = {
         'fr': 'Vérifie maintenant',
         'pt_BR': 'Verifique agora',
         'ko': '지금 예측하기',
-        'ja': '',
+        'ja': '予測を今すぐチェック',
         'ru':'Проверь сейчас'
     },
     aps_check_prediction_checking_text: {
@@ -2685,7 +2793,7 @@ export const i18n = {
         'fr': 'Vérification...',
         'pt_BR': 'Verificando ...',
         'ko': '예측 중 ...',
-        'ja': '',
+        'ja': 'チェック中...',
         'ru':'Проверяю ...'
     },
     aps_btn_title_status_prefix_text: {
@@ -2695,7 +2803,7 @@ export const i18n = {
         'fr': 'Prédictions Sniper - ',
         'pt_BR': 'Sniper de previsões - ',
         'ko': '고스트 도박왕 - ',
-        'ja': '',
+        'ja': '予測スナイパー - ',
         'ru':'Прогнозы Снайпер - '
     },
     aps_btn_title_status_idle_text: {
@@ -2705,7 +2813,7 @@ export const i18n = {
         'fr': 'Prédictions Sniper - inactif',
         'pt_BR': 'Sniper de previsões - parado',
         'ko': '고스트 도박왕 - 대기 중',
-        'ja': '',
+        'ja': '予測スナイパー - アイドル',
         'ru':'Прогнозы Снайпер - праздный'
     },
     APS_settings_menu_top_title: {
@@ -2715,7 +2823,7 @@ export const i18n = {
         'fr': 'Prédictions Sniper',
         'pt_BR': 'Sniper de previsões',
         'ko': '고스트 도박왕',
-        'ja': '',
+        'ja': '予測スナイパー',
         'ru':'Прогнозы Снайпер'
     },
     aps_settings_menu_title: {
@@ -2725,7 +2833,7 @@ export const i18n = {
         'fr': 'Prédictions Sniper Paramètres pour',
         'pt_BR': 'Sniper de previsões Configurações para',
         'ko': '도박왕 예측 설정',
-        'ja': '',
+        'ja': '予測スナイパーの設定',
         'ru':'Прогнозы Снайпер Настройки для'
     },
     APS_settings_menu_bottom_note: {
@@ -2735,7 +2843,7 @@ export const i18n = {
         'fr': '* Si vous changez de flux après avoir cliqué sur « Annuler le vote à venir », puis revenez en arrière, vous devrez cliquer à nouveau dessus pour annuler le vote à venir.',
         'pt_BR': '* Se você alterar o fluxo após clicar em "Cancelar próxima votação" e, em seguida, alterar novamente, será necessário clicar novamente para cancelar a próxima votação.',
         'ko': '* "이번 투표 취소"를 클릭한 후 방송을 변경한 후 다시 돌아온 경우, 투표를 취소하려면 "이번 투표 취소"를 다시 클릭해야해요.',
-        'ja': '',
+        'ja': '※「次回の投票を取り消す」をクリックした後にストリームを変更してから元に戻す場合は、再度クリックして次回の投票を取り消す必要があります。',
         'ru':'* Если вы измените потоки после нажатия «Отменить предстоящее голосование», а затем вернетесь обратно, вам нужно будет щелкнуть его еще раз, чтобы отменить предстоящее голосование.'
     },
     aps_settings_bet_percent_pt1: {
@@ -2745,7 +2853,7 @@ export const i18n = {
         'fr': 'Pariez:',
         'pt_BR': 'Aposta:',
         'ko': '배팅:',
-        'ja': '',
+        'ja': '賭ける:',
         'ru':'Ставка:'
     },
     aps_settings_bet_percent_pt2: {
@@ -2755,7 +2863,7 @@ export const i18n = {
         'fr': '% de points (Maximum',
         'pt_BR': '% de pontos (máximo',
         'ko': '% 포인트 (최대',
-        'ja': '',
+        'ja': 'ポイントの% (最大',
         'ru':'% баллов (максимум'
     },
     aps_settings_bet_percent_pt3: {
@@ -2765,7 +2873,7 @@ export const i18n = {
         'fr': 'points)',
         'pt_BR': 'pontos)',
         'ko': '포인트)',
-        'ja': '',
+        'ja': 'ポイント）',
         'ru':'баллов)'
     },
     aps_settings_min_vote_margin: {
@@ -2775,7 +2883,7 @@ export const i18n = {
         'fr': 'Marge de vote minimale :',
         'pt_BR': 'Margem mínima de voto:',
         'ko': '최소 투표 차이:',
-        'ja': '',
+        'ja': '最小投票マージン:',
         'ru':'Минимальный запас голосов:'
     },
     aps_settings_seconds_before_closing: {
@@ -2785,7 +2893,7 @@ export const i18n = {
         'fr': 'secondes ou moins avant la clôture du vote',
         'pt_BR': 'segundos ou menos antes do encerramento da votação',
         'ko': '투표 마감 전 시간',
-        'ja': '',
+        'ja': '投票終了まで数秒以内',
         'ru':'секунд или меньше до закрытия голосования'
     },
     multistream_title_close_btn_title: {
@@ -2795,7 +2903,7 @@ export const i18n = {
         'fr': 'Fermer',
         'pt_BR': 'Fechar',
         'ko': '닫기',
-        'ja': '',
+        'ja': 'クローズ',
         'ru':'OK'
     },
     multistream_title_fullscreen_btn_title: {
@@ -2805,7 +2913,7 @@ export const i18n = {
         'fr': 'Plein écran',
         'pt_BR': 'Tela cheia',
         'ko': '전체 화면',
-        'ja': '',
+        'ja': '全画面表示',
         'ru':'Полноэкранный'
     },
     multistream_title_minimize_btn_title: {
@@ -2815,7 +2923,7 @@ export const i18n = {
         'fr': 'Minimiser',
         'pt_BR': 'Minimizar',
         'ko': '최소화',
-        'ja': '',
+        'ja': '最小化',
         'ru':'Минимизировать'
     },
     multistream_title_always_on_top_btn_title: {
@@ -2825,7 +2933,7 @@ export const i18n = {
         'fr': 'Toujours au top',
         'pt_BR': 'Sempre no topo',
         'ko': '항상 제일 앞에',
-        'ja': '',
+        'ja': '常にトップに',
         'ru':'Всегда на вершине'
     },
     multistream_title_color_picker_btn_title: {
@@ -2835,7 +2943,7 @@ export const i18n = {
         'fr': 'Pipette à couleurs',
         'pt_BR': 'Seletor de Cores',
         'ko': '색상 선택',
-        'ja': '',
+        'ja': 'カラーピッカー',
         'ru':'Палитра цветов'
     },
     multistream_title_add_stream_btn_title: {
@@ -2845,7 +2953,7 @@ export const i18n = {
         'fr': 'Ajouter MultiStream',
         'pt_BR': 'Adicionar MultiStream',
         'ko': '멀티 창 추가',
-        'ja': '',
+        'ja': 'マルチストリームを追加',
         'ru':'Добавить MultiStream'
     },
     multistream_title_swap_embeds_btn_title: {
@@ -2855,7 +2963,7 @@ export const i18n = {
         'fr': 'Échanger les emplacements des intégrations vidéo',
         'pt_BR': 'Trocar locais de incorporação de vídeo',
         'ko': '비디오 삽입 위치 교체',
-        'ja': '',
+        'ja': 'スワップ埋め込み',
         'ru':'Поменять местами вставки видео'
     },
     multistream_title_add_chat_btn_title: {
@@ -2865,7 +2973,7 @@ export const i18n = {
         'fr': 'Ajouter une discussion',
         'pt_BR': 'Adicionar bate-papo',
         'ko': '멀티 채팅 추가',
-        'ja': '',
+        'ja': 'マルチチャットを追加',
         'ru':'Добавить чат'
     },
     multistream_align_chat_to_left_btn_title: {
@@ -2875,7 +2983,7 @@ export const i18n = {
         'fr': 'Aligner le chat sur le côté gauche',
         'pt_BR': 'Alinhar bate-papo para o lado esquerdo',
         'ko': '채팅을 왼쪽으로 정렬',
-        'ja': '',
+        'ja': 'チャットを左揃え',
         'ru':'Выровнять чат по левой стороне'
     },
     multistream_align_chat_to_default_btn_title: {
@@ -2885,7 +2993,7 @@ export const i18n = {
         'fr': 'Aligner le chat sur l\'emplacement par défaut',
         'pt_BR': 'Alinhar bate-papo ao local padrão',
         'ko': '채팅을 기본 정렬',
-        'ja': '',
+        'ja': 'チャットをデフォルトに合わせる',
         'ru':'Выровнять чат по умолчанию'
     },
     multistream_align_chat_to_right_btn_title: {
@@ -2895,7 +3003,7 @@ export const i18n = {
         'fr': 'Aligner le chat sur le côté droit',
         'pt_BR': 'Alinhar o bate-papo ao lado direito',
         'ko': '채팅을 오른쪽으로 정렬',
-        'ja': '',
+        'ja': 'チャットを右揃え',
         'ru':'Выровнять чат по правой стороне'
     },
     multistream_font_bold_btn_title: {
@@ -2905,7 +3013,7 @@ export const i18n = {
         'fr': 'Basculer la police en gras',
         'pt_BR': 'Alternar fonte em negrito',
         'ko': '굵은 폰트 토글',
-        'ja': '',
+        'ja': '太字フォントの切り替え',
         'ru':'Переключить жирный шрифт'
     },
     multistream_font_size_increase_btn_title: {
@@ -2915,7 +3023,7 @@ export const i18n = {
         'fr': 'Augmenter la taille de la police',
         'pt_BR': 'Aumentar o tamanho da fonte',
         'ko': '글자 크기 키움',
-        'ja': '',
+        'ja': 'フォントサイズを大きくする',
         'ru':'Увеличить размер шрифта'
     },
     multistream_font_size_decrease_btn_title: {
@@ -2925,7 +3033,7 @@ export const i18n = {
         'fr': 'Diminuer la taille de la police',
         'pt_BR': 'Diminuir tamanho da fonte',
         'ko': '글자 크기 줄임',
-        'ja': '',
+        'ja': 'フォントサイズを小さくする',
         'ru':'Уменьшить размер шрифта'
     },
     multistream_download_screenshot_btn_title: {
@@ -2935,7 +3043,7 @@ export const i18n = {
         'fr': 'Télécharger la capture d\'écran',
         'pt_BR': 'Baixar captura de tela',
         'ko': '스크린샷 다운로드',
-        'ja': '',
+        'ja': 'スクリーンショットをダウンロード',
         'ru': 'Скачать снимок экрана'
     },
     multistream_info_title_pt1: {
@@ -2945,7 +3053,7 @@ export const i18n = {
         'fr': '<-- Rechercher et cliquer',
         'pt_BR': '<-- Pesquisar e clicar',
         'ko': '<-- 검색 & 클릭',
-        'ja': '',
+        'ja': '<-- 検索してクリック',
         'ru': '<-- Поиск и щелчок'
     },
     multistream_info_title_pt2: {
@@ -2955,7 +3063,7 @@ export const i18n = {
         'fr': ' ',
         'pt_BR': ' ',
         'ko': ' ',
-        'ja': '',
+        'ja': ' ',
         'ru':' '
     },
     multistream_preset_delete_confirm_dialog_text: {
@@ -2965,7 +3073,7 @@ export const i18n = {
         'fr': 'Supprimer le préréglage',
         'pt_BR': 'Excluir predefinição',
         'ko': '프리셋 삭제',
-        'ja': '',
+        'ja': 'プリセットを削除 ',
         'ru':'Удалить предустановку'
     },
     multistream_preset_add_name_prompt_text: {
@@ -2975,7 +3083,7 @@ export const i18n = {
         'fr': 'Entrez le nom du préréglage :',
         'pt_BR': 'Insira o nome da predefinição:',
         'ko': '프리셋 이름 입력:',
-        'ja': '',
+        'ja': 'プリセット名を入力:',
         'ru':'Введите имя предустановки:'
     },
     multistream_preset_add_name_prompt_placeholder: {
@@ -2985,7 +3093,7 @@ export const i18n = {
         'fr': 'Nom du préréglage',
         'pt_BR': 'Nome Predefinido',
         'ko': '프리셋 이름',
-        'ja': '',
+        'ja': 'プリセット名',
         'ru':'Имя предустановки'
     },
     multistream_layout_presets_btn_title: {
@@ -2995,7 +3103,7 @@ export const i18n = {
         'fr': 'Préréglages de disposition',
         'pt_BR': 'Predefinições de layout',
         'ko': '레이아웃 프리셋',
-        'ja': '',
+        'ja': 'レイアウトのプリセット',
         'ru':'Предустановки макета'
     },
     multistream_starting_text: {
@@ -3005,7 +3113,7 @@ export const i18n = {
         'fr': 'Démarrage de\nMultiStream...',
         'pt_BR': 'Iniciando\nMultiStream ...',
         'ko': '멀티 창\n 시작 중...',
-        'ja': '',
+        'ja': '起動\nマルチストリーム...',
         'ru':'Запуск\nMultiStream ...'
     },
     cast_closing_tab_text: {
@@ -3015,7 +3123,7 @@ export const i18n = {
         'fr': 'Onglet sur le point de se fermer',
         'pt_BR': 'Guia prestes a fechar',
         'ko': '탭 닫기',
-        'ja': '',
+        'ja': '閉じるタブ',
         'ru':'Вкладка собирается закрыть'
     },
     cast_waiting_text: {
@@ -3025,7 +3133,7 @@ export const i18n = {
         'fr': 'En attente de la\ndisponibilité de Chromecast...',
         'pt_BR': 'Aguardando disponibilidade\ndo Chromecast ...',
         'ko': '크롬 캐스트\n기다리는 중...',
-        'ja': '',
+        'ja': '待っている\nキャストの空き状況...',
         'ru':'Ожидание доступности\nChromecast ...'
     },
     cast_select_device_text: {
@@ -3035,7 +3143,7 @@ export const i18n = {
         'fr': 'Sélectionnez votre\nappareil Chromecast',
         'pt_BR': 'Selecione seu\ndispositivo Chromecast',
         'ko': '캐스트 장치를\n선택하세요.',
-        'ja': '',
+        'ja': 'あなたの選択\nキャスト デバイス',
         'ru':'Выберите свое\nустройство Chromecast'
     },
     cast_click_overlay_text: {
@@ -3045,7 +3153,7 @@ export const i18n = {
         'fr': 'Cliquez pour\ncommencer la diffusion',
         'pt_BR': 'Clique para\nIniciar transmissão',
         'ko': '캐스트 시작을\n클릭하세요.',
-        'ja': '',
+        'ja': 'クリックして\nキャストを開始',
         'ru':'Нажмите, чтобы\nначать трансляцию'
     },
     cast_not_found_err_text: {
@@ -3055,7 +3163,7 @@ export const i18n = {
         'fr': 'Twitch Previews:\nErreur : n\'a pas trouvé le bouton Chromecast',
         'pt_BR': 'Twitch Previews:\nErro: botão Chromecast não encontrado',
         'ko': 'Twitch Previews:\n에러: 크롬캐스트 버튼을 찾을 수 없어요.',
-        'ja': '',
+        'ja': 'Twitch Previews:\nエラー: ChromeCast ボタンが見つかりませんでした',
         'ru':'Twitch Previews:\nОшибка: не удалось найти кнопку Chromecast'
     },
     sidebar_tooltip_bottom_text: {
@@ -3065,7 +3173,7 @@ export const i18n = {
         'fr': 'Live | %s spectateurs',
         'pt_BR': 'Ao vivo | %s espectadores',
         'ko': '생방송 | 시청자 %s명',
-        'ja': '',
+        'ja': 'ライブ配信 | %s人が視聴中',
         'ru':'Прямая трансляция | Зрители: %s'
     },
     offline_text: {
@@ -3075,7 +3183,7 @@ export const i18n = {
         'fr': 'Hors ligne',
         'pt_BR': 'Desligado',
         'ko': '오프라인',
-        'ja': '',
+        'ja': 'オフライン',
         'ru':'Не в сети'
     },
     Reset_To_Global_Settings: {
@@ -3085,7 +3193,7 @@ export const i18n = {
         'fr': 'Réinitialiser aux paramètres globaux',
         'pt_BR': 'Redefinir para configurações globais',
         'ko': '전역 설정으로 재설정',
-        'ja': '',
+        'ja': 'グローバル設定にリセット',
         'ru':'Сбросить глобальные настройки'
     }
 }
