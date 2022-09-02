@@ -1957,7 +1957,7 @@ export const i18n = {
     update_toast_contact: {
         'en': 'Contact',
         'es': 'contacto',
-        'de': 'kontaktiere uns',
+        'de': 'kontaktiere',
         'fr': 'contacter',
         'pt_BR': 'Contate',
         'ko': '연락',
