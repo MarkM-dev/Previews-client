@@ -5910,15 +5910,15 @@
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click the <div class='tp-horizontal-flip' style='display:inline-block;color:#a970ff;background-color: white;border-radius: 4px;padding: 0 2px;' >🕪</div> speaker button on previews in Twitch directories to see the streamer in a bigger preview with controls & audio.</span>"
             +  "             <div style='height: 8px;' > </div>"
             +  "             <span style=\"font-size: 12px;color: whitesmoke;\" >- 'Directory Previews' feature must be enabled.</span>"
-            /*+  "             <br><div style='height: 8px;' > </div>"
-            +  "             <span style=\"font-size: 12px;color: whitesmoke;\" ><img height='40' width='250' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"*/
+            +  "             <br><div style='height: 8px;' > </div>"
+            +  "             <span style=\"font-size: 12px;color: whitesmoke;\" ><img height='40' width='250' src='" + getRuntimeUrl('images/updatetoast_img.jpg') + "' ></span>"
             +  "        </div>"
-            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes and improvements</strong>"
+/*            +  "       <div style=\"font-size: 14px;color: white;margin-top: 20px;\" ><strong style='color: #2cff95;' >- Fixes and improvements</strong>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" ><strong>- Custom sidebar sections:</strong> fixed issues caused by twitch's pinned channels feature.</span>"
             +  "             <div style='height: 8px;' > </div>"
             +  "             <span style=\"font-size: 12px;color: whitesmoke;font-weight: bold;\" >- Fixed mature content warning in previews.</span>"
             +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >You can now hover the preview and approve the mature content message.</span>"
-            +  "       </div>"
+            +  "       </div>"*/
          /*   +  "    </br>"*/
     }
 
