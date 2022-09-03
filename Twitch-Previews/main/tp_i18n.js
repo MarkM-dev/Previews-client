@@ -1399,7 +1399,8 @@ export const i18n = {
             '<br>- Records at 60 frames per second, save size is about 500KB/second for 1080P(60).' +
             '<br>- Recordings will automatically stop and save to file if there was an error with the player or the stream was changed or the volume was muted.' +
             '<br>- Note: If you are seeing a black screen during playback, toggle hardware-acceleration in the browser to the other state before recording (restart your browser after). Remember to re-enable hardware-acceleration after recording if you toggled it off.' +
-            '<br>- Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly - open them in the Recordings Video Player (button next to the record button).',
+            '<br>- Note: due to a browser issue, recordings are saved without metadata like time duration, to play the recordings properly - open them in the Recordings Video Player (button next to the record button).' +
+            '<br>- Experimental feature.',
         'es': '<strong>* Botón de grabación de flujo</strong>' +
             '<br>- El botón se mostrará en los controles del reproductor.' +
             '<br>- Haga clic para comenzar a grabar, haga clic de nuevo para detener la grabación y guardar.' +
@@ -1407,7 +1408,8 @@ export const i18n = {
             '<br>- Graba a 60 fotogramas por segundo, el tamaño de guardado es de aproximadamente 500 KB / segundo para 1080P (60).' +
             '<br>- Las grabaciones se detendrán automáticamente y se guardarán en un archivo si hubo un error con el reproductor, se cambió la transmisión o se silenció el volumen.' +
             '<br>- Nota: Si ve una pantalla negra durante la reproducción, cambie la aceleración de hardware en el navegador a otro estado antes de grabar (reinicie su navegador después). Recuerde volver a habilitar la aceleración de hardware después de grabar si la desactivó.' +
-            '<br>- Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente - ábralos en Recordings Video Player (botón al lado del botón de grabación).',
+            '<br>- Nota: debido a un problema del navegador, las grabaciones se guardan sin metadatos como la duración del tiempo, para reproducir las grabaciones correctamente - ábralos en Recordings Video Player (botón al lado del botón de grabación).' +
+            '<br>- función experimental.',
         'de': '<strong>* Schaltfläche zum Aufnehmen von Streams</strong>' +
             '<br>- Die Schaltfläche wird in den Player-Steuerelementen angezeigt.' +
             '<br>- Klicken Sie auf , um die Aufnahme zu starten, klicken Sie erneut, um die Aufnahme zu stoppen und zu speichern.' +
@@ -1415,7 +1417,8 @@ export const i18n = {
             '<br>- Nimmt mit 60 Bildern pro Sekunde auf, die Speichergröße beträgt etwa 500 KB/Sekunde für 1080P(60).' +
             '<br>- Aufnahmen werden automatisch angehalten und in einer Datei gespeichert, wenn ein Fehler mit dem Player aufgetreten ist oder der Stream geändert oder die Lautstärke stummgeschaltet wurde.' +
             '<br>- Hinweis: Wenn Sie während der Wiedergabe einen schwarzen Bildschirm sehen, schalten Sie die Hardwarebeschleunigung im Browser vor der Aufnahme in den anderen Zustand um (starten Sie Ihren Browser danach neu). Denken Sie daran, die Hardwarebeschleunigung nach der Aufnahme wieder zu aktivieren, wenn Sie sie ausgeschaltet haben.' +
-            '<br>- Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen - Öffnen Sie sie im Recordings Video Player (neben der Aufnahmetaste).',
+            '<br>- Hinweis: Aufgrund eines Browserproblems werden Aufnahmen ohne Metadaten wie Zeitdauer gespeichert, um die Aufnahmen richtig abzuspielen - Öffnen Sie sie im Recordings Video Player (neben der Aufnahmetaste).' +
+            '<br>- Experimentelle Funktion.',
         'fr': '<strong>* Bouton Enregistrer le flux</strong>' +
             '<br>- Le bouton s\'affichera dans les commandes du lecteur.' +
             '<br>- Cliquez pour démarrer l\'enregistrement, cliquez à nouveau pour arrêter l\'enregistrement et sauvegarder.' +
@@ -1423,7 +1426,8 @@ export const i18n = {
             '<br>- Enregistre à 60 images par seconde, la taille de sauvegarde est d\'environ 500 Ko/seconde pour 1080P (60).' +
             '<br>- Les enregistrements s\'arrêteront automatiquement et seront sauvegardés dans un fichier s\'il y a eu une erreur avec le lecteur ou si le flux a été modifié ou si le volume a été coupé.' +
             '<br>- Remarque : Si vous voyez un écran noir pendant la lecture, basculez l\'accélération matérielle dans le navigateur vers l\'autre état avant l\'enregistrement (redémarrez votre navigateur après). N\'oubliez pas de réactiver l\'accélération matérielle après l\'enregistrement si vous l\'avez désactivée.' +
-            '<br>- Remarque : en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement - ouvrez-les dans le lecteur vidéo d\'enregistrements (bouton à côté du bouton d\'enregistrement).',
+            '<br>- Remarque : en raison d\'un problème de navigateur, les enregistrements sont enregistrés sans métadonnées telles que la durée, pour lire les enregistrements correctement - ouvrez-les dans le lecteur vidéo d\'enregistrements (bouton à côté du bouton d\'enregistrement).' +
+            '<br>- Fonction expérimentale.',
         'pt_BR': '<strong>* Botão Gravar Fluxo</strong>' +
             '<br>- O botão aparecerá nos controles do player.' +
             '<br>- Clique para iniciar a gravação, clique novamente para parar a gravação e salve.' +
@@ -1431,7 +1435,8 @@ export const i18n = {
             '<br>- Grava a 60 quadros por segundo, o tamanho de salvamento é de cerca de 500 KB / segundo para 1080P (60).' +
             '<br>- As gravações pararão automaticamente e serão salvas no arquivo se houver um erro com o player, se o fluxo for alterado ou se o volume estiver mudo.' +
             '<br>- Nota: Se você estiver vendo uma tela preta durante a reprodução, alterne a aceleração de hardware no navegador para o outro estado antes de gravar (reinicie o navegador depois). Lembre-se de reativar a aceleração de hardware após a gravação, se você a desativou.' +
-            '<br>- Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente - abra-os no Recordings Video Player (botão ao lado do botão de gravação).',
+            '<br>- Nota: devido a um problema com o navegador, as gravações são salvas sem metadados, como o tempo de duração, para reproduzir as gravações corretamente - abra-os no Recordings Video Player (botão ao lado do botão de gravação).' +
+            '<br>- Função experimental.',
         'ko': '<strong>* 방송 녹화 버튼</strong>' +
             '<br>- 플레이어 컨트롤에 버튼이 표시되요.' +
             '<br>- 녹화를 시작하려면 클릭하고 정지 후 저장하려면 다시 클릭하세요.' +
@@ -1439,7 +1444,8 @@ export const i18n = {
             '<br>- 초당 60프레임으로 녹화하며, 저장 크기는 1080P (60) 기준으로 초당 약 500KB에요..' +
             '<br>- 플레이어에 오류가 있거나 스트림이 변경되었거나 볼륨이 음소거된 경우 녹음이 자동으로 중지되고 파일에 저장됩니다.' +
             '<br>- 참고: 재생 중에 검은색 화면이 표시되면 기록하기 전에 브라우저에서 하드웨어 가속을 다른 상태로 전환합니다(이후 브라우저를 다시 시작). 하드웨어 가속을 끈 경우 기록 후 다시 활성화하는 것을 잊지 마십시오.' +
-            '<br>- 참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요\n동영상 재생 에서 열기(녹음 버튼 옆에 있는 버튼).',
+            '<br>- 참고: 브라우저 이슈로 재생 시간 같은 메타데이터 없이 저장되므로 녹화가 저장될거에요\n동영상 재생 에서 열기(녹음 버튼 옆에 있는 버튼).' +
+            '<br>- 실험 기능.',
         'ja': '<strong>* 録画ストリーム ボタン</strong>' +
             '<br>- ボタンはプレーヤー コントロールに表示されます。' +
             '<br>- クリックして記録を開始し、もう一度クリックして記録を停止し、保存します。' +
@@ -1447,7 +1453,8 @@ export const i18n = {
             '<br>- 毎秒 60 フレームで記録し、保存サイズは 1080P(60) で約 500KB/秒です。' +
             '<br>- プレーヤーにエラーが発生した場合、ストリームが変更された場合、または音量がミュートされた場合、録画は自動的に停止してファイルに保存されます。' +
             '<br>- 注: 再生中に黒い画面が表示される場合は、記録する前にブラウザのハードウェア アクセラレーションを別の状態に切り替えてください (後でブラウザを再起動してください)。オフに切り替えた場合は、記録後にハードウェア アクセラレーションを再度有効にすることを忘れないでください。' +
-            '<br>- 注: ブラウザの問題により、録画を適切に再生するために、録画は期間などのメタデータなしで保存されます - 録画ビデオ プレーヤー (録画ボタンの横にあるボタン) で開いてください。',
+            '<br>- 注: ブラウザの問題により、録画を適切に再生するために、録画は期間などのメタデータなしで保存されます - 録画ビデオ プレーヤー (録画ボタンの横にあるボタン) で開いてください。' +
+            '<br>- 実験的な機能。',
         'ru':'<strong>* Кнопка записи потока</strong>' +
             '<br>- Кнопка отобразится в элементах управления плеером.' +
             '<br>- Щелкните, чтобы начать запись, щелкните еще раз, чтобы остановить запись и сохранить.' +
@@ -1455,7 +1462,8 @@ export const i18n = {
             '<br>- Запись с частотой 60 кадров в секунду, размер сохранения около 500 КБ / секунду для 1080P (60).' +
             '<br>- Запись автоматически остановится и сохранится в файл, если произошла ошибка с плеером, был изменен поток или отключен звук.' +
             '<br>- Примечание. Если во время воспроизведения вы видите черный экран, перед записью переключите аппаратное ускорение в браузере в другое состояние (после этого перезапустите браузер). Не забудьте снова включить аппаратное ускорение после записи, если вы отключили его.' +
-            '<br>- Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей - открыть их в видеоплеере записей (кнопка рядом с кнопкой записи).'
+            '<br>- Примечание: из-за проблемы с браузером записи сохраняются без метаданных, таких как продолжительность, для правильного воспроизведения записей - открыть их в видеоплеере записей (кнопка рядом с кнопкой записи).' +
+            '<br>- Экспериментальная функция.'
     },
     settings_feature_isFlashBangDefenderEnabled: {
         'en': 'FlashBang Defender Button',
