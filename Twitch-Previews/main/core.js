@@ -33,6 +33,7 @@
     let multiStream_curr_zIndex = 5000;
     let startMultiStream_name = false;
     let multiStream_layout_presets = [];
+    let isShowMoreBtnAvailable = true;
     let last_prediction_streamer = "";
     let last_prediction_button_text = "";
     let predictionSniperTimeout = null;
@@ -2312,7 +2313,11 @@
                                         '</svg>';
                                     section_header_figure.parentNode.classList.add('tp-fav-section-figure-clickable');
                                     if (options.sidebarFavorites_always_updated) {
-                                        autoOpenCloseSidebar(section_header_figure);
+                                        if (isShowMoreBtnAvailable) {
+                                            autoOpenCloseSidebar(section_header_figure);
+                                        } else {
+                                            isShowMoreBtnAvailable = true;
+                                        }
                                     } else {
                                         section_header_figure.parentNode.onclick = function () {
                                             autoOpenCloseSidebar(section_header_figure);
@@ -2402,6 +2407,7 @@
                         resolve('done');
                     }, 300);
                 } else {
+                    isShowMoreBtnAvailable = false;
                     resolve('done');
                 }
             } else {
@@ -2468,8 +2474,14 @@
                     if (sideNavSections[0]) {
                         let navCards = getSidebarNavCards(sideNavSections[0]);
                         if (isStreamerOnline(navCards[navCards.length - 1])) {
-                            isCurrentlyExtendingSidebar = false;
-                            resolve('FOLLOWED_LIST_IS_PARTIAL');
+                            if (!isShowMoreBtnAvailable) {
+                                isShowMoreBtnAvailable = true;
+                                isCurrentlyExtendingSidebar = false;
+                                resolve('done');
+                            } else {
+                                isCurrentlyExtendingSidebar = false;
+                                resolve('FOLLOWED_LIST_IS_PARTIAL');
+                            }
                         } else {
                             isCurrentlyExtendingSidebar = false;
                             resolve('done');
@@ -6219,7 +6231,11 @@
                     if (options.isSidebarAlwaysExtendEnabled) {
                         extendSidebar().then(function (promise_result) {
                             if (promise_result === 'FOLLOWED_LIST_IS_PARTIAL') {
-                                autoOpenCloseSidebar(null);
+                                if (isShowMoreBtnAvailable) {
+                                    autoOpenCloseSidebar(null);
+                                } else {
+                                    isShowMoreBtnAvailable = true;
+                                }
                             }
                         });
                     } else {
@@ -7322,7 +7338,6 @@
                 settingsContainer.querySelector('#TPBodyEl').style.height = '610px';
                 settingsContainer.querySelector('.tp_settings_switch_container').style.height = '559px';
             }
-
 
             document.body.appendChild(settingsContainer);
 
