@@ -6702,7 +6702,7 @@
                 if (!document.getElementById('tp_updateToast')) {
                     showToast(getUpdateToastBody(), 'shouldShowUpdatePopup', 'updateToast');
                 } else {
-                    document.getElementById('tp_updateToast').parentNode.removeChild(document.getElementById('tp_updateToast'));
+                    document.getElementById('tp_updateToast').remove();
                 }
             }
         });
