@@ -2292,9 +2292,6 @@
                                             container_div.appendChild(el);
                                             createSidebarTooltip(el, sidebar_scroll_content,{stream_name: offline_favs_arr[i].display_name || offline_favs_arr[i].stream_name, title: '', view_count: _i18n('offline_text'), is_offline_channel: true});
                                             offline_container_div.appendChild(container_div);
-                                            if (options.sidebarFavorites_hide_originals) {
-                                                shown_followed_channels[i].parentNode.style.display = 'none';
-                                            }
                                         }
                                     }
                                 }
