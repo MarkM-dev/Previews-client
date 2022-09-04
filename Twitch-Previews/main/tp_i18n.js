@@ -16,7 +16,7 @@ export const i18n = {
             {code:'fr', display_str: 'Français'},
             {code:'pt_BR', display_str: 'português (Brasil)'},
             {code:'ko', display_str: '한국어'},
-            {code:'ja', display_str: '翻訳'},
+            {code:'ja', display_str: '日本語'},
             {code:'ru', display_str:'русский'}
         ]
     },
