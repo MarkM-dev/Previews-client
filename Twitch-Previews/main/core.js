@@ -5961,7 +5961,7 @@
                             setTimeout(function () {
                                 _browser.storage.local.get('updateToast_latest_show_time', function(result) {
                                     if (result.updateToast_latest_show_time) {
-                                        if ((new Date().getTime() - result.updateToast_latest_show_time) / 1000 > 259200) {
+                                        if ((new Date().getTime() - result.updateToast_latest_show_time) / 1000 > 604800) {
                                             check_shouldShowDelayedRateToast_delayed();
                                         }
                                     } else {
