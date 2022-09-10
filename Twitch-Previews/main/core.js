@@ -1087,7 +1087,7 @@
             isHovering = true;
             lastHoveredCardEl = navCardEl;
 
-            if(lastHoveredCardEl.href.indexOf("/videos/") > 0 || lastHoveredCardEl.href.indexOf("/clip/") > 0) {
+            if(lastHoveredCardEl.href.indexOf("/videos/") > 0 || lastHoveredCardEl.href.indexOf("/clip") > 0) {
                 return;
             }
 
