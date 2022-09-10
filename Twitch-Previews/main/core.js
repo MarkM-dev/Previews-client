@@ -5767,7 +5767,7 @@
 
         updateToast.innerHTML = "<div style=\"font-size: 14px;color: white;\" >\n" +
             "            <div>" +
-            "               <div id='tp_updateToast_discord_btn' class='tp_updateToast_social_btn' ><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 640 512\" width=\"13px\" height=\"16px\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+            /*"               <div id='tp_updateToast_discord_btn' class='tp_updateToast_social_btn' ><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 640 512\" width=\"13px\" height=\"16px\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
             "                        <path d=\"M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,\n" +
             "                        0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,\n" +
             "                        294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,\n" +
@@ -5782,7 +5782,7 @@
             "                            18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391\n" +
             "                            0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934\n" +
             "                            30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292\n" +
-            "                            20.791-32.161 39.308-52.628 54.253z\"></path></svg></div>\n" +
+            "                            20.791-32.161 39.308-52.628 54.253z\"></path></svg></div>\n" +*/
             "               <img id='tp_updateToast_translate_btn' src=\"" + getRuntimeUrl('images/translate.png') + "\" width=\"25\" height=\"25\" title=\"" + geti18nMessage('translateStr') + "\" />\n" +
             "               <img " + hideClass + " id='tp_updateToast_settings_top_btn' src=\"" + getRuntimeUrl('images/settings.png') + "\" width=\"25\" height=\"25\" title=\"" + _i18n('update_toast_settings') + "\" />\n" +
             "               <span " + hideClass + " id='tp_updateToast_dismiss_top_btn' >X</span>\n" +
@@ -5817,14 +5817,14 @@
             "            <div style=\"margin-top: 5px;padding: 5px;cursor: pointer;font-size: 12px;text-align: center;font-weight: bold;\" id='tp_updateToast_dismiss_btn' >" + (toastType === 'delayedRateToast' ? _i18n('delayed_rate_toast_close'):_i18n('update_toast_close')) + "</div>\n" +
             "        </div>";
 
-        updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
+        /*updateToast.querySelector('#tp_updateToast_twitter_btn').onclick = function () {
             sendMessageToBG({action: toastType + "_twitter_btn_click", detail: ""});
             sendMessageToBG({action: "bg_show_twitter", detail: ""});
         };
         updateToast.querySelector('#tp_updateToast_discord_btn').onclick = function () {
             sendMessageToBG({action: "bg_show_discord", detail: ""});
             sendMessageToBG({action: toastType + "_discord_btn_click", detail: ""});
-        };
+        };*/
         updateToast.querySelector('#tp_updateToast_rate_btn').onclick = function () {
             sendMessageToBG({action: toastType + "_rate_btn_click", detail: ""});
             sendMessageToBG({action: "bg_show_rate", detail: ""});
