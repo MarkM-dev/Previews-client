@@ -215,9 +215,11 @@
 
     let titleMutationObserver = new MutationObserver(function(mutations) {
         if (window.location.pathname.indexOf('directory') > -1) {
-            setTimeout(function (){
-                setDirectoryCardsListeners();
-            },1000);
+            if (options.isDirpEnabled) {
+                setTimeout(function (){
+                    setDirectoryCardsListeners();
+                },1000);
+            }
         } else {
             setTimeout(function (){
                 toggleFeatures(true);
@@ -1337,10 +1339,8 @@
     }
 
     function setDirectoryCardsListeners() {
-        if (options.isDirpEnabled) {
-            if (document.querySelector('.common-centered-column')) {
-                refreshDirectoryNavCardsListAndListeners();
-            }
+        if (document.querySelector('.common-centered-column')) {
+            refreshDirectoryNavCardsListAndListeners();
         }
     }
 
