@@ -192,12 +192,6 @@ function upgradeDB(loaded_options) {
         }
     });
 
-    if (Object.prototype.hasOwnProperty.call(loaded_options, 'isImagePreviewMode')) {
-        if (!loaded_options.isImagePreviewMode) {
-            loaded_options.isVideoPreviewMode = true;
-        }
-    }
-
     return {bSetToStorage: bSetToStorage, upgraded_options: loaded_options}
 }
 
