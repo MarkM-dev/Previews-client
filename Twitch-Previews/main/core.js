@@ -6069,7 +6069,7 @@
     function check_FTE() {
         _browser.storage.local.get('isFTE', function(result) {
             if (result.isFTE) {
-                muteAutoplayingVideoElements();
+                //muteAutoplayingVideoElements();
                 _browser.storage.local.set({'isFTE': false}, function() {});
                 check_import_tp_options_availability().then(function () {
                     show_FTE();
