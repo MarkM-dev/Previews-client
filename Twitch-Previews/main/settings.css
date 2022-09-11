@@ -200,7 +200,7 @@
     left: 0;
     opacity: 0;
 }
-#TPBodyEl .switch-label {
+#TPBodyEl .tp-switch-label {
     position: relative;
     display: block;
     height: inherit;
@@ -210,7 +210,7 @@
     border-radius: inherit;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
 }
-#TPBodyEl .switch-label:before, .switch-label:after {
+#TPBodyEl .tp-switch-label:before, .tp-switch-label:after {
     position: absolute;
     top: 50%;
     margin-top: -.5em;
@@ -220,30 +220,30 @@
     -o-transition: inherit;
     transition: inherit;
 }
-#TPBodyEl .switch-label:before {
+#TPBodyEl .tp-switch-label:before {
     content: attr(data-off);
     right: 11px;
     color: #FFFFFF;
     text-shadow: 0 1px rgba(0, 0, 0, 0.2);
 }
-#TPBodyEl .switch-label:after {
+#TPBodyEl .tp-switch-label:after {
     content: attr(data-on);
     left: 11px;
     color: #FFFFFF;
     text-shadow: 0 1px rgba(0, 0, 0, 0.2);
     opacity: 0;
 }
-#TPBodyEl .switch-input:checked ~ .switch-label {
+#TPBodyEl .switch-input:checked ~ .tp-switch-label {
     background: limegreen;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
-#TPBodyEl .switch-input:checked ~ .switch-label:before {
+#TPBodyEl .switch-input:checked ~ .tp-switch-label:before {
     opacity: 0;
 }
-#TPBodyEl .switch-input:checked ~ .switch-label:after {
+#TPBodyEl .switch-input:checked ~ .tp-switch-label:after {
     opacity: 1;
 }
-#TPBodyEl .switch-handle {
+#TPBodyEl .tp-switch-handle {
     position: absolute;
     top: 4px;
     left: 4px;
@@ -254,7 +254,7 @@
     border-radius: 100%;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
-#TPBodyEl .switch-handle:before {
+#TPBodyEl .tp-switch-handle:before {
     content: "";
     position: absolute;
     top: 50%;
@@ -267,13 +267,13 @@
     border-radius: 6px;
     box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
 }
-#TPBodyEl .switch-input:checked ~ .switch-handle {
+#TPBodyEl .switch-input:checked ~ .tp-switch-handle {
     left: 74px;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 /* Transition
     ========================== */
-#TPBodyEl .switch-label, .switch-handle {
+#TPBodyEl .tp-switch-label, .tp-switch-handle {
     transition: All 0.3s ease;
     -webkit-transition: All 0.3s ease;
     -moz-transition: All 0.3s ease;
