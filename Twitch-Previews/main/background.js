@@ -257,8 +257,10 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            if (details.previousVersion !== "5.3") {
+                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+            }
 
             /*if (navigator_lang === 'ja') {
                 _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
