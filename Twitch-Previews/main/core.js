@@ -5864,14 +5864,12 @@
             setConfirmedToastFlag(storageFlagName);
             sendMessageToBG({action: toastType, detail: getSecondsRangeForToast(parseInt((new Date().getTime() - toast_show_time) / 1000)) + 's'});
             remove_toast(updateToast);
-            check_shouldShowNewLangToast();
         };
 
         updateToast.querySelector('#tp_updateToast_dismiss_top_btn').onclick = function () {
             setConfirmedToastFlag(storageFlagName);
             sendMessageToBG({action: toastType, detail: getSecondsRangeForToast(parseInt((new Date().getTime() - toast_show_time) / 1000)) + 's'});
             remove_toast(updateToast);
-            check_shouldShowNewLangToast();
         };
 
         updateToast.querySelector('#tp_updateToast_translate_btn').onclick = function () {
@@ -5979,7 +5977,7 @@
     function check_shouldShowNewLangToast() {
         _browser.storage.local.get('shouldShowNewLangToast', function(result) {
             if (result.shouldShowNewLangToast) {
-                //setTimeout(function () {
+                setTimeout(function () {
                     _browser.storage.local.get('shouldShowNewLangToast', function(result) {
                         if (result.shouldShowNewLangToast) {
                             showToast(getNewLangToastBody(), 'shouldShowNewLangToast', 'newLangToast');
@@ -5988,7 +5986,7 @@
                             });
                         }
                     });
-                //}, 15000)
+                }, 15000)
             }
         });
     }
@@ -7455,7 +7453,7 @@
         check_multistream_start();
         check_cast_start();
         check_shouldShowDelayedRateToast();
-        //check_shouldShowNewLangToast();
+        check_shouldShowNewLangToast();
         checkIfExtensionUpdated_LS();
     }
 
