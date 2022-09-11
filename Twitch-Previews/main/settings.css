@@ -280,7 +280,7 @@
     -o-transition: All 0.3s ease;
 }
 
-#TPBodyEl .slide-container {
+#TPBodyEl .tp-slide-container {
     margin-top: 20px;
     width: 100%;
     font-weight: bold;
