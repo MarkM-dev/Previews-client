@@ -257,7 +257,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-            if (details.previousVersion !== "5.3") {
+            if (details.previousVersion !== "5.3" && details.previousVersion !== "5.4") {
                 _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
                 _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
             }
