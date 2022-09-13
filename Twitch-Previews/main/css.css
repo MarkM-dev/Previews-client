@@ -1844,3 +1844,7 @@
     cursor: default !important;
     background-color: transparent !important;
 }
+
+.tp-custom-sidebar-sortable-header div[data-a-target="side-nav-header-expanded"]>p, .tp-custom-sidebar-sortable-header div[data-a-target="side-nav-header-expanded"] + div {
+    display: none !important;
+}
