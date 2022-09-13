@@ -1589,9 +1589,20 @@
                 append_container = favorites_section.children[1];
             }
 
-            let title_el_text_el = favorites_section.querySelector('.side-nav-header').querySelector('h5') || favorites_section.querySelector('.side-nav-header').querySelector('h2');
+            let title_el_text_el = favorites_section.querySelector('h2') || favorites_section.querySelector('h5');
             if (title_el_text_el) {
                 title_el_text_el.innerText = dataObj.section_title_text;
+            }
+
+            let isTTVSortableSidebar_title_el = !!favorites_section.querySelector('.followed-side-nav-header--expanded');
+            if (isTTVSortableSidebar_title_el) {
+                try {
+                    title_el_text_el.parentNode.querySelector('p').remove();
+                    title_el_text_el.parentNode.nextSibling.remove();
+                    favorites_section.querySelector('button.tw-interactable').classList.add('tp-custom-sidebar-sortable-header');
+                } catch (e) {
+
+                }
             }
         } else {
             if (favorites_section.children[0].id === 'tp_custom_followed_section_header') {

@@ -1839,3 +1839,8 @@
     align-items: center;
     color: var(--color-text-alt-2, #adadb8) !important;
 }
+
+.tp-custom-sidebar-sortable-header:hover {
+    cursor: default !important;
+    background-color: transparent !important;
+}
