@@ -1,4 +1,4 @@
-© Twitch Previews
+© Mark M <https://github.com/MarkM-dev>
 
 We don't really need to write anything here but:
 

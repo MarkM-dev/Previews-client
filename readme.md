@@ -1,18 +1,18 @@
 ![](tp_main.png)
 <br/>
 <br/>
-## **Twitch Previews**
+## **Previews (For TTV)**
                                                                                      
-**Twitch Previews creates a live video or image preview when hovering over a stream on the navigation sidebar (followed streams list on the side) and in twitch directories.**
+**Previews (For TTV) creates a live video or image preview when hovering over a stream on the navigation sidebar (followed streams list on the side) and in twitch directories.**
 <br/><br/>
 **Check out the features list below for more quality of life improvement features to twitch.**
 <br/>
 <br/>
 
 ## Download
-**Twitch Previews is available for all browsers:<br/>**
+**Previews (For TTV) is available for all browsers:<br/>**
 
-**[Chrome Extension](https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/)
+**[Chrome Extension](https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/)
  | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/)**
 <br/>
 * Chromium based browsers can install extensions from the chrome webstore. 
@@ -270,7 +270,7 @@
 * **Advanced Video Embeds**
     - This applies to the Multi-Stream feature and on-the-fly video embeds (not previews).
     - Bypasses purple screen.
-    - Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).
+    - Adds enabled Previews (For TTV) features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).
     - Seeking using the keyboard arrow keys in these embeds will be in 1.5 seconds intervals instead of the normal 5 seconds to allow easier streams synchronization for Multi-Stream.
     - Note: this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.
     - Note: if you're using a different extension that replaces the Twitch main player, you might still experience a purple screen.
@@ -298,4 +298,4 @@
 [privacy policy](https://sites.google.com/view/twitchpreviews-privacy-policy
 ) | [terms and conditions](https://sites.google.com/view/twitchpreviews-t-a-c/) 
 <br/>
-<sub>© Twitch Previews.</sub>
+<sub>© Mark M <https://github.com/MarkM-dev>.</sub>
