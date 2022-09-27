@@ -780,10 +780,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:"https://commerce.coinbase.com/checkout/5421b63d-50e3-4b52-a86d-8404399968d4"});
             break;
         case "bg_show_rate":
-            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
+            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/"});
             break;
         case "bg_show_share":
-            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/twitch-previews/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
+            _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
             break;
         case "bg_show_github":
             _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});

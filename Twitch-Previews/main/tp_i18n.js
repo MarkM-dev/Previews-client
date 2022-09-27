@@ -1,13 +1,13 @@
 export const i18n = {
     app_name: {
-        'en': 'Twitch Previews',
-        'es': 'Twitch Previews',
-        'de': 'Twitch Previews',
-        'fr': 'Twitch Previews',
-        'pt_BR': 'Twitch Previews',
-        'ko': 'Twitch Previews',
-        'ja': 'Twitch Previews',
-        'ru':'Twitch Previews'
+        'en': 'Previews (For TTV)',
+        'es': 'Previews (For TTV)',
+        'de': 'Previews (For TTV)',
+        'fr': 'Previews (For TTV)',
+        'pt_BR': 'Previews (For TTV)',
+        'ko': 'Previews (For TTV)',
+        'ja': 'Previews (For TTV)',
+        'ru':'Previews (For TTV)'
     },
     availableLangs: {0:[
             {code:'en', display_str: 'English'},
@@ -101,21 +101,21 @@ export const i18n = {
         'ru':'Отмена'
     },
     fte_message: {
-        'en': 'Yay! you just got Twitch Previews! your Twitch experience is about to get so much easier :)\n' +
+        'en': 'Yay! you just got Previews! your Twitch experience is about to get so much easier :)\n' +
             'Check out the features in the settings menu below',
-        'es': '¡Hurra! ¡Acabas de agregar Twitch Previews! tu experiencia en Twitch está a punto de volverse mucho más fácil :)\n' +
+        'es': '¡Hurra! ¡Acabas de agregar Previews! tu experiencia en Twitch está a punto de volverse mucho más fácil :)\n' +
             'Verifique las características en el menú de configuración a continuación',
-        'de': 'Yay! du hast gerade Twitch Previews hinzugefügt! deine Twitch-Erfahrung wird so viel einfacher :)\n' +
+        'de': 'Yay! du hast gerade Previews hinzugefügt! deine Twitch-Erfahrung wird so viel einfacher :)\n' +
             'Prüfen Sie die Funktionen im Einstellungsmenü unten',
-        'fr': 'Yay! vous venez d\'ajouter Twitch Previews ! votre expérience Twitch est sur le point de devenir tellement plus simple :)\n' +
+        'fr': 'Yay! vous venez d\'ajouter Previews ! votre expérience Twitch est sur le point de devenir tellement plus simple :)\n' +
             'Vérifiez les fonctionnalités dans le menu des paramètres ci-dessous',
-        'pt_BR': 'Yay! você acabou de adicionar Twitch Previews! sua experiência no Twitch está prestes a ficar muito mais fácil :)\n' +
+        'pt_BR': 'Yay! você acabou de adicionar Previews! sua experiência no Twitch está prestes a ficar muito mais fácil :)\n' +
             'Verifique os recursos no menu de configurações abaixo',
-        'ko': 'Wa! Twitch Previews를 받아주셨군요! 더 멋진 트수 생활을 즐길 수 있게 되었어요! :)\n' +
+        'ko': 'Wa! Previews를 받아주셨군요! 더 멋진 트수 생활을 즐길 수 있게 되었어요! :)\n' +
             '아래의 설정 메뉴에서 기능을 확인해보세요.',
-        'ja': 'わーい！ Twitch Previews を手に入れました！ あなたの Twitch 体験がとても簡単になります :)\n' +
+        'ja': 'わーい！ Previews を手に入れました！ あなたの Twitch 体験がとても簡単になります :)\n' +
             '下の設定メニューで機能を確認してください',
-        'ru':'Ура! вы только что добавили Twitch Previews! Ваш опыт Twitch станет намного проще :)\n' +
+        'ru':'Ура! вы только что добавили Previews! Ваш опыт Twitch станет намного проще :)\n' +
             'Проверьте функции в меню настроек ниже'
     },
     fte_close_btn_text: {
@@ -408,7 +408,7 @@ export const i18n = {
         'en': '<strong>* Advanced Video Embeds</strong>' +
             '<br>- This applies to the Multi-Stream feature and on-the-fly video embeds (not previews).' +
             '<br>- Bypasses purple screen.' +
-            '<br>- Adds enabled Twitch Previews features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).' +
+            '<br>- Adds enabled Previews (For TTV) features to embeds (seek, fast-forward, auto-refresh, picture-in-picture, fullscreen with custom chat, cast -> close tab, flashbang defender, stream screenshot).' +
             '<br>- Seeking using the keyboard arrow keys in these embeds will be in 1.5 seconds intervals instead of the normal 5 seconds to allow easier streams synchronization for Multi-Stream.' +
             '<br>- Note: this feature will use more resources when using said embeds. if you notice performance issues you can turn this feature off.' +
             '<br>- Note: if you\'re using a different extension that replaces the Twitch main player, you might still experience a purple screen.' +
@@ -416,7 +416,7 @@ export const i18n = {
         'es': '<strong>* Incrustaciones de video avanzadas</strong>' +
             '<br>- Esto se aplica a la función de transmisión múltiple y a las incrustaciones de video sobre la marcha (no a las vistas previas).' +
             '<br>- Evita la pantalla violeta.' +
-            '<br>- Agrega funciones habilitadas de Twitch Previews a las incrustaciones (búsqueda, avance rápido, actualización automática, imagen en imagen, pantalla completa con chat personalizado, transmitir -> cerrar pestaña, defensor de flashbang, captura de pantalla de transmisión).' +
+            '<br>- Agrega funciones habilitadas de Previews (For TTV) a las incrustaciones (búsqueda, avance rápido, actualización automática, imagen en imagen, pantalla completa con chat personalizado, transmitir -> cerrar pestaña, defensor de flashbang, captura de pantalla de transmisión).' +
             '<br>- La búsqueda de usar las teclas de flecha del teclado en estas incrustaciones será en intervalos de 1.5 segundos en lugar de los 5 segundos normales para permitir una sincronización de transmisiones más fácil para Multi-Stream.' +
             '<br>- Nota: esta característica usará más recursos al usar dichos incrustados. Si nota problemas de rendimiento, puede desactivar esta función.' +
             '<br>- Nota: si estás usando una extensión diferente que reemplaza al reproductor principal de Twitch, es posible que aún experimentes una pantalla violeta.' +
@@ -440,7 +440,7 @@ export const i18n = {
         'pt_BR': '<strong>* Incorporação de vídeo avançada</strong>' +
             '<br>- Isso se aplica ao recurso Multi-stream e às incorporações de vídeo instantâneo (não às visualizações).' +
             '<br>- Ignora a tela roxa.' +
-            '<br>- Adiciona recursos Twitch Previews habilitados para incorporações (busca, avanço rápido, atualização automática, imagem em imagem, tela cheia com chat personalizado, elenco -> guia fechada, defensor flashbang, captura de tela).' +
+            '<br>- Adiciona recursos Previews (For TTV) habilitados para incorporações (busca, avanço rápido, atualização automática, imagem em imagem, tela cheia com chat personalizado, elenco -> guia fechada, defensor flashbang, captura de tela).' +
             '<br>- A busca usando as teclas de seta do teclado nessas incorporações ocorrerá em intervalos de 1,5 segundos em vez dos 5 segundos normais para permitir a sincronização de fluxos mais fácil para Multi-fluxo.' +
             '<br>- Nota: este recurso usará mais recursos ao usar as referidas incorporações. se você notar problemas de desempenho, pode desligar esse recurso.' +
             '<br>- Nota: se você estiver usando uma extensão diferente que substitui o player principal do Twitch, ainda poderá ver uma tela roxa.' +
@@ -456,7 +456,7 @@ export const i18n = {
         'ja': '<strong>* 高度な動画埋め込み</strong>' +
             '<br>- これは、マルチストリーム機能とオンザフライ ビデオの埋め込み (プレビューではない) に適用されます。' +
             '<br>- パープル スクリーンをバイパスします。' +
-            '<br>- 有効な Twitch Previews 機能を埋め込みに追加します (シーク、早送り、自動更新、ピクチャー イン ピクチャー、カスタム チャットによるフルスクリーン、キャスト -> タブを閉じる、フラッシュバン ディフェンダー、スクリーンショットのストリーミング)。' +
+            '<br>- 有効な Previews (For TTV) 機能を埋め込みに追加します (シーク、早送り、自動更新、ピクチャー イン ピクチャー、カスタム チャットによるフルスクリーン、キャスト -> タブを閉じる、フラッシュバン ディフェンダー、スクリーンショットのストリーミング)。' +
             '<br>- これらの埋め込みでキーボードの矢印キーを使用したシークは、マルチストリームのストリーム同期を容易にするために、通常の 5 秒ではなく 1.5 秒間隔になります。' +
             '<br>- 注: この機能は、前述の埋め込みを使用すると、より多くのリソースを使用します。 パフォーマンスの問題に気付いた場合は、この機能をオフにすることができます。' +
             '<br>- 注: Twitch のメイン プレーヤーを置き換える別の拡張機能を使用している場合でも、紫色の画面が表示されることがあります。' +
@@ -2144,14 +2144,14 @@ export const i18n = {
         'ru':'Поделиться'
     },
     update_toast_updated_title: {
-        'en': 'Twitch Previews updated!',
-        'es': '¡Twitch Previews actualizada!',
-        'de': 'Twitch Previews Aktualisiert!',
-        'fr': 'Twitch Previews mis à jour!',
-        'pt_BR': 'Twitch Previews atualizado!',
-        'ko': 'Twitch Previews 업데이트!',
-        'ja': 'Twitch Previews 更新！',
-        'ru':'Twitch Previews обновлено!'
+        'en': 'Previews (For TTV) updated!',
+        'es': '¡Previews (For TTV) actualizada!',
+        'de': 'Previews (For TTV) Aktualisiert!',
+        'fr': 'Previews (For TTV) mis à jour!',
+        'pt_BR': 'Previews (For TTV) atualizado!',
+        'ko': 'Previews (For TTV) 업데이트!',
+        'ja': 'Previews (For TTV) 更新！',
+        'ru':'Previews (For TTV) обновлено!'
     },
     update_toast_rate_line_text: {
         'en': 'Also, if you haven\'t already, we would love it if you rated the extension on the webstore :)',
@@ -2224,14 +2224,14 @@ export const i18n = {
         'ru':'OK'
     },
     delayed_rate_toast_title: {
-        'en': 'Enjoying Twitch Previews?',
-        'es': '¿Disfrutas de Twitch Previews?',
-        'de': 'Genießen Sie Twitch Previews?',
-        'fr': 'Vous aimez Twitch Previews?',
-        'pt_BR': 'Gostando de Twitch Previews?',
-        'ko': 'Twitch Previews를 잘 쓰고 계신가요?',
-        'ja': 'Twitch Previews を楽しんでいますか？',
-        'ru':'Нравится Twitch Previews?'
+        'en': 'Enjoying Previews (For TTV)?',
+        'es': '¿Disfrutas de Previews (For TTV)?',
+        'de': 'Genießen Sie Previews (For TTV)?',
+        'fr': 'Vous aimez Previews (For TTV)?',
+        'pt_BR': 'Gostando de Previews (For TTV)?',
+        'ko': 'Previews (For TTV)를 잘 쓰고 계신가요?',
+        'ja': 'Previews (For TTV) を楽しんでいますか？',
+        'ru':'Нравится Previews (For TTV)?'
     },
     delayed_rate_toast_body: {
         'en': 'We would love it if you rated the extension on the webstore :)',
@@ -2654,15 +2654,15 @@ export const i18n = {
         'ru':'клип не найден'
     },
     aps_notification_denied_alert_text: {
-        'en': 'Twitch Previews:\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.',
-        'es': 'Twitch Previews:\nPara notificaciones de predicciones, habilite las notificaciones de twitch.tv\n(debe tener una burbuja de texto o un icono de candado a la izquierda de la URL)\ny luego habilite la función.',
-        'de': 'Twitch Previews:\nFür Vorhersagebenachrichtigungen aktivieren Sie bitte Benachrichtigungen von twitch.tv\n(Sie sollten links neben der URL eine Sprechblase oder ein Schlosssymbol haben)\nund aktivieren Sie dann die Funktion.',
-        'fr': 'Twitch Previews:\nPour les notifications de prédictions, veuillez activer les notifications de twitch.tv\n' +
+        'en': 'Previews (For TTV):\nFor Predictions Notifications please enable notifications from twitch.tv\n(you should have a text bubble or a lock icon on the left of the URL)\nand then enable the feature.',
+        'es': 'Previews (For TTV):\nPara notificaciones de predicciones, habilite las notificaciones de twitch.tv\n(debe tener una burbuja de texto o un icono de candado a la izquierda de la URL)\ny luego habilite la función.',
+        'de': 'Previews (For TTV):\nFür Vorhersagebenachrichtigungen aktivieren Sie bitte Benachrichtigungen von twitch.tv\n(Sie sollten links neben der URL eine Sprechblase oder ein Schlosssymbol haben)\nund aktivieren Sie dann die Funktion.',
+        'fr': 'Previews (For TTV):\nPour les notifications de prédictions, veuillez activer les notifications de twitch.tv\n' +
             '(vous devriez avoir une bulle de texte ou une icône de verrouillage à gauche de l\'URL)\npuis activez la fonctionnalité.',
-        'pt_BR': 'Twitch Previews:\nPara notificações de previsões, ative as notificações de twitch.tv\n(você deve ter um balão de texto ou um ícone de cadeado à esquerda do URL)\ne então habilite o recurso.',
-        'ko': 'Twitch Previews:\n예측 알림의 경우 twitch.tv\n(URL 왼쪽에 텍스트 버블 또는 잠금 아이콘이 있어야 함)의 알림을 활성화한 다음 기능을 활성화하세요.',
-        'ja': 'Twitch Previews:\n予測通知については、twitch.tv からの通知を有効にしてください。\n(URL の左側に吹き出しまたはロック アイコンが表示されます)\n機能を有効にします。',
-        'ru':'Twitch Previews:\nДля уведомлений о прогнозах включите уведомления от twitch.tv\n(у вас должен быть текстовый пузырь или значок замка слева от URL-адреса)\nа затем включите эту функцию.'
+        'pt_BR': 'Previews (For TTV):\nPara notificações de previsões, ative as notificações de twitch.tv\n(você deve ter um balão de texto ou um ícone de cadeado à esquerda do URL)\ne então habilite o recurso.',
+        'ko': 'Previews (For TTV):\n예측 알림의 경우 twitch.tv\n(URL 왼쪽에 텍스트 버블 또는 잠금 아이콘이 있어야 함)의 알림을 활성화한 다음 기능을 활성화하세요.',
+        'ja': 'Previews (For TTV):\n予測通知については、twitch.tv からの通知を有効にしてください。\n(URL の左側に吹き出しまたはロック アイコンが表示されます)\n機能を有効にします。',
+        'ru':'Previews (For TTV):\nДля уведомлений о прогнозах включите уведомления от twitch.tv\n(у вас должен быть текстовый пузырь или значок замка слева от URL-адреса)\nа затем включите эту функцию.'
     },
     aps_notification_enabled_notif_text: {
         'en': 'Predictions Notifications Enabled!',
@@ -3165,14 +3165,14 @@ export const i18n = {
         'ru':'Нажмите, чтобы\nначать трансляцию'
     },
     cast_not_found_err_text: {
-        'en': 'Twitch Previews:\nError: didn\'t find ChromeCast Button',
-        'es': 'Twitch Previews:\nError: no encontré el botón Chromecast',
-        'de': 'Twitch Previews:\nFehler: Chromecast-Button nicht gefunden',
-        'fr': 'Twitch Previews:\nErreur : n\'a pas trouvé le bouton Chromecast',
-        'pt_BR': 'Twitch Previews:\nErro: botão Chromecast não encontrado',
-        'ko': 'Twitch Previews:\n에러: 크롬캐스트 버튼을 찾을 수 없어요.',
-        'ja': 'Twitch Previews:\nエラー: ChromeCast ボタンが見つかりませんでした',
-        'ru':'Twitch Previews:\nОшибка: не удалось найти кнопку Chromecast'
+        'en': 'Previews (For TTV):\nError: didn\'t find ChromeCast Button',
+        'es': 'Previews (For TTV):\nError: no encontré el botón Chromecast',
+        'de': 'Previews (For TTV):\nFehler: Chromecast-Button nicht gefunden',
+        'fr': 'Previews (For TTV):\nErreur : n\'a pas trouvé le bouton Chromecast',
+        'pt_BR': 'Previews (For TTV):\nErro: botão Chromecast não encontrado',
+        'ko': 'Previews (For TTV):\n에러: 크롬캐스트 버튼을 찾을 수 없어요.',
+        'ja': 'Previews (For TTV):\nエラー: ChromeCast ボタンが見つかりませんでした',
+        'ru':'Previews (For TTV):\nОшибка: не удалось найти кнопку Chromecast'
     },
     sidebar_tooltip_bottom_text: {
         'en': 'Live | %s viewers',

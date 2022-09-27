@@ -1218,14 +1218,14 @@
 
         let langs = {
             body: {
-                'en': '\nTwitch Previews was updated in the background while the tab was active.\n- Refresh your tab for the extension to resume operation.\n\n* Extensions don\'t have control over update times.',
-                'es': '\nTwitch Previews se actualizó en segundo plano mientras la pestaña estaba activa.\n- Actualice la página para que la extensión reanude su funcionamiento.\n\n* Las extensiones no tienen control sobre los tiempos de actualización.',
-                'de': '\nTwitch Previews wurde im Hintergrund aktualisiert, während der Tab aktiv war.\n- Aktualisieren Sie die Seite für die Erweiterung, um den Betrieb fortzusetzen.\n\n* Erweiterungen haben keine Kontrolle über die Aktualisierungszeiten.',
-                'fr': '\nTwitch Previews a été mis à jour en arrière-plan pendant que l\'onglet était actif.\n - Actualisez la page de l\'extension pour reprendre le fonctionnement.\n\n* Les extensions n\'ont aucun contrôle sur les heures de mise à jour.',
-                'pt_BR': '\nTwitch Previews foi atualizado em segundo plano enquanto a guia estava ativa.\n - Atualize a página do ramal para retomar a operação.\n\n* As extensões não têm controle sobre os tempos de atualização.',
-                'ko': '\nTwitch Previews 탭이 활성화된 동안 백그라운드에서 업데이트되었습니다.\n- 확장 기능의 페이지를 새로고침하여 작업을 재개하세요.\n\n* 확장 프로그램은 업데이트 시간을 제어할 수 없습니다.',
-                'ja': '\nTwitch Previews は、タブがアクティブなときにバックグラウンドで更新されました。\n- 拡張機能のタブを更新して操作を再開します。\n\n* 拡張機能は更新時間を制御できません。',
-                'ru':'\nTwitch Previews обновлялся в фоновом режиме, пока вкладка была активна.\n- Обновите страницу, чтобы расширение возобновило работу.\n\n* Расширения не контролируют время обновления.'
+                'en': '\nPreviews (For TTV) was updated in the background while the tab was active.\n- Refresh your tab for the extension to resume operation.\n\n* Extensions don\'t have control over update times.',
+                'es': '\nPreviews (For TTV) se actualizó en segundo plano mientras la pestaña estaba activa.\n- Actualice la página para que la extensión reanude su funcionamiento.\n\n* Las extensiones no tienen control sobre los tiempos de actualización.',
+                'de': '\nPreviews (For TTV) wurde im Hintergrund aktualisiert, während der Tab aktiv war.\n- Aktualisieren Sie die Seite für die Erweiterung, um den Betrieb fortzusetzen.\n\n* Erweiterungen haben keine Kontrolle über die Aktualisierungszeiten.',
+                'fr': '\nPreviews (For TTV) a été mis à jour en arrière-plan pendant que l\'onglet était actif.\n - Actualisez la page de l\'extension pour reprendre le fonctionnement.\n\n* Les extensions n\'ont aucun contrôle sur les heures de mise à jour.',
+                'pt_BR': '\nPreviews (For TTV) foi atualizado em segundo plano enquanto a guia estava ativa.\n - Atualize a página do ramal para retomar a operação.\n\n* As extensões não têm controle sobre os tempos de atualização.',
+                'ko': '\nPreviews (For TTV) 탭이 활성화된 동안 백그라운드에서 업데이트되었습니다.\n- 확장 기능의 페이지를 새로고침하여 작업을 재개하세요.\n\n* 확장 프로그램은 업데이트 시간을 제어할 수 없습니다.',
+                'ja': '\nPreviews (For TTV) は、タブがアクティブなときにバックグラウンドで更新されました。\n- 拡張機能のタブを更新して操作を再開します。\n\n* 拡張機能は更新時間を制御できません。',
+                'ru':'\nPreviews (For TTV) обновлялся в фоновом режиме, пока вкладка была активна.\n- Обновите страницу, чтобы расширение возобновило работу.\n\n* Расширения не контролируют время обновления.'
             },
             close: {
                 'en': 'Close',
@@ -1259,7 +1259,7 @@
         content.classList.add('tp-top-toast-content');
 
         let title = document.createElement('div');
-        title.innerText = 'Twitch Previews';
+        title.innerText = 'Previews (For TTV)';
 
         let body = document.createElement('div');
         body.innerText = langs.body[options.selected_lang ? options.selected_lang:'en'];
@@ -6909,7 +6909,7 @@
 
                 let loaded_settings = JSON.parse(e1.target.result);
                 let selectedSettingsForImportObj = getSettingsNamesForImport(loaded_settings);
-                let str = 'Twitch Previews Import & Override settings with: ' + e.target.files[0].name + '?' +
+                let str = 'Previews (For TTV) Import & Override settings with: ' + e.target.files[0].name + '?' +
                     '\nImporting & overriding:' + selectedSettingsForImportObj.selectedSettingsString;
 
                 if (confirm(str)) {
@@ -6965,7 +6965,7 @@
             if (!selectedSettingsObj) {
                 return;
             }
-            if (confirm('Twitch Previews selected settings for export:' + selectedSettingsObj.selectedSettingsString + '\n\nExport?')) {
+            if (confirm('Previews (For TTV) selected settings for export:' + selectedSettingsObj.selectedSettingsString + '\n\nExport?')) {
                 let export_obj = {};
 
                 selectedSettingsObj.selectedSettings.reduce((p, x) => getSettingsFromStorage(x)
