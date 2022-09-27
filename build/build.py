@@ -19,8 +19,8 @@ def replace_strings_for_edge():
     with open(background_path, 'r') as f:
         data = f.read()
         data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'edge';''')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://microsoftedge.microsoft.com/addons/detail/twitch-previews/nmekhdckniaiegiekejhmcmddplmliel')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://microsoftedge.microsoft.com/addons/detail/twitch-previews/nmekhdckniaiegiekejhmcmddplmliel')
+        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://microsoftedge.microsoft.com/addons/detail/nmekhdckniaiegiekejhmcmddplmliel')
+        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://microsoftedge.microsoft.com/addons/detail/nmekhdckniaiegiekejhmcmddplmliel')
 
     with open(background_path, 'w') as f:
         f.write(data)
