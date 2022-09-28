@@ -6125,7 +6125,7 @@
                 }
                 btn_container.appendChild(img);
 
-                createTooltip(btn_container, 'bottom', _i18n('app_name'));
+                createTooltip(btn_container, 'bottom', _i18n('app_name_short'));
                 document.querySelector('.top-nav__menu').lastChild.lastChild.before(btn_container);
             }
         } catch (e) {
