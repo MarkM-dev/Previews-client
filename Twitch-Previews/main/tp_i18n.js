@@ -776,7 +776,7 @@ export const i18n = {
         'en': '<strong>* Sidebar Facebook Gaming Channels</strong>' +
             '<br>- A new list at the top of the Twitch sidebar to show your selected Facebook Gaming channels that are currently live on Facebook.' +
             '<br>- Enable the feature and click on the edit button to add Facebook streamers to the list.' +
-            '<br>- The list data will update every 5 minutes.' +
+            '<br>- The list data will update every 10 minutes.' +
             '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream features so you can use the Multi-Stream cross-platform.' +
             '<br>- You don\'t need to be logged in on facebook.' +
             '<br>- It may take a few seconds for the list to update, depending on how many streamers you added.' +
@@ -784,7 +784,7 @@ export const i18n = {
         'es': '<strong>* Barra lateral canales de YouTube</strong>' +
             '<br>- Una nueva lista en la parte superior de la barra lateral de Twitch para mostrar los canales de juegos de Facebook seleccionados que están actualmente en vivo en Facebook.' +
             '<br>- Habilite la función y haga clic en el botón Editar para agregar transmisores de Facebook a la lista.' +
-            '<br>- Los datos de la lista se actualizarán cada 5 minutos.' +
+            '<br>- Los datos de la lista se actualizarán cada 10 minutos.' +
             '<br>- Compatible con las funciones Imagen en imagen personalizada y Multi-Stream & Multi-Chat para que pueda usar Multi-Stream multiplataforma.' +
             '<br>- No es necesario iniciar sesión en Facebook.' +
             '<br>- Es posible que la lista tarde unos segundos en actualizarse, según la cantidad de transmisores que haya agregado.' +
@@ -792,7 +792,7 @@ export const i18n = {
         'de': '<strong>* Seitenleiste YouTube-Kanäle</strong>' +
             '<br>- Eine neue Liste oben in der Twitch-Seitenleiste, um Ihre ausgewählten Facebook-Gaming-Kanäle anzuzeigen, die derzeit auf Facebook live sind.' +
             '<br>- Aktivieren Sie die Funktion und klicken Sie auf die Schaltfläche "Bearbeiten", um Facebook-Streamer zur Liste hinzuzufügen.' +
-            '<br>- Die Listendaten werden alle 5 Minuten aktualisiert.' +
+            '<br>- Die Listendaten werden alle 10 Minuten aktualisiert.' +
             '<br>- Unterstützt von den benutzerdefinierten Picture-in-Picture- und Multi-Stream- und Multi-Chat-Funktionen, sodass Sie Multi-Stream plattformübergreifend verwenden können.' +
             '<br>- Sie müssen nicht bei Facebook angemeldet sein.' +
             '<br>- Es kann einige Sekunden dauern, bis die Liste aktualisiert wird, je nachdem, wie viele Streamer Sie hinzugefügt haben.' +
@@ -800,7 +800,7 @@ export const i18n = {
         'fr': '<strong>* Barre latérale Chaînes YouTube</strong>' +
             '<br>- Une nouvelle liste en haut de la barre latérale Twitch pour afficher vos chaînes de jeu Facebook sélectionnées qui sont actuellement en direct sur Facebook.' +
             '<br>- Activez la fonctionnalité et cliquez sur le bouton Modifier pour ajouter des streamers Facebook à la liste.' +
-            '<br>- Les données de la liste seront mises à jour toutes les 5 minutes.' +
+            '<br>- Les données de la liste seront mises à jour toutes les 10 minutes.' +
             '<br>- Pris en charge par les fonctionnalités Custom Picture-In-Picture et Multi-Stream & Multi-Chat afin que vous puissiez utiliser la multi-plateforme Multi-Stream.' +
             '<br>- Vous n\'avez pas besoin d\'être connecté sur facebook.' +
             '<br>- La mise à jour de la liste peut prendre quelques secondes, selon le nombre de streamers que vous avez ajoutés.' +
@@ -808,7 +808,7 @@ export const i18n = {
         'pt_BR': '<strong>* Barra Lateral Canais do YouTube</strong>' +
             '<br>- Uma nova lista na parte superior da barra lateral do Twitch para mostrar seus canais selecionados do Facebook Gaming que estão atualmente ao vivo no Facebook.' +
             '<br>- Habilite o recurso e clique no botão editar para adicionar streamers do Facebook à lista.' +
-            '<br>- Os dados da lista serão atualizados a cada 5 minutos.' +
+            '<br>- Os dados da lista serão atualizados a cada 10 minutos.' +
             '<br>- Suportado pelos recursos Custom Picture-In-Picture e Multi-Stream & Multi-Chat para que você possa usar o Multi-Stream multiplataforma.' +
             '<br>- Você não precisa estar logado no facebook.' +
             '<br>- Pode levar alguns segundos para que a lista seja atualizada, dependendo de quantos streamers você adicionou.' +
