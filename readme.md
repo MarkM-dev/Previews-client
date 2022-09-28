@@ -1,4 +1,4 @@
-![](tp_main.png)
+![](previews_main.png)
 <br/>
 <br/>
 ## **Previews (For TTV)**
