@@ -7409,7 +7409,7 @@
 
             setOptionsFromDB().then(
                 function (options){
-                    ga_report_appStart();
+                    //ga_report_appStart();
                     toggleFeatures();
                     setTimeout(function (){
                         setTitleMutationObserver();
