@@ -1293,11 +1293,11 @@
         container.appendChild(content);
         document.body.appendChild(container);
         hasSeenExtensionUpdatedInBgToast = true;
-        try {
+        /*try {
             localStorage.setItem('tp_updatedInBG', 'y');
         } catch (e) {
 
-        }
+        }*/
     }
 
     function checkIfExtensionUpdated_LS() {
@@ -7458,7 +7458,7 @@
         check_cast_start();
         check_shouldShowDelayedRateToast();
         check_shouldShowNewLangToast();
-        checkIfExtensionUpdated_LS();
+        //checkIfExtensionUpdated_LS();
     }
 
 })();
