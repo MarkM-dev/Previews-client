@@ -4,7 +4,7 @@
   "description": "__MSG_appDesc__",
   "author": "Mark M <https://github.com/MarkM-dev>",
   "default_locale": "en",
-  "version": "5.7",
+  "version": "5.7.1",
   "permissions": ["storage"],
   "optional_permissions": ["https://clips.twitch.tv/*", "https://www.youtube.com/*", "https://*.facebook.com/*"],
   "background": {
