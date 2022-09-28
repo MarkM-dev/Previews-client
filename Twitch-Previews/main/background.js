@@ -778,7 +778,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:"https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/"});
             break;
         case "bg_show_github":
-            _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews"});
+            _browser.tabs.create({url:"https://github.com/MarkM-dev/Previews"});
             break;
         case "bg_show_twitter":
             _browser.tabs.create({url:"https://twitter.com/TwitchPreviews"});
@@ -787,7 +787,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             _browser.tabs.create({url:"https://discord.gg/7q4etvdFcg"});
             break;
         case "bg_show_bugReport":
-            _browser.tabs.create({url:"https://github.com/MarkM-dev/Twitch-Previews/issues"});
+            _browser.tabs.create({url:"https://github.com/MarkM-dev/Previews/issues"});
             break;
         case "appStart":
             send_ga_event('appStart', 'content.js', msg.detail);

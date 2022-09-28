@@ -1835,7 +1835,7 @@
                                 navCard.onclick = (e) => {
                                     e.preventDefault();
                                     e.cancelBubble = true;
-                                    sendMessageToBG({action: "bg_open_FB_github", detail: "https://github.com/MarkM-dev/Twitch-Previews/issues/41"});
+                                    sendMessageToBG({action: "bg_open_FB_github", detail: "https://github.com/MarkM-dev/Previews/issues/41"});
                                 }
                             } else {
                                 navCard.href = "https://www.facebook.com/" + streamers_arr[i].stream_name + "/videos/" + streamers_arr[i].videoId;
