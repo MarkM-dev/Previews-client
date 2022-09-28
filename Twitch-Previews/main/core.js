@@ -5921,7 +5921,7 @@
         return "   <div style=\"font-weight: bold;font-size: 15px;color: white;\" ><img style='margin-top: -3px;' src='" + getRuntimeUrl('images/TP24.png') + "' width='24' height='24' />&nbsp;" + _i18n('update_toast_updated_title') + "</div>"
             +  "       <div style=\"font-size: 14px;font-weight: bold;margin-top: 10px;color: white;\" >New Name!</div>"
             +  "       <div style=\"font-size: 14px;color: white;margin-top: 10px;\" ><strong style='color: #2cff95;' >- \"Twitch Previews\" -> \"Previews (For TTV)\"</strong>"
-            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- We've chaned the extension name from \"Twitch Previews\" to \"Previews (For TTV)\".</span>"
+            +  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- We've changed the extension name from \"Twitch Previews\" to \"Previews (For TTV)\".</span>"
             /*+  "             <br><span style=\"font-size: 12px;color: whitesmoke;\" >- Click the <div class='tp-horizontal-flip' style='display:inline-block;color:#a970ff;background-color: white;border-radius: 4px;padding: 0 2px;' >🕪</div> speaker button on previews in Twitch directories to see the streamer in a bigger preview with controls & audio.</span>"
             */+  "             <div style='height: 8px;' > </div>"
             +  "             <span style=\"font-size: 12px;color: whitesmoke;\" >- Also fixed a bug or two :)</span>"
