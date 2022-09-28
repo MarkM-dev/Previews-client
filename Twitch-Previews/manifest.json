@@ -33,5 +33,4 @@
     "default_title": "Previews (For TTV)"
   },
   "web_accessible_resources": ["images/*", "main/settings.html", "main/APS_settings.html", "main/tp_i18n.js"]
-  ,"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }
