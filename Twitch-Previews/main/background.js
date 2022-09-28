@@ -766,7 +766,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('settings_translate_btn_click', 'settings_translate_btn_click', 'settings_translate_btn_click');
             break;
         case "bg_show_donate":
-            _browser.tabs.create({url:"https://ko-fi.com/twitchpreviews"});
+            _browser.tabs.create({url:"https://ko-fi.com/previews_for_ttv"});
             break;
         case "bg_show_donate_bitcoin":
             _browser.tabs.create({url:"https://commerce.coinbase.com/checkout/5421b63d-50e3-4b52-a86d-8404399968d4"});
