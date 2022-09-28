@@ -9,6 +9,16 @@ export const i18n = {
         'ja': 'Previews (For TTV)',
         'ru':'Previews (For TTV)'
     },
+    app_name_short: {
+        'en': 'Previews',
+        'es': 'Previews',
+        'de': 'Previews',
+        'fr': 'Previews',
+        'pt_BR': 'Previews',
+        'ko': 'Previews',
+        'ja': 'Previews',
+        'ru':'Previews'
+    },
     availableLangs: {0:[
             {code:'en', display_str: 'English'},
             {code:'es', display_str: 'español'},
