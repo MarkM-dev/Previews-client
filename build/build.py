@@ -42,13 +42,6 @@ def replace_strings_for_firefox(f_dir):
     manifest_path = f_dir + '/manifest.json'
     background_path = f_dir + '/main/background.js'
 
-    with open(manifest_path, 'r') as f:
-        data = f.read()
-        data = data.replace(''',"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"''', '')
-
-    with open(manifest_path, 'w') as f:
-        f.write(data)
-
     with open(background_path, 'r') as f:
         data = f.read()
         data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'firefox';''')
