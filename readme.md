@@ -13,7 +13,8 @@
 **Previews (For TTV) is available for all browsers:<br/>**
 
 **[Chrome Extension](https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/)
- | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/previews-for-ttv/)**
+ | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/previews-for-ttv/)
+ | [Edge Add-on](https://addons.mozilla.org/en-US/firefox/addon/previews-for-ttv/)**
 <br/>
 * Chromium based browsers can install extensions from the chrome webstore. 
 <br/>
