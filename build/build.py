@@ -45,8 +45,8 @@ def replace_strings_for_firefox(f_dir):
     with open(background_path, 'r') as f:
         data = f.read()
         data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'firefox';''')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.mozilla.org/en-US/firefox/addon/twitchpreviews/')
+        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.mozilla.org/en-US/firefox/addon/previews-for-ttv/')
+        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.mozilla.org/en-US/firefox/addon/previews-for-ttv/')
 
     with open(background_path, 'w') as f:
         f.write(data)
