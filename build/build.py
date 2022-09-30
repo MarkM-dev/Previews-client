@@ -31,8 +31,8 @@ def replace_strings_for_opera():
     with open(background_path, 'r') as f:
         data = f.read()
         data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'opera';''')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.opera.com/en/extensions/details/twitch-previews/')
+        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.opera.com/en/extensions/details/previews-for-ttv/')
+        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.opera.com/en/extensions/details/previews-for-ttv/')
 
     with open(background_path, 'w') as f:
         f.write(data)
