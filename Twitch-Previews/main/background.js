@@ -893,15 +893,17 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                                                     obj.thumbnail_url = items[j].gridVideoRenderer.thumbnail.thumbnails[items[j].gridVideoRenderer.thumbnail.thumbnails.length - 1].url;
                                                     obj.title = items[j].gridVideoRenderer.title.runs[0].text;
                                                     obj.stream_name = items[j].gridVideoRenderer.shortBylineText.runs[0].text;
-                                                    obj.view_count = items[j].gridVideoRenderer.shortViewCountText.runs[0].text;
 
-                                                    let num_str = items[j].gridVideoRenderer.viewCountText.runs[0].text.match(/\d+/g);
+                                                    let num_str = items[j].gridVideoRenderer.viewCountText.runs.map(x => x.text).join().match(/\d+/g);
                                                     let num_count = '';
                                                     for (let i = 0; i < num_str.length; i++) {
                                                         num_count += num_str[i];
                                                     }
 
                                                     obj.view_count_num = num_count;
+                                                    let format = Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1});
+                                                    obj.view_count = format.format(obj.view_count_num);
+                                                    
                                                     cached_yt_live_streams_arr.push(obj);
                                                 }
                                             }
