@@ -3213,5 +3213,45 @@ export const i18n = {
         'ko': '전역 설정으로 재설정',
         'ja': 'グローバル設定にリセット',
         'ru':'Сбросить глобальные настройки'
+    },
+    subscribe_toast_body: {
+        'en': '\nSubscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension ',
+        'es': '\n',
+        'de': '\n',
+        'fr': '\n',
+        'pt_BR': '\n',
+        'ko': '\n',
+        'ja': '\n',
+        'ru':'\n'
+    },
+    subscribe_toast_have_code: {
+        'en': 'I have a code',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    subscribe_toast_close: {
+        'en': 'Not now',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    subscribe_toast_subscribe: {
+        'en': 'Subscribe',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
     }
 }
