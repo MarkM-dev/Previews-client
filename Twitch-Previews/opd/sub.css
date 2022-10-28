@@ -76,4 +76,5 @@ body {
 table select {
     color: white;
     background-color: rgb(24, 24, 27);
+    border-radius: 5px;
 }
