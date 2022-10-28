@@ -59,6 +59,8 @@ async function main() {
         _browser.runtime.sendMessage({action:'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
             if (response === 'okay') {
                 setSectionNumberCompleted(2);
+            } else {
+                setSectionNumberError(2);
             }
         });
     })
@@ -99,6 +101,10 @@ async function main() {
     }
     function setSectionNumberCompleted(num) {
         sections[num].querySelector('.tp-sub-section-number').style.backgroundColor = 'limegreen';
+        sections[num].querySelector('.tp-sub-section-number').style.color = 'whitesmoke';
+    }
+    function setSectionNumberError(num) {
+        sections[num].querySelector('.tp-sub-section-number').style.backgroundColor = 'red';
         sections[num].querySelector('.tp-sub-section-number').style.color = 'whitesmoke';
     }
 
