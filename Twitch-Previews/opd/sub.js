@@ -48,7 +48,10 @@ async function main() {
     })
 
     document.getElementById('tp_validate_btn').addEventListener('click', function (e) {
-        setSectionNumberCompleted(2);
+        console.log(document.querySelector('#tp_validate_input').value);
+        _browser.runtime.sendMessage({action:'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
+            setSectionNumberCompleted(2);
+        });
     })
 
     let sections = document.querySelectorAll('.sub-section');

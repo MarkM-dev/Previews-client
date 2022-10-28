@@ -3304,6 +3304,16 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_validate_msg: {
+        'en': 'Enter the "something something id" code on the receipt you received from PayPal',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     opd_sub_validate_btn: {
         'en': 'Validate',
         'es': '',
