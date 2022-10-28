@@ -83,12 +83,16 @@ async function main() {
         this.close();
     });
 
-    _browser.storage.local.get('tp_already_subbed_toast_origin', function(result) {
-        if (result.tp_already_subbed_toast_origin) {
-            if (result.tp_already_subbed_toast_origin) {
+    _browser.storage.local.get(['tp_sub_toast_origin', 'subscribe_price'], function(result) {
+        if (result.tp_sub_toast_origin) {
+            if (result.tp_sub_toast_origin === 'already_subbed') {
                 already_subbed_toast_origin = true;
-                _browser.storage.local.set({'tp_already_subbed_toast_origin': false}, function() {});
+            } else {
+                if (result.tp_sub_toast_origin && result.tp_sub_toast_origin === 'toast_subscribe') {
+                    document.querySelector('#opd_sub_subscribe_price_select').value = result.subscribe_price;
+                }
             }
+            _browser.storage.local.set({'tp_sub_toast_origin': false}, function() {});
         }
         startFlow();
     });
@@ -97,6 +101,7 @@ async function main() {
         _browser.permissions.contains({
             origins: ['https://asds.twitch.tv/*']
         }, (result) => {
+
             if (result) {
                 setSectionNumberCompleted(0);
                 removeHighlight(0);
