@@ -1,5 +1,5 @@
 body {
-    padding-top: 15vh;
+    padding-top: 2vh;
     background-color: rgb(24, 24, 27);
     text-align: center;
     color: whitesmoke;
@@ -11,6 +11,10 @@ body {
 }
 #tp_ext_name {
     font-size: 25px;
+}
+.sub-top-note {
+    font-size: 17px;
+    margin-top: 25px;
 }
 .tp_ext_desc {
     margin-top: 35px;
@@ -43,11 +47,19 @@ body {
 .tp_allow_permissions_btn:hover {
     background-color: #9c60ff;
 }
-
 .sub-section {
     margin-top: 50px;
-}
+    color: darkgray;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: transform 0.5s;
 
+}
+.tp-sub-section-highlighted {
+    color: whitesmoke !important;
+    pointer-events: all !important;
+    transform: scale(1) !important;
+}
 .sub-section-title {
     font-size: 24px;
     font-weight: bold;

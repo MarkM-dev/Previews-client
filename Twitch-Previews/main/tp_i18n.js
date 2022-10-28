@@ -3254,6 +3254,16 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_top_note: {
+        'en': 'Thank you.. for...... 5 subscribers',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     opd_sub_permissions_msg: {
         'en': 'Allow permission for the extension to communicate with our validation server (Previews.com)',
         'es': '',
@@ -3276,6 +3286,16 @@ export const i18n = {
     },
     opd_sub_subscribe_btn: {
         'en': 'Subscribe',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_validate_btn: {
+        'en': 'Validate',
         'es': '',
         'de': '',
         'fr': '',

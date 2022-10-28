@@ -1,4 +1,5 @@
 async function main() {
+    let already_subbed_toast_origin = false;
 
     let isFirefox = typeof browser !== "undefined";
     let _browser = isFirefox ? browser : chrome;
@@ -24,6 +25,13 @@ async function main() {
             origins: ['https://clips.twitch.tv/*']
         }, (granted) => {
             if (granted) {
+                if (already_subbed_toast_origin) {
+                    sections[0].classList.remove('tp-sub-section-highlighted');
+                    sections[2].classList.add('tp-sub-section-highlighted');
+                } else {
+                    sections[0].classList.remove('tp-sub-section-highlighted');
+                    sections[1].classList.add('tp-sub-section-highlighted');
+                }
                 //_browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_clip_downloader"}, function(response) {});
             } else {
                 console.log("denied");
@@ -34,6 +42,39 @@ async function main() {
     document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
 
     })
+
+    document.getElementById('tp_validate_btn').addEventListener('click', function (e) {
+
+    })
+
+    let sections = document.querySelectorAll('.sub-section');
+
+    _browser.storage.local.get('tp_already_subbed_toast_origin', function(result) {
+        if (result.tp_already_subbed_toast_origin) {
+            if (result.tp_already_subbed_toast_origin) {
+                already_subbed_toast_origin = true;
+                _browser.storage.local.set({'tp_already_subbed_toast_origin': false}, function() {});
+            }
+        }
+        startFlow();
+    });
+
+    function startFlow() {
+        _browser.permissions.contains({
+            origins: ['https://asds.twitch.tv/*']
+        }, (result) => {
+            if (result) {
+                sections[0].classList.remove('tp-sub-section-highlighted');
+                if (already_subbed_toast_origin) {
+                    sections[2].classList.add('tp-sub-section-highlighted');
+                } else {
+                    sections[1].classList.add('tp-sub-section-highlighted');
+                }
+            } else {
+                sections[0].classList.add('tp-sub-section-highlighted');
+            }
+        });
+    }
 
 }
 main().then();
