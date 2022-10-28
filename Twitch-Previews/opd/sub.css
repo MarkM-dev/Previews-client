@@ -89,3 +89,10 @@ table select {
 #tp_validate_btn {
     margin-top: 15px;
 }
+
+.tp-sub-section-number {
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 0 8px;
+    background-color: dimgrey;
+}

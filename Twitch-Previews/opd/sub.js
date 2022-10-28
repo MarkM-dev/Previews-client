@@ -25,12 +25,13 @@ async function main() {
             origins: ['https://clips.twitch.tv/*']
         }, (granted) => {
             if (granted) {
+                setSectionNumberCompleted(0);
                 if (already_subbed_toast_origin) {
-                    sections[0].classList.remove('tp-sub-section-highlighted');
-                    sections[2].classList.add('tp-sub-section-highlighted');
+                    removeHighlight(0);
+                    addHighlight(2);
                 } else {
-                    sections[0].classList.remove('tp-sub-section-highlighted');
-                    sections[1].classList.add('tp-sub-section-highlighted');
+                    removeHighlight(0);
+                    addHighlight(1);
                 }
                 //_browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_clip_downloader"}, function(response) {});
             } else {
@@ -40,13 +41,14 @@ async function main() {
     })
 
     document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
-        document.getElementById('tp_subscribe_paypal_btn').click();
-        sections[1].classList.remove('tp-sub-section-highlighted');
-        sections[2].classList.add('tp-sub-section-highlighted');
+        //document.getElementById('tp_subscribe_paypal_btn').click();
+        setSectionNumberCompleted(1);
+        removeHighlight(1);
+        addHighlight(2);
     })
 
     document.getElementById('tp_validate_btn').addEventListener('click', function (e) {
-
+        setSectionNumberCompleted(2);
     })
 
     let sections = document.querySelectorAll('.sub-section');
@@ -66,16 +68,28 @@ async function main() {
             origins: ['https://asds.twitch.tv/*']
         }, (result) => {
             if (result) {
-                sections[0].classList.remove('tp-sub-section-highlighted');
+                setSectionNumberCompleted(0);
+                removeHighlight(0);
                 if (already_subbed_toast_origin) {
-                    sections[2].classList.add('tp-sub-section-highlighted');
+                    addHighlight(2);
                 } else {
-                    sections[1].classList.add('tp-sub-section-highlighted');
+                    addHighlight(1);
                 }
             } else {
-                sections[0].classList.add('tp-sub-section-highlighted');
+                addHighlight(0);
             }
         });
+    }
+
+    function addHighlight(index) {
+        sections[index].classList.add('tp-sub-section-highlighted');
+    }
+    function removeHighlight(index) {
+        sections[index].classList.remove('tp-sub-section-highlighted');
+    }
+    function setSectionNumberCompleted(num) {
+        sections[num].querySelector('.tp-sub-section-number').style.backgroundColor = 'limegreen';
+        sections[num].querySelector('.tp-sub-section-number').style.color = 'whitesmoke';
     }
 
 }
