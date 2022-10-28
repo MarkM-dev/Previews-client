@@ -1,5 +1,6 @@
 async function main() {
     let already_subbed_toast_origin = false;
+    let sections = document.querySelectorAll('.sub-section');
 
     let isFirefox = typeof browser !== "undefined";
     let _browser = isFirefox ? browser : chrome;
@@ -45,6 +46,7 @@ async function main() {
         setSectionNumberCompleted(1);
         removeHighlight(1);
         addHighlight(2);
+        sections[2].scrollIntoView({behavior: "smooth", block: "start"});
     })
 
     document.getElementById('tp_validate_btn').addEventListener('click', function (e) {
@@ -53,8 +55,6 @@ async function main() {
             setSectionNumberCompleted(2);
         });
     })
-
-    let sections = document.querySelectorAll('.sub-section');
 
     _browser.storage.local.get('tp_already_subbed_toast_origin', function(result) {
         if (result.tp_already_subbed_toast_origin) {
