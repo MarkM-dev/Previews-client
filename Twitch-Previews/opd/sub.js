@@ -43,16 +43,23 @@ async function main() {
 
     document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
         //document.getElementById('tp_subscribe_paypal_btn').click();
-        setSectionNumberCompleted(1);
-        removeHighlight(1);
-        addHighlight(2);
-        sections[2].scrollIntoView({behavior: "smooth", block: "start"});
+        setTimeout(function () {
+            setSectionNumberCompleted(1);
+            removeHighlight(1);
+            addHighlight(2);
+            sections[2].scrollIntoView({behavior: "smooth", block: "start"});
+        }, 100);
     })
 
     document.getElementById('tp_validate_btn').addEventListener('click', function (e) {
-        console.log(document.querySelector('#tp_validate_input').value);
+        let val = document.querySelector('#tp_validate_input').value;
+        if (!val || val.length < 5) {
+            return;
+        }
         _browser.runtime.sendMessage({action:'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
-            setSectionNumberCompleted(2);
+            if (response === 'okay') {
+                setSectionNumberCompleted(2);
+            }
         });
     })
 
