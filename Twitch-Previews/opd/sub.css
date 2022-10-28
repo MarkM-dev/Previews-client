@@ -72,9 +72,20 @@ body {
 #tp_subscribe_paypal_btn {
     display: none;
 }
-
 table select {
     color: white;
     background-color: rgb(24, 24, 27);
     border-radius: 5px;
+}
+#tp_validate_input {
+    margin-top: 30px;
+    color: white;
+    background-color: rgb(24, 24, 27);
+    border-radius: 5px;
+    border: 1px solid grey;
+    height: 25px;
+    text-align: center;
+}
+#tp_validate_btn {
+    margin-top: 15px;
 }
