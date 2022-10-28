@@ -3253,5 +3253,35 @@ export const i18n = {
         'ko': '',
         'ja': '',
         'ru':''
+    },
+    opd_sub_permissions_msg: {
+        'en': 'Allow permission for the extension to communicate with our validation server (Previews.com)',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_subscribe_msg: {
+        'en': 'Subscribe Via PayPal',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_subscribe_btn: {
+        'en': 'Subscribe',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
     }
 }

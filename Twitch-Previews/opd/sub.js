@@ -24,16 +24,15 @@ async function main() {
             origins: ['https://clips.twitch.tv/*']
         }, (granted) => {
             if (granted) {
-                _browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_clip_downloader"}, function(response) {});
-                closeTab();
+                //_browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_clip_downloader"}, function(response) {});
             } else {
                 console.log("denied");
             }
         });
     })
 
-    document.getElementById('tp_cancel_btn').addEventListener('click', function (e) {
-        closeTab();
+    document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
+
     })
 
 }
