@@ -3275,7 +3275,17 @@ export const i18n = {
         'ru':''
     },
     opd_sub_subscribe_msg: {
-        'en': 'Subscribe Via PayPal',
+        'en': 'Subscribe Via PayPal Or Credit-Card',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_subscribe_price_select: {
+        'en': 'Select Custom Subscription Price',
         'es': '',
         'de': '',
         'fr': '',

@@ -40,7 +40,7 @@ async function main() {
     })
 
     document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
-
+        document.getElementById('tp_subscribe_paypal_btn').click();
     })
 
     document.getElementById('tp_validate_btn').addEventListener('click', function (e) {

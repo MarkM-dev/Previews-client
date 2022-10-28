@@ -18,8 +18,25 @@
     </div>
 
     <div class="sub-section" >
-        <div class="sub-section-title" >2. Subscribe Via PayPal</div>
-        <div class="tp_ext_desc" tp_i18n="opd_sub_subscribe_msg" >Subscribe Via PayPal</div>
+        <div class="sub-section-title" >2. Subscribe Via PayPal Or Credit-Card</div>
+        <div class="tp_ext_desc" tp_i18n="opd_sub_subscribe_msg" >Subscribe Via PayPal Or Credit-Card</div>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="B3LRVWK2BQ3PY">
+            <table style="text-align: center;width: 100%;margin-top: 30px;" >
+                <tr><td><input type="hidden" name="on0" value="asd"><span tp_i18n="opd_sub_subscribe_price_select" >asd</span></td></tr><tr><td><select name="os0">
+                <option value="$5">$5 : $5.00 USD - monthly</option>
+                <option value="$2.5">$2.5 : $2.50 USD - monthly</option>
+                <option value="$1">$1 : $1.00 USD - monthly</option>
+                <option value="$0.5">$0.5 : $0.50 USD - monthly</option>
+                <option value="$10">$10 : $10.00 USD - monthly</option>
+                <option value="$0.01">$0.01 : $0.01 USD - monthly</option>
+            </select> </td></tr>
+            </table>
+            <input type="hidden" name="currency_code" value="USD">
+            <input id="tp_subscribe_paypal_btn" type="image" src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
         <div id="tp_subscribe_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_subscribe_btn" >Subscribe</div>
     </div>
 

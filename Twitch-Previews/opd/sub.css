@@ -66,3 +66,14 @@ body {
     text-align: left;
     padding-left: 30%;
 }
+#tp_subscribe_btn {
+    margin-top: 0px;
+}
+#tp_subscribe_paypal_btn {
+    display: none;
+}
+
+table select {
+    color: white;
+    background-color: rgb(24, 24, 27);
+}
