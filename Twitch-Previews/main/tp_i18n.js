@@ -3215,7 +3215,7 @@ export const i18n = {
         'ru':'Сбросить глобальные настройки'
     },
     subscribe_toast_body: {
-        'en': '\nSubscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension ',
+        'en': 'Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension ',
         'es': '\n',
         'de': '\n',
         'fr': '\n',
