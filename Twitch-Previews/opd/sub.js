@@ -34,6 +34,16 @@ async function main() {
                     removeHighlight(0);
                     addHighlight(1);
                 }
+                sections[1].onmouseenter = ()=> {
+                    console.log('enter1');
+                    removeHighlight(2);
+                    addHighlight(1);
+                }
+                sections[2].onmouseenter = ()=> {
+                    console.log('enter2');
+                    removeHighlight(1);
+                    addHighlight(2);
+                }
                 //_browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_clip_downloader"}, function(response) {});
             } else {
                 console.log("denied");
@@ -86,6 +96,14 @@ async function main() {
                     addHighlight(2);
                 } else {
                     addHighlight(1);
+                }
+                sections[1].onmouseenter = ()=> {
+                    removeHighlight(2);
+                    addHighlight(1);
+                }
+                sections[2].onmouseenter = ()=> {
+                    removeHighlight(1);
+                    addHighlight(2);
                 }
             } else {
                 addHighlight(0);

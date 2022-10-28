@@ -49,7 +49,6 @@ body {
 }
 .sub-section {
     color: darkgray;
-    pointer-events: none;
     transform: scale(0.8);
     transition: transform 0.5s, box-shadow 0.5s;
     width: 50%;
@@ -57,11 +56,17 @@ body {
     border-radius: 10px;
     padding: 20px;
 }
+.sub-section .tp-btn{
+    pointer-events: none;
+}
 .tp-sub-section-highlighted {
     color: whitesmoke !important;
     pointer-events: all !important;
     transform: scale(1) !important;
     box-shadow: 0 0 10px 0px white;
+}
+.tp-sub-section-highlighted .tp-btn{
+    pointer-events: all !important;
 }
 .sub-section-title {
     font-size: 24px;
@@ -98,34 +103,3 @@ table select {
     padding: 0 8px;
     background-color: dimgrey;
 }
-/*.tp-sub-navigation-container {
-    display: inline-block;
-    position: absolute;
-    left: 10%;
-    top: 50%;
-}
-.tp-sub-navigation-container div {
-    width: 40px;
-    height: 40px;
-    border: 1px solid whitesmoke;
-    border-radius: 50%;
-    padding: 5px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: normal;
-}
-.tp-sub-navigation-container div:hover {
-    background-color: rgba(255,255,255,0.4);
-    border-color: white;
-    color: white;
-}
-.tp-sub-navigation-container div:active {
-    background-color: rgba(255,255,255,0.2);
-    border-color: whitesmoke;
-}
-.tp-sub-navigation-forward {
-    transform: rotate(180deg);
-}*/
