@@ -41,6 +41,8 @@ async function main() {
 
     document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
         document.getElementById('tp_subscribe_paypal_btn').click();
+        sections[1].classList.remove('tp-sub-section-highlighted');
+        sections[2].classList.add('tp-sub-section-highlighted');
     })
 
     document.getElementById('tp_validate_btn').addEventListener('click', function (e) {
