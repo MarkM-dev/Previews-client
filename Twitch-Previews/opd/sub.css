@@ -103,3 +103,6 @@ table select {
     padding: 0 8px;
     background-color: dimgrey;
 }
+#validation_error_text_el {
+    color: red;
+}

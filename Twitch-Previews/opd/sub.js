@@ -42,7 +42,6 @@ async function main() {
                     removeHighlight(1);
                     addHighlight(2);
                 }
-                //_browser.runtime.sendMessage({action:'sendMessageToTabs', detail: "tp_enable_clip_downloader"}, function(response) {});
             } else {
                 console.log("denied");
             }
@@ -70,6 +69,7 @@ async function main() {
                 setSectionNumberCompleted(2);
             } else {
                 setSectionNumberError(2);
+                document.querySelector('#validation_error_text_el').innerText = response.result;
             }
         });
     })
