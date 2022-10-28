@@ -15,12 +15,6 @@ async function main() {
         });
     });
 
-    function closeTab() {
-        parent.close();
-        window.close();
-        this.close();
-    }
-
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
         _browser.permissions.request({
             origins: ['https://clips.twitch.tv/*']
@@ -56,23 +50,38 @@ async function main() {
             addHighlight(2);
             sections[2].scrollIntoView({behavior: "smooth", block: "start"});
         }, 100);
-    })
+    });
 
-    document.getElementById('tp_validate_btn').addEventListener('click', function (e) {
+    let loading_spinner = document.querySelector('#tp_validation_loading_spinner');
+    let validate_btn = document.querySelector('#tp_validate_btn');
+    validate_btn.addEventListener('click', function (e) {
         let val = document.querySelector('#tp_validate_input').value;
         if (!val || val.length < 5) {
             return;
         }
+
+        loading_spinner.style.display = 'inline-block';
+        validate_btn.style.display = 'none';
         _browser.runtime.sendMessage({action:'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
+            loading_spinner.style.display = 'none';
+            validate_btn.style.display = 'inline-flex';
             if (response.result === 'okay') {
                 setSectionNumberCompleted(1);
                 setSectionNumberCompleted(2);
+                document.querySelector('#sub_container').style.display = 'none';
+                document.querySelector('#sub_thanks').style.display = 'block';
             } else {
                 setSectionNumberError(2);
                 document.querySelector('#validation_error_text_el').innerText = response.result;
             }
         });
     })
+
+    document.getElementById('tp_close_tab_btn').addEventListener('click', function (e) {
+        parent.close();
+        window.close();
+        this.close();
+    });
 
     _browser.storage.local.get('tp_already_subbed_toast_origin', function(result) {
         if (result.tp_already_subbed_toast_origin) {

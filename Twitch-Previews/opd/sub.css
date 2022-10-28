@@ -106,3 +106,27 @@ table select {
 #validation_error_text_el {
     color: red;
 }
+#sub_thanks {
+    display: none;
+}
+#opd_sub_thanks_text {
+    margin-top: 100px;
+    font-size: 48px;
+    color: limegreen;
+}
+
+#tp_validation_loading_spinner {
+    display: none;
+    margin: 15px auto 0;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgb(24, 24, 27);
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: tp-validation-loading-spin 1s linear infinite;
+}
+
+@keyframes tp-validation-loading-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

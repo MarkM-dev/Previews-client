@@ -3323,5 +3323,25 @@ export const i18n = {
         'ko': '',
         'ja': '',
         'ru':''
+    },
+    opd_sub_thanks_text: {
+        'en': 'Thank You!',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_close_tab_btn: {
+        'en': 'Close Tab',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
     }
 }

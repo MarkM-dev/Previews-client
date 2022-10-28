@@ -8,47 +8,54 @@
 <body>
     <img id="tp_img" src="../images/TP128.png" width="128" height="128" >
     <div id="tp_ext_name" tp_i18n="app_name" >Previews (For TTV)</div>
+    <div id="sub_container" >
+        <div class="sub-top-note" tp_i18n="opd_sub_top_note" >Thank you.. for...... 5 subscribers</div>
 
-    <div class="sub-top-note" tp_i18n="opd_sub_top_note" >Thank you.. for...... 5 subscribers</div>
-
-    <div class="sub-section" >
-        <div class="sub-section-title" ><span class="tp-sub-section-number" >1</span> Allow Permissions</div>
-        <div class="tp_ext_desc" tp_i18n="opd_sub_permissions_msg" >Allow permission for the extension to communicate with our validation server (Previews.com)</div>
-        <div id="tp_allow_permissions_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_allow_btn" >Allow</div>
-    </div>
-
-    <div class="sub-section" >
-        <div class="sub-section-title" ><span class="tp-sub-section-number" >2</span> Subscribe Via PayPal Or Credit-Card</div>
-        <div class="tp_ext_desc" tp_i18n="opd_sub_subscribe_msg" >Subscribe Via PayPal Or Credit-Card</div>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="B3LRVWK2BQ3PY">
-            <table style="text-align: center;width: 100%;margin-top: 30px;" >
-                <tr><td><input type="hidden" name="on0" value="asd"><span tp_i18n="opd_sub_subscribe_price_select" >asd</span></td></tr><tr><td><select name="os0">
-                <option value="$5">$5.00 USD</option>
-                <option value="$2.5">$2.50 USD</option>
-                <option value="$1">$1.00 USD</option>
-                <option value="$0.5">$0.50 USD</option>
-                <option value="$10">$10.00 USD</option>
-                <option value="$0.01">$0.01 USD</option>
-            </select> </td></tr>
-            </table>
-            <input type="hidden" name="currency_code" value="USD">
-            <input id="tp_subscribe_paypal_btn" type="image" src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
-        <div id="tp_subscribe_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_subscribe_btn" >Subscribe</div>
-    </div>
-
-    <div class="sub-section" >
-        <div class="sub-section-title" ><span class="tp-sub-section-number" >3</span> Enter Code</div>
-        <div id="validation_error_text_el" ></div>
-        <div class="tp_ext_desc" tp_i18n="opd_sub_validate_msg" >Enter the "something something id" code on the receipt you received from PayPal</div>
-        <input id="tp_validate_input" type="text" placeholder="ABCDEFGHIJK" >
-        <div>
-            <div id="tp_validate_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_validate_btn" >Validate</div>
+        <div class="sub-section" >
+            <div class="sub-section-title" ><span class="tp-sub-section-number" >1</span> Allow Permissions</div>
+            <div class="tp_ext_desc" tp_i18n="opd_sub_permissions_msg" >Allow permission for the extension to communicate with our validation server (Previews.com)</div>
+            <div id="tp_allow_permissions_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_allow_btn" >Allow</div>
         </div>
 
+        <div class="sub-section" >
+            <div class="sub-section-title" ><span class="tp-sub-section-number" >2</span> Subscribe Via PayPal Or Credit-Card</div>
+            <div class="tp_ext_desc" tp_i18n="opd_sub_subscribe_msg" >Subscribe Via PayPal Or Credit-Card</div>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="B3LRVWK2BQ3PY">
+                <table style="text-align: center;width: 100%;margin-top: 30px;" >
+                    <tr><td><input type="hidden" name="on0" value="asd"><span tp_i18n="opd_sub_subscribe_price_select" >asd</span></td></tr><tr><td><select name="os0">
+                    <option value="$5">$5.00 USD</option>
+                    <option value="$2.5">$2.50 USD</option>
+                    <option value="$1">$1.00 USD</option>
+                    <option value="$0.5">$0.50 USD</option>
+                    <option value="$10">$10.00 USD</option>
+                    <option value="$0.01">$0.01 USD</option>
+                </select> </td></tr>
+                </table>
+                <input type="hidden" name="currency_code" value="USD">
+                <input id="tp_subscribe_paypal_btn" type="image" src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
+            <div id="tp_subscribe_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_subscribe_btn" >Subscribe</div>
+        </div>
+
+        <div class="sub-section" >
+            <div class="sub-section-title" ><span class="tp-sub-section-number" >3</span> Enter Code</div>
+            <div id="validation_error_text_el" ></div>
+            <div class="tp_ext_desc" tp_i18n="opd_sub_validate_msg" >Enter the "something something id" code on the receipt you received from PayPal</div>
+            <input id="tp_validate_input" type="text" placeholder="ABCDEFGHIJK" >
+            <div>
+                <div id="tp_validate_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_validate_btn" >Validate</div>
+                <div id="tp_validation_loading_spinner" ></div >
+            </div>
+
+        </div>
+    </div>
+
+    <div id="sub_thanks" >
+        <div id="opd_sub_thanks_text" tp_i18n="opd_sub_thanks_text" >Thank You!</div>
+        <div id="tp_close_tab_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_close_tab_btn" style="margin-top: 35px;" >Close Tab</div>
     </div>
 
 <script src="sub.js"></script>
