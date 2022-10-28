@@ -89,10 +89,10 @@ async function main() {
                 already_subbed_toast_origin = true;
             } else {
                 if (result.tp_sub_toast_origin && result.tp_sub_toast_origin === 'toast_subscribe') {
-                    document.querySelector('#opd_sub_subscribe_price_select').value = result.subscribe_price;
+                    document.querySelector('#opd_sub_subscribe_price_select').value = result.subscribe_price ? result.subscribe_price : '$5';
                 }
             }
-            _browser.storage.local.set({'tp_sub_toast_origin': false}, function() {});
+            _browser.storage.local.set({'tp_sub_toast_origin': false, 'subscribe_price': false}, function() {});
         }
         startFlow();
     });
