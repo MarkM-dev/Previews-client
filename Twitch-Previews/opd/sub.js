@@ -35,12 +35,10 @@ async function main() {
                     addHighlight(1);
                 }
                 sections[1].onmouseenter = ()=> {
-                    console.log('enter1');
                     removeHighlight(2);
                     addHighlight(1);
                 }
                 sections[2].onmouseenter = ()=> {
-                    console.log('enter2');
                     removeHighlight(1);
                     addHighlight(2);
                 }
@@ -67,7 +65,8 @@ async function main() {
             return;
         }
         _browser.runtime.sendMessage({action:'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
-            if (response === 'okay') {
+            if (response.result === 'okay') {
+                setSectionNumberCompleted(1);
                 setSectionNumberCompleted(2);
             } else {
                 setSectionNumberError(2);
