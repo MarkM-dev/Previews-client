@@ -2133,6 +2133,16 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    subscribe_subscriber_btn_text: {
+        'en': 'Sub Settings',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     settings_donate_above_text: {
         'en': 'If you like this extension, consider\ncontributing :)',
         'es': 'Si te gusta esta extensión, considera\ncontribuir :)',
