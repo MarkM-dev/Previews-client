@@ -106,9 +106,7 @@ table select {
 #validation_error_text_el {
     color: red;
 }
-#sub_thanks {
-    display: none;
-}
+
 #opd_sub_thanks_text {
     margin-top: 100px;
     font-size: 48px;

@@ -68,8 +68,7 @@ async function main() {
             if (response.result === 'okay') {
                 setSectionNumberCompleted(1);
                 setSectionNumberCompleted(2);
-                document.querySelector('#sub_container').style.display = 'none';
-                document.querySelector('#sub_thanks').style.display = 'block';
+                showPage('sub_thanks_page');
             } else {
                 setSectionNumberError(2);
                 document.querySelector('#validation_error_text_el').innerText = response.result;
@@ -88,14 +87,22 @@ async function main() {
 
             switch (result.sub_payload.tp_sub_origin_intent) {
                 case "have_code":
+                    showPage('sub_page');
                     have_code_toast_origin = true;
                     setSectionNumberCompleted(1);
                     break;
                 case "toast_subscribe":
+                    showPage('sub_page');
                     document.querySelector('#opd_sub_subscribe_price_select').value = result.sub_payload.subscribe_price ? result.sub_payload.subscribe_price : '$5';
                     break;
                 case "settings_subscribe":
+                    showPage('sub_page');
+                    break;
+                case "settings_manage_sub":
 
+                    break;
+                default:
+                    showPage('sub_page');
                     break;
             }
 
@@ -146,5 +153,8 @@ async function main() {
         sections[num].querySelector('.tp-sub-section-number').style.color = 'whitesmoke';
     }
 
+    function showPage(id) {
+        document.querySelectorAll('.sub_page').forEach((x)=>{x.id === id ? x.style.display = 'block': x.style.display = 'none'})
+    }
 }
 main().then();
