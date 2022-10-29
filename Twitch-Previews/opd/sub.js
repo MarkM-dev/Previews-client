@@ -53,6 +53,9 @@ async function main() {
                 setSectionNumberCompleted(1);
                 setSectionNumberCompleted(2);
                 showPage('sub_thanks_page');
+                setTimeout(function () {
+                    highlightSection(3);
+                },100);
             } else {
                 setSectionNumberError(2);
                 document.querySelector('#validation_error_text_el').innerText = response.result;
@@ -122,9 +125,6 @@ async function main() {
         }
     }
 
-    function highlightSection(index) {
-        sections.forEach((x, i)=>{i === index ? x.classList.add('tp-sub-section-highlighted') : x.classList.remove('tp-sub-section-highlighted')});
-    }
 
     function setSectionNumberCompleted(num) {
         sections[num].querySelector('.tp-sub-section-number').style.backgroundColor = 'limegreen';
@@ -133,6 +133,10 @@ async function main() {
     function setSectionNumberError(num) {
         sections[num].querySelector('.tp-sub-section-number').style.backgroundColor = 'red';
         sections[num].querySelector('.tp-sub-section-number').style.color = 'whitesmoke';
+    }
+
+    function highlightSection(index) {
+        sections.forEach((x, i)=>{i === index ? x.classList.add('tp-sub-section-highlighted') : x.classList.remove('tp-sub-section-highlighted')});
     }
 
     function showPage(id) {
