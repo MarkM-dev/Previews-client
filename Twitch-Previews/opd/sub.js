@@ -20,22 +20,7 @@ async function main() {
             origins: ['https://clips.twitch.tv/*']
         }, (granted) => {
             if (granted) {
-                setSectionNumberCompleted(0);
-                if (have_code_toast_origin) {
-                    removeHighlight(0);
-                    addHighlight(2);
-                } else {
-                    removeHighlight(0);
-                    addHighlight(1);
-                }
-                sections[1].onmouseenter = ()=> {
-                    removeHighlight(2);
-                    addHighlight(1);
-                }
-                sections[2].onmouseenter = ()=> {
-                    removeHighlight(1);
-                    addHighlight(2);
-                }
+                flow_permission_allowed();
             } else {
                 console.log("denied");
             }
@@ -46,8 +31,7 @@ async function main() {
         //document.getElementById('tp_subscribe_paypal_btn').click();
         setTimeout(function () {
             setSectionNumberCompleted(1);
-            removeHighlight(1);
-            addHighlight(2);
+            highlightSection(2);
             sections[2].scrollIntoView({behavior: "smooth", block: "start"});
         }, 100);
     });
@@ -115,35 +99,33 @@ async function main() {
         _browser.permissions.contains({
             origins: ['https://asds.twitch.tv/*']
         }, (result) => {
-
             if (result) {
-                setSectionNumberCompleted(0);
-                removeHighlight(0);
-                if (have_code_toast_origin) {
-                    addHighlight(2);
-                } else {
-                    addHighlight(1);
-                }
-                sections[1].onmouseenter = ()=> {
-                    removeHighlight(2);
-                    addHighlight(1);
-                }
-                sections[2].onmouseenter = ()=> {
-                    removeHighlight(1);
-                    addHighlight(2);
-                }
+                flow_permission_allowed();
             } else {
-                addHighlight(0);
+                highlightSection(0);
             }
         });
     }
 
-    function addHighlight(index) {
-        sections[index].classList.add('tp-sub-section-highlighted');
+    function flow_permission_allowed() {
+        setSectionNumberCompleted(0);
+        if (have_code_toast_origin) {
+            highlightSection(2);
+        } else {
+            highlightSection(1);
+        }
+        sections[1].onmouseenter = ()=> {
+            highlightSection(1);
+        }
+        sections[2].onmouseenter = ()=> {
+            highlightSection(2);
+        }
     }
-    function removeHighlight(index) {
-        sections[index].classList.remove('tp-sub-section-highlighted');
+
+    function highlightSection(index) {
+        sections.forEach((x, i)=>{i === index ? x.classList.add('tp-sub-section-highlighted') : x.classList.remove('tp-sub-section-highlighted')});
     }
+
     function setSectionNumberCompleted(num) {
         sections[num].querySelector('.tp-sub-section-number').style.backgroundColor = 'limegreen';
         sections[num].querySelector('.tp-sub-section-number').style.color = 'whitesmoke';
