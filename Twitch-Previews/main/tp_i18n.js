@@ -2123,6 +2123,16 @@ export const i18n = {
         'ja': '寄付 ：）',
         'ru':'Пожертвовать :)'
     },
+    subscribe_btn_text: {
+        'en': 'S U B S C R I B E',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     settings_donate_above_text: {
         'en': 'If you like this extension, consider\ncontributing :)',
         'es': 'Si te gusta esta extensión, considera\ncontribuir :)',

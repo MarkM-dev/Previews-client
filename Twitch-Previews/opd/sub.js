@@ -89,7 +89,7 @@ async function main() {
                 have_code_toast_origin = true;
                 setSectionNumberCompleted(1);
             } else {
-                if (result.sub_payload.tp_sub_toast_origin && result.sub_payload.tp_sub_toast_origin === 'toast_subscribe') {
+                if (result.sub_payload.tp_sub_toast_origin === 'toast_subscribe') {
                     document.querySelector('#opd_sub_subscribe_price_select').value = result.sub_payload.subscribe_price ? result.sub_payload.subscribe_price : '$5';
                 }
             }
