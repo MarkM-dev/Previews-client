@@ -2123,26 +2123,6 @@ export const i18n = {
         'ja': '寄付 ：）',
         'ru':'Пожертвовать :)'
     },
-    subscribe_btn_text: {
-        'en': 'S U B S C R I B E',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
-    subscribe_subscriber_btn_text: {
-        'en': 'Sub Settings',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
     settings_donate_above_text: {
         'en': 'If you like this extension, consider\ncontributing :)',
         'es': 'Si te gusta esta extensión, considera\ncontribuir :)',
@@ -3274,6 +3254,36 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_section_title_1: {
+        'en': 'Allow Permissions',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_section_title_2: {
+        'en': 'Subscribe Via PayPal Or Credit-Card',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_section_title_3: {
+        'en': 'Enter Code',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     opd_sub_top_note: {
         'en': 'Thank you.. for...... 5 subscribers',
         'es': '',
@@ -3363,5 +3373,45 @@ export const i18n = {
         'ko': '',
         'ja': '',
         'ru':''
-    }
+    },
+    opd_sub_gift_sub_btn: {
+        'en': 'Gift A Sub',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_gift_sub_msg: {
+        'en': 'Gift A Sub Gift A Sub Gift A Sub Gift A Sub Gift A Sub Gift A Sub',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    subscribe_btn_text: {
+        'en': 'S U B S C R I B E',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    subscribe_subscriber_btn_text: {
+        'en': 'Sub Settings',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
 }

@@ -83,7 +83,7 @@ async function main() {
                     showPage('sub_page');
                     break;
                 case "settings_manage_sub":
-
+                    showPage('sub_manage_page');
                     break;
                 default:
                     showPage('sub_page');
