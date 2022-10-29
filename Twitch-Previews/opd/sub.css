@@ -150,3 +150,16 @@ table select {
 .opd_sub_code_info:hover #opd_sub_code_info {
     display: block;
 }
+#tp_unsub_reason_input {
+    margin-top: 30px;
+    color: white;
+    background-color: rgb(24, 24, 27);
+    border-radius: 5px;
+    border: 1px solid grey;
+    height: 25px;
+    text-align: center;
+}
+#unsub_error_text_el {
+    display: none;
+    color: red;
+}

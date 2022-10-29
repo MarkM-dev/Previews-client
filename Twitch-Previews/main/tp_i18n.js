@@ -3414,4 +3414,44 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_unsub_msg: {
+        'en': 'Tell us why you are cancelling your subscription',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_unsub_btn: {
+        'en': 'Cancel Subscription',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_unsub_confirm_msg: {
+        'en': 'Are you sure you want to cancel your subscription?\n\nReason:\n',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_unsub_error: {
+        'en': 'Please enter at least 10 characters',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
 }
