@@ -1,5 +1,5 @@
 async function main() {
-    let already_subbed_toast_origin = false;
+    let have_code_toast_origin = false;
     let sections = document.querySelectorAll('.sub-section');
 
     let isFirefox = typeof browser !== "undefined";
@@ -21,7 +21,7 @@ async function main() {
         }, (granted) => {
             if (granted) {
                 setSectionNumberCompleted(0);
-                if (already_subbed_toast_origin) {
+                if (have_code_toast_origin) {
                     removeHighlight(0);
                     addHighlight(2);
                 } else {
@@ -83,16 +83,17 @@ async function main() {
         this.close();
     });
 
-    _browser.storage.local.get(['tp_sub_toast_origin', 'subscribe_price'], function(result) {
-        if (result.tp_sub_toast_origin) {
-            if (result.tp_sub_toast_origin === 'already_subbed') {
-                already_subbed_toast_origin = true;
+    _browser.storage.local.get('sub_payload', function(result) {
+        if (result.sub_payload) {
+            if (result.sub_payload.tp_sub_toast_origin === 'have_code') {
+                have_code_toast_origin = true;
+                setSectionNumberCompleted(1);
             } else {
-                if (result.tp_sub_toast_origin && result.tp_sub_toast_origin === 'toast_subscribe') {
-                    document.querySelector('#opd_sub_subscribe_price_select').value = result.subscribe_price ? result.subscribe_price : '$5';
+                if (result.sub_payload.tp_sub_toast_origin && result.sub_payload.tp_sub_toast_origin === 'toast_subscribe') {
+                    document.querySelector('#opd_sub_subscribe_price_select').value = result.sub_payload.subscribe_price ? result.sub_payload.subscribe_price : '$5';
                 }
             }
-            _browser.storage.local.set({'tp_sub_toast_origin': false, 'subscribe_price': false}, function() {});
+            _browser.storage.local.set({'sub_payload': false}, function() {});
         }
         startFlow();
     });
@@ -105,7 +106,7 @@ async function main() {
             if (result) {
                 setSectionNumberCompleted(0);
                 removeHighlight(0);
-                if (already_subbed_toast_origin) {
+                if (have_code_toast_origin) {
                     addHighlight(2);
                 } else {
                     addHighlight(1);

@@ -3225,7 +3225,7 @@ export const i18n = {
         'ru':'\n'
     },
     subscribe_toast_have_code: {
-        'en': 'Already subbed',
+        'en': 'I have a code',
         'es': '',
         'de': '',
         'fr': '',
