@@ -65,7 +65,7 @@ body {
     transform: scale(1) !important;
     box-shadow: 0 0 10px 0px white;
 }
-.tp-sub-section-highlighted .tp-btn{
+.tp-sub-section-highlighted .tp-btn, .tp-sub-section-highlighted .opd_sub_code_info {
     pointer-events: all !important;
 }
 .sub-section-title {
@@ -127,4 +127,26 @@ table select {
 @keyframes tp-validation-loading-spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.opd_sub_code_info {
+    cursor: default;
+    font-weight: normal;
+}
+
+.opd_sub_code_info {
+    pointer-events: none;
+}
+
+#opd_sub_code_info {
+    display: none;
+    position: absolute;
+    width: 250px;
+    height: 500px;
+    top: -325px;
+    right: -20px;
+}
+
+.opd_sub_code_info:hover #opd_sub_code_info {
+    display: block;
 }

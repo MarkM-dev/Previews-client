@@ -1,6 +1,4 @@
 async function main() {
-    let have_code_toast_origin = false;
-    let sections = document.querySelectorAll('.sub-section');
 
     let isFirefox = typeof browser !== "undefined";
     let _browser = isFirefox ? browser : chrome;
@@ -14,6 +12,10 @@ async function main() {
             })
         });
     });
+
+    let have_code_toast_origin = false;
+    let sections = document.querySelectorAll('.sub-section');
+    document.querySelector('#opd_sub_code_info').src = _browser.runtime.getURL('../images/TP128.png');
 
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
         _browser.permissions.request({
