@@ -75,12 +75,16 @@
     <div id="sub_unsub_page" class="sub_page" >
         <div class="sub-section" >
             <div class="tp_ext_desc" ><span tp_i18n="opd_sub_unsub_msg" >Tell us why you are cancelling your subscription</span></div>
-            <textarea id="tp_unsub_reason_input" maxlength="150" cols="50" ></textarea>
+            <textarea id="tp_unsub_reason_input" maxlength="127" cols="50" ></textarea>
             <div id="unsub_error_text_el" tp_i18n="opd_sub_unsub_error" ></div>
             <div>
                 <div id="tp_unsub_btn" class="tp-btn" tp_i18n="opd_sub_unsub_btn" >Cancel Subscription</div>
                 <div id="tp_unsub_loading_spinner" ></div >
             </div>
+        </div>
+
+        <div class="sub-section" style="display: none;" >
+            <div style="font-size: 20px" ><span tp_i18n="opd_sub_unsubbed_msg" >Subscription cancelled</span></div>
         </div>
     </div>
 

@@ -93,12 +93,14 @@ async function main() {
             document.querySelector('#unsub_error_text_el').style.display = 'block';
             unsub_textarea.style.border = '1px solid red';
         } else {
-            if (input.length > 150) {
-                input = input.substring(0, 150);
-                unsub_textarea.value = unsub_textarea.value.substring(0, 150);
+            if (input.length > 127) {
+                input = input.substring(0, 127);
+                unsub_textarea.value = unsub_textarea.value.substring(0, 127);
             }
             if (confirm(_i18n('opd_sub_unsub_confirm_msg') + input)) {
-
+                sections[5].style.display = 'none';
+                sections[6].style.display = 'block';
+                highlightSection(6);
             }
         }
     });

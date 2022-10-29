@@ -3454,4 +3454,14 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_unsubbed_msg: {
+        'en': 'Subscription cancelled',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
 }
