@@ -176,3 +176,9 @@ table select {
     padding: 2px;
     color: grey;
 }
+#opd_sub_have_code_btn {
+    display: none;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}

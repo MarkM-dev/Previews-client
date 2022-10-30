@@ -3484,4 +3484,14 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_have_code_btn: {
+        'en': 'Redeem Code',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
 }

@@ -75,6 +75,13 @@ async function main() {
         });
     })
 
+    let redeem_code_floating_btn = document.querySelector('#opd_sub_have_code_btn');
+    redeem_code_floating_btn.addEventListener('click', function (e) {
+        have_code_toast_origin = true;
+        checkDomainPermissions_flow();
+        setSectionNumberCompleted(1);
+    });
+
     document.getElementById('tp_close_tab_btn').addEventListener('click', function (e) {
         parent.close();
         window.close();
@@ -152,10 +159,12 @@ async function main() {
                     showPage('sub_page');
                     document.querySelector('#opd_sub_subscribe_price_select').value = result.sub_payload.subscribe_price ? result.sub_payload.subscribe_price : '$5';
                     checkDomainPermissions_flow();
+                    document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
                 case "settings_subscribe":
                     showPage('sub_page');
                     checkDomainPermissions_flow();
+                    document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
                 case "settings_manage_sub":
                     showPage('sub_manage_page');
@@ -164,6 +173,7 @@ async function main() {
                 default:
                     showPage('sub_page');
                     checkDomainPermissions_flow();
+                    document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
             }
 
