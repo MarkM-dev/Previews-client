@@ -3415,7 +3415,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_unsub_msg: {
-        'en': 'Tell us why you are cancelling your subscription',
+        'en': 'Tell us why you are canceling your subscription',
         'es': '',
         'de': '',
         'fr': '',
@@ -3456,6 +3456,26 @@ export const i18n = {
     },
     opd_sub_unsubbed_msg: {
         'en': 'Subscription cancelled',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_manage_section_title: {
+        'en': 'Manage Subscription',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_manage_section_msg: {
+        'en': 'Manage Subscription Manage Subscription Manage Subscription Manage Subscription',
         'es': '',
         'de': '',
         'fr': '',

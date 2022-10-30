@@ -167,3 +167,12 @@ table select {
     display: none;
     color: red;
 }
+#tp_manage_unsub_btn {
+    margin: 35px 0 -10px -87%;
+    border: none;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    padding: 2px;
+    color: grey;
+}
