@@ -23,7 +23,7 @@ async function main() {
         }
     });
 
-    let server_origins = 'http:///*';
+    let server_origins = 'https://previews-app.com/*';
     let have_code_toast_origin = false;
     let sections = document.querySelectorAll('.sub-section');
     document.querySelector('#opd_sub_code_info').src = _browser.runtime.getURL('../images/TP128.png');
