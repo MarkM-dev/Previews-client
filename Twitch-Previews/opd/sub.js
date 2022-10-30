@@ -166,6 +166,10 @@ async function main() {
                     checkDomainPermissions_flow();
                     document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
+                case "settings_gift_a_sub":
+                    showPage('sub_page');
+                    checkDomainPermissions_flow();
+                    break;
                 case "settings_manage_sub":
                     showPage('sub_manage_page');
                     highlightSection('sub_section_sub_manage');
