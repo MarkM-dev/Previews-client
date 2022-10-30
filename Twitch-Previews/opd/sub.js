@@ -43,7 +43,7 @@ async function main() {
         //document.getElementById('tp_subscribe_paypal_btn').click();
         setTimeout(function () {
             setSectionNumberCompleted(1);
-            highlightSection(2);
+            highlightSection('sub_section_sub_phase_3');
             sections[2].scrollIntoView({behavior: "smooth", block: "start"});
         }, 100);
     });
@@ -66,7 +66,7 @@ async function main() {
                 setSectionNumberCompleted(2);
                 showPage('sub_thanks_page');
                 setTimeout(function () {
-                    highlightSection(3);
+                    highlightSection('sub_section_sub_thanks');
                 },100);
             } else {
                 setSectionNumberError(2);
@@ -83,7 +83,7 @@ async function main() {
 
     document.getElementById('tp_manage_unsub_btn').addEventListener('click', function (e) {
         showPage('sub_unsub_page');
-        highlightSection(5);
+        highlightSection('sub_section_unsub');
     });
 
     function sendUnsubRequest(reason) {
@@ -96,7 +96,7 @@ async function main() {
             if (response.result === 'okay') {
                 sections[5].style.display = 'none';
                 sections[6].style.display = 'block';
-                highlightSection(6);
+                highlightSection('sub_section_unsub_done');
             } else {
                 document.querySelector('#unsub_error_text_el').innerText = response.result;
             }
@@ -159,7 +159,7 @@ async function main() {
                     break;
                 case "settings_manage_sub":
                     showPage('sub_manage_page');
-                    highlightSection(4);
+                    highlightSection('sub_section_sub_manage');
                     break;
                 default:
                     showPage('sub_page');
@@ -181,7 +181,7 @@ async function main() {
             if (result) {
                 flow_permission_allowed();
             } else {
-                highlightSection(0);
+                highlightSection('sub_section_sub_phase_1');
             }
         });
     }
@@ -189,15 +189,15 @@ async function main() {
     function flow_permission_allowed() {
         setSectionNumberCompleted(0);
         if (have_code_toast_origin) {
-            highlightSection(2);
+            highlightSection('sub_section_sub_phase_3');
         } else {
-            highlightSection(1);
+            highlightSection('sub_section_sub_phase_2');
         }
         sections[1].onmouseenter = ()=> {
-            highlightSection(1);
+            highlightSection('sub_section_sub_phase_2');
         }
         sections[2].onmouseenter = ()=> {
-            highlightSection(2);
+            highlightSection('sub_section_sub_phase_3');
         }
     }
 
@@ -211,8 +211,8 @@ async function main() {
         sections[num].querySelector('.tp-sub-section-number').style.color = 'whitesmoke';
     }
 
-    function highlightSection(index) {
-        sections.forEach((x, i)=>{i === index ? x.classList.add('tp-sub-section-highlighted') : x.classList.remove('tp-sub-section-highlighted')});
+    function highlightSection(id) {
+        document.querySelectorAll('.sub-section').forEach((x)=>{x.id === id ? x.classList.add('tp-sub-section-highlighted'): x.classList.remove('tp-sub-section-highlighted')})
     }
 
     function showPage(id) {
