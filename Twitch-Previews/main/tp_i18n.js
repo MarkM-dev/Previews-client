@@ -3425,7 +3425,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_unsub_btn: {
-        'en': 'Cancel Subscription',
+        'en': 'cancel subscription',
         'es': '',
         'de': '',
         'fr': '',
