@@ -23,13 +23,14 @@ async function main() {
         }
     });
 
+    let server_origins = 'http:///*';
     let have_code_toast_origin = false;
     let sections = document.querySelectorAll('.sub-section');
     document.querySelector('#opd_sub_code_info').src = _browser.runtime.getURL('../images/TP128.png');
 
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
         _browser.permissions.request({
-            origins: ['https://clips.twitch.tv/*']
+            origins: [server_origins]
         }, (granted) => {
             if (granted) {
                 flow_permission_allowed();
@@ -125,14 +126,14 @@ async function main() {
             }
             if (confirm(_i18n('opd_sub_unsub_confirm_msg') + input)) {
                 _browser.permissions.contains({
-                    origins: ['https://asds.twitch.tv/*']
+                    origins: [server_origins]
                 }, (result) => {
                     if (result) {
                         sendUnsubRequest(input);
                     } else {
                         if(confirm(_i18n('opd_sub_permissions_msg'))) {
                             _browser.permissions.request({
-                                origins: ['https://clips.twitch.tv/*']
+                                origins: [server_origins]
                             }, (granted) => {
                                 if (granted) {
                                     sendUnsubRequest(input);
@@ -190,7 +191,7 @@ async function main() {
 
     function checkDomainPermissions_flow() {
         _browser.permissions.contains({
-            origins: ['https://asds.twitch.tv/*']
+            origins: [server_origins]
         }, (result) => {
             if (result) {
                 flow_permission_allowed();
