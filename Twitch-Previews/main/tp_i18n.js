@@ -3404,8 +3404,8 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
-    subscribe_subscriber_btn_text: {
-        'en': 'Sub Settings',
+    subscribe_gift_a_sub_btn_text: {
+        'en': 'Gift A Sub',
         'es': '',
         'de': '',
         'fr': '',
