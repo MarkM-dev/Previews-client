@@ -168,6 +168,9 @@ async function main() {
             }
 
             _browser.storage.local.set({'sub_payload': false}, function() {});
+        } else {
+            showPage('sub_page');
+            checkDomainPermissions_flow();
         }
     });
 
