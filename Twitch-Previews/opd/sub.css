@@ -113,7 +113,7 @@ table select {
     color: limegreen;
 }
 
-#tp_validation_loading_spinner {
+.tp-action-loading-spinner {
     display: none;
     margin: 15px auto 0;
     width: 20px;
@@ -123,6 +123,10 @@ table select {
     border-radius: 50%;
     animation: tp-validation-loading-spin 1s linear infinite;
 }
+
+/*#tp_validation_loading_spinner {
+
+}*/
 
 @keyframes tp-validation-loading-spin {
     0% { transform: rotate(0deg); }

@@ -86,7 +86,26 @@ async function main() {
         highlightSection(5);
     });
 
-    document.getElementById('tp_unsub_btn').addEventListener('click', function (e) {
+    function sendUnsubRequest(reason) {
+        unsub_loading_spinner.style.display = 'inline-block';
+        unsub_btn.style.display = 'none';
+
+        _browser.runtime.sendMessage({action:'cancel_subscription', detail: reason}, function(response) {
+            unsub_loading_spinner.style.display = 'none';
+            unsub_btn.style.display = 'inline-flex';
+            if (response.result === 'okay') {
+                sections[5].style.display = 'none';
+                sections[6].style.display = 'block';
+                highlightSection(6);
+            } else {
+                document.querySelector('#unsub_error_text_el').innerText = response.result;
+            }
+        });
+    }
+
+    let unsub_loading_spinner = document.querySelector('#tp_unsub_loading_spinner');
+    let unsub_btn = document.querySelector('#tp_unsub_btn');
+    unsub_btn.addEventListener('click', function (e) {
         let unsub_textarea = document.querySelector('#tp_unsub_reason_input');
         let input = unsub_textarea.value;
         if (input.length < 10) {
@@ -98,9 +117,23 @@ async function main() {
                 unsub_textarea.value = unsub_textarea.value.substring(0, 127);
             }
             if (confirm(_i18n('opd_sub_unsub_confirm_msg') + input)) {
-                sections[5].style.display = 'none';
-                sections[6].style.display = 'block';
-                highlightSection(6);
+                _browser.permissions.contains({
+                    origins: ['https://asds.twitch.tv/*']
+                }, (result) => {
+                    if (result) {
+                        sendUnsubRequest(input);
+                    } else {
+                        if(confirm(_i18n('opd_sub_permissions_msg'))) {
+                            _browser.permissions.request({
+                                origins: ['https://clips.twitch.tv/*']
+                            }, (granted) => {
+                                if (granted) {
+                                    sendUnsubRequest(input);
+                                }
+                            });
+                        }
+                    }
+                });
             }
         }
     });
