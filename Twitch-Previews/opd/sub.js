@@ -106,6 +106,7 @@ async function main() {
                 sections[6].style.display = 'block';
                 highlightSection('sub_section_unsub_done');
             } else {
+                document.querySelector('#unsub_error_text_el').style.display = 'block';
                 document.querySelector('#unsub_error_text_el').innerText = response.result.err_text ? response.result.err_text:_i18n('something_went_wrong') + response.result.status_code;
             }
         });
