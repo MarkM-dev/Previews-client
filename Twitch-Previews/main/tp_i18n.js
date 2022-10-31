@@ -3494,4 +3494,14 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    something_went_wrong: {
+        'en': 'Something went wrong: ',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
 }

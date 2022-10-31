@@ -71,7 +71,7 @@ async function main() {
                 },100);
             } else {
                 setSectionNumberError(2);
-                document.querySelector('#validation_error_text_el').innerText = response.result;
+                document.querySelector('#validation_error_text_el').innerText = response.result.err_text ? response.result.err_text:_i18n('something_went_wrong') + response.result.status_code;
             }
         });
     })
