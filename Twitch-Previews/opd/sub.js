@@ -71,7 +71,7 @@ async function main() {
                 },100);
             } else {
                 setSectionNumberError(2);
-                document.querySelector('#validation_error_text_el').innerText = response.result.err_text ? response.result.err_text:_i18n('something_went_wrong') + response.result.status_code;
+                document.querySelector('#validation_error_text_el').innerText = response.result.message ? (response.result.message + ' ' + response.result.status_code) : (_i18n('something_went_wrong') + response.result.status_code);
             }
         });
     })
@@ -107,7 +107,7 @@ async function main() {
                 highlightSection('sub_section_unsub_done');
             } else {
                 document.querySelector('#unsub_error_text_el').style.display = 'block';
-                document.querySelector('#unsub_error_text_el').innerText = response.result.err_text ? response.result.err_text:_i18n('something_went_wrong') + response.result.status_code;
+                document.querySelector('#unsub_error_text_el').innerText = response.result.message ? (response.result.message + ' ' + response.result.status_code) : (_i18n('something_went_wrong') + response.result.status_code);
             }
         });
     }
