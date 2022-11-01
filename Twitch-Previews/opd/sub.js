@@ -27,6 +27,7 @@ async function main() {
     let have_code_toast_origin = false;
     let sections = document.querySelectorAll('.sub-section');
     document.querySelector('#opd_sub_code_info').src = _browser.runtime.getURL('../images/opd_sub_code_info.jpg');
+    document.querySelector('#opd_sub_gift_a_sub_code_info').src = _browser.runtime.getURL('../images/opd_sub_code_info.jpg');
 
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
         _browser.permissions.request({
@@ -83,6 +84,20 @@ async function main() {
         setSectionNumberCompleted(1);
     });
 
+    document.querySelectorAll('.tp_gift_a_sub_plan_btn').forEach((el)=>{
+        el.onclick = (e) => {
+            document.querySelector('#opd_sub_gift_a_sub_select').value = el.attributes['data-tp-gifted-value'].value;
+            document.querySelector('#tp_gift_a_sub_paypal_btn').click();
+        }
+    })
+
+    document.getElementById('tp_gift_a_sub_done_btn').addEventListener('click', function (e) {
+        showPage('sub_thanks_page');
+        setTimeout(function () {
+            highlightSection('sub_section_sub_thanks');
+        },100);
+    });
+
     document.getElementById('tp_close_tab_btn').addEventListener('click', function (e) {
         parent.close();
         window.close();
@@ -116,8 +131,7 @@ async function main() {
                     document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
                 case "settings_gift_a_sub":
-                    showPage('sub_page');
-                    checkDomainPermissions_flow();
+                    showPage('sub_gift_a_sub_page');
                     break;
                 case "settings_manage_sub":
                     showPage('sub_manage_page');

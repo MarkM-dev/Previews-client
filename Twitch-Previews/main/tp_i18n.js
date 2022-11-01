@@ -3484,4 +3484,64 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_gift_a_sub_top_note: {
+        'en': 'Gift a Sub',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_gift_a_sub_msg: {
+        'en': 'Select a gifted subscription option',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_gift_a_sub_send_to_friend_msg: {
+        'en': 'Send your friend the "Transaction ID" code located in the email receipt you received from PayPal',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    tp_gift_a_sub_done_btn: {
+        'en': 'Done',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    tp_month_text: {
+        'en': 'Month',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    tp_months_text: {
+        'en': 'Months',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
 }

@@ -76,9 +76,6 @@ body {
 #tp_subscribe_btn {
     margin-top: 0px;
 }
-#tp_subscribe_paypal_btn {
-    display: none;
-}
 table select {
     color: white;
     background-color: rgb(24, 24, 27);
@@ -142,7 +139,7 @@ table select {
     pointer-events: none;
 }
 
-#opd_sub_code_info {
+#opd_sub_code_info, #opd_sub_gift_a_sub_code_info {
     display: none;
     position: absolute;
     width: 440px;
@@ -152,7 +149,7 @@ table select {
     border-radius: 20px;
 }
 
-.opd_sub_code_info:hover #opd_sub_code_info {
+.opd_sub_code_info:hover #opd_sub_code_info,.opd_sub_code_info:hover #opd_sub_gift_a_sub_code_info {
     display: block;
 }
 #tp_manage_unsub_btn {

@@ -38,7 +38,7 @@
                 </select> </td></tr>
                 </table>
                 <input type="hidden" name="currency_code" value="USD">
-                <input id="tp_subscribe_paypal_btn" type="image" src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <input id="tp_subscribe_paypal_btn" style="display: none;" type="image" src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
             </form>
             <div id="tp_subscribe_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_subscribe_btn" >Subscribe</div>
@@ -47,7 +47,7 @@
         <div id="sub_section_sub_phase_3" class="sub-section" >
             <div class="sub-section-title" ><span class="tp-sub-section-number" >3</span> <span tp_i18n="opd_sub_section_title_3" >Enter Code</span></div>
             <div id="validation_error_text_el" ></div>
-            <div class="tp_ext_desc" ><span tp_i18n="opd_sub_validate_msg" >Enter the "something something id" code on the receipt you received from PayPal</span> <span class="opd_sub_code_info" >&#9432;<img id="opd_sub_code_info" /></span></div>
+            <div class="tp_ext_desc" ><span tp_i18n="opd_sub_validate_msg" >Enter the "Profile id" code on the receipt you received from PayPal</span> <span class="opd_sub_code_info" >&#9432;<img id="opd_sub_code_info" /></span></div>
             <input id="tp_validate_input" type="text" placeholder="ABCDEFGHIJK" >
             <div>
                 <div id="tp_validate_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_validate_btn" >Validate</div>
@@ -58,6 +58,54 @@
         <div id="opd_sub_have_code_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="opd_sub_have_code_btn" >Redeem Code</div>
 
     </div>
+
+
+
+
+
+
+    <div id="sub_gift_a_sub_page" class="sub_page" >
+        <div class="sub-top-note" tp_i18n="opd_sub_gift_a_sub_top_note" >Gift a Sub</div>
+
+        <div class="sub-section tp-sub-section-highlighted" >
+            <div class="sub-section-title" ><span class="tp-sub-section-number" >1</span> <span tp_i18n="opd_sub_section_title_2" >Subscribe Via PayPal Or Credit-Card</span></div>
+            <div class="tp_ext_desc" tp_i18n="opd_sub_gift_a_sub_msg" >Select a gifted subscription option</div>
+
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display:none;">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="YZUZXFAT2EWZG">
+                <table>
+                    <tr><td><input type="hidden" name="on0" value="Options">Options</td></tr><tr><td><select id="opd_sub_gift_a_sub_select" name="os0">
+                    <option value="1 Month">1 Month: $2.50 USD</option>
+                    <option value="2 Month">2 Month: $4.50 USD</option>
+                    <option value="3 Month">3 Month: $7.00 USD</option>
+                    <option value="6 Month">6 Month: $13.00 USD</option>
+                    <option value="12 Month">12 Month: $24.00 USD</option>
+                </select> </td></tr>
+                </table>
+                <input type="hidden" name="currency_code" value="USD">
+                <input id="tp_gift_a_sub_paypal_btn" type="image" src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
+
+            <div class="tp-btn tp_allow_permissions_btn tp_gift_a_sub_plan_btn" data-tp-gifted-value="1 Month" >1 <span tp_i18n="tp_month_text" >Month</span>$2.50 USD</div>
+            <div class="tp-btn tp_allow_permissions_btn tp_gift_a_sub_plan_btn" data-tp-gifted-value="2 Month" >2 <span tp_i18n="tp_months_text" >Months</span>$4.50 USD</div>
+            <div class="tp-btn tp_allow_permissions_btn tp_gift_a_sub_plan_btn" data-tp-gifted-value="3 Month" >3 <span tp_i18n="tp_months_text" >Months</span>$7.00 USD</div>
+            <div class="tp-btn tp_allow_permissions_btn tp_gift_a_sub_plan_btn" data-tp-gifted-value="6 Month" >6 <span tp_i18n="tp_months_text" >Months</span>$13.00 USD</div>
+            <div class="tp-btn tp_allow_permissions_btn tp_gift_a_sub_plan_btn" data-tp-gifted-value="12 Month" >12 <span tp_i18n="tp_months_text" >Months</span>$24.00 USD</div>
+        </div>
+
+        <div class="sub-section tp-sub-section-highlighted" >
+            <div class="sub-section-title" ><span class="tp-sub-section-number" >2</span> <span tp_i18n="opd_sub_section_title_3" >Enter Code</span></div>
+
+            <div class="tp_ext_desc" ><span tp_i18n="opd_sub_gift_a_sub_send_to_friend_msg" >Send your friend the "Transaction ID" code located in the email receipt you received from PayPal</span> <span class="opd_sub_code_info" >&#9432;<img id="opd_sub_gift_a_sub_code_info" /></span></div>
+            <div id="tp_gift_a_sub_done_btn" class="tp-btn tp_allow_permissions_btn" tp_i18n="tp_gift_a_sub_done_btn" >Done</div>
+        </div>
+    </div>
+
+
+
+
 
     <div id="sub_thanks_page" class="sub_page" >
         <div id="sub_section_sub_thanks" class="sub-section" >
