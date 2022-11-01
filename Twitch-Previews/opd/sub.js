@@ -24,7 +24,7 @@ async function main() {
     });
 
     let server_origins = 'https://previews-app.com/*';
-    let have_code_toast_origin = false;
+    let redeem_code_intent = false;
     let sections = document.querySelectorAll('.sub-section');
     document.querySelector('#opd_sub_code_info').src = _browser.runtime.getURL('../images/opd_sub_code_info.jpg');
     document.querySelector('#opd_sub_gift_a_sub_code_info').src = _browser.runtime.getURL('../images/opd_sub_code_info.jpg');
@@ -60,12 +60,10 @@ async function main() {
 
         loading_spinner.style.display = 'inline-block';
         validate_btn.style.display = 'none';
-        _browser.runtime.sendMessage({action:'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
+        _browser.runtime.sendMessage({action: redeem_code_intent ? 'validate_gifted_subscription':'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
             loading_spinner.style.display = 'none';
             validate_btn.style.display = 'inline-flex';
             if (response.result === 'okay') {
-                setSectionNumberCompleted(1);
-                setSectionNumberCompleted(2);
                 showPage('sub_thanks_page');
                 setTimeout(function () {
                     highlightSection('sub_section_sub_thanks');
@@ -79,7 +77,7 @@ async function main() {
 
     let redeem_code_floating_btn = document.querySelector('#opd_sub_have_code_btn');
     redeem_code_floating_btn.addEventListener('click', function (e) {
-        have_code_toast_origin = true;
+        redeem_code_intent = true;
         startRedeemCodePage();
     });
 
@@ -125,7 +123,7 @@ async function main() {
             switch (result.sub_payload.tp_sub_origin_intent) {
                 case "have_code":
                     showPage('sub_page');
-                    have_code_toast_origin = true;
+                    redeem_code_intent = true;
                     startRedeemCodePage();
                     break;
                 case "toast_subscribe":
@@ -145,6 +143,11 @@ async function main() {
                 case "settings_manage_sub":
                     showPage('sub_manage_page');
                     highlightSection('sub_section_sub_manage');
+                    _browser.storage.local.get('tp_user_sub', function(result) {
+                        if (result.tp_user_sub && result.tp_user_sub.is_gifted) {
+                            document.getElementById('tp_manage_unsub_btn').style.display = 'none';
+                        }
+                    });
                     break;
                 default:
                     showPage('sub_page');
@@ -167,7 +170,7 @@ async function main() {
         document.querySelector('#opd_sub_code_info_icon').style.display = 'none';
         document.querySelector('#opd_sub_validate_msg').innerText = _i18n('opd_sub_gift_a_sub_title');
         document.querySelector('#tp_validate_input').placeholder = '1A2B3C4D5E6F7G8H9';
-
+        document.querySelector('#validation_error_text_el').innerText = '';
     }
 
     function checkDomainPermissions_flow() {
@@ -184,7 +187,7 @@ async function main() {
 
     function flow_permission_allowed() {
         setSectionNumberCompleted(0);
-        if (have_code_toast_origin) {
+        if (redeem_code_intent) {
             highlightSection('sub_section_sub_phase_3');
         } else {
             highlightSection('sub_section_sub_phase_2');
