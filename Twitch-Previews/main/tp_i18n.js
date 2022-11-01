@@ -3335,7 +3335,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_validate_msg: {
-        'en': 'Enter the "something something id" code on the receipt you received from PayPal',
+        'en': 'Enter the "Profile ID" code located in the email receipt you received from PayPal',
         'es': '',
         'de': '',
         'fr': '',
