@@ -3315,7 +3315,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_subscribe_price_select: {
-        'en': 'Select Custom Subscription Price',
+        'en': 'Select Custom Monthly Subscription Price',
         'es': '',
         'de': '',
         'fr': '',
