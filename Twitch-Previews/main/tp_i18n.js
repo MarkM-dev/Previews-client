@@ -3295,7 +3295,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_permissions_msg: {
-        'en': 'Allow permission for the extension to communicate with our validation server (Previews.com)',
+        'en': 'Allow permission for the extension to communicate with our validation server (previews-app.com)',
         'es': '',
         'de': '',
         'fr': '',
