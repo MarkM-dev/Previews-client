@@ -144,8 +144,16 @@ async function main() {
                     showPage('sub_manage_page');
                     highlightSection('sub_section_sub_manage');
                     _browser.storage.local.get('tp_user_sub', function(result) {
-                        if (result.tp_user_sub && result.tp_user_sub.is_gifted) {
-                            document.getElementById('tp_manage_unsub_btn').style.display = 'none';
+                        if (result.tp_user_sub) {
+                            if (result.tp_user_sub.is_gifted) {
+                                document.getElementById('tp_manage_unsub_btn').style.display = 'none';
+                                document.getElementById('sub_manage_subscription_details_type').innerText = 'Gifted Sub';
+                                let end_date = new Date(result.tp_user_sub.last_payment_time.split('T')[0]);
+                                end_date.setDate(end_date.getDate() + result.tp_user_sub.validation_period);
+                                document.getElementById('sub_manage_subscription_details_end_time').innerText = end_date.toString();
+                            } else {
+
+                            }
                         }
                     });
                     break;
