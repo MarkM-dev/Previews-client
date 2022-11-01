@@ -74,17 +74,16 @@
 
     <div id="sub_unsub_page" class="sub_page" >
         <div id="sub_section_unsub" class="sub-section" >
-            <div class="tp_ext_desc" ><span tp_i18n="opd_sub_unsub_msg" >Tell us why you are cancelling your subscription</span></div>
-            <textarea id="tp_unsub_reason_input" maxlength="127" cols="50" ></textarea>
-            <div id="unsub_error_text_el" tp_i18n="opd_sub_unsub_error" ></div>
-            <div>
-                <div id="tp_unsub_btn" class="tp-btn" tp_i18n="opd_sub_unsub_btn" >Cancel Subscription</div>
-                <div id="tp_unsub_loading_spinner" class="tp-action-loading-spinner" ></div >
+            <div class="tp_ext_desc" ><span tp_i18n="opd_sub_unsub_msg" >Follow these instructions to cancel your subscription</span></div>
+            <div id="opd_sub_unsub_instructions" >
+                <div tp_i18n="opd_sub_unsub_instructions"></div>
+                <div style="width: 100%;text-align: center;" ><a style="color: white;text-decoration: none;" class="tp-btn tp_allow_permissions_btn" href="mailto:twitchPreviews@gmail.com" >
+                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke:currentColor;width: 17px;height: 17px;margin-right: 3px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2
+                         2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span tp_i18n="update_toast_contact" >Contact</span></a></div>
             </div>
-        </div>
-
-        <div id="sub_section_unsub_done" class="sub-section" style="display: none;" >
-            <div style="font-size: 20px" ><span tp_i18n="opd_sub_unsubbed_msg" >Subscription cancelled</span></div>
         </div>
     </div>
 

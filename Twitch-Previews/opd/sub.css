@@ -154,19 +154,6 @@ table select {
 .opd_sub_code_info:hover #opd_sub_code_info {
     display: block;
 }
-#tp_unsub_reason_input {
-    margin-top: 30px;
-    color: white;
-    background-color: rgb(24, 24, 27);
-    border-radius: 5px;
-    border: 1px solid grey;
-    height: 25px;
-    text-align: center;
-}
-#unsub_error_text_el {
-    display: none;
-    color: red;
-}
 #tp_manage_unsub_btn {
     margin: 35px 0 -10px -87%;
     border: none;
@@ -181,4 +168,10 @@ table select {
     position: absolute;
     top: 10%;
     left: 10%;
+}
+#opd_sub_unsub_instructions {
+    text-align: left;
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: normal;
 }

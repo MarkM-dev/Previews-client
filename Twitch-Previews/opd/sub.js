@@ -94,59 +94,6 @@ async function main() {
         highlightSection('sub_section_unsub');
     });
 
-    function sendUnsubRequest(reason) {
-        unsub_loading_spinner.style.display = 'inline-block';
-        unsub_btn.style.display = 'none';
-
-        _browser.runtime.sendMessage({action:'cancel_subscription', detail: reason}, function(response) {
-            unsub_loading_spinner.style.display = 'none';
-            unsub_btn.style.display = 'inline-flex';
-            if (response.result === 'okay') {
-                sections[5].style.display = 'none';
-                sections[6].style.display = 'block';
-                highlightSection('sub_section_unsub_done');
-            } else {
-                document.querySelector('#unsub_error_text_el').style.display = 'block';
-                document.querySelector('#unsub_error_text_el').innerText = response.result.message ? (response.result.message + ' ' + response.result.status_code) : (_i18n('something_went_wrong') + response.result.status_code);
-            }
-        });
-    }
-
-    let unsub_loading_spinner = document.querySelector('#tp_unsub_loading_spinner');
-    let unsub_btn = document.querySelector('#tp_unsub_btn');
-    unsub_btn.addEventListener('click', function (e) {
-        let unsub_textarea = document.querySelector('#tp_unsub_reason_input');
-        let input = unsub_textarea.value;
-        if (input.length < 10) {
-            document.querySelector('#unsub_error_text_el').style.display = 'block';
-            unsub_textarea.style.border = '1px solid red';
-        } else {
-            if (input.length > 127) {
-                input = input.substring(0, 127);
-                unsub_textarea.value = unsub_textarea.value.substring(0, 127);
-            }
-            if (confirm(_i18n('opd_sub_unsub_confirm_msg') + input)) {
-                _browser.permissions.contains({
-                    origins: [server_origins]
-                }, (result) => {
-                    if (result) {
-                        sendUnsubRequest(input);
-                    } else {
-                        if(confirm(_i18n('opd_sub_permissions_msg'))) {
-                            _browser.permissions.request({
-                                origins: [server_origins]
-                            }, (granted) => {
-                                if (granted) {
-                                    sendUnsubRequest(input);
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        }
-    });
-
     _browser.storage.local.get('sub_payload', function(result) {
         if (result.sub_payload) {
 

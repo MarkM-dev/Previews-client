@@ -3415,7 +3415,17 @@ export const i18n = {
         'ru':''
     },
     opd_sub_unsub_msg: {
-        'en': 'Tell us why you are canceling your subscription',
+        'en': 'Follow these instructions to cancel your subscription',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_unsub_instructions: {
+        'en': '1. Go to Paypal.com and login.\n2. Click the gear icon (top right).\n3. Select "Payments".\n4. Click on "Manage Automatic Payments" and find the subscription.',
         'es': '',
         'de': '',
         'fr': '',
@@ -3426,36 +3436,6 @@ export const i18n = {
     },
     opd_sub_unsub_btn: {
         'en': 'cancel subscription',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
-    opd_sub_unsub_confirm_msg: {
-        'en': 'Are you sure you want to cancel your subscription?\n\nReason:\n',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
-    opd_sub_unsub_error: {
-        'en': 'Please enter at least 10 characters',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
-    opd_sub_unsubbed_msg: {
-        'en': 'Subscription cancelled',
         'es': '',
         'de': '',
         'fr': '',
