@@ -3544,4 +3544,24 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_gift_a_sub_section_title_1: {
+        'en': 'Select how many months to gift',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_gift_a_sub_section_title_2: {
+        'en': 'Subscribe Via PayPal Or Credit-Card',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
 }
