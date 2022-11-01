@@ -142,7 +142,9 @@ async function main() {
                     break;
                 case "settings_manage_sub":
                     showPage('sub_manage_page');
-                    highlightSection('sub_section_sub_manage');
+                    setTimeout(function () {
+                        highlightSection('sub_section_sub_manage');
+                    }, 100)
                     _browser.storage.local.get('tp_user_sub', function(result) {
                         if (result.tp_user_sub) {
                             if (result.tp_user_sub.is_gifted) {
