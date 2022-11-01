@@ -150,7 +150,8 @@ async function main() {
                                 document.getElementById('sub_manage_subscription_details_type').innerText = 'Gifted Sub';
                                 let end_date = new Date(result.tp_user_sub.last_payment_time.split('T')[0]);
                                 end_date.setDate(end_date.getDate() + result.tp_user_sub.validation_period);
-                                document.getElementById('sub_manage_subscription_details_end_time').innerText = end_date.toString();
+                                const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+                                document.getElementById('sub_manage_subscription_details_end_time').innerText = end_date.getDate() + '-' + month[end_date.getMonth()] + '-' + end_date.getFullYear();
                             } else {
 
                             }
