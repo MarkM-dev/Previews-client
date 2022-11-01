@@ -162,9 +162,15 @@ table select {
     color: grey;
 }
 #opd_sub_have_code_btn {
-    display: none;
+    display: inline-flex;
     position: absolute;
     top: 16px;
+    left: 16px;
+}
+#opd_sub_gift_a_sub_btn {
+    display: inline-flex;
+    position: absolute;
+    top: 71px;
     left: 16px;
 }
 #opd_sub_unsub_instructions {

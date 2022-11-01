@@ -84,6 +84,13 @@ async function main() {
         setSectionNumberCompleted(1);
     });
 
+    let gift_a_sub_floating_btn = document.querySelector('#opd_sub_gift_a_sub_btn');
+    gift_a_sub_floating_btn.addEventListener('click', function (e) {
+        showPage('sub_gift_a_sub_page');
+        highlightSectionSingle('sub_section_gift_a_sub_phase_1');
+        highlightSectionSingle('sub_section_gift_a_sub_phase_2');
+    });
+
     document.querySelectorAll('.tp_gift_a_sub_plan_btn').forEach((el)=>{
         el.onclick = (e) => {
             document.querySelector('#opd_sub_gift_a_sub_select').value = el.attributes['data-tp-gifted-value'].value;
@@ -127,15 +134,15 @@ async function main() {
                     showPage('sub_page');
                     document.querySelector('#opd_sub_subscribe_price_select').value = result.sub_payload.subscribe_price ? result.sub_payload.subscribe_price : '$5';
                     checkDomainPermissions_flow();
-                    document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
                 case "settings_subscribe":
                     showPage('sub_page');
                     checkDomainPermissions_flow();
-                    document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
                 case "settings_gift_a_sub":
                     showPage('sub_gift_a_sub_page');
+                    highlightSectionSingle('sub_section_gift_a_sub_phase_1');
+                    highlightSectionSingle('sub_section_gift_a_sub_phase_2');
                     break;
                 case "settings_manage_sub":
                     showPage('sub_manage_page');
@@ -144,7 +151,6 @@ async function main() {
                 default:
                     showPage('sub_page');
                     checkDomainPermissions_flow();
-                    document.querySelector('#opd_sub_have_code_btn').style.display = 'inline-flex';
                     break;
             }
 
@@ -194,6 +200,10 @@ async function main() {
 
     function highlightSection(id) {
         document.querySelectorAll('.sub-section').forEach((x)=>{x.id === id ? x.classList.add('tp-sub-section-highlighted'): x.classList.remove('tp-sub-section-highlighted')})
+    }
+
+    function highlightSectionSingle(id) {
+        document.querySelector('#' + id).classList.add('tp-sub-section-highlighted');
     }
 
     function showPage(id) {

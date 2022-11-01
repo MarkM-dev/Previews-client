@@ -3555,7 +3555,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_gift_a_sub_section_title_2: {
-        'en': 'Subscribe Via PayPal Or Credit-Card',
+        'en': 'Send your gift code',
         'es': '',
         'de': '',
         'fr': '',
