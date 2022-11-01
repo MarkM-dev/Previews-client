@@ -3344,6 +3344,16 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_gift_a_sub_title: {
+        'en': 'Enter the code you received',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     opd_sub_validate_btn: {
         'en': 'Validate',
         'es': '',

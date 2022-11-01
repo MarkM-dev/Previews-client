@@ -80,8 +80,7 @@ async function main() {
     let redeem_code_floating_btn = document.querySelector('#opd_sub_have_code_btn');
     redeem_code_floating_btn.addEventListener('click', function (e) {
         have_code_toast_origin = true;
-        checkDomainPermissions_flow();
-        setSectionNumberCompleted(1);
+        startRedeemCodePage();
     });
 
     let gift_a_sub_floating_btn = document.querySelector('#opd_sub_gift_a_sub_btn');
@@ -127,8 +126,7 @@ async function main() {
                 case "have_code":
                     showPage('sub_page');
                     have_code_toast_origin = true;
-                    checkDomainPermissions_flow();
-                    setSectionNumberCompleted(1);
+                    startRedeemCodePage();
                     break;
                 case "toast_subscribe":
                     showPage('sub_page');
@@ -160,6 +158,17 @@ async function main() {
             checkDomainPermissions_flow();
         }
     });
+
+    function startRedeemCodePage() {
+        checkDomainPermissions_flow();
+        document.querySelector('#sub_section_sub_phase_2').style.display = 'none';
+        document.querySelector('#opd_sub_have_code_btn').style.display = 'none';
+        document.querySelector('#opd_sub_gift_a_sub_btn').style.display = 'none';
+        document.querySelector('#opd_sub_code_info_icon').style.display = 'none';
+        document.querySelector('#opd_sub_validate_msg').innerText = _i18n('opd_sub_gift_a_sub_title');
+        document.querySelector('#tp_validate_input').placeholder = '1A2B3C4D5E6F7G8H9';
+
+    }
 
     function checkDomainPermissions_flow() {
         _browser.permissions.contains({
