@@ -78,6 +78,14 @@ async function main() {
     let redeem_code_floating_btn = document.querySelector('#opd_sub_have_code_btn');
     redeem_code_floating_btn.addEventListener('click', function (e) {
         redeem_code_intent = true;
+        showPage('sub_page');
+        startRedeemCodePage();
+    });
+
+    let manage_sub_redeem_code_btn = document.querySelector('#manage_sub_redeem_code_btn');
+    manage_sub_redeem_code_btn.addEventListener('click', function (e) {
+        redeem_code_intent = true;
+        showPage('sub_page');
         startRedeemCodePage();
     });
 
@@ -86,6 +94,20 @@ async function main() {
         showPage('sub_gift_a_sub_page');
         highlightSectionSingle('sub_section_gift_a_sub_phase_1');
         highlightSectionSingle('sub_section_gift_a_sub_phase_2');
+    });
+
+    let manage_sub_gift_a_sub_btn = document.querySelector('#manage_sub_gift_a_sub_btn');
+    manage_sub_gift_a_sub_btn.addEventListener('click', function (e) {
+        showPage('sub_gift_a_sub_page');
+        highlightSectionSingle('sub_section_gift_a_sub_phase_1');
+        highlightSectionSingle('sub_section_gift_a_sub_phase_2');
+    });
+
+    let manage_sub_subscribe_btn = document.querySelector('#manage_sub_subscribe_btn');
+    manage_sub_subscribe_btn.addEventListener('click', function (e) {
+        redeem_code_intent = false;
+        showPage('sub_page');
+        checkDomainPermissions_flow();
     });
 
     document.querySelectorAll('.tp_gift_a_sub_plan_btn').forEach((el)=>{
@@ -122,25 +144,29 @@ async function main() {
 
             switch (result.sub_payload.tp_sub_origin_intent) {
                 case "have_code":
-                    showPage('sub_page');
                     redeem_code_intent = true;
+                    showPage('sub_page');
                     startRedeemCodePage();
                     break;
                 case "toast_subscribe":
+                    redeem_code_intent = false;
                     showPage('sub_page');
                     document.querySelector('#opd_sub_subscribe_price_select').value = result.sub_payload.subscribe_price ? result.sub_payload.subscribe_price : '$5';
                     checkDomainPermissions_flow();
                     break;
                 case "settings_subscribe":
+                    redeem_code_intent = false;
                     showPage('sub_page');
                     checkDomainPermissions_flow();
                     break;
                 case "settings_gift_a_sub":
+                    redeem_code_intent = false;
                     showPage('sub_gift_a_sub_page');
                     highlightSectionSingle('sub_section_gift_a_sub_phase_1');
                     highlightSectionSingle('sub_section_gift_a_sub_phase_2');
                     break;
                 case "settings_manage_sub":
+                    redeem_code_intent = false;
                     showPage('sub_manage_page');
                     setTimeout(function () {
                         highlightSection('sub_section_sub_manage');
@@ -148,6 +174,7 @@ async function main() {
                     _browser.storage.local.get('tp_user_sub', function(result) {
                         if (result.tp_user_sub) {
                             if (result.tp_user_sub.is_gifted) {
+                                document.getElementById('sub_manage_subscription_details_container_normal').style.display = 'none';
                                 document.getElementById('tp_manage_unsub_btn').style.display = 'none';
                                 document.getElementById('sub_manage_subscription_details_type').innerText = _i18n('gifted_sub_text');
                                 let end_date = new Date(result.tp_user_sub.last_payment_time.split('T')[0]);
@@ -156,7 +183,9 @@ async function main() {
                                 let diffDays = Math.ceil((new Date(end_date) - new Date()) / (1000 * 60 * 60 * 24));
                                 document.getElementById('sub_manage_subscription_details_end_time').innerText = end_date.getDate() + '-' + month[end_date.getMonth()] + '-' + end_date.getFullYear() + ' (' + diffDays + ' ' + _i18n('gifted_sub_days_left') + ')';
                             } else {
-
+                                document.getElementById('sub_manage_subscription_details_container_gifted').style.display = 'none';
+                                document.getElementById('manage_sub_redeem_code_btn').style.display = 'none';
+                                document.getElementById('manage_sub_subscribe_btn').style.display = 'none';
                             }
                         }
                     });
@@ -169,6 +198,7 @@ async function main() {
 
             _browser.storage.local.set({'sub_payload': false}, function() {});
         } else {
+            redeem_code_intent = false;
             showPage('sub_page');
             checkDomainPermissions_flow();
         }

@@ -153,7 +153,10 @@ table select {
     display: block;
 }
 #tp_manage_unsub_btn {
-    margin: 35px 0 -10px -87%;
+    margin-top: 35px;
+    position: absolute;
+    left: 0;
+    bottom: 8px;
     border: none;
     width: auto;
     height: auto;
