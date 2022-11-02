@@ -149,11 +149,12 @@ async function main() {
                         if (result.tp_user_sub) {
                             if (result.tp_user_sub.is_gifted) {
                                 document.getElementById('tp_manage_unsub_btn').style.display = 'none';
-                                document.getElementById('sub_manage_subscription_details_type').innerText = 'Gifted Sub';
+                                document.getElementById('sub_manage_subscription_details_type').innerText = _i18n('gifted_sub_text');
                                 let end_date = new Date(result.tp_user_sub.last_payment_time.split('T')[0]);
                                 end_date.setDate(end_date.getDate() + result.tp_user_sub.validation_period);
-                                const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
-                                document.getElementById('sub_manage_subscription_details_end_time').innerText = end_date.getDate() + '-' + month[end_date.getMonth()] + '-' + end_date.getFullYear();
+                                let month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
+                                let diffDays = Math.ceil((new Date(end_date) - new Date()) / (1000 * 60 * 60 * 24));
+                                document.getElementById('sub_manage_subscription_details_end_time').innerText = end_date.getDate() + '-' + month[end_date.getMonth()] + '-' + end_date.getFullYear() + ' (' + diffDays + ' ' + _i18n('gifted_sub_days_left') + ')';
                             } else {
 
                             }

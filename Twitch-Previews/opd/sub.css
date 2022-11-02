@@ -182,3 +182,8 @@ table select {
 .tp_gift_a_sub_plan_btn {
     height: 27px;
 }
+#sub_manage_subscription_details_container {
+    text-align: left;
+    font-size: 14px;
+    margin-top: 25px;
+}

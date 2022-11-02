@@ -3225,7 +3225,7 @@ export const i18n = {
         'ru':'\n'
     },
     subscribe_toast_have_code: {
-        'en': 'I have a code',
+        'en': 'Redeem Code',
         'es': '',
         'de': '',
         'fr': '',
@@ -3566,6 +3566,36 @@ export const i18n = {
     },
     opd_sub_gift_a_sub_section_title_2: {
         'en': 'Send your gift code',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    sub_manage_subscription_details_end_time: {
+        'en': 'Ends',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    gifted_sub_days_left: {
+        'en': 'days left',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    gifted_sub_text: {
+        'en': 'Gifted Subscription',
         'es': '',
         'de': '',
         'fr': '',
