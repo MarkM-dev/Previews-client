@@ -121,7 +121,7 @@ export function sub_checkIsSubActive() {
     })
 }
 
-export function show_subscribe_message() {
+export function show_subscribe_message(show_settings_callback) {
     let content = document.createElement('div');
     content.id = 'tp_subscribe_toast_content';
     content.classList.add('tp-subscribe-toast-content');
@@ -216,8 +216,10 @@ export function show_subscribe_message() {
     settings_btn.classList.add('tp-subscribe-toast-top-btn');
     settings_btn.src = getRuntimeUrl('images/settings.png');
     settings_btn.title = _i18n('subscribe_toast_settings');
-
-    settings_btn.onclick = ()=> showSettings();
+    if (!show_settings_callback) {
+        settings_btn.style.display = 'none';
+    }
+    settings_btn.onclick = ()=> show_settings_callback();
 
     if (selected_lang === 'en') {
         top_btns_container.appendChild(translate_btn);
