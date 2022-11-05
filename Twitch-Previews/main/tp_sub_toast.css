@@ -1,0 +1,182 @@
+
+.tp-subscribe-toast-container {
+    width: 100%;
+    padding: 0;
+    top: 2%;
+    left: 0;
+    background: transparent;
+    position: fixed;
+    text-align: center;
+    z-index: 99999999;
+}
+
+.tp-subscribe-toast-content {
+    position: fixed;
+    z-index: 99999999;
+    top: 2%;
+    left: 16%;
+    width: 450px;
+    padding: 0 0 0 0;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    background: #9c60ff;
+    box-shadow: rgba(24, 24, 27, 0.75) 10px 15px 10px -5px;
+    border-radius: 10px;
+}
+
+.tp-subscribe-toast-logo {
+    background-color: rgb(35,35,40);
+    border-radius: 50%;
+    padding: 5px;
+    width: 32px;
+    height: 32px;
+    margin: 4px 5px 5px 0;
+}
+
+.tp-subscribe-toast-title {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+.tp-subscribe-toast-btn {
+    display: inline-block;
+    width: 33.3%;
+    margin-top: 15px;
+    padding: 5px 0 8px 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tp-subscribe-toast-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.tp-subscribe-toast-btn:active {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+#tp-subscribe-toast-subscribe-btn {
+    animation: tp-glow 7s infinite linear;
+    animation-delay: 1s;
+    background-color: rgba(255,255,255,0.05);
+    /*box-shadow: -2px -2px 10px 0px rgb(255,255,255,0.7) !important;
+    background-color: rgb(255,215,0,0.90);*/
+}
+
+#tp-subscribe-toast-subscribe-btn:before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 34px;
+    background-image: linear-gradient(
+            120deg,
+            rgba(255,255,255, 0) 30%,
+            rgba(255,255,255, .8),
+            rgba(255,255,255, 0) 70%
+    );
+    bottom: 0;
+    right: 166px;
+    animation: tp-shine 7s infinite linear;
+    animation-delay: 1s;
+    opacity: 0;
+}
+
+@keyframes tp-shine {
+    0% {
+        opacity: 0;
+        right: 166px;
+    }
+    4% {
+        opacity: 0.7;
+    }
+    8% {
+        opacity: 0;
+        right: 0;
+    }
+    100% {
+        opacity: 0;
+        right: 0;
+    }
+}
+@keyframes tp-glow {
+    0% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
+    }
+    6% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0.7);
+    }
+    10% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0.7);
+    }
+    15% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
+    }
+    100% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
+    }
+}
+.tp-subscribe-toast-close-btn-disable {
+    pointer-events: none;
+    color: darkgrey;
+}
+
+.tp-subscribe-toast-close-btn-timer {
+    position: absolute;
+    margin-left: 10px;
+    font-weight: normal;
+    border: 1px solid white;
+    border-radius: 50%;
+    padding: 0 5px;
+    font-size: 11px;
+    width: 19px;
+    height: 19px;
+    color: white;
+}
+
+.tp-subscribe-toast-top-btn-container {
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    top: 10px
+}
+
+.tp-subscribe-toast-top-btn {
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.tp-subscribe-toast-top-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    color: white;
+}
+
+.tp-subscribe-toast-top-btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tp-subscribe-toast-content datalist {
+    display: flex;
+    justify-content: space-between;
+    color: whitesmoke;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.tp-subscribe-toast-content input {
+    width: 80%;
+    color: white;
+    margin-bottom: 13px;
+    height: 4px;
+    padding-bottom: 3px;
+}
