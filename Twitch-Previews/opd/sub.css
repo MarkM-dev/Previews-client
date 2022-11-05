@@ -190,3 +190,11 @@ table select {
     font-size: 14px;
     margin-top: 25px;
 }
+
+.tp-contact-us-btn {
+    display: inline-flex;
+    margin: 0;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+}
