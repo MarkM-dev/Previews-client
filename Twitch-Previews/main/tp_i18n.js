@@ -3214,46 +3214,6 @@ export const i18n = {
         'ja': 'グローバル設定にリセット',
         'ru':'Сбросить глобальные настройки'
     },
-    subscribe_toast_body: {
-        'en': 'Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension Subscribe to the extension ',
-        'es': '\n',
-        'de': '\n',
-        'fr': '\n',
-        'pt_BR': '\n',
-        'ko': '\n',
-        'ja': '\n',
-        'ru':'\n'
-    },
-    subscribe_toast_have_code: {
-        'en': 'Redeem Code',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
-    subscribe_toast_close: {
-        'en': 'Not now',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
-    subscribe_toast_subscribe: {
-        'en': 'Subscribe',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
-    },
     opd_sub_section_title_1: {
         'en': 'Allow Permissions',
         'es': '',

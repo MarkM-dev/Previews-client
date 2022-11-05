@@ -1,7 +1,6 @@
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
-// find a way to not import the entire language file again
-const _tp_i18n = await import(_browser.runtime.getURL("main/tp_i18n.js"));
+const _tp_i18n = await import(_browser.runtime.getURL("main/tp_sub_toast_i18n.js"));
 let selected_lang = 'en';
 
 _browser.storage.local.get('tp_options', function(result) {
@@ -203,7 +202,7 @@ export function show_subscribe_message() {
     let settings_btn = document.createElement('img');
     settings_btn.classList.add('tp-subscribe-toast-top-btn');
     settings_btn.src = getRuntimeUrl('images/settings.png');
-    settings_btn.title = _i18n('update_toast_settings');
+    settings_btn.title = _i18n('subscribe_toast_settings');
 
     settings_btn.onclick = ()=> showSettings();
 
