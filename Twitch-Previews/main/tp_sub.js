@@ -150,9 +150,9 @@ export function show_subscribe_message() {
         '  <option value="40" label="$5" ></option>\n' +
         '  <option value="50" label="$6" ></option>\n' +
         '  <option value="60" label="$7"></option>\n' +
-        '  <option value="70" label="$10"></option>\n' +
-        '  <option value="80" label="$15"></option>\n' +
-        '  <option value="90" label="$20"></option>\n' +
+        '  <option value="70" label="$10" style="margin-left: -3px;" ></option>\n' +
+        '  <option value="80" label="$15" style="margin-left: -5px;" ></option>\n' +
+        '  <option value="90" label="$20" style="margin-left: -7px;" ></option>\n' +
         '</datalist>';
 
     let have_code_btn = document.createElement('div');
