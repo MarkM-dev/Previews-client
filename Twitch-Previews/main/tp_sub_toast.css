@@ -36,6 +36,12 @@
     font-size: 16px;
 }
 
+.subscribe_toast_body {
+    font-weight: normal;
+    text-align: left;
+    padding: 10px 16px;
+}
+
 .tp-subscribe-toast-btn {
     display: inline-block;
     width: 33.3%;

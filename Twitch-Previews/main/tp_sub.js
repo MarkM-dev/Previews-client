@@ -137,9 +137,8 @@ export function show_subscribe_message() {
     title.innerText = _i18n('app_name');
 
     let body = document.createElement('div');
+    body.classList.add('subscribe_toast_body');
     body.innerText = _i18n('subscribe_toast_body');
-    body.style.textAlign = 'left';
-    body.style.padding = '10px 16px 10px';
 
     let range_container = document.createElement('div');
     range_container.innerHTML = '<input id="tp_subscribe_toast_range" type="range" step="10" min="10" max="90" value="40" list="tickmarks">\n' +
