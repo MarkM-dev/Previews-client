@@ -77,11 +77,12 @@ async function main() {
             } else {
                 setSectionNumberError(2);
                 document.querySelector('#validation_error_text_el').innerText = response.result.message ? (response.result.message + ': ' + response.result.status_code) : (_i18n('something_went_wrong') + response.result.status_code);
-                document.querySelector('.tp-contact-us-btn').classList.add('animated');
-                document.querySelector('.tp-contact-us-btn').classList.add('bounce');
+                let contact_btn = document.querySelector('.tp-contact-us-btn');
+                contact_btn.classList.add('animated');
+                contact_btn.classList.add('bounce');
                 setTimeout(()=>{
-                    document.querySelector('.tp-contact-us-btn').classList.remove('animated');
-                    document.querySelector('.tp-contact-us-btn').classList.remove('bounce');
+                    contact_btn.classList.remove('animated');
+                    contact_btn.classList.remove('bounce');
                 }, 1000);
             }
         });
