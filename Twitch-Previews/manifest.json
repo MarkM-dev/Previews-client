@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.twitch.tv/*"],
-      "css": ["main/css.css", "main/settings.css", "main/APS_settings.css"],
+      "css": ["main/css.css","main/tp_sub_toast.css", "main/settings.css", "main/APS_settings.css"],
       "js": ["main/core.js"],
       "run_at": "document_end",
       "all_frames": true
@@ -32,5 +32,5 @@
     "default_icon": "images/TP48.png",
     "default_title": "Previews (For TTV)"
   },
-  "web_accessible_resources": ["images/*", "main/settings.html", "main/APS_settings.html", "main/tp_i18n.js"]
+  "web_accessible_resources": ["images/*", "main/settings.html", "main/APS_settings.html", "main/tp_i18n.js", "main/tp_sub.js"]
 }
