@@ -1,29 +1,3 @@
-/*
-
-body, html {
-    line-height: 1.5;
-}
-body {
-    color: #efeff1;
-    font-size: 1.3rem;
-    line-height: 2rem;
-}
-body {
-    line-height: 1;
-}*/
-
-/*.tp-subscribe-toast-container {
-    width: 100%;
-    padding: 0;
-    top: 2%;
-    left: 0;
-    background: transparent;
-    position: fixed;
-    text-align: center;
-    z-index: 99999999;
-}*/
-
-
 .tp-subscribe-toast-content * {
     box-sizing: border-box;
 }
