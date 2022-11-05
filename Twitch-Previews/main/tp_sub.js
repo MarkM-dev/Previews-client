@@ -229,9 +229,13 @@ export function show_subscribe_message() {
     content.appendChild(title);
     content.appendChild(body);
     content.appendChild(range_container);
-    content.appendChild(have_code_btn);
-    content.appendChild(closeBtn);
-    content.appendChild(subscribe_btn);
+
+    let bottom_btns_container = document.createElement('div');
+    bottom_btns_container.appendChild(have_code_btn);
+    bottom_btns_container.appendChild(closeBtn);
+    bottom_btns_container.appendChild(subscribe_btn);
+    content.appendChild(bottom_btns_container);
+
     content.appendChild(top_btns_container);
     initDragForSubToast(title);
     initDragForSubToast(body);
@@ -246,7 +250,7 @@ export function show_subscribe_message() {
             closeBtn_timer.style.display = 'none';
             closeBtn.classList.remove('tp-subscribe-toast-close-btn-disable');
         } else {
-            closeBtn_timer.innerText = timeleft;
+            closeBtn_timer.innerText = timeleft + '';
         }
         timeleft--;
     }, 1000);

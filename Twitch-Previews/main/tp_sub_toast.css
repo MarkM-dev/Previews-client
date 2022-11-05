@@ -1,5 +1,18 @@
+/*
 
-.tp-subscribe-toast-container {
+body, html {
+    line-height: 1.5;
+}
+body {
+    color: #efeff1;
+    font-size: 1.3rem;
+    line-height: 2rem;
+}
+body {
+    line-height: 1;
+}*/
+
+/*.tp-subscribe-toast-container {
     width: 100%;
     padding: 0;
     top: 2%;
@@ -8,6 +21,11 @@
     position: fixed;
     text-align: center;
     z-index: 99999999;
+}*/
+
+
+.tp-subscribe-toast-content * {
+    box-sizing: border-box;
 }
 
 .tp-subscribe-toast-content {
@@ -23,6 +41,7 @@
     background: #9c60ff;
     box-shadow: rgba(24, 24, 27, 0.75) 10px 15px 10px -5px;
     border-radius: 10px;
+    line-height: 21px;
 }
 
 .tp-subscribe-toast-logo {
@@ -129,6 +148,9 @@
 }
 
 .tp-subscribe-toast-close-btn-timer {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     margin-left: 10px;
     font-weight: normal;
