@@ -57,10 +57,16 @@ async function main() {
         if (!val || val.length < 5) {
             return;
         }
+        let action = 'validate_subscription';
+        if (redeem_code_intent) {
+            if (val.indexOf('-') === -1) {
+                action = 'validate_gifted_subscription';
+            }
+        }
 
         loading_spinner.style.display = 'inline-block';
         validate_btn.style.display = 'none';
-        _browser.runtime.sendMessage({action: redeem_code_intent ? 'validate_gifted_subscription':'validate_subscription', detail: document.querySelector('#tp_validate_input').value}, function(response) {
+        _browser.runtime.sendMessage({action: action, detail: document.querySelector('#tp_validate_input').value}, function(response) {
             loading_spinner.style.display = 'none';
             validate_btn.style.display = 'inline-flex';
             if (response.result === 'okay') {
