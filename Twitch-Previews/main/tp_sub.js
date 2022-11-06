@@ -138,7 +138,7 @@ export function show_subscribe_message(show_settings_callback) {
 
     let body = document.createElement('div');
     body.classList.add('subscribe_toast_body');
-    body.innerText = _i18n('subscribe_toast_body');
+    body.innerHTML = _i18n('subscribe_toast_body');
 
     let range_container = document.createElement('div');
     range_container.innerHTML = '<input id="tp_subscribe_toast_range" type="range" step="10" min="10" max="90" value="40" list="tickmarks">\n' +
