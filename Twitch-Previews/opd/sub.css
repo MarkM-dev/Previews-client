@@ -191,6 +191,14 @@ table select {
     margin-top: 25px;
 }
 
+.opd_sub_gift_a_sub_bottom_note {
+    width: 50%;
+    margin: -15px auto;
+    text-align: left;
+    color: grey;
+    font-size: 11px;
+}
+
 .tp-contact-us-btn {
     display: inline-flex;
     margin: 0;

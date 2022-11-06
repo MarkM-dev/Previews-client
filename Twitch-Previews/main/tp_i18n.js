@@ -3464,6 +3464,16 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_gift_a_sub_bottom_note: {
+        'en': '* It may take up to 3 hours for the gift to become available to redeem.\n* The gifted subscription period starts once payment is completed.',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     opd_sub_gift_a_sub_msg: {
         'en': 'Select a gifted subscription option',
         'es': '',
