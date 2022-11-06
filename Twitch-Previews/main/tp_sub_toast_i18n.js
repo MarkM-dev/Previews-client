@@ -10,7 +10,7 @@ export const i18n = {
         'ru':'Previews (For TTV)'
     },
     subscribe_toast_body: {
-        'en': 'Previews (For TTV) is made by one developer - Me! :)<br><strong>Your support is crucial</strong> to making new awesome features and maintain high quality standards.<br>If you use the extension all the time and find it useful to you, <strong>please consider subscribing!</strong><br><br>* Subscribers don\'t see this message',
+        'en': 'Previews (For TTV) is made by one developer - Me! :)<br><strong>Your support is crucial</strong> to making new awesome features and maintain high quality standards.<br>If you use the extension all the time and find it useful to you, <strong>please consider subscribing!</strong><br><br><span style="font-size: 12.5px;">* Subscribers don\'t see this message</span>',
         'es': '\n',
         'de': '\n',
         'fr': '\n',
