@@ -191,6 +191,10 @@ table select {
     margin-top: 25px;
 }
 
+#opd_redeem_gifted_sub_bottom_note {
+    transition: color 1s;
+}
+
 .opd_sub_gift_a_sub_bottom_note {
     width: 50%;
     margin: -15px auto;
