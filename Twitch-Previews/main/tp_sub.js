@@ -214,7 +214,7 @@ export function show_subscribe_message(show_settings_callback) {
     translate_btn.classList.add('tp-subscribe-toast-top-btn');
     translate_btn.src = getRuntimeUrl('images/translate.png');
     translate_btn.title = geti18nMessage('translateStr');
-    translate_btn.onclick = ()=> sendMessageToBG({action: "subToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(_i18n('subscribe_toast_body')) + '&op=translate'});
+    translate_btn.onclick = ()=> sendMessageToBG({action: "subToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(body.innerText) + '&op=translate'});
 
     let settings_btn = document.createElement('img');
     settings_btn.classList.add('tp-subscribe-toast-top-btn');
