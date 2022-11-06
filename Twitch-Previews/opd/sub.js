@@ -41,6 +41,7 @@ async function main() {
         });
     })
 
+    let isFetchingFromServer = false;
     document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
         //document.getElementById('tp_subscribe_paypal_btn').click();
         setTimeout(function () {
@@ -50,9 +51,13 @@ async function main() {
         }, 100);
     });
 
+
     let loading_spinner = document.querySelector('#tp_validation_loading_spinner');
     let validate_btn = document.querySelector('#tp_validate_btn');
     validate_btn.addEventListener('click', function (e) {
+        if (isFetchingFromServer) {
+            return;
+        }
         let val_input = document.querySelector('#tp_validate_input');
         let val = val_input.value;
         if (!val || val.length < 5) {
@@ -69,9 +74,16 @@ async function main() {
 
         loading_spinner.style.display = 'inline-block';
         validate_btn.style.display = 'none';
+        validate_btn.style.cursor = 'not-allowed';
+        isFetchingFromServer = true;
         _browser.runtime.sendMessage({action: action, detail: val}, function(response) {
             loading_spinner.style.display = 'none';
             validate_btn.style.display = 'inline-flex';
+            setTimeout(function () {
+                validate_btn.style.cursor = 'pointer';
+                isFetchingFromServer = false;
+            }, 5000);
+
             if (response.result === 'okay') {
                 showPage('sub_thanks_page');
                 setTimeout(function () {
