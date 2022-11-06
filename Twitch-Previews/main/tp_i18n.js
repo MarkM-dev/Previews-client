@@ -3475,7 +3475,7 @@ export const i18n = {
         'ru':''
     },
     opd_redeem_gifted_sub_bottom_note: {
-        'en': '* It may take up to 3 hours after payment for the gifted subscription to become available to redeem.',
+        'en': '* It may take up to 3 hours after payment for gifted subscriptions to become available to redeem.',
         'es': '',
         'de': '',
         'fr': '',
