@@ -261,7 +261,7 @@ export function show_subscribe_message(show_settings_callback) {
     }, 1000);
 }
 
-export function sub_checkShouldShowSubToast() {
+export function sub_checkShouldShowSubToast(show_settings_callback) {
     sub_checkIsSubActive().then((isActive) => {
         if (isActive) {
             return;
@@ -273,8 +273,10 @@ export function sub_checkShouldShowSubToast() {
                         _browser.storage.local.get('lastSeenSubToast', function(result) {
                             if (result.lastSeenSubToast) {
                                 if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours
-                                    show_subscribe_message();
+                                    show_subscribe_message(show_settings_callback);
                                 }
+                            } else {
+                                show_subscribe_message(show_settings_callback);
                             }
                         });
                     }
