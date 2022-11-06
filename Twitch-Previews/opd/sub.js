@@ -168,11 +168,13 @@ async function main() {
                     redeem_code_intent = false;
                     showPage('sub_page');
                     document.querySelector('#opd_sub_subscribe_price_select').value = result.sub_payload.subscribe_price ? result.sub_payload.subscribe_price : '$5';
+                    document.querySelector('#opd_redeem_gifted_sub_bottom_note').style.display = 'none';
                     checkDomainPermissions_flow();
                     break;
                 case "settings_subscribe":
                     redeem_code_intent = false;
                     showPage('sub_page');
+                    document.querySelector('#opd_redeem_gifted_sub_bottom_note').style.display = 'none';
                     checkDomainPermissions_flow();
                     break;
                 case "settings_gift_a_sub":
@@ -226,6 +228,7 @@ async function main() {
         document.querySelector('#opd_sub_have_code_btn').style.display = 'none';
         document.querySelector('#opd_sub_gift_a_sub_btn').style.display = 'none';
         document.querySelector('#opd_sub_code_info_icon').style.display = 'none';
+        document.querySelector('#opd_redeem_gifted_sub_bottom_note').style.display = 'block';
         document.querySelector('#opd_sub_validate_msg').innerText = _i18n('opd_sub_gift_a_sub_title');
         document.querySelector('#tp_validate_input').placeholder = '1A2B3C4D5E6F7G8H9';
         document.querySelector('#validation_error_text_el').innerText = '';
