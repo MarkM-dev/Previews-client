@@ -248,6 +248,7 @@ async function main() {
         document.querySelector('#opd_sub_validate_msg').innerText = _i18n('opd_sub_gift_a_sub_title');
         document.querySelector('#tp_validate_input').placeholder = '1A2B3C4D5E6F7G8H9';
         document.querySelector('#validation_error_text_el').innerText = '';
+        sections[2].querySelector('.tp-sub-section-number').innerText = '2';
     }
 
     function checkDomainPermissions_flow() {
