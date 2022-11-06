@@ -76,23 +76,27 @@ export function sub_checkIsSubActive() {
                     let end_date = new Date(result.tp_user_sub.last_payment_time.split('T')[0]);
                     end_date.setDate(end_date.getDate() + result.tp_user_sub.validation_period);
                     let diffDays = Math.ceil((new Date(end_date) - new Date()) / (1000 * 60 * 60 * 24));
-                    if (diffDays < 0) { // todo sometimes check if it was refunded?
-                        let isPromiseResolved = false;
-                        _browser.runtime.sendMessage({action: "validate_gifted_subscription", detail: result.tp_user_sub.ppid}, function(response) {
-                            isPromiseResolved = true;
-                            if (response.result === 'okay') {
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
-                        });
-                        setTimeout(function () {
-                            if (!isPromiseResolved) {
-                                resolve(false);
-                            }
-                        }, 7000)
+                    if (diffDays < 0) {
+                        resolve(false); // gifted sub ended - make a prompt?
                     } else {
-                        resolve(true);
+                        if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 172800) { // 2 days
+                            let isPromiseResolved = false;
+                            _browser.runtime.sendMessage({action: "validate_gifted_subscription", detail: result.tp_user_sub.ppid}, function(response) {
+                                isPromiseResolved = true;
+                                if (response.result === 'okay') {
+                                    resolve(true);
+                                } else {
+                                    resolve(false);
+                                }
+                            });
+                            setTimeout(function () {
+                                if (!isPromiseResolved) {
+                                    resolve(true);
+                                }
+                            }, 7000)
+                        } else {
+                            resolve(true);
+                        }
                     }
                 } else {
                     if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 18000) { // 5 hours
