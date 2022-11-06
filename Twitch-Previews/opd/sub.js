@@ -27,7 +27,7 @@ async function main() {
     let redeem_code_intent = false;
     let sections = document.querySelectorAll('.sub-section');
     document.querySelector('#opd_sub_code_info').src = _browser.runtime.getURL('../images/opd_sub_code_info.jpg');
-    document.querySelector('#opd_sub_gift_a_sub_code_info').src = _browser.runtime.getURL('../images/opd_sub_code_info.jpg');
+    document.querySelector('#opd_sub_gift_a_sub_code_info').src = _browser.runtime.getURL('../images/opd_sub_code_info_gift.jpg');
 
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
         _browser.permissions.request({
@@ -53,10 +53,13 @@ async function main() {
     let loading_spinner = document.querySelector('#tp_validation_loading_spinner');
     let validate_btn = document.querySelector('#tp_validate_btn');
     validate_btn.addEventListener('click', function (e) {
-        let val = document.querySelector('#tp_validate_input').value;
+        let val_input = document.querySelector('#tp_validate_input');
+        let val = val_input.value;
         if (!val || val.length < 5) {
             return;
         }
+        val = val.trim();
+        val_input.value = val;
         let action = 'validate_subscription';
         if (redeem_code_intent) {
             if (val.indexOf('-') === -1) {
@@ -66,7 +69,7 @@ async function main() {
 
         loading_spinner.style.display = 'inline-block';
         validate_btn.style.display = 'none';
-        _browser.runtime.sendMessage({action: action, detail: document.querySelector('#tp_validate_input').value}, function(response) {
+        _browser.runtime.sendMessage({action: action, detail: val}, function(response) {
             loading_spinner.style.display = 'none';
             validate_btn.style.display = 'inline-flex';
             if (response.result === 'okay') {
