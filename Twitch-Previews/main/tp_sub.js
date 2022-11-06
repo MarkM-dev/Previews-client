@@ -99,7 +99,7 @@ export function sub_checkIsSubActive() {
                         }
                     }
                 } else {
-                    if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 18000) { // 5 hours
+                    if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 172800) { // 2 days
                         let isPromiseResolved = false;
                         _browser.runtime.sendMessage({action: "validate_subscription", detail: result.tp_user_sub.ppid}, function(response) {
                             isPromiseResolved = true;
