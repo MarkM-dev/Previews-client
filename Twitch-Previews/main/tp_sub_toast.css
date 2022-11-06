@@ -62,9 +62,21 @@
     background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
+/*#tp-subscribe-toast-subscribe-btn:hover::before {
+    animation: tp-shine-hover 7s infinite linear !important;
+    -webkit-animation: tp-shine-hover 7s infinite linear !important;
+    width: 25px;
+    height: 34px;
+}*/
+/*#tp-subscribe-toast-subscribe-btn:hover {
+    animation: tp-glow-hover 7s infinite linear !important;
+    -webkit-animation: tp-glow-hover 7s infinite linear !important;
+}*/
 #tp-subscribe-toast-subscribe-btn {
     animation: tp-glow 7s infinite linear;
+    -webkit-animation: tp-glow 7s infinite linear;
     animation-delay: 1s;
+    -webkit-animation-delay: 1s;
     background-color: rgba(255,255,255,0.05);
     /*box-shadow: -2px -2px 10px 0px rgb(255,255,255,0.7) !important;
     background-color: rgb(255,215,0,0.90);*/
@@ -84,7 +96,9 @@
     bottom: 0;
     right: 166px;
     animation: tp-shine 7s infinite linear;
+    -webkit-animation: tp-shine 7s infinite linear;
     animation-delay: 1s;
+    -webkit-animation-delay: 1s;
     opacity: 0;
 }
 
@@ -105,6 +119,7 @@
         right: 0;
     }
 }
+
 @keyframes tp-glow {
     0% {
         box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
@@ -122,6 +137,42 @@
         box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
     }
 }
+
+/*@keyframes tp-shine-hover {
+    0% {
+        opacity: 0;
+        right: 166px;
+    }
+    4% {
+        opacity: 0.7;
+    }
+    8% {
+        opacity: 0;
+        right: 0;
+    }
+    100% {
+        opacity: 0;
+        right: 0;
+    }
+}
+@keyframes tp-glow-hover {
+    0% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
+    }
+    6% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0.7);
+    }
+    10% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0.7);
+    }
+    15% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
+    }
+    100% {
+        box-shadow: -2px -2px 10px -2px rgba(255,255,255,0);
+    }
+}*/
+
 .tp-subscribe-toast-close-btn-disable {
     pointer-events: none;
     color: darkgrey;
