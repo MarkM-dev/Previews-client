@@ -67,7 +67,6 @@ function initDragForSubToast(toast_container) {
 }
 
 export function sub_checkIsSubActive(show_settings_callback) {
-    console.log('sub_checkIsSubActive');
     return new Promise((resolve, reject) => {
         _browser.storage.local.get('tp_user_sub', function(result) {
             let isSub = result.tp_user_sub?.isActive;
@@ -131,11 +130,12 @@ function checkShouldShowSubToastByFeatureUse() {
     return new Promise((resolve, reject) => {
         _browser.storage.local.get('used_feature_count', function(result) {
                 if (result.used_feature_count) {
-                    if (result.used_feature_count > 50){
+                    if (result.used_feature_count > 10) { // todo num of uses
                         _browser.storage.local.set({'used_feature_count': 1}, function() {});
                         resolve(true);
                     } else {
-                        _browser.storage.local.set({'used_feature_count': result.used_feature_count++}, function() {});
+                        let something = result.used_feature_count + 1;
+                        _browser.storage.local.set({'used_feature_count': something}, function() {});
                         resolve(false);
                     }
                 } else {
@@ -159,7 +159,8 @@ export function sub_checkShouldShowSubToast(show_settings_callback) {
                         if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
                             _browser.storage.local.get('lastSeenSubToast', function(result) {
                                 if (result.lastSeenSubToast) {
-                                    if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
+                                  //if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
+                                    if ((Date.now() - result.lastSeenSubToast) / 1000 > 20) { // 5 hours // todo max twice a day
                                         show_subscribe_toast(show_settings_callback);
                                     }
                                 } else {
