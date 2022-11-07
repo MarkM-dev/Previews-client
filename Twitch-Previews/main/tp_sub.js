@@ -330,7 +330,7 @@ export function show_gifted_sub_ended_toast(show_settings_callback) {
     //let closeBtn = toast.closeBtn;
     //let closeBtn_timer = toast.closeBtn_timer;
 
-    body.innerText = _i18n('gifted_sub_ended_toast_body');
+    body.innerText = _i18n('gifted_sub_ended_toast_body',[_i18n('app_name')]);
     content.classList.add('tp-sub-toast-pos-2');
     content.classList.add('tp-sub-toast-slideInRight');
 

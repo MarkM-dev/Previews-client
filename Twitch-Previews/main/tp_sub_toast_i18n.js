@@ -20,7 +20,7 @@ export const i18n = {
         'ru':''
     },
     gifted_sub_ended_toast_body: {
-        'en': 'Your',
+        'en': 'Your %s gifted subscription has ended.\nSubscribe or redeem a code to continue your subscription.',
         'es': '',
         'de': '',
         'fr': '',
