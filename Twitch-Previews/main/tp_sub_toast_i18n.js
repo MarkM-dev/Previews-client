@@ -11,13 +11,23 @@ export const i18n = {
     },
     subscribe_toast_body: {
         'en': 'Previews (For TTV) is made by one developer - Me! :)<br><strong>Your support is crucial</strong> to making new awesome features and maintain high quality standards.<br>If you use the extension all the time and find it useful to you, <strong>please consider subscribing!</strong><br><br><span style="font-size: 12.5px;">* Subscribers don\'t see this message</span>',
-        'es': '\n',
-        'de': '\n',
-        'fr': '\n',
-        'pt_BR': '\n',
-        'ko': '\n',
-        'ja': '\n',
-        'ru':'\n'
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    gifted_sub_ended_toast_body: {
+        'en': 'Your',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
     },
     subscribe_toast_have_code: {
         'en': 'Redeem Code',

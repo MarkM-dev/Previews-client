@@ -36,6 +36,37 @@
     animation-name: tp-sub-toast-slideInDown;
 }
 
+@-webkit-keyframes tp-sub-toast-slideInRight {
+    from {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
+    }
+
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+    }
+}
+
+@keyframes tp-sub-toast-slideInRight {
+    from {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
+    }
+
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+    }
+}
+
+.tp-sub-toast-slideInRight {
+    -webkit-animation-name: tp-sub-toast-slideInRight;
+    animation-name: tp-sub-toast-slideInRight;
+}
+
 .tp-subscribe-toast-content * {
     box-sizing: border-box;
 }
@@ -43,8 +74,6 @@
 .tp-subscribe-toast-content {
     position: fixed;
     z-index: 99999999;
-    top: 2%;
-    left: 16%;
     width: 450px;
     padding: 0 0 0 0;
     font-size: 14px;
@@ -54,6 +83,16 @@
     box-shadow: rgba(24, 24, 27, 0.75) 10px 15px 10px -5px;
     border-radius: 10px;
     line-height: 21px;
+}
+
+.tp-sub-toast-pos-1 {
+    top: 2%;
+    left: 16%;
+}
+
+.tp-sub-toast-pos-2 {
+    bottom: 16px;
+    right: 16px;
 }
 
 .tp-subscribe-toast-logo {
@@ -172,7 +211,7 @@
 }
 
 .tp-subscribe-toast-close-btn-timer {
-    display: inline-flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: absolute;
