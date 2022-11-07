@@ -129,7 +129,12 @@ export function sub_checkShouldShowSubToast(show_settings_callback) {
 
     /*_browser.storage.local.get('used_feature_count', function(result) {
         if (result.used_feature_count) {
-
+            if (result.used_feature_count > 50){
+                _browser.storage.local.set({'used_feature_count': 1}, function() {});
+                // call new func to continue exec
+            } else {
+                _browser.storage.local.set({'used_feature_count': result.used_feature_count++}, function() {});
+            }
         } else {
             _browser.storage.local.set({'used_feature_count': 1}, function() {});
         }
