@@ -148,7 +148,7 @@ export function sub_checkShouldShowSubToast(show_settings_callback) {
         if (isActive) {
             return;
         }
-        setTimeout(function () {
+        //setTimeout(function () {
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (result.tpInstallTime) {
                     if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
@@ -164,7 +164,7 @@ export function sub_checkShouldShowSubToast(show_settings_callback) {
                     }
                 }
             })
-        }, 5000);
+        //}, 5000);
     })
 }
 
@@ -336,139 +336,3 @@ export function show_gifted_sub_ended_toast(show_settings_callback) {
 
     document.body.appendChild(content);
 }
-
-/*export function show_subscribe_message(show_settings_callback) {
-    let content = document.createElement('div');
-    content.id = 'tp_subscribe_toast_content';
-    content.classList.add('tp-subscribe-toast-content');
-    content.classList.add('tp-sub-toast-animated');
-    content.classList.add('tp-sub-toast-slideInDown');
-
-    let logo = document.createElement('img');
-    logo.src = getRuntimeUrl('images/TP32.png');
-    logo.classList.add('tp-subscribe-toast-logo');
-
-    let title = document.createElement('div');
-    title.classList.add('tp-subscribe-toast-title');
-    title.innerText = _i18n('app_name');
-
-    let body = document.createElement('div');
-    body.classList.add('subscribe_toast_body');
-    body.innerHTML = _i18n('subscribe_toast_body');
-
-    let range_container = document.createElement('div');
-    range_container.innerHTML = '<input id="tp_subscribe_toast_range" type="range" step="10" min="10" max="90" value="40" list="tickmarks">\n' +
-        '\n' +
-        '<datalist id="tickmarks">\n' +
-        '  <option value="10" label="$2.5" style="margin-left: -10px;" ></option>\n' +
-        '  <option value="20" label="$3" ></option>\n' +
-        '  <option value="30" label="$4" ></option>\n' +
-        '  <option value="40" label="$5" ></option>\n' +
-        '  <option value="50" label="$6" ></option>\n' +
-        '  <option value="60" label="$7"></option>\n' +
-        '  <option value="70" label="$10" style="margin-left: -3px;" ></option>\n' +
-        '  <option value="80" label="$15" style="margin-left: -5px;" ></option>\n' +
-        '  <option value="90" label="$20" style="margin-left: -7px;" ></option>\n' +
-        '</datalist>';
-
-    let have_code_btn = document.createElement('div');
-    have_code_btn.classList.add('tp-subscribe-toast-btn');
-    have_code_btn.style.width = '28.75%';
-    have_code_btn.style.borderTopRightRadius = '3px';
-    have_code_btn.style.borderBottomLeftRadius = '10px';
-    have_code_btn.innerText = _i18n('subscribe_toast_have_code');
-
-    have_code_btn.onclick = function () {
-        let sub_payload = {'tp_sub_origin_intent': 'have_code', 'subscribe_price': false};
-        _browser.storage.local.set({'sub_payload': sub_payload}, function() {
-            sendMessageToBG({action: 'open_sub_page', detail: true})
-        });
-    };
-
-    let closeBtn = document.createElement('div');
-    closeBtn.classList.add('tp-subscribe-toast-btn');
-    closeBtn.classList.add('tp-subscribe-toast-close-btn-disable');
-    closeBtn.style.width = '28.75%';
-    closeBtn.style.borderTopLeftRadius = '3px';
-    closeBtn.style.borderTopRightRadius = '3px';
-    closeBtn.innerText = _i18n('subscribe_toast_close');
-
-    let closeBtn_timer = document.createElement('span');
-    closeBtn_timer.innerText = '4';
-    closeBtn_timer.classList.add('tp-subscribe-toast-close-btn-timer');
-
-    closeBtn.appendChild(closeBtn_timer);
-
-    closeBtn.onclick = function () {
-        content.remove();
-    };
-
-    let subscribe_btn = document.createElement('div');
-    subscribe_btn.classList.add('tp-subscribe-toast-btn');
-    subscribe_btn.id = 'tp-subscribe-toast-subscribe-btn';
-    subscribe_btn.style.width = '42.5%';
-    subscribe_btn.style.borderTopLeftRadius = '10px';
-    subscribe_btn.style.borderBottomRightRadius = '10px';
-    subscribe_btn.innerText = _i18n('subscribe_toast_subscribe');
-
-    subscribe_btn.onclick = function () {
-        let convert = {10:'$2.5', 20:'$3', 30:'$4', 40:'$5', 50:'$6', 60:'$7', 70:'$10', 80:'$15', 90:'$20'};
-        let sub_payload = {'tp_sub_origin_intent': 'toast_subscribe', 'subscribe_price': convert[range_container.querySelector('#tp_subscribe_toast_range').value]};
-        _browser.storage.local.set({'sub_payload': sub_payload}, function() {
-            sendMessageToBG({action: 'open_sub_page', detail: true})
-        });
-    };
-
-
-    let top_btns_container = document.createElement('div');
-    top_btns_container.classList.add('tp-subscribe-toast-top-btn-container');
-    let translate_btn = document.createElement('img');
-    translate_btn.classList.add('tp-subscribe-toast-top-btn');
-    translate_btn.src = getRuntimeUrl('images/translate.png');
-    translate_btn.title = geti18nMessage('translateStr');
-    translate_btn.onclick = ()=> sendMessageToBG({action: "subToast_translate_btn_click", detail: 'https://translate.google.com/?sl=auto&tl=auto&text=' + encodeURIComponent(body.innerText) + '&op=translate'});
-
-    let settings_btn = document.createElement('img');
-    settings_btn.classList.add('tp-subscribe-toast-top-btn');
-    settings_btn.src = getRuntimeUrl('images/settings.png');
-    settings_btn.title = _i18n('subscribe_toast_settings');
-    if (!show_settings_callback) {
-        settings_btn.style.display = 'none';
-    }
-    settings_btn.onclick = ()=> show_settings_callback();
-
-    if (selected_lang === 'en') {
-        top_btns_container.appendChild(translate_btn);
-    }
-    top_btns_container.appendChild(settings_btn);
-
-    title.prepend(logo);
-    content.appendChild(title);
-    content.appendChild(body);
-    content.appendChild(range_container);
-
-    let bottom_btns_container = document.createElement('div');
-    bottom_btns_container.appendChild(have_code_btn);
-    bottom_btns_container.appendChild(closeBtn);
-    bottom_btns_container.appendChild(subscribe_btn);
-    content.appendChild(bottom_btns_container);
-
-    content.appendChild(top_btns_container);
-    initDragForSubToast(title);
-    initDragForSubToast(body);
-    document.body.appendChild(content);
-
-    _browser.storage.local.set({'lastSeenSubToast': Date.now()}, function() {});
-
-    let timeleft = 3;
-    let timer = setInterval(function(){
-        if (timeleft <= 0) {
-            clearInterval(timer);
-            closeBtn_timer.style.display = 'none';
-            closeBtn.classList.remove('tp-subscribe-toast-close-btn-disable');
-        } else {
-            closeBtn_timer.innerText = timeleft + '';
-        }
-        timeleft--;
-    }, 1000);
-}*/
