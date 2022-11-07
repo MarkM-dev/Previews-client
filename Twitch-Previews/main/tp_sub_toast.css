@@ -1,3 +1,41 @@
+.tp-sub-toast-animated {
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes tp-sub-toast-slideInDown {
+    from {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        visibility: visible;
+    }
+
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes tp-sub-toast-slideInDown {
+    from {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        visibility: visible;
+    }
+
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+.tp-sub-toast-slideInDown {
+    -webkit-animation-duration: 100ms;
+    animation-duration: 100ms;
+    -webkit-animation-name: tp-sub-toast-slideInDown;
+    animation-name: tp-sub-toast-slideInDown;
+}
+
 .tp-subscribe-toast-content * {
     box-sizing: border-box;
 }

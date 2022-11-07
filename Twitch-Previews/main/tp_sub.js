@@ -170,8 +170,8 @@ export function show_subscribe_message(show_settings_callback) {
     let content = document.createElement('div');
     content.id = 'tp_subscribe_toast_content';
     content.classList.add('tp-subscribe-toast-content');
-    content.classList.add('animated');
-    content.classList.add('slideInDown');
+    content.classList.add('tp-sub-toast-animated');
+    content.classList.add('tp-sub-toast-slideInDown');
 
     let logo = document.createElement('img');
     logo.src = getRuntimeUrl('images/TP32.png');
