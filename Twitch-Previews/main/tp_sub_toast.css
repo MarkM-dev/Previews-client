@@ -75,6 +75,7 @@
     position: fixed;
     z-index: 99999999;
     width: 450px;
+    height: max-content;
     padding: 0 0 0 0;
     font-size: 14px;
     text-align: center;
@@ -111,6 +112,7 @@
     align-items: center;
     padding-top: 10px;
     font-size: 16px;
+    cursor: default;
 }
 
 .subscribe_toast_body {
