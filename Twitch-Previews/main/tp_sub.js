@@ -125,6 +125,42 @@ export function sub_checkIsSubActive() {
     })
 }
 
+export function sub_checkShouldShowSubToast(show_settings_callback) {
+
+    /*_browser.storage.local.get('used_feature_count', function(result) {
+        if (result.used_feature_count) {
+
+        } else {
+            _browser.storage.local.set({'used_feature_count': 1}, function() {});
+        }
+    })*/
+
+
+
+    sub_checkIsSubActive().then((isActive) => {
+        if (isActive) {
+            return;
+        }
+        setTimeout(function () {
+            _browser.storage.local.get('tpInstallTime', function(result) {
+                if (result.tpInstallTime) {
+                    if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
+                        _browser.storage.local.get('lastSeenSubToast', function(result) {
+                            if (result.lastSeenSubToast) {
+                                if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
+                                    show_subscribe_message(show_settings_callback);
+                                }
+                            } else {
+                                show_subscribe_message(show_settings_callback);
+                            }
+                        });
+                    }
+                }
+            })
+        }, 5000);
+    })
+}
+
 export function show_subscribe_message(show_settings_callback) {
     let content = document.createElement('div');
     content.id = 'tp_subscribe_toast_content';
@@ -259,40 +295,4 @@ export function show_subscribe_message(show_settings_callback) {
         }
         timeleft--;
     }, 1000);
-}
-
-export function sub_checkShouldShowSubToast(show_settings_callback) {
-
-    /*_browser.storage.local.get('used_feature_count', function(result) {
-        if (result.used_feature_count) {
-
-        } else {
-            _browser.storage.local.set({'used_feature_count': 1}, function() {});
-        }
-    })*/
-
-
-
-    sub_checkIsSubActive().then((isActive) => {
-        if (isActive) {
-            return;
-        }
-        setTimeout(function () {
-            _browser.storage.local.get('tpInstallTime', function(result) {
-                if (result.tpInstallTime) {
-                    if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
-                        _browser.storage.local.get('lastSeenSubToast', function(result) {
-                            if (result.lastSeenSubToast) {
-                                if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
-                                    show_subscribe_message(show_settings_callback);
-                                }
-                            } else {
-                                show_subscribe_message(show_settings_callback);
-                            }
-                        });
-                    }
-                }
-            })
-        }, 5000);
-    })
 }
