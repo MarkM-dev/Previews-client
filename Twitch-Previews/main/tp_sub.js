@@ -127,44 +127,51 @@ export function sub_checkIsSubActive(show_settings_callback) {
     })
 }
 
-export function sub_checkShouldShowSubToast(show_settings_callback) {
-
-    /*_browser.storage.local.get('used_feature_count', function(result) {
-        if (result.used_feature_count) {
-            if (result.used_feature_count > 50){
-                _browser.storage.local.set({'used_feature_count': 1}, function() {});
-                // call new func to continue exec
-            } else {
-                _browser.storage.local.set({'used_feature_count': result.used_feature_count++}, function() {});
-            }
-        } else {
-            _browser.storage.local.set({'used_feature_count': 1}, function() {});
-        }
-    })*/
-
-
-
-    sub_checkIsSubActive(show_settings_callback).then((isActive) => {
-        if (isActive) {
-            return;
-        }
-        //setTimeout(function () {
-            _browser.storage.local.get('tpInstallTime', function(result) {
-                if (result.tpInstallTime) {
-                    if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
-                        _browser.storage.local.get('lastSeenSubToast', function(result) {
-                            if (result.lastSeenSubToast) {
-                                if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
-                                    show_subscribe_toast(show_settings_callback);
-                                }
-                            } else {
-                                show_subscribe_toast(show_settings_callback);
-                            }
-                        });
+function checkShouldShowSubToastByFeatureUse() {
+    return new Promise((resolve, reject) => {
+        _browser.storage.local.get('used_feature_count', function(result) {
+                if (result.used_feature_count) {
+                    if (result.used_feature_count > 50){
+                        _browser.storage.local.set({'used_feature_count': 1}, function() {});
+                        resolve(true);
+                    } else {
+                        _browser.storage.local.set({'used_feature_count': result.used_feature_count++}, function() {});
+                        resolve(false);
                     }
+                } else {
+                    _browser.storage.local.set({'used_feature_count': 1}, function() {});
+                    resolve(false);
                 }
             })
-        //}, 5000);
+    })
+}
+
+export function sub_checkShouldShowSubToast(show_settings_callback) {
+    checkShouldShowSubToastByFeatureUse().then((res)=> {
+        if (res) {
+            sub_checkIsSubActive(show_settings_callback).then((isActive) => {
+                if (isActive) {
+                    return;
+                }
+                //setTimeout(function () {
+                _browser.storage.local.get('tpInstallTime', function(result) {
+                    if (result.tpInstallTime) {
+                        if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
+                            _browser.storage.local.get('lastSeenSubToast', function(result) {
+                                if (result.lastSeenSubToast) {
+                                    if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
+                                        show_subscribe_toast(show_settings_callback);
+                                    }
+                                } else {
+                                    show_subscribe_toast(show_settings_callback);
+                                }
+                            });
+                        }
+                    }
+                })
+                //}, 5000);
+            })
+        }
     })
 }
 
@@ -322,8 +329,8 @@ export function show_subscribe_toast(show_settings_callback) {
         time_left--;
     }, 1000);
 }
-// remove export
-export function show_gifted_sub_ended_toast(show_settings_callback) {
+
+function show_gifted_sub_ended_toast(show_settings_callback) {
     let toast = get_subscribe_toast(show_settings_callback);
     let content = toast.content;
     let body = toast.body;
