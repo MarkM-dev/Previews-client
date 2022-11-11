@@ -129,28 +129,21 @@ function checkShouldShowSubToastByFeatureUse() {
 export function sub_checkShouldShowSubToast(show_settings_callback) {
     checkShouldShowSubToastByFeatureUse().then((res)=> {
         if (res) {
-            sub_checkIsSubActive(show_settings_callback).then((isActive) => {
-                if (isActive) {
-                    return;
-                }
-                //setTimeout(function () {
-                _browser.storage.local.get('tpInstallTime', function(result) {
-                    if (result.tpInstallTime) {
-                        if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
-                            _browser.storage.local.get('lastSeenSubToast', function(result) {
-                                if (result.lastSeenSubToast) {
-                                  //if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
-                                    if ((Date.now() - result.lastSeenSubToast) / 1000 > 20) { // 5 hours // todo max twice a day
-                                        show_subscribe_toast(show_settings_callback);
-                                    }
-                                } else {
+            _browser.storage.local.get('tpInstallTime', function(result) {
+                if (result.tpInstallTime) {
+                    if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
+                        _browser.storage.local.get('lastSeenSubToast', function(result) {
+                            if (result.lastSeenSubToast) {
+                              //if ((Date.now() - result.lastSeenSubToast) / 1000 > 18000) { // 5 hours // todo max twice a day
+                                if ((Date.now() - result.lastSeenSubToast) / 1000 > 20) { // 5 hours // todo max twice a day
                                     show_subscribe_toast(show_settings_callback);
                                 }
-                            });
-                        }
+                            } else {
+                                show_subscribe_toast(show_settings_callback);
+                            }
+                        });
                     }
-                })
-                //}, 5000);
+                }
             })
         }
     })
@@ -249,10 +242,11 @@ function get_subscribe_toast(show_settings_callback) {
     settings_btn.classList.add('tp-subscribe-toast-top-btn');
     settings_btn.src = getRuntimeUrl('images/settings.png');
     settings_btn.title = _i18n('subscribe_toast_settings');
-    if (!show_settings_callback) {
+    if (show_settings_callback) {
+        settings_btn.onclick = ()=> show_settings_callback();
+    } else {
         settings_btn.style.display = 'none';
     }
-    settings_btn.onclick = ()=> show_settings_callback();
 
     if (selected_lang === 'en') {
         top_btns_container.appendChild(translate_btn);
