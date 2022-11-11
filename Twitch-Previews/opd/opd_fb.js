@@ -48,7 +48,7 @@ async function main() {
         if (result.FB_request_new_permission) {
             _browser.storage.local.set({'FB_request_new_permission': false}, function() {});
             isNewPermissions = true;
-            document.getElementById('tp_new_permissions_text').style.display = 'block';
+            //document.getElementById('tp_new_permissions_text').style.display = 'block';
         }
     });
 
