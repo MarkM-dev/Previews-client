@@ -20,7 +20,7 @@ async function main() {
     }
 
     document.getElementById('tp_allow_permissions_btn').addEventListener('click', function (e) {
-        browser.permissions.request({
+        _browser.permissions.request({
             origins: ['https://www.youtube.com/*']
         }, (granted) => {
             if (granted) {
