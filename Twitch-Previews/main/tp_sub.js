@@ -81,40 +81,20 @@ export function sub_checkIsSubActive(show_settings_callback) {
                         show_gifted_sub_ended_toast(show_settings_callback);
                     } else {
                         if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 172800) { // 2 days
-                            let isPromiseResolved = false;
-                            _browser.runtime.sendMessage({action: "validate_gifted_subscription", detail: result.tp_user_sub.ppid}, function(response) {
-                                isPromiseResolved = true;
-                                if (response.result === 'okay') {
-                                    resolve(true);
-                                } else {
-                                    resolve(false);
-                                }
+                            _browser.runtime.sendMessage({action: "validate_gifted_subscription", detail: result.tp_user_sub.ppid}, function(response) { // handles updates in bg
+
                             });
-                            setTimeout(function () {
-                                if (!isPromiseResolved) {
-                                    resolve(true);
-                                }
-                            }, 7000)
+                            resolve(true);
                         } else {
                             resolve(true);
                         }
                     }
                 } else {
                     if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 172800) { // 2 days
-                        let isPromiseResolved = false;
-                        _browser.runtime.sendMessage({action: "validate_subscription", detail: result.tp_user_sub.ppid}, function(response) {
-                            isPromiseResolved = true;
-                            if (response.result === 'okay') {
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
+                        _browser.runtime.sendMessage({action: "validate_subscription", detail: result.tp_user_sub.ppid}, function(response) { // handles updates in bg
+
                         });
-                        setTimeout(function () {
-                            if (!isPromiseResolved) {
-                                resolve(false);
-                            }
-                        }, 7000)
+                        resolve(true);
                     } else {
                         resolve(true);
                     }
