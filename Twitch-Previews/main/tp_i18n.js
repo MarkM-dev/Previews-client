@@ -3255,7 +3255,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_top_note: {
-        'en': 'Thank you.. for...... 5 subscribers',
+        'en': 'By subscribing you are directly helping to keep the extension alive<br>and allowing to make new awesome features & maintain a quality experience!<br><br><span style="font-size: 17px;" >Benefits include<br>A special discord role for subscribers!<br>Coming soon: New subscriber-only features!</span>',
         'es': '',
         'de': '',
         'fr': '',

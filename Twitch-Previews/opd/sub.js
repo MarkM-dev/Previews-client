@@ -11,6 +11,10 @@ async function main() {
             items.forEach((item) => {
                 item.innerText = res.i18n[item.attributes.tp_i18n.value][options.selected_lang];
             })
+            let items_html = document.querySelectorAll('[tp_i18n_html]');
+            items_html.forEach((item) => {
+                item.innerHTML = _i18n(item.attributes.tp_i18n_html.value);
+            })
         });
         _i18n = function(name, args) {
             let translation = res.i18n[name][options.selected_lang];
