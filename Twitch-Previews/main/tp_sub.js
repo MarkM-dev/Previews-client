@@ -128,7 +128,7 @@ function checkShouldShowSubToastByFeatureUse(weight = 0.5) {
     return new Promise((resolve, reject) => {
         _browser.storage.local.get('used_feature_count', function(result) {
                 if (result.used_feature_count) {
-                    if (result.used_feature_count > 30) { // todo num of uses
+                    if (result.used_feature_count > 30) {
                         _browser.storage.local.set({'used_feature_count': 1}, function() {});
                         resolve(true);
                     } else {

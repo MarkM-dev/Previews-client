@@ -43,7 +43,7 @@ async function main() {
 
     let isFetchingFromServer = false;
     document.getElementById('tp_subscribe_btn').addEventListener('click', function (e) {
-        //document.getElementById('tp_subscribe_paypal_btn').click();
+        document.getElementById('tp_subscribe_paypal_btn').click();
         setTimeout(function () {
             setSectionNumberCompleted(1);
             highlightSection('sub_section_sub_phase_3');
@@ -145,7 +145,7 @@ async function main() {
     document.querySelectorAll('.tp_gift_a_sub_plan_btn').forEach((el)=>{
         el.onclick = (e) => {
             document.querySelector('#opd_sub_gift_a_sub_select').value = el.attributes['data-tp-gifted-value'].value;
-            //document.querySelector('#tp_gift_a_sub_paypal_btn').click();
+            document.querySelector('#tp_gift_a_sub_paypal_btn').click();
             let sub_section = el.closest('.sub-section');
             sub_section.style.boxShadow = '0 0 10px 0px lime';
             sub_section.querySelector('.tp-sub-section-number').style.backgroundColor = 'limegreen';
