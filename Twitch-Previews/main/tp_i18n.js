@@ -3435,7 +3435,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_manage_section_msg: {
-        'en': 'Manage Subscription Manage Subscription Manage Subscription Manage Subscription',
+        'en': 'Thank you for subscribing! below you can gift a subscription, or cancel your subscription.\n\nMore coming soon!',
         'es': '',
         'de': '',
         'fr': '',
