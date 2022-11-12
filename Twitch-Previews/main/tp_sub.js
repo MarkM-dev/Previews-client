@@ -81,20 +81,38 @@ export function sub_checkIsSubActive(show_settings_callback) {
                         show_gifted_sub_ended_toast(show_settings_callback);
                     } else {
                         if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 172800) { // 2 days
-                            _browser.runtime.sendMessage({action: "validate_gifted_subscription", detail: result.tp_user_sub.ppid}, function(response) { // handles updates in bg
+                            _browser.runtime.sendMessage({action: "check_permission_previews", detail: true}, function(res) {
+                                if (res.result === 'granted') {
+                                    _browser.runtime.sendMessage({action: "validate_gifted_subscription", detail: result.tp_user_sub.ppid}, function(response) { // handles updates in bg
 
+                                    });
+                                    resolve(true);
+                                } else {
+                                    _browser.runtime.sendMessage({action: "show_permission_previews", detail: true}, function(response) {
+
+                                    });
+                                    resolve(false);
+                                }
                             });
-                            resolve(true);
                         } else {
                             resolve(true);
                         }
                     }
                 } else {
                     if ((Date.now() - result.tp_user_sub.last_update_time) / 1000 > 172800) { // 2 days
-                        _browser.runtime.sendMessage({action: "validate_subscription", detail: result.tp_user_sub.ppid}, function(response) { // handles updates in bg
+                        _browser.runtime.sendMessage({action: "check_permission_previews", detail: true}, function(res) {
+                            if (res.result === 'granted') {
+                                _browser.runtime.sendMessage({action: "validate_subscription", detail: result.tp_user_sub.ppid}, function(response) { // handles updates in bg
 
-                        });
-                        resolve(true);
+                                });
+                                resolve(true);
+                            } else {
+                                _browser.runtime.sendMessage({action: "show_permission_previews", detail: true}, function(response) {
+
+                                });
+                                resolve(false);
+                            }
+                        })
                     } else {
                         resolve(true);
                     }

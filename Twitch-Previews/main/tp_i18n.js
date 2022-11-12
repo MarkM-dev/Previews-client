@@ -60,6 +60,16 @@ export const i18n = {
         'ja': 'クリップ ダウンローダーを有効にするには、拡張機能を「clips.twitch.tv」で実行する権限が必要です。',
         'ru':'Чтобы включить Загрузчик для клипов, расширению необходимо разрешение на запуск на "clips.twitch.tv".'
     },
+    opd_previews_msg: {
+        'en': 'Looks like the extension doesn\'t have permission to communicate with our validation server (previews-app.com).\nAllow permissions to continue using your subscription.',
+        'es': 'Parece que la extensión no tiene permiso para comunicarse con nuestro servidor de validación (previews-app.com).\nOtorgue permisos para continuar usando su suscripción.',
+        'de': 'Anscheinend hat die Erweiterung keine Berechtigung, mit unserem Validierungsserver (previews-app.com) zu kommunizieren.\nGestatten Sie die Berechtigung, Ihr Abonnement weiterhin zu verwenden.',
+        'fr': 'Il semble que l\'extension n\'ait pas l\'autorisation de communiquer avec notre serveur de validation (previews-app.com).\nAutorisez les autorisations pour continuer à utiliser votre abonnement.',
+        'pt_BR': 'Parece que a extensão não tem permissão para se comunicar com nosso servidor de validação (previews-app.com).\nPermita permissões para continuar usando sua assinatura.',
+        'ko': '확장 프로그램에 유효성 검사 서버(previews-app.com)와 통신할 수 있는 권한이 없는 것 같습니다.\n구독을 계속 사용하려면 권한을 허용하세요.',
+        'ja': '拡張機能には、検証サーバー (previews-app.com) と通信する権限がないようです。\nサブスクリプションを引き続き使用するには、権限を許可してください。',
+        'ru':'Похоже, расширение не имеет разрешения на связь с нашим сервером проверки (previews-app.com).\nРазрешить разрешения для продолжения использования вашей подписки.'
+    },
     opd_yt_msg: {
         'en': 'To enable Sidebar YouTube Channels, the extension needs permission to fetch the streams from YouTube',
         'es': 'Para habilitar los canales de YouTube de la barra lateral, la extensión necesita permiso para recuperar las transmisiones de YouTube.',
