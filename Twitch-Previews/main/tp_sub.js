@@ -132,8 +132,8 @@ function checkShouldShowSubToastByFeatureUse(weight = 0.5) {
                         _browser.storage.local.set({'used_feature_count': 1}, function() {});
                         resolve(true);
                     } else {
-                        let something = result.used_feature_count + weight;
-                        _browser.storage.local.set({'used_feature_count': something}, function() {});
+                        let count = result.used_feature_count + weight;
+                        _browser.storage.local.set({'used_feature_count': count}, function() {});
                         resolve(false);
                     }
                 } else {
