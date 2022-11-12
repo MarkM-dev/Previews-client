@@ -124,15 +124,15 @@ export function sub_checkIsSubActive(show_settings_callback) {
     })
 }
 
-function checkShouldShowSubToastByFeatureUse() {
+function checkShouldShowSubToastByFeatureUse(weight = 0.5) {
     return new Promise((resolve, reject) => {
         _browser.storage.local.get('used_feature_count', function(result) {
                 if (result.used_feature_count) {
-                    if (result.used_feature_count > 10) { // todo num of uses
+                    if (result.used_feature_count > 20) { // todo num of uses
                         _browser.storage.local.set({'used_feature_count': 1}, function() {});
                         resolve(true);
                     } else {
-                        let something = result.used_feature_count + 1;
+                        let something = result.used_feature_count + weight;
                         _browser.storage.local.set({'used_feature_count': something}, function() {});
                         resolve(false);
                     }
@@ -144,8 +144,8 @@ function checkShouldShowSubToastByFeatureUse() {
     })
 }
 
-export function sub_checkShouldShowSubToast(show_settings_callback) {
-    checkShouldShowSubToastByFeatureUse().then((res)=> {
+export function sub_checkShouldShowSubToast(show_settings_callback, weight) {
+    checkShouldShowSubToastByFeatureUse(weight).then((res)=> {
         if (res) {
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (result.tpInstallTime) {
