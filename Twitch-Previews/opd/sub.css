@@ -340,3 +340,28 @@ table select {
     -webkit-transform-origin: center bottom;
     transform-origin: center bottom;
 }
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+.fadeIn {
+    -webkit-animation-duration: 100ms;
+    animation-duration: 100ms;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
