@@ -90,6 +90,15 @@ table select {
     height: 25px;
     text-align: center;
 }
+#tp_discord_input {
+    margin-top: 15px;
+    color: white;
+    background-color: rgb(24, 24, 27);
+    border-radius: 5px;
+    border: 1px solid grey;
+    height: 25px;
+    text-align: center;
+}
 #tp_validate_btn {
     margin-top: 15px;
 }
@@ -100,8 +109,34 @@ table select {
     padding: 0 8px;
     background-color: dimgrey;
 }
+
 #validation_error_text_el {
     color: red;
+}
+
+#discord_error_text_el {
+    color: red;
+}
+
+#opd_sub_discord_info_text {
+    color: grey;
+    font-size: 10px;
+    margin-top: 10px;
+}
+
+#discord_body {
+    border-bottom: 1px solid darkgray;
+    padding-bottom: 40px;
+}
+#discord_checkmark {
+    display: none;
+    margin-top: 30px;
+}
+
+#discord_checkmark > svg {
+    width: 80px;
+    height: 80px;
+    color: limegreen;
 }
 
 #opd_sub_thanks_text {
@@ -120,10 +155,6 @@ table select {
     border-radius: 50%;
     animation: tp-validation-loading-spin 1s linear infinite;
 }
-
-/*#tp_validation_loading_spinner {
-
-}*/
 
 @keyframes tp-validation-loading-spin {
     0% { transform: rotate(0deg); }

@@ -3264,6 +3264,26 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_redeem_code_top_note: {
+        'en': 'Redeem a code',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_discord_info_text: {
+        'en': '* It may take up to 24 hours for the role to apply',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     opd_sub_permissions_msg: {
         'en': 'Allow permission for the extension to communicate with our validation server (previews-app.com)',
         'es': '',
@@ -3314,6 +3334,16 @@ export const i18n = {
         'ja': '',
         'ru':''
     },
+    opd_sub_discord_msg: {
+        'en': 'Add your discord id to get a special subscriber\nrole on the Previews discord! (Optional) ',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
     opd_sub_gift_a_sub_title: {
         'en': 'Enter the code you received',
         'es': '',
@@ -3326,6 +3356,16 @@ export const i18n = {
     },
     opd_sub_validate_btn: {
         'en': 'Validate',
+        'es': '',
+        'de': '',
+        'fr': '',
+        'pt_BR': '',
+        'ko': '',
+        'ja': '',
+        'ru':''
+    },
+    opd_sub_discord_send_btn: {
+        'en': 'Send',
         'es': '',
         'de': '',
         'fr': '',

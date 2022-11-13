@@ -89,6 +89,9 @@ async function main() {
             }, 5000);
 
             if (response.result === 'okay') {
+                if (val.indexOf('-') === -1) {
+                    document.querySelector('#discord_container')?.remove();
+                }
                 showPage('sub_thanks_page');
                 setTimeout(function () {
                     highlightSection('sub_section_sub_thanks');
@@ -106,6 +109,49 @@ async function main() {
                     contact_btn.classList.remove('animated');
                     contact_btn.classList.remove('bounce');
                     info_text.style.color = 'grey';
+                }, 1000);
+            }
+        });
+    })
+
+    let discord_loading_spinner = document.querySelector('#tp_discord_loading_spinner');
+    let discord_send_btn = document.querySelector('#tp_discord_send_btn');
+    discord_send_btn.addEventListener('click', function (e) {
+        if (isFetchingFromServer) {
+            return;
+        }
+        let val_input = document.querySelector('#tp_discord_input');
+        let val = val_input.value;
+        if (!val || val.length < 5 || val.indexOf('#') === -1) {
+            return;
+        }
+        val = val.trim();
+        val_input.value = val;
+
+        discord_loading_spinner.style.display = 'inline-block';
+        discord_send_btn.style.display = 'none';
+        discord_send_btn.style.cursor = 'not-allowed';
+        isFetchingFromServer = true;
+        _browser.runtime.sendMessage({action: 'add_discord_id', detail: val}, function(response) {
+            discord_loading_spinner.style.display = 'none';
+            discord_send_btn.style.display = 'inline-flex';
+            setTimeout(function () {
+                discord_send_btn.style.cursor = 'pointer';
+                isFetchingFromServer = false;
+            }, 5000);
+
+            if (response.result === 'okay') {
+                document.querySelector('#discord_body').style.display = 'none';
+                document.querySelector('#discord_checkmark').style.display = 'block';
+            } else {
+                document.querySelector('#discord_error_text_el').innerText = response.result.message ? (response.result.message + ': ' + response.result.status_code) : (_i18n('something_went_wrong') + response.result.status_code);
+
+                let contact_btn = document.querySelector('.tp-contact-us-btn');
+                contact_btn.classList.add('animated');
+                contact_btn.classList.add('bounce');
+                setTimeout(()=>{
+                    contact_btn.classList.remove('animated');
+                    contact_btn.classList.remove('bounce');
                 }, 1000);
             }
         });
@@ -244,6 +290,7 @@ async function main() {
 
     function startRedeemCodePage() {
         checkDomainPermissions_flow();
+        document.querySelector('#sub_top_note').innerText = _i18n('opd_redeem_code_top_note');
         document.querySelector('#sub_section_sub_phase_2').style.display = 'none';
         document.querySelector('#opd_sub_have_code_btn').style.display = 'none';
         document.querySelector('#opd_sub_gift_a_sub_btn').style.display = 'none';
