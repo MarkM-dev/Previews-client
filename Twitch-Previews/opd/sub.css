@@ -116,6 +116,7 @@ table select {
 
 #discord_error_text_el {
     color: red;
+    margin-top: 10px;
 }
 
 #opd_sub_discord_info_text {
@@ -143,6 +144,14 @@ table select {
     margin-top: 30px;
     font-size: 48px;
     color: limegreen;
+}
+
+#opd_sub_discord_msg a {
+    color: cornflowerblue;
+}
+
+#opd_sub_discord_msg a:hover {
+    color: #88b2f3;
 }
 
 .tp-action-loading-spinner {

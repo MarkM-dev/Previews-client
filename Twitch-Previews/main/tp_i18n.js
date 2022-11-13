@@ -3255,7 +3255,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_top_note: {
-        'en': 'By subscribing you are directly helping to keep the extension alive<br>and allowing to make new awesome features & maintain a quality experience!<br><br><span style="font-size: 17px;" >Benefits include<br>A special discord role for subscribers!<br>Coming soon: New subscriber-only features!</span>',
+        'en': 'By subscribing you are directly helping to keep the extension alive<br>and allowing to make new awesome features & maintain a quality experience!<br><br><span style="font-size: 17px;" >Benefits include<br>A special Discord role for subscribers!<br>Coming soon: New subscriber-only features!</span>',
         'es': '',
         'de': '',
         'fr': '',
@@ -3335,7 +3335,7 @@ export const i18n = {
         'ru':''
     },
     opd_sub_discord_msg: {
-        'en': 'Add your discord id to get a special subscriber\nrole on the Previews discord! (Optional) ',
+        'en': 'Add your Discord id to get a special subscriber<br>role on the <a href="https://discord.gg/7q4etvdFcg" target="_blank">Previews Discord</a>! (Optional) ',
         'es': '',
         'de': '',
         'fr': '',
