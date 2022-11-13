@@ -204,6 +204,7 @@ async function main() {
     })
 
     document.getElementById('tp_gift_a_sub_done_btn').addEventListener('click', function (e) {
+        document.querySelector('#discord_container')?.remove();
         showPage('sub_thanks_page');
         setTimeout(function () {
             highlightSection('sub_section_sub_thanks');
