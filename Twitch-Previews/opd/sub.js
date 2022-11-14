@@ -317,6 +317,9 @@ async function main() {
 
     function flow_permission_allowed() {
         setSectionNumberCompleted(0);
+        document.querySelector('#sub_section_sub_phase_1').style.display = 'none';
+        document.querySelector('#sub_section_sub_phase_2').querySelector('.tp-sub-section-number').innerText = '1';
+        document.querySelector('#sub_section_sub_phase_3').querySelector('.tp-sub-section-number').innerText = '2';
         if (redeem_code_intent) {
             highlightSection('sub_section_sub_phase_3');
         } else {
