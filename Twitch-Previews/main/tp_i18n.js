@@ -2313,15 +2313,25 @@ export const i18n = {
         'ja': 'ピクチャー・イン・ピクチャー (動画埋め込み)',
         'ru':'Картинка в картинке (встраивание видео)'
     },
+    hint_toast_title: {
+        'en': 'Hint:',
+        'es': 'Indirecta:',
+        'de': 'Andeuten:',
+        'fr': 'Allusion:',
+        'pt_BR': 'Dica:',
+        'ko': '힌트:',
+        'ja': 'ヒント：',
+        'ru':'Совет:'
+    },
     dragndrop_message: {
-        'en': 'Hint:\nDrag & Drop streamers from the sidebar onto the page',
-        'es': 'Indirecta:\nArrastra y suelta serpentinas desde la barra lateral a la página',
-        'de': 'Andeuten:\nZiehen Sie Streamer per Drag & Drop aus der Seitenleiste auf die Seite',
-        'fr': 'Allusion:\nFaites glisser et déposez les streamers de la barre latérale sur la page',
-        'pt_BR': 'Dica:\nArraste e solte streamers da barra lateral na página',
-        'ko': '힌트:\n사이드바에서 페이지로 스트리머를 끌어다 놓기',
-        'ja': 'ヒント：\nストリーマーをサイドバーからページにドラッグ アンド ドロップします',
-        'ru':'Совет:\nПеретащите стримеры с боковой панели на страницу'
+        'en': 'Drag & Drop streamers from the sidebar onto the page',
+        'es': 'Arrastra y suelta serpentinas desde la barra lateral a la página',
+        'de': 'Ziehen Sie Streamer per Drag & Drop aus der Seitenleiste auf die Seite',
+        'fr': 'Faites glisser et déposez les streamers de la barre latérale sur la page',
+        'pt_BR': 'Arraste e solte streamers da barra lateral na página',
+        'ko': '사이드바에서 페이지로 스트리머를 끌어다 놓기',
+        'ja': 'ストリーマーをサイドバーからページにドラッグ アンド ドロップします',
+        'ru':'Перетащите стримеры с боковой панели на страницу'
     },
     preview_loader_text: {
         'en': 'loading stream...',
