@@ -20,7 +20,6 @@ def replace_strings_for_edge():
         data = f.read()
         data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'edge';''')
         data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://microsoftedge.microsoft.com/addons/detail/nmekhdckniaiegiekejhmcmddplmliel')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://microsoftedge.microsoft.com/addons/detail/nmekhdckniaiegiekejhmcmddplmliel')
 
     with open(background_path, 'w') as f:
         f.write(data)
@@ -32,7 +31,6 @@ def replace_strings_for_opera():
         data = f.read()
         data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'opera';''')
         data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.opera.com/en/extensions/details/previews-for-ttv/')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.opera.com/en/extensions/details/previews-for-ttv/')
 
     with open(background_path, 'w') as f:
         f.write(data)
@@ -46,7 +44,6 @@ def replace_strings_for_firefox(f_dir):
         data = f.read()
         data = data.replace('''tpga_browser = 'chrome';''', '''tpga_browser = 'firefox';''')
         data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/reviews/', 'https://addons.mozilla.org/en-US/firefox/addon/previews-for-ttv/')
-        data = data.replace('https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/', 'https://addons.mozilla.org/en-US/firefox/addon/previews-for-ttv/')
 
     with open(background_path, 'w') as f:
         f.write(data)
