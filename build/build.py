@@ -37,7 +37,6 @@ def replace_strings_for_opera():
 
 
 def replace_strings_for_firefox(f_dir):
-    manifest_path = f_dir + '/manifest.json'
     background_path = f_dir + '/main/background.js'
 
     with open(background_path, 'r') as f:
