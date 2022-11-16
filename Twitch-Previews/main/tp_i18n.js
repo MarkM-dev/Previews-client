@@ -2334,14 +2334,14 @@ export const i18n = {
         'ru':'Перетащите стримеры с боковой панели на страницу'
     },
     waitingscreen_hint: {
-        'en': 'If you see a waiting screen, check the "%s" feature (%s section) in the settings',
-        'es': 'Si ve una pantalla de espera, marque la función "%s" (sección %s) en la configuración',
-        'de': 'Wenn Sie einen Wartebildschirm sehen, überprüfen Sie die "%s"-Funktion (%s-Abschnitt) in den Einstellungen',
-        'fr': 'Si vous voyez un écran d\'attente, vérifiez la fonctionnalité "%s" (section %s) dans les paramètres',
-        'pt_BR': 'Se você vir uma tela de espera, verifique o recurso "%s" (seção %s) nas configurações',
-        'ko': '대기 화면이 보이면 설정에서 "%s" 기능(%s 섹션)을 확인하세요.',
-        'ja': '待機画面が表示された場合は、設定の「%s」機能 (%s セクション) を確認してください',
-        'ru':'Если вы видите экран ожидания, проверьте функцию «%s» (раздел %s) в настройках.'
+        'en': 'If you see a waiting screen in video-embeds (not previews), check the "%s" feature (%s section) in the settings',
+        'es': 'Si ve una pantalla de espera en incrustaciones de video (no vistas previas), verifique la función "%s" (sección %s) en la configuración',
+        'de': 'Wenn Sie in Video-Einbettungen (nicht Vorschauen) einen Wartebildschirm sehen, überprüfen Sie die "%s"-Funktion (%s-Abschnitt) in den Einstellungen',
+        'fr': 'Si vous voyez un écran d\'attente dans les intégrations vidéo (pas les aperçus), vérifiez la fonctionnalité "%s" (section %s) dans les paramètres',
+        'pt_BR': 'Se você vir uma tela de espera em incorporações de vídeo (não em visualizações), verifique o recurso "%s" (seção %s) nas configurações',
+        'ko': '동영상 임베드(미리보기가 아님)에 대기 화면이 표시되면 설정에서 "%s" 기능(%s 섹션)을 확인하세요.',
+        'ja': 'ビデオ埋め込み (プレビューではない) に待機画面が表示される場合は、設定の「%s」機能 (%s セクション) を確認してください',
+        'ru':'Если вы видите экран ожидания во встраиваниях видео (не превью), проверьте функцию «%s» (раздел %s) в настройках.'
     },
     preview_loader_text: {
         'en': 'loading stream...',
