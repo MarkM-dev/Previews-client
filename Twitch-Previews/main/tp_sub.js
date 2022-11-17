@@ -152,8 +152,7 @@ export function sub_checkShouldShowSubToast(show_settings_callback, weight) {
                     if ((Date.now() - result.tpInstallTime) / 1000 > 2628288) { // one month
                         _browser.storage.local.get('lastSeenSubToast', function(result) {
                             if (result.lastSeenSubToast) {
-                              //if ((Date.now() - result.lastSeenSubToast) / 1000 > 86400) { // 24 hours // todo max every 24 hours
-                                if ((Date.now() - result.lastSeenSubToast) / 1000 > 20) { // 24 hours // todo max every 24 hours
+                              if ((Date.now() - result.lastSeenSubToast) / 1000 > 86400) { // 24 hours
                                     show_subscribe_toast(show_settings_callback);
                                 }
                             } else {
