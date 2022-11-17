@@ -43,9 +43,9 @@ export const i18n = {
         'en': 'Not now',
         'es': 'no ahora',
         'de': 'Nicht jetzt',
-        'fr': 'Pas maintenant',
+        'fr': 'Fermer',
         'pt_BR': 'Agora não',
-        'ko': '지금은 아니다',
+        'ko': '닫기',
         'ja': '今はやめろ',
         'ru':'Не сейчас'
     },
