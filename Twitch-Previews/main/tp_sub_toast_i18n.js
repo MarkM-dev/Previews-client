@@ -11,13 +11,13 @@ export const i18n = {
     },
     subscribe_toast_body: {
         'en': 'Previews (For TTV) is made by one developer - Me! :)<br><strong>Your support is crucial</strong> to making new awesome features and maintain a quality experience.<br>If you use the extension all the time and find it useful to you, <strong>please consider subscribing!</strong><br><br><span style="font-size: 12.5px;">* Subscribers don\'t see this message</span>',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
+        'es': 'Previews (For TTV) está hecha por un desarrollador - ¡Yo! :)<br><strong>Su apoyo es crucial</strong> para crear nuevas características increíbles y mantener una experiencia de calidad.<br>Si usa la extensión todo el tiempo y la encuentra útil, <strong>por favor considere suscribiéndose!</strong><br><br><span style="font-size: 12.5px;">* Los suscriptores no ven este mensaje</span>',
+        'de': 'Previews (For TTV) wird von nur einem Entwickler erstellt - Me! :)<br><strong>Ihre Unterstützung ist entscheidend</strong>, um neue tolle Funktionen zu erstellen und ein qualitativ hochwertiges Erlebnis zu erhalten.<br>Wenn Sie die Erweiterung ständig verwenden und sie für Sie nützlich finden, <strong>denken Sie bitte darüber nach abonnieren!</strong><br><br><span style="font-size: 12.5px;">* Abonnenten sehen diese Nachricht nicht</span>',
+        'fr': 'Previews (For TTV) est créée par un seul développeur - Moi ! :)<br><strong>Votre soutien est crucial</strong> pour créer de nouvelles fonctionnalités géniales et maintenir une expérience de qualité.<br>Si vous utilisez l\'extension tout le temps et que vous la trouvez utile, <strong>veuillez considérer abonnement !</strong><br><br><span style="font-size: 12.5px;">* Les abonnés ne voient pas ce message</span>',
+        'pt_BR': 'Previews (For TTV) é feita por apenas um desenvolvedor - Eu! :)<br><strong>Seu suporte é crucial</strong> para criar novos recursos incríveis e manter uma experiência de qualidade.<br>Se você usa a extensão o tempo todo e a considera útil, <strong>considere assinando!</strong><br><br><span style="font-size: 12.5px;">* Os assinantes não veem esta mensagem</span>',
+        'ko': 'Previews (For TTV) 는 한 명의 개발자가 만들었습니다. 바로 저입니다! :)<br><strong>귀하의 지원</strong>은 새롭고 멋진 기능을 만들고 양질의 환경을 유지하는 데 매우 중요합니다.<br>확장 프로그램을 항상 사용하고 유용하다고 생각한다면 <strong>구독을 고려해 보세요!</strong><br><br><span style="font-size: 12.5px;">* 구독자에게는 이 메시지가 표시되지 않습니다.</span>',
+        'ja': 'Previews (For TTV) は 1 人の開発者、つまり私によって作成されました。 :)<br>新しい素晴らしい機能を作成し、質の高いエクスペリエンスを維持するには、<strong>あなたのサポートが不可欠です</strong>。<br>この拡張機能を常に使用していて便利だと思われる場合は、<strong>登録をご検討ください!</strong><br><br><span style="font-size: 12.5px;">* 購読者にはこのメッセージは表示されません</span>',
+        'ru':'Previews (For TTV) сделано одним разработчиком - мной! :)<br><strong>Ваша поддержка имеет решающее значение</strong> для создания новых замечательных функций и поддержания качества работы.<br>Если вы используете расширение постоянно и считаете его полезным для себя, <strong>рассмотрите возможность подписка!</strong><br><br><span style="font-size: 12.5px;">* Пользователи с подпиской не видят это сообщение</span>'
     },
     gifted_sub_ended_toast_body: {
         'en': 'Your %s gifted subscription has ended.\nSubscribe or redeem a code to continue your subscription.',
