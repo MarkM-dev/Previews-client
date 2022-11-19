@@ -3275,7 +3275,7 @@ export const i18n = {
         'ru':'Введите код'
     },
     opd_sub_top_note: {
-        'en': '<span style="color: #9c60ff;" >By subscribing you are directly helping to keep the extension alive<br>and allowing to make new awesome features & maintain a quality experience!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Benefits include<br>A special Discord role for subscribers!<br>Coming soon: New subscriber-only features!</span>',
+        'en': '<span style="color: #9c60ff;" >By subscribing you are directly helping keep the extension alive<br>and allowing to make new awesome features & maintain a quality experience!</span><br><br><span style="font-size: 40px;color: #9c60ff;">Thank You!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Benefits include<br>A special Discord role for subscribers!<br>Coming soon: New subscriber-only features!</span>',
         'es': '',
         'de': '',
         'fr': '',
