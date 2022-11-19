@@ -788,7 +788,7 @@ export const i18n = {
             '<br>- Enable the feature and click on the edit button to add Facebook streamers to the list.' +
             '<br>- The list data will update every 10 minutes.' +
             '<br>- Supported by the Custom Picture-In-Picture and Multi-Stream features so you can use the Multi-Stream cross-platform.' +
-            '<br>- You don\'t need to be logged in on facebook.' +
+            '<br>- You don\'t need to be logged in on facebook, but we suggest that you do - to mitigate issues.' +
             '<br>- It may take a few seconds for the list to update, depending on how many streamers you added.' +
             '<br>- When enabling this feature, you will need to allow the extension to run on "facebook.com" (a prompt will show when enabling) - this is so the extension can fetch the streams from Facebook.',
         'es': '<strong>* Barra lateral canales de YouTube</strong>' +
@@ -796,7 +796,7 @@ export const i18n = {
             '<br>- Habilite la función y haga clic en el botón Editar para agregar transmisores de Facebook a la lista.' +
             '<br>- Los datos de la lista se actualizarán cada 10 minutos.' +
             '<br>- Compatible con las funciones Imagen en imagen personalizada y Multi-Stream & Multi-Chat para que pueda usar Multi-Stream multiplataforma.' +
-            '<br>- No es necesario iniciar sesión en Facebook.' +
+            '<br>- No necesita iniciar sesión en Facebook, pero le sugerimos que lo haga para mitigar los problemas.' +
             '<br>- Es posible que la lista tarde unos segundos en actualizarse, según la cantidad de transmisores que haya agregado.' +
             '<br>- Al habilitar esta función, deberá permitir que la extensión se ejecute en "facebook.com" (aparecerá un aviso al habilitarla); esto es para que la extensión pueda obtener las transmisiones de Facebook.',
         'de': '<strong>* Seitenleiste YouTube-Kanäle</strong>' +
@@ -804,7 +804,7 @@ export const i18n = {
             '<br>- Aktivieren Sie die Funktion und klicken Sie auf die Schaltfläche "Bearbeiten", um Facebook-Streamer zur Liste hinzuzufügen.' +
             '<br>- Die Listendaten werden alle 10 Minuten aktualisiert.' +
             '<br>- Unterstützt von den benutzerdefinierten Picture-in-Picture- und Multi-Stream- und Multi-Chat-Funktionen, sodass Sie Multi-Stream plattformübergreifend verwenden können.' +
-            '<br>- Sie müssen nicht bei Facebook angemeldet sein.' +
+            '<br>- Sie müssen nicht bei Facebook angemeldet sein, aber wir empfehlen Ihnen, dies zu tun, um Probleme zu vermeiden.' +
             '<br>- Es kann einige Sekunden dauern, bis die Liste aktualisiert wird, je nachdem, wie viele Streamer Sie hinzugefügt haben.' +
             '<br>- Wenn Sie diese Funktion aktivieren, müssen Sie zulassen, dass die Erweiterung auf "facebook.com" ausgeführt wird (bei der Aktivierung wird eine Eingabeaufforderung angezeigt) - damit die Erweiterung die Streams von Facebook abrufen kann.',
         'fr': '<strong>* Barre latérale Chaînes YouTube</strong>' +
@@ -812,7 +812,7 @@ export const i18n = {
             '<br>- Activez la fonctionnalité et cliquez sur le bouton Modifier pour ajouter des streamers Facebook à la liste.' +
             '<br>- Les données de la liste seront mises à jour toutes les 10 minutes.' +
             '<br>- Pris en charge par les fonctionnalités Custom Picture-In-Picture et Multi-Stream & Multi-Chat afin que vous puissiez utiliser la multi-plateforme Multi-Stream.' +
-            '<br>- Vous n\'avez pas besoin d\'être connecté sur facebook.' +
+            '<br>- Vous n\'avez pas besoin d\'être connecté sur Facebook, mais nous vous suggérons de le faire - pour atténuer les problèmes.' +
             '<br>- La mise à jour de la liste peut prendre quelques secondes, selon le nombre de streamers que vous avez ajoutés.' +
             '<br>- Lors de l\'activation de cette fonctionnalité, vous devrez autoriser l\'extension à s\'exécuter sur "facebook.com" (une invite s\'affichera lors de l\'activation) - c\'est ainsi que l\'extension peut récupérer les flux de Facebook.',
         'pt_BR': '<strong>* Barra Lateral Canais do YouTube</strong>' +
@@ -820,7 +820,7 @@ export const i18n = {
             '<br>- Habilite o recurso e clique no botão editar para adicionar streamers do Facebook à lista.' +
             '<br>- Os dados da lista serão atualizados a cada 10 minutos.' +
             '<br>- Suportado pelos recursos Custom Picture-In-Picture e Multi-Stream & Multi-Chat para que você possa usar o Multi-Stream multiplataforma.' +
-            '<br>- Você não precisa estar logado no facebook.' +
+            '<br>- Você não precisa estar logado no facebook, mas sugerimos que o faça - para mitigar os problemas.' +
             '<br>- Pode levar alguns segundos para que a lista seja atualizada, dependendo de quantos streamers você adicionou.' +
             '<br>- Ao ativar esse recurso, você precisará permitir que a extensão seja executada em "facebook.com" (um prompt será exibido ao ativar) - isso é para que a extensão possa buscar os fluxos do Facebook.',
         'ko': '<strong>* 사이드바 페이스북 게이밍 채널</strong>' +
@@ -828,7 +828,7 @@ export const i18n = {
             '<br>- 기능을 활성화하고 편집 버튼을 눌러 목록에 페이스북 스트리머를 추가하세요.' +
             '<br>- 목록 데이터는 5분마다 업데이트 되요.' +
             '<br>- 커스텀 PIP와 멀티 창 & 멀티 채팅 기능을 지원하니 크로스 플랫폼을 사용할 수 있어요.' +
-            '<br>- 페이스북에 로그인할 필요가 없어요.' +
+            '<br>- 페이스북에 로그인할 필요가 없어요, 그러나 문제를 완화하기 위해 그렇게 하는 것이 좋습니다.' +
             '<br>- 추가한 스트리머 수에 따라 목록이 업데이트 되는데 시간이 더 필요할 수 있어요.' +
             '<br>- 이 기능을 쓸 때 프로그램이 "facebook.com"에서 방송을 가져올 수 있는 권한이 필요해요.(활성화 시 메시지가 표시됨. 이는 프로그램이 페이스북에서 방송을 가져올 수 있도록 하기 위함)',
         'ja': '<strong>* サイドバー Facebook ゲーム チャンネル</strong>' +
@@ -836,7 +836,7 @@ export const i18n = {
             '<br>- 機能を有効にして編集ボタンをクリックし、Facebook ストリーマーをリストに追加します。' +
             '<br>- リスト データは 5 分ごとに更新されます。' +
             '<br>- カスタム ピクチャー イン ピクチャーおよびマルチストリーム機能でサポートされているため、マルチストリーム クロスプラットフォームを使用できます。' +
-            '<br>- Facebookにログインする必要はありません。' +
+            '<br>- Facebook にログインする必要はありませんが、問題を軽減するためにログインすることをお勧めします。' +
             '<br>- 追加したストリーマーの数によっては、リストが更新されるまで数秒かかる場合があります。' +
             '<br>- この機能を有効にする場合、「facebook.com」で拡張機能を実行できるようにする必要があります (有効にするとプロンプトが表示されます)。これは、拡張機能が Facebook からストリームを取得できるようにするためです。',
         'ru':'<strong>* Боковая панель каналы YouTube</strong>' +
@@ -844,7 +844,7 @@ export const i18n = {
             '<br>- Включите функцию и нажмите кнопку редактирования, чтобы добавить стримеров Facebook в список.' +
             '<br>- Данные списка будут обновляться каждые 5 минут.' +
             '<br>- Поддерживается пользовательскими функциями "Картинка в картинке" и "Мультипоток" и "Мультичат", поэтому вы можете использовать кросс-платформенную функцию "Мультипоток".' +
-            '<br>- Вам не нужно авторизоваться на Facebook\'е.' +
+            '<br>- Вам не нужно входить в систему на Facebook, но мы рекомендуем вам это сделать, чтобы избежать проблем.' +
             '<br>- Обновление списка может занять несколько секунд, в зависимости от того, сколько стримеров вы добавили.' +
             '<br>- При включении этой функции вам необходимо разрешить запуск расширения на "facebook.com" (при включении появится подсказка) - это необходимо для того, чтобы расширение могло получать потоки с Facebook.',
     },
