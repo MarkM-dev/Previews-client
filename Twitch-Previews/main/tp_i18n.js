@@ -3275,14 +3275,14 @@ export const i18n = {
         'ru':'Введите код'
     },
     opd_sub_top_note: {
-        'en': '<span style="color: #9c60ff;" >By subscribing you are directly helping keep the extension alive<br>and allowing to make new awesome features & maintain a quality experience!</span><br><br><span style="font-size: 40px;color: #9c60ff;">Thank You!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Benefits include<br>A special Discord role for subscribers!<br>Coming soon: New subscriber-only features!</span>',
-        'es': '',
-        'de': '',
-        'fr': '',
-        'pt_BR': '',
-        'ko': '',
-        'ja': '',
-        'ru':''
+        'en': '<span style="color: #9c60ff;" >By subscribing you are directly helping to keep the extension alive<br>and allowing to make new awesome features & maintain a quality experience!</span><br><br><span style="font-size: 40px;color: #9c60ff;">Thank You!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Benefits include<br>A special Discord role for subscribers!<br>Coming soon: New subscriber-only features!</span>',
+        'es': '<span style="color: #9c60ff;" >Al suscribirte, estás ayudando directamente a mantener viva la extensión<br>y permitiendo crear nuevas funciones increíbles y mantener una experiencia de calidad.</span><br><br><span style="font-size: 40px;color: #9c60ff;">¡Gracias!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Los beneficios incluyen<br>¡Un rol especial de Discord para suscriptores!<br>Próximamente: ¡Nuevas funciones solo para suscriptores!</span>',
+        'de': '<span style="color: #9c60ff;" >Indem Sie sich anmelden, helfen Sie direkt dabei, die Erweiterung am Leben zu erhalten<br>und ermöglichen es, neue fantastische Funktionen zu erstellen und ein qualitativ hochwertiges Erlebnis zu erhalten!</span><br><br><span style="font-size: 40px;color : #9c60ff;">Vielen Dank!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Zu den Vorteilen gehören<br>Eine spezielle Discord-Rolle für Abonnenten!<br>Bald verfügbar: Neue Funktionen nur für Abonnenten!</span>',
+        'fr': '<span style="color: #9c60ff;" >En vous abonnant, vous contribuez directement à maintenir l\'extension en vie<br>et à créer de nouvelles fonctionnalités impressionnantes et à maintenir une expérience de qualité !</span><br><br><span style="font-size: 40px;color : #9c60ff;">Merci !</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Les avantages incluent<br>Un rôle Discord spécial pour les abonnés !<br>Prochainement : de nouvelles fonctionnalités réservées aux abonnés !</span>',
+        'pt_BR': '<span style="color: #9c60ff;" >Ao se inscrever, você está ajudando diretamente a manter a extensão viva<br>e nos permitindo criar novos recursos incríveis e manter uma experiência de qualidade!</span><br><br><span style="font-size: 40px; color: #9c60ff;">Obrigado!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Os benefícios incluem<br>Uma função especial do Discord para assinantes!<br>Em breve: novos recursos exclusivos para assinantes!</span>',
+        'ko': '<span style="color: #9c60ff;" >구독하면 확장 프로그램을 유지하는 데 직접적으로 도움이 되며<br>새로운 멋진 기능을 만들고 품질 경험을 유지하십시오!</span><br><br><span style="font-size: 40px; color: #9c60ff;">고맙습니다!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >이점은 다음과 같습니다<br>구독자를 위한 특별한 Discord 역할!<br>출시 예정: 새로운 구독자 전용 기능!',
+        'ja': '<span style="color: #9c60ff;" >サブスクライブすると、拡張機能を維持するのに直接役立ちます<br>新しい素晴らしい機能を作成し、質の高いエクスペリエンスを維持できます!</span><br><br><span style="font-size: 40px; color: #9c60ff;">ありがとうございます！</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >特典には以下が含まれます<br>サブスクライバー向けの特別な Discord ロール!<br>近日公開: サブスクライバー限定の新機能!</span>',
+        'ru':'<span style="color: #9c60ff;" >Подписавшись, вы напрямую помогаете поддерживать расширение<br>и позволяете нам создавать новые потрясающие функции и поддерживать качество работы!</span><br><br><span style="font-size: 40px; color: #9c60ff;">Спасибо!</span><br><br><span style="font-size: 17px;color: cornflowerblue;" >Преимущества включают<br>особую роль Discord для подписчиков!<br>Скоро: новые функции только для подписчиков!</span>'
     },
     opd_redeem_code_top_note: {
         'en': 'Redeem a code',
