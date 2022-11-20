@@ -1,3 +1,5 @@
+// (c) Mark M <https://github.com/MarkM-dev>.
+
 let isFirefox = typeof browser !== "undefined";
 let _browser = isFirefox ? browser : chrome;
 const _tp_i18n = await import(_browser.runtime.getURL("main/tp_sub_toast_i18n.js"));

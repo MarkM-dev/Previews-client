@@ -1,3 +1,5 @@
+// (c) Mark M <https://github.com/MarkM-dev>.
+
 async function main() {
 
     let isFirefox = typeof browser !== "undefined";
