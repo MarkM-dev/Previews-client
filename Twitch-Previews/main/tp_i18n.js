@@ -3634,4 +3634,24 @@ export const i18n = {
         'ja': 'ギフト定期購入',
         'ru':'Подписка в подарок'
     },
+    privacy_policy: {
+        'en': 'Privacy Policy',
+        'es': 'Política de privacidad',
+        'de': 'Datenschutz-Bestimmungen',
+        'fr': 'Politique de confidentialité',
+        'pt_BR': 'Política de Privacidade',
+        'ko': '개인 정보 정책',
+        'ja': 'プライバシーポリシー',
+        'ru':'Политика конфиденциальности'
+    },
+    terms: {
+        'en': 'Terms',
+        'es': 'Términos',
+        'de': 'Bedingungen',
+        'fr': 'Conditions',
+        'pt_BR': 'Termos',
+        'ko': '자귀',
+        'ja': '条項',
+        'ru':'Условия'
+    },
 }
