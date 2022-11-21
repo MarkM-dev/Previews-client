@@ -9,7 +9,7 @@
 <br/>
 <br/>
 
-## Download
+## Download | **[Website](https://previews-app.com/)**
 **Previews (For TTV) is available for all browsers:<br/>**
 
 **[Chrome Extension](https://chrome.google.com/webstore/detail/hpmbiinljekjjcjgijnlbmgcmoonclah/)
