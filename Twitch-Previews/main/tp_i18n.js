@@ -148,6 +148,16 @@ export const i18n = {
         'ja': 'クローズ',
         'ru':'OK'
     },
+    settings_previews_note: {
+        'en': '* Video & Directory Previews note: Twitch recently added a waiting screen that sometimes appears in the video previews, there is nothing we can do but wait for this phase to pass for now.',
+        'es': '* Nota de vistas previas de video y directorio: Twitch agregó recientemente una pantalla de espera que a veces aparece en las vistas previas de video, no podemos hacer nada más que esperar a que pase esta fase por ahora.',
+        'de': '* Hinweis zu Video- und Verzeichnisvorschauen: Twitch hat kürzlich einen Wartebildschirm hinzugefügt, der manchmal in den Videovorschauen angezeigt wird. Wir können nichts tun, als zu warten, bis diese Phase vorüber ist.',
+        'fr': '* Remarque sur les aperçus des vidéos et des répertoires: Twitch a récemment ajouté un écran d\'attente qui apparaît parfois dans les aperçus des vidéos, nous ne pouvons rien faire d\'autre qu\'attendre que cette phase passe pour l\'instant.',
+        'pt_BR': '* Observação de prévias de vídeo e diretório: Twitch adicionou recentemente uma tela de espera que às vezes aparece nas prévias de vídeo, não há nada que possamos fazer a não ser esperar que essa fase passe por enquanto.',
+        'ko': '* 동영상 및 디렉토리 미리보기 참고: Twitch는 최근 동영상 미리보기에 가끔 나타나는 대기 화면을 추가했습니다. 지금은 이 단계가 지나갈 때까지 기다릴 수밖에 없습니다.',
+        'ja': '* ビデオ & ディレクトリ プレビューに関する注意: Twitch は最近、ビデオ プレビューに時々表示される待機画面を追加しました。私たちにできることは何もありません。このフェーズが通過するのを待つだけです。',
+        'ru':'* Примечание о предварительном просмотре видео и каталогов: Twitch недавно добавил экран ожидания, который иногда появляется в превью видео, и мы ничего не можем сделать, кроме как ждать, пока этот этап пройдет.'
+    },
     settings_refresh_msg: {
         'en': 'Refresh your Twitch tabs for changes to take effect',
         'es': 'Actualiza tus pestañas de Twitch para que los cambios surtan efecto',
