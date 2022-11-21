@@ -3434,6 +3434,16 @@ export const i18n = {
         'ja': 'サブスクリプションを贈る',
         'ru':'Подарить подписку'
     },
+    settings_subscribe_gift_a_sub_btn_text: {
+        'en': 'Gift A Sub',
+        'es': '<span style="font-size: 13px;" >Regala una suscripción</span>',
+        'de': '<span style="font-size: 13px;" >Abonnement verschenken</span>',
+        'fr': '<span style="font-size: 14px;" >Offrir un abonnement</span>',
+        'pt_BR': '<span style="font-size: 12px;" >Oferecer uma assinatura</span>',
+        'ko': '구독 선물하기',
+        'ja': '<span style="font-size: 12px;" >サブスクリプションを贈る</span>',
+        'ru':'<span style="font-size: 12px;" >Подарить подписку</span>'
+    },
     opd_sub_unsub_msg: {
         'en': 'Follow these instructions to cancel your subscription',
         'es': 'Sigue estas instrucciones para cancelar tu suscripción',
