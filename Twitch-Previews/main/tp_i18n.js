@@ -158,6 +158,16 @@ export const i18n = {
         'ja': '* ビデオ & ディレクトリ プレビューに関する注意: Twitch は最近、ビデオ プレビューに時々表示される待機画面を追加しました。私たちにできることは何もありません。このフェーズが通過するのを待つだけです。',
         'ru':'* Примечание о предварительном просмотре видео и каталогов: Twitch недавно добавил экран ожидания, который иногда появляется в превью видео, и мы ничего не можем сделать, кроме как ждать, пока этот этап пройдет.'
     },
+    settings_YT_maintenance: {
+        'en': 'Maintenance needed, might work partially',
+        'es': 'Mantenimiento necesario, podría funcionar parcialmente',
+        'de': 'Wartung erforderlich, könnte teilweise funktionieren',
+        'fr': 'Maintenance nécessaire, peut fonctionner partiellement',
+        'pt_BR': 'Manutenção necessária, pode funcionar parcialmente',
+        'ko': '유지 보수 필요, 부분적으로 작동할 수 있음',
+        'ja': 'メンテナンスが必要です。部分的に機能する可能性があります',
+        'ru':'Требуется техническое обслуживание, может работать частично'
+    },
     settings_refresh_msg: {
         'en': 'Refresh your Twitch tabs for changes to take effect',
         'es': 'Actualiza tus pestañas de Twitch para que los cambios surtan efecto',
