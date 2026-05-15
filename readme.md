@@ -1,6 +1,10 @@
 ![](previews_main.png)
 <br/>
 <br/>
+
+## **This repository has moved to: https://github.com/Previews-app/Previews**
+<br/>
+
 ## **Previews (For TTV)**
                                                                                      
 **Previews (For TTV) creates a live video or image preview when hovering over a stream on the navigation sidebar (followed streams list on the side) and in twitch directories.**
